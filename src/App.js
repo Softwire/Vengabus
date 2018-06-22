@@ -1,9 +1,28 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import ParentComponent from './ParentComponent';
+import ServiceBusConfigForm from './ServiceBusConfigForm';
+import ServiceBusCall from './ServiceBusCall';
+
+//import * as _ from 'lodash';
 
 class App extends Component {
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+        connectionString: "",
+        queueName: ""
+    };
+    this.onChildInput = this.onChildInput.bind(this);
+  }
+
+  onChildInput(e, targetProperty) {
+    var mutation = {};
+    mutation[e.target.name] = e.target.value;
+    this.setState(mutation)
+  }
 
   render() {
     return (
@@ -15,7 +34,8 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <ParentComponent/>
+        <ServiceBusConfigForm parentState={this.state} onChangeCallback={this.onChildInput} />
+        <ServiceBusCall serviceBusConfig={this.state} />
       </div>
     );
   }
