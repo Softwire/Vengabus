@@ -17,29 +17,29 @@ export default class ServiceBusCall extends Component {
             this.setState({resultText: `ConnString = ${this.props.serviceBusConfig.connectionString}. Name = ${this.props.serviceBusConfig.queueName}`})
         });
 
-        this.actualAzureServiceBusConnectionString = "";
-        this.actualQueueName = "";
+        this.activeAzureServiceBusConnectionString = "";
+        this.activeQueueName = "";
     }
 
     getData = () => {
-        let azureServiceBusConnectionString = this.props.serviceBusConfig.connectionString;
-        let queueName = this.props.serviceBusConfig.queueName;
+        this.activeAzureServiceBusConnectionString = this.props.serviceBusConfig.connectionString;
+        this.activeQueueName = this.props.serviceBusConfig.queueName;
         
         // Override settings to point at expected live target:
-        // azureServiceBusConnectionString = "Endpoint=sb://vengabusdemo.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=a8sPg0N79mgTNAfM57b7kwWsBCPK8TW7hwTwyexlK+8=";
-        // queueName = "DemoQueue1";
+        // this.activeAzureServiceBusConnectionString = "Endpoint=sb://vengabusdemo.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=a8sPg0N79mgTNAfM57b7kwWsBCPK8TW7hwTwyexlK+8=";
+        // this.activeQueueName = "DemoQueue1";
 
         // Further override settins to point at Rev.Proxy. target:
-        // azureServiceBusConnectionString = "Endpoint=sb://vengabusreverseproxy.azurewebsites.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=a8sPg0N79mgTNAfM57b7kwWsBCPK8TW7hwTwyexlK+8=";
-        // queueName = "AzureApiProxy/" + queueName;
+        // this.activeAzureServiceBusConnectionString = "Endpoint=sb://vengabusreverseproxy.azurewebsites.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=a8sPg0N79mgTNAfM57b7kwWsBCPK8TW7hwTwyexlK+8=";
+        // this.activeQueueName = "AzureApiProxy/" + this.activeQueueName;
 
-        let serviceBusService = azure.createServiceBusService(azureServiceBusConnectionString);
-        let getQueuePromise = promisifyCallBack((callback) => serviceBusService.getQueue(queueName, callback));
+        let serviceBusService = azure.createServiceBusService(this.activeAzureServiceBusConnectionString);
+        let getQueuePromise = promisifyCallBack((callback) => serviceBusService.getQueue(this.activeQueueName, callback));
         
         getQueuePromise.then((queueResult)=>{
             console.log(queueResult);
             this.setState({
-                settingsText: `ConnString = ${this.props.serviceBusConfig.connectionString}. Name = ${this.props.serviceBusConfig.queueName}`,
+                settingsText: `ConnString = ${this.activeAzureServiceBusConnectionString}. Name = ${this.activeQueueName}`,
                 retrievedData: JSON.stringify(queueResult)
             })
         });
