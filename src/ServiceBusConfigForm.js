@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 
 export default class ServiceBusConfigForm extends Component {
-
-//    createOnInput(targetProperty){
-//        return (e) => this.onInput(e, targetProperty);
-//    }
-
     
     render() {
         const parentState = this.props.parentState;

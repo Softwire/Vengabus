@@ -4,8 +4,6 @@ import './App.css';
 import ServiceBusConfigForm from './ServiceBusConfigForm';
 import ServiceBusCall from './ServiceBusCall';
 
-//import * as _ from 'lodash';
-
 class App extends Component {
 
   constructor(props){
