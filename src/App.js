@@ -15,10 +15,9 @@ class App extends Component {
         connectionString: "",
         queueName: ""
     };
-    this.onChildInput = this.onChildInput.bind(this);
   }
 
-  onChildInput(e, targetProperty) {
+  onChildInput = (e, targetProperty) => {
     var mutation = {};
     mutation[e.target.name] = e.target.value;
     this.setState(mutation)

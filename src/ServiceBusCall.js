@@ -17,13 +17,11 @@ export default class ServiceBusCall extends Component {
             this.setState({resultText: `ConnString = ${this.props.serviceBusConfig.connectionString}. Name = ${this.props.serviceBusConfig.queueName}`})
         });
 
-        this.getData = this.getData.bind(this);
-
         this.actualAzureServiceBusConnectionString = "";
         this.actualQueueName = "";
     }
-    
-    getData() {
+
+    getData = () => {
         let azureServiceBusConnectionString = this.props.serviceBusConfig.connectionString;
         let queueName = this.props.serviceBusConfig.queueName;
         
