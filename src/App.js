@@ -1,41 +1,22 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import ServiceBusConfigForm from './ServiceBusConfigForm';
-import ServiceBusCall from './ServiceBusCall';
+import { ReactHeader } from './ReactHeader/ReactHeader';
+import { BootstrapCssLinks } from './BootstrapCssLinks';
+import { VengabusNavBar } from './Nav/VengabusNavBar';
+import { CurrentPage } from './Pages/CurrentPage';
 
 class App extends Component {
-
-  constructor(props){
-    super(props);
-
-    this.state = {
-        connectionString: "",
-        queueName: ""
-    };
-  }
-
-  onChildInput = (e, targetProperty) => {
-    var mutation = {};
-    mutation[e.target.name] = e.target.value;
-    this.setState(mutation)
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 color="blue" className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <ServiceBusConfigForm parentState={this.state} onChangeCallback={this.onChildInput} />
-        <ServiceBusCall serviceBusConfig={this.state} />
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="App">
+                {/* Include the Bootstrap CSS at the top of the page. */}
+                <BootstrapCssLinks />
+                <ReactHeader />
+                <VengabusNavBar />
+                <div className="sideBar">Some Global "Side" Bar</div>
+                <CurrentPage />
+            </div>
+        );
+    }
 }
 
 export default App;

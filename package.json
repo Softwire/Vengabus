@@ -1,19 +1,25 @@
 {
-  "name": "vengabus",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "ajv": "^6.5.1",
-    "azure": "^2.3.1-preview",
-    "lodash": "^4.17.10",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "name": "vengabus",
+    "version": "0.1.0",
+    "private": true,
+    "devDependencies": {
+        "eslint-config-defaults": "^9.0.0",
+        "eslint-plugin-react": "^7.10.0"
+    },
+    "dependencies": {
+        "ajv": "^6.5.1",
+        "azure": "^2.3.1-preview",
+        "lodash": "^4.17.10",
+        "react": "^16.4.1",
+        "react-bootstrap": "^0.32.1",
+        "react-dom": "^16.4.1",
+        "react-scripts": "1.1.4",
+        "util.promisify": "^1.0.0"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test --env=jsdom",
+        "eject": "react-scripts eject"
+    }
 }
