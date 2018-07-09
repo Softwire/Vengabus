@@ -4,7 +4,7 @@ class ServiceBusConnection {
     constructor() {
         this.activeServiceBusConString = '';
         this.activeQueueName = '';
-        this.useHardCodedDirectConString = false;
+        this.useHardCodedDirectConString = true;
         this.useHardCodedIndirectConString = false;
     }
 
