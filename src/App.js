@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ReactHeader } from './ReactHeader/ReactHeader';
-import { BootstrapCssLinks } from './BootstrapCssLinks';
+import { BootstrapCssLinks } from './Setup/BootstrapCssLinks';
 import { VengabusNavBar } from './Nav/VengabusNavBar';
 import { CurrentPage } from './Pages/CurrentPage';
 
