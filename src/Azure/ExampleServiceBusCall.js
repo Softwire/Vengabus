@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { serviceBusConnection } from './ServiceBusConnection';
-let util = require('util');
-require('util.promisify').shim();
 
 export class ExampleServiceBusCall extends Component {
     constructor(props) {
@@ -16,9 +14,9 @@ export class ExampleServiceBusCall extends Component {
         serviceBusConnection.setQueueName(this.props.serviceBusConfig.queueName);
 
         let serviceBusService = serviceBusConnection.getServiceBusService();
-        let getQueuePromise = util.promisify((queueName, callback) => serviceBusService.getQueue(queueName, callback));
 
-        getQueuePromise(serviceBusConnection.activeQueueName)
+        serviceBusService
+            .getQueue(serviceBusConnection.activeQueueName)
             .then((queueResult) => {
                 let activeSettingsText = `ConnString = ${serviceBusConnection.activeServiceBusConString}. Name = ${serviceBusConnection.activeQueueName}`;
                 this.setState({

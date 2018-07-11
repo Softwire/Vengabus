@@ -1,4 +1,4 @@
-let azure = require('azure-sb');
+import { VengaServiceBusService } from './VengaServiceBusService';
 
 class ServiceBusConnection {
     constructor() {
@@ -19,11 +19,10 @@ class ServiceBusConnection {
     getServiceBusService = () => {
         this.applyHardCodedOverrides();
         try {
-            let serviceBusService = azure.createServiceBusService(this.activeServiceBusConString);
-            return serviceBusService;
+            return new VengaServiceBusService(this.activeServiceBusConString);
         } catch (err) {
             console.log(err);
-            return;
+            throw err;
         }
     };
 
