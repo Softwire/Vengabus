@@ -29,14 +29,14 @@ class ServiceBusConnection {
     applyHardCodedOverrides() {
         // Current temporary code, until we've setup sensible 'caching' of these values.
         // Override settings to point at known valid target:
-        let directConString =
+        const directConString =
             'Endpoint=sb://vengabusdemo.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=a8sPg0N79mgTNAfM57b7kwWsBCPK8TW7hwTwyexlK+8=';
-        let directQueueName = 'DemoQueue1';
+        const directQueueName = 'DemoQueue1';
 
         // Further override settings to point at Rev.Proxy. target:
-        let indirectConString =
+        const indirectConString =
             'Endpoint=sb://vengabusreverseproxy.azurewebsites.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=a8sPg0N79mgTNAfM57b7kwWsBCPK8TW7hwTwyexlK+8=';
-        let indirectQueueName = 'AzureApiProxy/' + directQueueName;
+        const indirectQueueName = 'AzureApiProxy/' + directQueueName;
 
         if (this.useHardCodedDirectConString) {
             this.activeServiceBusConString = directConString;

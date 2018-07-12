@@ -12,13 +12,13 @@ export class ServiceBusConfigForm extends Component {
     }
 
     updateFormAndConnection_ConString = (e, targetProperty) => {
-        var newConString = e.target.value;
+        const newConString = e.target.value;
         this.setState({ connectionString: newConString });
         serviceBusConnection.setConnectionString(newConString);
     };
 
     updateFormAndConnection_QueueName = (e, targetProperty) => {
-        var newConString = e.target.value;
+        const newConString = e.target.value;
         this.setState({ queueName: newConString });
         serviceBusConnection.setQueueName(newConString);
     };

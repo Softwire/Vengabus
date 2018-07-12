@@ -24,7 +24,7 @@ export class CurrentPage extends Component {
     };
 
     onChildInput = (e, targetProperty) => {
-        var mutation = {};
+        const mutation = {};
         mutation[e.target.name] = e.target.value;
         this.setState(mutation);
     };

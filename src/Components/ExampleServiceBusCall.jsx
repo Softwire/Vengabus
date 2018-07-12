@@ -8,12 +8,12 @@ export class ExampleServiceBusCall extends Component {
     }
 
     getData = () => {
-        let serviceBusService = serviceBusConnection.getServiceBusService();
+        const serviceBusService = serviceBusConnection.getServiceBusService();
 
         serviceBusService
             .getQueue(serviceBusConnection.activeQueueName)
             .then((queueResult) => {
-                let activeSettingsText = `ConnString = ${serviceBusConnection.activeServiceBusConString}. Name = ${serviceBusConnection.activeQueueName}`;
+                const activeSettingsText = `ConnString = ${serviceBusConnection.activeServiceBusConString}. Name = ${serviceBusConnection.activeQueueName}`;
                 this.setState({ settingsText: activeSettingsText });
                 this.props.onDataReceive(queueResult);
             })

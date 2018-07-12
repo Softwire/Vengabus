@@ -1,5 +1,5 @@
-let azure = require('azure-sb');
-let util = require('util');
+const azure = require('azure-sb');
+const util = require('util');
 require('util.promisify').shim();
 
 /*
