@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { serviceBusConnection } from './ServiceBusConnection';
+import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 
 export class ExampleServiceBusCall extends Component {
     constructor(props) {

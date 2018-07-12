@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { ServiceBusConfigForm } from '../Azure/ServiceBusConfigForm';
-import { ExampleServiceBusCall } from '../Azure/ExampleServiceBusCall';
+import { ServiceBusConfigForm } from '../Components/ServiceBusConfigForm';
+import { ExampleServiceBusCall } from '../Components/ExampleServiceBusCall';
 
 export class HomePage extends Component {
     constructor(props) {
