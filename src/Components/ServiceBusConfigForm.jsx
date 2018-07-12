@@ -1,21 +1,40 @@
 import React, { Component } from 'react';
+import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 
 export class ServiceBusConfigForm extends Component {
-    render() {
-        const formCredentials = this.props.formCredentials;
-        const updateFormStateOnInput = this.props.updateFormStateOnInput;
+    constructor(props) {
+        super(props);
 
+        this.state = {
+            connectionString: '',
+            queueName: ''
+        };
+    }
+
+    updateFormAndConnection_ConString = (e, targetProperty) => {
+        var newConString = e.target.value;
+        this.setState({ connectionString: newConString });
+        serviceBusConnection.setConnectionString(newConString);
+    };
+
+    updateFormAndConnection_QueueName = (e, targetProperty) => {
+        var newConString = e.target.value;
+        this.setState({ queueName: newConString });
+        serviceBusConnection.setQueueName(newConString);
+    };
+
+    render() {
         return (
             <div className="sb-config-form">
                 <form>
                     Connection String:
-                    <input type="text" name="connectionString" value={formCredentials.connectionString} onChange={updateFormStateOnInput} />
+                    <input type="text" name="connectionString" value={this.state.connectionString} onChange={this.updateFormAndConnection_ConString} />
                     <br />
                     Queue Name:
-                    <input type="text" name="queueName" value={formCredentials.queueName} onChange={updateFormStateOnInput} />
+                    <input type="text" name="queueName" value={this.state.queueName} onChange={this.updateFormAndConnection_QueueName} />
                 </form>
                 <p>
-                    Fields currently held in form: {formCredentials.connectionString} | {formCredentials.queueName}
+                    Fields currently held in form: {this.state.connectionString} | {this.state.queueName}
                 </p>
             </div>
         );
