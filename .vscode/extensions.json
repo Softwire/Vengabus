@@ -1,9 +1,13 @@
 {
   "recommendations": [
-    "esbenp.prettier-vscode",
-    "burkeholland.react-food-truck",
     "dbaeumer.vscode-eslint",
     "davidanson.vscode-markdownlint",
-	"aeschli.vscode-css-formatter"
+    "aeschli.vscode-css-formatter",
+    "gottfired.css2react",
+    "capaj.vscode-exports-autocomplete",
+    "xabikos.javascriptsnippets",
+    "christian-kohler.npm-intellisense",
+    "angryobject.react-pure-to-class-vscode",
+    "jpoissonnier.vscode-styled-components",
   ]
 }
