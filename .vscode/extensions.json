@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "burkeholland.react-food-truck",
+    "dbaeumer.vscode-eslint",
+    "davidanson.vscode-markdownlint",
+	"aeschli.vscode-css-formatter"
+  ]
+}
