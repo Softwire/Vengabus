@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ServiceBusConfigForm } from '../Components/ServiceBusConfigForm';
 import { ExampleServiceBusCall } from '../Components/ExampleServiceBusCall';
 import { ExampleServiceBusDataDisplay } from '../Components/ExampleServiceBusDataDisplay';
+import { QueueList } from '../Components/QueueList';
 
 export class HomePage extends Component {
     constructor(props) {
@@ -17,6 +18,7 @@ export class HomePage extends Component {
     render() {
         return (
             <div>
+                <QueueList />
                 <ServiceBusConfigForm />
                 <ExampleServiceBusCall onDataReceive={this.updateRetrievedData} />
                 <ExampleServiceBusDataDisplay data={this.state.retrievedData} />

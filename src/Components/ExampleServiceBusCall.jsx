@@ -18,6 +18,15 @@ export class ExampleServiceBusCall extends Component {
                 this.props.onDataReceive(queueResult);
             })
             .catch(console.log);
+
+        serviceBusService
+            .listQueues()
+            .then((listqueueresult) => {
+                const activeSettingsText = `ConnString = ${serviceBusConnection.activeServiceBusConString}. Name = ${serviceBusConnection.activeQueueName}`;
+                this.setState({ settingsText: activeSettingsText });
+                this.props.onDataReceive(listqueueresult);
+            })
+            .catch(console.log);
     };
 
     render() {
