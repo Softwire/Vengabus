@@ -34,10 +34,10 @@ export class ServiceBusConfigForm extends Component {
             <div className="sb-config-form">
                 <form>
                     Connection String:
-                    <input type="text" name="connectionString" value={this.state.connectionString} onChange={this.updateFormAndConnection_ConString} />
+                    <input type="text" id="connectionString" name="connectionString" value={this.state.connectionString} onChange={this.updateFormAndConnection_ConString} />
                     <br />
                     Queue Name:
-                    <input type="text" name="queueName" value={this.state.queueName} onChange={this.updateFormAndConnection_QueueName} />
+                    <input type="text" id="queueName" name="queueName" value={this.state.queueName} onChange={this.updateFormAndConnection_QueueName} />
                 </form>
                 <p>
                     Fields currently held in form: {this.state.connectionString} | {this.state.queueName}
