@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 
+export const LOCAL_STORAGE_STRINGS = Object.freeze({
+    ConnectionString: 'connectionString'
+});
+
 export class ServiceBusConfigForm extends Component {
     constructor(props) {
         super(props);
+        const localStorageConnectionString = localStorage.getItem(LOCAL_STORAGE_STRINGS.ConnectionString);
 
         this.state = {
-            connectionString: '',
+            connectionString: localStorageConnectionString ? localStorageConnectionString : '',
             queueName: ''
         };
     }
@@ -15,6 +20,7 @@ export class ServiceBusConfigForm extends Component {
         const newConString = e.target.value;
         this.setState({ connectionString: newConString });
         serviceBusConnection.setConnectionString(newConString);
+        localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionString, newConString);
     };
 
     updateFormAndConnection_QueueName = (e, targetProperty) => {
