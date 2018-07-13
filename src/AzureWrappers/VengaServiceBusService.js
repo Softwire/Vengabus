@@ -2,6 +2,8 @@ const azure = require('azure-sb');
 const util = require('util');
 require('util.promisify').shim();
 
+'use strict';
+
 /*
     This class exists as our own wrapper around the equivalent Azure API object,
     so that we can make any appropriate improvements to its API.
@@ -9,7 +11,21 @@ require('util.promisify').shim();
 */
 export class VengaServiceBusService {
     constructor(connectionString) {
-        this.rawService = azure.createServiceBusService(connectionString);
+        this.rawService = azure.createServiceBusService(
+            'Endpoint=sb://vengabusdemo.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=a8sPg0N79mgTNAfM57b7kwWsBCPK8TW7hwTwyexlK+8='
+        );
+        /*let client = this.rawService;
+         setTimeout(() => {
+            client.listTopics((error, response) => {
+                if (error) {
+                    console.log(2);
+                    console.log(error);
+                    return;
+                }
+                console.log(1);
+                console.log(response);
+            });
+        }, 2000);*/
     }
 
     /* Note that the lamda here captures `this` = the VengaServiceBusService, to access rawService.
