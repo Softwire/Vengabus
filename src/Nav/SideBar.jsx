@@ -4,6 +4,7 @@ import { css } from 'react-emotion';
 import { Panel } from 'react-bootstrap';
 import { ConnectionStringConfigForm } from '../Components/ConnectionStringConfigForm';
 import { ServiceBusInfoBox } from '../Components/ServiceBusInfoBox';
+import { grey ,blue} from '../colourScheme';
 
 export class SideBar extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ export class SideBar extends Component {
             width: 15%;
             height: 1080px;
             color: white;
-            background: black;
+            background: ${grey};
             float: left;
         `;
         const formdiv = css`
@@ -30,7 +31,6 @@ export class SideBar extends Component {
             <div className={backdiv}>
                 <div className={formdiv}>
                     <ConnectionStringConfigForm />
-                    
                 </div>
             </div>
         );

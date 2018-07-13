@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import { css } from 'react-emotion';
 import { FormGroup, FormControl, ControlLabel, Button, Panel } from 'react-bootstrap';
-
+import { blue } from '../colourScheme';
 export class ConnectionStringConfigForm extends Component {
     constructor(props) {
         super(props);
@@ -49,6 +49,9 @@ export class ConnectionStringConfigForm extends Component {
             color: black;
             margin: 5px;
         `;
+        const headerColour = css`
+            background:${blue};
+        `;
         return (
             <form>
                 <FormGroup controlId="formBasicText" validationState={this.getValidationState()}>
@@ -64,7 +67,7 @@ export class ConnectionStringConfigForm extends Component {
                     <p />
                 </div>
                 <Panel>
-                    <Panel.Heading>ServiceBus Details</Panel.Heading>
+                    <Panel.Heading className={headerColour}>ServiceBus Details</Panel.Heading>
                     <Panel.Body className={infoBoxStyle}>
                         <div>{`Name: ${this.state.info.NameSpaceName}`}</div>
                         <div>{`Location: ${this.state.info.Location}`}</div>
