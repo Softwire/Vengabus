@@ -16,9 +16,17 @@ export class HomePage extends Component {
     };
 
     render() {
+        //const queueArray = this.props.queueArray;
+        const queueArray = [
+            { number: 1, name: 'q1', status: 'active' },
+            { number: 2, name: 'q2', status: 'active' },
+            { number: 3, name: 'q3', status: 'dead' }
+        ];
+        const queueList = <QueueList queueData={queueArray} />;
+
         return (
             <div>
-                <QueueList />
+                {queueList}
                 <ServiceBusConfigForm />
                 <ExampleServiceBusCall onDataReceive={this.updateRetrievedData} />
                 <ExampleServiceBusDataDisplay data={this.state.retrievedData} />
