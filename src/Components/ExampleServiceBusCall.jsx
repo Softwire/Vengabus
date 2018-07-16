@@ -9,9 +9,8 @@ export class ExampleServiceBusCall extends Component {
 
     getData = () => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
-
         serviceBusService
-            .getQueue(serviceBusConnection.activeQueueName)
+            .getAllQueues()
             .then((queueResult) => {
                 const activeSettingsText = `ConnString = ${serviceBusConnection.activeServiceBusConString}. Name = ${serviceBusConnection.activeQueueName}`;
                 this.setState({ settingsText: activeSettingsText });

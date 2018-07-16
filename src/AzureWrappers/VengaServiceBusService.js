@@ -4,7 +4,7 @@ require('util.promisify').shim();
 
 /*
     This class exists as our own wrapper around the equivalent Azure API object,
-    so that we can make any appropriate improvements to it's API.
+    so that we can make any appropriate improvements to its API.
     e.g. Converting everything to promises.  
 */
 export class VengaServiceBusService {
@@ -15,4 +15,12 @@ export class VengaServiceBusService {
     /* Note that the lamda here captures `this` = the VengaServiceBusService, to access rawService.
        But it also captures `rawService` as the callee of getQueue (and hence, the value of `this` INSIDE the getQueue method)*/
     getQueue = util.promisify((queueName, callback) => this.rawService.getQueue(queueName, callback));
+    // QQ
+    // Update this when the API is working
+    getAllQueues = () => {
+        return new Promise((resolve, reject) => {
+            const data = [{ number: 1, name: 'q1', status: 'active' }, { number: 2, name: 'q2', status: 'active' }, { number: 3, name: 'q3', status: 'dead' }];
+            resolve(data);
+        });
+    };
 }

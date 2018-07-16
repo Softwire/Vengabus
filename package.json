@@ -9,10 +9,14 @@
     "dependencies": {
         "ajv": "^6.5.1",
         "azure-sb": "^0.10.6",
+        "babel-plugin-emotion": "^9.2.6",
+        "emotion": "^9.2.6",
         "lodash": "^4.17.10",
         "react": "^16.4.1",
         "react-bootstrap": "^0.32.1",
+        "react-bootstrap-table-next": "^0.1.15",
         "react-dom": "^16.4.1",
+        "react-emotion": "^9.2.6",
         "react-scripts": "1.1.4",
         "util.promisify": "^1.0.0"
     },
