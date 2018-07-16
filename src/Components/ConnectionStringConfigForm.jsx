@@ -69,10 +69,11 @@ export class ConnectionStringConfigForm extends Component {
                 <Panel>
                     <Panel.Heading className={headerColour}>ServiceBus Details</Panel.Heading>
                     <Panel.Body className={infoBoxStyle}>
-                        <div>{`Name: ${this.state.info.NameSpaceName}`}</div>
-                        <div>{`Location: ${this.state.info.Location}`}</div>
-                        <div>{`Status: ${this.state.info.Status}`}</div>
-                        <div>{`Permissions: ${this.state.info.permisson}`}</div>
+                        <div>{`Your connecting string: ${this.state.value || ' '}`}</div>
+                        <div>{`Name: ${this.state.info.NameSpaceName || ' '}`}</div>
+                        <div>{`Location: ${this.state.info.Location || ' '}`}</div>
+                        <div>{`Status: ${this.state.info.Status || ' '}`}</div>
+                        <div>{`Permissions: ${this.state.info.permisson || ' '}`}</div>
                     </Panel.Body>
                 </Panel>
             </form>
