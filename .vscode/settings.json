@@ -3,10 +3,4 @@
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
     "editor.formatOnType": true,
-    "prettier.eslintIntegration": true,
-    "prettier.jsxBracketSameLine": true,
-    "prettier.singleQuote": true,
-    "prettier.printWidth": 160,
-    "prettier.tabWidth": 4,
-    "prettier.arrowParens": "always"
 }
