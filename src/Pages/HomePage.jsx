@@ -2,13 +2,21 @@ import React, { Component } from 'react';
 import { ServiceBusConfigForm } from '../Components/ServiceBusConfigForm';
 import { ExampleServiceBusCall } from '../Components/ExampleServiceBusCall';
 import { ExampleServiceBusDataDisplay } from '../Components/ExampleServiceBusDataDisplay';
-import { QueueList } from '../Components/QueueList';
 
 export class HomePage extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { retrievedData: "I haven't done a call yet." };
+        this.state = {
+            retrievedData: null,
+            queueArray: null
+        };
+    }
+
+    // QQ
+    // Implement function that retrieves data about queues
+    updateQueues() {
+        this.setState();
     }
 
     updateRetrievedData = (data) => {
@@ -16,19 +24,15 @@ export class HomePage extends Component {
     };
 
     render() {
-        //const queueArray = this.props.queueArray;
-        const queueArray = [
-            { number: 1, name: 'q1', status: 'active' },
-            { number: 2, name: 'q2', status: 'active' },
-            { number: 3, name: 'q3', status: 'dead' }
-        ];
-        const queueList = <QueueList queueData={queueArray} />;
-
         return (
             <div>
-                {queueList}
                 <ServiceBusConfigForm />
                 <ExampleServiceBusCall onDataReceive={this.updateRetrievedData} />
+                {
+                    // QQ
+                    // Once the API is working we need to figureout how to best pass in data about the list of queues and topics
+                    // For now it is assumed that everything is passed in in one object
+                }
                 <ExampleServiceBusDataDisplay data={this.state.retrievedData} />
             </div>
         );

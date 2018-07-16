@@ -15,5 +15,7 @@ export class VengaServiceBusService {
     /* Note that the lamda here captures `this` = the VengaServiceBusService, to access rawService.
        But it also captures `rawService` as the callee of getQueue (and hence, the value of `this` INSIDE the getQueue method)*/
     getQueue = util.promisify((queueName, callback) => this.rawService.getQueue(queueName, callback));
+    // QQ
+    // Update this when the API is working
     listQueues = util.promisify((options, callback) => this.rawService.listQueues(options, callback));
 }
