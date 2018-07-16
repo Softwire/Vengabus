@@ -13,12 +13,6 @@ export class HomePage extends Component {
         };
     }
 
-    // QQ
-    // Implement function that retrieves data about queues
-    updateQueues() {
-        this.setState();
-    }
-
     updateRetrievedData = (data) => {
         this.setState({ retrievedData: data });
     };

@@ -9,16 +9,24 @@ export class QueueList extends Component {
     render() {
         const queueArray = this.props.queueData;
 
-        let queueTable = 
-            <DataTable
-                TableHeaderColNames={['Number', 'Name', 'Status']}
-                columnDataNames={['number', 'name', 'status']}
-                columnWidths={['10%', '50%', '40%']}
-                DataToDisplay={queueArray}
-                onRowClick={this.onRowClick}
-            />
-        ;
+        const ColProps = [
+            {
+                dataField: 'number',
+                text: 'Number',
+                headerStyle: { width: '10%' }
+            },
+            {
+                dataField: 'name',
+                text: 'Name',
+                headerStyle: { width: '50%' }
+            },
+            {
+                dataField: 'status',
+                text: 'Status',
+                headerStyle: { width: '40%' }
+            }
+        ];
 
-        return queueTable;
+        return <DataTable ColProps={ColProps} DataToDisplay={queueArray} onRowClick={this.onRowClick} />;
     }
 }

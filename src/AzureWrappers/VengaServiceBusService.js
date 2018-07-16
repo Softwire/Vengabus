@@ -17,5 +17,10 @@ export class VengaServiceBusService {
     getQueue = util.promisify((queueName, callback) => this.rawService.getQueue(queueName, callback));
     // QQ
     // Update this when the API is working
-    listQueues = util.promisify((options, callback) => this.rawService.listQueues(options, callback));
+    getAllQueues = () => {
+        return new Promise((resolve, reject) => {
+            const data = [{ number: 1, name: 'q1', status: 'active' }, { number: 2, name: 'q2', status: 'active' }, { number: 3, name: 'q3', status: 'dead' }];
+            resolve(data);
+        });
+    };
 }
