@@ -35,7 +35,7 @@ export class VengaServiceBusService {
        But it also captures `rawService` as the callee of getQueue (and hence, the value of `this` INSIDE the getQueue method)*/
     getQueue = util.promisify((queueName, callback) => this.rawService.getQueue(queueName, callback));
 
-    static getConnectionStringMetaData(connectionString) {
+    static getServiceBusMetaData(connectionString) {
         return new Promise(function(resolve, reject) {
             resolve({
                 name: 'name ex',

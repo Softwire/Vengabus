@@ -19,7 +19,7 @@ export class ConnectionStringConfigForm extends Component {
     };
 
     submitConnectionStringClick = () => {
-        const infoPromise = VengaServiceBusService.getConnectionStringMetaData(this.state.value);
+        const infoPromise = VengaServiceBusService.getServiceBusMetaData(this.state.value);
         infoPromise
             .then((response) => {
                 this.setState({
