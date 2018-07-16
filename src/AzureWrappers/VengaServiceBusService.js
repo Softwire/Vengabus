@@ -35,21 +35,17 @@ export class VengaServiceBusService {
        But it also captures `rawService` as the callee of getQueue (and hence, the value of `this` INSIDE the getQueue method)*/
     getQueue = util.promisify((queueName, callback) => this.rawService.getQueue(queueName, callback));
 
-
-   static getConnectingStringMetaData(connectionString) { 
-        return new Promise(function (resolve, reject) {
-            resolve(
-                {
-                    name: "name ex",
-                    status: "true",
-                    location: "uk?",
-                    permission: "all"
-                }
-            );
+    static getConnectionStringMetaData(connectionString) {
+        return new Promise(function(resolve, reject) {
+            resolve({
+                name: 'name ex',
+                status: 'true',
+                location: 'uk?',
+                permission: 'all'
+            });
             reject('err');
         });
     }
-
     // QQ
     // Update this when the API is working
     getAllQueues = () => {
@@ -59,6 +55,3 @@ export class VengaServiceBusService {
         });
     };
 }
-
-
-

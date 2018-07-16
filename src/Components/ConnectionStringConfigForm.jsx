@@ -18,18 +18,22 @@ export class ConnectionStringConfigForm extends Component {
         this.setState({ value: event.target.value });
     };
 
-    submitConnectingStringClick = () => {
-        const infoPromise = VengaServiceBusService.getConnectingStringMetaData(this.state.value);
-        infoPromise.then( (object) =>{
-            this.setState({
-                info: {
-                    NameSpaceName: object.name,
-                    Status: object.status,
-                    Location: object.location,
-                    Permission: object.permission
-                }
+    submitConnectionStringClick = () => {
+        const infoPromise = VengaServiceBusService.getConnectionStringMetaData(this.state.value);
+        infoPromise
+            .then((response) => {
+                this.setState({
+                    info: {
+                        NameSpaceName: response.name,
+                        Status: response.status,
+                        Location: response.location,
+                        Permission: response.permission
+                    }
+                });
+            })
+            .catch((error) => {
+                console.log(error);
             });
-        });
     };
 
     getValidationState = () => {};
@@ -58,7 +62,7 @@ export class ConnectionStringConfigForm extends Component {
                     <FormControl type="text" value={this.state.value} placeholder="Enter Connection String" onChange={this.handleChange} />
                     <FormControl.Feedback />
                 </FormGroup>
-                <Button className={buttonStyle} onClick={this.submitConnectingStringClick}>
+                <Button className={buttonStyle} onClick={this.submitConnectionStringClick}>
                     Submit
                 </Button>
                 <div>
@@ -68,7 +72,7 @@ export class ConnectionStringConfigForm extends Component {
                 <Panel>
                     <Panel.Heading className={headerColour}>ServiceBus Details</Panel.Heading>
                     <Panel.Body className={infoBoxStyle}>
-                        <div>{`Your connecting string: ${this.state.value || ' '}`}</div>
+                        <div>{`Your Connection string: ${this.state.value || ' '}`}</div>
                         <div>{`Name: ${this.state.info.NameSpaceName || ' '}`}</div>
                         <div>{`Location: ${this.state.info.Location || ' '}`}</div>
                         <div>{`Status: ${this.state.info.Status || ' '}`}</div>
