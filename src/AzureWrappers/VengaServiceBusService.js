@@ -1,3 +1,6 @@
+import { resolve } from 'path';
+import { rejects } from 'assert';
+
 const azure = require('azure-sb');
 const util = require('util');
 require('util.promisify').shim();
@@ -31,6 +34,22 @@ export class VengaServiceBusService {
     /* Note that the lamda here captures `this` = the VengaServiceBusService, to access rawService.
        But it also captures `rawService` as the callee of getQueue (and hence, the value of `this` INSIDE the getQueue method)*/
     getQueue = util.promisify((queueName, callback) => this.rawService.getQueue(queueName, callback));
+
+
+   static getConnectingStringMetaData(connectionString) { 
+        return new Promise(function (resolve, reject) {
+            resolve(
+                {
+                    name: "name ex",
+                    status: "true",
+                    location: "uk?",
+                    permission: "all"
+                }
+            );
+            reject('err');
+        });
+    }
+
     // QQ
     // Update this when the API is working
     getAllQueues = () => {
@@ -40,3 +59,6 @@ export class VengaServiceBusService {
         });
     };
 }
+
+
+
