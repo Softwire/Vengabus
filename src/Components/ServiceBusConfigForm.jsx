@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
+import { LOCAL_STORAGE_STRINGS } from './ConnectionStringConfigForm'
 
-export const LOCAL_STORAGE_STRINGS = Object.freeze({
-    ConnectionString: 'connectionString'
-});
 
 /**
  *    Local Storage is accessible as a global window when run in the browser.
