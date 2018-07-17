@@ -4,51 +4,47 @@ import { css } from 'react-emotion';
 import { paleGreyBlue, mediumGreyBlue, palerBlue } from '../colourScheme';
 
 export class QueueList extends Component {
-  onRowClick(row) {
-    window.open("http://google.com", "_blank");
-  }
+    render() {
+        const queueArray = this.props.queueData;
 
-  render() {
-    const queueArray = this.props.queueData;
-
-    const ColProps = [
-      {
-        dataField: "number",
-        text: "Number",
-        headerStyle: { width: "10%" }
-      },
-      {
-        dataField: "name",
-        text: "Name",
-        headerStyle: { width: "50%" }
-      },
-      {
-        dataField: "status",
-        text: "Status",
-        headerStyle: { width: "40%" }
-      }
-    ];
+        const ColProps = [
+            {
+                dataField: "number",
+                text: "Number",
+                headerStyle: { width: "10%" }
+            },
+            {
+                dataField: "name",
+                text: "Name",
+                headerStyle: { width: "50%" }
+            },
+            {
+                dataField: "status",
+                text: "Status",
+                headerStyle: { width: "40%" }
+            }
+        ];
 
         const RowEvents = {
-      onClick: (e, row, rowIndex) => {
-        console.log(row);
-      }
-    };
+            onClick: (e, row, rowIndex) => {
+                console.log(row);
+            }
+        };
 
-		const tableRowStyle = css`
+        const tableRowStyle = css`
 		          :hover {
 		              border: 2px solid ${palerBlue};
 		              background-color: ${paleGreyBlue};
 		          }
 		      `;
 
- return (
-      <DataTable
-        ColProps={ColProps}
-        DataToDisplay={queueArray}
-        RowEvents={RowEvents}
-		tableRowStyle={tableRowStyle} 
-      />
-    );
-  }
+        return (
+            <DataTable
+                ColProps={ColProps}
+                DataToDisplay={queueArray}
+                RowEvents={RowEvents}
+                tableRowStyle={tableRowStyle}
+            />
+        );
+    }
 }

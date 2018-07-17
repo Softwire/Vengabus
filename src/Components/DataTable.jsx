@@ -25,23 +25,18 @@ export class DataTable extends Component {
     const ColProps = this.props.ColProps;
     const DataToDisplay = this.props.DataToDisplay;
     const RowEvents = this.props.RowEvents;
-
-    const tableRowStyle = css`
-      :hover {
-        background-color: yellow;
-      }
-    `;
+    const tableRowStyle = this.props.tableRowStyle;
 
     return DataToDisplay ? (
       <BootstrapTable
-        keyField="number"
+        keyField={ColProps[0].dataField} //use the left-most column as the keyfield for the table
         data={DataToDisplay}
         rowClasses={tableRowStyle}
         columns={ColProps}
         rowEvents={RowEvents}
       />
     ) : (
-      <p>No data has been retrieved yet.</p>
-    );
+        <p>No data has been retrieved yet.</p>
+      );
   }
 }
