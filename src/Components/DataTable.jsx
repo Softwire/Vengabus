@@ -24,14 +24,14 @@ export class DataTable extends Component {
         const DataToDisplay = this.props.DataToDisplay;
         const tableRowStyle = this.props.tableRowStyle;
         const RowEvents = this.props.RowEvents;
-        const rowClickResponseFunction = this.props.OnClick;
+        let rowClickResponseFunction = this.props.OnClick;
 
-        if (RowEvents.onClick && rowClickResponseFunction) { //if 2 onClick functions are defined
-            throw new Error("Error: the row response to being clicked on is defined multiple times");
+        if (RowEvents.onClick && rowClickResponseFunction) {
+            throw new Error("Error: the row's onClick event is defined multiple times");
         }
-        const onClickFunction = rowClickResponseFunction ? rowClickResponseFunction : RowEvents.onClick;
-        //if there is an onClick response, add this to RowEvents
-        const finalRowEvents = onClickFunction ? { ...(this.props.RowEvents), onClick: onClickFunction } : RowEvents;
+
+        rowClickResponseFunction = rowClickResponseFunction || RowEvents.onClick || function () { };
+        const finalRowEvents = { ...(this.props.RowEvents), onClick: rowClickResponseFunction };
 
 
         return DataToDisplay ? (
