@@ -10,7 +10,9 @@ Props:
         headerStyle: object which contains CSS styling for the header (RECOMMENDED)
     RowEvents: Object which contains functions that are called on certain events of the row (OPTIONAL). For example:
                 RowEvents = {
-                    
+                    event: (row, rowIndex, e) => {
+                        ....
+                    }
                 }
                 where row is an object which contains all the information which is in that row
     Note: please define onClick events in the function "rowClickResponseFunction" and pass as a prop to DataTable.
