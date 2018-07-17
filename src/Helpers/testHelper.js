@@ -1,9 +1,11 @@
 class TestHelper {
-    /**
+    /*
      * It waits until the state of the components is updated and then calls the callback function.
      */
     afterReactHasUpdated(callback) {
-        setTimeout(callback, 0);
+        return new Promise(function (resolve) {
+            setTimeout(resolve, 0);
+        });
     }
 }
 
