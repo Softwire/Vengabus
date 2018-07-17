@@ -7,7 +7,8 @@ export class ExampleServiceBusDataDisplay extends Component {
         const queueDivStyle = css`
             width: 30%;
             margin: 10px;
-        `
+            display: inline-block; /*to allow tables to be displayed side by side*/
+        `;
         return (
             <div className={queueDivStyle}>
                 <p> I got back: '{JSON.stringify(this.props.data)}' </p>
