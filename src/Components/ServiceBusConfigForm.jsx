@@ -15,19 +15,27 @@ const localStorageAccessor = localStorage;
 export class ServiceBusConfigForm extends Component {
     constructor(props) {
         super(props);
-        const localStorageConnectionString = localStorage.getItem(LOCAL_STORAGE_STRINGS.ConnectionString);
 
         this.state = {
-            connectionString:localStorageConnectionString || '',
+            connectionString: '',
             queueName: ''
         };
     }
 
+    componentWillMount() {
+       const localStorageConnectionString = localStorageAccessor.getItem(LOCAL_STORAGE_STRINGS.ConnectionString) || '';
+       this.updateConString(localStorageConnectionString);
+    }
+
     updateFormAndConnection_ConString = (e, targetProperty) => {
         const newConString = e.target.value;
+        this.updateConString(newConString);
+    };
+
+    updateConString = (newConString) => {
         this.setState({ connectionString: newConString });
         serviceBusConnection.setConnectionString(newConString);
-        localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionString, newConString);
+        localStorageAccessor.setItem(LOCAL_STORAGE_STRINGS.ConnectionString, newConString);
     };
 
     updateFormAndConnection_QueueName = (e, targetProperty) => {
