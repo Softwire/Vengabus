@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { DataTable } from "./DataTable";
+import { css } from 'react-emotion';
+import { paleGreyBlue, mediumGreyBlue, palerBlue } from '../colourScheme';
 
 export class QueueList extends Component {
   onRowClick(row) {
@@ -27,17 +29,25 @@ export class QueueList extends Component {
       }
     ];
 
-    const RowEvents = {
+        const RowEvents = {
       onClick: (e, row, rowIndex) => {
         console.log(row);
       }
     };
 
-    return (
+		const tableRowStyle = css`
+		          :hover {
+		              border: 2px solid ${palerBlue};
+		              background-color: ${paleGreyBlue};
+		          }
+		      `;
+
+ return (
       <DataTable
         ColProps={ColProps}
         DataToDisplay={queueArray}
         RowEvents={RowEvents}
+		tableRowStyle={tableRowStyle} 
       />
     );
   }
