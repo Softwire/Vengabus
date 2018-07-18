@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { ServiceBusInfoBox } from "./ServiceBusInfoBox";
 import { VengaServiceBusService } from "../AzureWrappers/VengaServiceBusService";
 import { serviceBusConnection } from "../AzureWrappers/ServiceBusConnection";
-import { css } from "react-emotion";
 import {
   FormGroup,
   FormControl,
@@ -10,6 +9,7 @@ import {
   Button,
   Panel
 } from "react-bootstrap";
+import { css } from "react-emotion";
 import { blue } from "../colourScheme";
 
 export const LOCAL_STORAGE_STRINGS = Object.freeze({
@@ -83,8 +83,9 @@ export class ConnectionStringConfigForm extends Component {
     `;
     return (
       <form className={formStyle}>
-        <FormGroup controlId="formBasicText">
+        <FormGroup controlId="connectionString">
           <ControlLabel>ServiceBus Connection String</ControlLabel>
+
           <FormControl
             type="text"
             value={this.state.connStringVal}
