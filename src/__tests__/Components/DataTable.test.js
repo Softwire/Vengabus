@@ -1,11 +1,9 @@
-import { DataTable } from "../../src/Components/DataTable";
+import { DataTable } from "../../Components/DataTable";
 import renderer from 'react-test-renderer';
 import React from 'react';
 import { css } from 'react-emotion';
 import Adaptor from 'enzyme-adapter-react-16';
 import { mount, configure } from 'enzyme';
-import { HomePage } from '../../Pages/HomePage';
-import BootstrapTable from "react-bootstrap-table-next";
 
 configure({ adapter: new Adaptor() });
 
