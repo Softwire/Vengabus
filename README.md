@@ -1,6 +1,8 @@
 A "Visualisation and Editing Network Gadget for Azure (service) BUS"! (Blame Catalin.)
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+The front end of this project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+
+The backend is a fairly vanilla .NET WebApi C# solution.
 
 Below you will find some information on how to perform common tasks.<br>
 You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
