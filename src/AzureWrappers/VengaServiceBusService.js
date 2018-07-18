@@ -14,28 +14,14 @@ require('util.promisify').shim();
 */
 export class VengaServiceBusService {
     constructor(connectionString) {
-        this.rawService = azure.createServiceBusService(
-            'Endpoint=sb://vengabusdemo.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=a8sPg0N79mgTNAfM57b7kwWsBCPK8TW7hwTwyexlK+8='
-        );
-        /*let client = this.rawService;
-         setTimeout(() => {
-            client.listTopics((error, response) => {
-                if (error) {
-                    console.log(2);
-                    console.log(error);
-                    return;
-                }
-                console.log(1);
-                console.log(response);
-            });
-        }, 2000);*/
+        this.rawService = azure.createServiceBusService(connectionString);
     }
 
     /* Note that the lamda here captures `this` = the VengaServiceBusService, to access rawService.
        But it also captures `rawService` as the callee of getQueue (and hence, the value of `this` INSIDE the getQueue method)*/
     getQueue = util.promisify((queueName, callback) => this.rawService.getQueue(queueName, callback));
 
-    static getServiceBusMetaData(connectionString) {
+    static getServiceBusProperties(connectionString) {
         return new Promise(function(resolve, reject) {
             resolve({
                 name: 'name ex',
@@ -43,7 +29,7 @@ export class VengaServiceBusService {
                 location: 'uk?',
                 permission: 'all'
             });
-            reject('err');
+           // reject('err');
         });
     }
     // QQ

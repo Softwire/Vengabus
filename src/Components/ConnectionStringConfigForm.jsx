@@ -1,34 +1,30 @@
 import React, { Component } from 'react';
-import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
+import { ServiceBusInfoBox } from './ServiceBusInfoBox';
 import { VengaServiceBusService } from '../AzureWrappers/VengaServiceBusService';
 import { css } from 'react-emotion';
 import { FormGroup, FormControl, ControlLabel, Button, Panel } from 'react-bootstrap';
 import { blue } from '../colourScheme';
+
 export class ConnectionStringConfigForm extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            value: '',
+            connStringVal: '',
             info: ''
         };
     }
 
     handleChange = (event) => {
-        this.setState({ value: event.target.value });
+        this.setState({ connStringVal: event.target.value });
     };
 
     submitConnectionStringClick = () => {
-        const infoPromise = VengaServiceBusService.getServiceBusMetaData(this.state.value);
+        const infoPromise = VengaServiceBusService.getServiceBusProperties(this.state.connStringVal);
         infoPromise
             .then((response) => {
                 this.setState({
-                    info: {
-                        NameSpaceName: response.name,
-                        Status: response.status,
-                        Location: response.location,
-                        Permission: response.permission
-                    }
+                    info: response
                 });
             })
             .catch((error) => {
@@ -36,49 +32,36 @@ export class ConnectionStringConfigForm extends Component {
             });
     };
 
-    getValidationState = () => {};
-
     render() {
         const inputStyle = css`
             color: black;
-        `;
-
-        const infoBoxStyle = css`
-            color: black;
-            overflow-wrap: break-word;
         `;
 
         const buttonStyle = css`
             color: black;
             margin: 5px;
         `;
-        const headerColour = css`
-            background: ${blue};
+
+        const formStyle = css`
+            padding: 5px;
         `;
         return (
-            <form>
-                <FormGroup controlId="formBasicText" validationState={this.getValidationState()}>
+            <form className={formStyle}>
+                <FormGroup controlId="formBasicText">
                     <ControlLabel>ServiceBus Connection String</ControlLabel>
-                    <FormControl type="text" value={this.state.value} placeholder="Enter Connection String" onChange={this.handleChange} />
+                    <FormControl type="text" value={this.state.connStringVal} placeholder="Enter Connection String" onChange={this.handleChange} />
                     <FormControl.Feedback />
                 </FormGroup>
                 <Button className={buttonStyle} onClick={this.submitConnectionStringClick}>
-                    Submit
+                    Connect
                 </Button>
+                {
+                    //buttons want to grip on to the top of things not pretty so add a break to separate
+                }
                 <div>
-                    {' '}
-                    <p />
+                    <br />
                 </div>
-                <Panel>
-                    <Panel.Heading className={headerColour}>ServiceBus Details</Panel.Heading>
-                    <Panel.Body className={infoBoxStyle}>
-                        <div>{`Your Connection string: ${this.state.value || ' '}`}</div>
-                        <div>{`Name: ${this.state.info.NameSpaceName || ' '}`}</div>
-                        <div>{`Location: ${this.state.info.Location || ' '}`}</div>
-                        <div>{`Status: ${this.state.info.Status || ' '}`}</div>
-                        <div>{`Permissions: ${this.state.info.Permission || ' '}`}</div>
-                    </Panel.Body>
-                </Panel>
+                <ServiceBusInfoBox connStringVal={this.state.connStringVal} info={this.state.info} />
             </form>
         );
     }
