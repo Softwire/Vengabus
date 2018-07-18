@@ -1,7 +1,9 @@
 import 'jest-localstorage-mock';
 import { mount, configure } from 'enzyme';
 import Adaptor from 'enzyme-adapter-react-16';
+import renderer from 'react-test-renderer';
 import { testHelper } from '../Helpers/testHelper';
+import { ServiceBusInfoBox } from "../Components/ServiceBusInfoBox";
 
 import React from 'react';
 import {
@@ -74,4 +76,25 @@ it('API root location is formatted correctly', () => {
         expect(serviceBusConnection.activeServiceBusConString).toEqual('afterConnectionString');
         expect(serviceBusConnection.activeAPIroot).toEqual('http://afterAPIRoot/');
     });
+});
+
+it('Connect button changes info in info box', () => {
+    const wrapper = mount(<ConnectionStringConfigForm />);
+
+    const connectionStringInput = wrapper.find('#connectionString');
+    //Actual string contents don't matter
+    connectionStringInput.value = "exampleValue";
+
+    const connectionStringButton = wrapper.find('#connectButton').at(0);
+    connectionStringButton.simulate('click');
+
+    const infoBox = wrapper.find(ServiceBusInfoBox);
+    return testHelper.afterReactHasUpdated().then(() => {
+        expect(infoBox.props.name).toEqual(expect.anything());
+    });
+});
+
+it('ConnectionStringConfigForm renders correctly', () => {
+    let configForm = renderer.create(<ConnectionStringConfigForm />);
+    expect(configForm.toJSON()).toMatchSnapshot();
 });
