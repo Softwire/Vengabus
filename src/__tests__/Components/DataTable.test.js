@@ -4,16 +4,20 @@ import React from 'react';
 import { css } from 'react-emotion';
 import Adaptor from 'enzyme-adapter-react-16';
 import { mount, configure } from 'enzyme';
-
 configure({ adapter: new Adaptor() });
 
 describe('DataTable', () => {
 
-    it('displays correctly from given props', () => {
+    function clickFunction(e, row, rowIndex) {
+        console.log(row);
+    }
 
-        const data = [{ number: 1, name: 'q1', status: 'active' }, { number: 2, name: 'q2', status: 'active' }, { number: 3, name: 'q3', status: 'dead' }];
+    function getDataToDisplay() {
+        return [{ number: 1, name: 'q1', status: 'active' }, { number: 2, name: 'q2', status: 'active' }, { number: 3, name: 'q3', status: 'dead' }];
+    }
 
-        const ColProps = [
+    function getColProps() {
+        return [
             {
                 dataField: "number",
                 text: "Number",
@@ -30,29 +34,47 @@ describe('DataTable', () => {
                 headerStyle: { width: "40%" }
             }
         ];
+    }
 
-        const RowEvents = {
-            onClick: (e, row, rowIndex) => {
-                console.log(row);
-            }
-        };
-
+    function getTableRowStyle() {
         const tableRowStyle = css`
     	          :hover {
     	              border: 2px solid grey;
     	              background-color: blue;
     	          }
-    	      `;
+              `;
+        return tableRowStyle;
+    }
 
+    function getRowEvents() {
+        return {
+            onClick: clickFunction
+        };
+    }
+
+    it('displays correctly from given props', () => {
         let dataTable = renderer.create(
             <DataTable
-                ColProps={ColProps}
-                DataToDisplay={data}
-                RowEvents={RowEvents}
-                tableRowStyle={tableRowStyle}
+                colProps={getColProps()}
+                dataToDisplay={getDataToDisplay()}
+                rowEvents={getRowEvents()}
+                tableRowStyle={getTableRowStyle()}
             />);
-
         expect(dataTable.toJSON()).toMatchSnapshot();
+    });
+
+    it('throws an error if onClick function is defined twice', () => {
+        function getDataTable() {
+            return mount(
+                <DataTable
+                    colProps={getColProps()}
+                    dataToDisplay={getDataToDisplay()}
+                    rowEvents={getRowEvents()}
+                    tableRowStyle={getTableRowStyle()}
+                    onRowClick={clickFunction}
+                />);
+        }
+        expect(getDataTable).toThrow(new Error("Error: the row's onClick event is defined multiple times"));
     });
 
 });

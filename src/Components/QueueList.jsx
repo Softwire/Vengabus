@@ -11,7 +11,7 @@ export class QueueList extends Component {
     render() {
         const queueArray = this.props.queueData;
 
-        const ColProps = [
+        const colProps = [
             {
                 dataField: "number",
                 text: "Number",
@@ -31,8 +31,7 @@ export class QueueList extends Component {
             }
         ];
 
-        const RowEvents = {
-        }
+        const rowEvents = {};
 
         const tableRowStyle = css`
 		          :hover {
@@ -41,15 +40,13 @@ export class QueueList extends Component {
 		          }
               `;
 
-
-
         return (
             <DataTable
-                ColProps={ColProps}
-                DataToDisplay={queueArray}
-                RowEvents={RowEvents}
+                colProps={colProps}
+                dataToDisplay={queueArray}
+                rowEvents={rowEvents}
                 tableRowStyle={tableRowStyle}
-                OnClick={this.rowClickResponseFunction}
+                onRowClick={this.rowClickResponseFunction}
             />
         );
     }

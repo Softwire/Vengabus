@@ -22,26 +22,26 @@ https://react-bootstrap-table.github.io/react-bootstrap-table2/
 */
 export class DataTable extends Component {
     render() {
-        const ColProps = this.props.ColProps;
-        const DataToDisplay = this.props.DataToDisplay;
+        const colProps = this.props.colProps;
+        const dataToDisplay = this.props.dataToDisplay;
         const tableRowStyle = this.props.tableRowStyle;
-        const RowEvents = this.props.RowEvents;
-        let rowClickResponseFunction = this.props.OnClick;
+        const rowEvents = this.props.rowEvents;
+        let onRowClick = this.props.onRowClick;
 
-        if (RowEvents.onClick && rowClickResponseFunction) {
+        if (rowEvents.onClick && onRowClick) {
             throw new Error("Error: the row's onClick event is defined multiple times");
         }
 
-        rowClickResponseFunction = rowClickResponseFunction || RowEvents.onClick || function () { };
-        const finalRowEvents = { ...(this.props.RowEvents), onClick: rowClickResponseFunction };
+        onRowClick = onRowClick || rowEvents.onClick || function () { };
+        const finalRowEvents = { ...(this.props.RowEvents), onClick: onRowClick };
 
 
-        return DataToDisplay ? (
+        return dataToDisplay ? (
             <BootstrapTable
-                keyField={ColProps[0].dataField} //use the left-most column as the keyfield for the table
-                data={DataToDisplay}
+                keyField={colProps[0].dataField} //use the left-most column as the keyfield for the table
+                data={dataToDisplay}
                 rowClasses={tableRowStyle}
-                columns={ColProps}
+                columns={colProps}
                 rowEvents={finalRowEvents}
             />
         ) : (
