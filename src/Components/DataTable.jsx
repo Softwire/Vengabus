@@ -27,13 +27,20 @@ export class DataTable extends Component {
         const tableRowStyle = this.props.tableRowStyle;
         const rowEvents = this.props.rowEvents;
         let onRowClick = this.props.onRowClick;
+        const finalRowEvents = undefined;
 
         if (rowEvents.onClick && onRowClick) {
             throw new Error("Error: the row's onClick event is defined multiple times in " + this.props.name);
         }
 
-        onRowClick = onRowClick || rowEvents.onClick || function () { };
-        const finalRowEvents = { ...(this.props.RowEvents), onClick: onRowClick };
+        if (rowEvents) {
+            onRowClick = onRowClick || rowEvents.onClick || function () { };
+            finalRowEvents = { ...(this.props.RowEvents), onClick: onRowClick };
+        } else if (onRowClick) {
+            finalRowEvents = {
+                onClick: onRowClick
+            };
+        }
 
         return dataToDisplay ? (
             <BootstrapTable
