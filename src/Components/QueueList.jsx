@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { DataTable } from "./DataTable";
+import React, { Component } from 'react';
+import { DataTable } from './DataTable';
 import { css } from 'react-emotion';
 import { paleGreyBlue, palerBlue } from '../colourScheme';
 
@@ -13,21 +13,21 @@ export class QueueList extends Component {
 
         const colProps = [
             {
-                dataField: "number",
-                text: "Number",
+                dataField: 'number',
+                text: 'Number',
                 headerStyle: {
-                    width: "10%", textAlign: "center"
+                    width: '10%', textAlign: 'center'
                 }
             },
             {
-                dataField: "name",
-                text: "Name",
-                headerStyle: { width: "50%", textAlign: "center" }
+                dataField: 'name',
+                text: 'Name',
+                headerStyle: { width: '50%', textAlign: 'center' }
             },
             {
-                dataField: "status",
-                text: "Status",
-                headerStyle: { width: "40%", textAlign: "center" }
+                dataField: 'status',
+                text: 'Status',
+                headerStyle: { width: '40%', textAlign: 'center' }
             }
         ];
 
@@ -42,6 +42,7 @@ export class QueueList extends Component {
 
         return (
             <DataTable
+                name='QueueList'
                 colProps={colProps}
                 dataToDisplay={queueArray}
                 rowEvents={rowEvents}

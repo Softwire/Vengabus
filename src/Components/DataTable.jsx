@@ -29,12 +29,11 @@ export class DataTable extends Component {
         let onRowClick = this.props.onRowClick;
 
         if (rowEvents.onClick && onRowClick) {
-            throw new Error("Error: the row's onClick event is defined multiple times");
+            throw new Error("Error: the row's onClick event is defined multiple times in " + this.props.name);
         }
 
         onRowClick = onRowClick || rowEvents.onClick || function () { };
         const finalRowEvents = { ...(this.props.RowEvents), onClick: onRowClick };
-
 
         return dataToDisplay ? (
             <BootstrapTable
