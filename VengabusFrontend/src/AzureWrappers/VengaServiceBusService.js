@@ -23,12 +23,20 @@ export class VengaServiceBusService {
        But it also captures `rawService` as the callee of getQueue (and hence, the value of `this` INSIDE the getQueue method)*/
     getQueue = util.promisify((queueName, callback) => this.rawService.getQueue(queueName, callback));
 
+    /**
+     * Gets the names of all queues in the current namespace from the server.
+     * @deprecated The getAllQueues function should be used instead, this function was just 
+     * used to demonstrate the connection to the backend while the corresponding backend 
+     * function did not exist, the data returned is not in the correct format.
+     * @return {object} The queues returned by the server.
+     */
     listQueues = () => {
         const url = this.csAPIroot + 'queues';
         return axios.get(url);
     }
 
-
+    // QQ
+    // Update this when the API is working
     static getServiceBusProperties(connectionString) {
         return new Promise(function (resolve, reject) {
             resolve({
@@ -40,6 +48,7 @@ export class VengaServiceBusService {
             // reject('err');
         });
     }
+
     // QQ
     // Update this when the API is working, once the actual form of the response is know it will have to be transformed
     // to a format which can be displayed by the BootstrapTable component (like in the hard coded example below)
