@@ -46,7 +46,9 @@ export class ConnectionStringConfigForm extends Component {
         this.updateAPIroot(localStorageApiRoot);
     }
 
-
+    /** Updates the value of the connection string in the state, in serviceBusConnection, and in the localstorage.  
+     * @param {string} newConString The updated value of the connection string.  
+     */
     updateConString = newConString => {
         this.setState({ connStringVal: newConString });
         serviceBusConnection.setConnectionString(newConString);
@@ -56,7 +58,11 @@ export class ConnectionStringConfigForm extends Component {
         );
     };
 
+    /** Updates the value of the API root location in the state, in serviceBusConnection, and in the localstorage.  
+     * @param {string} newURI The updated value of the API root.  
+     */
     updateAPIroot = newURI => {
+        Math.random();
         this.setState({ APIroot: newURI });
         serviceBusConnection.setAPIroot(newURI);
         localStorageAccessor.setItem(
@@ -65,14 +71,20 @@ export class ConnectionStringConfigForm extends Component {
         );
     }
 
+    // Called whenever the value of the connection string input box changes.
     handleConnectionChange = event => {
         this.updateConString(event.target.value);
     };
 
+    // Called whenever the value of the API server input box changes.
     handleAPIChange = event => {
         this.updateAPIroot(event.target.value);
     }
 
+    /**
+     * Updates the info in the sidebar based on the current status of VengaServiceBusService.
+     * Called whenver the connect button is pressed.
+     */
     submitConnectionStringClick = () => {
         const infoPromise = VengaServiceBusService.getServiceBusProperties(
             this.state.connStringVal
@@ -130,7 +142,7 @@ export class ConnectionStringConfigForm extends Component {
                     onClick={this.submitConnectionStringClick}
                 >
                     Connect
-        </Button>
+                </Button>
                 {
                     //buttons want to grip on to the top of things not pretty so add a break to separate
                 }
