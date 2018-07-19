@@ -22,7 +22,8 @@
         "react-dom": "^16.4.1",
         "react-emotion": "^9.2.6",
         "react-scripts": "1.1.4",
-        "util.promisify": "^1.0.0"
+        "util.promisify": "^1.0.0",
+        "xml-formatter": "^1.0.1"
     },
     "scripts": {
         "start": "react-scripts start",
