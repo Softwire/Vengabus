@@ -5,8 +5,8 @@ import { testHelper } from '../Helpers/testHelper';
 
 import React from 'react';
 import {
-  ConnectionStringConfigForm,
-  LOCAL_STORAGE_STRINGS
+    ConnectionStringConfigForm,
+    LOCAL_STORAGE_STRINGS
 } from "../Components/ConnectionStringConfigForm";
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 
@@ -26,7 +26,9 @@ it('localStore is updated when the form is changed', () => {
     localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionString, 'before');
     const wrapper = mount(<ConnectionStringConfigForm />);
 
-    const connectionStringInput = wrapper.find('#connectionString');
+    //Cannot use the id of the form to find it because the wrapper then contains two elements instead of one
+    //Not sure why this happens
+    const connectionStringInput = wrapper.find('input[placeholder="Enter Connection String"]');
     connectionStringInput.simulate('change', { target: { value: 'after' } });
 
     return testHelper.afterReactHasUpdated().then(() => {

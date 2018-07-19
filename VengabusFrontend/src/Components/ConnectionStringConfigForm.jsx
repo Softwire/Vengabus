@@ -102,9 +102,10 @@ export class ConnectionStringConfigForm extends Component {
     `;
     return (
       <form className={formStyle}>
-        <FormGroup controlId="connectionString">
+        <FormGroup>
           <ControlLabel>ServiceBus Connection String</ControlLabel>
           <FormControl
+            id="connectionString"
             type="text"
             value={this.state.connStringVal}
             placeholder="Enter Connection String"
@@ -114,6 +115,7 @@ export class ConnectionStringConfigForm extends Component {
 
           <ControlLabel>ServiceBus API Server String</ControlLabel>
           <FormControl
+            id="APILocationForm"
             type="text"
             value={this.state.APIroot}
             placeholder="Enter API Server Location"
