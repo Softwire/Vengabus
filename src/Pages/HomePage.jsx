@@ -30,7 +30,6 @@ export class HomePage extends Component {
                     <p> I got back: '{JSON.stringify(this.state.retrievedData)}' </p>
                     <QueueList queueData={this.state.retrievedData} />
                 </div>
-                );
             </div>
         );
     }

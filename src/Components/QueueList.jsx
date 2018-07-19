@@ -4,7 +4,10 @@ import { css } from 'react-emotion';
 import { paleGreyBlue, palerBlue } from '../colourScheme';
 
 export class QueueList extends Component {
-    rowClickResponseFunction(e, row, rowIndex) { //pass this function as a prop to DataTable, call it when "row" is clicked on
+    // QQ
+    // This is just a temporary function, update once the api is working for
+    // getting the list of queues and individual queues
+    rowClickResponseFunction(e, row, rowIndex) {
         console.log(row);
     }
 
@@ -31,8 +34,6 @@ export class QueueList extends Component {
             }
         ];
 
-        const rowEvents = {};
-
         const tableRowStyle = css`
 		          :hover {
 		              border: 2px solid ${palerBlue};
@@ -45,7 +46,6 @@ export class QueueList extends Component {
                 name='QueueList'
                 colProps={colProps}
                 dataToDisplay={queueArray}
-                rowEvents={rowEvents}
                 tableRowStyle={tableRowStyle}
                 onRowClick={this.rowClickResponseFunction}
             />
