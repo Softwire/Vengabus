@@ -9,6 +9,7 @@ export class ExampleServiceBusCall extends Component {
 
     getData = () => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
+        serviceBusService.listQueues().then((response) => console.log(response));
         serviceBusService
             .getAllQueues()
             .then((queueResult) => {

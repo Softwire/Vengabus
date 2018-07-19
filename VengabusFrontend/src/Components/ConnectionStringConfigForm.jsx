@@ -13,7 +13,8 @@ import { css } from "react-emotion";
 import { blue } from "../colourScheme";
 
 export const LOCAL_STORAGE_STRINGS = Object.freeze({
-  ConnectionString: "connectionString"
+  ConnectionString: "connectionString",
+  APIroot: "apiRoot"
 });
 
 /**
@@ -29,6 +30,7 @@ export class ConnectionStringConfigForm extends Component {
 
     this.state = {
       connStringVal: "",
+      APIroot: "",
       info: ""
     };
   }
@@ -38,6 +40,10 @@ export class ConnectionStringConfigForm extends Component {
       localStorageAccessor.getItem(LOCAL_STORAGE_STRINGS.ConnectionString) ||
       "";
     this.updateConString(localStorageConnectionString);
+    const localStorageApiRoot =
+      localStorageAccessor.getItem(LOCAL_STORAGE_STRINGS.APIroot) ||
+      "";
+    this.updateAPIroot(localStorageApiRoot);
   }
 
   updateConString = newConString => {
@@ -49,9 +55,22 @@ export class ConnectionStringConfigForm extends Component {
     );
   };
 
-  handleChange = event => {
+  updateAPIroot = newURI => {
+    this.setState({ APIroot: newURI });
+    serviceBusConnection.setAPIroot(newURI);
+    localStorageAccessor.setItem(
+      LOCAL_STORAGE_STRINGS.APIroot,
+      newURI
+    );
+  }
+
+  handleConnectionChange = event => {
     this.updateConString(event.target.value);
   };
+
+  handleAPIChange = event => {
+    this.updateAPIroot(event.target.value);
+  }
 
   submitConnectionStringClick = () => {
     const infoPromise = VengaServiceBusService.getServiceBusProperties(
@@ -85,14 +104,23 @@ export class ConnectionStringConfigForm extends Component {
       <form className={formStyle}>
         <FormGroup controlId="connectionString">
           <ControlLabel>ServiceBus Connection String</ControlLabel>
-
           <FormControl
             type="text"
             value={this.state.connStringVal}
             placeholder="Enter Connection String"
-            onChange={this.handleChange}
+            onChange={this.handleConnectionChange}
           />
           <FormControl.Feedback />
+
+          <ControlLabel>ServiceBus API Server String</ControlLabel>
+          <FormControl
+            type="text"
+            value={this.state.APIroot}
+            placeholder="Enter API Server Location"
+            onChange={this.handleAPIChange}
+          />
+          <FormControl.Feedback />
+
         </FormGroup>
         <Button
           className={buttonStyle}

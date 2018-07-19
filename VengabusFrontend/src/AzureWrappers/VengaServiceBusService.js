@@ -1,5 +1,6 @@
 import { resolve } from 'path';
 import { rejects } from 'assert';
+import axios from 'axios';
 
 const azure = require('azure-sb');
 const util = require('util');
@@ -13,23 +14,30 @@ require('util.promisify').shim();
     e.g. Converting everything to promises.  
 */
 export class VengaServiceBusService {
-    constructor(connectionString) {
+    constructor(connectionString, apiRoot) {
         this.rawService = azure.createServiceBusService(connectionString);
+        this.csAPIroot = apiRoot;
     }
 
     /* Note that the lamda here captures `this` = the VengaServiceBusService, to access rawService.
        But it also captures `rawService` as the callee of getQueue (and hence, the value of `this` INSIDE the getQueue method)*/
     getQueue = util.promisify((queueName, callback) => this.rawService.getQueue(queueName, callback));
 
+    listQueues = () => {
+        const url = this.csAPIroot + 'queues';
+        return axios.get(url);
+    }
+
+
     static getServiceBusProperties(connectionString) {
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             resolve({
                 name: 'name ex',
                 status: 'true',
                 location: 'uk?',
                 permission: 'all'
             });
-           // reject('err');
+            // reject('err');
         });
     }
     // QQ
