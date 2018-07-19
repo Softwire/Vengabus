@@ -4,9 +4,7 @@ import { css } from 'react-emotion';
 import { paleGreyBlue, palerBlue } from '../colourScheme';
 
 export class QueueList extends Component {
-    // QQ
-    // This is just a temporary function, update once the api is working for
-    // getting the list of queues and individual queues
+    // delete when final function is implemented
     rowClickResponseFunction(e, row, rowIndex) {
         console.log(row);
     }

@@ -1,7 +1,6 @@
 import { DataTable } from "../../Components/DataTable";
 import renderer from 'react-test-renderer';
 import React from 'react';
-import { css } from 'react-emotion';
 import Adaptor from 'enzyme-adapter-react-16';
 import { mount, configure } from 'enzyme';
 configure({ adapter: new Adaptor() });
@@ -9,7 +8,7 @@ configure({ adapter: new Adaptor() });
 describe('DataTable', () => {
 
     function clickFunction(e, row, rowIndex) {
-        console.log(row);
+        return;
     }
 
     function getDataToDisplay() {
@@ -20,30 +19,17 @@ describe('DataTable', () => {
         return [
             {
                 dataField: "number",
-                text: "Number",
-                headerStyle: { width: "10%" }
+                text: "Number"
             },
             {
                 dataField: "name",
-                text: "Name",
-                headerStyle: { width: "50%" }
+                text: "Name"
             },
             {
                 dataField: "status",
-                text: "Status",
-                headerStyle: { width: "40%" }
+                text: "Status"
             }
         ];
-    }
-
-    function getTableRowStyle() {
-        const tableRowStyle = css`
-    	          :hover {
-    	              border: 2px solid grey;
-    	              background-color: blue;
-    	          }
-              `;
-        return tableRowStyle;
     }
 
     function getRowEvents() {
@@ -52,29 +38,112 @@ describe('DataTable', () => {
         };
     }
 
-    it('displays correctly from given props', () => {
+    it('renders correctly if only the required props are specified', () => {
+        let dataTable = renderer.create(
+            <DataTable
+                colProps={getColProps()}
+                dataToDisplay={getDataToDisplay()}
+            />);
+        expect(dataTable.toJSON()).toMatchSnapshot();
+    });
+
+    it('renders correctly if an empty array is input as data', () => {
+        let dataTable = renderer.create(
+            <DataTable
+                colProps={getColProps()}
+                dataToDisplay={[]}
+            />);
+        expect(dataTable.toJSON()).toMatchSnapshot();
+    });
+
+    it('renders correctly if only rowEvents is defined', () => {
         let dataTable = renderer.create(
             <DataTable
                 colProps={getColProps()}
                 dataToDisplay={getDataToDisplay()}
                 rowEvents={getRowEvents()}
-                tableRowStyle={getTableRowStyle()}
             />);
         expect(dataTable.toJSON()).toMatchSnapshot();
     });
 
-    it('throws an error if onClick function is defined twice', () => {
+    it('renders correctly if only onRowClick is defined', () => {
+        let dataTable = renderer.create(
+            <DataTable
+                colProps={getColProps()}
+                dataToDisplay={getDataToDisplay()}
+                onRowClick={clickFunction}
+            />);
+        expect(dataTable.toJSON()).toMatchSnapshot();
+    });
+
+    it('renders correctly with both onRowClick and rowEvents', () => {
+        let dataTable = renderer.create(
+            <DataTable
+                colProps={getColProps()}
+                dataToDisplay={getDataToDisplay()}
+                onRowClick={clickFunction}
+                rowEvents={{ onHover: clickFunction }}
+            />);
+        expect(dataTable.toJSON()).toMatchSnapshot();
+    });
+
+    it('throws a descriptive error if onClick function is defined twice', () => {
         function getDataTable() {
             return mount(
                 <DataTable
                     colProps={getColProps()}
                     dataToDisplay={getDataToDisplay()}
                     rowEvents={getRowEvents()}
-                    tableRowStyle={getTableRowStyle()}
                     onRowClick={clickFunction}
+                    name='test'
                 />);
         }
-        expect(getDataTable).toThrow(new Error("Error: the row's onClick event is defined multiple times"));
+        expect(getDataTable).toThrow(new Error('the onClick event for rows is defined multiple times in test'));
+    });
+
+    it('throws a descriptive error if colProps is missing', () => {
+        function getDataTable() {
+            return mount(
+                <DataTable
+                    dataToDisplay={getDataToDisplay()}
+                    name='test'
+                />);
+        }
+        expect(getDataTable).toThrow(new Error('column property object is not defined in test'));
+    });
+
+    it('throws a descriptive error if colProps.dataField is missing', () => {
+        function getDataTable() {
+            const badColProps = [
+                { text: 'Number' },
+                { text: 'Name' },
+                { text: 'Status' }
+            ];
+            return mount(
+                <DataTable
+                    colProps={badColProps}
+                    dataToDisplay={getDataToDisplay()}
+                    name='test'
+                />);
+        }
+        expect(getDataTable).toThrow(new Error('colProps.dataField is undefined in test, cannot determine what data to display in which column.'));
+    });
+
+    it('throws a descriptive error if colProps.text is missing', () => {
+        function getDataTable() {
+            const badColProps = [
+                { dataField: 'number' },
+                { dataField: 'name' },
+                { dataField: 'status' }
+            ];
+            return mount(
+                <DataTable
+                    colProps={badColProps}
+                    dataToDisplay={getDataToDisplay()}
+                    name='test'
+                />);
+        }
+        expect(getDataTable).toThrow(new Error('colProps.text is undefined in test, cannot determine header text of columns.'));
     });
 
 });

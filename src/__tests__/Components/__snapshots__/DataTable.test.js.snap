@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DataTable displays correctly from given props 1`] = `
+exports[`DataTable renders correctly if an empty array is input as data 1`] = `
 <div
   className="react-bootstrap-table"
 >
@@ -12,38 +12,47 @@ exports[`DataTable displays correctly from given props 1`] = `
       <tr
         className={undefined}
       >
-        <th
-          style={
-            Object {
-              "width": "10%",
-            }
-          }
-        >
+        <th>
           Number
         </th>
-        <th
-          style={
-            Object {
-              "width": "50%",
-            }
-          }
-        >
+        <th>
           Name
         </th>
-        <th
-          style={
-            Object {
-              "width": "40%",
-            }
-          }
-        >
+        <th>
+          Status
+        </th>
+      </tr>
+    </thead>
+  </table>
+</div>
+`;
+
+exports[`DataTable renders correctly if only onRowClick is defined 1`] = `
+<div
+  className="react-bootstrap-table"
+>
+  <table
+    className="table table-bordered"
+    id={undefined}
+  >
+    <thead>
+      <tr
+        className={undefined}
+      >
+        <th>
+          Number
+        </th>
+        <th>
+          Name
+        </th>
+        <th>
           Status
         </th>
       </tr>
     </thead>
     <tbody>
       <tr
-        className="css-10j0o8q"
+        className={null}
         onClick={[Function]}
         style={Object {}}
       >
@@ -62,7 +71,7 @@ exports[`DataTable displays correctly from given props 1`] = `
         </td>
       </tr>
       <tr
-        className="css-10j0o8q"
+        className={null}
         onClick={[Function]}
         style={Object {}}
       >
@@ -81,8 +90,266 @@ exports[`DataTable displays correctly from given props 1`] = `
         </td>
       </tr>
       <tr
-        className="css-10j0o8q"
+        className={null}
         onClick={[Function]}
+        style={Object {}}
+      >
+        <td>
+          3
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q3
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          dead
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`DataTable renders correctly if only rowEvents is defined 1`] = `
+<div
+  className="react-bootstrap-table"
+>
+  <table
+    className="table table-bordered"
+    id={undefined}
+  >
+    <thead>
+      <tr
+        className={undefined}
+      >
+        <th>
+          Number
+        </th>
+        <th>
+          Name
+        </th>
+        <th>
+          Status
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className={null}
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td>
+          1
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q1
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          active
+        </td>
+      </tr>
+      <tr
+        className={null}
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td>
+          2
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q2
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          active
+        </td>
+      </tr>
+      <tr
+        className={null}
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td>
+          3
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q3
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          dead
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`DataTable renders correctly if only the required props are specified 1`] = `
+<div
+  className="react-bootstrap-table"
+>
+  <table
+    className="table table-bordered"
+    id={undefined}
+  >
+    <thead>
+      <tr
+        className={undefined}
+      >
+        <th>
+          Number
+        </th>
+        <th>
+          Name
+        </th>
+        <th>
+          Status
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className={null}
+        style={Object {}}
+      >
+        <td>
+          1
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q1
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          active
+        </td>
+      </tr>
+      <tr
+        className={null}
+        style={Object {}}
+      >
+        <td>
+          2
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q2
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          active
+        </td>
+      </tr>
+      <tr
+        className={null}
+        style={Object {}}
+      >
+        <td>
+          3
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q3
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          dead
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`DataTable renders correctly with both onRowClick and rowEvents 1`] = `
+<div
+  className="react-bootstrap-table"
+>
+  <table
+    className="table table-bordered"
+    id={undefined}
+  >
+    <thead>
+      <tr
+        className={undefined}
+      >
+        <th>
+          Number
+        </th>
+        <th>
+          Name
+        </th>
+        <th>
+          Status
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className={null}
+        onClick={[Function]}
+        onHover={[Function]}
+        style={Object {}}
+      >
+        <td>
+          1
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q1
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          active
+        </td>
+      </tr>
+      <tr
+        className={null}
+        onClick={[Function]}
+        onHover={[Function]}
+        style={Object {}}
+      >
+        <td>
+          2
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q2
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          active
+        </td>
+      </tr>
+      <tr
+        className={null}
+        onClick={[Function]}
+        onHover={[Function]}
         style={Object {}}
       >
         <td>

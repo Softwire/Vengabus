@@ -8,8 +8,7 @@ export class HomePage extends Component {
         super(props);
 
         this.state = {
-            retrievedData: null,
-            queueArray: null
+            retrievedData: undefined
         };
     }
 
