@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QueueList renders correctly with given props 1`] = `
+<div
+  className="react-bootstrap-table"
+>
+  <table
+    className="table table-bordered"
+    id={undefined}
+  >
+    <thead>
+      <tr
+        className={undefined}
+      >
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": "10%",
+            }
+          }
+        >
+          Number
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": "50%",
+            }
+          }
+        >
+          Name
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": "40%",
+            }
+          }
+        >
+          Status
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className="css-f6uy7o"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td>
+          1
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q1
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          active
+        </td>
+      </tr>
+      <tr
+        className="css-f6uy7o"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td>
+          2
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q2
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          active
+        </td>
+      </tr>
+      <tr
+        className="css-f6uy7o"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td>
+          3
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q3
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          dead
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

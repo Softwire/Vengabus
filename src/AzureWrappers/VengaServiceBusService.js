@@ -33,7 +33,8 @@ export class VengaServiceBusService {
         });
     }
     // QQ
-    // Update this when the API is working
+    // Update this when the API is working, once the actual form of the response is know it will have to be transformed
+    // to a format which can be displayed by the BootstrapTable component (like in the hard coded example below)
     getAllQueues = () => {
         return new Promise((resolve, reject) => {
             const data = [{ number: 1, name: 'q1', status: 'active' }, { number: 2, name: 'q2', status: 'active' }, { number: 3, name: 'q3', status: 'dead' }];

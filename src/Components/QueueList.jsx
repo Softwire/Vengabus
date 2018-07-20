@@ -1,32 +1,52 @@
 import React, { Component } from 'react';
 import { DataTable } from './DataTable';
+import { css } from 'react-emotion';
+import { paleGreyBlue, palerBlue } from '../colourScheme';
 
 export class QueueList extends Component {
-    onRowClick(row) {
-        window.open('http://google.com', '_blank');
+    // delete when final function is implemented
+    rowClickResponseFunction(e, row, rowIndex) {
+        console.log(row);
     }
 
     render() {
         const queueArray = this.props.queueData;
 
-        const ColProps = [
+        const colProps = [
             {
                 dataField: 'number',
                 text: 'Number',
-                headerStyle: { width: '10%' }
+                headerStyle: {
+                    width: '10%', textAlign: 'center'
+                }
             },
             {
                 dataField: 'name',
                 text: 'Name',
-                headerStyle: { width: '50%' }
+                headerStyle: { width: '50%', textAlign: 'center' }
             },
             {
                 dataField: 'status',
                 text: 'Status',
-                headerStyle: { width: '40%' }
+                headerStyle: { width: '40%', textAlign: 'center' }
             }
         ];
 
-        return <DataTable ColProps={ColProps} DataToDisplay={queueArray} onRowClick={this.onRowClick} />;
+        const tableRowStyle = css`
+		          :hover {
+		              border: 2px solid ${palerBlue};
+		              background-color: ${paleGreyBlue};
+		          }
+              `;
+
+        return (
+            <DataTable
+                name='QueueList'
+                colProps={colProps}
+                dataToDisplay={queueArray}
+                tableRowStyle={tableRowStyle}
+                onRowClick={this.rowClickResponseFunction}
+            />
+        );
     }
 }
