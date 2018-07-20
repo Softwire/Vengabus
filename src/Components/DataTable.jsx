@@ -26,7 +26,7 @@ export class DataTable extends Component {
         const colProps = this.props.colProps;
         const dataToDisplay = this.props.dataToDisplay;
         const tableRowStyle = this.props.tableRowStyle;
-        const rowEvents = this.props.rowEvents;
+        const rowEvents = this.props.rowEvents || {};
         const name = this.props.name;
         let onRowClick = this.props.onRowClick;
         let finalRowEvents = undefined;
@@ -34,23 +34,13 @@ export class DataTable extends Component {
         if (dataToDisplay) {
             if (!colProps) {
                 throw new Error('column property object is not defined in ' + name);
-            } else if (!colProps[0].dataField) {
-                throw new Error('colProps.dataField is undefined in ' + name + ', cannot determine what data to display in which column.');
-            } else if (!colProps[0].text) {
-                throw new Error('colProps.text is undefined in ' + name + ', cannot determine header text of columns.');
             }
 
-            if (rowEvents) {
-                if (rowEvents.onClick && onRowClick) {
-                    throw new Error("the onClick event for rows is defined multiple times in " + name);
-                }
-                onRowClick = onRowClick || rowEvents.onClick || function () { };
-                finalRowEvents = { ...(rowEvents), onClick: onRowClick };
-            } else if (onRowClick) {
-                finalRowEvents = {
-                    onClick: onRowClick
-                };
+            if (rowEvents.onClick && onRowClick) {
+                throw new Error("the onClick event for rows is defined multiple times in " + name);
             }
+            onRowClick = onRowClick || rowEvents.onClick || function () { };
+            finalRowEvents = { ...(rowEvents), onClick: onRowClick };
         }
 
         return dataToDisplay ? (

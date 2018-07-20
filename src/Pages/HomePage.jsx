@@ -26,7 +26,6 @@ export class HomePage extends Component {
             <div>
                 <ExampleServiceBusCall onDataReceive={this.updateRetrievedData} />
                 <div className={queueDivStyle}>
-                    <p> I got back: '{JSON.stringify(this.state.retrievedData)}' </p>
                     <QueueList queueData={this.state.retrievedData} />
                 </div>
             </div>

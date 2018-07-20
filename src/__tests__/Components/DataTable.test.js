@@ -7,12 +7,8 @@ configure({ adapter: new Adaptor() });
 
 describe('DataTable', () => {
 
-    function clickFunction(e, row, rowIndex) {
-        return;
-    }
-
     function getDataToDisplay() {
-        return [{ number: 1, name: 'q1', status: 'active' }, { number: 2, name: 'q2', status: 'active' }, { number: 3, name: 'q3', status: 'dead' }];
+        return [{ number: 1, name: 'q1' }, { number: 2, name: 'q2' }, { number: 3, name: 'q3' }];
     }
 
     function getColProps() {
@@ -24,27 +20,16 @@ describe('DataTable', () => {
             {
                 dataField: "name",
                 text: "Name"
-            },
-            {
-                dataField: "status",
-                text: "Status"
             }
         ];
     }
 
-    function getRowEvents() {
-        return {
-            onClick: clickFunction
-        };
-    }
-
-    it('renders correctly if only the required props are specified', () => {
+    it('renders without an error if only the required props are specified', () => {
         let dataTable = renderer.create(
             <DataTable
                 colProps={getColProps()}
                 dataToDisplay={getDataToDisplay()}
             />);
-        expect(dataTable.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly if an empty array is input as data', () => {
@@ -56,35 +41,62 @@ describe('DataTable', () => {
         expect(dataTable.toJSON()).toMatchSnapshot();
     });
 
-    it('renders correctly if only rowEvents is defined', () => {
-        let dataTable = renderer.create(
+    it('function is called correctly if only rowEvents is defined', () => {
+        let spy = jest.fn();
+        let wrapper = mount(
             <DataTable
                 colProps={getColProps()}
                 dataToDisplay={getDataToDisplay()}
-                rowEvents={getRowEvents()}
+                rowEvents={{ onClick: spy }}
+                tableRowStyle='row'
             />);
-        expect(dataTable.toJSON()).toMatchSnapshot();
+        let row = wrapper.find('.row').first();
+        row.simulate('click');
+        expect(spy).toBeCalled();
     });
 
-    it('renders correctly if only onRowClick is defined', () => {
-        let dataTable = renderer.create(
+    it('calls function correctly if only onRowClick is defined', () => {
+        let spy = jest.fn();
+        let wrapper = mount(
             <DataTable
                 colProps={getColProps()}
                 dataToDisplay={getDataToDisplay()}
-                onRowClick={clickFunction}
+                onRowClick={spy}
+                tableRowStyle='row'
             />);
-        expect(dataTable.toJSON()).toMatchSnapshot();
+        let row = wrapper.find('.row').first();
+        row.simulate('click');
+        expect(spy).toBeCalled();
     });
 
-    it('renders correctly with both onRowClick and rowEvents', () => {
-        let dataTable = renderer.create(
+    it('calls click function correctly with both onRowClick and rowEvents defined', () => {
+        let spy = jest.fn();
+        let wrapper = mount(
             <DataTable
                 colProps={getColProps()}
                 dataToDisplay={getDataToDisplay()}
-                onRowClick={clickFunction}
-                rowEvents={{ onHover: clickFunction }}
+                onRowClick={spy}
+                rowEvents={{ onMouseEnter: function () { return; } }}
+                tableRowStyle='row'
             />);
-        expect(dataTable.toJSON()).toMatchSnapshot();
+        let row = wrapper.find('.row').first();
+        row.simulate('click');
+        expect(spy).toBeCalled();
+    });
+
+    it('calls mouse enter function correctly with both onRowClick and rowEvents defined', () => {
+        let spy = jest.fn();
+        let wrapper = mount(
+            <DataTable
+                colProps={getColProps()}
+                dataToDisplay={getDataToDisplay()}
+                onRowClick={function () { return; }}
+                rowEvents={{ onMouseEnter: spy }}
+                tableRowStyle='row'
+            />);
+        let row = wrapper.find('.row').first();
+        row.simulate('mouseEnter');
+        expect(spy).toBeCalled();
     });
 
     it('throws a descriptive error if onClick function is defined twice', () => {
@@ -93,8 +105,8 @@ describe('DataTable', () => {
                 <DataTable
                     colProps={getColProps()}
                     dataToDisplay={getDataToDisplay()}
-                    rowEvents={getRowEvents()}
-                    onRowClick={clickFunction}
+                    rowEvents={{ onClick: function () { return; } }}
+                    onRowClick={function () { return; }}
                     name='test'
                 />);
         }
@@ -110,40 +122,6 @@ describe('DataTable', () => {
                 />);
         }
         expect(getDataTable).toThrow(new Error('column property object is not defined in test'));
-    });
-
-    it('throws a descriptive error if colProps.dataField is missing', () => {
-        function getDataTable() {
-            const badColProps = [
-                { text: 'Number' },
-                { text: 'Name' },
-                { text: 'Status' }
-            ];
-            return mount(
-                <DataTable
-                    colProps={badColProps}
-                    dataToDisplay={getDataToDisplay()}
-                    name='test'
-                />);
-        }
-        expect(getDataTable).toThrow(new Error('colProps.dataField is undefined in test, cannot determine what data to display in which column.'));
-    });
-
-    it('throws a descriptive error if colProps.text is missing', () => {
-        function getDataTable() {
-            const badColProps = [
-                { dataField: 'number' },
-                { dataField: 'name' },
-                { dataField: 'status' }
-            ];
-            return mount(
-                <DataTable
-                    colProps={badColProps}
-                    dataToDisplay={getDataToDisplay()}
-                    name='test'
-                />);
-        }
-        expect(getDataTable).toThrow(new Error('colProps.text is undefined in test, cannot determine header text of columns.'));
     });
 
 });
