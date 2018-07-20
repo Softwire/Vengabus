@@ -1,42 +1,95 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Web.Http;
+using Microsoft.ServiceBus;
+using Microsoft.ServiceBus.Messaging;
+using Newtonsoft.Json;
 
 namespace VengabusAPI.Controllers
 {
+    public class SimpleParamInput
+    {
+        public int Id { get; set; }
+        public string OtherInput { get; set; }
+    }
+
+    public class SendMessageToQueueClass
+    {
+        public string SAS { get; set; }
+        public string MessageBody { get; set; }
+        public string MessageId { get; set; }
+        public string ContentType { get; set; }
+        public string QueueName { get; set; }
+    }
+
     public class QueuesController : ApiController
     {
         private int nextKey = 3;
         private readonly Dictionary<int, string> queues = new Dictionary<int,string> { {1,"value1"}, {2,"value2"} };
 
-        // GET: api/Queues/
-        public IEnumerable<string> Get()
-        {
-            return queues.Values;
-        }
-
-        //// GET: api/Queues
         [HttpGet]
-        [Route("GetDict")]
+        [Route("GetAll")]
         public Dictionary<int, string> GetDict()
         {
             return queues;
         }
 
-        // GET: api/Queues/5
-        public string Get(int id)
+        [Route("queues/list")]
+        public string Post([FromBody]string SAS)
         {
-            return queues[id];
+            //var auth = Request.Headers.Authorization.Parameter;
+            //input is the SAS string here
+            const string address = "https://vengabusdemo.servicebus.windows.net/";
+           
+            var namespaceManager = new NamespaceManager(address, TokenProvider.CreateSharedAccessSignatureTokenProvider(SAS));
+
+            var queueList = namespaceManager.GetQueues();
+            string responseString = "{queues:[";
+
+            bool firstQueue = true;
+            
+            foreach (var qd in queueList)
+            {
+                if (!firstQueue)
+                {
+                    responseString += ",";
+                }
+                firstQueue = false;
+                responseString += ("{name: "+qd.Path+", activeMessageCount: "+qd.MessageCountDetails.ActiveMessageCount+", deadletterMessageCount: "+qd.MessageCountDetails.DeadLetterMessageCount+"}");
+            }
+            responseString += "]}";
+            return responseString;
         }
 
-        // POST: api/Queues
-        public void Post([FromBody]string value)
+        [HttpPost]
+        [Route("queues/sendMessage")]
+        //public string SendMessageToQueue([FromBody]string SAS, [FromBody]string QueueName, [FromBody]string MessageBody, [FromBody]string MessageId, [FromBody]string ContentType)
+        public string SendMessageToQueue([FromBody]string messageInfoJSONString)
+        {
+            //see here for docs: https://swiki.softwire.com/display/training/Documentation+for+C%23+endpoints
+            SendMessageToQueueClass messageInfoObject = JsonConvert.DeserializeObject<SendMessageToQueueClass>(messageInfoJSONString);
+
+            Uri runtimeUri = ServiceBusEnvironment.CreateServiceUri("sb", "VengabusDemo", string.Empty);
+            MessagingFactory mf = MessagingFactory.Create(runtimeUri,
+                TokenProvider.CreateSharedAccessSignatureTokenProvider(messageInfoObject.SAS));
+
+            //Sending message to queue. 
+            BrokeredMessage message = new BrokeredMessage(messageInfoObject.MessageBody);
+            message.MessageId = messageInfoObject.MessageId;
+            message.ContentType = messageInfoObject.ContentType;
+            QueueClient sendClient = mf.CreateQueueClient(messageInfoObject.QueueName);
+            sendClient.Send(message);
+
+            return "hello";
+        }
+
+        /*public void Post([FromBody]string value)
         {
             if(string.IsNullOrWhiteSpace(value)) { throw new ArgumentNullException(nameof(value));}
             queues.Add(nextKey, value);
-        }
+        }*/
 
-        // PUT: api/Queues/5
         public void Put(int id, [FromBody]string value)
         {
             if (string.IsNullOrWhiteSpace(value)) { throw new ArgumentNullException(nameof(value)); }
@@ -44,7 +97,6 @@ namespace VengabusAPI.Controllers
             nextKey = Math.Max(nextKey, id + 1);
         }
 
-        // DELETE: api/Queues/5
         public void Delete(int id)
         {
             if (!queues.ContainsKey(id)) { throw new ArgumentOutOfRangeException(nameof(id), id, "Id Not Found"); }
