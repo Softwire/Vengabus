@@ -25,6 +25,9 @@ export class VengabusNavBar extends Component {
                             <NavItem eventKey={PAGES.OtherPage} href="#">
                                 Other
                             </NavItem>
+                            <NavItem eventKey={PAGES.SendMessagePage} href="#">
+                                Send Message
+                            </NavItem>
                             <NavDropdown eventKey={'UnknownPage'} title="Dropdown" id="basic-nav-dropdown">
                                 <MenuItem eventKey={'UnknownPage1'} href="#">
                                     Action
