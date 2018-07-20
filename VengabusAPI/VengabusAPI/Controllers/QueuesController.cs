@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using System.Web.Http;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
-using Newtonsoft.Json;
 
 namespace VengabusAPI.Controllers
 {
@@ -14,13 +14,35 @@ namespace VengabusAPI.Controllers
         public string OtherInput { get; set; }
     }
 
-    public class SendMessageToQueueClass
+    public enum EndpointType
     {
+        Queue,
+        Topic,
+        Subscription
+    }
+
+    public class MessageInfoPost
+    {
+        public Dictionary<string, object> MessageProperties { get; set; }
         public string SAS { get; set; }
         public string MessageBody { get; set; }
         public string MessageId { get; set; }
         public string ContentType { get; set; }
         public string QueueName { get; set; }
+    }
+
+    public class AzureQueue
+    {
+        public AzureQueue(QueueDescription queueFromAzure)
+        {
+            name = queueFromAzure.Path;
+            activeMessageCount = queueFromAzure.MessageCountDetails.ActiveMessageCount;
+            deadletterMessageCount = queueFromAzure.MessageCountDetails.DeadLetterMessageCount;
+        }
+
+        public string name { get; set; }
+        public long activeMessageCount { get; set; }
+        public long deadletterMessageCount { get; set; }
     }
 
     public class QueuesController : ApiController
@@ -36,7 +58,7 @@ namespace VengabusAPI.Controllers
         }
 
         [Route("queues/list")]
-        public string Post([FromBody]string SAS)
+        public IEnumerable<AzureQueue> Post([FromBody]string SAS)
         {
             //var auth = Request.Headers.Authorization.Parameter;
             //input is the SAS string here
@@ -44,44 +66,73 @@ namespace VengabusAPI.Controllers
            
             var namespaceManager = new NamespaceManager(address, TokenProvider.CreateSharedAccessSignatureTokenProvider(SAS));
 
-            var queueList = namespaceManager.GetQueues();
-            string responseString = "{queues:[";
-
-            bool firstQueue = true;
-            
-            foreach (var qd in queueList)
-            {
-                if (!firstQueue)
-                {
-                    responseString += ",";
-                }
-                firstQueue = false;
-                responseString += ("{name: "+qd.Path+", activeMessageCount: "+qd.MessageCountDetails.ActiveMessageCount+", deadletterMessageCount: "+qd.MessageCountDetails.DeadLetterMessageCount+"}");
-            }
-            responseString += "]}";
-            return responseString;
+            return namespaceManager.GetQueues().Select(q => new AzureQueue(q));
         }
 
         [HttpPost]
         [Route("queues/sendMessage")]
         //public string SendMessageToQueue([FromBody]string SAS, [FromBody]string QueueName, [FromBody]string MessageBody, [FromBody]string MessageId, [FromBody]string ContentType)
-        public string SendMessageToQueue([FromBody]string messageInfoJSONString)
+        public void SendMessageToQueue([FromBody]MessageInfoPost messageInfoObject)
         {
-            //see here for docs: https://swiki.softwire.com/display/training/Documentation+for+C%23+endpoints
-            SendMessageToQueueClass messageInfoObject = JsonConvert.DeserializeObject<SendMessageToQueueClass>(messageInfoJSONString);
+            SendMessageToEndpoint(messageInfoObject, EndpointType.Queue);
+        }
 
-            Uri runtimeUri = ServiceBusEnvironment.CreateServiceUri("sb", "VengabusDemo", string.Empty);
-            MessagingFactory mf = MessagingFactory.Create(runtimeUri,
-                TokenProvider.CreateSharedAccessSignatureTokenProvider(messageInfoObject.SAS));
+        [HttpPost]
+        [Route("topic/sendMessage")]
+        //public string SendMessageToQueue([FromBody]string SAS, [FromBody]string QueueName, [FromBody]string MessageBody, [FromBody]string MessageId, [FromBody]string ContentType)
+        public void SendMessageToTopic([FromBody]MessageInfoPost messageInfoObject)
+        {
+            SendMessageToEndpoint(messageInfoObject, EndpointType.Topic);
+        }
 
+        public void SendMessageToEndpoint(MessageInfoPost messageInfoObject, EndpointType type)
+        {
             //Sending message to queue. 
-            BrokeredMessage message = new BrokeredMessage(messageInfoObject.MessageBody);
+            var brokeredMessage = CreateAzureBrokeredMessage(messageInfoObject);
+            var factory = CreateEndpointSenderFactory(messageInfoObject.SAS);
+
+            SendMessageToEndpoint(factory, type, messageInfoObject.QueueName, brokeredMessage);
+        }
+
+        private static MessagingFactory CreateEndpointSenderFactory(string sas)
+        {
+            Uri runtimeUri = ServiceBusEnvironment.CreateServiceUri("sb", "VengabusDemo", string.Empty);
+            var sasToken = TokenProvider.CreateSharedAccessSignatureTokenProvider(sas);
+            var factory = MessagingFactory.Create(runtimeUri, sasToken);
+            return factory;
+        }
+
+
+        private static void SendMessageToEndpoint(MessagingFactory clientFactory, EndpointType type, string endpointName, BrokeredMessage message)
+        {
+            switch (type)
+            {
+                case EndpointType.Queue:
+                    QueueClient queueClient = clientFactory.CreateQueueClient(endpointName);
+                    queueClient.Send(message);
+                    return;
+
+                case EndpointType.Topic:
+                    TopicClient topicClient = clientFactory.CreateTopicClient(endpointName);
+                    topicClient.Send(message);
+                    return;
+
+                case EndpointType.Subscription:
+                    throw new NotImplementedException();
+            }
+        }
+        private BrokeredMessage CreateAzureBrokeredMessage(MessageInfoPost messageInfoObject)
+        {
+            var message = new BrokeredMessage(messageInfoObject.MessageBody);
             message.MessageId = messageInfoObject.MessageId;
             message.ContentType = messageInfoObject.ContentType;
-            QueueClient sendClient = mf.CreateQueueClient(messageInfoObject.QueueName);
-            sendClient.Send(message);
 
-            return "hello";
+            foreach (var property in messageInfoObject.MessageProperties)
+            {
+                message.Properties.Add(property.Key, property.Value);
+            }
+
+            return message;
         }
 
         /*public void Post([FromBody]string value)
