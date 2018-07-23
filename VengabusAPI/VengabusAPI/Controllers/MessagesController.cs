@@ -19,7 +19,7 @@ namespace VengabusAPI.Controllers
     }
 
 
-    public class SendMessagesController : ApiController
+    public class MessagesController : ApiController
     {
 
         [HttpPost]
