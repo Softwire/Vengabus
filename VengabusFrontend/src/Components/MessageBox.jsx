@@ -13,7 +13,7 @@ export class MessageBox extends Component {
     }
 
     render() {
-     
+
         return (
             <div className="static-modal">
 
