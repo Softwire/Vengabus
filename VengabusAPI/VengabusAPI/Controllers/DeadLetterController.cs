@@ -8,75 +8,26 @@ using Microsoft.ServiceBus.Messaging;
 
 namespace VengabusAPI.Controllers
 {
-    public class AzureQueue
-    {
-        public AzureQueue(QueueDescription queueFromAzure)
-        {
-            name = queueFromAzure.Path;
-            activeMessageCount = queueFromAzure.MessageCountDetails.ActiveMessageCount;
-            deadletterMessageCount = queueFromAzure.MessageCountDetails.DeadLetterMessageCount;
-        }
 
-        public string name { get; set; }
-        public long activeMessageCount { get; set; }
-        public long deadletterMessageCount { get; set; }
-    }
-    public class SimpleParamInput
+    public class DeadLetterController : ApiController
     {
-        public int Id { get; set; }
-        public string OtherInput { get; set; }
-    }
-
-    public enum EndpointType
-    {
-        Queue,
-        Topic,
-        Subscription
-    }
-
-    public class QueuesController : ApiController
-    {
-        private int nextKey = 3;
-        private readonly Dictionary<int, string> queues = new Dictionary<int,string> { {1,"value1"}, {2,"value2"} };
 
         [HttpGet]
-        [Route("GetAll")]
-        public Dictionary<int, string> GetDict()
+        [Route("deadLetter/queue")]
+        //view all dead-letter messages in a given queue
+        public void ViewQueueDLMessages()
         {
-            return queues;
+
         }
 
-        [Route("queues/list")]
-        public IEnumerable<AzureQueue> Post([FromBody]string SAS)
+        //[HttpGet]
+        [Route("deleteMessages/topic")]
+        //view all dead-letter messages in a given subscription
+        public void ViewTopicDLMessages()
         {
-            //var auth = Request.Headers.Authorization.Parameter;
-            //input is the SAS string here
-            const string address = "https://vengabusdemo.servicebus.windows.net/";
-           
-            var namespaceManager = new NamespaceManager(address, TokenProvider.CreateSharedAccessSignatureTokenProvider(SAS));
 
-            return namespaceManager.GetQueues().Select(q => new AzureQueue(q));
-        }
-        
-
-        /*public void Post([FromBody]string value)
-        {
-            if(string.IsNullOrWhiteSpace(value)) { throw new ArgumentNullException(nameof(value));}
-            queues.Add(nextKey, value);
-        }*/
-
-        public void Put(int id, [FromBody]string value)
-        {
-            if (string.IsNullOrWhiteSpace(value)) { throw new ArgumentNullException(nameof(value)); }
-            queues[id] = value;
-            nextKey = Math.Max(nextKey, id + 1);
         }
 
-        public void Delete(int id)
-        {
-            if (!queues.ContainsKey(id)) { throw new ArgumentOutOfRangeException(nameof(id), id, "Id Not Found"); }
-            queues.Remove(id);
-        }
     }
 }
 /*
