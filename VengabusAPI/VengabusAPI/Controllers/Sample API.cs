@@ -1,36 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Net.Sockets;
-using System.Web.Http;
-using Microsoft.ServiceBus;
-using Microsoft.ServiceBus.Messaging;
-
-namespace VengabusAPI.Controllers
-{
-
-    public class DeadLetterController : ApiController
-    {
-
-        [HttpGet]
-        [Route("deadLetter/queue")]
-        //view all dead-letter messages in a given queue
-        public void ViewQueueDLMessages()
-        {
-
-        }
-
-        //[HttpGet]
-        [Route("deadLetter/subscription")]
-        //view all dead-letter messages in a given subscription
-        public void ViewTopicDLMessages()
-        {
-
-        }
-
-    }
-}
-/*
+﻿/*
  * Sample codes for the Azure ServiceBus Library
  * namespace ConsoleApp2
 {

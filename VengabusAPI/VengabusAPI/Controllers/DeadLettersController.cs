@@ -9,28 +9,24 @@ using Microsoft.ServiceBus.Messaging;
 namespace VengabusAPI.Controllers
 {
 
-
-
-    public class ListMessagesController : ApiController
+    public class DeadLettersController : ApiController
     {
 
-        //[HttpGet]
-        [Route("listMessages/queue/{queueName}")]
-        //list the messages in a given queue
-        public void ListMessagesInQueue()
+        [HttpGet]
+        [Route("deadLetters/queue/{queueName}")]
+        //view all dead-letter messages in a given queue
+        public void ViewQueueDeadLettersMessages()
         {
             throw new NotImplementedException();
         }
 
-
         //[HttpGet]
-        [Route("listMessages/subscription/{subscriptionName}")]
-        //list the messages in a given subscription
-        public void ListMessagesInSubscription()
+        [Route("deadLetters/subscription/{subscriptionName}")]
+        //view all dead-letter messages in a given subscription
+        public void ViewTopicDeadLettersMessages()
         {
             throw new NotImplementedException();
         }
-
 
     }
 }
