@@ -5,7 +5,7 @@ exports[`ConnectionStringConfigForm renders correctly 1`] = `
   className="css-1ni6fsm"
 >
   <div
-    className="form-group has-feedback"
+    className="form-group"
   >
     <label
       className="control-label"
@@ -19,7 +19,25 @@ exports[`ConnectionStringConfigForm renders correctly 1`] = `
       onChange={[Function]}
       placeholder="Enter Connection String"
       type="text"
-      value="after"
+      value="afterConnectionString"
+    />
+  </div>
+  <div
+    className="form-group"
+  >
+    <label
+      className="control-label"
+      htmlFor="APILocationForm"
+    >
+      ServiceBus API Server String
+    </label>
+    <input
+      className="form-control"
+      id="APILocationForm"
+      onChange={[Function]}
+      placeholder="API Location, e.g. http://a.com:63591/"
+      type="text"
+      value="afterAPIRoot"
     />
   </div>
   <button
@@ -46,7 +64,7 @@ exports[`ConnectionStringConfigForm renders correctly 1`] = `
       className="css-14g2jsj panel-body"
     >
       <div>
-        Your Connection string: after
+        Your Connection string: afterConnectionString
       </div>
       <div>
         Name:  

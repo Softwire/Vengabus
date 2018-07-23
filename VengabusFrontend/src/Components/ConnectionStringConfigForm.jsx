@@ -136,6 +136,7 @@ export class ConnectionStringConfigForm extends Component {
                 <Button
                     className={buttonStyle}
                     onClick={this.submitConnectionStringClick}
+                    id="connectButton"
                 >
                     Connect
                 </Button>
