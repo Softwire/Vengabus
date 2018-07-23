@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { css } from 'react-emotion';
-import {
-    FormGroup,
-    FormControl,
-    Button
-} from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { MessagePropertyInputRow } from './MessagePropertyInputRow';
 
 
 export class MessagePropertyInput extends Component {
@@ -15,14 +12,6 @@ export class MessagePropertyInput extends Component {
             propertyNames: ["test1", "test2"],
             propertyValues: ["t1", "t2"]
         };
-    }
-
-    FieldGroup({ id, validation, ...props }) {
-        return (
-            <FormGroup controlId={id} validationState={validation}>
-                <FormControl {...props} />
-            </FormGroup>
-        );
     }
 
     handlePropertyNameChange = (event, position) => {
@@ -65,7 +54,7 @@ export class MessagePropertyInput extends Component {
 
 
 
-    getValidNameState(i) {
+    getValidNameState = (i) => {
         let name = this.state.propertyNames[i];
         if (name === 'body' || name === 'queuename' || name === 'SAS' || name.length === 0) {
             return 'error';
@@ -74,7 +63,7 @@ export class MessagePropertyInput extends Component {
         }
     }
 
-    deleteRow(i) {
+    deleteRow = (i) => {
         const newPropertyNames = this.state.propertyNames.slice();
         newPropertyNames.splice(i, 1);
         const newPropertyValues = this.state.propertyValues.slice();
@@ -86,73 +75,41 @@ export class MessagePropertyInput extends Component {
     }
 
     render() {
-        const formStyle = css`
-            padding: 5px;
-            width: 47%;
-            color: white;
-            float: left;
-        `;
-        const deleteButtonStyle = css`
-            width: 5%;
-            float: right;
-        `;
-        let propertyNamesInputs = [];
-        let propertyValuesInputs = [];
-        let deleteButtons = [];
+        let inputs = [];
         for (let i = 0; i < this.state.propertyNames.length; i++) {
-            propertyNamesInputs[i] = (
-                <this.FieldGroup
-                    id="formControlsText"
-                    validation={this.getValidNameState(i)}
-                    key={i}
-                    type="text"
-                    placeholder="Enter property name"
-                    value={this.state.propertyNames[i]}
-                    onChange={(event) => this.handlePropertyNameChange(event, i)}
-                />);
-            propertyValuesInputs[i] = (
-                <this.FieldGroup
-                    id="formControlsText"
-                    key={i}
-                    type="text"
-                    placeholder="Enter property value"
-                    value={this.state.propertyValues[i]}
-                    onChange={(event) => this.handlePropertyValueChange(event, i)}
-                />);
-            deleteButtons[i] = (
-                <Button bsStyle="danger" onClick={() => this.deleteRow(i)}>Delete</Button>
+            inputs.push(
+                <MessagePropertyInputRow
+                    propertyName={this.state.propertyNames[i]}
+                    propertyValue={this.state.propertyValues[i]}
+                    index={i}
+                    getValidNameState={this.getValidNameState}
+                    handlePropertyNameChange={this.handlePropertyNameChange}
+                    handlePropertyValueChange={this.handlePropertyValueChange}
+                    deleteRow={this.deleteRow}
+                />
             );
-
         }
 
         return (
             <div>
-                <form className={formStyle}>
-                    {propertyNamesInputs}
-                </form>
-                <form className={formStyle}>
-                    {propertyValuesInputs}
-                </form >
-                <div className={deleteButtonStyle}>
-                    {deleteButtons}
-                </div>
-                <form className={formStyle}>
+                {inputs}
+                <form>
                     <Button
                         id="addNewPropertyButton"
                         onClick={this.addNewProperty}
                     >
                         Add New Property
-                    </Button>
+                     </Button>
                 </form>
-                <form className={formStyle}>
+                <form>
                     <Button
                         id="submitButton"
                         onClick={this.submit}
                     >
                         Submit
-                    </Button>
+                     </Button>
                 </form>
-            </div >
+            </div>
         );
     }
 
