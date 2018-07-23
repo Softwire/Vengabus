@@ -19,7 +19,7 @@ exports[`ConnectionStringConfigForm renders correctly 1`] = `
       onChange={[Function]}
       placeholder="Enter Connection String"
       type="text"
-      value="afterConnectionString"
+      value="connStringInLocalStorage"
     />
   </div>
   <div
@@ -37,7 +37,7 @@ exports[`ConnectionStringConfigForm renders correctly 1`] = `
       onChange={[Function]}
       placeholder="API Location, e.g. http://a.com:63591/"
       type="text"
-      value="afterAPIRoot"
+      value="UnformattedAPIRootInLocalStorage"
     />
   </div>
   <button
@@ -64,7 +64,7 @@ exports[`ConnectionStringConfigForm renders correctly 1`] = `
       className="css-14g2jsj panel-body"
     >
       <div>
-        Your Connection string: afterConnectionString
+        Your Connection string: connStringInLocalStorage
       </div>
       <div>
         Name:  

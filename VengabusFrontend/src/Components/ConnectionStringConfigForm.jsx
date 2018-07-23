@@ -85,14 +85,17 @@ export class ConnectionStringConfigForm extends Component {
      * Called whenver the connect button is pressed.
      */
     submitConnectionStringClick = () => {
+        console.log("i was clicked")
         const infoPromise = VengaServiceBusService.getServiceBusProperties(
             this.state.connStringVal
         );
+        console.log(infoPromise)
         infoPromise
             .then(response => {
                 this.setState({
                     info: response
                 });
+                console.log(this.state.info.name)
             })
             .catch(error => {
                 console.log(error);

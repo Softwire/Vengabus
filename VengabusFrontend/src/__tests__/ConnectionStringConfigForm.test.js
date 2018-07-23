@@ -15,18 +15,25 @@ import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 
 configure({ adapter: new Adaptor() });
 
-jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
-    VengaServiceBusService: {
+let mockServiceBusService;
+
+beforeEach(() => {
+    mockServiceBusService = {
         getServiceBusProperties: () => new Promise(function (resolve, reject) {
             resolve({
-                name: 'name ex',
+                /* name: 'name ex',
                 status: 'true',
                 location: 'uk?',
-                permission: 'all'
+                permission: 'all'*/
+
             });
         })
-    }
-}));
+    };
+
+    jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
+        VengaServiceBusService: mockServiceBusService
+    }));
+});
 
 it('component renders fine when connection string localStorage is not present', () => {
     localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionString, undefined);
@@ -66,45 +73,54 @@ it('localStore is updated when the API location form is changed', () => {
     });
 });
 
-it('ServiceBusConnection is updated appropriately on page load', () => {
-    serviceBusConnection.setConnectionString('beforeConnectionString');
-    localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionString, 'afterConnectionString');
-    serviceBusConnection.setApiRoot('beforeAPIRoot');
-    localStorage.setItem(LOCAL_STORAGE_STRINGS.APIroot, 'http://afterAPIRoot/');
+it('ServiceBusConnection is updated from LocalStorage on page load', () => {
+    serviceBusConnection.setConnectionString('connStringInConnection');
+    localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionString, 'connStringInLocalStorage');
+    serviceBusConnection.setApiRoot('APIRootInConnection');
+    localStorage.setItem(LOCAL_STORAGE_STRINGS.APIroot, 'http://APIRootInLocalStorage/');
 
     mount(<ConnectionStringConfigForm />);
     return testHelper.afterReactHasUpdated().then(() => {
-        expect(serviceBusConnection.activeServiceBusConString).toEqual('afterConnectionString');
-        expect(serviceBusConnection.activeAPIroot).toEqual('http://afterAPIRoot/');
+        expect(serviceBusConnection.activeServiceBusConString).toEqual('connStringInLocalStorage');
+        expect(serviceBusConnection.activeAPIroot).toEqual('http://APIRootInLocalStorage/');
     });
 });
 
 it('API root location is formatted correctly', () => {
-    serviceBusConnection.setConnectionString('beforeConnectionString');
-    localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionString, 'afterConnectionString');
-    serviceBusConnection.setApiRoot('beforeAPIRoot');
-    localStorage.setItem(LOCAL_STORAGE_STRINGS.APIroot, 'afterAPIRoot');
+    serviceBusConnection.setApiRoot('APIRootInConnection');
+    localStorage.setItem(LOCAL_STORAGE_STRINGS.APIroot, 'UnformattedAPIRootInLocalStorage');
 
     mount(<ConnectionStringConfigForm />);
     return testHelper.afterReactHasUpdated().then(() => {
-        expect(serviceBusConnection.activeServiceBusConString).toEqual('afterConnectionString');
-        expect(serviceBusConnection.activeAPIroot).toEqual('http://afterAPIRoot/');
+        expect(serviceBusConnection.activeAPIroot).toEqual('http://UnformattedAPIRootInLocalStorage/');
     });
 });
 
 it('Connect button changes info in info box', () => {
     const wrapper = mount(<ConnectionStringConfigForm />);
 
+    console.log("connect form made");
+
     const connectionStringInput = wrapper.find('#connectionString');
     //Actual string contents don't matter
     connectionStringInput.value = "exampleValue";
 
+    console.log(connectionStringInput.value);
+
+    mockServiceBusService.getServiceBusProperties = () => new Promise(function (resolve, reject) {
+        resolve({ name: 'example' });
+    });
+
+
     const connectionStringButton = wrapper.find('#connectButton').at(0);
     connectionStringButton.simulate('click');
 
+    console.log(connectionStringButton);
+
     const infoBox = wrapper.find(ServiceBusInfoBox);
+    console.log(infoBox.props.info)
     return testHelper.afterReactHasUpdated().then(() => {
-        expect(infoBox.props.name).toEqual(expect.anything());
+        expect(infoBox.props.info.name).toEqual('example');
     });
 });
 
