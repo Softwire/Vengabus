@@ -119,9 +119,9 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\ControllerHelpers\AzureQueueClass.cs" />
+    <Compile Include="Models\AzureQueue.cs" />
     <Compile Include="Controllers\QueuesController.cs" />
-    <Compile Include="Controllers\Sample API.cs" />
+    <Compile Include="Controllers\SampleAPI.cs" />
     <Compile Include="Controllers\DeadLettersController.cs" />
     <Compile Include="Controllers\ViewMessageController.cs" />
     <Compile Include="Controllers\DeleteMessagesController.cs" />
@@ -129,7 +129,7 @@
     <Compile Include="Controllers\SendMessagesController.cs" />
     <Compile Include="Controllers\SubscriptionsController.cs" />
     <Compile Include="Controllers\TopicsController.cs" />
-    <Compile Include="Controllers\ControllerHelpers\EndpointTypeEnum.cs" />
+    <Compile Include="Helpers\EndpointTypeEnum.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -146,7 +146,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
