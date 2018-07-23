@@ -18,7 +18,7 @@ namespace VengabusAPI.Controllers
     }
 
 
-    public class MessagesController : ApiController
+    public class MessagesController : VengabusController
     {
 
         [HttpPost]
@@ -84,26 +84,21 @@ namespace VengabusAPI.Controllers
         //delete all messages in all the subscriptions for a given topic
         public void DeleteAllMessagesInTopic(string topicName)
         {
-            
             throw new NotImplementedException();
         }
 
-
-        private static MessagingFactory CreateEndpointSenderFactory(string sas)
+        private MessagingFactory CreateEndpointSenderFactory()
         {
             Uri runtimeUri = ServiceBusEnvironment.CreateServiceUri("sb", "VengabusDemo", string.Empty);
-            var sasToken = TokenProvider.CreateSharedAccessSignatureTokenProvider(sas);
+            var sasToken = getSASToken();
             var factory = MessagingFactory.Create(runtimeUri, sasToken);
             return factory;
         }
         private void SendMessageToEndpoint(string endpointName, MessageInfoPost messageInfoObject, EndpointType type)
-=======
-        public void SendMessageToEndpoint(MessageInfoPost messageInfoObject, EndpointType type)
->>>>>>> added SAS Auth to header
         {
             //Sending message to queue. 
             var brokeredMessage = CreateAzureBrokeredMessage(messageInfoObject);
-            var factory = CreateEndpointSenderFactory(Request.Headers.GetValues("Auth-SAS").FirstOrDefault());
+            var factory = CreateEndpointSenderFactory();
 
             SendMessageToEndpoint(factory, type, endpointName, brokeredMessage);
         }

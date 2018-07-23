@@ -9,17 +9,14 @@ using VengabusAPI.Models;
 
 namespace VengabusAPI.Controllers
 {
-    public class QueuesController : ApiController
+    public class QueuesController : VengabusController
     {
         [HttpGet]
         [Route("queues/list")]
-        public IEnumerable<VengaQueue> ListQueues([FromBody]string SAS)
-        {
-            //var auth = Request.Headers.Authorization.Parameter;
-            //input is the SAS string here
+        public IEnumerable<VengaQueue> ListQueues()        {
             const string address = "https://vengabusdemo.servicebus.windows.net/";
            
-            var namespaceManager = new NamespaceManager(address, TokenProvider.CreateSharedAccessSignatureTokenProvider(SAS));
+            var namespaceManager = new NamespaceManager(address, getSASToken());
 
             return namespaceManager.GetQueues().Select(q => new VengaQueue(q));
         }
