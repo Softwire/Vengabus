@@ -12,7 +12,6 @@ namespace VengabusAPI.Controllers
     public class MessageInfoPost
     {
         public Dictionary<string, object> MessageProperties { get; set; }
-        public string SAS { get; set; }
         public string MessageBody { get; set; }
         public string MessageId { get; set; }
         public string ContentType { get; set; }
@@ -98,10 +97,13 @@ namespace VengabusAPI.Controllers
             return factory;
         }
         private void SendMessageToEndpoint(string endpointName, MessageInfoPost messageInfoObject, EndpointType type)
+=======
+        public void SendMessageToEndpoint(MessageInfoPost messageInfoObject, EndpointType type)
+>>>>>>> added SAS Auth to header
         {
             //Sending message to queue. 
             var brokeredMessage = CreateAzureBrokeredMessage(messageInfoObject);
-            var factory = CreateEndpointSenderFactory(messageInfoObject.SAS);
+            var factory = CreateEndpointSenderFactory(Request.Headers.GetValues("Auth-SAS").FirstOrDefault());
 
             SendMessageToEndpoint(factory, type, endpointName, brokeredMessage);
         }
