@@ -74,15 +74,31 @@ export class MessagePropertyInput extends Component {
         }
     }
 
+    deleteRow(i) {
+        const newPropertyNames = this.state.propertyNames.slice();
+        newPropertyNames.splice(i, 1);
+        const newPropertyValues = this.state.propertyValues.slice();
+        newPropertyValues.splice(i, 1);
+        this.setState({
+            propertyNames: newPropertyNames,
+            propertyValues: newPropertyValues
+        });
+    }
+
     render() {
         const formStyle = css`
             padding: 5px;
-            width: 50%;
+            width: 47%;
             color: white;
             float: left;
         `;
+        const deleteButtonStyle = css`
+            width: 5%;
+            float: right;
+        `;
         let propertyNamesInputs = [];
         let propertyValuesInputs = [];
+        let deleteButtons = [];
         for (let i = 0; i < this.state.propertyNames.length; i++) {
             propertyNamesInputs[i] = (
                 <this.FieldGroup
@@ -103,6 +119,10 @@ export class MessagePropertyInput extends Component {
                     value={this.state.propertyValues[i]}
                     onChange={(event) => this.handlePropertyValueChange(event, i)}
                 />);
+            deleteButtons[i] = (
+                <Button bsStyle="danger" onClick={() => this.deleteRow(i)}>Delete</Button>
+            );
+
         }
 
         return (
@@ -113,6 +133,9 @@ export class MessagePropertyInput extends Component {
                 <form className={formStyle}>
                     {propertyValuesInputs}
                 </form >
+                <div className={deleteButtonStyle}>
+                    {deleteButtons}
+                </div>
                 <form className={formStyle}>
                     <Button
                         id="addNewPropertyButton"
