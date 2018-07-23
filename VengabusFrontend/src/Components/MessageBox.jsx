@@ -13,7 +13,7 @@ export class MessageBox extends Component {
     }
 
     render() {
-        console.log("render?" + this.props.show)
+     
         return (
             <div className="static-modal">
 

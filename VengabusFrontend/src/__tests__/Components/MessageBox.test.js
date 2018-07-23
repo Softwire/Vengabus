@@ -7,14 +7,15 @@ configure({ adapter: new Adaptor() });
 
 describe('MessageBox', () => {
 
-   it('renders correctly with given props', () => {
+    const showMessage = true;
+
+
+    it('renders correctly with given props', () => {
         let messageBox = renderer.create(
             <MessageBox
-                messageBody={"Message id"}
-               messageId={"Message"}
-                show={true}
-               handleClose={undefined}
-           />);
+                messageBody="ID"
+                messageId="BODY"
+            />);
         expect(messageBox.toJSON()).toMatchSnapshot();
     });
 
