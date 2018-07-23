@@ -9,6 +9,12 @@ export class ExampleServiceBusCall extends Component {
 
     getData = () => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
+        // QQ
+        //The list of queues is just logged to the console at the moment
+        //as an example to demonstrate it working.
+        //This should be rendered properly once both the rendering code
+        //and API endpoint have been completed.
+        serviceBusService.listQueues().then((response) => console.log(response));
         serviceBusService
             .getAllQueues()
             .then((queueResult) => {
