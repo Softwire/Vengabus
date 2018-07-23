@@ -26,17 +26,6 @@ namespace VengabusAPI.Controllers
             throw new NotImplementedException();
         }
 
-        [HttpPost]
-        [Route("topics/wipeSubscriptions/{topicName}")]
-        //delete all messages in all the subscriptions for a given topic
-        public void DeleteAllMessagesInSubscriptionsInTopic()
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-
-
+        
     }
 }

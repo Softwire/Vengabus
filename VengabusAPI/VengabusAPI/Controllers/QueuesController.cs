@@ -12,7 +12,7 @@ namespace VengabusAPI.Controllers
     {
         [HttpGet]
         [Route("queues/list")]
-        public IEnumerable<AzureQueue> POST([FromBody]string SAS)
+        public IEnumerable<AzureQueue> ListQueues([FromBody]string SAS)
         {
             //var auth = Request.Headers.Authorization.Parameter;
             //input is the SAS string here

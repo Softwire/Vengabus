@@ -20,7 +20,7 @@ namespace VengabusAPI.Controllers
         [HttpGet]
         [Route("subscriptions/list/{topicName}")]
         //list all subscriptions in a given topic
-        public void GetSubscriptions()
+        public void GetSubscriptions(string topicName)
         {
             //see queues/list in QueuesController for an idea of how to structure this
             throw new NotImplementedException();

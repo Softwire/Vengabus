@@ -15,7 +15,6 @@ namespace VengabusAPI.Controllers
         public string MessageBody { get; set; }
         public string MessageId { get; set; }
         public string ContentType { get; set; }
-        public string QueueName { get; set; }
     }
 
 
@@ -23,23 +22,23 @@ namespace VengabusAPI.Controllers
     {
 
         [HttpPost]
-        [Route("messages/send/queue")]
-        public void SendMessageToQueue([FromBody]MessageInfoPost messageInfoObject)
+        [Route("messages/send/queue/{QueueName}")]
+        public void SendMessageToQueue(string QueueName, [FromBody]MessageInfoPost messageInfoObject)
         {
-            SendMessageToEndpoint(messageInfoObject, EndpointType.Queue);
+            SendMessageToEndpoint(QueueName, messageInfoObject, EndpointType.Queue);
         }
 
         [HttpPost]
-        [Route("messages/send/topic")]
-        public void SendMessageToTopic([FromBody]MessageInfoPost messageInfoObject)
+        [Route("messages/send/topic/{TopicName}")]
+        public void SendMessageToTopic(string TopicName, [FromBody]MessageInfoPost messageInfoObject)
         {
-            SendMessageToEndpoint(messageInfoObject, EndpointType.Topic);
+            SendMessageToEndpoint(TopicName, messageInfoObject, EndpointType.Topic);
         }
 
         [HttpGet]
         [Route("messages/list/queue/{queueName}")]
         //list the messages in a given queue
-        public void ListMessagesInQueue()
+        public void ListMessagesInQueue(string queueName)
         {
             throw new NotImplementedException();
         }
@@ -47,35 +46,44 @@ namespace VengabusAPI.Controllers
         [HttpGet]
         [Route("messages/list/subscription/{subscriptionName}")]
         //list the messages in a given subscription
-        public void ListMessagesInSubscription()
+        public void ListMessagesInSubscription(string subscriptionName)
         {
             throw new NotImplementedException();
         }
 
+        [HttpGet]
         [Route("messages/viewMessage")]
         //view the contents of a given message
-        public void ViewMessage()
+        public void ViewMessage([FromBody]string messageId)
         {
             throw new NotImplementedException();
         }
 
-        [HttpPost]
-        [Route("messages/delete/queue/{queueName}")]
+        [HttpDelete]
+        [Route("messages/queue/{queueName}")]
         //delete all messages in a given queue
-        public void DeleteAllMessagesInQueue()
+        public void DeleteAllMessagesInQueue(string queueName)
         {
             throw new NotImplementedException();
         }
 
 
-        [HttpPost]
-        [Route("messages/delete/subscription/{subscriptionName}")]
+        [HttpDelete]
+        [Route("messages/subscription/{subscriptionName}")]
         //delete all messages in a given subscription
-        public void DeleteAllMessagesInSubscription()
+        public void DeleteAllMessagesInSubscription(string subscriptionName)
         {
             throw new NotImplementedException();
         }
 
+        [HttpDelete]
+        [Route("messages/wipeSubscriptions/{topicName}")]
+        //delete all messages in all the subscriptions for a given topic
+        public void DeleteAllMessagesInSubscriptionsInTopic(string topicName)
+        {
+            
+            throw new NotImplementedException();
+        }
 
 
         private static MessagingFactory CreateEndpointSenderFactory(string sas)
@@ -85,13 +93,13 @@ namespace VengabusAPI.Controllers
             var factory = MessagingFactory.Create(runtimeUri, sasToken);
             return factory;
         }
-        private void SendMessageToEndpoint(MessageInfoPost messageInfoObject, EndpointType type)
+        private void SendMessageToEndpoint(string EndpointName, MessageInfoPost messageInfoObject, EndpointType type)
         {
             //Sending message to queue. 
             var brokeredMessage = CreateAzureBrokeredMessage(messageInfoObject);
             var factory = CreateEndpointSenderFactory(messageInfoObject.SAS);
 
-            SendMessageToEndpoint(factory, type, messageInfoObject.QueueName, brokeredMessage);
+            SendMessageToEndpoint(factory, type, EndpointName, brokeredMessage);
         }
         private static void SendMessageToEndpoint(MessagingFactory clientFactory, EndpointType type, string endpointName, BrokeredMessage message)
         {

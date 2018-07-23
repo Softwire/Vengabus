@@ -14,16 +14,14 @@ namespace VengabusAPI.Controllers
 
         [HttpGet]
         [Route("deadLetters/queue/{queueName}")]
-        //view all dead-letter messages in a given queue
-        public void ViewQueueDeadLettersMessages()
+        public void ViewQueueDeadLetterMessages(string queueName)
         {
             throw new NotImplementedException();
         }
 
         [HttpGet]
         [Route("deadLetters/subscription/{subscriptionName}")]
-        //view all dead-letter messages in a given subscription
-        public void ViewTopicDeadLettersMessages()
+        public void ViewSubscriptionDeadLetterMessages(string subscriptionName)
         {
             throw new NotImplementedException();
         }
