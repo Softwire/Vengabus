@@ -6,15 +6,10 @@ import { CurrentPage } from './Pages/CurrentPage';
 import { sharedSizesAndDimensions } from './Helpers/SharedSizesAndDimensions';
 import { css } from 'emotion';
 import KonamiCode from 'konami-code-js';
+import { Vengabus } from './Components/Vengabus';
 const classNames = require('classnames');
 
 class App extends Component {
-    constructor() {
-        super();
-        new KonamiCode(function () {
-            alert("VENGABUS!");
-        });
-    }
     render() {
         const appStyle = css`
             text-align: center;
@@ -33,9 +28,17 @@ class App extends Component {
                 <VengabusNavBar />
                 <div className={mainPageStyle}>
                     <SideBar />
+                    <Vengabus />
                     <div className={contentStyle}>
                         <CurrentPage />
                     </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+export default App;
                 </div>
             </div>
         );
