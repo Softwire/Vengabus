@@ -5,9 +5,16 @@ import { SideBar } from './Nav/SideBar';
 import { CurrentPage } from './Pages/CurrentPage';
 import { sharedSizesAndDimensions } from './Helpers/SharedSizesAndDimensions';
 import { css } from 'emotion';
+import KonamiCode from 'konami-code-js';
 const classNames = require('classnames');
 
 class App extends Component {
+    constructor() {
+        super();
+        new KonamiCode(function () {
+            alert("VENGABUS!");
+        });
+    }
     render() {
         const appStyle = css`
             text-align: center;
