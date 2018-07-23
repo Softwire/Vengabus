@@ -23,18 +23,59 @@ namespace VengabusAPI.Controllers
     {
 
         [HttpPost]
-        [Route("sendMessages/queue")]
+        [Route("messages/send/queue")]
         public void SendMessageToQueue([FromBody]MessageInfoPost messageInfoObject)
         {
             SendMessageToEndpoint(messageInfoObject, EndpointType.Queue);
         }
 
         [HttpPost]
-        [Route("sendMessages/topic")]
+        [Route("messages/send/topic")]
         public void SendMessageToTopic([FromBody]MessageInfoPost messageInfoObject)
         {
             SendMessageToEndpoint(messageInfoObject, EndpointType.Topic);
         }
+
+        [HttpGet]
+        [Route("messages/list/queue/{queueName}")]
+        //list the messages in a given queue
+        public void ListMessagesInQueue()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet]
+        [Route("messages/list/subscription/{subscriptionName}")]
+        //list the messages in a given subscription
+        public void ListMessagesInSubscription()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Route("messages/viewMessage")]
+        //view the contents of a given message
+        public void ViewMessage()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPost]
+        [Route("messages/delete/queue/{queueName}")]
+        //delete all messages in a given queue
+        public void DeleteAllMessagesInQueue()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        [HttpPost]
+        [Route("messages/delete/subscription/{subscriptionName}")]
+        //delete all messages in a given subscription
+        public void DeleteAllMessagesInSubscription()
+        {
+            throw new NotImplementedException();
+        }
+
 
 
         private static MessagingFactory CreateEndpointSenderFactory(string sas)

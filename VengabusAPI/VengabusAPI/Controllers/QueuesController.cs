@@ -10,7 +10,7 @@ namespace VengabusAPI.Controllers
 {
     public class QueuesController : ApiController
     {
-        
+        [HttpGet]
         [Route("queues/list")]
         public IEnumerable<AzureQueue> POST([FromBody]string SAS)
         {

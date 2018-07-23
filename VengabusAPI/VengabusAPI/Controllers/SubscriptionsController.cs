@@ -17,7 +17,7 @@ namespace VengabusAPI.Controllers
     public class SubscriptionsController : ApiController
     {
         
-        //[HttpGet]
+        [HttpGet]
         [Route("subscriptions/list/{topicName}")]
         //list all subscriptions in a given topic
         public void GetSubscriptions()

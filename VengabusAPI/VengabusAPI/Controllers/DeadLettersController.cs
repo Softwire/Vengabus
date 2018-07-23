@@ -20,7 +20,7 @@ namespace VengabusAPI.Controllers
             throw new NotImplementedException();
         }
 
-        //[HttpGet]
+        [HttpGet]
         [Route("deadLetters/subscription/{subscriptionName}")]
         //view all dead-letter messages in a given subscription
         public void ViewTopicDeadLettersMessages()
