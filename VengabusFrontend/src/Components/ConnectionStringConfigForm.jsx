@@ -62,9 +62,8 @@ export class ConnectionStringConfigForm extends Component {
      * @param {string} newURI The updated value of the API root.  
      */
     updateAPIroot = newURI => {
-        Math.random();
         this.setState({ APIroot: newURI });
-        serviceBusConnection.setAPIroot(newURI);
+        serviceBusConnection.setApiRoot(newURI);
         localStorageAccessor.setItem(
             LOCAL_STORAGE_STRINGS.APIroot,
             newURI
@@ -115,27 +114,24 @@ export class ConnectionStringConfigForm extends Component {
     `;
         return (
             <form className={formStyle}>
-                <FormGroup>
+                <FormGroup controlId="connectionString">
                     <ControlLabel>ServiceBus Connection String</ControlLabel>
                     <FormControl
-                        id="connectionString"
                         type="text"
                         value={this.state.connStringVal}
                         placeholder="Enter Connection String"
                         onChange={this.handleConnectionChange}
                     />
-                    <FormControl.Feedback />
+                </FormGroup>
 
+                <FormGroup controlId="APILocationForm">
                     <ControlLabel>ServiceBus API Server String</ControlLabel>
                     <FormControl
-                        id="APILocationForm"
                         type="text"
                         value={this.state.APIroot}
-                        placeholder="Enter API Server Location"
+                        placeholder="API Location, e.g. http://a.com:63591/"
                         onChange={this.handleAPIChange}
                     />
-                    <FormControl.Feedback />
-
                 </FormGroup>
                 <Button
                     className={buttonStyle}

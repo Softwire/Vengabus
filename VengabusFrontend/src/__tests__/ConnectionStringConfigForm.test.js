@@ -42,7 +42,7 @@ it('localStore is updated when the API location form is changed', () => {
 
     //Cannot use the id of the form to find it because the wrapper then contains two elements instead of one
     //Not sure why this happens
-    const connectionStringInput = wrapper.find('input[placeholder="Enter API Server Location"]');
+    const connectionStringInput = wrapper.find('#APILocationForm');
     connectionStringInput.simulate('change', { target: { value: 'after' } });
 
     return testHelper.afterReactHasUpdated().then(() => {
@@ -53,12 +53,25 @@ it('localStore is updated when the API location form is changed', () => {
 it('ServiceBusConnection is updated appropriately on page load', () => {
     serviceBusConnection.setConnectionString('beforeConnectionString');
     localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionString, 'afterConnectionString');
-    serviceBusConnection.setAPIroot('beforeAPIRoot');
+    serviceBusConnection.setApiRoot('beforeAPIRoot');
+    localStorage.setItem(LOCAL_STORAGE_STRINGS.APIroot, 'http://afterAPIRoot/');
+
+    mount(<ConnectionStringConfigForm />);
+    return testHelper.afterReactHasUpdated().then(() => {
+        expect(serviceBusConnection.activeServiceBusConString).toEqual('afterConnectionString');
+        expect(serviceBusConnection.activeAPIroot).toEqual('http://afterAPIRoot/');
+    });
+});
+
+it('API root location is formatted correctly', () => {
+    serviceBusConnection.setConnectionString('beforeConnectionString');
+    localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionString, 'afterConnectionString');
+    serviceBusConnection.setApiRoot('beforeAPIRoot');
     localStorage.setItem(LOCAL_STORAGE_STRINGS.APIroot, 'afterAPIRoot');
 
     mount(<ConnectionStringConfigForm />);
     return testHelper.afterReactHasUpdated().then(() => {
         expect(serviceBusConnection.activeServiceBusConString).toEqual('afterConnectionString');
-        expect(serviceBusConnection.activeAPIroot).toEqual('afterAPIRoot');
+        expect(serviceBusConnection.activeAPIroot).toEqual('http://afterAPIRoot/');
     });
 });
