@@ -2,65 +2,7 @@
 
 exports[`renders correctly 1`] = `
 <div>
-  <form
-    className="css-1izshxi"
-  >
-    <div
-      className="form-group"
-    >
-      <input
-        className="form-control"
-        id="formControlsText"
-        onChange={[Function]}
-        placeholder="Enter property name"
-        type="text"
-        value="test1"
-      />
-    </div>
-    <div
-      className="form-group"
-    >
-      <input
-        className="form-control"
-        id="formControlsText"
-        onChange={[Function]}
-        placeholder="Enter property name"
-        type="text"
-        value="test2"
-      />
-    </div>
-  </form>
-  <form
-    className="css-1izshxi"
-  >
-    <div
-      className="form-group"
-    >
-      <input
-        className="form-control"
-        id="formControlsText"
-        onChange={[Function]}
-        placeholder="Enter property value"
-        type="text"
-        value="t1"
-      />
-    </div>
-    <div
-      className="form-group"
-    >
-      <input
-        className="form-control"
-        id="formControlsText"
-        onChange={[Function]}
-        placeholder="Enter property value"
-        type="text"
-        value="t2"
-      />
-    </div>
-  </form>
-  <form
-    className="css-1izshxi"
-  >
+  <form>
     <button
       className="btn btn-default"
       disabled={false}
@@ -71,9 +13,7 @@ exports[`renders correctly 1`] = `
       Add New Property
     </button>
   </form>
-  <form
-    className="css-1izshxi"
-  >
+  <form>
     <button
       className="btn btn-default"
       disabled={false}

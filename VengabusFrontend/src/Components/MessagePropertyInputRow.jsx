@@ -67,7 +67,7 @@ export class MessagePropertyInputRow extends Component {
                     />
                 </form >
                 <div className={deleteButtonStyle}>
-                    <Button bsStyle="danger" onClick={() => this.props.deleteRow(index)}>Delete</Button>
+                    <Button class="delete-button" bsStyle="danger" onClick={() => this.props.deleteRow(index)}>Delete</Button>
                 </div>
             </div>
         );

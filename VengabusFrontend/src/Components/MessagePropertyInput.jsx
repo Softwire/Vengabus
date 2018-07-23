@@ -9,8 +9,8 @@ export class MessagePropertyInput extends Component {
         super(props);
 
         this.state = {
-            propertyNames: ["test1", "test2"],
-            propertyValues: ["t1", "t2"]
+            propertyNames: [],
+            propertyValues: []
         };
     }
 
