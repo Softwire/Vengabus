@@ -21,7 +21,7 @@ namespace VengabusAPI.Controllers
         }
 
         //[HttpGet]
-        [Route("deleteMessages/topic")]
+        [Route("deadLetter/subscription")]
         //view all dead-letter messages in a given subscription
         public void ViewTopicDLMessages()
         {

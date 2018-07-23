@@ -46,7 +46,7 @@ namespace VengabusAPI.Controllers
             var factory = MessagingFactory.Create(runtimeUri, sasToken);
             return factory;
         }
-        public void SendMessageToEndpoint(MessageInfoPost messageInfoObject, EndpointType type)
+        private void SendMessageToEndpoint(MessageInfoPost messageInfoObject, EndpointType type)
         {
             //Sending message to queue. 
             var brokeredMessage = CreateAzureBrokeredMessage(messageInfoObject);

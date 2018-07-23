@@ -40,7 +40,7 @@ namespace VengabusAPI.Controllers
         private readonly Dictionary<int, string> queues = new Dictionary<int,string> { {1,"value1"}, {2,"value2"} };
 
         [HttpGet]
-        [Route("GetAll")]
+        [Route("getAll")]
         public Dictionary<int, string> GetDict()
         {
             return queues;
@@ -65,14 +65,14 @@ namespace VengabusAPI.Controllers
             queues.Add(nextKey, value);
         }*/
 
-        public void Put(int id, [FromBody]string value)
+        public void put(int id, [FromBody]string value)
         {
             if (string.IsNullOrWhiteSpace(value)) { throw new ArgumentNullException(nameof(value)); }
             queues[id] = value;
             nextKey = Math.Max(nextKey, id + 1);
         }
 
-        public void Delete(int id)
+        public void delete(int id)
         {
             if (!queues.ContainsKey(id)) { throw new ArgumentOutOfRangeException(nameof(id), id, "Id Not Found"); }
             queues.Remove(id);
