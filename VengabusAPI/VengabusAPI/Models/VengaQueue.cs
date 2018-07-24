@@ -1,5 +1,5 @@
 ﻿using Microsoft.ServiceBus.Messaging;
-
+//docs: https://docs.microsoft.com/en-us/dotnet/api/microsoft.servicebus.messaging.queuedescription?view=azure-dotnet
 namespace VengabusAPI.Models
 {
     public class VengaQueue
