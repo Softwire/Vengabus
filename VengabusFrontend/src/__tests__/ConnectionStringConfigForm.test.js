@@ -1,7 +1,10 @@
 import 'jest-localstorage-mock';
 import { mount, configure } from 'enzyme';
 import Adaptor from 'enzyme-adapter-react-16';
+import renderer from 'react-test-renderer';
 import { testHelper } from '../Helpers/testHelper';
+import { ServiceBusInfoBox } from "../Components/ServiceBusInfoBox";
+
 
 import React from 'react';
 import {
@@ -11,6 +14,18 @@ import {
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 
 configure({ adapter: new Adaptor() });
+
+
+jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
+    VengaServiceBusService: {
+        getServiceBusProperties: () => new Promise(function (resolve, reject) {
+            resolve({
+                name: 'example'
+            });
+        })
+    }
+}));
+
 
 it('component renders fine when connection string localStorage is not present', () => {
     localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionString, undefined);
@@ -50,28 +65,49 @@ it('localStore is updated when the API location form is changed', () => {
     });
 });
 
-it('ServiceBusConnection is updated appropriately on page load', () => {
-    serviceBusConnection.setConnectionString('beforeConnectionString');
-    localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionString, 'afterConnectionString');
-    serviceBusConnection.setApiRoot('beforeAPIRoot');
-    localStorage.setItem(LOCAL_STORAGE_STRINGS.APIroot, 'http://afterAPIRoot/');
+it('ServiceBusConnection is updated from LocalStorage on page load', () => {
+    serviceBusConnection.setConnectionString('connStringInConnection');
+    localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionString, 'connStringInLocalStorage');
+    serviceBusConnection.setApiRoot('APIRootInConnection');
+    localStorage.setItem(LOCAL_STORAGE_STRINGS.APIroot, 'http://APIRootInLocalStorage/');
 
     mount(<ConnectionStringConfigForm />);
     return testHelper.afterReactHasUpdated().then(() => {
-        expect(serviceBusConnection.activeServiceBusConString).toEqual('afterConnectionString');
-        expect(serviceBusConnection.activeAPIroot).toEqual('http://afterAPIRoot/');
+        expect(serviceBusConnection.activeServiceBusConString).toEqual('connStringInLocalStorage');
+        expect(serviceBusConnection.activeAPIroot).toEqual('http://APIRootInLocalStorage/');
     });
 });
 
 it('API root location is formatted correctly', () => {
-    serviceBusConnection.setConnectionString('beforeConnectionString');
-    localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionString, 'afterConnectionString');
-    serviceBusConnection.setApiRoot('beforeAPIRoot');
-    localStorage.setItem(LOCAL_STORAGE_STRINGS.APIroot, 'afterAPIRoot');
+    serviceBusConnection.setApiRoot('APIRootInConnection');
+    localStorage.setItem(LOCAL_STORAGE_STRINGS.APIroot, 'UnformattedAPIRootInLocalStorage');
 
     mount(<ConnectionStringConfigForm />);
     return testHelper.afterReactHasUpdated().then(() => {
-        expect(serviceBusConnection.activeServiceBusConString).toEqual('afterConnectionString');
-        expect(serviceBusConnection.activeAPIroot).toEqual('http://afterAPIRoot/');
+        expect(serviceBusConnection.activeAPIroot).toEqual('http://UnformattedAPIRootInLocalStorage/');
     });
+});
+
+it('Connect button changes info in info box', () => {
+    const wrapper = mount(<ConnectionStringConfigForm />);
+
+
+    const connectionStringInput = wrapper.find('#connectionString');
+    //Actual string contents don't matter
+    connectionStringInput.value = "exampleValue";
+
+
+    const connectionStringButton = wrapper.find('#connectButton').at(0);
+    connectionStringButton.simulate('click');
+
+
+    return testHelper.afterReactHasUpdated().then(() => {
+        const infoBox = wrapper.find(ServiceBusInfoBox);
+        expect(infoBox.instance().props.info.name).toEqual('example');
+    });
+});
+
+it('ConnectionStringConfigForm renders correctly', () => {
+    let configForm = renderer.create(<ConnectionStringConfigForm />);
+    expect(configForm.toJSON()).toMatchSnapshot();
 });

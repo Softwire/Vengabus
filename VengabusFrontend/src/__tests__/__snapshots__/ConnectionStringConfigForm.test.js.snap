@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConnectionStringConfigForm renders correctly 1`] = `
+<form
+  className="css-1ni6fsm"
+>
+  <div
+    className="form-group"
+  >
+    <label
+      className="control-label"
+      htmlFor="connectionString"
+    >
+      ServiceBus Connection String
+    </label>
+    <input
+      className="form-control"
+      id="connectionString"
+      onChange={[Function]}
+      placeholder="Enter Connection String"
+      type="text"
+      value="connStringInLocalStorage"
+    />
+  </div>
+  <div
+    className="form-group"
+  >
+    <label
+      className="control-label"
+      htmlFor="APILocationForm"
+    >
+      ServiceBus API Server String
+    </label>
+    <input
+      className="form-control"
+      id="APILocationForm"
+      onChange={[Function]}
+      placeholder="API Location, e.g. http://a.com:63591/"
+      type="text"
+      value="UnformattedAPIRootInLocalStorage"
+    />
+  </div>
+  <button
+    className="css-4hwllc btn btn-default"
+    disabled={false}
+    id="connectButton"
+    onClick={[Function]}
+    type="button"
+  >
+    Connect
+  </button>
+  <div>
+    <br />
+  </div>
+  <div
+    className="panel panel-default"
+  >
+    <div
+      className="css-xbbmn1 panel-heading"
+    >
+      ServiceBus Details
+    </div>
+    <div
+      className="css-14g2jsj panel-body"
+    >
+      <div>
+        Your Connection string: connStringInLocalStorage
+      </div>
+      <div>
+        Name:  
+      </div>
+      <div>
+        Location:  
+      </div>
+      <div>
+        Status:  
+      </div>
+      <div>
+        Permissions:  
+      </div>
+    </div>
+  </div>
+</form>
+`;

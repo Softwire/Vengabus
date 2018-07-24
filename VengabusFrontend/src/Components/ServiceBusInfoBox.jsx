@@ -5,7 +5,7 @@ import { blue } from '../colourScheme';
 export class ServiceBusInfoBox extends Component {
     constructor(props) {
         super(props);
-    }
+        }
 
     render() {
         const infoBoxStyle = css`
