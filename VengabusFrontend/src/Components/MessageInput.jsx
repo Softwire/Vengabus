@@ -33,7 +33,6 @@ export class MessageInput extends Component {
             padding: 5px;
             width: 85%;
             height: 1080px;
-            color: white;
             float: left;
         `;
         return (

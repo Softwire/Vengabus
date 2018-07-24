@@ -3,8 +3,11 @@ import { css } from 'react-emotion';
 import {
     FormGroup,
     FormControl,
-    Button
+    Button,
+    DropdownButton,
+    MenuItem
 } from "react-bootstrap";
+import Select from 'react-select';
 
 /** Required props:
  * @prop {string} propertyName Name of the property.
@@ -14,6 +17,7 @@ import {
  * @prop {function} handlePropertyNameChange Function that is called when propertyName is edited.
  * @prop {function} handlePropertyValueChange Function that is called when propertyValue is edited.
  * @prop {function} deleteRow Function that is called when the delete button is pressed.
+ * @prop {[string]} permittedValues A list of property values that are allowed, if not present, any values will be allowed. 
  */
 export class MessagePropertyInputRow extends Component {
     constructor(props) {
@@ -32,7 +36,6 @@ export class MessagePropertyInputRow extends Component {
         const formStyle = css`
             padding: 5px;
             width: 47%;
-            color: white;
             float: left;
         `;
         const deleteButtonStyle = css`
@@ -42,19 +45,37 @@ export class MessagePropertyInputRow extends Component {
         `;
 
         const index = this.props.index;
+        const permittedValues = this.props.permittedValues;
+        let permittedValueMenuItems = [];
+        if (permittedValues) {
+            for (let i = 0; i < permittedValues.length; i++) {
+                permittedValueMenuItems.push({ value: permittedValues[i], label: permittedValues[i] });
+            }
+        }
 
         return (
             <div>
                 <form className={formStyle}>
-                    <this.FieldGroup
-                        id="formControlsText"
-                        validation={this.props.getValidNameState(index)}
-                        key={index}
-                        type="text"
-                        placeholder="Enter property name"
-                        value={this.props.propertyName}
-                        onChange={(event) => this.props.handlePropertyNameChange(event, index)}
-                    />
+                    {this.props.permittedValues ? (
+                        <Select
+                            title="Choose a property"
+                            key={index}
+                            id={`property-dropdown-${index}`}
+                            options={permittedValueMenuItems}
+                            onChange={(change, action) => this.props.handlePropertyNameChange(change.value, index)}
+                        />
+                    ) : (
+                            <this.FieldGroup
+                                id="formControlsText"
+                                validation={this.props.getValidNameState(index)}
+                                key={index}
+                                type="text"
+                                placeholder="Enter property name"
+                                value={this.props.propertyName}
+                                onChange={(event) => this.props.handlePropertyNameChange(event.target.value, index)}
+                            />
+                        )
+                    }
                 </form>
                 <form className={formStyle}>
                     <this.FieldGroup
@@ -67,7 +88,7 @@ export class MessagePropertyInputRow extends Component {
                     />
                 </form >
                 <div className={deleteButtonStyle}>
-                    <Button class="delete-button" bsStyle="danger" onClick={() => this.props.deleteRow(index)}>Delete</Button>
+                    <Button className="delete-button" bsStyle="danger" onClick={() => this.props.deleteRow(index)}>Delete</Button>
                 </div>
             </div>
         );

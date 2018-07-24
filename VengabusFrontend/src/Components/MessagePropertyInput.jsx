@@ -14,9 +14,9 @@ export class MessagePropertyInput extends Component {
         };
     }
 
-    handlePropertyNameChange = (event, position) => {
+    handlePropertyNameChange = (newName, position) => {
         let newPropertyNames = this.state.propertyNames;
-        newPropertyNames[position] = event.target.value;
+        newPropertyNames[position] = newName;
         this.setState({ propertyNames: newPropertyNames });
     };
 
@@ -44,7 +44,7 @@ export class MessagePropertyInput extends Component {
             const propertyValues = this.state.propertyValues;
             if (propertyNames[i] && propertyValues[i] && !properties.hasOwnProperty(propertyNames[i])) {
                 //Prevent the user from inputting reserved property names
-                if (propertyNames[i] !== 'body' && propertyNames[i] !== 'queuename' && propertyNames[i] !== 'SAS') {
+                if (this.getValidNameState(i)) {
                     properties[propertyNames[i]] = propertyValues[i];
                 }
             }
@@ -53,21 +53,33 @@ export class MessagePropertyInput extends Component {
     }
 
 
-
-    getValidNameState = (i) => {
-        let name = this.state.propertyNames[i];
-        if (name === 'body' || name === 'queuename' || name === 'SAS' || name.length === 0) {
+    /**
+     * Chaks whether the name of a user defined property is valid, i.e. not ampty or a duplicate.
+     * @param {integer} index The index of the name to check.
+     * @return {string} 'error' if the name is invalid, or null otherwise.
+     */
+    getValidNameState = (index) => {
+        let name = this.state.propertyNames[index];
+        if (name.length === 0 || this.state.propertyNames.reduce(
+            //Prevents duplicate entries
+            function (n, val) {
+                return n + (val === name);
+            }, 0) > 1) {
             return 'error';
         } else {
             return null;
         }
     }
 
-    deleteRow = (i) => {
+    /**
+     * Deletes a row from the list of user defined properties.
+     * @param {integer} index The index of the row to delete.
+     */
+    deleteRow = (index) => {
         const newPropertyNames = this.state.propertyNames.slice();
-        newPropertyNames.splice(i, 1);
+        newPropertyNames.splice(index, 1);
         const newPropertyValues = this.state.propertyValues.slice();
-        newPropertyValues.splice(i, 1);
+        newPropertyValues.splice(index, 1);
         this.setState({
             propertyNames: newPropertyNames,
             propertyValues: newPropertyValues
