@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import { PrettyXMLBox } from './PrettyXmlBox';
 
 export class MessageBox extends Component {
     constructor(props) {
@@ -23,7 +24,11 @@ export class MessageBox extends Component {
                         <Modal.Title>{this.props.messageId}</Modal.Title>
                     </Modal.Header>
 
-                    <Modal.Body> {this.format(this.props.messageBody)}</Modal.Body>
+                    <Modal.Body>
+                        <PrettyXMLBox
+                            xml={this.format(this.props.messageBody)}
+                        />
+                    </Modal.Body>
 
                     <Modal.Footer>
                         <Button onClick={this.props.handleClose} >Close</Button>
