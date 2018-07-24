@@ -5,14 +5,10 @@ using System.Net.Sockets;
 using System.Web.Http;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
+using VengabusAPI.Models;
 
 namespace VengabusAPI.Controllers
 {
-    public class AzureSubscription
-    {
-        //see the class AzureQueue in QueuesController.cs and implement similar?
-    }
-
 
     public class SubscriptionsController : ApiController
     {

@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Web.Http;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
+using VengabusAPI.Models;
 
 namespace VengabusAPI.Controllers
 {
@@ -12,7 +13,7 @@ namespace VengabusAPI.Controllers
     {
         [HttpGet]
         [Route("queues/list")]
-        public IEnumerable<AzureQueue> ListQueues([FromBody]string SAS)
+        public IEnumerable<VengaQueue> ListQueues([FromBody]string SAS)
         {
             //var auth = Request.Headers.Authorization.Parameter;
             //input is the SAS string here
@@ -20,7 +21,7 @@ namespace VengabusAPI.Controllers
            
             var namespaceManager = new NamespaceManager(address, TokenProvider.CreateSharedAccessSignatureTokenProvider(SAS));
 
-            return namespaceManager.GetQueues().Select(q => new AzureQueue(q));
+            return namespaceManager.GetQueues().Select(q => new VengaQueue(q));
         }
         
     }

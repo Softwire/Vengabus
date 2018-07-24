@@ -1,10 +1,10 @@
 ﻿using Microsoft.ServiceBus.Messaging;
 
-namespace VengabusAPI.Controllers
+namespace VengabusAPI.Models
 {
-    public class AzureQueue
+    public class VengaQueue
     {
-        public AzureQueue(QueueDescription queueFromAzure)
+        public VengaQueue(QueueDescription queueFromAzure)
         {
             name = queueFromAzure.Path;
             activeMessageCount = queueFromAzure.MessageCountDetails.ActiveMessageCount;

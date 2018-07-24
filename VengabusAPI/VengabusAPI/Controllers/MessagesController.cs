@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Web.Http;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
+using VengabusAPI.Models;
 
 namespace VengabusAPI.Controllers
 {
@@ -23,16 +24,16 @@ namespace VengabusAPI.Controllers
 
         [HttpPost]
         [Route("messages/send/queue/{QueueName}")]
-        public void SendMessageToQueue(string QueueName, [FromBody]MessageInfoPost messageInfoObject)
+        public void SendMessageToQueue(string queueName, [FromBody]MessageInfoPost messageInfoObject)
         {
-            SendMessageToEndpoint(QueueName, messageInfoObject, EndpointType.Queue);
+            SendMessageToEndpoint(queueName, messageInfoObject, EndpointType.Queue);
         }
 
         [HttpPost]
         [Route("messages/send/topic/{TopicName}")]
-        public void SendMessageToTopic(string TopicName, [FromBody]MessageInfoPost messageInfoObject)
+        public void SendMessageToTopic(string topicName, [FromBody]MessageInfoPost messageInfoObject)
         {
-            SendMessageToEndpoint(TopicName, messageInfoObject, EndpointType.Topic);
+            SendMessageToEndpoint(topicName, messageInfoObject, EndpointType.Topic);
         }
 
         [HttpGet]
@@ -51,17 +52,20 @@ namespace VengabusAPI.Controllers
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// view the contents of a given message
+        /// </summary>
+        /// <param name="messageId">messageId is FromBody and not taken from the URL, because messageId is not necessarily alphanumeric</param>
         [HttpGet]
         [Route("messages/viewMessage")]
-        //view the contents of a given message
         public void ViewMessage([FromBody]string messageId)
         {
             throw new NotImplementedException();
         }
 
+        //delete all messages in a given queue
         [HttpDelete]
         [Route("messages/queue/{queueName}")]
-        //delete all messages in a given queue
         public void DeleteAllMessagesInQueue(string queueName)
         {
             throw new NotImplementedException();
@@ -77,9 +81,9 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("messages/wipeSubscriptions/{topicName}")]
+        [Route("messages/topic/{topicName}")]
         //delete all messages in all the subscriptions for a given topic
-        public void DeleteAllMessagesInSubscriptionsInTopic(string topicName)
+        public void DeleteAllMessagesInTopic(string topicName)
         {
             
             throw new NotImplementedException();
@@ -93,13 +97,13 @@ namespace VengabusAPI.Controllers
             var factory = MessagingFactory.Create(runtimeUri, sasToken);
             return factory;
         }
-        private void SendMessageToEndpoint(string EndpointName, MessageInfoPost messageInfoObject, EndpointType type)
+        private void SendMessageToEndpoint(string endpointName, MessageInfoPost messageInfoObject, EndpointType type)
         {
             //Sending message to queue. 
             var brokeredMessage = CreateAzureBrokeredMessage(messageInfoObject);
             var factory = CreateEndpointSenderFactory(messageInfoObject.SAS);
 
-            SendMessageToEndpoint(factory, type, EndpointName, brokeredMessage);
+            SendMessageToEndpoint(factory, type, endpointName, brokeredMessage);
         }
         private static void SendMessageToEndpoint(MessagingFactory clientFactory, EndpointType type, string endpointName, BrokeredMessage message)
         {
