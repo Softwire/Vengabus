@@ -43,10 +43,6 @@ export class HomePage extends Component {
         `;
         return (
             <div>
-
-                <Button onClick={() => this.handleMessegeclick("message A", "messgage a body")} > Open message A </Button>
-                <Button onClick={() => this.handleMessegeclick("message B", "messgage b body")} > Open message B </Button>
-
                 <MessageBox
                     messageBody={this.state.messageBody}
                     messageId={this.state.messageId}
