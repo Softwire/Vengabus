@@ -15,25 +15,26 @@ import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 
 configure({ adapter: new Adaptor() });
 
-let mockServiceBusService;
+//let mockServiceBusService;
 
-beforeEach(() => {
-    mockServiceBusService = {
+//mockServiceBusService = {
+//    getServiceBusProperties: () => new Promise(function (resolve, reject) {
+//        resolve({
+//            //name: 'example'
+//        });
+//    })
+//};
+
+jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
+    VengaServiceBusService: {
         getServiceBusProperties: () => new Promise(function (resolve, reject) {
             resolve({
-                /* name: 'name ex',
-                status: 'true',
-                location: 'uk?',
-                permission: 'all'*/
-
+                name: 'example'
             });
         })
-    };
+    }
+}));
 
-    jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
-        VengaServiceBusService: mockServiceBusService
-    }));
-});
 
 it('component renders fine when connection string localStorage is not present', () => {
     localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionString, undefined);
@@ -99,29 +100,22 @@ it('API root location is formatted correctly', () => {
 it('Connect button changes info in info box', () => {
     const wrapper = mount(<ConnectionStringConfigForm />);
 
-    console.log("connect form made");
 
     const connectionStringInput = wrapper.find('#connectionString');
     //Actual string contents don't matter
     connectionStringInput.value = "exampleValue";
 
-    console.log(connectionStringInput.value);
-
-    mockServiceBusService.getServiceBusProperties = () => new Promise(function (resolve, reject) {
-        resolve({ name: 'example' });
-    });
-
+      //mockServiceBusService.getServiceBusProperties = () => new Promise(function (resolve, reject) {
+    //resolve({ name: 'example' });
+    //});
 
     const connectionStringButton = wrapper.find('#connectButton').at(0);
     connectionStringButton.simulate('click');
 
 
     return testHelper.afterReactHasUpdated().then(() => {
-        console.log(connectionStringButton);
-
-        const infoBox = wrapper.find(ServiceBusInfoBox).at(0);
-        console.log("box", infoBox);
-        expect(infoBox.props.info.name).toEqual('example');
+        const infoBox = wrapper.find(ServiceBusInfoBox);
+        expect(infoBox.instance().props.info.name).toEqual('example');
     });
 });
 

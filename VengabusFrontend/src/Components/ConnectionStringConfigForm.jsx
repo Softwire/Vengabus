@@ -85,17 +85,17 @@ export class ConnectionStringConfigForm extends Component {
      * Called whenver the connect button is pressed.
      */
     submitConnectionStringClick = () => {
-        console.log("i was clicked")
+       
         const infoPromise = VengaServiceBusService.getServiceBusProperties(
             this.state.connStringVal
         );
-        console.log(infoPromise)
+      
         infoPromise
             .then(response => {
                 this.setState({
                     info: response
                 });
-                console.log(this.state.info.name)
+             
             })
             .catch(error => {
                 console.log(error);
@@ -115,6 +115,7 @@ export class ConnectionStringConfigForm extends Component {
         const formStyle = css`
       padding: 5px;
     `;
+
         return (
             <form className={formStyle}>
                 <FormGroup controlId="connectionString">
@@ -152,7 +153,7 @@ export class ConnectionStringConfigForm extends Component {
                 <ServiceBusInfoBox
                     connStringVal={this.state.connStringVal}
                     info={this.state.info}
-                    id="test"
+               
                 />
             </form>
         );
