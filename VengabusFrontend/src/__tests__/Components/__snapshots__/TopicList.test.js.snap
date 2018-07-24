@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TopicList renders correctly with given props 1`] = `
+<div
+  className="react-bootstrap-table"
+>
+  <table
+    className="table table-bordered"
+    id={undefined}
+  >
+    <thead>
+      <tr
+        className={undefined}
+      >
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": "10%",
+            }
+          }
+        >
+          Topic Name
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": "20%",
+            }
+          }
+        >
+          number of subscriptions
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": "20%",
+            }
+          }
+        >
+          Status
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className="css-f6uy7o"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td>
+          topic 1
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          3
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          okay
+        </td>
+      </tr>
+      <tr
+        className="css-f6uy7o"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td>
+          topic 2
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          2
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          okay
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
