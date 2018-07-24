@@ -110,9 +110,7 @@ export class MessageInput extends Component {
      */
     deleteDropdownRow = (index) => {
         const newPropertyNamesDropdown = [...this.state.propertyNamesDropdown];
-        console.log(newPropertyNamesDropdown);
         newPropertyNamesDropdown.splice(index, 1);
-        console.log(newPropertyNamesDropdown);
         const newPropertyValuesDropdown = [...this.state.propertyValuesDropdown];
         newPropertyValuesDropdown.splice(index, 1);
         this.setState({

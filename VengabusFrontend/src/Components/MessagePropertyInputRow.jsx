@@ -43,7 +43,7 @@ export class MessagePropertyInputRow extends Component {
             width: 5%; 
             float: left;
         `;
-
+        const propertyName = this.props.propertyName;
         const index = this.props.index;
         const permittedValues = this.props.permittedValues;
         let permittedValueMenuItems = [];
@@ -62,9 +62,10 @@ export class MessagePropertyInputRow extends Component {
                             key={index}
                             id={`property-dropdown-${index}`}
                             options={permittedValueMenuItems}
-                            value={this.props.propertyName}
+                            value={propertyName ? { value: propertyName, label: propertyName } : undefined}
                             onChange={(event) => this.props.handlePropertyNameChange(event.value, index)}
                         />
+
                     ) : (
                             <this.FieldGroup
                                 id="formControlsText"
@@ -72,7 +73,7 @@ export class MessagePropertyInputRow extends Component {
                                 key={index}
                                 type="text"
                                 placeholder="Enter property name"
-                                value={this.props.propertyName}
+                                value={propertyName}
                                 onChange={(event) => this.props.handlePropertyNameChange(event.target.value, index)}
                             />
                         )
