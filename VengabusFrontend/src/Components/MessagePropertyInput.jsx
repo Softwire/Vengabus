@@ -42,9 +42,11 @@ export class MessagePropertyInput extends Component {
         for (let i = 0; i < this.state.propertyNames.length; i++) {
             const propertyNames = this.state.propertyNames;
             const propertyValues = this.state.propertyValues;
+            //Prevent the user from inputting invalid property names.
+            //Cannot use isPropertyNameInvalid here because if there are two properties with the same name it will mark
+            //both of them as invalid whereas we just want to remove one of them.
             if (propertyNames[i] && propertyValues[i] && !properties.hasOwnProperty(propertyNames[i])) {
-                //Prevent the user from inputting reserved property names
-                if (this.getValidNameState(i)) {
+                if (propertyNames[i].length > 0) {
                     properties[propertyNames[i]] = propertyValues[i];
                 }
             }
@@ -58,7 +60,7 @@ export class MessagePropertyInput extends Component {
      * @param {integer} index The index of the name to check.
      * @return {string} 'error' if the name is invalid, or null otherwise.
      */
-    getValidNameState = (index) => {
+    isPropertyNameInvalid = (index) => {
         let name = this.state.propertyNames[index];
         if (name.length === 0 || this.state.propertyNames.reduce(
             //Prevents duplicate entries
@@ -94,7 +96,7 @@ export class MessagePropertyInput extends Component {
                     propertyName={this.state.propertyNames[i]}
                     propertyValue={this.state.propertyValues[i]}
                     index={i}
-                    getValidNameState={this.getValidNameState}
+                    getValidNameState={this.isPropertyNameInvalid}
                     handlePropertyNameChange={this.handlePropertyNameChange}
                     handlePropertyValueChange={this.handlePropertyValueChange}
                     deleteRow={this.deleteRow}
