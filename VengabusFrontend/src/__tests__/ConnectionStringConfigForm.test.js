@@ -15,15 +15,6 @@ import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 
 configure({ adapter: new Adaptor() });
 
-//let mockServiceBusService;
-
-//mockServiceBusService = {
-//    getServiceBusProperties: () => new Promise(function (resolve, reject) {
-//        resolve({
-//            //name: 'example'
-//        });
-//    })
-//};
 
 jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
     VengaServiceBusService: {
@@ -105,9 +96,6 @@ it('Connect button changes info in info box', () => {
     //Actual string contents don't matter
     connectionStringInput.value = "exampleValue";
 
-      //mockServiceBusService.getServiceBusProperties = () => new Promise(function (resolve, reject) {
-    //resolve({ name: 'example' });
-    //});
 
     const connectionStringButton = wrapper.find('#connectButton').at(0);
     connectionStringButton.simulate('click');
