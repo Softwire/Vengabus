@@ -13,10 +13,9 @@ namespace VengabusAPI.Controllers
     {
         [HttpGet]
         [Route("queues/list")]
-        public IEnumerable<VengaQueue> ListQueues()        {
-            const string address = "https://vengabusdemo.servicebus.windows.net/";
-           
-            var namespaceManager = new NamespaceManager(address, GetSASToken());
+        public IEnumerable<VengaQueue> ListQueues()
+        {
+            NamespaceManager namespaceManager = CreateNamespaceManager();
 
             return namespaceManager.GetQueues().Select(q => new VengaQueue(q));
         }

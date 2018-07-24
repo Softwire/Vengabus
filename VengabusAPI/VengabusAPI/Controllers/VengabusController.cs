@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using Microsoft.ServiceBus;
+using VengabusAPI.Models;
 
 namespace VengabusAPI.Controllers
 {
@@ -25,6 +26,12 @@ namespace VengabusAPI.Controllers
 
             return SASString;
         }
+
+        protected SASKey GetParsedSASKey()
+        {
+            return new SASKey(GetSASHeader());
+        }
+
         protected TokenProvider GetSASToken()
         {
             var SASString = GetSASHeader();
@@ -36,6 +43,17 @@ namespace VengabusAPI.Controllers
             {
                 throw new Exception("SAS string is invalid", e);
             }
+        }
+
+        protected NamespaceManager CreateNamespaceManager()
+        {
+            var key = GetParsedSASKey();
+            var token = GetSASToken();
+            var address = key.ResourceName;
+
+            var namespaceManager = new NamespaceManager(address, token);
+
+            return namespaceManager;
         }
         
     }
