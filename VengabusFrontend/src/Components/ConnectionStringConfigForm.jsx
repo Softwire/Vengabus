@@ -152,6 +152,7 @@ export class ConnectionStringConfigForm extends Component {
                 <ServiceBusInfoBox
                     connStringVal={this.state.connStringVal}
                     info={this.state.info}
+                    id="test"
                 />
             </form>
         );

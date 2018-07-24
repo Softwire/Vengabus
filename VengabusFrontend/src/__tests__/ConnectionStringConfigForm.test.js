@@ -115,11 +115,12 @@ it('Connect button changes info in info box', () => {
     const connectionStringButton = wrapper.find('#connectButton').at(0);
     connectionStringButton.simulate('click');
 
-    console.log(connectionStringButton);
 
-    const infoBox = wrapper.find(ServiceBusInfoBox);
-    console.log(infoBox.props.info)
     return testHelper.afterReactHasUpdated().then(() => {
+        console.log(connectionStringButton);
+
+        const infoBox = wrapper.find(ServiceBusInfoBox).at(0);
+        console.log("box", infoBox);
         expect(infoBox.props.info.name).toEqual('example');
     });
 });
