@@ -17,7 +17,7 @@ import Select from 'react-select';
  * @prop {function} handlePropertyNameChange Function that is called when propertyName is edited.
  * @prop {function} handlePropertyValueChange Function that is called when propertyValue is edited.
  * @prop {function} deleteRow Function that is called when the delete button is pressed.
- * @prop {[string]} permittedValues A list of property values that are allowed, if not present, any values will be allowed. 
+ * @prop {string[]} permittedValues A list of property values that are allowed, if not present, any values will be allowed. 
  */
 export class MessagePropertyInputRow extends Component {
     constructor(props) {
@@ -46,11 +46,9 @@ export class MessagePropertyInputRow extends Component {
         const propertyName = this.props.propertyName;
         const index = this.props.index;
         const permittedValues = this.props.permittedValues;
-        let permittedValueMenuItems = [];
+        let permittedValueMenuItems;
         if (permittedValues) {
-            for (let i = 0; i < permittedValues.length; i++) {
-                permittedValueMenuItems.push({ value: permittedValues[i], label: permittedValues[i] });
-            }
+            permittedValueMenuItems = permittedValues.map((permittedValue) => { return { value: permittedValue, label: permittedValue }; });
         }
 
         return (
@@ -92,7 +90,7 @@ export class MessagePropertyInputRow extends Component {
                 <div className={deleteButtonStyle}>
                     <Button className="delete-button" bsStyle="danger" onClick={() => this.props.deleteRow(index)}>Delete</Button>
                 </div>
-            </div>
+            </div >
         );
     }
 

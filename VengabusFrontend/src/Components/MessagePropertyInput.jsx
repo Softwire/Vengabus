@@ -5,12 +5,12 @@ import { MessagePropertyInputRow } from './MessagePropertyInputRow';
 import _ from 'lodash';
 
 /** Renders a set of inputs (either dropdown or normal)
- * @prop {[string]} propertyNames Contains all of the values in the left column.
- * @prop {[string]} propertyValues Contains all of the values in the right column.
+ * @prop {string[]} propertyNames Contains all of the values in the left column.
+ * @prop {string[]} propertyValues Contains all of the values in the right column.
  * @prop {function} handlePropertyNameChange Called when a value in the left column is changed.
  * @prop {function} handlePropertyValueChange Called when a value in the right column is changed.
  * @prop {function} deleteRow Called when a delete button is pressed.
- * @prop {[string]} permittedValues Contains the values for the dropdown list. If unspecified, then any user input is accepted in the left column.
+ * @prop {string[]} permittedValues Contains the values for the dropdown list. If unspecified, then any user input is accepted in the left column.
  */
 export class MessagePropertyInput extends Component {
     constructor(props) {

@@ -4,6 +4,28 @@ exports[`renders correctly 1`] = `
 <div
   className="css-x580p"
 >
+  <div />
+  <form>
+    <button
+      className="btn btn-default"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Add new property
+    </button>
+  </form>
+  <div />
+  <form>
+    <button
+      className="btn btn-default"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Add new dropdown
+    </button>
+  </form>
   <form>
     <div
       className="form-group"
@@ -23,29 +45,15 @@ exports[`renders correctly 1`] = `
       />
     </div>
   </form>
-  <div>
-    <form>
-      <button
-        className="btn btn-default"
-        disabled={false}
-        id="addNewPropertyButton"
-        onClick={[Function]}
-        type="button"
-      >
-        Add New Property
-      </button>
-    </form>
-    <form>
-      <button
-        className="btn btn-default"
-        disabled={false}
-        id="submitButton"
-        onClick={[Function]}
-        type="button"
-      >
-        Submit
-      </button>
-    </form>
-  </div>
+  <form>
+    <button
+      className="btn btn-default"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Submit
+    </button>
+  </form>
 </div>
 `;
