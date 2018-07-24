@@ -19,7 +19,7 @@ public class AddSASHeaderParameter : IOperationFilter
 
         operation.parameters.Add(new Parameter
         {
-            name = "Auth-SAS",
+            name = VengabusAPI.Controllers.VengabusController.SASFieldName,
             @in = "header",
             type = "string",
             required = true
