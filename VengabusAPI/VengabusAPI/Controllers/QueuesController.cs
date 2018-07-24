@@ -15,7 +15,7 @@ namespace VengabusAPI.Controllers
         [Route("queues/list")]
         public IEnumerable<VengaQueue> ListQueues()
         {
-            NamespaceManager namespaceManager = createNamespaceManager();
+            NamespaceManager namespaceManager = CreateNamespaceManager();
 
             return namespaceManager.GetQueues().Select(q => new VengaQueue(q));
         }

@@ -27,7 +27,7 @@ namespace VengabusAPI.Controllers
             return SASString;
         }
 
-        protected SASKey GetSASKeyModel()
+        protected SASKey GetParsedSASKey()
         {
             return new SASKey(GetSASHeader());
         }
@@ -45,13 +45,13 @@ namespace VengabusAPI.Controllers
             }
         }
 
-        protected NamespaceManager createNamespaceManager()
+        protected NamespaceManager CreateNamespaceManager()
         {
-            SASKey key = GetSASKeyModel();
+            var key = GetParsedSASKey();
+            var token = GetSASToken();
+            var address = key.ResourceName;
 
-            string address = key.ResourceName;
-
-            var namespaceManager = new NamespaceManager(address, GetSASToken());
+            var namespaceManager = new NamespaceManager(address, token);
 
             return namespaceManager;
         }
