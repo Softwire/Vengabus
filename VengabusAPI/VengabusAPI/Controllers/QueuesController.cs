@@ -1,54 +1,28 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using System.Web.Http;
+using Microsoft.ServiceBus;
+using Microsoft.ServiceBus.Messaging;
+using VengabusAPI.Models;
 
 namespace VengabusAPI.Controllers
 {
     public class QueuesController : ApiController
     {
-        private int nextKey = 3;
-        private readonly Dictionary<int, string> queues = new Dictionary<int,string> { {1,"value1"}, {2,"value2"} };
-
-        // GET: api/Queues/
-        public IEnumerable<string> Get()
-        {
-            return queues.Values;
-        }
-
-        //// GET: api/Queues
         [HttpGet]
-        [Route("GetDict")]
-        public Dictionary<int, string> GetDict()
+        [Route("queues/list")]
+        public IEnumerable<VengaQueue> ListQueues([FromBody]string SAS)
         {
-            return queues;
-        }
+            //var auth = Request.Headers.Authorization.Parameter;
+            //input is the SAS string here
+            const string address = "https://vengabusdemo.servicebus.windows.net/";
+           
+            var namespaceManager = new NamespaceManager(address, TokenProvider.CreateSharedAccessSignatureTokenProvider(SAS));
 
-        // GET: api/Queues/5
-        public string Get(int id)
-        {
-            return queues[id];
+            return namespaceManager.GetQueues().Select(q => new VengaQueue(q));
         }
-
-        // POST: api/Queues
-        public void Post([FromBody]string value)
-        {
-            if(string.IsNullOrWhiteSpace(value)) { throw new ArgumentNullException(nameof(value));}
-            queues.Add(nextKey, value);
-        }
-
-        // PUT: api/Queues/5
-        public void Put(int id, [FromBody]string value)
-        {
-            if (string.IsNullOrWhiteSpace(value)) { throw new ArgumentNullException(nameof(value)); }
-            queues[id] = value;
-            nextKey = Math.Max(nextKey, id + 1);
-        }
-
-        // DELETE: api/Queues/5
-        public void Delete(int id)
-        {
-            if (!queues.ContainsKey(id)) { throw new ArgumentOutOfRangeException(nameof(id), id, "Id Not Found"); }
-            queues.Remove(id);
-        }
+        
     }
 }
