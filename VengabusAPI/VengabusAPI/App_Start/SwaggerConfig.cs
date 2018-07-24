@@ -2,8 +2,30 @@ using System.Web.Http;
 using WebActivatorEx;
 using VengabusAPI;
 using Swashbuckle.Application;
+using System.Collections.Generic;
+using System.Web.Http.Description;
+using Swashbuckle.Swagger;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
+
+public class AddSASHeaderParameter : IOperationFilter
+{
+    public void Apply(Operation operation, SchemaRegistry schemaRegistry, ApiDescription apiDescription)
+    {
+        if (operation.parameters == null)
+        {
+            operation.parameters = new List<Parameter>();
+        }
+
+        operation.parameters.Add(new Parameter
+        {
+            name = VengabusAPI.Controllers.VengabusController.SASFieldName,
+            @in = "header",
+            type = "string",
+            required = true
+        });
+    }
+}
 
 namespace VengabusAPI
 {
@@ -157,6 +179,7 @@ namespace VengabusAPI
                         // to execute the operation
                         //
                         //c.OperationFilter<AssignOAuth2SecurityRequirements>();
+                        c.OperationFilter(() => new AddSASHeaderParameter());
 
                         // Post-modify the entire Swagger document by wiring up one or more Document filters.
                         // This gives full control to modify the final SwaggerDocument. You should have a good understanding of

@@ -10,7 +10,7 @@ using VengabusAPI.Models;
 namespace VengabusAPI.Controllers
 {
 
-    public class SubscriptionsController : ApiController
+    public class SubscriptionsController : VengabusController
     {
         
         [HttpGet]

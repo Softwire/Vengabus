@@ -12,14 +12,13 @@ namespace VengabusAPI.Controllers
     public class MessageInfoPost
     {
         public Dictionary<string, object> MessageProperties { get; set; }
-        public string SAS { get; set; }
         public string MessageBody { get; set; }
         public string MessageId { get; set; }
         public string ContentType { get; set; }
     }
 
 
-    public class MessagesController : ApiController
+    public class MessagesController : VengabusController
     {
 
         [HttpPost]
@@ -85,15 +84,13 @@ namespace VengabusAPI.Controllers
         //delete all messages in all the subscriptions for a given topic
         public void DeleteAllMessagesInTopic(string topicName)
         {
-            
             throw new NotImplementedException();
         }
 
-
-        private static MessagingFactory CreateEndpointSenderFactory(string sas)
+        private MessagingFactory CreateEndpointSenderFactory()
         {
             Uri runtimeUri = ServiceBusEnvironment.CreateServiceUri("sb", "VengabusDemo", string.Empty);
-            var sasToken = TokenProvider.CreateSharedAccessSignatureTokenProvider(sas);
+            var sasToken = GetSASToken();
             var factory = MessagingFactory.Create(runtimeUri, sasToken);
             return factory;
         }
@@ -101,7 +98,7 @@ namespace VengabusAPI.Controllers
         {
             //Sending message to queue. 
             var brokeredMessage = CreateAzureBrokeredMessage(messageInfoObject);
-            var factory = CreateEndpointSenderFactory(messageInfoObject.SAS);
+            var factory = CreateEndpointSenderFactory();
 
             SendMessageToEndpoint(factory, type, endpointName, brokeredMessage);
         }
