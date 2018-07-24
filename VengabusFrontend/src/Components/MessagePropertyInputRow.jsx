@@ -62,7 +62,8 @@ export class MessagePropertyInputRow extends Component {
                             key={index}
                             id={`property-dropdown-${index}`}
                             options={permittedValueMenuItems}
-                            onChange={(change, action) => this.props.handlePropertyNameChange(change.value, index)}
+                            value={this.props.propertyName}
+                            onChange={(event) => this.props.handlePropertyNameChange(event.value, index)}
                         />
                     ) : (
                             <this.FieldGroup

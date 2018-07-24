@@ -2,129 +2,55 @@ import React, { Component } from 'react';
 import { css } from 'react-emotion';
 import { Button } from "react-bootstrap";
 import { MessagePropertyInputRow } from './MessagePropertyInputRow';
+import _ from 'lodash';
 
-
+/** Renders a set of inputs (either dropdown or normal)
+ * @prop {[string]} propertyNames Contains all of the values in the left column.
+ * @prop {[string]} propertyValues Contains all of the values in the right column.
+ * @prop {function} handlePropertyNameChange Called when a value in the left column is changed.
+ * @prop {function} handlePropertyValueChange Called when a value in the right column is changed.
+ * @prop {function} deleteRow Called when a delete button is pressed.
+ * @prop {[string]} permittedValues Contains the values for the dropdown list. If unspecified, then any user input is accepted in the left column.
+ */
 export class MessagePropertyInput extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            propertyNames: [],
-            propertyValues: []
-        };
     }
-
-    handlePropertyNameChange = (newName, position) => {
-        let newPropertyNames = this.state.propertyNames;
-        newPropertyNames[position] = newName;
-        this.setState({ propertyNames: newPropertyNames });
-    };
-
-    handlePropertyValueChange = (event, position) => {
-        let newPropertyValues = this.state.propertyValues;
-        newPropertyValues[position] = event.target.value;
-        this.setState({ propertyValues: newPropertyValues });
-    };
-
-    addNewProperty = () => {
-        let newPropertyValues = this.state.propertyValues;
-        newPropertyValues[newPropertyValues.length] = "";
-        let newPropertyNames = this.state.propertyNames;
-        newPropertyNames[newPropertyNames.length] = "";
-        this.setState({
-            propertyValues: newPropertyValues,
-            propertyNames: newPropertyNames
-        });
-    }
-
-    submit = () => {
-        let properties = {};
-        for (let i = 0; i < this.state.propertyNames.length; i++) {
-            const propertyNames = this.state.propertyNames;
-            const propertyValues = this.state.propertyValues;
-            //Prevent the user from inputting invalid property names.
-            //Cannot use isPropertyNameInvalid here because if there are two properties with the same name it will mark
-            //both of them as invalid whereas we just want to remove one of them.
-            if (propertyNames[i] && propertyValues[i] && !properties.hasOwnProperty(propertyNames[i])) {
-                if (propertyNames[i].length > 0) {
-                    properties[propertyNames[i]] = propertyValues[i];
-                }
-            }
-        }
-        this.props.submitMessage(properties);
-    }
-
 
     /**
-     * Chaks whether the name of a user defined property is valid, i.e. not ampty or a duplicate.
+     * Checks whether the name of a user defined property is valid, i.e. not empty or a duplicate.
      * @param {integer} index The index of the name to check.
      * @return {string} 'error' if the name is invalid, or null otherwise.
      */
     isPropertyNameInvalid = (index) => {
-        let name = this.state.propertyNames[index];
-        if (name.length === 0 || this.state.propertyNames.reduce(
-            //Prevents duplicate entries
-            function (n, val) {
-                return n + (val === name);
-            }, 0) > 1) {
+        let name = this.props.propertyNames[index];
+        if (name.length === 0 || _(this.props.propertyNames)
+            .filter((current) => current === name)
+            .size() > 1) {
             return 'error';
         } else {
             return null;
         }
     }
 
-    /**
-     * Deletes a row from the list of user defined properties.
-     * @param {integer} index The index of the row to delete.
-     */
-    deleteRow = (index) => {
-        const newPropertyNames = this.state.propertyNames.slice();
-        newPropertyNames.splice(index, 1);
-        const newPropertyValues = this.state.propertyValues.slice();
-        newPropertyValues.splice(index, 1);
-        this.setState({
-            propertyNames: newPropertyNames,
-            propertyValues: newPropertyValues
-        });
-    }
-
     render() {
         let inputs = [];
-        for (let i = 0; i < this.state.propertyNames.length; i++) {
+        for (let i = 0; i < this.props.propertyNames.length; i++) {
             inputs.push(
                 <MessagePropertyInputRow
-                    propertyName={this.state.propertyNames[i]}
-                    propertyValue={this.state.propertyValues[i]}
+                    propertyName={this.props.propertyNames[i]}
+                    propertyValue={this.props.propertyValues[i]}
                     index={i}
                     getValidNameState={this.isPropertyNameInvalid}
-                    handlePropertyNameChange={this.handlePropertyNameChange}
-                    handlePropertyValueChange={this.handlePropertyValueChange}
-                    deleteRow={this.deleteRow}
+                    handlePropertyNameChange={this.props.handlePropertyNameChange}
+                    handlePropertyValueChange={this.props.handlePropertyValueChange}
+                    deleteRow={this.props.deleteRow}
+                    permittedValues={this.props.permittedValues}
                 />
             );
         }
 
-        return (
-            <div>
-                {inputs}
-                <form>
-                    <Button
-                        id="addNewPropertyButton"
-                        onClick={this.addNewProperty}
-                    >
-                        Add New Property
-                     </Button>
-                </form>
-                <form>
-                    <Button
-                        id="submitButton"
-                        onClick={this.submit}
-                    >
-                        Submit
-                     </Button>
-                </form>
-            </div>
-        );
+        return <div>{inputs}</div>;
     }
 
 }
