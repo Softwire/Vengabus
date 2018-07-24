@@ -63,8 +63,7 @@ namespace VengabusAPI.Controllers
         [Route("messages/queue/{queueName}")]
         public void DeleteAllMessagesInQueue(string queueName)
         {
-
-            throw new NotImplementedException();
+            DeleteMessageFromEndpoint(queueName, EndpointType.Queue);
         }
 
 
@@ -73,7 +72,7 @@ namespace VengabusAPI.Controllers
         //delete all messages in a given subscription
         public void DeleteAllMessagesInSubscription(string topicName, string subscriptionName)
         {
-            throw new NotImplementedException();
+            DeleteMessageFromEndpoint(subscriptionName, EndpointType.Subscription, topicName);
         }
 
         [HttpDelete]
@@ -81,7 +80,7 @@ namespace VengabusAPI.Controllers
         //delete all messages in all the subscriptions for a given topic
         public void DeleteAllMessagesInTopic(string topicName)
         {
-            throw new NotImplementedException();
+            DeleteMessageFromEndpoint(topicName, EndpointType.Topic);
         }
 
         private void DeleteMessageFromEndpoint(string endpointName, EndpointType type, string parentTopicName = "")
@@ -89,9 +88,41 @@ namespace VengabusAPI.Controllers
             var factory = CreateEndpointSenderFactory();
             DeleteMessageFromEndpoint(endpointName, type, factory,parentTopicName);
         }
-        private void DeleteMessageFromEndpoint(string endpointName, EndpointType type, MessagingFactory factory, string parentTopicName = "")
+        private void DeleteMessageFromEndpoint(string endpointName, EndpointType type, MessagingFactory clientFactory, string parentTopicName = "")
         {
+            switch (type)
+            {
+                case EndpointType.Queue:
+                    QueueClient queueClient = clientFactory.CreateQueueClient(endpointName);
+                    //receive all the messages and complete each of them.
+                    while (true)
+                    {
+                        var message = queueClient.Receive(TimeSpan.FromMilliseconds(500));
+                        if (message == null)
+                        {
+                            break;
+                        }
+                        message.Complete();
+                    }
+                    return;
 
+                case EndpointType.Topic:
+                    throw new NotImplementedException();
+
+                case EndpointType.Subscription:
+                    SubscriptionClient subscriptionClient = clientFactory.CreateSubscriptionClient(parentTopicName, endpointName);
+                    //receive all the messages and complete each of them.
+                    while (true)
+                    {
+                        var message = subscriptionClient.Receive(TimeSpan.FromMilliseconds(500));
+                        if (message == null)
+                        {
+                            break;
+                        }
+                        message.Complete();
+                    }
+                    return;
+            }
         }
         private void SendMessageToEndpoint(string endpointName, EndpointType type, MessageInfoPost messageInfoObject, string parentTopicName = "")
         {
