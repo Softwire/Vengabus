@@ -63,7 +63,7 @@ namespace VengabusAPI.Controllers
         [Route("messages/queue/{queueName}")]
         public void DeleteAllMessagesInQueue(string queueName)
         {
-            DeleteMessageFromEndpoint(queueName, EndpointType.Queue);
+            DeleteMessageFromEndpoint(EndpointIdentifier.ForQueue(queueName));
         }
 
 
@@ -72,7 +72,7 @@ namespace VengabusAPI.Controllers
         //delete all messages in a given subscription
         public void DeleteAllMessagesInSubscription(string topicName, string subscriptionName)
         {
-            DeleteMessageFromEndpoint(subscriptionName, EndpointType.Subscription, topicName);
+            DeleteMessageFromEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionName));
         }
 
         [HttpDelete]
@@ -81,30 +81,29 @@ namespace VengabusAPI.Controllers
         public void DeleteAllMessagesInTopic(string topicName)
         {
             //get all subscriptions, and delete for each of them.
-            var factory = CreateEndpointSenderFactory();
             var namespaceManager = CreateNamespaceManager();
             var topicDescription = namespaceManager.GetSubscriptions(topicName);
             foreach (var subscriptionDescription in topicDescription)
             {
-                DeleteMessageFromEndpoint(subscriptionDescription.Name, EndpointType.Subscription, topicName);
+                DeleteMessageFromEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionDescription.Name));
             }
         }
 
-        private void DeleteMessageFromEndpoint(string endpointName, EndpointType type, string parentTopicName = "")
+        private void DeleteMessageFromEndpoint(EndpointIdentifier endpoint)
         {
             var factory = CreateEndpointSenderFactory();
-            DeleteMessageFromEndpoint(endpointName, type, factory, parentTopicName);
+            DeleteMessageFromEndpoint(factory, endpoint);
         }
-        private void DeleteMessageFromEndpoint(string endpointName, EndpointType type, MessagingFactory clientFactory, string parentTopicName = "")
+        private void DeleteMessageFromEndpoint(MessagingFactory clientFactory, EndpointIdentifier endpoint)
         {
-            switch (type)
+            switch (endpoint.Type)
             {
                 case EndpointType.Queue:
-                    QueueClient queueClient = clientFactory.CreateQueueClient(endpointName);
+                    QueueClient queueClient = clientFactory.CreateQueueClient(endpoint.Name);
                     //receive all the messages and complete each of them.
                     while (true)
                     {
-                        var message = queueClient.Receive(TimeSpan.FromMilliseconds(500));
+                        var message = queueClient.Receive(TimeSpan.FromMilliseconds(5000));
                         if (message == null)
                         {
                             break;
@@ -114,7 +113,7 @@ namespace VengabusAPI.Controllers
                     return;
 
                 case EndpointType.Subscription:
-                    SubscriptionClient subscriptionClient = clientFactory.CreateSubscriptionClient(parentTopicName, endpointName);
+                    SubscriptionClient subscriptionClient = clientFactory.CreateSubscriptionClient(endpoint.ParentTopic, endpoint.Name);
                     //receive all the messages and complete each of them.
                     while (true)
                     {
