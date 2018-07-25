@@ -5,8 +5,7 @@ import { MessagePropertyInputRow } from './MessagePropertyInputRow';
 import _ from 'lodash';
 
 /** Renders a set of inputs (either dropdown or normal)
- * @prop {string[]} propertyNames Contains all of the values in the left column.
- * @prop {string[]} propertyValues Contains all of the values in the right column.
+ * @prop {string[]} properties Contains all of the names and values of properties.
  * @prop {function} handlePropertyNameChange Called when a value in the left column is changed.
  * @prop {function} handlePropertyValueChange Called when a value in the right column is changed.
  * @prop {function} deleteRow Called when a delete button is pressed.
@@ -23,9 +22,9 @@ export class MessagePropertyInput extends Component {
      * @return {string} 'error' if the name is invalid, or null otherwise.
      */
     isPropertyNameInvalid = (index) => {
-        let name = this.props.propertyNames[index];
-        if (name.length === 0 || _(this.props.propertyNames)
-            .filter((current) => current === name)
+        let name = this.props.properties[index].name;
+        if (name.length === 0 || _(this.props.properties)
+            .filter((current) => current.name === name)
             .size() > 1) {
             return 'error';
         } else {
@@ -35,11 +34,11 @@ export class MessagePropertyInput extends Component {
 
     render() {
         let inputs = [];
-        for (let i = 0; i < this.props.propertyNames.length; i++) {
+        for (let i = 0; i < this.props.properties.length; i++) {
             inputs.push(
                 <MessagePropertyInputRow
-                    propertyName={this.props.propertyNames[i]}
-                    propertyValue={this.props.propertyValues[i]}
+                    propertyName={this.props.properties[i].name}
+                    propertyValue={this.props.properties[i].value}
                     index={i}
                     getValidNameState={this.isPropertyNameInvalid}
                     handlePropertyNameChange={this.props.handlePropertyNameChange}

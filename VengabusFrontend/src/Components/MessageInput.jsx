@@ -16,6 +16,8 @@ export class MessageInput extends Component {
 
         this.state = {
             messageBody: "",
+            userDefinedProperties: {}, //{name: something, value: something}
+            preDefinedProperties: {}, //{name: something, value: something}
             propertyNames: [],
             propertyValues: [],
             propertyNamesDropdown: [],
@@ -32,7 +34,7 @@ export class MessageInput extends Component {
     // };
 
     // common = (propertyName, newName, position) => {
-    //     let newPropertyNames = this.props[propertyName];
+    //     let newPropertyNames = this.state[propertyName];
     //     newPropertyNames[position] = newName;
     //     const stateMutationObject = {};
     //     stateMutationObject[propertyName] = newPropertyNames;
@@ -40,49 +42,43 @@ export class MessageInput extends Component {
     // };
 
     handlePropertyNameChange = (newName, position) => {
-        let newPropertyNames = [...this.state.propertyNames];
-        newPropertyNames[position] = newName;
-        this.setState({ propertyNames: newPropertyNames });
+        let newUserDefinedProperties = [...this.state.userDefinedProperties];
+        newUserDefinedProperties[position].name = newName;
+        this.setState({ userDefinedProperties: newUserDefinedProperties });
     };
 
 
     handleDropdownNameChange = (newName, position) => {
-        let newPropertyNamesDropdown = [...this.state.propertyNamesDropdown];
-        newPropertyNamesDropdown[position] = newName;
-        this.setState({ propertyNamesDropdown: newPropertyNamesDropdown });
+        let newPreDefinedProperties = [...this.state.preDefinedProperties];
+        newPreDefinedProperties[position].name = newName;
+        this.setState({ preDefinedProperties: newPreDefinedProperties });
     };
 
     handlePropertyValueChange = (event, position) => {
-        let newPropertyValues = [...this.state.propertyValues];
-        newPropertyValues[position] = event.target.value;
-        this.setState({ propertyValues: newPropertyValues });
+        let newUserDefinedProperties = [...this.state.userDefinedProperties];
+        newUserDefinedProperties[position].value = event.target.value;
+        this.setState({ userDefinedProperties: newUserDefinedProperties });
     };
 
     handleDropdownValueChange = (event, position) => {
-        let newPropertyValuesDropdown = [...this.state.propertyValuesDropdown];
-        newPropertyValuesDropdown[position] = event.target.value;
-        this.setState({ propertyValuesDropdown: newPropertyValuesDropdown });
+        let newPreDefinedProperties = [...this.state.preDefinedProperties];
+        newPreDefinedProperties[position].value = event.target.value;
+        this.setState({ preDefinedProperties: newPreDefinedProperties });
     };
 
     addNewProperty = () => {
-        let newPropertyValues = [...this.state.propertyValues];
-        newPropertyValues.push("");
-        let newPropertyNames = [...this.state.propertyNames];
-        newPropertyNames.push("");
+        let newProperties = [...this.state.userDefinedProperties];
+        newProperties.push({ name: "", value: "" });
         this.setState({
-            propertyValues: newPropertyValues,
-            propertyNames: newPropertyNames
+            userDefinedProperties: newProperties
         });
     }
 
     addNewDropdown = () => {
-        let newPropertyValuesDropdown = [...this.state.propertyValuesDropdown];
-        newPropertyValuesDropdown.push("");
-        let newPropertyNamesDropdown = [...this.state.propertyNamesDropdown];
-        newPropertyNamesDropdown.push("");
+        let newProperties = [...this.state.preDefinedProperties];
+        newProperties.push({ name: "", value: "" });
         this.setState({
-            propertyValuesDropdown: newPropertyValuesDropdown,
-            propertyNamesDropdown: newPropertyNamesDropdown
+            preDefinedProperties: newProperties
         });
     }
 
@@ -91,15 +87,13 @@ export class MessageInput extends Component {
      * @param {integer} index The index of the row to delete.
      */
     deleteRow = (index) => {
-        const newPropertyNames = [...this.state.propertyNames];
-        newPropertyNames.splice(index, 1);
-        const newPropertyValues = [...this.state.propertyValues];
-        newPropertyValues.splice(index, 1);
+        const newUserDefinedProperties = [...this.state.userDefinedProperties];
+        newUserDefinedProperties.splice(index, 1);
         this.setState({
-            propertyNames: newPropertyNames,
-            propertyValues: newPropertyValues
+            userDefinedProperties: newUserDefinedProperties
         });
     }
+
 
     // QQ LW MK
     // Rendering after deletion is buggy
@@ -109,13 +103,10 @@ export class MessageInput extends Component {
      * @param {integer} index The index of the row to delete.
      */
     deleteDropdownRow = (index) => {
-        const newPropertyNamesDropdown = [...this.state.propertyNamesDropdown];
-        newPropertyNamesDropdown.splice(index, 1);
-        const newPropertyValuesDropdown = [...this.state.propertyValuesDropdown];
-        newPropertyValuesDropdown.splice(index, 1);
+        const newPreDefinedProperties = [...this.state.preDefinedProperties];
+        newPreDefinedProperties.splice(index, 1);
         this.setState({
-            propertyNamesDropdown: newPropertyNamesDropdown,
-            propertyValuesDropdown: newPropertyValuesDropdown
+            preDefinedProperties: newPreDefinedProperties
         });
     }
 
@@ -125,34 +116,32 @@ export class MessageInput extends Component {
 
     submit = () => {
         let properties = {};
-        for (let i = 0; i < this.state.propertyNames.length; i++) {
-            const propertyNames = this.state.propertyNames;
-            const propertyValues = this.state.propertyValues;
+        for (let i = 0; i < this.state.userDefinedProperties.length; i++) {
+            const userDefinedProperties = this.state.userDefinedProperties;
             //Prevent the user from inputting invalid property names.
             //Cannot use isPropertyNameInvalid here because if there are two properties with the same name it will mark
             //both of them as invalid whereas we just want to remove one of them.
-            if (propertyNames[i] && propertyValues[i] && !properties.hasOwnProperty(propertyNames[i])) {
-                if (propertyNames[i].length > 0) {
-                    properties[propertyNames[i]] = propertyValues[i];
+            if (userDefinedProperties[i].name && userDefinedProperties[i].value && !properties.hasOwnProperty(userDefinedProperties[i])) {
+                if (userDefinedProperties[i].name.length > 0) {
+                    properties[userDefinedProperties[i].name] = userDefinedProperties[i].value;
                 }
             }
         }
         let message = {};
-        for (let i = 0; i < this.state.propertyNamesDropdown.length; i++) {
-            const propertyNamesDropdown = this.state.propertyNamesDropdown;
-            const propertyValuesDropdown = this.state.propertyValuesDropdown;
+        for (let i = 0; i < this.state.preDefinedProperties.length; i++) {
+            const preDefinedProperties = this.state.preDefinedProperties;
             //Prevent the user from inputting invalid property names.
             //Cannot use isPropertyNameInvalid here because if there are two properties with the same name it will mark
             //both of them as invalid whereas we just want to remove one of them.
-            if (propertyNamesDropdown[i] && propertyValuesDropdown[i] && !message.hasOwnProperty(propertyNamesDropdown[i])) {
-                if (propertyNamesDropdown[i].length > 0) {
-                    message[propertyNamesDropdown[i]] = propertyValuesDropdown[i];
+            if (preDefinedProperties[i].name && preDefinedProperties[i].value && !message.hasOwnProperty(preDefinedProperties[i].name)) {
+                if (preDefinedProperties[i].name.length > 0) {
+                    message[preDefinedProperties[i].name] = preDefinedProperties[i].value;
                 }
             }
         }
         message.properties = properties;
         message.body = this.state.messageBody;
-        console.table(message);
+        console.log(message);
     }
 
     render() {
@@ -165,8 +154,7 @@ export class MessageInput extends Component {
         return (
             <div className={formStyle}>
                 <MessagePropertyInput
-                    propertyNames={this.state.propertyNames}
-                    propertyValues={this.state.propertyValues}
+                    properties={this.state.userDefinedProperties}
                     handlePropertyNameChange={this.handlePropertyNameChange}
                     handlePropertyValueChange={this.handlePropertyValueChange}
                     deleteRow={this.deleteRow}
@@ -179,8 +167,7 @@ export class MessageInput extends Component {
                     </Button>
                 </form>
                 <MessagePropertyInput
-                    propertyNames={this.state.propertyNamesDropdown}
-                    propertyValues={this.state.propertyValuesDropdown}
+                    properties={this.state.preDefinedProperties}
                     handlePropertyNameChange={this.handleDropdownNameChange}
                     handlePropertyValueChange={this.handleDropdownValueChange}
                     deleteRow={this.deleteDropdownRow}
