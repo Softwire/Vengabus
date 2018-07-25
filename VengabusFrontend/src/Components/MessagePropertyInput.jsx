@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { css } from 'react-emotion';
 import { MessagePropertyInputRow } from './MessagePropertyInputRow';
 import _ from 'lodash';
 
@@ -11,9 +10,6 @@ import _ from 'lodash';
  * @prop {string[]} permittedValues Contains the values for the dropdown list. If unspecified, then any user input is accepted in the left column.
  */
 export class MessagePropertyInput extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     /**
      * Checks whether the name of a user defined property is valid, i.e. not empty or a duplicate.
@@ -41,13 +37,14 @@ export class MessagePropertyInput extends Component {
             //Remove properties that have already been selected from the dropdown
             const indexOfExistingValue = remainingPermittedValues ? remainingPermittedValues.indexOf(this.props.properties[i].name) : -1;
             if (indexOfExistingValue !== -1) {
-                remainingPermittedValues.splice(indexOfExistingValue, 1)
+                remainingPermittedValues.splice(indexOfExistingValue, 1);
             }
             inputs.push(
                 <MessagePropertyInputRow
                     propertyName={this.props.properties[i].name}
                     propertyValue={this.props.properties[i].value}
                     index={i}
+                    key={i}
                     getValidNameState={this.isPropertyNameInvalid}
                     handlePropertyNameChange={this.props.handlePropertyNameChange}
                     handlePropertyValueChange={this.props.handlePropertyValueChange}

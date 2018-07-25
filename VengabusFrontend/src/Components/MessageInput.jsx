@@ -5,8 +5,7 @@ import {
     FormGroup,
     FormControl,
     ControlLabel,
-    Button,
-    Panel
+    Button
 } from "react-bootstrap";
 
 /**
@@ -27,108 +26,54 @@ export class MessageInput extends Component {
 
     }
 
-    // handlePropertyNameChange = (newName, position) => {
-    //     common("propertyNames", newName, position);
-    // };
-    // handlePropertyValueChange = (newName, position) => {
-    //     common("propertyValues", newName, position);
-    // };
-
-    // common = (propertyName, newName, position) => {
-    //     let newPropertyNames = this.state[propertyName];
-    //     newPropertyNames[position] = newName;
-    //     const stateMutationObject = {};
-    //     stateMutationObject[propertyName] = newPropertyNames;
-    //     this.setState(stateMutationObject);
-    // };
-
     /**
-     * Updates a user-defined property name in the state with a new value.
-     * @param {string} newName The new name of the property.
+     * Updates a user-defined property name or value in the state.
+     * @param {string} attribute The attribute of the property that has changed, 'name' or 'value' 
+     * @param {string} newValue The new value of that attribute of the property.
      * @param {integer} position The position of the property in the list.
      */
-    handlePropertyNameChange = (newName, position) => {
+    handleUserDefinedPropertyChange = (attribute, newValue, position) => {
         let newUserDefinedProperties = [...this.state.userDefinedProperties];
-        newUserDefinedProperties[position].name = newName;
+        newUserDefinedProperties[position][attribute] = newValue;
         this.setState({ userDefinedProperties: newUserDefinedProperties });
     };
 
     /**
-     * Updates a pre-defined property name in the state with a new value.
-     * @param {string} newName The new name of the property.
-     * @param {integer} position The position of the property in the list.
-     */
-    handleDropdownNameChange = (newName, position) => {
+ * Updates a pre-defined property name or value in the state.
+ * @param {string} attribute The attribute of the property that has changed, 'name' or 'value' 
+ * @param {string} newValue The new value of that attribute of the property.
+ * @param {integer} position The position of the property in the list.
+ */
+    handlePreDefinedPropertyChange = (attribute, newValue, position) => {
         let newPreDefinedProperties = [...this.state.preDefinedProperties];
-        newPreDefinedProperties[position].name = newName;
-        this.setState({ preDefinedProperties: newPreDefinedProperties });
-    };
-
-    /**
-     * Updates a user-defined property value in the state with a new value.
-     * @param {string} newValue The new value of the property.
-     * @param {integer} position The position of the property in the list.
-     */
-    handlePropertyValueChange = (newValue, position) => {
-        let newUserDefinedProperties = [...this.state.userDefinedProperties];
-        newUserDefinedProperties[position].value = newValue;
-        this.setState({ userDefinedProperties: newUserDefinedProperties });
-    };
-
-    /**
-     * Updates a pre-defined property value in the state with a new value.
-     * @param {string} newValue The new value of the property.
-     * @param {integer} position The position of the property in the list.
-     */
-    handleDropdownValueChange = (newValue, position) => {
-        let newPreDefinedProperties = [...this.state.preDefinedProperties];
-        newPreDefinedProperties[position].value = newValue;
+        newPreDefinedProperties[position][attribute] = newValue;
         this.setState({ preDefinedProperties: newPreDefinedProperties });
     };
 
     /**
      * Adds a new property to the list of user-defined properties.
+     * @param {boolean} isUserDefined Should be true if the property is user-defined, false if it is a pre-defined property.
      */
-    addNewProperty = () => {
-        let newProperties = [...this.state.userDefinedProperties];
+    addNewProperty = (isUserDefined) => {
+        const propertyType = isUserDefined ? "userDefinedProperties" : "preDefinedProperties";
+        let newProperties = [...this.state[propertyType]];
         newProperties.push({ name: "", value: "" });
         this.setState({
-            userDefinedProperties: newProperties
-        });
-    }
-
-    /**
-     * Adds a new property to the list of pre-defined properties.
-     */
-    addNewDropdown = () => {
-        let newProperties = [...this.state.preDefinedProperties];
-        newProperties.push({ name: "", value: "" });
-        this.setState({
-            preDefinedProperties: newProperties
+            [propertyType]: newProperties
         });
     }
 
     /**
      * Deletes a row from the list of user defined properties.
      * @param {integer} index The index of the row to delete.
+     * @param {boolean} isUserDefined Should be true if the property is user-defined, false if it is a pre-defined property.
      */
-    deleteRow = (index) => {
-        const newUserDefinedProperties = [...this.state.userDefinedProperties];
-        newUserDefinedProperties.splice(index, 1);
+    deleteRow = (index, isUserDefined) => {
+        const propertyType = isUserDefined ? "userDefinedProperties" : "preDefinedProperties";
+        const newProperties = [...this.state[propertyType]];
+        newProperties.splice(index, 1);
         this.setState({
-            userDefinedProperties: newUserDefinedProperties
-        });
-    }
-
-    /**
-     * Deletes a row from the list of predefined properties.
-     * @param {integer} index The index of the row to delete.
-     */
-    deleteDropdownRow = (index) => {
-        const newPreDefinedProperties = [...this.state.preDefinedProperties];
-        newPreDefinedProperties.splice(index, 1);
-        this.setState({
-            preDefinedProperties: newPreDefinedProperties
+            [propertyType]: newProperties
         });
     }
 
@@ -156,14 +101,8 @@ export class MessageInput extends Component {
         let message = {};
         for (let i = 0; i < this.state.preDefinedProperties.length; i++) {
             const preDefinedProperties = this.state.preDefinedProperties;
-            //Prevent the user from inputting invalid property names.
-            //Cannot use isPropertyNameInvalid here because if there are two properties with the same name it will mark
-            //both of them as invalid whereas we just want to remove one of them.
-            if (preDefinedProperties[i].name && preDefinedProperties[i].value && !message.hasOwnProperty(preDefinedProperties[i].name)) {
-                if (preDefinedProperties[i].name.length > 0) {
-                    message[preDefinedProperties[i].name] = preDefinedProperties[i].value;
-                }
-            }
+            //No need to prevent invalid property names for pre-defined properties as it is not possible to enter an invalid name.
+            message[preDefinedProperties[i].name] = preDefinedProperties[i].value;
         }
         message.MessageProperties = properties;
         message.MessageBody = this.state.messageBody;
@@ -172,45 +111,83 @@ export class MessageInput extends Component {
 
     render() {
         const formStyle = css`
-            padding: 5px;
+            padding-left: 0.5%;
+            padding-top: 1%;
             width: 85%;
             height: 1080px;
             float: left;
         `;
+        const buttonStyle = css`
+            width: 150px;
+            margin-left: 5px;
+        `;
+        const headingStyle = css`
+            font-weight: bold;
+            margin-left: 5px;
+        `;
+        const leftAlignContainerStyle = css`
+            text-align:left;
+        `;
+        const bodyStyle = css`
+            min-height: 350px;
+            margin-left: 5px;
+        `;
         return (
             <div className={formStyle}>
+                <div className={leftAlignContainerStyle}>
+                    <p className={headingStyle}>User-defined Properties</p>
+                </div>
                 <MessagePropertyInput
                     properties={this.state.userDefinedProperties}
-                    handlePropertyNameChange={this.handlePropertyNameChange}
-                    handlePropertyValueChange={this.handlePropertyValueChange}
-                    deleteRow={this.deleteRow}
+                    handlePropertyNameChange={(newName, index) => this.handleUserDefinedPropertyChange('name', newName, index)}
+                    handlePropertyValueChange={(newVame, index) => this.handleUserDefinedPropertyChange('value', newVame, index)}
+                    deleteRow={(index) => this.deleteRow(index, true)}
                 />
                 <form>
-                    <Button
-                        onClick={this.addNewProperty}
-                    >
-                        Add new property
-                    </Button>
+                    <div className={leftAlignContainerStyle}>
+                        <Button
+                            className={buttonStyle}
+                            onClick={() => this.addNewProperty(true)}
+                        >
+                            Add new property
+                        </Button>
+                    </div>
                 </form>
+                <hr />
+                <div className={leftAlignContainerStyle}>
+                    <p className={headingStyle}>Pre-defined Properties</p>
+                </div>
                 <MessagePropertyInput
                     properties={this.state.preDefinedProperties}
-                    handlePropertyNameChange={this.handleDropdownNameChange}
-                    handlePropertyValueChange={this.handleDropdownValueChange}
-                    deleteRow={this.deleteDropdownRow}
+                    handlePropertyNameChange={(newName, index) => this.handlePreDefinedPropertyChange('name', newName, index)}
+                    handlePropertyValueChange={(newVame, index) => this.handlePreDefinedPropertyChange('value', newVame, index)}
+                    deleteRow={(index) => this.deleteRow(index, false)}
                     permittedValues={this.permittedValues}
                 />
                 <form>
-                    <Button
-                        onClick={this.addNewDropdown}
-                        disabled={this.state.preDefinedProperties.length === this.permittedValues.length}
-                    >
-                        Add new dropdown
-                    </Button>
+                    <div className={leftAlignContainerStyle}>
+                        <Button
+                            className={buttonStyle}
+                            onClick={() => this.addNewProperty(false)}
+                            disabled={this.state.preDefinedProperties.length === this.permittedValues.length}
+                        >
+                            Add new dropdown
+                        </Button>
+                    </div>
                 </form>
+                <hr />
                 <form>
-                    <FormGroup controlId="formControlsMessageBodyText" onChange={(event) => this.handleMessagebodyChange(event.target.value)}>
-                        <ControlLabel>Body</ControlLabel>
-                        <FormControl componentClass="textarea" placeholder="Enter message body" />
+                    <FormGroup
+                        className={leftAlignContainerStyle}
+                        controlId="formControlsMessageBodyText"
+                        onChange={(event) => this.handleMessagebodyChange(event.target.value)}
+                    >
+                        <ControlLabel className={headingStyle}>Body</ControlLabel>
+                        <FormControl
+                            componentClass="textarea"
+                            placeholder="Enter message body"
+                            className={bodyStyle}
+                        />
                     </FormGroup>
                 </form>
                 <form>

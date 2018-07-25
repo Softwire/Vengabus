@@ -18,9 +18,6 @@ import Select from 'react-select';
  * @prop {string[]} permittedValues A list of property values that are allowed, if not present, any values will be allowed. 
  */
 export class MessagePropertyInputRow extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     /**
      * Provides an easy way of creating a Bootstrap Form element. 
@@ -38,15 +35,26 @@ export class MessagePropertyInputRow extends Component {
     }
 
     render() {
-        const formStyle = css`
-            padding: 5px;
-            width: 47%;
+        const formNameStyle = css`
+            padding-left: 0.25%;
+            width: 20%;
+            float: left;
+        `;
+        const formValueStyle = css`
+            padding-left: 0.25%;
+            width: 75%;
             float: left;
         `;
         const deleteButtonStyle = css`
-            padding: 5px;
+            padding-left: 0.25%;
             width: 5%; 
             float: left;
+        `;
+        const inputHeightStyle = css`
+            min-height: 38px;
+        `;
+        const leftAlign = css`
+            text-align: left;
         `;
         const propertyName = this.props.propertyName;
         const index = this.props.index;
@@ -58,9 +66,10 @@ export class MessagePropertyInputRow extends Component {
 
         return (
             <div>
-                <form className={formStyle}>
+                <form className={formNameStyle}>
                     {this.props.permittedValues ? (
                         <Select
+                            className={leftAlign}
                             title="Choose a property"
                             key={propertyName + index}
                             id={`property-dropdown-${index}`}
@@ -72,6 +81,7 @@ export class MessagePropertyInputRow extends Component {
                     ) : (
                             <this.FieldGroup
                                 id="formControlsText"
+                                className={inputHeightStyle}
                                 validation={this.props.getValidNameState(index)}
                                 key={index}
                                 type="text"
@@ -82,9 +92,10 @@ export class MessagePropertyInputRow extends Component {
                         )
                     }
                 </form>
-                <form className={formStyle}>
+                <form className={formValueStyle}>
                     <this.FieldGroup
                         id="formControlsText"
+                        className={inputHeightStyle}
                         key={index}
                         type="text"
                         placeholder="Enter property value"
@@ -93,7 +104,13 @@ export class MessagePropertyInputRow extends Component {
                     />
                 </form >
                 <div className={deleteButtonStyle}>
-                    <Button className="delete-button" bsStyle="danger" onClick={() => this.props.deleteRow(index)}>Delete</Button>
+                    <Button
+                        className={inputHeightStyle}
+                        bsStyle="danger"
+                        onClick={() => this.props.deleteRow(index)}
+                    >
+                        Delete
+                    </Button>
                 </div>
             </div >
         );
