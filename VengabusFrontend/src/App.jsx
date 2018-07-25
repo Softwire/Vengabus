@@ -27,8 +27,9 @@ class App extends Component {
                 <BootstrapCssLinks />
                 <VengabusNavBar />
                 <div className={mainPageStyle}>
+                <Vengabus />
+                <div>
                     <SideBar />
-                    <Vengabus />
                     <div className={contentStyle}>
                         <CurrentPage />
                     </div>
