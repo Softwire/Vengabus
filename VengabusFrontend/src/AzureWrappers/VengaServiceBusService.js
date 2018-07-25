@@ -66,6 +66,22 @@ export class VengaServiceBusService {
     }
 
     /**
+      * Gets the details of all subscriptions in a given topic from the server.
+      * @param {string} topicName The name of the topic to et subscriptions from.
+      * @return {object} The subsctiptions returned by the server.
+      */
+    listMessagesFromQueue = (queueName) => {
+        const data = new Promise((resolve, reject) => (resolve([{ messageId: 10, messageBody: "<a><shipto><name>Ola Nordmann</name><address>Langgt 23</address><city>4000 Stavanger</city><country>Norway</country></shipto><item><title>Empire Burlesque</title><note>Special Edition</note><quantity>1</quantity><price>10.90</price></item><item><title>Hide your heart</title><quantity>1</quantity><price>9.90</price></item></shiporder></a>" }, { messageId: 11, messageBody: "banna" }])));
+        return data;
+    }
+
+    listMessagesFromSubscription = (subName) => {
+        const data = new Promise((resolve, reject) => (resolve([{ messageId: 10, messageBody: "<a><shipto><name>Ola Nordmann</name><address>Langgt 23</address><city>4000 Stavanger</city><country>Norway</country></shipto><item><title>Empire Burlesque</title><note>Special Edition</note><quantity>1</quantity><price>10.90</price></item><item><title>Hide your heart</title><quantity>1</quantity><price>9.90</price></item></shiporder></a>" }, { messageId: 11, messageBody: "banna" }])));
+        return data;
+    }
+
+
+    /**
      * Gets the details of a particular topic.
      * @param {string} parentTopicName The name of the parent topic for the subscription.
      * @param {string} subscriptionName The name of the subscription to get details for.

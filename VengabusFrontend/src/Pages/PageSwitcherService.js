@@ -7,7 +7,7 @@ export const PAGES = Object.freeze({
 class PageSwitcher {
     constructor() {
         this.switchCallbacks = [];
-        this.currentPage = PAGES.HomePage;
+        this.currentPage = PAGES.QueueDisplayPage;
         this.data = undefined;
     }
 

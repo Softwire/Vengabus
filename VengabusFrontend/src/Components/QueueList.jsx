@@ -4,37 +4,32 @@ import { css } from 'react-emotion';
 import { paleGreyBlue, palerBlue } from '../colourScheme';
 
 export class QueueList extends Component {
-    // delete when final function is implemented
-    rowClickResponseFunction(e, row, rowIndex) {
-        console.log(row);
-    }
 
     render() {
-        const queueArray = this.props.queueData;
 
+        const queueArray = this.props.queueData;
+      
         const colProps = [
-            {
-                dataField: 'number',
-                text: 'Number',
-                headerStyle: {
-                    width: '10%', textAlign: 'center'
-                }
-            },
             {
                 dataField: 'name',
                 text: 'Name',
-                headerStyle: { width: '50%', textAlign: 'center' }
+                headerStyle: { width: '30%', textAlign: 'center' }
             },
             {
-                dataField: 'status',
-                text: 'Status',
-                headerStyle: { width: '40%', textAlign: 'center' }
+                dataField: 'activeMessageCount',
+                text: 'active Message Count',
+                headerStyle: { width: '30%', textAlign: 'center' }
+            },
+            {
+                dataField: 'deadletterMessageCount',
+                text: 'dead Message Count',
+                headerStyle: { width: '30%', textAlign: 'center' }
             }
         ];
 
         const tableRowStyle = css`
 		          :hover {
-		              border: 2px solid ${palerBlue};
+		              border: 1px solid ${palerBlue};
 		              background-color: ${paleGreyBlue};
 		          }
               `;
@@ -45,7 +40,8 @@ export class QueueList extends Component {
                 colProps={colProps}
                 dataToDisplay={queueArray}
                 tableRowStyle={tableRowStyle}
-                onRowClick={this.rowClickResponseFunction}
+                onRowClick={this.props.clickFun}
+                rowSelect={this.props.CurrentSelect}
             />
         );
     }

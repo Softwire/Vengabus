@@ -3,28 +3,28 @@ import { DataTable } from './DataTable';
 import { css } from 'react-emotion';
 import { paleGreyBlue, palerBlue } from '../colourScheme';
 
-export class TopicsList extends Component {
+export class SubscriptionList extends Component {
 
     render() {
 
-        const topics = this.props.topicData;
+        const subscriptionArray = this.props.subscriptionData;
+        console.log(subscriptionArray)
 
         const colProps = [
             {
                 dataField: 'name',
-                text: 'Topic Name',
-                headerStyle: {
-                    width: '10%', textAlign: 'center'
-                }
+                text: 'Name',
+                headerStyle: { width: '30%', textAlign: 'center' }
             },
             {
-                dataField: 'subscriptionCount',
-                text: 'number of subscriptions',
-                headerStyle: { width: '20%', textAlign: 'center' }
-            }, {
-                dataField: 'topicStatus',
-                text: 'Status',
-                headerStyle: { width: '20%', textAlign: 'center' }
+                dataField: 'activeMessageCount',
+                text: 'active Message Count',
+                headerStyle: { width: '30%', textAlign: 'center' }
+            },
+            {
+                dataField: 'deadletterMessageCount',
+                text: 'dead Message Count',
+                headerStyle: { width: '30%', textAlign: 'center' }
             }
         ];
 
@@ -37,9 +37,9 @@ export class TopicsList extends Component {
 
         return (
             <DataTable
-                name='TopicList'
+                name='subscriptionList'
                 colProps={colProps}
-                dataToDisplay={topics}
+                dataToDisplay={subscriptionArray}
                 tableRowStyle={tableRowStyle}
                 onRowClick={this.props.clickFun}
                 rowSelect={this.props.CurrentSelect}

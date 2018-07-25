@@ -3,6 +3,7 @@ import { Alert } from 'react-bootstrap';
 import { PAGES, pageSwitcher } from './PageSwitcherService';
 import { HomePage } from './HomePage';
 import { OtherPage } from './OtherPage';
+import { TwoListDisplayPage } from './TwoListDisplayPage';
 import { SendMessagePage } from './SendMessagePage';
 
 export class CurrentPage extends Component {
@@ -44,6 +45,9 @@ export class CurrentPage extends Component {
 
             case PAGES.OtherPage:
                 returnValue = <OtherPage />;
+                break;
+            case PAGES.QueueDispayPage:
+                returnValue = <TwoListDisplayPage />;
                 break;
 
             case PAGES.SendMessagePage:

@@ -11,7 +11,7 @@ export class HomePage extends Component {
         super(props);
 
         this.state = {
-            retrievedData: undefined,
+            retrievedData: [{ number: 1, name: 'q1', status: 'active' }, { number: 2, name: 'q2', status: 'active' }, { number: 3, name: 'q3', status: 'dead' }],
             messageData: [
                 { messageId: "mal formatted xml 1", messageBody: "<a><shipto><name>Ola Nordmann</name><address>Langgt 23</address><city>4000 Stavanger</city><country>Norway</country></shipto><shiporder><item><title>Empire Burlesque</title><note>Special Edition</note><quantity>1</quantity><price>10.90</price></item><item><title>Hide your heart</title><quantity>1</quantity><price>9.90</price></item></shiporder></a>", type: "XML" },
                 { messageId: "perfect XML", messageBody: "<a><b>sdfds</b><c>sdgsdg</c></a>" },
