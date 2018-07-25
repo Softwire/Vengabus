@@ -25,14 +25,21 @@ namespace VengabusAPI.Controllers
         [Route("messages/send/queue/{QueueName}")]
         public void SendMessageToQueue(string queueName, [FromBody]MessageInfoPost messageInfoObject)
         {
-            SendMessageToEndpoint(queueName, messageInfoObject, EndpointType.Queue);
+            SendMessageToEndpoint(queueName, EndpointType.Queue, messageInfoObject);
         }
 
         [HttpPost]
         [Route("messages/send/topic/{TopicName}")]
         public void SendMessageToTopic(string topicName, [FromBody]MessageInfoPost messageInfoObject)
         {
-            SendMessageToEndpoint(topicName, messageInfoObject, EndpointType.Topic);
+            SendMessageToEndpoint(topicName, EndpointType.Topic, messageInfoObject);
+        }
+
+        [HttpPost]
+        [Route("messages/send/subscription/{TopicName}/{subscriptionName}")]
+        public void SendMessageToSubscription(string topicName, string subscriptionName, [FromBody]MessageInfoPost messageInfoObject)
+        {
+            SendMessageToEndpoint(subscriptionName, EndpointType.Topic, messageInfoObject, topicName);
         }
 
         [HttpGet]
@@ -44,9 +51,9 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpGet]
-        [Route("messages/list/subscription/{subscriptionName}")]
+        [Route("messages/list/subscription/{topicName}/{subscriptionName}")]
         //list the messages in a given subscription
-        public void ListMessagesInSubscription(string subscriptionName)
+        public void ListMessagesInSubscription(string topicName, string subscriptionName)
         {
             throw new NotImplementedException();
         }
@@ -56,14 +63,15 @@ namespace VengabusAPI.Controllers
         [Route("messages/queue/{queueName}")]
         public void DeleteAllMessagesInQueue(string queueName)
         {
+
             throw new NotImplementedException();
         }
 
 
         [HttpDelete]
-        [Route("messages/subscription/{subscriptionName}")]
+        [Route("messages/subscription/{topicName}/{subscriptionName}")]
         //delete all messages in a given subscription
-        public void DeleteAllMessagesInSubscription(string subscriptionName)
+        public void DeleteAllMessagesInSubscription(string topicName, string subscriptionName)
         {
             throw new NotImplementedException();
         }
@@ -76,15 +84,24 @@ namespace VengabusAPI.Controllers
             throw new NotImplementedException();
         }
 
-        private void SendMessageToEndpoint(string endpointName, MessageInfoPost messageInfoObject, EndpointType type)
+        private void DeleteMessageFromEndpoint(string endpointName, EndpointType type, string parentTopicName = "")
+        {
+            var factory = CreateEndpointSenderFactory();
+            DeleteMessageFromEndpoint(endpointName, type, factory,parentTopicName);
+        }
+        private void DeleteMessageFromEndpoint(string endpointName, EndpointType type, MessagingFactory factory, string parentTopicName = "")
+        {
+
+        }
+        private void SendMessageToEndpoint(string endpointName, EndpointType type, MessageInfoPost messageInfoObject, string parentTopicName = "")
         {
             //Sending message to queue. 
             var brokeredMessage = CreateAzureBrokeredMessage(messageInfoObject);
             var factory = CreateEndpointSenderFactory();
 
-            SendMessageToEndpoint(factory, type, endpointName, brokeredMessage);
+            SendMessageToEndpoint(endpointName, type, factory, brokeredMessage, parentTopicName);
         }
-        private static void SendMessageToEndpoint(MessagingFactory clientFactory, EndpointType type, string endpointName, BrokeredMessage message)
+        private void SendMessageToEndpoint(string endpointName, EndpointType type, MessagingFactory clientFactory, BrokeredMessage message, string parentTopicName = "")
         {
             switch (type)
             {
