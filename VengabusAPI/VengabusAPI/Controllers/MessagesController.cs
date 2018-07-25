@@ -22,21 +22,21 @@ namespace VengabusAPI.Controllers
     {
 
         [HttpPost]
-        [Route("messages/send/queue/{QueueName}")]
+        [Route("messages/send/queue/{queueName}")]
         public void SendMessageToQueue(string queueName, [FromBody]MessageInfoPost messageInfoObject)
         {
             SendMessageToEndpoint(queueName, EndpointType.Queue, messageInfoObject);
         }
 
         [HttpPost]
-        [Route("messages/send/topic/{TopicName}")]
+        [Route("messages/send/topic/{topicName}")]
         public void SendMessageToTopic(string topicName, [FromBody]MessageInfoPost messageInfoObject)
         {
             SendMessageToEndpoint(topicName, EndpointType.Topic, messageInfoObject);
         }
 
         [HttpPost]
-        [Route("messages/send/subscription/{TopicName}/{subscriptionName}")]
+        [Route("messages/send/subscription/{topicName}/{subscriptionName}")]
         public void SendMessageToSubscription(string topicName, string subscriptionName, [FromBody]MessageInfoPost messageInfoObject)
         {
             SendMessageToEndpoint(subscriptionName, EndpointType.Topic, messageInfoObject, topicName);
@@ -80,13 +80,20 @@ namespace VengabusAPI.Controllers
         //delete all messages in all the subscriptions for a given topic
         public void DeleteAllMessagesInTopic(string topicName)
         {
-            DeleteMessageFromEndpoint(topicName, EndpointType.Topic);
+            //get all subscriptions, and delete for each of them.
+            var factory = CreateEndpointSenderFactory();
+            var namespaceManager = CreateNamespaceManager();
+            var topicDescription = namespaceManager.GetSubscriptions(topicName);
+            foreach (var subscriptionDescription in topicDescription)
+            {
+                DeleteMessageFromEndpoint(subscriptionDescription.Name, EndpointType.Subscription, topicName);
+            }
         }
 
         private void DeleteMessageFromEndpoint(string endpointName, EndpointType type, string parentTopicName = "")
         {
             var factory = CreateEndpointSenderFactory();
-            DeleteMessageFromEndpoint(endpointName, type, factory,parentTopicName);
+            DeleteMessageFromEndpoint(endpointName, type, factory, parentTopicName);
         }
         private void DeleteMessageFromEndpoint(string endpointName, EndpointType type, MessagingFactory clientFactory, string parentTopicName = "")
         {
@@ -105,9 +112,6 @@ namespace VengabusAPI.Controllers
                         message.Complete();
                     }
                     return;
-
-                case EndpointType.Topic:
-                    throw new NotImplementedException();
 
                 case EndpointType.Subscription:
                     SubscriptionClient subscriptionClient = clientFactory.CreateSubscriptionClient(parentTopicName, endpointName);
