@@ -63,8 +63,7 @@ configure({ adapter: new Adaptor() });
 it('renders correctly', () => {
     let messagePropertyInput = renderer.create(
         <MessagePropertyInput
-            propertyNames={[]}
-            propertyValues={[]}
+            properties={[]}
             handlePropertyNameChange={jest.fn()}
             handlePropertyValueChange={jest.fn()}
             deleteRow={jest.fn()}

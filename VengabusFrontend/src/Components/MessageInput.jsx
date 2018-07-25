@@ -17,11 +17,7 @@ export class MessageInput extends Component {
         this.state = {
             messageBody: "",
             userDefinedProperties: {}, //{name: something, value: something}
-            preDefinedProperties: {}, //{name: something, value: something}
-            propertyNames: [],
-            propertyValues: [],
-            propertyNamesDropdown: [],
-            propertyValuesDropdown: []
+            preDefinedProperties: {} //{name: something, value: something}
         };
 
     }

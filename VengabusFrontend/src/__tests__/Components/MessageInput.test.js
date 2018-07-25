@@ -17,8 +17,7 @@ configure({ adapter: new Adaptor() });
 it('Deletes a property when the delete button is pressed', () => {
     let wrapper = mount(<MessageInput />);
     wrapper.setState({
-        propertyNames: ["test1", "test2", "test3"],
-        propertyValues: ["any value", "any value2", "any value3"]
+        userDefinedProperties: [{ name: "test1", value: "any value 1" }, { name: "test2", value: "any value 2" }, { name: "test3", value: "any value 3" }]
     });
     let deleteButton = wrapper.find(MessagePropertyInputRow).at(0).find(Button);
     deleteButton.simulate('click');
