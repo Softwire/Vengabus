@@ -29,10 +29,7 @@ namespace VengabusAPI.Controllers
         {
             int i = 0;
             var clientFactory = CreateEndpointSenderFactory();
-            QueueClient queueClientMain = clientFactory.CreateQueueClient(queueName);
-            var deadLetterQueuePath = QueueClient.FormatDeadLetterPath(queueClientMain.Path);
-
-            var queueClient = clientFactory.CreateQueueClient(deadLetterQueuePath);
+            var queueClient = clientFactory.CreateQueueClient(queueName + "/$DeadLetterQueue");
             var namespaceManager = CreateNamespaceManager();
             var deadLetterMessageCount = namespaceManager.GetQueue(queueName).MessageCountDetails.DeadLetterMessageCount;
 
@@ -77,22 +74,18 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpGet]
-        [Route("deadLetters/subscription/{subscriptionName}")]
-        public void ViewSubscriptionDeadLetterMessages(string subscriptionName)
+        [Route("deadLetters/subscription/{topicName}/{subscriptionName}")]
+        public IEnumerable<VengaMessage> ViewSubscriptionDeadLetterMessages(string topicName, string subscriptionName)
         {
-            /*int i = 0;
+            int i = 0;
             var clientFactory = CreateEndpointSenderFactory();
 
-            SubscriptionClient subscriptionClientMain = clientFactory.CreateSubscriptionClient(subscriptionName);
-            var deadLetterSubscriptionPath = SubscriptionClient.FormatDeadLetterPath(subscriptionClientMain.Path);
-
-            var subscriptionClient = clientFactory.CreateSubscriptionClient(deadLetterSubscriptionPath);
+            var subscriptionClient = clientFactory.CreateSubscriptionClient(topicName, subscriptionName+ "/$DeadLetterQueue");
             var namespaceManager = CreateNamespaceManager();
-            var deadLetterMessageCount = namespaceManager.GetQueue(subscriptionName).MessageCountDetails.DeadLetterMessageCount;
-            */
+            var deadLetterMessageCount = namespaceManager.GetSubscription(topicName, subscriptionName).MessageCountDetails.DeadLetterMessageCount;
+            
             IEnumerable<VengaMessage> messageOutputIEnum = Enumerable.Empty<VengaMessage>();
-
-
+            
             /*
              * The problem here is that, QueueClient.Peekbatch(number) does not guarantee to return the specified number
              * of messages. Instead, the given number is just an upper bound. We have to record the Sequence Number
@@ -100,8 +93,6 @@ namespace VengabusAPI.Controllers
              * the previous Sequence Message + 1 in order to read new messages, until we peeked at the correct number 
              * of messages.
              * */
-
-            /*
             long lastSequenceNumber = 0;
 
             var initialPeekBatch = true;
@@ -112,11 +103,11 @@ namespace VengabusAPI.Controllers
                 if (initialPeekBatch)
                 {
                     initialPeekBatch = false;
-                    messages = queueClient.PeekBatch((int)deadLetterMessageCount).ToList();
+                    messages = subscriptionClient.PeekBatch((int)deadLetterMessageCount).ToList();
                 }
                 else
                 {
-                    messages = queueClient.PeekBatch(lastSequenceNumber, (int)deadLetterMessageCount - i).ToList();
+                    messages = subscriptionClient.PeekBatch(lastSequenceNumber, (int)deadLetterMessageCount - i).ToList();
                 }
 
                 foreach (var message in messages)
@@ -128,8 +119,8 @@ namespace VengabusAPI.Controllers
                     lastSequenceNumber = message.SequenceNumber + 1;
                 }
             }
-            */
-            //return messageOutputIEnum;
+            
+            return messageOutputIEnum;
         }
 
     }
