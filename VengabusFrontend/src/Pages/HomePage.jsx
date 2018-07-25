@@ -25,9 +25,8 @@ export class HomePage extends Component {
             margin: 10px;
             display: inline-block; /*to allow tables to be displayed side by side*/
         `;
-        
-        const XMLexampleA = "<note><to>Tove</to><from>Jani</from><heading>Reminder</heading><body>Don't forget me this weekend!</body></note>"
-        const XMLexampleB = "<note><to>Tove</to><from>Jani</from><heading>BBB</heading><body>save the bees</body></note>"
+
+
         return (
             <div>
                 <ExampleServiceBusCall onDataReceive={this.updateRetrievedData} />

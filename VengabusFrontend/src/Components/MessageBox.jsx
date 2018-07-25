@@ -26,7 +26,7 @@ export class MessageBox extends Component {
 
                     <Modal.Body>
                         <PrettyXMLBox
-                            xml={this.format(this.props.messageBody)}
+                            xml={this.props.messageBody}
                         />
                     </Modal.Body>
 
