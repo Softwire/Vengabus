@@ -10,7 +10,7 @@ export class PrettyXMLBox extends Component {
     }
 
     render() {
-
+           
         const formattedXml = format(this.props.xml);
 
         const formatCss = css`
