@@ -5,6 +5,24 @@ import Adaptor from 'enzyme-adapter-react-16';
 import { mount, configure } from 'enzyme';
 configure({ adapter: new Adaptor() });
 
+const rawConsoleError = console.error;
+function suppressSpecificDataTableErrors() {
+    // We use '...args' to ensure that we are passing all args on to the actual console.error()
+    // Can't use 'arguments' because that doesn't exist in ES6 arrow funcs.
+    console.error = (...args) => {
+        const errorString = args[0];
+        if (!errorString.startsWith('The above error occurred in the <DataTable> component')) {
+            rawConsoleError(...args);
+        }
+    };
+}
+function resetConsoleError() {
+    console.error = rawConsoleError;
+}
+
+beforeAll(suppressSpecificDataTableErrors);
+afterAll(resetConsoleError);
+
 describe('DataTable', () => {
 
     function getDataToDisplay() {
