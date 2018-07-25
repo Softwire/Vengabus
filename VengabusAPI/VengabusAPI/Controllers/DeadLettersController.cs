@@ -33,8 +33,7 @@ namespace VengabusAPI.Controllers
             var deadLetterQueuePath = QueueClient.FormatDeadLetterPath(queueClientMain.Path);
 
             var queueClient = clientFactory.CreateQueueClient(deadLetterQueuePath);
-            const string address = "https://vengabusdemo.servicebus.windows.net/";
-            var namespaceManager = new NamespaceManager(address, GetSASToken());
+            var namespaceManager = CreateNamespaceManager();
             var deadLetterMessageCount = namespaceManager.GetQueue(queueName).MessageCountDetails.DeadLetterMessageCount;
 
             IEnumerable<VengaMessage> messageOutputIEnum = Enumerable.Empty<VengaMessage>();
@@ -88,8 +87,7 @@ namespace VengabusAPI.Controllers
             var deadLetterSubscriptionPath = SubscriptionClient.FormatDeadLetterPath(subscriptionClientMain.Path);
 
             var subscriptionClient = clientFactory.CreateSubscriptionClient(deadLetterSubscriptionPath);
-            const string address = "https://vengabusdemo.servicebus.windows.net/";
-            var namespaceManager = new NamespaceManager(address, GetSASToken());
+            var namespaceManager = CreateNamespaceManager();
             var deadLetterMessageCount = namespaceManager.GetQueue(subscriptionName).MessageCountDetails.DeadLetterMessageCount;
             */
             IEnumerable<VengaMessage> messageOutputIEnum = Enumerable.Empty<VengaMessage>();
@@ -131,7 +129,7 @@ namespace VengabusAPI.Controllers
                 }
             }
             */
-            return messageOutputIEnum;
+            //return messageOutputIEnum;
         }
 
     }
