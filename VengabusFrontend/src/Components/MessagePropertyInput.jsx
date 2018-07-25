@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { css } from 'react-emotion';
-import { Button } from "react-bootstrap";
 import { MessagePropertyInputRow } from './MessagePropertyInputRow';
 import _ from 'lodash';
 

@@ -3,9 +3,7 @@ import { css } from 'react-emotion';
 import {
     FormGroup,
     FormControl,
-    Button,
-    DropdownButton,
-    MenuItem
+    Button
 } from "react-bootstrap";
 import Select from 'react-select';
 
@@ -24,6 +22,13 @@ export class MessagePropertyInputRow extends Component {
         super(props);
     }
 
+    /**
+     * Provides an easy way of creating a Bootstrap Form element. 
+     * @param {string} id The id of the FormControl.
+     * @param {string} validation The validationState of the FormGroup.
+     * @param {*} props A list of props that will be passed to the form control.
+     * @returns {FormGroup} A FormGroup containing a FormControl with the given props.
+     */
     FieldGroup({ id, validation, ...props }) {
         return (
             <FormGroup controlId={id} validationState={validation}>
@@ -84,7 +89,7 @@ export class MessagePropertyInputRow extends Component {
                         type="text"
                         placeholder="Enter property value"
                         value={this.props.propertyValue}
-                        onChange={(event) => this.props.handlePropertyValueChange(event, index)}
+                        onChange={(event) => this.props.handlePropertyValueChange(event.target.value, index)}
                     />
                 </form >
                 <div className={deleteButtonStyle}>

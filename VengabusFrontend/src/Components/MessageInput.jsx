@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { css } from 'react-emotion';
-import { grey, blue } from '../colourScheme';
 import { MessagePropertyInput } from './MessagePropertyInput';
 import {
     FormGroup,
@@ -10,6 +9,10 @@ import {
     Panel
 } from "react-bootstrap";
 
+/**
+ * Contains the entire UI for inputting a message.
+ * Currently only logs the message when it is submitted.
+ */
 export class MessageInput extends Component {
     constructor(props) {
         super(props);
@@ -39,31 +42,53 @@ export class MessageInput extends Component {
     //     this.setState(stateMutationObject);
     // };
 
+    /**
+     * Updates a user-defined property name in the state with a new value.
+     * @param {string} newName The new name of the property.
+     * @param {integer} position The position of the property in the list.
+     */
     handlePropertyNameChange = (newName, position) => {
         let newUserDefinedProperties = [...this.state.userDefinedProperties];
         newUserDefinedProperties[position].name = newName;
         this.setState({ userDefinedProperties: newUserDefinedProperties });
     };
 
-
+    /**
+     * Updates a pre-defined property name in the state with a new value.
+     * @param {string} newName The new name of the property.
+     * @param {integer} position The position of the property in the list.
+     */
     handleDropdownNameChange = (newName, position) => {
         let newPreDefinedProperties = [...this.state.preDefinedProperties];
         newPreDefinedProperties[position].name = newName;
         this.setState({ preDefinedProperties: newPreDefinedProperties });
     };
 
-    handlePropertyValueChange = (event, position) => {
+    /**
+     * Updates a user-defined property value in the state with a new value.
+     * @param {string} newValue The new value of the property.
+     * @param {integer} position The position of the property in the list.
+     */
+    handlePropertyValueChange = (newValue, position) => {
         let newUserDefinedProperties = [...this.state.userDefinedProperties];
-        newUserDefinedProperties[position].value = event.target.value;
+        newUserDefinedProperties[position].value = newValue;
         this.setState({ userDefinedProperties: newUserDefinedProperties });
     };
 
-    handleDropdownValueChange = (event, position) => {
+    /**
+     * Updates a pre-defined property value in the state with a new value.
+     * @param {string} newValue The new value of the property.
+     * @param {integer} position The position of the property in the list.
+     */
+    handleDropdownValueChange = (newValue, position) => {
         let newPreDefinedProperties = [...this.state.preDefinedProperties];
-        newPreDefinedProperties[position].value = event.target.value;
+        newPreDefinedProperties[position].value = newValue;
         this.setState({ preDefinedProperties: newPreDefinedProperties });
     };
 
+    /**
+     * Adds a new property to the list of user-defined properties.
+     */
     addNewProperty = () => {
         let newProperties = [...this.state.userDefinedProperties];
         newProperties.push({ name: "", value: "" });
@@ -72,6 +97,9 @@ export class MessageInput extends Component {
         });
     }
 
+    /**
+     * Adds a new property to the list of pre-defined properties.
+     */
     addNewDropdown = () => {
         let newProperties = [...this.state.preDefinedProperties];
         newProperties.push({ name: "", value: "" });
@@ -92,10 +120,6 @@ export class MessageInput extends Component {
         });
     }
 
-
-    // QQ LW MK
-    // Rendering after deletion is buggy
-
     /**
      * Deletes a row from the list of predefined properties.
      * @param {integer} index The index of the row to delete.
@@ -108,8 +132,12 @@ export class MessageInput extends Component {
         });
     }
 
-    handleMessagebodyChange = event => {
-        this.setState({ messageBody: event.target.value });
+    /**
+     * Updates the message body in the state with a new value.
+     * @param {string} newBody The new value of the body.
+     */
+    handleMessagebodyChange = newBody => {
+        this.setState({ messageBody: newBody });
     };
 
     submit = () => {
@@ -180,7 +208,7 @@ export class MessageInput extends Component {
                     </Button>
                 </form>
                 <form>
-                    <FormGroup controlId="formControlsMessageBodyText" onChange={this.handleMessagebodyChange}>
+                    <FormGroup controlId="formControlsMessageBodyText" onChange={(event) => this.handleMessagebodyChange(event.target.value)}>
                         <ControlLabel>Body</ControlLabel>
                         <FormControl componentClass="textarea" placeholder="Enter message body" />
                     </FormGroup>
