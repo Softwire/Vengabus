@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Linq;
@@ -9,12 +10,20 @@ namespace VengabusAPI.Models
 
     public class SASKey
     {
+        private const string SASKeyPattern = "SharedAccessSignature sr=([^&]*)&sig=([^&]*)&se=([^&]*)&skn=([^&]*)";
+
         public string ResourceName { get; set; }
         public string Signature { get; set; }
         public string Expiry { get; set; }
         public string KeyName { get; set; }
 
-        private const string SASKeyPattern = "SharedAccessSignature sr=([^&]*)&sig=([^&]*)&se=([^&]*)&skn=([^&]*)";
+        public Uri ServiceBusProtocolUri
+        {
+            get
+            {
+                return (new UriBuilder(ResourceName) { Scheme = "sb" }).Uri;
+            }
+        }
 
         public SASKey(string SASKeyString)
         {
@@ -27,10 +36,10 @@ namespace VengabusAPI.Models
                     );
             }
 
-            this.ResourceName = GetAndDecodeGroupN(matches, 1);
-            this.Signature = GetAndDecodeGroupN(matches, 2);
-            this.Expiry = GetAndDecodeGroupN(matches, 3);
-            this.KeyName = GetAndDecodeGroupN(matches, 4);
+            ResourceName = GetAndDecodeGroupN(matches, 1);
+            Signature = GetAndDecodeGroupN(matches, 2);
+            Expiry = GetAndDecodeGroupN(matches, 3);
+            KeyName = GetAndDecodeGroupN(matches, 4);
         }
 
         private string GetAndDecodeGroupN(MatchCollection matches, int n)
