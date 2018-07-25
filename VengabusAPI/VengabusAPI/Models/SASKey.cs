@@ -21,7 +21,9 @@ namespace VengabusAPI.Models
         {
             get
             {
-                return (new UriBuilder(ResourceName) { Scheme = "sb" }).Uri;
+                //we don't want the port number after Uri. Use port = -1 to remove it 
+                var Uri = (new UriBuilder(ResourceName) { Scheme = "sb", Port = -1 }).Uri;
+                return Uri;
             }
         }
 
