@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MessageList renders correctly with given props 1`] = `
+<div>
+  <div
+    className="react-bootstrap-table"
+  >
+    <table
+      className="table table-bordered"
+      id={undefined}
+    >
+      <thead>
+        <tr
+          className={undefined}
+        >
+          <th
+            style={
+              Object {
+                "textAlign": "center",
+                "width": "10%",
+              }
+            }
+          >
+            Message id
+          </th>
+          <th
+            style={
+              Object {
+                "textAlign": "center",
+                "width": "50%",
+              }
+            }
+          >
+            Message body
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          className="css-f6uy7o"
+          onClick={[Function]}
+          style={Object {}}
+        >
+          <td>
+            10
+          </td>
+          <td
+            onClick={[Function]}
+          >
+            &lt;shipto&gt;&lt;name&gt;Ola Nordmann&lt;/na ...
+          </td>
+        </tr>
+        <tr
+          className="css-f6uy7o"
+          onClick={[Function]}
+          style={Object {}}
+        >
+          <td>
+            11
+          </td>
+          <td
+            onClick={[Function]}
+          >
+            banna
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div
+    className="static-modal"
+  />
+</div>
+`;

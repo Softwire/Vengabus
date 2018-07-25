@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { ExampleServiceBusCall } from '../Components/ExampleServiceBusCall';
 import { QueueList } from '../Components/QueueList';
-import { MessageBox } from '../Components/MessageBox';
+import { MessageList } from '../Components/MessageList';
 import { css } from 'react-emotion';
-import { Button } from 'react-bootstrap';
 
 export class HomePage extends Component {
     constructor(props) {
@@ -11,28 +10,13 @@ export class HomePage extends Component {
 
         this.state = {
             retrievedData: undefined,
-            showMessage: false
+            messageData: [{ messageId: 10, messageBody: "<shipto><name>Ola Nordmann</name><address>Langgt 23</address><city>4000 Stavanger</city><country>Norway</country></shipto><item><title>Empire Burlesque</title><note>Special Edition</note><quantity>1</quantity><price>10.90</price></item><item><title>Hide your heart</title><quantity>1</quantity><price>9.90</price></item></shiporder>" }, { messageId: 11, messageBody: "banna" }]
         };
     }
 
     updateRetrievedData = (data) => {
         this.setState({ retrievedData: data });
     };
-
-    handleClose = () => {
-        this.setState({
-            showMessage: false
-        })
-    }
-    handleMessegeclick = (id, body) => {
-        console.log(id + body);
-        this.setState({
-            showMessage: true,
-            messageId: id,
-            messageBody: body
-        });
-        console.log(this.state.showMessage);
-    }
 
 
     render() {
@@ -43,22 +27,10 @@ export class HomePage extends Component {
         `;
         return (
             <div>
-
-                <Button onClick={() => this.handleMessegeclick("message A", "messgage a body")} > Open message A </Button>
-                <Button onClick={() => this.handleMessegeclick("message B", "messgage b body")} > Open message B </Button>
-
-                <MessageBox
-                    messageBody={this.state.messageBody}
-                    messageId={this.state.messageId}
-                    show={this.state.showMessage}
-                    handleClose={this.handleClose}
-
-                />
-
-
                 <ExampleServiceBusCall onDataReceive={this.updateRetrievedData} />
                 <div className={queueDivStyle}>
                     <QueueList queueData={this.state.retrievedData} />
+                    <MessageList messageData={this.state.messageData} />
                 </div>
             </div>
         );
