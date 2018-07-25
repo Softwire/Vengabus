@@ -12,16 +12,15 @@ namespace VengabusAPI.Controllers
 
     public class SubscriptionsController : VengabusController
     {
-        
+
         [HttpGet]
         [Route("subscriptions/list/{topicName}")]
-        //list all subscriptions in a given topic
-        public void GetSubscriptions(string topicName)
+        public IEnumerable<VengaSubscription> ListSubscriptions(string topicName)
         {
-            //see queues/list in QueuesController for an idea of how to structure this
-            throw new NotImplementedException();
+            var namespaceManager = CreateNamespaceManager();
+            var azureSubscriptionsEnum =  namespaceManager.GetSubscriptions(topicName);
+            return azureSubscriptionsEnum.Select(s => new VengaSubscription(s));
         }
-    
 
 
     }

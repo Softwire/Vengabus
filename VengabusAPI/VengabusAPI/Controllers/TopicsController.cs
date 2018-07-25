@@ -15,13 +15,12 @@ namespace VengabusAPI.Controllers
         
         [HttpGet]
         [Route("topics/list")]
-        //list all topics
-        public void GetTopics()
+        //list all topics in a service bus
+        public IEnumerable<VengaTopic> ListTopics()
         {
-            //see queues/list in QueuesController for an idea of how to structure this
-            throw new NotImplementedException();
+            var namespaceManager = CreateNamespaceManager();
+            return namespaceManager.GetTopics().Select(t => new VengaTopic(t));
         }
-
-        
     }
 }
+ 
