@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { ConnectionStringConfigForm } from '../Components/ConnectionStringConfigForm';
 
 import { css } from 'react-emotion';
-import { grey, blue } from '../colourScheme';
+import { grey } from '../colourScheme';
 
 
 
@@ -16,11 +16,11 @@ export class SideBar extends Component {
             background: ${grey};
             float: left;
         `;
-       
+
 
         return (
             <div className={backDiv}>
-                    <ConnectionStringConfigForm />
+                <ConnectionStringConfigForm />
             </div>
         );
     }

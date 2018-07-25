@@ -3,9 +3,6 @@ import { css } from 'react-emotion';
 import { Panel } from 'react-bootstrap';
 import { blue } from '../colourScheme';
 export class ServiceBusInfoBox extends Component {
-    constructor(props) {
-        super(props);
-        }
 
     render() {
         const infoBoxStyle = css`

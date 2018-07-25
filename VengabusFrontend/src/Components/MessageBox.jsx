@@ -4,9 +4,6 @@ import { Modal, Button } from 'react-bootstrap';
 import { PrettyXMLBox } from './PrettyXmlBox';
 
 export class MessageBox extends Component {
-    constructor(props) {
-        super(props)
-    }
 
     format(originalMessageText) {
         //QQ when we know the shape of the messege this will be used to pretty print etc
