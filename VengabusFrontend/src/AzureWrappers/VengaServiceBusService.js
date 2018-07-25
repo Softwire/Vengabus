@@ -95,6 +95,12 @@ export class VengaServiceBusService {
         this.axiosWithSAS.post(url, message, config);
     }
 
+    deleteMessagesInQueue = (queueName) => {
+        //qq enter ServiceBus API server string http://localhost:63591 for now while running the C# API
+        const url = this.csAPIroot + `messages/queue/${queueName}`;
+        return axios.get(url);
+    }
+
     // QQ
     // Update this when the API is working
     static getServiceBusProperties(connectionString) {
