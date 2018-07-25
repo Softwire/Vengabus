@@ -3,7 +3,6 @@ import { ExampleServiceBusCall } from '../Components/ExampleServiceBusCall';
 import { QueueList } from '../Components/QueueList';
 import { MessageList } from '../Components/MessageList';
 import { css } from 'react-emotion';
-import { Button } from 'react-bootstrap';
 
 export class HomePage extends Component {
     constructor(props) {
