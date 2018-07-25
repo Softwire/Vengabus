@@ -70,7 +70,6 @@ namespace VengabusAPI.Controllers
             }
 
             return messageOutputIEnum;
-
         }
 
         [HttpGet]
