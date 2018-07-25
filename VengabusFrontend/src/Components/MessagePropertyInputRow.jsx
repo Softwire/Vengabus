@@ -57,7 +57,7 @@ export class MessagePropertyInputRow extends Component {
                     {this.props.permittedValues ? (
                         <Select
                             title="Choose a property"
-                            key={index}
+                            key={propertyName + index}
                             id={`property-dropdown-${index}`}
                             options={permittedValueMenuItems}
                             value={propertyName ? { value: propertyName, label: propertyName } : undefined}

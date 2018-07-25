@@ -14,6 +14,8 @@ export class MessageInput extends Component {
     constructor(props) {
         super(props);
 
+        this.permittedValues = ['MessageId', 'ContentType'];
+
         this.state = {
             messageBody: "",
             userDefinedProperties: {}, //{name: something, value: something}
@@ -167,11 +169,12 @@ export class MessageInput extends Component {
                     handlePropertyNameChange={this.handleDropdownNameChange}
                     handlePropertyValueChange={this.handleDropdownValueChange}
                     deleteRow={this.deleteDropdownRow}
-                    permittedValues={['MessageId', 'ContentType']}
+                    permittedValues={this.permittedValues}
                 />
                 <form>
                     <Button
                         onClick={this.addNewDropdown}
+                        disabled={this.state.preDefinedProperties.length === this.permittedValues.length}
                     >
                         Add new dropdown
                     </Button>

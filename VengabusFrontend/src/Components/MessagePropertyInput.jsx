@@ -34,7 +34,16 @@ export class MessagePropertyInput extends Component {
 
     render() {
         let inputs = [];
+        let remainingPermittedValues;
+        if (this.props.permittedValues) {
+            remainingPermittedValues = [...this.props.permittedValues];
+        }
         for (let i = 0; i < this.props.properties.length; i++) {
+            //Remove properties that have already been selected from the dropdown
+            const indexOfExistingValue = remainingPermittedValues ? remainingPermittedValues.indexOf(this.props.properties[i].name) : -1;
+            if (indexOfExistingValue !== -1) {
+                remainingPermittedValues.splice(indexOfExistingValue, 1)
+            }
             inputs.push(
                 <MessagePropertyInputRow
                     propertyName={this.props.properties[i].name}
@@ -44,7 +53,7 @@ export class MessagePropertyInput extends Component {
                     handlePropertyNameChange={this.props.handlePropertyNameChange}
                     handlePropertyValueChange={this.props.handlePropertyValueChange}
                     deleteRow={this.props.deleteRow}
-                    permittedValues={this.props.permittedValues}
+                    permittedValues={remainingPermittedValues}
                 />
             );
         }
