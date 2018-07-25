@@ -87,13 +87,6 @@ namespace VengabusAPI.Controllers
             throw new NotImplementedException();
         }
 
-        private MessagingFactory CreateEndpointSenderFactory()
-        {
-            Uri runtimeUri = ServiceBusEnvironment.CreateServiceUri("sb", "VengabusDemo", string.Empty);
-            var sasToken = GetSASToken();
-            var factory = MessagingFactory.Create(runtimeUri, sasToken);
-            return factory;
-        }
         private void SendMessageToEndpoint(string endpointName, MessageInfoPost messageInfoObject, EndpointType type)
         {
             //Sending message to queue. 
