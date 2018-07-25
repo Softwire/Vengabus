@@ -135,8 +135,8 @@ export class MessageInput extends Component {
                 }
             }
         }
-        message.properties = properties;
-        message.body = this.state.messageBody;
+        message.MessageProperties = properties;
+        message.MessageBody = this.state.messageBody;
         console.log(message);
     }
 
@@ -167,7 +167,7 @@ export class MessageInput extends Component {
                     handlePropertyNameChange={this.handleDropdownNameChange}
                     handlePropertyValueChange={this.handleDropdownValueChange}
                     deleteRow={this.deleteDropdownRow}
-                    permittedValues={['1', '2', '3', '4', '5']}
+                    permittedValues={['MessageId', 'ContentType']}
                 />
                 <form>
                     <Button
