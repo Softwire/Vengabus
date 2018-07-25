@@ -96,35 +96,59 @@ namespace VengabusAPI.Controllers
         }
         private void DeleteMessageFromEndpoint(MessagingFactory clientFactory, EndpointIdentifier endpoint)
         {
+            long messageCount = 0;
+            var namespaceManager = CreateNamespaceManager();
+            Func<long, BrokeredMessage> receiveNextMessage;
+            Func<long> getMessageCount;
+            long defaultTimeout = 1000;
+
             switch (endpoint.Type)
             {
                 case EndpointType.Queue:
                     QueueClient queueClient = clientFactory.CreateQueueClient(endpoint.Name);
-                    //receive all the messages and complete each of them.
-                    while (true)
-                    {
-                        var message = queueClient.Receive(TimeSpan.FromMilliseconds(5000));
-                        if (message == null)
-                        {
-                            break;
-                        }
-                        message.Complete();
-                    }
-                    return;
-
+                    messageCount = namespaceManager.GetQueue(endpoint.Name).MessageCountDetails.ActiveMessageCount;
+                    receiveNextMessage = (timeout) => queueClient.Receive(TimeSpan.FromMilliseconds(timeout));
+                    getMessageCount = () =>
+                        namespaceManager.GetQueue(endpoint.Name).MessageCountDetails.ActiveMessageCount;
+                    break;
                 case EndpointType.Subscription:
-                    SubscriptionClient subscriptionClient = clientFactory.CreateSubscriptionClient(endpoint.ParentTopic, endpoint.Name);
-                    //receive all the messages and complete each of them.
-                    while (true)
+                    SubscriptionClient subscriptionClient =
+                        clientFactory.CreateSubscriptionClient(endpoint.ParentTopic, endpoint.Name);
+                    messageCount = namespaceManager.GetSubscription(endpoint.ParentTopic, endpoint.Name)
+                        .MessageCountDetails.ActiveMessageCount;
+                    receiveNextMessage = (timeout) => subscriptionClient.Receive(TimeSpan.FromMilliseconds(timeout));
+                    getMessageCount = () => namespaceManager.GetSubscription(endpoint.ParentTopic, endpoint.Name)
+                        .MessageCountDetails.ActiveMessageCount;
+                    break;
+                default:
+                    receiveNextMessage = (timeout) => null;
+                    getMessageCount = () => 0;
+                    break;
+            }
+
+            //a rigorous way to make sure that we only delete the messages that shall be deleted, and we don't hang forever
+            DateTime dateTimeCutoff = DateTime.Now;
+            DateTime previousMessageTimestamp = new DateTime(1970,1,1);
+            while (messageCount > 0 && previousMessageTimestamp <= dateTimeCutoff)
+            {
+                BrokeredMessage message;
+                long multiplier = 1;
+                while (true)
+                {
+                    message = receiveNextMessage(defaultTimeout*multiplier);
+                    if (message != null || getMessageCount() == 0)
                     {
-                        var message = subscriptionClient.Receive(TimeSpan.FromMilliseconds(500));
-                        if (message == null)
-                        {
-                            break;
-                        }
-                        message.Complete();
+                        break;
                     }
-                    return;
+                    multiplier *= 2;
+                }
+                if (message == null)
+                {
+                    break;
+                }
+                message.Complete();
+                messageCount--;
+                previousMessageTimestamp = message.EnqueuedTimeUtc;
             }
         }
         private void SendMessageToEndpoint(string endpointName, EndpointType type, MessageInfoPost messageInfoObject, string parentTopicName = "")
