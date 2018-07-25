@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using Microsoft.ServiceBus;
+using Microsoft.ServiceBus.Messaging;
 using VengabusAPI.Models;
 
 namespace VengabusAPI.Controllers
@@ -55,6 +56,12 @@ namespace VengabusAPI.Controllers
 
             return namespaceManager;
         }
-        
+        protected MessagingFactory CreateEndpointSenderFactory()
+        {
+            var serviceBusUri = GetParsedSASKey().ServiceBusProtocolUri;
+            var sasToken = GetSASToken();
+            var factory = MessagingFactory.Create(serviceBusUri, sasToken);
+            return factory;
+        }
     }
 }
