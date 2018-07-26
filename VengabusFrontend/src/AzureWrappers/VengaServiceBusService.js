@@ -25,11 +25,20 @@ export class VengaServiceBusService {
     getQueue = util.promisify((queueName, callback) => this.rawService.getQueue(queueName, callback));
 
     /**
-     * Gets the names of all queues in the current namespace from the server.
+     * Gets the details of all queues in the current namespace from the server.
      * @return {object} The queues returned by the server.
      */
     listQueues = () => {
         const url = this.csAPIroot + 'queues/list';
+        return this.axiosWithSAS.get(url);
+    }
+
+    /**
+     * Gets the details of all topics in the current namespace from the server.
+     * @return {object} The topics returned by the server.
+     */
+    listTopics = () => {
+        const url = this.csAPIroot + 'topics/list';
         return this.axiosWithSAS.get(url);
     }
 
