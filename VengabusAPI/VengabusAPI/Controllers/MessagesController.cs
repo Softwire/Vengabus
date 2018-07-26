@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Net.Sockets;
 using System.Web.Http;
-using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
 using VengabusAPI.Models;
 
@@ -66,7 +63,6 @@ namespace VengabusAPI.Controllers
             DeleteMessageFromEndpoint(EndpointIdentifier.ForQueue(queueName));
         }
 
-
         [HttpDelete]
         [Route("messages/subscription/{topicName}/{subscriptionName}")]
         //delete all messages in a given subscription
@@ -96,17 +92,16 @@ namespace VengabusAPI.Controllers
         }
         private void DeleteMessageFromEndpoint(MessagingFactory clientFactory, EndpointIdentifier endpoint)
         {
-            long messageCount = 0;
+            long remainingMessagesToDelete = 0;
             var namespaceManager = CreateNamespaceManager();
             Func<long, BrokeredMessage> receiveNextMessage;
             Func<long> getMessageCount;
-            long defaultTimeout = 1000;
+            long defaultTimeout = 200;
 
             switch (endpoint.Type)
             {
                 case EndpointType.Queue:
                     QueueClient queueClient = clientFactory.CreateQueueClient(endpoint.Name);
-                    messageCount = namespaceManager.GetQueue(endpoint.Name).MessageCountDetails.ActiveMessageCount;
                     receiveNextMessage = (timeout) => queueClient.Receive(TimeSpan.FromMilliseconds(timeout));
                     getMessageCount = () =>
                         namespaceManager.GetQueue(endpoint.Name).MessageCountDetails.ActiveMessageCount;
@@ -114,8 +109,6 @@ namespace VengabusAPI.Controllers
                 case EndpointType.Subscription:
                     SubscriptionClient subscriptionClient =
                         clientFactory.CreateSubscriptionClient(endpoint.ParentTopic, endpoint.Name);
-                    messageCount = namespaceManager.GetSubscription(endpoint.ParentTopic, endpoint.Name)
-                        .MessageCountDetails.ActiveMessageCount;
                     receiveNextMessage = (timeout) => subscriptionClient.Receive(TimeSpan.FromMilliseconds(timeout));
                     getMessageCount = () => namespaceManager.GetSubscription(endpoint.ParentTopic, endpoint.Name)
                         .MessageCountDetails.ActiveMessageCount;
@@ -126,29 +119,36 @@ namespace VengabusAPI.Controllers
                     break;
             }
 
-            //a rigorous way to make sure that we only delete the messages that shall be deleted, and we don't hang forever
-            DateTime dateTimeCutoff = DateTime.Now;
-            DateTime previousMessageTimestamp = new DateTime(1970,1,1);
-            while (messageCount > 0 && previousMessageTimestamp <= dateTimeCutoff)
-            {
-                BrokeredMessage message;
+            remainingMessagesToDelete = getMessageCount();
+
+            Func<BrokeredMessage> getNextMessageWithRetries = () => {
                 long multiplier = 1;
-                while (true)
+                while (multiplier*defaultTimeout <= 60 * 1000)
                 {
-                    message = receiveNextMessage(defaultTimeout*multiplier);
+                    BrokeredMessage message = receiveNextMessage(defaultTimeout * multiplier);
                     if (message != null || getMessageCount() == 0)
                     {
-                        break;
+                        return message;
                     }
                     multiplier *= 2;
                 }
-                if (message == null)
+
+                throw new TimeoutException(
+                    "Messages are still present in endpoint, but it's taking too long to fetch them. Process aborted."
+                );
+            };
+
+            //a rigorous way to make sure that we only delete the messages that shall be deleted, and we don't hang forever
+            DateTime dateTimeCutoff = DateTime.Now;
+            while (remainingMessagesToDelete > 0)
+            {
+                BrokeredMessage message = getNextMessageWithRetries();
+                if (message == null || message.EnqueuedTimeUtc > dateTimeCutoff)
                 {
                     break;
                 }
                 message.Complete();
-                messageCount--;
-                previousMessageTimestamp = message.EnqueuedTimeUtc;
+                remainingMessagesToDelete--;
             }
         }
         private void SendMessageToEndpoint(string endpointName, EndpointType type, MessageInfoPost messageInfoObject, string parentTopicName = "")
