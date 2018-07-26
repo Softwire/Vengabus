@@ -1,6 +1,4 @@
-import { resolve } from 'path';
-import { rejects } from 'assert';
-import axios from 'axios';
+import AxiosWithSAS from './AxiosWithSAS';
 
 const azure = require('azure-sb');
 const util = require('util');
@@ -16,8 +14,11 @@ require('util.promisify').shim();
 export class VengaServiceBusService {
     constructor(connectionString, apiRoot) {
         this.rawService = azure.createServiceBusService(connectionString);
+        this.axiosWithSAS = new AxiosWithSAS(connectionString);
         this.csAPIroot = apiRoot;
     }
+
+
 
     /* Note that the lamda here captures `this` = the VengaServiceBusService, to access rawService.
        But it also captures `rawService` as the callee of getQueue (and hence, the value of `this` INSIDE the getQueue method)*/
@@ -25,14 +26,11 @@ export class VengaServiceBusService {
 
     /**
      * Gets the names of all queues in the current namespace from the server.
-     * @deprecated The getAllQueues function should be used instead, this function was just 
-     * used to demonstrate the connection to the backend while the corresponding backend 
-     * function did not exist, the data returned is not in the correct format.
      * @return {object} The queues returned by the server.
      */
     listQueues = () => {
-        const url = this.csAPIroot + 'queues';
-        return axios.get(url);
+        const url = this.csAPIroot + 'queues/list';
+        return this.axiosWithSAS.get(url);
     }
 
     // QQ
@@ -58,4 +56,6 @@ export class VengaServiceBusService {
             resolve(data);
         });
     };
+
+
 }
