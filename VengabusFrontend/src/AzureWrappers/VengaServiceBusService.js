@@ -42,6 +42,16 @@ export class VengaServiceBusService {
         return this.axiosWithSAS.get(url);
     }
 
+    /**
+     * Gets the details of all subscriptions in a given topic from the server.
+     * @param {string} topicName The name of the topic to et subscriptions from.
+     * @return {object} The subsctiptions returned by the server.
+     */
+    listSubscriptions = (topicName) => {
+        const url = this.csAPIroot + 'subscriptions/list/' + topicName;
+        return this.axiosWithSAS.get(url);
+    }
+
     // QQ
     // Update this when the API is working
     static getServiceBusProperties(connectionString) {
