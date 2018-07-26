@@ -34,7 +34,7 @@ export class HomePage extends Component {
             display: inline-block; /*to allow tables to be displayed side by side*/
         `;
 
-        //qq remove hardcoding later
+        //qq remove hardcoded endpoint names later
         const queueName = 'demoqueue1';
         const topicName = 'demotopic1';
         const subscriptionName = 'demosubscription1';
@@ -45,9 +45,9 @@ export class HomePage extends Component {
                 <div className={queueDivStyle}>
                     <QueueList queueData={this.state.retrievedData} />
                     <MessageList messageData={this.state.messageData} />
-                    <button onClick={serviceBusService.deleteQueueMessages(queueName)} >Delete queue messages &#128465;</button >
-                    <button onClick={serviceBusService.deleteTopicMessages(topicName)} >Delete topic messages &#128465;</button >
-                    <button onClick={serviceBusService.deleteSubscriptionMessages(topicName, subscriptionName)} >Delete subcription messages &#128465;</button >
+                    <button onClick={() => serviceBusService.deleteQueueMessages(queueName)} >Delete queue messages &#128465;</button >
+                    <button onClick={() => serviceBusService.deleteTopicMessages(topicName)} >Delete topic messages &#128465;</button >
+                    <button onClick={() => serviceBusService.deleteSubscriptionMessages(topicName, subscriptionName)} >Delete subcription messages &#128465;</button >
 
                 </div>
             </div >
