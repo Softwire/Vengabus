@@ -21,12 +21,12 @@ export class MessageBox extends Component {
 
                 <Modal show={this.props.show && this.props.show} onHide={this.props.handleClose} >
                     <Modal.Header>
-                        <Modal.Title>{this.props.messageId}</Modal.Title>
+                        <Modal.Title>Message Id : {this.props.messageId}</Modal.Title>
                     </Modal.Header>
 
                     <Modal.Body>
                         <PrettyXMLBox
-                            xml={this.props.messageBody}
+                            data={this.props.messageBody}
                         />
                     </Modal.Body>
 
