@@ -51,17 +51,6 @@ namespace VengabusAPI.Controllers
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// view the contents of a given message
-        /// </summary>
-        /// <param name="messageId">messageId is FromBody and not taken from the URL, because messageId is not necessarily alphanumeric</param>
-        [HttpGet]
-        [Route("messages/viewMessage")]
-        public void ViewMessage([FromBody]string messageId)
-        {
-            throw new NotImplementedException();
-        }
-
         //delete all messages in a given queue
         [HttpDelete]
         [Route("messages/queue/{queueName}")]
