@@ -34,6 +34,16 @@ export class HomePage extends Component {
             margin: 10px;
             display: inline-block; /*to allow tables to be displayed side by side*/
         `;
+        // Hard coded message to replay for now
+        const message = {
+            MessageProperties: {
+                userDefinedProp1: 'value1',
+                userDefinedProp2: 'value2'
+            },
+            MessageBody: 'Hello world!',
+            MessageId: 'Message1',
+            ContentType: 'null'
+        };
 
         //qq remove hardcoded endpoint names later
         const queueName = 'demoqueue1';
@@ -43,6 +53,7 @@ export class HomePage extends Component {
 
         return (
             < div >
+                <button onClick={() => this.props.replayMessage(message)}>Replay Example Message</button>
                 <ExampleServiceBusCall onDataReceive={this.updateRetrievedData} />
                 <div className={queueDivStyle}>
                     <QueueList queueData={this.state.retrievedData} />

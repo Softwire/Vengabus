@@ -17,7 +17,7 @@ export class MessageInput extends Component {
         super(props);
         const message = this.props.message;
         this.state = {
-            messageBody: message ? message.MessageBody : undefined
+            messageBody: message ? message.MessageBody : '',
             userDefinedProperties: message ? this.getUserDefinedProperties(message) : [], //[{name: something, value: something}]
             preDefinedProperties: message ? this.getPreDefinedPropertiesFromExistingMessage(message) : [], //[{name: something, value: something}]
             permittedValues: [],
@@ -158,6 +158,14 @@ export class MessageInput extends Component {
         return message;
     }
 
+    discardMessage = () => {
+        this.setState({
+            messageBody: '',
+            userDefinedProperties: [],
+            preDefinedProperties: []
+        });
+    }
+
     submit = () => {
         const message = this.createMessageObject();
         this.serviceBusService.sendMessageToQueue(this.state.selectedQueue, message);
@@ -233,7 +241,6 @@ export class MessageInput extends Component {
                     <FormGroup
                         className={leftAlignContainerStyle}
                         controlId="formControlsMessageBodyText"
-                        onChange={(event) => this.handleMessageBodyChange(event.target.value)}
                     >
                         <ControlLabel className={headingStyle}>Body</ControlLabel>
                         <FormControl
@@ -241,6 +248,7 @@ export class MessageInput extends Component {
                             placeholder="Enter message body"
                             className={bodyStyle}
                             value={this.state.messageBody}
+                            onChange={(event) => this.handleMessageBodyChange(event.target.value)}
                         />
                     </FormGroup>
                 </form>
@@ -249,6 +257,12 @@ export class MessageInput extends Component {
                         onClick={this.submit}
                     >
                         Submit
+                    </Button>
+                    <Button
+                        onClick={this.discardMessage}
+                        bsStyle="danger"
+                    >
+                        Discard Message
                     </Button>
                 </form>
             </div >

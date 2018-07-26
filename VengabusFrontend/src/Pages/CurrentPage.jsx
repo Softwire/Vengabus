@@ -8,15 +8,7 @@ import { SendMessagePage } from './SendMessagePage';
 export class CurrentPage extends Component {
     constructor(props) {
         super(props);
-        this.replayMessage = {
-            MessageProperties: {
-                userDefinedProp1: 'value1',
-                userDefinedProp2: 'value2'
-            },
-            MessageBody: 'Hello world!',
-            MessageId: 'Message1',
-            ContentType: 'null'
-        };
+        this.messageToReplay = undefined;
         this.state = { currentPage: pageSwitcher.currentPage };
     }
 
@@ -38,13 +30,16 @@ export class CurrentPage extends Component {
         this.setState(mutation);
     };
 
-    render() {
-        //console.log('rendering current Page: ', this.state.currentPage);
-        let returnValue;
+    replayMessage = (message) => {
+        this.messageToReplay = message;
+        pageSwitcher.switchToPage(PAGES.SendMessagePage);
+    }
 
+    render() {
+        let returnValue;
         switch (this.state.currentPage) {
             case PAGES.HomePage:
-                returnValue = <HomePage />;
+                returnValue = <HomePage replayMessage={this.replayMessage} />;
                 break;
 
             case PAGES.OtherPage:
@@ -52,7 +47,8 @@ export class CurrentPage extends Component {
                 break;
 
             case PAGES.SendMessagePage:
-                returnValue = <SendMessagePage message={this.replayMessage} />;
+                returnValue = <SendMessagePage message={this.messageToReplay ? { ...this.messageToReplay } : undefined} />;
+                this.messageToReplay = undefined;
                 break;
 
             default:
