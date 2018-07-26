@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
@@ -13,19 +16,36 @@ namespace VengabusAPI.Controllers
 
         protected string GetSASHeader()
         {
-            var SASFieldList = Request.Headers.GetValues(SASFieldName);
+            IEnumerable<string> SASFieldList;
+            try
+            {
+                SASFieldList = Request.Headers.GetValues(SASFieldName);
+            }
+            catch
+            {
+                throw NotFoundException($"No headers were provided at all. A {SASFieldName} header is required.");
+            }
+
             if (!SASFieldList.Any())
             {
-                throw new Exception($"No {SASFieldName} header was provided");
+                throw NotFoundException($"No {SASFieldName} header was provided. It is required.");
             }
 
             var SASString = SASFieldList.First();
             if (String.IsNullOrWhiteSpace(SASString))
             {
-                throw new Exception($"{SASFieldName} header was empty");
+                throw NotFoundException($"{SASFieldName} header was empty");
             }
 
             return SASString;
+        }
+
+        private HttpResponseException NotFoundException(string message)
+        {
+            return new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+            {
+                Content = new StringContent(message)
+            });
         }
 
         protected SASKey GetParsedSASKey()
@@ -35,10 +55,10 @@ namespace VengabusAPI.Controllers
 
         protected TokenProvider GetSASToken()
         {
-            var SASString = GetSASHeader();
+            var sasString = GetSASHeader();
             try
             {
-                return TokenProvider.CreateSharedAccessSignatureTokenProvider(SASString);
+                return TokenProvider.CreateSharedAccessSignatureTokenProvider(sasString);
             }
             catch (Exception e)
             {
