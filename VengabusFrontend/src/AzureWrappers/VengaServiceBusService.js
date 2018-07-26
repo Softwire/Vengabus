@@ -52,6 +52,27 @@ export class VengaServiceBusService {
         return this.axiosWithSAS.get(url);
     }
 
+    /**
+     * Gets the details of all subscriptions in a given topic from the server.
+     * @param {string} queueName The name of the queue to send the message to.
+     * @param {object} message The message to send to the queue, in the format:
+     * {
+     *   "messageProperties": {},
+     *   "messageBody": "string",
+     *   "messageId": "string",
+     *   "contentType": "string"
+     * }
+     */
+    sendMessageToQueue = (queueName, message) => {
+        const url = this.csAPIroot + 'messages/send/queue/' + queueName;
+        const config = {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
+        this.axiosWithSAS.post(url, message, config);
+    }
+
     // QQ
     // Update this when the API is working
     static getServiceBusProperties(connectionString) {

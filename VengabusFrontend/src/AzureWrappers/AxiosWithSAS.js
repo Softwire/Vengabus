@@ -39,15 +39,16 @@ export default class AxiosWithSAS {
     }
 
     /**
-     * Performs a PUSH request after being passed a url, with the appropriate SAS header.
+     * Performs a POST request after being passed a url, with the appropriate SAS header.
      * @param {string} url The url that the get request should be sent to.
+     * @param {string} body The body of the request.
      * @param {string} config An axios config that is used in the axios request in addition to the SAS authentication.
      * @returns {Promise} The Promise returned by the axios request.
      */
-    push = (url, config) => {
+    post = (url, body, config) => {
         const token = this.getTokenFromConnectionString();
         const sasConfig = this.addAuthToConfig(config, token);
-        return axios.push(url, sasConfig);
+        return axios.post(url, body, sasConfig);
     }
 
     /**
