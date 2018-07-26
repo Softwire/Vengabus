@@ -8,7 +8,15 @@ import { SendMessagePage } from './SendMessagePage';
 export class CurrentPage extends Component {
     constructor(props) {
         super(props);
-
+        this.replayMessage = {
+            MessageProperties: {
+                userDefinedProp1: 'value1',
+                userDefinedProp2: 'value2'
+            },
+            MessageBody: 'Hello world!',
+            MessageId: 'Message1',
+            ContentType: 'null'
+        };
         this.state = { currentPage: pageSwitcher.currentPage };
     }
 
@@ -44,7 +52,7 @@ export class CurrentPage extends Component {
                 break;
 
             case PAGES.SendMessagePage:
-                returnValue = <SendMessagePage />;
+                returnValue = <SendMessagePage message={this.replayMessage} />;
                 break;
 
             default:

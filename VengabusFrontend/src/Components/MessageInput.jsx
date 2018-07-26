@@ -15,13 +15,14 @@ import {
 export class MessageInput extends Component {
     constructor(props) {
         super(props);
+        const message = this.props.message;
         this.state = {
+            messageBody: message ? message.MessageBody : undefined
+            userDefinedProperties: message ? this.getUserDefinedProperties(message) : [], //[{name: something, value: something}]
+            preDefinedProperties: message ? this.getPreDefinedPropertiesFromExistingMessage(message) : [], //[{name: something, value: something}]
             permittedValues: [],
-            messageBody: "",
-            userDefinedProperties: [], //[{name: something, value: something}]
-            preDefinedProperties: [], //[{name: something, value: something}]
-            // QQ add way of choosing which queue/topic a message is sent to.
             selectedQueue: "demoqueue1"
+            // QQ add way of choosing which queue/topic a message is sent to.
         };
 
         this.serviceBusService = serviceBusConnection.getServiceBusService();
@@ -30,6 +31,32 @@ export class MessageInput extends Component {
                 permittedValues: result
             });
         });
+    }
+
+    getUserDefinedProperties(message) {
+        let userDefinedProperties = [];
+        const extractedProperties = Object.entries(message.MessageProperties);
+        for (let i = 0; i < extractedProperties.length; i++) {
+            userDefinedProperties.push({
+                name: extractedProperties[i][0],
+                value: extractedProperties[i][1]
+            });
+        }
+        return userDefinedProperties;
+    }
+
+    getPreDefinedPropertiesFromExistingMessage(message) {
+        let preDefinedProperties = [];
+        for (let i = 0; i < this.permittedValues.length; i++) {
+            const permittedValue = this.permittedValues[i];
+            if (message[permittedValue]) {
+                preDefinedProperties.push({
+                    name: permittedValue,
+                    value: message[permittedValue]
+                });
+            }
+        }
+        return preDefinedProperties;
     }
 
     /**
@@ -213,6 +240,7 @@ export class MessageInput extends Component {
                             componentClass="textarea"
                             placeholder="Enter message body"
                             className={bodyStyle}
+                            value={this.state.messageBody}
                         />
                     </FormGroup>
                 </form>

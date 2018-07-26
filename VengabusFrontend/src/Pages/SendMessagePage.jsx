@@ -20,7 +20,7 @@ export class SendMessagePage extends Component {
     render() {
         return (
             <div>
-                <MessageInput />
+                <MessageInput message={this.props.message} />
             </div>
         );
     }
