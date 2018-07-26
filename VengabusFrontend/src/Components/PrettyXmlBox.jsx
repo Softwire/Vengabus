@@ -7,12 +7,18 @@ const format = require("xml-formatter");
 export class PrettyXMLBox extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isXMl: true
+        }
     }
 
     render() {
-           
-        const formattedXml = format(this.props.xml);
 
+        let formattedText;
+        //the XML library returns undefined for not XML meaning that format text will be falsely hence this working 
+        if (this.state.isXMl) {
+            formattedText = format(this.props.xml);
+        }
         const formatCss = css`
             text-align: left;
         `;
@@ -20,7 +26,7 @@ export class PrettyXMLBox extends Component {
         return (
             <div >
                 <pre className={formatCss}>
-                    {formattedXml}
+                    {formattedText || this.props.xml}
                 </pre>
             </div>
         );
