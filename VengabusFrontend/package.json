@@ -14,15 +14,18 @@
         "axios": "^0.18.0",
         "azure-sb": "^0.10.6",
         "babel-plugin-emotion": "^9.2.6",
+        "crypto": "^1.0.1",
         "emotion": "^9.2.6",
         "lodash": "^4.17.10",
+        "moment": "^2.22.2",
         "react": "^16.4.1",
         "react-bootstrap": "^0.32.1",
         "react-bootstrap-table-next": "^0.1.15",
         "react-dom": "^16.4.1",
         "react-emotion": "^9.2.6",
         "react-scripts": "1.1.4",
-        "util.promisify": "^1.0.0"
+        "util.promisify": "^1.0.0",
+        "xml-formatter": "^1.0.1"
     },
     "scripts": {
         "start": "react-scripts start",
