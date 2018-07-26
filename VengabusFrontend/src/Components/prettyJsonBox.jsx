@@ -3,14 +3,16 @@
 import React, { Component } from 'react';
 import { css } from 'react-emotion';
 import { Alert } from 'react-bootstrap';
-const format = require("xml-formatter");
 
-export class PrettyXMLBox extends Component {
+import prettyprint from 'prettyprint';
+
+
+export class PrettyJsonBox extends Component {
     constructor(props) {
         super(props);
         this.state = {
             //for future use if other formats are supported and override is wanted
-            isXMl: true
+            isJson: true
         }
     }
 
@@ -21,13 +23,15 @@ export class PrettyXMLBox extends Component {
         let formattingSucceededButChangedText = false;
         let formattingError;
 
-        //the XML library returns undefined for not XML meaning that format text will be falsely hence this working 
-        if (this.state.isXMl) {
+        //the Json library returns undefined for not XML meaning that format text will be falsely hence this working
+        console.log(originalData)
+        if (this.state.isJson) {
             try {
-                formattedText = format(originalData);
-                if (formattedText && (formattedText.replace(/\s/g, "") !== originalData)) {
-                    formattingSucceededButChangedText = true;
-                }
+                formattedText = prettyprint(JSON.parse(originalData));
+                // if (formattedText && (formattedText.replace(/\s/g, "") !== originalData)) {
+                //   formattingSucceededButChangedText = true;
+                //}
+                console.log(formattedText)
             }
             catch (err) {
                 formattingError = err;
@@ -41,13 +45,13 @@ export class PrettyXMLBox extends Component {
         `;
         const changeAlert = (
             <Alert bsStyle="danger">
-                <p>The XML formatter changed the text of this data. This was probably just to 'heal' mal-formed XML, but we can't be certain.</p>
+                <p>The JSON formatter changed the text of this data. This was probably just to 'heal' mal-formed JSON, but we can't be certain.</p>
                 <p> See below for the original data text.</p >
             </Alert >
         );
         const errorAlert = (
             <Alert bsStyle="danger">
-                <p>{`The XML formatter threw an error whilst trying to format the text of this data: '${formattingError}'`}</p>
+                <p>{`The JSON formatter threw an error whilst trying to format the text of this data: '${formattingError}'`}</p>
             </Alert>
         );
         const boxContainingOriginalText = (
