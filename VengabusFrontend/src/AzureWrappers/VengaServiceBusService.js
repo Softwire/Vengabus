@@ -98,7 +98,22 @@ export class VengaServiceBusService {
     deleteMessagesInQueue = (queueName) => {
         //qq enter ServiceBus API server string http://localhost:63591 for now while running the C# API
         const url = this.csAPIroot + `messages/queue/${queueName}`;
-        return axios.delete(url);
+        //const sasToken = 'SharedAccessSignature sr=https%3A%2F%2Fvengabusdemo.servicebus.windows.net%2F&sig=qxsYkyb3Jz3fL3DQqV1wTsy7Q3%2FEyx63HvS4vLm6rok%3D&se=1532600757&skn=RootManageSharedAccessKey'; //qq JF stop hardcoding this, talk to Lewis and Alice
+        //return axios.delete(url, { headers: { 'Auth-SAS': sasToken } });
+    }
+
+    deleteTopicMessages = (topicName) => {
+        //qq enter ServiceBus API server string http://localhost:63591 for now while running the C# API
+        const url = this.csAPIroot + `messages/topic/${topicName}`;
+        //const sasToken = 'SharedAccessSignature sr=https%3A%2F%2Fvengabusdemo.servicebus.windows.net%2F&sig=qxsYkyb3Jz3fL3DQqV1wTsy7Q3%2FEyx63HvS4vLm6rok%3D&se=1532600757&skn=RootManageSharedAccessKey'; //qq JF stop hardcoding this, talk to Lewis and Alice
+        //return axios.delete(url, { headers: { 'Auth-SAS': sasToken } });
+    }
+
+    deleteSubscriptionMessages = (topicName, subscriptionName) => {
+        //qq enter ServiceBus API server string http://localhost:63591 for now while running the C# API
+        const url = this.csAPIroot + `messages/subscription/${topicName}/${subscriptionName}`;
+        //const sasToken = 'SharedAccessSignature sr=https%3A%2F%2Fvengabusdemo.servicebus.windows.net%2F&sig=qxsYkyb3Jz3fL3DQqV1wTsy7Q3%2FEyx63HvS4vLm6rok%3D&se=1532600757&skn=RootManageSharedAccessKey'; //qq JF stop hardcoding this, talk to Lewis and Alice
+        //return axios.delete(url, { headers: { 'Auth-SAS': sasToken } });
     }
 
     // QQ

@@ -3,7 +3,7 @@ import { ExampleServiceBusCall } from '../Components/ExampleServiceBusCall';
 import { QueueList } from '../Components/QueueList';
 import { MessageList } from '../Components/MessageList';
 import { css } from 'react-emotion';
-import { DeleteQueueMessages } from '../Components/DeleteQueueMessages';
+import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 
 export class HomePage extends Component {
     constructor(props) {
@@ -34,16 +34,23 @@ export class HomePage extends Component {
             display: inline-block; /*to allow tables to be displayed side by side*/
         `;
 
-
+        //qq remove hardcoding later
+        const queueName = 'demoqueue1';
+        const topicName = 'demotopic1';
+        const subscriptionName = 'demosubscription1';
+        const serviceBusService = serviceBusConnection.getServiceBusService();
         return (
-            <div>
+            < div >
                 <ExampleServiceBusCall onDataReceive={this.updateRetrievedData} />
                 <div className={queueDivStyle}>
                     <QueueList queueData={this.state.retrievedData} />
                     <MessageList messageData={this.state.messageData} />
-                    <DeleteQueueMessages queueName={'demoqueue1'} />
+                    <button onClick={serviceBusService.deleteQueueMessages(queueName)} >Delete queue messages &#128465;</button >
+                    <button onClick={serviceBusService.deleteTopicMessages(topicName)} >Delete topic messages &#128465;</button >
+                    <button onClick={serviceBusService.deleteSubscriptionMessages(topicName, subscriptionName)} >Delete subcription messages &#128465;</button >
+
                 </div>
-            </div>
+            </div >
         );
     }
 }
