@@ -53,7 +53,7 @@ export class VengaServiceBusService {
     }
 
     /**
-     * Gets the details of all subscriptions in a given topic from the server.
+     * Sends a message to the given queue on the server.
      * @param {string} queueName The name of the queue to send the message to.
      * @param {object} message The message to send to the queue, in the format:
      * {
@@ -65,6 +65,27 @@ export class VengaServiceBusService {
      */
     sendMessageToQueue = (queueName, message) => {
         const url = this.csAPIroot + 'messages/send/queue/' + queueName;
+        const config = {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
+        this.axiosWithSAS.post(url, message, config);
+    }
+
+    /**
+     * Sends a message to the given topic on the server.
+     * @param {string} topicName The name of the topic to send the message to.
+     * @param {object} message The message to send to the queue, in the format:
+     * {
+     *   "messageProperties": {},
+     *   "messageBody": "string",
+     *   "messageId": "string",
+     *   "contentType": "string"
+     * }
+     */
+    sendMessageToTopic = (topicName, message) => {
+        const url = this.csAPIroot + 'messages/send/topic/' + topicName;
         const config = {
             headers: {
                 "Content-Type": "application/json"
