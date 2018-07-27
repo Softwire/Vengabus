@@ -10,7 +10,6 @@ using System.IO;
 
 namespace VengabusAPI.Controllers
 {
-
     public class DeadLettersController : VengabusController
     {
         //qq JF XR delete MessagingFactory later and put in a separate file or in VengabusController

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using Microsoft.ServiceBus.Messaging;
 using VengabusAPI.Models;
@@ -80,6 +81,7 @@ namespace VengabusAPI.Controllers
             var factory = CreateEndpointSenderFactory();
             DeleteMessageFromEndpoint(factory, endpoint);
         }
+
         private void DeleteMessageFromEndpoint(MessagingFactory clientFactory, EndpointIdentifier endpoint)
         {
             long remainingMessagesToDelete = 0;
@@ -141,6 +143,7 @@ namespace VengabusAPI.Controllers
                 remainingMessagesToDelete--;
             }
         }
+
         private void SendMessageToEndpoint(EndpointIdentifier endpoint, VengaMessage messageInfoObject)
         {
             //Sending message to queue. 
@@ -149,6 +152,7 @@ namespace VengabusAPI.Controllers
 
             SendMessageToEndpoint(endpoint, factory, brokeredMessage);
         }
+
         private void SendMessageToEndpoint(EndpointIdentifier endpoint, MessagingFactory clientFactory, BrokeredMessage message)
         {
             switch (endpoint.Type)
@@ -167,6 +171,7 @@ namespace VengabusAPI.Controllers
                     throw new NotImplementedException();
             }
         }
+
         private BrokeredMessage CreateAzureBrokeredMessage(VengaMessage messageInfoObject)
         {
             var message = new BrokeredMessage(messageInfoObject.MessageBody);
