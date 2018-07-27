@@ -40,6 +40,20 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpGet]
+        [Route("messages/listDeadLetters/queue/{queueName}")]
+        public IEnumerable<VengaMessage> GetDeadLetterMessages(string queueName)
+        {
+            return GetMessageFromEndpoint(EndpointIdentifier.ForQueue(queueName + "/$DeadLetterQueue"));
+        }
+
+        [HttpGet]
+        [Route("messages/listDeadLetters/subscription/{topicName}/{subscriptionName}")]
+        public IEnumerable<VengaMessage> ViewSubscriptionDeadLetterMessages(string topicName, string subscriptionName)
+        {
+            return GetMessageFromEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionName + "/$DeadLetterQueue"));
+        }
+
+        [HttpGet]
         [Route("messages/list/subscription/{topicName}/{subscriptionName}")]
         //list the messages in a given subscription
         public IEnumerable<VengaMessage> ListMessagesInSubscription(string topicName, string subscriptionName)
@@ -173,32 +187,25 @@ namespace VengabusAPI.Controllers
             }
         }
 
-        private IEnumerable<VengaMessage> GetMessageFromEndpoint(EndpointIdentifier endpoint)
+        protected IEnumerable<VengaMessage> GetMessageFromEndpoint(EndpointIdentifier endpoint)
         {
             var clientFactory = CreateEndpointFactory();
 
             Func<int, long, IEnumerable<BrokeredMessage>> peekNextBatch;
-
-            long remainingMessagesToPeek;
 
             switch (endpoint.Type)
             {
                 case EndpointType.Queue:
                     QueueClient queueClient = clientFactory.CreateQueueClient(endpoint.Name);
                     peekNextBatch = (number, peekStartingPoint) => { return queueClient.PeekBatch(peekStartingPoint, number); };
-                    remainingMessagesToPeek = CreateNamespaceManager().GetQueue(endpoint.Name).MessageCountDetails
-                        .ActiveMessageCount;
                     break;
                 case EndpointType.Subscription:
                     SubscriptionClient subscriptionClient =
                         clientFactory.CreateSubscriptionClient(endpoint.ParentTopic, endpoint.Name);
                     peekNextBatch = (number, peekStartingPoint) => { return subscriptionClient.PeekBatch(peekStartingPoint, number); };
-                    remainingMessagesToPeek = CreateNamespaceManager().GetSubscription(endpoint.ParentTopic, endpoint.Name).MessageCountDetails
-                        .ActiveMessageCount;
                     break;
                 default:
                     peekNextBatch = (number, peekStartingPoint) => { return Enumerable.Empty<BrokeredMessage>(); };
-                    remainingMessagesToPeek = 0;
                     break;
             }
 
@@ -208,14 +215,15 @@ namespace VengabusAPI.Controllers
              * The problem here is that, QueueClient.Peekbatch(number) does not guarantee to return the specified number
              * of messages. Instead, the given number is just an upper bound. We have to record the Sequence Number
              * of the last received message from the previous call of Peekbatch(), and call it again starting from 
-             * the previous Sequence Message + 1 in order to read new messages, until we peeked at the correct number 
-             * of messages.
+             * the previous Sequence Message + 1 in order to read new messages, until there are no messages left.
              * */
             long lastSequenceNumber = 0;
 
-            while (remainingMessagesToPeek > 0)
+            int maxMessagesInPeekBatch = 100;
+
+            while (true)
             {
-                var messages = peekNextBatch((int)remainingMessagesToPeek, lastSequenceNumber);
+                var messages = peekNextBatch(maxMessagesInPeekBatch, lastSequenceNumber);
                 if (!messages.Any())
                 {
                     break;
