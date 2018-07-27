@@ -1,5 +1,3 @@
-// a component that just takes in some xml and returns it in a div
-
 import React, { Component } from 'react';
 import { css } from 'react-emotion';
 import { Alert } from 'react-bootstrap';
@@ -8,6 +6,7 @@ const formatXML = require("xml-formatter");
 
 
 export class FormattingBox extends Component {
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -26,6 +25,8 @@ export class FormattingBox extends Component {
         //the XML library returns undefined for not XML meaning that format text will be falsely hence this working 
         if (this.state.isFormattable) {
             try {
+                //check for xml first then check for json
+                //prettyprint refers to json
                 formattedText = formatXML(originalData);
                 if (formattedText && (formattedText.replace(/\s/g, "") !== originalData)) {
                     XMLFormattingSucceededButChangedText = true;
@@ -37,12 +38,7 @@ export class FormattingBox extends Component {
             catch (err) {
                 formattingError = err;
             }
-           
-
-
         }
-
-
         const formatCss = css`
             text-align: left;
         `;

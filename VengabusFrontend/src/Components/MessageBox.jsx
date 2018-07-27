@@ -1,8 +1,6 @@
 
 import React, { Component } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { PrettyXMLBox } from './PrettyXmlBox';
-import { PrettyJsonBox } from './prettyJsonBox';
 import { FormattingBox } from './FormattingBox';
 
 export class MessageBox extends Component {
