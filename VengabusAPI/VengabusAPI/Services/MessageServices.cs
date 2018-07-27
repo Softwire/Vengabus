@@ -34,7 +34,7 @@ namespace VengabusAPI.Services
                     break;
             }
 
-            IEnumerable<VengaMessage> messageOutputIEnum = Enumerable.Empty<VengaMessage>();
+            var messagesToReturn = new List<VengaMessage>();
 
             /*
              * The problem here is that, QueueClient.Peekbatch(number) does not guarantee to return the specified number
@@ -42,14 +42,16 @@ namespace VengabusAPI.Services
              * of the last received message from the previous call of Peekbatch(), and call it again starting from 
              * the previous Sequence Message + 1 in order to read new messages, until there are no messages left.
              * */
-            long lastSequenceNumber = 0;
+            //use -1 instead of 0, in case there's a message with sequence number 0
+            long lastSequenceNumber = -1;
 
             //we are not realistically getting that many matches in one PeekBatch anyway -- this should be enough for this project
             int maxMessagesInPeekBatch = 100;
 
             while (true)
             {
-                var messages = peekNextBatch(lastSequenceNumber, maxMessagesInPeekBatch);
+                //one after the last message we've looked at
+                var messages = peekNextBatch(lastSequenceNumber + 1, maxMessagesInPeekBatch).ToList();
                 if (!messages.Any())
                 {
                     break;
@@ -60,12 +62,12 @@ namespace VengabusAPI.Services
                     //optimally, VengaMessage should have a constructor that takes BrokeredMessage. But it's probably better to do this when restructuring VengaMessage.
                     var vengaMessage = new VengaMessage(message.Properties, message.GetBody<String>(),
                         message.MessageId, message.ContentType);
-                    messageOutputIEnum = messageOutputIEnum.Concat(new[] { vengaMessage });
-                    lastSequenceNumber = message.SequenceNumber + 1; //one after the last message we've looked at
+                    messagesToReturn.Add(vengaMessage);
+                    lastSequenceNumber = Math.Max(lastSequenceNumber, message.SequenceNumber);
                 }
             }
 
-            return messageOutputIEnum;
+            return messagesToReturn;
         }
 
         public static void SendMessageToEndpoint(EndpointIdentifier endpoint, MessagingFactory clientFactory, BrokeredMessage message)
