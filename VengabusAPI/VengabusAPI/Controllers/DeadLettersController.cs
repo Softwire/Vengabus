@@ -21,14 +21,16 @@ namespace VengabusAPI.Controllers
         [Route("deadletters/list/queue/{queueName}")]
         public IEnumerable<VengaMessage> ListDeadLetterMessagesInQueue(string queueName)
         {
-            return GetMessageFromEndpoint(EndpointIdentifier.ForQueue(GetDeadLetterQueueName(queueName)));
+            var endpoint = EndpointIdentifier.ForQueue(GetDeadLetterQueueName(queueName));
+            return GetMessageFromEndpoint(endpoint);
         }
 
         [HttpGet]
         [Route("deadletters/list/subscription/{topicName}/{subscriptionName}")]
         public IEnumerable<VengaMessage> ListDeadLetterMessagesInSubscription(string topicName, string subscriptionName)
         {
-            return GetMessageFromEndpoint(EndpointIdentifier.ForSubscription(topicName, GetDeadLetterQueueName(subscriptionName)));
+            var endpoint = EndpointIdentifier.ForSubscription(topicName, GetDeadLetterQueueName(subscriptionName));
+            return GetMessageFromEndpoint(endpoint);
         }
 
         private IEnumerable<VengaMessage> GetMessageFromEndpoint(EndpointIdentifier endpoint)
