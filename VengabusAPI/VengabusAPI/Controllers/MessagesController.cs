@@ -1,40 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Web.Http;
 using Microsoft.ServiceBus.Messaging;
 using VengabusAPI.Models;
 
 namespace VengabusAPI.Controllers
 {
-    public class MessageInfoPost
-    {
-        public Dictionary<string, object> MessageProperties { get; set; }
-        public string MessageBody { get; set; }
-        public string MessageId { get; set; }
-        public string ContentType { get; set; }
-    }
-
-
     public class MessagesController : VengabusController
     {
 
         [HttpPost]
         [Route("messages/send/queue/{queueName}")]
-        public void SendMessageToQueue(string queueName, [FromBody]MessageInfoPost messageInfoObject)
+        public void SendMessageToQueue(string queueName, [FromBody]VengaMessage messageInfoObject)
         {
             SendMessageToEndpoint(queueName, EndpointType.Queue, messageInfoObject);
         }
 
         [HttpPost]
         [Route("messages/send/topic/{topicName}")]
-        public void SendMessageToTopic(string topicName, [FromBody]MessageInfoPost messageInfoObject)
+        public void SendMessageToTopic(string topicName, [FromBody]VengaMessage messageInfoObject)
         {
             SendMessageToEndpoint(topicName, EndpointType.Topic, messageInfoObject);
         }
 
         [HttpPost]
         [Route("messages/send/subscription/{topicName}/{subscriptionName}")]
-        public void SendMessageToSubscription(string topicName, string subscriptionName, [FromBody]MessageInfoPost messageInfoObject)
+        public void SendMessageToSubscription(string topicName, string subscriptionName, [FromBody]VengaMessage messageInfoObject)
         {
             SendMessageToEndpoint(subscriptionName, EndpointType.Topic, messageInfoObject, topicName);
         }
@@ -151,7 +141,7 @@ namespace VengabusAPI.Controllers
                 remainingMessagesToDelete--;
             }
         }
-        private void SendMessageToEndpoint(string endpointName, EndpointType type, MessageInfoPost messageInfoObject, string parentTopicName = "")
+        private void SendMessageToEndpoint(string endpointName, EndpointType type, VengaMessage messageInfoObject, string parentTopicName = "")
         {
             //Sending message to queue. 
             var brokeredMessage = CreateAzureBrokeredMessage(messageInfoObject);
@@ -177,7 +167,7 @@ namespace VengabusAPI.Controllers
                     throw new NotImplementedException();
             }
         }
-        private BrokeredMessage CreateAzureBrokeredMessage(MessageInfoPost messageInfoObject)
+        private BrokeredMessage CreateAzureBrokeredMessage(VengaMessage messageInfoObject)
         {
             var message = new BrokeredMessage(messageInfoObject.MessageBody);
             message.MessageId = messageInfoObject.MessageId;
