@@ -29,7 +29,7 @@ export default class AxiosWithSAS {
     /**
      * Performs a DELETE request after being passed a url, with the appropriate SAS header.
      * @param {string} url The url that the get request should be sent to.
-     * @param {string} config An axios config that is used in the axios request in addition to the SAS authentication.
+     * @param {object} config An axios config that is used in the axios request in addition to the SAS authentication.
      * @returns {Promise} The Promise returned by the axios request.
      */
     delete = (url, config) => {
@@ -41,8 +41,8 @@ export default class AxiosWithSAS {
     /**
      * Performs a POST request after being passed a url, with the appropriate SAS header.
      * @param {string} url The url that the get request should be sent to.
-     * @param {string} body The body of the request.
-     * @param {string} config An axios config that is used in the axios request in addition to the SAS authentication.
+     * @param {object} body The body of the request.
+     * @param {object} config An axios config that is used in the axios request in addition to the SAS authentication.
      * @returns {Promise} The Promise returned by the axios request.
      */
     post = (url, body, config) => {

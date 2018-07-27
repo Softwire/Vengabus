@@ -16,6 +16,11 @@ export class VengaServiceBusService {
         this.rawService = azure.createServiceBusService(connectionString);
         this.axiosWithSAS = new AxiosWithSAS(connectionString);
         this.csAPIroot = apiRoot;
+        this.jsonConfig = {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
     }
 
 
@@ -65,11 +70,7 @@ export class VengaServiceBusService {
      */
     sendMessageToQueue = (queueName, message) => {
         const url = this.csAPIroot + 'messages/send/queue/' + queueName;
-        const config = {
-            headers: {
-                "Content-Type": "application/json"
-            }
-        };
+        const config = this.jsonConfig;
         this.axiosWithSAS.post(url, message, config);
     }
 
