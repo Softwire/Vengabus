@@ -17,3 +17,21 @@ namespace VengabusAPI.Models
         public string ContentType { get; set; }
     }
 }
+/*
+public class FixedMessagePropertiesMapper
+{
+    private Dictionary<string, Action<BrokeredMessage, object>> propertiesMap =
+        new Dictionary<string, Action<BrokeredMessage, object>>
+        {
+            {"MessageId", (message, value) => message.MessageId = (string) value },
+            {"ContentType", (message, value) => message.ContentType = (string) value }
+        };
+
+    public IEnumerable<string> SupportedProperties => propertiesMap.Keys;
+
+    public void ApplyProperty(BrokeredMessage message, string propertyKey, object propertyValue)
+    {
+
+    }
+}
+*/
