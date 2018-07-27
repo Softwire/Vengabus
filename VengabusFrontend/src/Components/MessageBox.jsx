@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { PrettyXMLBox } from './PrettyXmlBox';
 import { PrettyJsonBox } from './prettyJsonBox';
+import { FormattingBox } from './FormattingBox';
 
 export class MessageBox extends Component {
 
@@ -23,7 +24,7 @@ export class MessageBox extends Component {
                     </Modal.Header>
 
                     <Modal.Body>
-                        <PrettyJsonBox
+                        <FormattingBox
                             data={this.props.messageBody}
                         />
                     </Modal.Body>

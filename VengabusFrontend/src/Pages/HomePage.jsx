@@ -19,7 +19,7 @@ export class HomePage extends Component {
                 { messageId: 13, messageBody: "<ashipto><name>Ola Nordmann</name><address>Langgt 23</address><city>4000 Stavanger</city><country>Norway</country></shipto><shiporder><item><title>Empire Burlesque</title><note>Special Edition</note><quantity>1</quantity><price>10.90</price></item><item><title>Hide your heart</title><quantity>1</quantity><price>9.90</price></item></shiporder></a>", type: "XML"},
                 { messageId: 14, messageBody: "<shipto><name>Ola Nordmann</name><address>Langgt 23</address><city>4000 Stavanger</city><country>Norway</country></shipto><shiporder><item><title>Empire Burlesque</title><note>Special Edition</note><quantity>1</quantity><price>10.90</price></item><item><title>Hide your heart</title><quantity>1</quantity><price>9.90</price></item></shiporder>",type: "XML" },
                 { messageId: 15, messageBody: `{"result":true , "count":42}` ,},
-                { messageId: 15, messageBody: `{"result":true , "count":42}` ,},
+                { messageId: 15, messageBody: `apple` ,},
             ]
         };
     }
