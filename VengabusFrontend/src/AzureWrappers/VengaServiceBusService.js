@@ -95,7 +95,7 @@ export class VengaServiceBusService {
         this.axiosWithSAS.post(url, message, config);
     }
 
-    deleteMessagesInQueue = (queueName) => {
+    deleteQueueMessages = (queueName) => {
         const url = this.csAPIroot + `messages/queue/${queueName}`;
         return this.axiosWithSAS.delete(url);
     }
