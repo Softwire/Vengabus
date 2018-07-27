@@ -85,7 +85,7 @@ namespace VengabusAPI.Services
                     return;
 
                 case EndpointType.Subscription:
-                    throw new NotImplementedException();
+                    throw new NotImplementedException("Feature deprecated due to issues with implementation.");
             }
         }
 
