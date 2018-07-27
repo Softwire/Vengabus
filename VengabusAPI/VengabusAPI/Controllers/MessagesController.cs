@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using Microsoft.ServiceBus.Messaging;
 using VengabusAPI.Models;
+using VengabusAPI.Services;
 
 namespace VengabusAPI.Controllers
 {
@@ -32,17 +34,17 @@ namespace VengabusAPI.Controllers
         [HttpGet]
         [Route("messages/list/queue/{queueName}")]
         //list the messages in a given queue
-        public void ListMessagesInQueue(string queueName)
+        public IEnumerable<VengaMessage> ListMessagesInQueue(string queueName)
         {
-            throw new NotImplementedException();
+            return GetMessageFromEndpoint(EndpointIdentifier.ForQueue(queueName));
         }
 
         [HttpGet]
         [Route("messages/list/subscription/{topicName}/{subscriptionName}")]
         //list the messages in a given subscription
-        public void ListMessagesInSubscription(string topicName, string subscriptionName)
+        public IEnumerable<VengaMessage> ListMessagesInSubscription(string topicName, string subscriptionName)
         {
-            throw new NotImplementedException();
+            return GetMessageFromEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionName));
         }
 
         //delete all messages in a given queue
@@ -77,96 +79,27 @@ namespace VengabusAPI.Controllers
 
         private void DeleteMessageFromEndpoint(EndpointIdentifier endpoint)
         {
-            var factory = CreateEndpointSenderFactory();
-            DeleteMessageFromEndpoint(factory, endpoint);
-        }
-        private void DeleteMessageFromEndpoint(MessagingFactory clientFactory, EndpointIdentifier endpoint)
-        {
-            long remainingMessagesToDelete = 0;
+            var factory = CreateEndpointFactory();
             var namespaceManager = CreateNamespaceManager();
-            Func<long, BrokeredMessage> receiveNextMessage;
-            Func<long> getMessageCount;
-            long defaultTimeout = 200;
-
-            switch (endpoint.Type)
-            {
-                case EndpointType.Queue:
-                    QueueClient queueClient = clientFactory.CreateQueueClient(endpoint.Name);
-                    receiveNextMessage = (timeout) => queueClient.Receive(TimeSpan.FromMilliseconds(timeout));
-                    getMessageCount = () =>
-                        namespaceManager.GetQueue(endpoint.Name).MessageCountDetails.ActiveMessageCount;
-                    break;
-                case EndpointType.Subscription:
-                    SubscriptionClient subscriptionClient =
-                        clientFactory.CreateSubscriptionClient(endpoint.ParentTopic, endpoint.Name);
-                    receiveNextMessage = (timeout) => subscriptionClient.Receive(TimeSpan.FromMilliseconds(timeout));
-                    getMessageCount = () => namespaceManager.GetSubscription(endpoint.ParentTopic, endpoint.Name)
-                        .MessageCountDetails.ActiveMessageCount;
-                    break;
-                default:
-                    receiveNextMessage = (timeout) => null;
-                    getMessageCount = () => 0;
-                    break;
-            }
-
-            remainingMessagesToDelete = getMessageCount();
-
-            Func<BrokeredMessage> getNextMessageWithRetries = () => {
-                long multiplier = 1;
-                while (multiplier*defaultTimeout <= 60 * 1000)
-                {
-                    BrokeredMessage message = receiveNextMessage(defaultTimeout * multiplier);
-                    if (message != null || getMessageCount() == 0)
-                    {
-                        return message;
-                    }
-                    multiplier *= 2;
-                }
-
-                throw new TimeoutException(
-                    "Messages are still present in endpoint, but it's taking too long to fetch them. Process aborted."
-                );
-            };
-
-            //a rigorous way to make sure that we only delete the messages that shall be deleted, and we don't hang forever
-            DateTime dateTimeCutoff = DateTime.Now;
-            while (remainingMessagesToDelete > 0)
-            {
-                BrokeredMessage message = getNextMessageWithRetries();
-                if (message == null || message.EnqueuedTimeUtc > dateTimeCutoff)
-                {
-                    break;
-                }
-                message.Complete();
-                remainingMessagesToDelete--;
-            }
+            MessageServices.DeleteMessageFromEndpoint(factory, namespaceManager, endpoint);
         }
+        
+
         private void SendMessageToEndpoint(EndpointIdentifier endpoint, VengaMessage messageInfoObject)
         {
             //Sending message to queue. 
             var brokeredMessage = CreateAzureBrokeredMessage(messageInfoObject);
-            var factory = CreateEndpointSenderFactory();
+            var factory = CreateEndpointFactory();
 
-            SendMessageToEndpoint(endpoint, factory, brokeredMessage);
+            MessageServices.SendMessageToEndpoint(endpoint, factory, brokeredMessage);
         }
-        private void SendMessageToEndpoint(EndpointIdentifier endpoint, MessagingFactory clientFactory, BrokeredMessage message)
+
+        private IEnumerable<VengaMessage> GetMessageFromEndpoint(EndpointIdentifier endpoint)
         {
-            switch (endpoint.Type)
-            {
-                case EndpointType.Queue:
-                    QueueClient queueClient = clientFactory.CreateQueueClient(endpoint.Name);
-                    queueClient.Send(message);
-                    return;
-
-                case EndpointType.Topic:
-                    TopicClient topicClient = clientFactory.CreateTopicClient(endpoint.Name);
-                    topicClient.Send(message);
-                    return;
-
-                case EndpointType.Subscription:
-                    throw new NotImplementedException();
-            }
+            MessagingFactory factory = CreateEndpointFactory();
+            return MessageServices.GetMessageFromEndpoint(endpoint, factory);
         }
+
         private BrokeredMessage CreateAzureBrokeredMessage(VengaMessage messageInfoObject)
         {
             var message = new BrokeredMessage(messageInfoObject.MessageBody);

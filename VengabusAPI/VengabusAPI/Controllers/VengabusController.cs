@@ -76,7 +76,7 @@ namespace VengabusAPI.Controllers
 
             return namespaceManager;
         }
-        protected MessagingFactory CreateEndpointSenderFactory()
+        protected MessagingFactory CreateEndpointFactory()
         {
             var serviceBusUri = GetParsedSASKey().ServiceBusProtocolUri;
             var sasToken = GetSASToken();

@@ -6,26 +6,38 @@ using System.Web.Http;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
 using VengabusAPI.Models;
+using VengabusAPI.Services;
 
 namespace VengabusAPI.Controllers
 {
-
     public class DeadLettersController : VengabusController
     {
-
-        [HttpGet]
-        [Route("deadLetters/queue/{queueName}")]
-        public void ViewQueueDeadLetterMessages(string queueName)
+        private string GetDeadLetterQueueName(string endpointName)
         {
-            throw new NotImplementedException();
+            return endpointName + "/$DeadLetterQueue";
         }
 
         [HttpGet]
-        [Route("deadLetters/subscription/{subscriptionName}")]
-        public void ViewSubscriptionDeadLetterMessages(string subscriptionName)
+        [Route("deadletters/list/queue/{queueName}")]
+        public IEnumerable<VengaMessage> ListDeadLetterMessagesInQueue(string queueName)
         {
-            throw new NotImplementedException();
+            var endpoint = EndpointIdentifier.ForQueue(GetDeadLetterQueueName(queueName));
+            return GetMessageFromEndpoint(endpoint);
         }
 
+        [HttpGet]
+        [Route("deadletters/list/subscription/{topicName}/{subscriptionName}")]
+        public IEnumerable<VengaMessage> ListDeadLetterMessagesInSubscription(string topicName, string subscriptionName)
+        {
+            var endpoint = EndpointIdentifier.ForSubscription(topicName, GetDeadLetterQueueName(subscriptionName));
+            return GetMessageFromEndpoint(endpoint);
+        }
+
+        private IEnumerable<VengaMessage> GetMessageFromEndpoint(EndpointIdentifier endpoint)
+        {
+            MessagingFactory factory = CreateEndpointFactory();
+            return MessageServices.GetMessageFromEndpoint(endpoint, factory);
+        }
     }
 }
+
