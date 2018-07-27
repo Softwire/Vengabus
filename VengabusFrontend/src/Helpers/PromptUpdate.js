@@ -1,20 +1,20 @@
-class ConnectionUpdate {
+class PromptUpdate {
     constructor() {
         this.updateCallBacks = [];
     }
 
-    registerForUpdates(callback) {
+    registerForUpdatesPrompts = (callback) => {
         this.updateCallBacks.push(callback);
     }
 
-    deregisterForUpdates(callback) {
+    deregisterForUpdatesPrompts = (callback) => {
         this.updateCallBacks = this.switchCallbacks.filter((cb) => cb !== callback);
     }
 
-    performUpdate() {
+    promptUpdate = () => {
         this.updateCallBacks.forEach((registeredCallback) => {
             registeredCallback();
         });
     }
 }
-export const connectionUpdate = new ConnectionUpdate();
+export const promptUpdate = new PromptUpdate();

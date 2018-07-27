@@ -8,7 +8,7 @@ import {
     Button
 } from "react-bootstrap";
 import { css } from "react-emotion";
-import { connectionUpdate } from "../Helpers/connectionUpdate";
+import { promptUpdate } from "../Helpers/PromptUpdate";
 
 export const LOCAL_STORAGE_STRINGS = Object.freeze({
     ConnectionString: "connectionString",
@@ -91,7 +91,7 @@ export class ConnectionStringConfigForm extends Component {
                 this.setState({
                     info: response
                 });
-                connectionUpdate.performUpdate();
+                promptUpdate.promptUpdate();
             })
             .catch(error => {
                 console.log(error);
