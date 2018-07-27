@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Microsoft.ServiceBus.Messaging;
 using VengabusAPI.Models;
+using System.Linq;
 
 namespace VengabusAPI.Controllers
 {
@@ -33,17 +34,17 @@ namespace VengabusAPI.Controllers
         [HttpGet]
         [Route("messages/list/queue/{queueName}")]
         //list the messages in a given queue
-        public void ListMessagesInQueue(string queueName)
+        public IEnumerable<VengaMessage> ListMessagesInQueue(string queueName)
         {
-            throw new NotImplementedException();
+            return GetMessageFromEndpoint(EndpointIdentifier.ForQueue(queueName));
         }
 
         [HttpGet]
         [Route("messages/list/subscription/{topicName}/{subscriptionName}")]
         //list the messages in a given subscription
-        public void ListMessagesInSubscription(string topicName, string subscriptionName)
+        public IEnumerable<VengaMessage> ListMessagesInSubscription(string topicName, string subscriptionName)
         {
-            throw new NotImplementedException();
+            return GetMessageFromEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionName));
         }
 
         //delete all messages in a given queue
@@ -78,7 +79,7 @@ namespace VengabusAPI.Controllers
 
         private void DeleteMessageFromEndpoint(EndpointIdentifier endpoint)
         {
-            var factory = CreateEndpointSenderFactory();
+            var factory = CreateEndpointFactory();
             DeleteMessageFromEndpoint(factory, endpoint);
         }
 
@@ -148,7 +149,7 @@ namespace VengabusAPI.Controllers
         {
             //Sending message to queue. 
             var brokeredMessage = CreateAzureBrokeredMessage(messageInfoObject);
-            var factory = CreateEndpointSenderFactory();
+            var factory = CreateEndpointFactory();
 
             SendMessageToEndpoint(endpoint, factory, brokeredMessage);
         }
@@ -170,6 +171,66 @@ namespace VengabusAPI.Controllers
                 case EndpointType.Subscription:
                     throw new NotImplementedException();
             }
+        }
+
+        private IEnumerable<VengaMessage> GetMessageFromEndpoint(EndpointIdentifier endpoint)
+        {
+            var clientFactory = CreateEndpointFactory();
+
+            Func<int, long, IEnumerable<BrokeredMessage>> peekNextBatch;
+
+            long remainingMessagesToPeek;
+
+            switch (endpoint.Type)
+            {
+                case EndpointType.Queue:
+                    QueueClient queueClient = clientFactory.CreateQueueClient(endpoint.Name);
+                    peekNextBatch = (number, peekStartingPoint) => { return queueClient.PeekBatch(peekStartingPoint, number); };
+                    remainingMessagesToPeek = CreateNamespaceManager().GetQueue(endpoint.Name).MessageCountDetails
+                        .ActiveMessageCount;
+                    break;
+                case EndpointType.Subscription:
+                    SubscriptionClient subscriptionClient =
+                        clientFactory.CreateSubscriptionClient(endpoint.ParentTopic, endpoint.Name);
+                    peekNextBatch = (number, peekStartingPoint) => { return subscriptionClient.PeekBatch(peekStartingPoint, number); };
+                    remainingMessagesToPeek = CreateNamespaceManager().GetSubscription(endpoint.ParentTopic, endpoint.Name).MessageCountDetails
+                        .ActiveMessageCount;
+                    break;
+                default:
+                    peekNextBatch = (number, peekStartingPoint) => { return Enumerable.Empty<BrokeredMessage>(); };
+                    remainingMessagesToPeek = 0;
+                    break;
+            }
+
+            IEnumerable<VengaMessage> messageOutputIEnum = Enumerable.Empty<VengaMessage>();
+
+            /*
+             * The problem here is that, QueueClient.Peekbatch(number) does not guarantee to return the specified number
+             * of messages. Instead, the given number is just an upper bound. We have to record the Sequence Number
+             * of the last received message from the previous call of Peekbatch(), and call it again starting from 
+             * the previous Sequence Message + 1 in order to read new messages, until we peeked at the correct number 
+             * of messages.
+             * */
+            long lastSequenceNumber = 0;
+
+            while (remainingMessagesToPeek > 0)
+            {
+                var messages = peekNextBatch((int)remainingMessagesToPeek, lastSequenceNumber);
+                if (!messages.Any())
+                {
+                    break;
+                }
+
+                foreach (var message in messages)
+                {
+                    var vengaMessage = new VengaMessage(message.Properties, message.GetBody<String>(),
+                        message.MessageId, message.ContentType);
+                    messageOutputIEnum = messageOutputIEnum.Concat(new[] { vengaMessage });
+                    lastSequenceNumber = message.SequenceNumber + 1;
+                }
+            }
+
+            return messageOutputIEnum;
         }
 
         private BrokeredMessage CreateAzureBrokeredMessage(VengaMessage messageInfoObject)
