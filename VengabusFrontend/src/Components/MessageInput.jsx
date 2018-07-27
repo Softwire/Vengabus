@@ -11,6 +11,7 @@ import {
 
 /**
  * Contains the entire UI for inputting a message.
+ * @prop {Object} message Can take a message as a prop to replay message. Message has the following properties: 'MessageProperties' containing the user defined properties as objects; 'MessageBody', and all of the other predefined properties.
  */
 export class MessageInput extends Component {
     constructor(props) {
@@ -35,11 +36,11 @@ export class MessageInput extends Component {
 
     getUserDefinedProperties(message) {
         let userDefinedProperties = [];
-        const extractedProperties = Object.entries(message.MessageProperties);
-        for (let i = 0; i < extractedProperties.length; i++) {
+        const keys = Object.keys(message.MessageProperties);
+        for (let i = 0; i < keys.length; i++) {
             userDefinedProperties.push({
-                name: extractedProperties[i][0],
-                value: extractedProperties[i][1]
+                name: keys[i],
+                value: userDefinedProperties[keys[i]]
             });
         }
         return userDefinedProperties;
@@ -49,7 +50,7 @@ export class MessageInput extends Component {
         let preDefinedProperties = [];
         for (let i = 0; i < this.permittedValues.length; i++) {
             const permittedValue = this.permittedValues[i];
-            if (message[permittedValue]) {
+            if (typeof message[permittedValue] === 'undefined') {
                 preDefinedProperties.push({
                     name: permittedValue,
                     value: message[permittedValue]
@@ -262,7 +263,7 @@ export class MessageInput extends Component {
                         onClick={this.discardMessage}
                         bsStyle="danger"
                     >
-                        Discard Message
+                        Reset Fields
                     </Button>
                 </form>
             </div >
