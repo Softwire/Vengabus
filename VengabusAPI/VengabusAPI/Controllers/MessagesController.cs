@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Net.Sockets;
 using System.Web.Http;
-using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
 using VengabusAPI.Models;
 
@@ -22,17 +19,24 @@ namespace VengabusAPI.Controllers
     {
 
         [HttpPost]
-        [Route("messages/send/queue/{QueueName}")]
+        [Route("messages/send/queue/{queueName}")]
         public void SendMessageToQueue(string queueName, [FromBody]MessageInfoPost messageInfoObject)
         {
-            SendMessageToEndpoint(queueName, messageInfoObject, EndpointType.Queue);
+            SendMessageToEndpoint(queueName, EndpointType.Queue, messageInfoObject);
         }
 
         [HttpPost]
-        [Route("messages/send/topic/{TopicName}")]
+        [Route("messages/send/topic/{topicName}")]
         public void SendMessageToTopic(string topicName, [FromBody]MessageInfoPost messageInfoObject)
         {
-            SendMessageToEndpoint(topicName, messageInfoObject, EndpointType.Topic);
+            SendMessageToEndpoint(topicName, EndpointType.Topic, messageInfoObject);
+        }
+
+        [HttpPost]
+        [Route("messages/send/subscription/{topicName}/{subscriptionName}")]
+        public void SendMessageToSubscription(string topicName, string subscriptionName, [FromBody]MessageInfoPost messageInfoObject)
+        {
+            SendMessageToEndpoint(subscriptionName, EndpointType.Topic, messageInfoObject, topicName);
         }
 
         [HttpGet]
@@ -44,9 +48,9 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpGet]
-        [Route("messages/list/subscription/{subscriptionName}")]
+        [Route("messages/list/subscription/{topicName}/{subscriptionName}")]
         //list the messages in a given subscription
-        public void ListMessagesInSubscription(string subscriptionName)
+        public void ListMessagesInSubscription(string topicName, string subscriptionName)
         {
             throw new NotImplementedException();
         }
@@ -56,16 +60,15 @@ namespace VengabusAPI.Controllers
         [Route("messages/queue/{queueName}")]
         public void DeleteAllMessagesInQueue(string queueName)
         {
-            throw new NotImplementedException();
+            DeleteMessageFromEndpoint(EndpointIdentifier.ForQueue(queueName));
         }
 
-
         [HttpDelete]
-        [Route("messages/subscription/{subscriptionName}")]
+        [Route("messages/subscription/{topicName}/{subscriptionName}")]
         //delete all messages in a given subscription
-        public void DeleteAllMessagesInSubscription(string subscriptionName)
+        public void DeleteAllMessagesInSubscription(string topicName, string subscriptionName)
         {
-            throw new NotImplementedException();
+            DeleteMessageFromEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionName));
         }
 
         [HttpDelete]
@@ -73,18 +76,90 @@ namespace VengabusAPI.Controllers
         //delete all messages in all the subscriptions for a given topic
         public void DeleteAllMessagesInTopic(string topicName)
         {
-            throw new NotImplementedException();
+            //get all subscriptions, and delete for each of them.
+            var namespaceManager = CreateNamespaceManager();
+            var topicDescription = namespaceManager.GetSubscriptions(topicName);
+            foreach (var subscriptionDescription in topicDescription)
+            {
+                DeleteMessageFromEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionDescription.Name));
+            }
         }
 
-        private void SendMessageToEndpoint(string endpointName, MessageInfoPost messageInfoObject, EndpointType type)
+        private void DeleteMessageFromEndpoint(EndpointIdentifier endpoint)
+        {
+            var factory = CreateEndpointSenderFactory();
+            DeleteMessageFromEndpoint(factory, endpoint);
+        }
+        private void DeleteMessageFromEndpoint(MessagingFactory clientFactory, EndpointIdentifier endpoint)
+        {
+            long remainingMessagesToDelete = 0;
+            var namespaceManager = CreateNamespaceManager();
+            Func<long, BrokeredMessage> receiveNextMessage;
+            Func<long> getMessageCount;
+            long defaultTimeout = 200;
+
+            switch (endpoint.Type)
+            {
+                case EndpointType.Queue:
+                    QueueClient queueClient = clientFactory.CreateQueueClient(endpoint.Name);
+                    receiveNextMessage = (timeout) => queueClient.Receive(TimeSpan.FromMilliseconds(timeout));
+                    getMessageCount = () =>
+                        namespaceManager.GetQueue(endpoint.Name).MessageCountDetails.ActiveMessageCount;
+                    break;
+                case EndpointType.Subscription:
+                    SubscriptionClient subscriptionClient =
+                        clientFactory.CreateSubscriptionClient(endpoint.ParentTopic, endpoint.Name);
+                    receiveNextMessage = (timeout) => subscriptionClient.Receive(TimeSpan.FromMilliseconds(timeout));
+                    getMessageCount = () => namespaceManager.GetSubscription(endpoint.ParentTopic, endpoint.Name)
+                        .MessageCountDetails.ActiveMessageCount;
+                    break;
+                default:
+                    receiveNextMessage = (timeout) => null;
+                    getMessageCount = () => 0;
+                    break;
+            }
+
+            remainingMessagesToDelete = getMessageCount();
+
+            Func<BrokeredMessage> getNextMessageWithRetries = () => {
+                long multiplier = 1;
+                while (multiplier*defaultTimeout <= 60 * 1000)
+                {
+                    BrokeredMessage message = receiveNextMessage(defaultTimeout * multiplier);
+                    if (message != null || getMessageCount() == 0)
+                    {
+                        return message;
+                    }
+                    multiplier *= 2;
+                }
+
+                throw new TimeoutException(
+                    "Messages are still present in endpoint, but it's taking too long to fetch them. Process aborted."
+                );
+            };
+
+            //a rigorous way to make sure that we only delete the messages that shall be deleted, and we don't hang forever
+            DateTime dateTimeCutoff = DateTime.Now;
+            while (remainingMessagesToDelete > 0)
+            {
+                BrokeredMessage message = getNextMessageWithRetries();
+                if (message == null || message.EnqueuedTimeUtc > dateTimeCutoff)
+                {
+                    break;
+                }
+                message.Complete();
+                remainingMessagesToDelete--;
+            }
+        }
+        private void SendMessageToEndpoint(string endpointName, EndpointType type, MessageInfoPost messageInfoObject, string parentTopicName = "")
         {
             //Sending message to queue. 
             var brokeredMessage = CreateAzureBrokeredMessage(messageInfoObject);
             var factory = CreateEndpointSenderFactory();
 
-            SendMessageToEndpoint(factory, type, endpointName, brokeredMessage);
+            SendMessageToEndpoint(endpointName, type, factory, brokeredMessage, parentTopicName);
         }
-        private static void SendMessageToEndpoint(MessagingFactory clientFactory, EndpointType type, string endpointName, BrokeredMessage message)
+        private void SendMessageToEndpoint(string endpointName, EndpointType type, MessagingFactory clientFactory, BrokeredMessage message, string parentTopicName = "")
         {
             switch (type)
             {
