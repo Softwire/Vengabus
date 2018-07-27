@@ -29,7 +29,7 @@ export default class AxiosWithSAS {
     /**
      * Performs a DELETE request after being passed a url, with the appropriate SAS header.
      * @param {string} url The url that the get request should be sent to.
-     * @param {string} config An axios config that is used in the axios request in addition to the SAS authentication.
+     * @param {object} config An axios config that is used in the axios request in addition to the SAS authentication.
      * @returns {Promise} The Promise returned by the axios request.
      */
     delete = (url, config) => {
@@ -39,15 +39,16 @@ export default class AxiosWithSAS {
     }
 
     /**
-     * Performs a PUSH request after being passed a url, with the appropriate SAS header.
+     * Performs a POST request after being passed a url, with the appropriate SAS header.
      * @param {string} url The url that the get request should be sent to.
-     * @param {string} config An axios config that is used in the axios request in addition to the SAS authentication.
+     * @param {object} body The body of the request.
+     * @param {object} config An axios config that is used in the axios request in addition to the SAS authentication.
      * @returns {Promise} The Promise returned by the axios request.
      */
-    push = (url, config) => {
+    post = (url, body, config) => {
         const token = this.getTokenFromConnectionString();
         const sasConfig = this.addAuthToConfig(config, token);
-        return axios.push(url, sasConfig);
+        return axios.post(url, body, sasConfig);
     }
 
     /**

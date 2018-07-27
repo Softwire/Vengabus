@@ -16,6 +16,11 @@ export class VengaServiceBusService {
         this.rawService = azure.createServiceBusService(connectionString);
         this.axiosWithSAS = new AxiosWithSAS(connectionString);
         this.csAPIroot = apiRoot;
+        this.jsonConfig = {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
     }
 
 
@@ -25,12 +30,69 @@ export class VengaServiceBusService {
     getQueue = util.promisify((queueName, callback) => this.rawService.getQueue(queueName, callback));
 
     /**
-     * Gets the names of all queues in the current namespace from the server.
+     * Gets the details of all queues in the current namespace from the server.
      * @return {object} The queues returned by the server.
      */
     listQueues = () => {
         const url = this.csAPIroot + 'queues/list';
         return this.axiosWithSAS.get(url);
+    }
+
+    /**
+     * Gets the details of all topics in the current namespace from the server.
+     * @return {object} The topics returned by the server.
+     */
+    listTopics = () => {
+        const url = this.csAPIroot + 'topics/list';
+        return this.axiosWithSAS.get(url);
+    }
+
+    /**
+     * Gets the details of all subscriptions in a given topic from the server.
+     * @param {string} topicName The name of the topic to et subscriptions from.
+     * @return {object} The subsctiptions returned by the server.
+     */
+    listSubscriptions = (topicName) => {
+        const url = this.csAPIroot + 'subscriptions/list/' + topicName;
+        return this.axiosWithSAS.get(url);
+    }
+
+    /**
+     * Sends a message to the given queue on the server.
+     * @param {string} queueName The name of the queue to send the message to.
+     * @param {object} message The message to send to the queue, in the format:
+     * {
+     *   "messageProperties": {},
+     *   "messageBody": "string",
+     *   "messageId": "string",
+     *   "contentType": "string"
+     * }
+     */
+    sendMessageToQueue = (queueName, message) => {
+        const url = this.csAPIroot + 'messages/send/queue/' + queueName;
+        const config = this.jsonConfig;
+        this.axiosWithSAS.post(url, message, config);
+    }
+
+    /**
+     * Sends a message to the given topic on the server.
+     * @param {string} topicName The name of the topic to send the message to.
+     * @param {object} message The message to send to the queue, in the format:
+     * {
+     *   "messageProperties": {},
+     *   "messageBody": "string",
+     *   "messageId": "string",
+     *   "contentType": "string"
+     * }
+     */
+    sendMessageToTopic = (topicName, message) => {
+        const url = this.csAPIroot + 'messages/send/topic/' + topicName;
+        const config = {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
+        this.axiosWithSAS.post(url, message, config);
     }
 
     // QQ
