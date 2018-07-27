@@ -191,21 +191,22 @@ namespace VengabusAPI.Controllers
         {
             var clientFactory = CreateEndpointFactory();
 
-            Func<int, long, IEnumerable<BrokeredMessage>> peekNextBatch;
+            //call the PeekBatch method of corresponding client with the provided parameters.
+            Func<long, int, IEnumerable<BrokeredMessage>> peekNextBatch;
 
             switch (endpoint.Type)
             {
                 case EndpointType.Queue:
                     QueueClient queueClient = clientFactory.CreateQueueClient(endpoint.Name);
-                    peekNextBatch = (number, peekStartingPoint) => { return queueClient.PeekBatch(peekStartingPoint, number); };
+                    peekNextBatch = (peekStartingPoint, number) => { return queueClient.PeekBatch(peekStartingPoint, number); };
                     break;
                 case EndpointType.Subscription:
                     SubscriptionClient subscriptionClient =
                         clientFactory.CreateSubscriptionClient(endpoint.ParentTopic, endpoint.Name);
-                    peekNextBatch = (number, peekStartingPoint) => { return subscriptionClient.PeekBatch(peekStartingPoint, number); };
+                    peekNextBatch = (peekStartingPoint, number) => { return subscriptionClient.PeekBatch(peekStartingPoint, number); };
                     break;
                 default:
-                    peekNextBatch = (number, peekStartingPoint) => { return Enumerable.Empty<BrokeredMessage>(); };
+                    peekNextBatch = (peekStartingPoint, number) => { return Enumerable.Empty<BrokeredMessage>(); };
                     break;
             }
 
@@ -224,7 +225,7 @@ namespace VengabusAPI.Controllers
 
             while (true)
             {
-                var messages = peekNextBatch(maxMessagesInPeekBatch, lastSequenceNumber);
+                var messages = peekNextBatch(lastSequenceNumber, maxMessagesInPeekBatch);
                 if (!messages.Any())
                 {
                     break;
@@ -232,10 +233,11 @@ namespace VengabusAPI.Controllers
 
                 foreach (var message in messages)
                 {
+                    //optimally, VengaMessage should have a constructor that takes BrokeredMessage. But it's probably better to do this when restructuring VengaMessage.
                     var vengaMessage = new VengaMessage(message.Properties, message.GetBody<String>(),
                         message.MessageId, message.ContentType);
                     messageOutputIEnum = messageOutputIEnum.Concat(new[] { vengaMessage });
-                    lastSequenceNumber = message.SequenceNumber + 1;
+                    lastSequenceNumber = message.SequenceNumber + 1; //one after the last message we've looked at
                 }
             }
 
