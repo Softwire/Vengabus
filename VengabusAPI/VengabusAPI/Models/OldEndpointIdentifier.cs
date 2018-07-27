@@ -14,7 +14,7 @@ namespace VengabusAPI.Models
         {
             return new EndpointIdentifier(EndpointType.Topic, topicName);
         }
-
+        
         public static EndpointIdentifier ForSubscription(string topicName, string subscriptionName)
         {
             return new EndpointIdentifier(EndpointType.Subscription, subscriptionName, topicName);

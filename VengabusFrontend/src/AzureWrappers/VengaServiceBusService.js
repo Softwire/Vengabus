@@ -95,6 +95,21 @@ export class VengaServiceBusService {
         this.axiosWithSAS.post(url, message, config);
     }
 
+    deleteQueueMessages = (queueName) => {
+        const url = this.csAPIroot + `messages/queue/${queueName}`;
+        return this.axiosWithSAS.delete(url);
+    }
+
+    deleteTopicMessages = (topicName) => {
+        const url = this.csAPIroot + `messages/topic/${topicName}`;
+        return this.axiosWithSAS.delete(url);
+    }
+
+    deleteSubscriptionMessages = (topicName, subscriptionName) => {
+        const url = this.csAPIroot + `messages/subscription/${topicName}/${subscriptionName}`;
+        return this.axiosWithSAS.delete(url);
+    }
+
     // QQ
     // Update this when the API is working
     static getServiceBusProperties(connectionString) {
