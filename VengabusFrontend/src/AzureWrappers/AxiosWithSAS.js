@@ -6,7 +6,7 @@ import crypto from 'crypto';
 /**
  * Provides methods to interact with the api using an SAS token for authentication.
  */
-export default class AxiosWithSAS {
+export class AxiosWithSAS {
     /**
      * @param {string} connectionString The connection string of the server to connect to.
      */

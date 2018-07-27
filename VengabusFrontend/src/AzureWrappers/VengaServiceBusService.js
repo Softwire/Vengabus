@@ -1,4 +1,4 @@
-import AxiosWithSAS from './AxiosWithSAS';
+import { AxiosWithSAS } from './AxiosWithSAS';
 
 const azure = require('azure-sb');
 const util = require('util');
