@@ -32,7 +32,7 @@ export class MessageInput extends Component {
      * @param {string} newValue The new value of that attribute of the property.
      */
     handleUserDefinedPropertyChange = (position, attribute, newValue) => {
-        let newUserDefinedProperties = [...this.state.userDefinedProperties];
+        const newUserDefinedProperties = [...this.state.userDefinedProperties];
         newUserDefinedProperties[position][attribute] = newValue;
         this.setState({ userDefinedProperties: newUserDefinedProperties });
     };
@@ -86,7 +86,7 @@ export class MessageInput extends Component {
     };
 
     submit = () => {
-        let properties = {};
+        const properties = {};
         const userDefinedProperties = this.state.userDefinedProperties;
         for (let i = 0; i < this.state.userDefinedProperties.length; i++) {
             const thisPropertyName = userDefinedProperties[i].name;
@@ -100,7 +100,7 @@ export class MessageInput extends Component {
                 }
             }
         }
-        let message = {};
+        const message = {};
         for (let i = 0; i < this.state.preDefinedProperties.length; i++) {
             const preDefinedProperties = this.state.preDefinedProperties;
             //No need to prevent invalid property names for pre-defined properties as it is not possible to enter an invalid name.
