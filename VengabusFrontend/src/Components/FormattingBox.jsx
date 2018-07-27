@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { css } from 'react-emotion';
 import { Alert } from 'react-bootstrap';
-import prettyprint from 'prettyprint';
+import formatJSon from 'prettyprint';
 const formatXML = require("xml-formatter");
 
 
 export class FormattingBox extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -19,20 +19,29 @@ export class FormattingBox extends Component {
 
         let formattedText;
         const originalData = this.props.data;
-        let XMLFormattingSucceededButChangedText = false;
+        let xmlFormattingSucceededButChangedText = false;
         let formattingError;
+        let mightBeXml, mightBeJson;
+        if (originalData[0] === "<" && originalData[originalData.length - 1] === ">") { 
+            mightBeXml = true;
+        }
+        if (originalData[0] === "{" && originalData[originalData.length - 1] === "}") {
+            mightBeJson = true;
+        }
+
 
         //the XML library returns undefined for not XML meaning that format text will be falsely hence this working 
         if (this.state.isFormattable) {
             try {
                 //check for xml first then check for json
-                //prettyprint refers to json
-                formattedText = formatXML(originalData);
-                if (formattedText && (formattedText.replace(/\s/g, "") !== originalData)) {
-                    XMLFormattingSucceededButChangedText = true;
+                if (mightBeXml) {
+                    formattedText = formatXML(originalData);
+                    if (formattedText && (formattedText.replace(/\s/g, "") !== originalData)) {
+                        xmlFormattingSucceededButChangedText = true;
+                    }
                 }
-                if (!formattedText) {
-                    formattedText = prettyprint(JSON.parse(originalData));
+                if (!formattedText&& mightBeJson) {
+                    formattedText = formatJSon(JSON.parse(originalData));
                 }
             }
             catch (err) {
@@ -42,9 +51,9 @@ export class FormattingBox extends Component {
         const formatCss = css`
             text-align: left;
         `;
-        const changeAlert = (
+        const xmlChangeAlert = (
             <Alert bsStyle="danger">
-                <p>The XML formatter changed the text of this data. This was probably just to 'heal' mal-formed XML, but we can't be certain.</p>
+                <p>The XML formatter changed the text of this data. This was probably just to 'heal' malformed XML, but we can't be certain.</p>
                 <p> See below for the original data text.</p >
             </Alert >
         );
@@ -72,10 +81,10 @@ export class FormattingBox extends Component {
 
         return (
             <div >
-                {XMLFormattingSucceededButChangedText ? changeAlert : ' '}
+                {xmlFormattingSucceededButChangedText ? xmlChangeAlert : ' '}
                 {formattingError ? errorAlert : ' '}
-                {formattedText ? boxContainingFormattedText : boxContainingOriginalText}
-                {XMLFormattingSucceededButChangedText ? boxContainingOriginalText : ' '}
+                {formattedText ? boxContainingFormattedText : ''}
+                {(!formattedText || xmlFormattingSucceededButChangedText) ? boxContainingOriginalText : ' '}
             </div>
         );
     }
