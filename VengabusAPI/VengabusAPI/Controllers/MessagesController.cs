@@ -40,25 +40,25 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpGet]
+        [Route("messages/list/subscription/{topicName}/{subscriptionName}")]
+        //list the messages in a given subscription
+        public IEnumerable<VengaMessage> ListMessagesInSubscription(string topicName, string subscriptionName)
+        {
+            return GetMessageFromEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionName));
+        }
+
+        [HttpGet]
         [Route("messages/listDeadLetters/queue/{queueName}")]
-        public IEnumerable<VengaMessage> GetDeadLetterMessages(string queueName)
+        public IEnumerable<VengaMessage> ListDeadLetterMessagesInQueue(string queueName)
         {
             return GetMessageFromEndpoint(EndpointIdentifier.ForQueue(queueName + "/$DeadLetterQueue"));
         }
 
         [HttpGet]
         [Route("messages/listDeadLetters/subscription/{topicName}/{subscriptionName}")]
-        public IEnumerable<VengaMessage> ViewSubscriptionDeadLetterMessages(string topicName, string subscriptionName)
+        public IEnumerable<VengaMessage> ListDeadLetterMessagesInSubscription(string topicName, string subscriptionName)
         {
             return GetMessageFromEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionName + "/$DeadLetterQueue"));
-        }
-
-        [HttpGet]
-        [Route("messages/list/subscription/{topicName}/{subscriptionName}")]
-        //list the messages in a given subscription
-        public IEnumerable<VengaMessage> ListMessagesInSubscription(string topicName, string subscriptionName)
-        {
-            return GetMessageFromEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionName));
         }
 
         //delete all messages in a given queue
