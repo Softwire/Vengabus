@@ -4,6 +4,7 @@ import { QueueList } from '../Components/QueueList';
 import { MessageList } from '../Components/MessageList';
 import { css } from 'react-emotion';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
+import { Glyphicon, Button } from 'react-bootstrap';
 
 export class HomePage extends Component {
     constructor(props) {
@@ -39,15 +40,26 @@ export class HomePage extends Component {
         const topicName = 'demotopic1';
         const subscriptionName = 'demosubscription1';
         const serviceBusService = serviceBusConnection.getServiceBusService();
+
         return (
             < div >
                 <ExampleServiceBusCall onDataReceive={this.updateRetrievedData} />
                 <div className={queueDivStyle}>
                     <QueueList queueData={this.state.retrievedData} />
                     <MessageList messageData={this.state.messageData} />
-                    <button onClick={() => serviceBusService.deleteQueueMessages(queueName)} >Delete queue messages &#128465;</button >
-                    <button onClick={() => serviceBusService.deleteTopicMessages(topicName)} >Delete topic messages &#128465;</button >
-                    <button onClick={() => serviceBusService.deleteSubscriptionMessages(topicName, subscriptionName)} >Delete subcription messages &#128465;</button >
+                    {/*qq delete the text in Button once implemented properly*/}
+                    <Button onClick={() => serviceBusService.deleteQueueMessages(queueName)} bsStyle="danger">
+                        Delete queue messages&#160;
+                        <Glyphicon glyph="trash" />
+                    </Button>
+                    <Button onClick={() => serviceBusService.deleteTopicMessages(topicName)} bsStyle="danger">
+                        Delete topic messages&#160;
+                        <Glyphicon glyph="trash" />
+                    </Button>
+                    <Button onClick={() => serviceBusService.deleteSubscriptionMessages(topicName, subscriptionName)} bsStyle="danger">
+                        Delete subcription messages&#160;
+                        <Glyphicon glyph="trash" />
+                    </Button>
 
                 </div>
             </div >
