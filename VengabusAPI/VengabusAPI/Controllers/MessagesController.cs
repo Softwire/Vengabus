@@ -12,21 +12,21 @@ namespace VengabusAPI.Controllers
         [Route("messages/send/queue/{queueName}")]
         public void SendMessageToQueue(string queueName, [FromBody]VengaMessage messageInfoObject)
         {
-            SendMessageToEndpoint(queueName, EndpointType.Queue, messageInfoObject);
+            SendMessageToEndpoint(EndpointIdentifier.ForQueue(queueName), messageInfoObject);
         }
 
         [HttpPost]
         [Route("messages/send/topic/{topicName}")]
         public void SendMessageToTopic(string topicName, [FromBody]VengaMessage messageInfoObject)
         {
-            SendMessageToEndpoint(topicName, EndpointType.Topic, messageInfoObject);
+            SendMessageToEndpoint(EndpointIdentifier.ForTopic(topicName), messageInfoObject);
         }
 
         [HttpPost]
         [Route("messages/send/subscription/{topicName}/{subscriptionName}")]
         public void SendMessageToSubscription(string topicName, string subscriptionName, [FromBody]VengaMessage messageInfoObject)
         {
-            SendMessageToEndpoint(subscriptionName, EndpointType.Topic, messageInfoObject, topicName);
+            SendMessageToEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionName), messageInfoObject);
         }
 
         [HttpGet]
@@ -141,25 +141,25 @@ namespace VengabusAPI.Controllers
                 remainingMessagesToDelete--;
             }
         }
-        private void SendMessageToEndpoint(string endpointName, EndpointType type, VengaMessage messageInfoObject, string parentTopicName = "")
+        private void SendMessageToEndpoint(EndpointIdentifier endpoint, VengaMessage messageInfoObject)
         {
             //Sending message to queue. 
             var brokeredMessage = CreateAzureBrokeredMessage(messageInfoObject);
             var factory = CreateEndpointSenderFactory();
 
-            SendMessageToEndpoint(endpointName, type, factory, brokeredMessage, parentTopicName);
+            SendMessageToEndpoint(endpoint, factory, brokeredMessage);
         }
-        private void SendMessageToEndpoint(string endpointName, EndpointType type, MessagingFactory clientFactory, BrokeredMessage message, string parentTopicName = "")
+        private void SendMessageToEndpoint(EndpointIdentifier endpoint, MessagingFactory clientFactory, BrokeredMessage message)
         {
-            switch (type)
+            switch (endpoint.Type)
             {
                 case EndpointType.Queue:
-                    QueueClient queueClient = clientFactory.CreateQueueClient(endpointName);
+                    QueueClient queueClient = clientFactory.CreateQueueClient(endpoint.Name);
                     queueClient.Send(message);
                     return;
 
                 case EndpointType.Topic:
-                    TopicClient topicClient = clientFactory.CreateTopicClient(endpointName);
+                    TopicClient topicClient = clientFactory.CreateTopicClient(endpoint.Name);
                     topicClient.Send(message);
                     return;
 
