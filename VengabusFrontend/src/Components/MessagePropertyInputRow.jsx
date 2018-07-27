@@ -36,17 +36,17 @@ export class MessagePropertyInputRow extends Component {
 
     render() {
         const formNameStyle = css`
-            padding-left: 0.25%;
+            padding-left: 5px;
             width: 20%;
             float: left;
         `;
         const formValueStyle = css`
-            padding-left: 0.25%;
-            width: 75%;
+            padding-left: 5px;
+            width: 74.5%;
             float: left;
         `;
         const deleteButtonStyle = css`
-            padding-left: 0.25%;
+            padding-left: 5px;
             width: 5%; 
             float: left;
         `;
@@ -64,33 +64,37 @@ export class MessagePropertyInputRow extends Component {
             permittedValueMenuItems = permittedValues.map((permittedValue) => { return { value: permittedValue, label: permittedValue }; });
         }
 
+        const preDefinedPropertyNameSelect = (
+            <Select
+                className={leftAlign}
+                title="Choose a property"
+                key={propertyName + index}
+                id={`property-dropdown-${index}`}
+                options={permittedValueMenuItems}
+                value={propertyName ? { value: propertyName, label: propertyName } : undefined}
+                onChange={(event) => this.props.handlePropertyNameChange(event.value, index)}
+            />
+        );
+
+        const customPropertyTextField = (
+            <this.FieldGroup
+                id="formControlsText"
+                className={inputHeightStyle}
+                validation={this.props.getValidNameState(index)}
+                key={index}
+                type="text"
+                placeholder="Enter property name"
+                value={propertyName}
+                onChange={(event) => this.props.handlePropertyNameChange(event.target.value, index)}
+            />
+        );
+
+        const propertyNameInput = this.props.permittedValues ? preDefinedPropertyNameSelect : customPropertyTextField;
+
         return (
             <div>
                 <form className={formNameStyle}>
-                    {this.props.permittedValues ? (
-                        <Select
-                            className={leftAlign}
-                            title="Choose a property"
-                            key={propertyName + index}
-                            id={`property-dropdown-${index}`}
-                            options={permittedValueMenuItems}
-                            value={propertyName ? { value: propertyName, label: propertyName } : undefined}
-                            onChange={(event) => this.props.handlePropertyNameChange(event.value, index)}
-                        />
-
-                    ) : (
-                            <this.FieldGroup
-                                id="formControlsText"
-                                className={inputHeightStyle}
-                                validation={this.props.getValidNameState(index)}
-                                key={index}
-                                type="text"
-                                placeholder="Enter property name"
-                                value={propertyName}
-                                onChange={(event) => this.props.handlePropertyNameChange(event.target.value, index)}
-                            />
-                        )
-                    }
+                    {propertyNameInput}
                 </form>
                 <form className={formValueStyle}>
                     <this.FieldGroup

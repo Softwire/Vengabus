@@ -3,7 +3,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 /*
 Returns a table created from an input object
 Props:
-    dataToDisplay: the array of object which contains the data to be displayed in the table (REQUIRED)
+    dataToDisplay: the array of objects which contains the data to be displayed in the table (REQUIRED)
     colProps: contains properties regarding specific columns (format: array of objects)
         dataField: specifies the name of the property of DataToDisplay which is to be displayed in the column (REQUIRED)
         text: text which is to be displayed in the header of the column (REQUIRED)

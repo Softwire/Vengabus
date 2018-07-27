@@ -1,4 +1,3 @@
-import 'jest-localstorage-mock';
 import { mount, configure } from 'enzyme';
 import Adaptor from 'enzyme-adapter-react-16';
 import renderer from 'react-test-renderer';

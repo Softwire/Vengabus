@@ -10,7 +10,6 @@ import {
 
 /**
  * Contains the entire UI for inputting a message.
- * Currently only logs the message when it is submitted.
  */
 export class MessageInput extends Component {
     constructor(props) {
@@ -20,19 +19,19 @@ export class MessageInput extends Component {
 
         this.state = {
             messageBody: "",
-            userDefinedProperties: {}, //{name: something, value: something}
-            preDefinedProperties: {} //{name: something, value: something}
+            userDefinedProperties: [], //[{name: something, value: something}]
+            preDefinedProperties: [] //[{name: something, value: something}]
         };
 
     }
 
     /**
      * Updates a user-defined property name or value in the state.
+     * @param {integer} position The position of the property in the list.
      * @param {string} attribute The attribute of the property that has changed, 'name' or 'value' 
      * @param {string} newValue The new value of that attribute of the property.
-     * @param {integer} position The position of the property in the list.
      */
-    handleUserDefinedPropertyChange = (attribute, newValue, position) => {
+    handleUserDefinedPropertyChange = (position, attribute, newValue) => {
         let newUserDefinedProperties = [...this.state.userDefinedProperties];
         newUserDefinedProperties[position][attribute] = newValue;
         this.setState({ userDefinedProperties: newUserDefinedProperties });
@@ -73,6 +72,7 @@ export class MessageInput extends Component {
         const newProperties = [...this.state[propertyType]];
         newProperties.splice(index, 1);
         this.setState({
+            //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#Computed_property_names
             [propertyType]: newProperties
         });
     }
@@ -81,20 +81,22 @@ export class MessageInput extends Component {
      * Updates the message body in the state with a new value.
      * @param {string} newBody The new value of the body.
      */
-    handleMessagebodyChange = newBody => {
+    handleMessageBodyChange = newBody => {
         this.setState({ messageBody: newBody });
     };
 
     submit = () => {
         let properties = {};
+        const userDefinedProperties = this.state.userDefinedProperties;
         for (let i = 0; i < this.state.userDefinedProperties.length; i++) {
-            const userDefinedProperties = this.state.userDefinedProperties;
+            const thisPropertyName = userDefinedProperties[i].name;
+            const thisPropertyValue = userDefinedProperties[i].value;
             //Prevent the user from inputting invalid property names.
             //Cannot use isPropertyNameInvalid here because if there are two properties with the same name it will mark
             //both of them as invalid whereas we just want to remove one of them.
-            if (userDefinedProperties[i].name && userDefinedProperties[i].value && !properties.hasOwnProperty(userDefinedProperties[i])) {
-                if (userDefinedProperties[i].name.length > 0) {
-                    properties[userDefinedProperties[i].name] = userDefinedProperties[i].value;
+            if (thisPropertyName && thisPropertyValue && !properties.hasOwnProperty(userDefinedProperties[i].name)) {
+                if (thisPropertyName.length > 0) {
+                    properties[thisPropertyName] = thisPropertyValue;
                 }
             }
         }
@@ -111,14 +113,14 @@ export class MessageInput extends Component {
 
     render() {
         const formStyle = css`
-            padding-left: 0.5%;
+            padding-left: 5px;
             padding-top: 1%;
             width: 85%;
             height: 1080px;
             float: left;
         `;
         const buttonStyle = css`
-            width: 150px;
+            width: 270px;
             margin-left: 5px;
         `;
         const headingStyle = css`
@@ -134,26 +136,6 @@ export class MessageInput extends Component {
         `;
         return (
             <div className={formStyle}>
-                <div className={leftAlignContainerStyle}>
-                    <p className={headingStyle}>User-defined Properties</p>
-                </div>
-                <MessagePropertyInput
-                    properties={this.state.userDefinedProperties}
-                    handlePropertyNameChange={(newName, index) => this.handleUserDefinedPropertyChange('name', newName, index)}
-                    handlePropertyValueChange={(newVame, index) => this.handleUserDefinedPropertyChange('value', newVame, index)}
-                    deleteRow={(index) => this.deleteRow(index, true)}
-                />
-                <form>
-                    <div className={leftAlignContainerStyle}>
-                        <Button
-                            className={buttonStyle}
-                            onClick={() => this.addNewProperty(true)}
-                        >
-                            Add new property
-                        </Button>
-                    </div>
-                </form>
-                <hr />
                 <div className={leftAlignContainerStyle}>
                     <p className={headingStyle}>Pre-defined Properties</p>
                 </div>
@@ -171,7 +153,27 @@ export class MessageInput extends Component {
                             onClick={() => this.addNewProperty(false)}
                             disabled={this.state.preDefinedProperties.length === this.permittedValues.length}
                         >
-                            Add new dropdown
+                            Add new Azure property
+                        </Button>
+                    </div>
+                </form>
+                <hr />
+                <div className={leftAlignContainerStyle}>
+                    <p className={headingStyle}>User-defined Properties</p>
+                </div>
+                <MessagePropertyInput
+                    properties={this.state.userDefinedProperties}
+                    handlePropertyNameChange={(newName, index) => this.handleUserDefinedPropertyChange(index, 'name', newName)}
+                    handlePropertyValueChange={(newVame, index) => this.handleUserDefinedPropertyChange(index, 'value', newVame)}
+                    deleteRow={(index) => this.deleteRow(index, true)}
+                />
+                <form>
+                    <div className={leftAlignContainerStyle}>
+                        <Button
+                            className={buttonStyle}
+                            onClick={() => this.addNewProperty(true)}
+                        >
+                            Add new application specific property
                         </Button>
                     </div>
                 </form>
@@ -180,7 +182,7 @@ export class MessageInput extends Component {
                     <FormGroup
                         className={leftAlignContainerStyle}
                         controlId="formControlsMessageBodyText"
-                        onChange={(event) => this.handleMessagebodyChange(event.target.value)}
+                        onChange={(event) => this.handleMessageBodyChange(event.target.value)}
                     >
                         <ControlLabel className={headingStyle}>Body</ControlLabel>
                         <FormControl
