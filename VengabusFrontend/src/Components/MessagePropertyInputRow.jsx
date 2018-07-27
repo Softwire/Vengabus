@@ -11,7 +11,7 @@ import Select from 'react-select';
  * @prop {string} propertyName Name of the property.
  * @prop {string} propertyValue Value of the property.
  * @prop {int} index To be able to identify its place.
- * @prop {function} getValidNameState Function that validates this input.
+ * @prop {function} isPropertyNameValid Function that validates this input.
  * @prop {function} handlePropertyNameChange Function that is called when propertyName is edited.
  * @prop {function} handlePropertyValueChange Function that is called when propertyValue is edited.
  * @prop {function} deleteRow Function that is called when the delete button is pressed.
@@ -80,7 +80,7 @@ export class MessagePropertyInputRow extends Component {
             <this.FieldGroup
                 id="formControlsText"
                 className={inputHeightStyle}
-                validation={this.props.getValidNameState(index)}
+                validation={this.props.isPropertyNameValid(index)}
                 key={index}
                 type="text"
                 placeholder="Enter property name"

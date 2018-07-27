@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { css } from 'react-emotion';
 import { MessagePropertyInput } from './MessagePropertyInput';
+import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import {
     FormGroup,
     FormControl,
@@ -20,7 +21,9 @@ export class MessageInput extends Component {
         this.state = {
             messageBody: "",
             userDefinedProperties: [], //[{name: something, value: something}]
-            preDefinedProperties: [] //[{name: something, value: something}]
+            preDefinedProperties: [], //[{name: something, value: something}]
+            // QQ add way of choosing which queue/topic a message is sent to.
+            selectedQueue: "demoqueue1"
         };
 
     }
@@ -39,14 +42,29 @@ export class MessageInput extends Component {
 
     /**
  * Updates a pre-defined property name or value in the state.
+ * @param {integer} position The position of the property in the list.
  * @param {string} attribute The attribute of the property that has changed, 'name' or 'value' 
  * @param {string} newValue The new value of that attribute of the property.
- * @param {integer} position The position of the property in the list.
  */
-    handlePreDefinedPropertyChange = (attribute, newValue, position) => {
+    handlePreDefinedPropertyChange = (position, attribute, newValue) => {
         let newPreDefinedProperties = [...this.state.preDefinedProperties];
         newPreDefinedProperties[position][attribute] = newValue;
         this.setState({ preDefinedProperties: newPreDefinedProperties });
+    };
+
+    /**
+     * Updates a collection of properties by applying the given updateOperation to it.
+     * @param {boolean} isUserDefined Should be true if the property is user-defined, false if it is a pre-defined property.
+     * @param {funciton} updateOperation The operation to be applied to the properties collection.
+     */
+    updatePropertiesCollection = (isUserDefined, updateOperation) => {
+        const propertyType = isUserDefined ? "userDefinedProperties" : "preDefinedProperties";
+        const newProperties = [...this.state[propertyType]];
+        updateOperation(newProperties);
+        this.setState({
+            //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#Computed_property_names
+            [propertyType]: newProperties
+        });
     };
 
     /**
@@ -54,11 +72,8 @@ export class MessageInput extends Component {
      * @param {boolean} isUserDefined Should be true if the property is user-defined, false if it is a pre-defined property.
      */
     addNewProperty = (isUserDefined) => {
-        const propertyType = isUserDefined ? "userDefinedProperties" : "preDefinedProperties";
-        let newProperties = [...this.state[propertyType]];
-        newProperties.push({ name: "", value: "" });
-        this.setState({
-            [propertyType]: newProperties
+        this.updatePropertiesCollection(isUserDefined, (propertyCollectionToMutate) => {
+            propertyCollectionToMutate.push({ name: "", value: "" });
         });
     }
 
@@ -68,14 +83,10 @@ export class MessageInput extends Component {
      * @param {boolean} isUserDefined Should be true if the property is user-defined, false if it is a pre-defined property.
      */
     deleteRow = (index, isUserDefined) => {
-        const propertyType = isUserDefined ? "userDefinedProperties" : "preDefinedProperties";
-        const newProperties = [...this.state[propertyType]];
-        newProperties.splice(index, 1);
-        this.setState({
-            //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#Computed_property_names
-            [propertyType]: newProperties
+        this.updatePropertiesCollection(isUserDefined, (propertyCollectionToMutate) => {
+            propertyCollectionToMutate.splice(index, 1);
         });
-    }
+    };
 
     /**
      * Updates the message body in the state with a new value.
@@ -85,7 +96,12 @@ export class MessageInput extends Component {
         this.setState({ messageBody: newBody });
     };
 
-    submit = () => {
+    /**
+     * Converts the userDefinedProperties and preDefinedProperties arrays to a single message object
+     * in the format that is accepted by the API.
+     * @returns {object} The created message.
+     */
+    createMessageObject() {
         const properties = {};
         const userDefinedProperties = this.state.userDefinedProperties;
         for (let i = 0; i < this.state.userDefinedProperties.length; i++) {
@@ -101,14 +117,20 @@ export class MessageInput extends Component {
             }
         }
         const message = {};
+        const preDefinedProperties = this.state.preDefinedProperties;
         for (let i = 0; i < this.state.preDefinedProperties.length; i++) {
-            const preDefinedProperties = this.state.preDefinedProperties;
             //No need to prevent invalid property names for pre-defined properties as it is not possible to enter an invalid name.
             message[preDefinedProperties[i].name] = preDefinedProperties[i].value;
         }
         message.MessageProperties = properties;
         message.MessageBody = this.state.messageBody;
-        console.log(message);
+        return message
+    }
+
+    submit = () => {
+        const serviceBusService = serviceBusConnection.getServiceBusService();
+        const message = this.createMessageObject();
+        serviceBusService.sendMessageToQueue(this.state.selectedQueue, message);
     }
 
     render() {
@@ -116,7 +138,6 @@ export class MessageInput extends Component {
             padding-left: 5px;
             padding-top: 1%;
             width: 85%;
-            height: 1080px;
             float: left;
         `;
         const buttonStyle = css`
@@ -141,8 +162,8 @@ export class MessageInput extends Component {
                 </div>
                 <MessagePropertyInput
                     properties={this.state.preDefinedProperties}
-                    handlePropertyNameChange={(newName, index) => this.handlePreDefinedPropertyChange('name', newName, index)}
-                    handlePropertyValueChange={(newVame, index) => this.handlePreDefinedPropertyChange('value', newVame, index)}
+                    handlePropertyNameChange={(newName, index) => this.handlePreDefinedPropertyChange(index, 'name', newName)}
+                    handlePropertyValueChange={(newValue, index) => this.handlePreDefinedPropertyChange(index, 'value', newValue)}
                     deleteRow={(index) => this.deleteRow(index, false)}
                     permittedValues={this.permittedValues}
                 />
@@ -164,7 +185,7 @@ export class MessageInput extends Component {
                 <MessagePropertyInput
                     properties={this.state.userDefinedProperties}
                     handlePropertyNameChange={(newName, index) => this.handleUserDefinedPropertyChange(index, 'name', newName)}
-                    handlePropertyValueChange={(newVame, index) => this.handleUserDefinedPropertyChange(index, 'value', newVame)}
+                    handlePropertyValueChange={(newValue, index) => this.handleUserDefinedPropertyChange(index, 'value', newValue)}
                     deleteRow={(index) => this.deleteRow(index, true)}
                 />
                 <form>
