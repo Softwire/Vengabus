@@ -5,6 +5,7 @@ import { MessageList } from '../Components/MessageList';
 import { css } from 'react-emotion';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import { Glyphicon, Button } from 'react-bootstrap';
+import { PAGES, pageSwitcher } from './PageSwitcherService';
 
 export class HomePage extends Component {
     constructor(props) {
@@ -53,7 +54,7 @@ export class HomePage extends Component {
 
         return (
             < div >
-                <button onClick={() => this.props.replayMessage(message)}>Replay Example Message</button>
+                <button onClick={() => pageSwitcher.switchToPage(PAGES.SendMessagePage, message)}>Replay Example Message</button>
                 <ExampleServiceBusCall onDataReceive={this.updateRetrievedData} />
                 <div className={queueDivStyle}>
                     <QueueList queueData={this.state.retrievedData} />

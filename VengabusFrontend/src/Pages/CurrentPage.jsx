@@ -8,8 +8,10 @@ import { SendMessagePage } from './SendMessagePage';
 export class CurrentPage extends Component {
     constructor(props) {
         super(props);
-        this.messageToReplay = undefined;
-        this.state = { currentPage: pageSwitcher.currentPage };
+        this.state = {
+            currentPage: pageSwitcher.currentPage,
+            data: pageSwitcher.data
+        };
     }
 
     componentDidMount() {
@@ -20,8 +22,11 @@ export class CurrentPage extends Component {
         pageSwitcher.deregisterForSwitchUpdates(this.switchToPage);
     }
 
-    switchToPage = (page) => {
-        this.setState({ currentPage: page });
+    switchToPage = (page, data) => {
+        this.setState({
+            currentPage: page,
+            data: data
+        });
     };
 
     onChildInput = (e, targetProperty) => {
@@ -30,16 +35,11 @@ export class CurrentPage extends Component {
         this.setState(mutation);
     };
 
-    replayMessage = (message) => {
-        this.messageToReplay = message;
-        pageSwitcher.switchToPage(PAGES.SendMessagePage);
-    }
-
     render() {
         let returnValue;
         switch (this.state.currentPage) {
             case PAGES.HomePage:
-                returnValue = <HomePage replayMessage={this.replayMessage} />;
+                returnValue = <HomePage />;
                 break;
 
             case PAGES.OtherPage:
@@ -47,8 +47,8 @@ export class CurrentPage extends Component {
                 break;
 
             case PAGES.SendMessagePage:
-                returnValue = <SendMessagePage message={this.messageToReplay ? { ...this.messageToReplay } : undefined} />;
-                this.messageToReplay = undefined;
+                const messageTemplate = this.state.data;
+                returnValue = <SendMessagePage message={messageTemplate ? { ...messageTemplate } : undefined} />;
                 break;
 
             default:
