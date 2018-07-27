@@ -187,7 +187,7 @@ namespace VengabusAPI.Controllers
             }
         }
 
-        protected IEnumerable<VengaMessage> GetMessageFromEndpoint(EndpointIdentifier endpoint)
+        private IEnumerable<VengaMessage> GetMessageFromEndpoint(EndpointIdentifier endpoint)
         {
             var clientFactory = CreateEndpointFactory();
 
@@ -219,6 +219,7 @@ namespace VengabusAPI.Controllers
              * */
             long lastSequenceNumber = 0;
 
+            //we are not realistically getting that many matches in one PeekBatch anyway -- this should be enough for this project
             int maxMessagesInPeekBatch = 100;
 
             while (true)
