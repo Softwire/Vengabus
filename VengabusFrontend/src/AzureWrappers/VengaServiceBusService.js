@@ -1,4 +1,4 @@
-import AxiosWithSAS from './AxiosWithSAS';
+import { AxiosWithSAS } from './AxiosWithSAS';
 
 const azure = require('azure-sb');
 const util = require('util');
@@ -107,6 +107,17 @@ export class VengaServiceBusService {
     deleteSubscriptionMessages = (topicName, subscriptionName) => {
         const url = this.csAPIroot + `messages/subscription/${topicName}/${subscriptionName}`;
         return this.axiosWithSAS.delete(url);
+    }
+
+    // QQ Fetch from API once endpoint exists
+    /**
+     * Returns the pre-defined properties that are allowed to be added to messages.
+     * @returns {string[]} The allowed properties.
+     */
+    getPermittedMessageProperties = () => {
+        return new Promise(function (resolve, reject) {
+            resolve(['MessageId', 'ContentType']);
+        });
     }
 
     // QQ

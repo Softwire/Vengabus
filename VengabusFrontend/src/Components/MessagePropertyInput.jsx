@@ -12,18 +12,18 @@ import _ from 'lodash';
 export class MessagePropertyInput extends Component {
 
     /**
-     * Checks whether the name of a user defined property is valid, i.e. not empty or a duplicate.
+     * Checks whether the name of a user defined property is valid, i.e. neither empty nor a duplicate.
      * @param {integer} index The index of the name to check.
      * @return {string} 'error' if the name is invalid, or null otherwise.
      */
-    isPropertyNameInvalid = (index) => {
+    isPropertyNameValid = (index) => {
         let name = this.props.properties[index].name;
-        if (name.length === 0 || _(this.props.properties)
+        if (!name || _(this.props.properties)
             .filter((current) => current.name === name)
             .size() > 1) {
-            return 'error';
+            return false;
         } else {
-            return null;
+            return true;
         }
     }
 
@@ -39,13 +39,15 @@ export class MessagePropertyInput extends Component {
             if (indexOfExistingValue !== -1) {
                 remainingPermittedValues.splice(indexOfExistingValue, 1);
             }
+        }
+        for (let i = 0; i < this.props.properties.length; i++) {
             inputs.push(
                 <MessagePropertyInputRow
                     propertyName={this.props.properties[i].name}
                     propertyValue={this.props.properties[i].value}
                     index={i}
                     key={i}
-                    getValidNameState={this.isPropertyNameInvalid}
+                    isPropertyNameValid={(index) => this.isPropertyNameValid(index) ? null : 'error'}
                     handlePropertyNameChange={this.props.handlePropertyNameChange}
                     handlePropertyValueChange={this.props.handlePropertyValueChange}
                     deleteRow={this.props.deleteRow}

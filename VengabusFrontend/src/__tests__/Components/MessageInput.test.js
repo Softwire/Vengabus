@@ -1,4 +1,3 @@
-import 'jest-localstorage-mock';
 import { mount, configure } from 'enzyme';
 import Adaptor from 'enzyme-adapter-react-16';
 import renderer from 'react-test-renderer';
@@ -10,9 +9,20 @@ import { MessagePropertyInputRow } from '../../Components/MessagePropertyInputRo
 
 configure({ adapter: new Adaptor() });
 
-//QQ Implement a test that checks that the submit function works correctly once it
-//acually does something instead of just console.table
+//QQ Implement a test that checks that the submit function works correctly
 
+jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
+    VengaServiceBusService: class {
+        constructor() {
+
+        }
+        getPermittedMessageProperties = () => {
+            return new Promise(function (resolve, reject) {
+                resolve(['MessageId', 'ContentType']);
+            });
+        }
+    }
+}));
 
 it('Deletes a property when the delete button is pressed', () => {
     let wrapper = mount(<MessageInput />);

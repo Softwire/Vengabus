@@ -2,43 +2,71 @@
 
 exports[`renders correctly 1`] = `
 <div
-  className="css-x580p"
+  className="css-lushey"
 >
-  <div />
-  <form>
-    <button
-      className="btn btn-default"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
+  <div
+    className="css-mxbhzi"
+  >
+    <p
+      className="css-wni10w"
     >
-      Add new property
-    </button>
-  </form>
+      Pre-defined Properties
+    </p>
+  </div>
   <div />
-  <form>
-    <button
-      className="btn btn-default"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
-    >
-      Add new dropdown
-    </button>
-  </form>
   <form>
     <div
-      className="form-group"
+      className="css-mxbhzi"
+    >
+      <button
+        className="css-74801x btn btn-default"
+        disabled={true}
+        onClick={[Function]}
+        type="button"
+      >
+        Add new Azure property
+      </button>
+    </div>
+  </form>
+  <hr />
+  <div
+    className="css-mxbhzi"
+  >
+    <p
+      className="css-wni10w"
+    >
+      User-defined Properties
+    </p>
+  </div>
+  <div />
+  <form>
+    <div
+      className="css-mxbhzi"
+    >
+      <button
+        className="css-74801x btn btn-default"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Add new application specific property
+      </button>
+    </div>
+  </form>
+  <hr />
+  <form>
+    <div
+      className="css-mxbhzi form-group"
       onChange={[Function]}
     >
       <label
-        className="control-label"
+        className="css-wni10w control-label"
         htmlFor="formControlsMessageBodyText"
       >
         Body
       </label>
       <textarea
-        className="form-control"
+        className="css-cjfa1z form-control"
         id="formControlsMessageBodyText"
         placeholder="Enter message body"
         type={undefined}
