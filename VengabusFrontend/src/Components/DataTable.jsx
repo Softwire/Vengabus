@@ -24,7 +24,7 @@ Props:
     condensed: (OPTIONAL) {Boolean} If true then reduces padding in the table
     hover: (OPTIONAL) {Boolean} If true then background color of table will change to light grey on hover
     selectRow: (OPTIONAL) defines what happens when row is selected
-                selected: index of row that is selected by default
+                selected: if {int} then index of row that is selected, if {string} then text in the leftmost column that is selected (has to be unique)
                 style: allows css style to be passed in to the selected row
                 classes: allows passing in css classes for styling (not an array)
                 bgColor: sets background color of selected row, will throw an error if style or classes is defined
@@ -43,8 +43,8 @@ https://react-bootstrap-table.github.io/react-bootstrap-table2/
 export class DataTable extends Component {
 
     render() {
-        let colProps = [];
-        let dataToDisplay = undefined;
+        let colProps = this.props.colProps;
+        let dataToDisplay = this.props.dataToDisplay;
         const tableRowStyle = this.props.tableRowStyle;
         const rowEvents = this.props.rowEvents || {};
         const name = this.props.name;
@@ -52,8 +52,8 @@ export class DataTable extends Component {
         let finalRowEvents = undefined;
         const selectRow = this.props.selectRow;
 
-        if (this.props.dataToDisplay) {
-            if (!this.props.colProps) {
+        if (dataToDisplay) {
+            if (!colProps) {
                 throw new Error('column property object is not defined in ' + name);
             }
 
@@ -70,29 +70,28 @@ export class DataTable extends Component {
                 selectRow.mode = 'radio';
                 selectRow.hideSelectColumn = true;
                 selectRow.clickToSelect = true;
-                if (typeof selectRow.selected !== 'undefined' && typeof selectRow.selected === 'number') {
-                    selectRow.selected = selectRow.selected.toString();
-                }
+                // if (typeof selectRow.selected !== 'undefined' && typeof selectRow.selected === 'number') {
+                //     selectRow.selected = selectRow.selected.toString();
+                //     // Add hidden column to use as a key that will match the row index
+                //     dataToDisplay = [];
+                //     for (let i = 0; i < this.props.dataToDisplay.length; i++) {
+                //         dataToDisplay.push({ ...(this.props.dataToDisplay[i]), key: i });
+                //     }
+                //     colProps = [
+                //         {
+                //             dataField: 'key',
+                //             text: 'key',
+                //             hidden: true
+                //         },
+                //         ...(this.props.colProps)
+                //     ];
+                // }
             }
-
-            // Add hidden column to use as a key that will match the row index
-            dataToDisplay = [];
-            for (let i = 0; i < this.props.dataToDisplay.length; i++) {
-                dataToDisplay.push({ ...(this.props.dataToDisplay[i]), key: i });
-            }
-            colProps = [
-                {
-                    dataField: 'key',
-                    text: 'key',
-                    hidden: true
-                },
-                ...(this.props.colProps)
-            ];
-
         }
+
         return dataToDisplay ? (
             <BootstrapTable
-                keyField={'key'}
+                keyField={colProps[0].dataField}
                 data={dataToDisplay}
                 rowClasses={tableRowStyle}
                 columns={colProps}
