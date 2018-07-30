@@ -21,6 +21,16 @@ namespace VengabusAPI.Controllers
             var namespaceManager = CreateNamespaceManager();
             return namespaceManager.GetTopics().Select(t => new VengaTopic(t));
         }
+
+        [HttpGet]
+        [Route("topics/details/{topicName}")]
+        public VengaTopic GetDetails(string topicName)
+        {
+            NamespaceManager namespaceManager = CreateNamespaceManager();
+
+            return new VengaTopic(namespaceManager.GetTopic(topicName));
+        }
+
     }
 }
  

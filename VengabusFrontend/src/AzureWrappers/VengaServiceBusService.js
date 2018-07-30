@@ -38,8 +38,18 @@ export class VengaServiceBusService {
     }
 
     /**
+     * Gets the details of a particular queue.
+     * @param {string} queueName The name of the queue to get details for.
+     * @return {object} The queues returned by the server.
+     */
+    getQueueDetails = (queueName) => {
+        const url = this.csAPIroot + 'queues/details/' + queueName;
+        return this.axiosWithSAS.get(url);
+    }
+
+    /**
      * Gets the details of all topics in the current namespace from the server.
-     * @return {object} The topics returned by the server.
+     * @return {object} The queue returned by the server.
      */
     listTopics = () => {
         const url = this.csAPIroot + 'topics/list';
@@ -47,12 +57,33 @@ export class VengaServiceBusService {
     }
 
     /**
+     * Gets the details of a particular topic.
+     * @param {string} topicName The name of the topic to get details for.
+     * @return {object} The topic returned by the server.
+     */
+    getTopicDetails = (topicName) => {
+        const url = this.csAPIroot + 'topics/details/' + topicName;
+        return this.axiosWithSAS.get(url);
+    }
+
+    /**
      * Gets the details of all subscriptions in a given topic from the server.
-     * @param {string} topicName The name of the topic to et subscriptions from.
+     * @param {string} topicName The name of the topic to get subscriptions from.
      * @return {object} The subsctiptions returned by the server.
      */
     listSubscriptions = (topicName) => {
         const url = this.csAPIroot + 'subscriptions/list/' + topicName;
+        return this.axiosWithSAS.get(url);
+    }
+
+    /**
+     * Gets the details of a particular topic.
+     * @param {string} parentTopicName The name of the parent topic for the subscription.
+     * @param {string} subscriptionName The name of the subscription to get details for.
+     * @return {object} The topic returned by the server.
+     */
+    getSubscriptionDetails = (parentTopicName, subscriptionName) => {
+        const url = this.csAPIroot + 'subscriptions/details/' + parentTopicName + '/' + subscriptionName;
         return this.axiosWithSAS.get(url);
     }
 

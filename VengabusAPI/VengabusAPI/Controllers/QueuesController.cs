@@ -19,6 +19,14 @@ namespace VengabusAPI.Controllers
 
             return namespaceManager.GetQueues().Select(q => new VengaQueue(q));
         }
-        
+
+        [HttpGet]
+        [Route("queues/details/{queueName}")]
+        public VengaQueue GetDetails(string queueName)
+        {
+            NamespaceManager namespaceManager = CreateNamespaceManager();
+
+            return new VengaQueue(namespaceManager.GetQueue(queueName));
+        }
     }
 }
