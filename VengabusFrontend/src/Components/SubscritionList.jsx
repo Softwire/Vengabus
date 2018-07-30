@@ -8,8 +8,7 @@ export class SubscriptionList extends Component {
     render() {
 
         const subscriptionArray = this.props.subscriptionData;
-        console.log(subscriptionArray)
-
+       
         const colProps = [
             {
                 dataField: 'name',

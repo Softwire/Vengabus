@@ -13,8 +13,9 @@ import { SubscriptionList } from '../Components/SubscritionList';
 export class TwoListDisplayPage extends Component {
     constructor(props) {
         super(props);
-
+        this.stateHistory = []
         this.state = {
+            currentlySelected: undefined,
             queueData: undefined,
             topicData: undefined,
             subscriptionData: undefined,
@@ -36,7 +37,7 @@ export class TwoListDisplayPage extends Component {
             showMessage: false
         })
     }
-    handleMessegeclick = (id, body) => {
+    handleMessegeClick = (id, body) => {
         this.setState({
             showMessage: true,
             messageId: id,
@@ -44,9 +45,19 @@ export class TwoListDisplayPage extends Component {
         });
     }
 
+    saveState = (state, update) => {
+        if (!(update && this.stateHistory)) {
+            let history = this.stateHistory || [];
+            history.push(state);
+            this.stateHistory = history;
+        }
+    }
+
     handelQueueRowClick = (e, row, rowIndex) => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
         const fetchedMessageData = serviceBusService.listMessagesFromQueue(row.name);
+        const update = (this.state.rightTable === "Message");
+        this.saveState(this.state, update);
         fetchedMessageData.then(result =>
             this.setState({
                 messageData: result,
@@ -60,6 +71,8 @@ export class TwoListDisplayPage extends Component {
     handelTopicRowClick = (e, row, rowIndex) => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
         const fetchedSubscriptionData = serviceBusService.listSubscriptions(row.name);
+        const update = (this.state.rightTable === "Subscription");
+        this.saveState(this.state, update);
         fetchedSubscriptionData.then(result =>
             this.setState({
                 subscriptionData: result,
@@ -74,15 +87,23 @@ export class TwoListDisplayPage extends Component {
     handleSubscriptionRowClick = (e, row, rowIndex) => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
         const fetchedMessageData = serviceBusService.listMessagesFromSubscription(row.name);
+        const update = (this.state.rightTable === "Message");
+        this.saveState(this.state, update);
         fetchedMessageData.then(result =>
             this.setState({
                 messageData: result,
                 currentlySelected: row.name,
                 rightTable: "Message",
-                leftTable: "Subscription",
-            }, console.log(this.state.messageData))
+                leftTable: "Subscription"
+            })
         );
 
+    }
+    handleBackClick = () => {
+
+        this.setState({
+            ... this.stateHistory.pop()
+        });
     }
 
     updateRetrievedData = () => {
@@ -171,10 +192,13 @@ export class TwoListDisplayPage extends Component {
         return (
             <div>
                 <Button onClick={this.updateRetrievedData}>update</Button>
+                <Button onClick={this.handleBackClick}>back</Button>
                 <div className={displayStyle}>
+                    <h2>{this.state.leftTable}</h2>
                     {leftBox}
                 </div>
                 <div className={displayStyle}>
+                    <h2>{this.state.rightTable}</h2>
                     {rightBox}
                 </div>
             </div>
