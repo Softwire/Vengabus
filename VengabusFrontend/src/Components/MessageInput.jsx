@@ -9,10 +9,14 @@ import {
     Button
 } from "react-bootstrap";
 
-/**
- * Contains the entire UI for inputting a message.
- * @prop {Object} message Can take a message as a prop to replay message. Message has the following properties: 'MessageProperties' containing the user defined properties as objects; 'MessageBody', and all of the other predefined properties.
+/** 
+ * @prop { Object } message Can take a message as a prop to replay message.
+ * @property {Object} message.MessageProperties User defined properties (key-string pairs).
+ * @property {string} message.MessageBody The text of the message.
+ * @property {string} message.MessageId The ID of the message.
+ * @property {string} message.predefinedProperty Any other predefined properties used by Azure.
  */
+
 export class MessageInput extends Component {
     constructor(props) {
         super(props);
@@ -29,11 +33,8 @@ export class MessageInput extends Component {
         this.serviceBusService = serviceBusConnection.getServiceBusService();
         this.serviceBusService.getPermittedMessageProperties().then((result) => {
             this.setState({
-                permittedValues: result
-            });
-            // Needs to be in a separate setState() for permittedValues to be defined when the below function is called
-            this.setState({
-                preDefinedProperties: message ? this.getPreDefinedPropertiesFromExistingMessage(message) : [] //[{name: something, value: something}]
+                permittedValues: result,
+                preDefinedProperties: message ? this.getPreDefinedPropertiesFromExistingMessage(message, result) : [] //[{name: something, value: something}]
             });
         });
 
@@ -52,10 +53,10 @@ export class MessageInput extends Component {
         return userDefinedProperties;
     }
 
-    getPreDefinedPropertiesFromExistingMessage = (message) => {
+    getPreDefinedPropertiesFromExistingMessage = (message, permittedValues) => {
         let preDefinedProperties = [];
-        for (let i = 0; i < this.state.permittedValues.length; i++) {
-            const permittedValue = this.state.permittedValues[i];
+        for (let i = 0; i < permittedValues.length; i++) {
+            const permittedValue = permittedValues[i];
             if (typeof message[permittedValue] !== 'undefined') {
                 preDefinedProperties.push({
                     name: permittedValue,

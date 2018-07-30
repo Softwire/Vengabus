@@ -36,7 +36,7 @@ export class HomePage extends Component {
             display: inline-block; /*to allow tables to be displayed side by side*/
         `;
         // Hard coded message to replay for now
-        const message = {
+        const exampleMessage = {
             MessageProperties: {
                 userDefinedProp1: 'value1',
                 userDefinedProp2: 'value2'
@@ -54,7 +54,7 @@ export class HomePage extends Component {
 
         return (
             < div >
-                <button onClick={() => pageSwitcher.switchToPage(PAGES.SendMessagePage, message)}>Replay Example Message</button>
+                <button onClick={() => pageSwitcher.switchToPage(PAGES.SendMessagePage, exampleMessage)}>Replay Example Message</button>
                 <ExampleServiceBusCall onDataReceive={this.updateRetrievedData} />
                 <div className={queueDivStyle}>
                     <QueueList queueData={this.state.retrievedData} />
