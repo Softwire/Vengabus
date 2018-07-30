@@ -418,6 +418,7 @@ export class MessageInput extends Component {
                 </form>
                 <form>
                     <Button
+                        id="submitButton"
                         onClick={this.submit}
                     >
                         Submit
