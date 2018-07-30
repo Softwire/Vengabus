@@ -50,8 +50,11 @@ class ServiceBusConnection {
         try {
             return new VengaServiceBusService(this.activeServiceBusConString, this.activeAPIroot);
         } catch (err) {
-            console.log(err);
-            throw err;
+            // Obviously we'd prefer this didn't happen, but it can easily occur if, e.g. ConnStrings aren't provided yet.
+            // Failing to create a connection shouldn't be an immediate fatal error ... but *USING* a failed connection probably should.
+            // So don't error - just return `undefined`.
+            console.error(err);
+            return undefined;
         }
     };
 }
