@@ -57,7 +57,6 @@ exports[`renders correctly 1`] = `
   <form>
     <div
       className="css-mxbhzi form-group"
-      onChange={[Function]}
     >
       <label
         className="css-wni10w control-label"
@@ -68,8 +67,10 @@ exports[`renders correctly 1`] = `
       <textarea
         className="css-cjfa1z form-control"
         id="formControlsMessageBodyText"
+        onChange={[Function]}
         placeholder="Enter message body"
         type={undefined}
+        value=""
       />
     </div>
   </form>
@@ -81,6 +82,202 @@ exports[`renders correctly 1`] = `
       type="button"
     >
       Submit
+    </button>
+    <button
+      className="btn btn-danger"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Reset Fields
+    </button>
+  </form>
+</div>
+`;
+
+exports[`renders correctly from a predefined message 1`] = `
+<div
+  className="css-lushey"
+>
+  <div
+    className="css-mxbhzi"
+  >
+    <p
+      className="css-wni10w"
+    >
+      Pre-defined Properties
+    </p>
+  </div>
+  <div />
+  <form>
+    <div
+      className="css-mxbhzi"
+    >
+      <button
+        className="css-74801x btn btn-default"
+        disabled={true}
+        onClick={[Function]}
+        type="button"
+      >
+        Add new Azure property
+      </button>
+    </div>
+  </form>
+  <hr />
+  <div
+    className="css-mxbhzi"
+  >
+    <p
+      className="css-wni10w"
+    >
+      User-defined Properties
+    </p>
+  </div>
+  <div>
+    <div>
+      <form
+        className="css-1rnsx0x"
+      >
+        <div
+          className="form-group"
+        >
+          <input
+            className="css-83yc3x form-control"
+            id="formControlsText"
+            onChange={[Function]}
+            placeholder="Enter property name"
+            type="text"
+            value="userDefinedProp1"
+          />
+        </div>
+      </form>
+      <form
+        className="css-mr74sa"
+      >
+        <div
+          className="form-group"
+        >
+          <input
+            className="css-83yc3x form-control"
+            id="formControlsText"
+            onChange={[Function]}
+            placeholder="Enter property value"
+            type="text"
+            value="value1"
+          />
+        </div>
+      </form>
+      <div
+        className="css-146pozp"
+      >
+        <button
+          className="css-83yc3x btn btn-danger"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+    <div>
+      <form
+        className="css-1rnsx0x"
+      >
+        <div
+          className="form-group"
+        >
+          <input
+            className="css-83yc3x form-control"
+            id="formControlsText"
+            onChange={[Function]}
+            placeholder="Enter property name"
+            type="text"
+            value="userDefinedProp2"
+          />
+        </div>
+      </form>
+      <form
+        className="css-mr74sa"
+      >
+        <div
+          className="form-group"
+        >
+          <input
+            className="css-83yc3x form-control"
+            id="formControlsText"
+            onChange={[Function]}
+            placeholder="Enter property value"
+            type="text"
+            value="value2"
+          />
+        </div>
+      </form>
+      <div
+        className="css-146pozp"
+      >
+        <button
+          className="css-83yc3x btn btn-danger"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+  <form>
+    <div
+      className="css-mxbhzi"
+    >
+      <button
+        className="css-74801x btn btn-default"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Add new application specific property
+      </button>
+    </div>
+  </form>
+  <hr />
+  <form>
+    <div
+      className="css-mxbhzi form-group"
+    >
+      <label
+        className="css-wni10w control-label"
+        htmlFor="formControlsMessageBodyText"
+      >
+        Body
+      </label>
+      <textarea
+        className="css-cjfa1z form-control"
+        id="formControlsMessageBodyText"
+        onChange={[Function]}
+        placeholder="Enter message body"
+        type={undefined}
+        value="Hello world!"
+      />
+    </div>
+  </form>
+  <form>
+    <button
+      className="btn btn-default"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Submit
+    </button>
+    <button
+      className="btn btn-danger"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Reset Fields
     </button>
   </form>
 </div>

@@ -18,10 +18,10 @@ export class MessageInput extends Component {
         super(props);
         const message = this.props.message;
         this.state = {
+            permittedValues: [],
             messageBody: message ? message.MessageBody : '',
             userDefinedProperties: message ? this.getUserDefinedProperties(message) : [], //[{name: something, value: something}]
-            preDefinedProperties: message ? this.getPreDefinedPropertiesFromExistingMessage(message) : [], //[{name: something, value: something}]
-            permittedValues: [],
+            preDefinedProperties: [], //[{name: something, value: something}]
             selectedQueue: "demoqueue1"
             // QQ add way of choosing which queue/topic a message is sent to.
         };
@@ -31,26 +31,32 @@ export class MessageInput extends Component {
             this.setState({
                 permittedValues: result
             });
+            // Needs to be in a separate setState() for permittedValues to be defined when the below function is called
+            this.setState({
+                preDefinedProperties: message ? this.getPreDefinedPropertiesFromExistingMessage(message) : [] //[{name: something, value: something}]
+            });
         });
+
+
     }
 
-    getUserDefinedProperties(message) {
+    getUserDefinedProperties = (message) => {
         let userDefinedProperties = [];
         const keys = Object.keys(message.MessageProperties);
         for (let i = 0; i < keys.length; i++) {
             userDefinedProperties.push({
                 name: keys[i],
-                value: userDefinedProperties[keys[i]]
+                value: message.MessageProperties[keys[i]]
             });
         }
         return userDefinedProperties;
     }
 
-    getPreDefinedPropertiesFromExistingMessage(message) {
+    getPreDefinedPropertiesFromExistingMessage = (message) => {
         let preDefinedProperties = [];
-        for (let i = 0; i < this.permittedValues.length; i++) {
-            const permittedValue = this.permittedValues[i];
-            if (typeof message[permittedValue] === 'undefined') {
+        for (let i = 0; i < this.state.permittedValues.length; i++) {
+            const permittedValue = this.state.permittedValues[i];
+            if (typeof message[permittedValue] !== 'undefined') {
                 preDefinedProperties.push({
                     name: permittedValue,
                     value: message[permittedValue]
@@ -73,11 +79,11 @@ export class MessageInput extends Component {
     };
 
     /**
- * Updates a pre-defined property name or value in the state.
- * @param {integer} position The position of the property in the list.
- * @param {string} attribute The attribute of the property that has changed, 'name' or 'value' 
- * @param {string} newValue The new value of that attribute of the property.
- */
+    * Updates a pre-defined property name or value in the state.
+    * @param {integer} position The position of the property in the list.
+    * @param {string} attribute The attribute of the property that has changed, 'name' or 'value' 
+    * @param {string} newValue The new value of that attribute of the property.
+    */
     handlePreDefinedPropertyChange = (position, attribute, newValue) => {
         let newPreDefinedProperties = [...this.state.preDefinedProperties];
         newPreDefinedProperties[position][attribute] = newValue;
