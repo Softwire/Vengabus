@@ -70,6 +70,49 @@ namespace VengabusAPI.Services
             return messagesToReturn;
         }
 
+        public void SendMessageToSingleSubscription(EndpointIdentifier endpoint, MessagingFactory clientFactory, BrokeredMessage message, NamespaceManager namespaceManager)
+        {
+            var azureSubscriptionsEnum = namespaceManager.GetSubscriptions(endpoint.ParentTopic);
+            IEnumerable<VengaSubscription> azureSubscriptions = azureSubscriptionsEnum.Select(s => new VengaSubscription(s));
+            Dictionary<SubscriptionClient, IEnumerable<RuleDescription>> dict = new Dictionary<SubscriptionClient, IEnumerable<RuleDescription>>();
+
+
+            foreach (var azureSubscription in azureSubscriptions)
+            {
+                if (azureSubscription.name == endpoint.Name)
+                    continue;
+
+                SubscriptionClient subscriptionClient =
+                    clientFactory.CreateSubscriptionClient(endpoint.ParentTopic, azureSubscription.name);
+                IEnumerable<RuleDescription> subscriptionsRules =
+                namespaceManager.GetRules(endpoint.ParentTopic, azureSubscription.name);
+                dict.Add(subscriptionClient, subscriptionsRules);
+
+                foreach (var subscriptionRule in subscriptionsRules)
+                {
+                    subscriptionClient.RemoveRule(subscriptionRule.Name);
+                }
+
+            }
+
+            EndpointIdentifier newEndpointIdentifier = EndpointIdentifier.ForTopic(endpoint.ParentTopic);
+
+            SendMessageToEndpoint(newEndpointIdentifier, clientFactory, message);
+
+            foreach (KeyValuePair<SubscriptionClient, IEnumerable<RuleDescription>> entry in dict)
+            {
+                SubscriptionClient subscriptionClient = entry.Key;
+                IEnumerable<RuleDescription> subscriptionsRules = entry.Value;
+                foreach (var subscriptionRule in subscriptionsRules)
+                {
+                    subscriptionClient.AddRule(subscriptionRule);
+                }
+            }
+
+            return;
+
+        }
+
         public static void SendMessageToEndpoint(EndpointIdentifier endpoint, MessagingFactory clientFactory, BrokeredMessage message)
         {
             switch (endpoint.Type)
