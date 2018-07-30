@@ -11,7 +11,7 @@ using VengabusAPI.Controllers;
 namespace VengabusAPI.Services
 {
     
-    public class MessageServices : VengabusController
+    public class MessageServices
     {
         public static IEnumerable<VengaMessage> GetMessageFromEndpoint(EndpointIdentifier endpoint, MessagingFactory clientFactory)
         {
