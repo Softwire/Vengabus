@@ -63,7 +63,7 @@ namespace VengabusAPI.Services
                     var vengaMessage = new VengaMessage(message.Properties, message.GetBody<String>(),
                         message.MessageId, message.ContentType);
                     messagesToReturn.Add(vengaMessage);
-                    lastSequenceNumber = Math.Max(lastSequenceNumber, message.SequenceNumber);
+                    lastSequenceNumber = message.SequenceNumber;
                 }
             }
 
