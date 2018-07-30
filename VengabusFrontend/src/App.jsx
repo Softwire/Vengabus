@@ -6,12 +6,18 @@ import { CurrentPage } from './Pages/CurrentPage';
 
 class App extends Component {
     render() {
+        const appStyle = css`
+            text-align: center;
+        `;
+        const mainPageStyle = css`
+            margin-top: 50px;
+        `;
         return (
-            <div className="App" style={{ "text-align": "center" }}>
+            <div className={`App ${appStyle}`}>
                 {/* Include the Bootstrap CSS at the top of the page. */}
                 <BootstrapCssLinks />
                 <VengabusNavBar />
-                <div style={{ "margin-top": "50px" }}>
+                <div className={mainPageStyle}>
                     <SideBar />
                     <CurrentPage />
                 </div>
