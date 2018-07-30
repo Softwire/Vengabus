@@ -15,17 +15,24 @@ import {
 export class MessageInput extends Component {
     constructor(props) {
         super(props);
-
-        this.permittedValues = ['MessageId', 'ContentType'];
-
         this.state = {
+            permittedValues: [],
             messageBody: "",
             userDefinedProperties: [], //[{name: something, value: something}]
             preDefinedProperties: [], //[{name: something, value: something}]
             // QQ add way of choosing which queue/topic a message is sent to.
             selectedQueue: "demoqueue1"
         };
+        this.serviceBusService = serviceBusConnection.getServiceBusService();
+        this.serviceBusService.getPermittedMessageProperties().then((result) => {
+            this.setState({
+                permittedValues: result
+            });
+        });
 
+    }
+
+    componentWillMount() {
     }
 
     /**
@@ -124,13 +131,12 @@ export class MessageInput extends Component {
         }
         message.MessageProperties = properties;
         message.MessageBody = this.state.messageBody;
-        return message
+        return message;
     }
 
     submit = () => {
-        const serviceBusService = serviceBusConnection.getServiceBusService();
         const message = this.createMessageObject();
-        serviceBusService.sendMessageToQueue(this.state.selectedQueue, message);
+        this.serviceBusService.sendMessageToQueue(this.state.selectedQueue, message);
     }
 
     render() {
@@ -165,14 +171,14 @@ export class MessageInput extends Component {
                     handlePropertyNameChange={(newName, index) => this.handlePreDefinedPropertyChange(index, 'name', newName)}
                     handlePropertyValueChange={(newValue, index) => this.handlePreDefinedPropertyChange(index, 'value', newValue)}
                     deleteRow={(index) => this.deleteRow(index, false)}
-                    permittedValues={this.permittedValues}
+                    permittedValues={this.state.permittedValues}
                 />
                 <form>
                     <div className={leftAlignContainerStyle}>
                         <Button
                             className={buttonStyle}
                             onClick={() => this.addNewProperty(false)}
-                            disabled={this.state.preDefinedProperties.length === this.permittedValues.length}
+                            disabled={this.state.preDefinedProperties.length === this.state.permittedValues.length}
                         >
                             Add new Azure property
                         </Button>

@@ -22,7 +22,8 @@ export class MessagePropertyInputRow extends Component {
     /**
      * Provides an easy way of creating a Bootstrap Form element. 
      * @param {string} id The id of the FormControl.
-     * @param {string} validation The validationState of the FormGroup.
+     * @param {string} validation The validationState of the FormGroup. 
+     * The value should be one of the validation statets listed on this page: https://react-bootstrap.github.io/components/forms/
      * @param {*} props A list of props that will be passed to the form control.
      * @returns {FormGroup} A FormGroup containing a FormControl with the given props.
      */
