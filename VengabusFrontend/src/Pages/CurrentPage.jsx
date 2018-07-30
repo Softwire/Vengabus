@@ -3,6 +3,7 @@ import { Alert } from 'react-bootstrap';
 import { PAGES, pageSwitcher } from './PageSwitcherService';
 import { HomePage } from './HomePage';
 import { OtherPage } from './OtherPage';
+import { SendMessagePage } from './SendMessagePage';
 
 export class CurrentPage extends Component {
     constructor(props) {
@@ -42,12 +43,16 @@ export class CurrentPage extends Component {
                 returnValue = <OtherPage />;
                 break;
 
+            case PAGES.SendMessagePage:
+                returnValue = <SendMessagePage />;
+                break;
+
             default:
-                returnValue = 
+                returnValue =
                     <Alert bsStyle="danger">
                         <p>Requested Unknown Page: {this.state.currentPage}</p>
                     </Alert>
-                ;
+                    ;
         }
         return returnValue;
     }

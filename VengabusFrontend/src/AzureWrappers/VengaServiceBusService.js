@@ -4,7 +4,6 @@ const azure = require('azure-sb');
 const util = require('util');
 require('util.promisify').shim();
 
-'use strict';
 
 /*
     This class exists as our own wrapper around the equivalent Azure API object,

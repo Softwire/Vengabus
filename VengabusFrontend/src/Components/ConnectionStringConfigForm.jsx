@@ -6,11 +6,9 @@ import {
     FormGroup,
     FormControl,
     ControlLabel,
-    Button,
-    Panel
+    Button
 } from "react-bootstrap";
 import { css } from "react-emotion";
-import { blue } from "../colourScheme";
 
 export const LOCAL_STORAGE_STRINGS = Object.freeze({
     ConnectionString: "connectionString",
@@ -35,7 +33,7 @@ export class ConnectionStringConfigForm extends Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const localStorageConnectionString =
             localStorageAccessor.getItem(LOCAL_STORAGE_STRINGS.ConnectionString) ||
             "";
@@ -85,17 +83,17 @@ export class ConnectionStringConfigForm extends Component {
      * Called whenver the connect button is pressed.
      */
     submitConnectionStringClick = () => {
-       
+
         const infoPromise = VengaServiceBusService.getServiceBusProperties(
             this.state.connStringVal
         );
-      
+
         infoPromise
             .then(response => {
                 this.setState({
                     info: response
                 });
-             
+
             })
             .catch(error => {
                 console.log(error);
@@ -103,18 +101,15 @@ export class ConnectionStringConfigForm extends Component {
     };
 
     render() {
-        const inputStyle = css`
-      color: black;
-    `;
 
         const buttonStyle = css`
-      color: black;
-      margin: 5px;
-    `;
+            color: black;
+            margin: 5px;
+        `;
 
         const formStyle = css`
-      padding: 5px;
-    `;
+            padding: 5px;
+        `;
 
         return (
             <form className={formStyle}>
@@ -153,7 +148,7 @@ export class ConnectionStringConfigForm extends Component {
                 <ServiceBusInfoBox
                     connStringVal={this.state.connStringVal}
                     info={this.state.info}
-               
+
                 />
             </form>
         );
