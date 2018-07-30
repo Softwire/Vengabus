@@ -2,7 +2,7 @@
 
 exports[`ConnectionStringConfigForm renders correctly 1`] = `
 <form
-  className="css-1ni6fsm"
+  className="css-1iucxpo"
 >
   <div
     className="form-group"
@@ -41,7 +41,7 @@ exports[`ConnectionStringConfigForm renders correctly 1`] = `
     />
   </div>
   <button
-    className="css-4hwllc btn btn-default"
+    className="css-231uek btn btn-default"
     disabled={false}
     id="connectButton"
     onClick={[Function]}

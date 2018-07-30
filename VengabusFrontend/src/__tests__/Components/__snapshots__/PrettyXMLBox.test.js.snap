@@ -1,24 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PrettyXMLBox renders correctly with given props 1`] = `
-<div
-  className="css-40hyzg"
->
-  <pre>
-    &lt;note&gt;
-        &lt;to&gt;
-            Tove
-        &lt;/to&gt;
-        &lt;from&gt;
-            Jani
-        &lt;/from&gt;
-        &lt;heading&gt;
-            Reminder
-        &lt;/heading&gt;
-        &lt;body&gt;
-            Don't forget me this weekend!
-        &lt;/body&gt;
-    &lt;/note&gt;
-  </pre>
+<div>
+   
+  <div
+    className="alert alert-danger"
+    role="alert"
+  >
+    <p>
+      The XML formatter threw an error whilst trying to format the text of this data: 'TypeError: Cannot read property 'match' of undefined'
+    </p>
+  </div>
+  <div>
+    <p>
+      Original Data:
+    </p>
+    <pre
+      className="css-40hyzg"
+    />
+  </div>
+   
 </div>
 `;

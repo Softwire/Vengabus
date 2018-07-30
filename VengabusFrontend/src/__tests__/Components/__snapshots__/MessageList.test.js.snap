@@ -21,7 +21,7 @@ exports[`MessageList renders correctly with given props 1`] = `
               }
             }
           >
-            Message id
+            Message Id
           </th>
           <th
             style={
@@ -31,13 +31,13 @@ exports[`MessageList renders correctly with given props 1`] = `
               }
             }
           >
-            Message body
+            Message Body
           </th>
         </tr>
       </thead>
       <tbody>
         <tr
-          className="css-f6uy7o"
+          className="css-3oxntz"
           onClick={[Function]}
           style={Object {}}
         >
@@ -47,11 +47,11 @@ exports[`MessageList renders correctly with given props 1`] = `
           <td
             onClick={[Function]}
           >
-            &lt;shipto&gt;&lt;name&gt;Ola Nordmann&lt;/na ...
+            &lt;shipto&gt;&lt;name&gt;Ola Nordmann&lt;...
           </td>
         </tr>
         <tr
-          className="css-f6uy7o"
+          className="css-3oxntz"
           onClick={[Function]}
           style={Object {}}
         >

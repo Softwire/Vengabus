@@ -23,16 +23,13 @@ export class MessageInput extends Component {
             // QQ add way of choosing which queue/topic a message is sent to.
             selectedQueue: "demoqueue1"
         };
+
         this.serviceBusService = serviceBusConnection.getServiceBusService();
         this.serviceBusService.getPermittedMessageProperties().then((result) => {
             this.setState({
                 permittedValues: result
             });
         });
-
-    }
-
-    componentWillMount() {
     }
 
     /**
