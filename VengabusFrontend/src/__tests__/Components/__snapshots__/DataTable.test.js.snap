@@ -23,3 +23,27 @@ exports[`DataTable renders correctly if an empty array is input as data 1`] = `
   </table>
 </div>
 `;
+
+exports[`DataTable renders correctly with the selectRow prop 1`] = `
+<div
+  className="react-bootstrap-table"
+>
+  <table
+    className="table table-bordered"
+    id={undefined}
+  >
+    <thead>
+      <tr
+        className={undefined}
+      >
+        <th>
+          Number
+        </th>
+        <th>
+          Name
+        </th>
+      </tr>
+    </thead>
+  </table>
+</div>
+`;

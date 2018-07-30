@@ -57,6 +57,21 @@ describe('DataTable', () => {
         expect(dataTable.toJSON()).toMatchSnapshot();
     });
 
+    it('renders correctly with the selectRow prop', () => {
+        const selectRow = {
+            bgColor: 'green',
+            selected: 0,
+            onSelect: () => { return; }
+        };
+        let dataTable = renderer.create(
+            <DataTable
+                colProps={getColProps()}
+                dataToDisplay={[]}
+                selectRow={selectRow}
+            />);
+        expect(dataTable.toJSON()).toMatchSnapshot();
+    });
+
     it('function is called correctly if only rowEvents is defined', () => {
         let spy = jest.fn();
         let wrapper = mount(
@@ -115,6 +130,20 @@ describe('DataTable', () => {
         expect(spy).toBeCalled();
     });
 
+    it('calls onSelect function correctly', () => {
+        let spy = jest.fn();
+        let wrapper = mount(
+            <DataTable
+                colProps={getColProps()}
+                dataToDisplay={getDataToDisplay()}
+                tableRowStyle='row'
+                selectRow={{ onSelect: spy }}
+            />);
+        let row = wrapper.find('.row').first();
+        row.simulate('click');
+        expect(spy).toBeCalled();
+    });
+
     it('throws a descriptive error if onClick function is defined twice', () => {
         function getDataTable() {
             return mount(
@@ -138,6 +167,29 @@ describe('DataTable', () => {
                 />);
         }
         expect(getDataTable).toThrow(new Error('column property object is not defined in test'));
+    });
+
+    it('throws a descriptive error if background color may be multiply defined on selectRow', () => {
+        function getDataTable() {
+            return mount(
+                <DataTable
+                    colProps={getColProps()}
+                    dataToDisplay={getDataToDisplay()}
+                    selectRow={{ bgColor: 'green', classes: 'selectrow' }}
+                    name='test'
+                />);
+        }
+        expect(getDataTable).toThrow(new Error('background color of selected row may be multiply defined in test'));
+        function getDataTable2() {
+            return mount(
+                <DataTable
+                    colProps={getColProps()}
+                    dataToDisplay={getDataToDisplay()}
+                    selectRow={{ bgColor: 'green', style: {} }}
+                    name='test'
+                />);
+        }
+        expect(getDataTable2).toThrow(new Error('background color of selected row may be multiply defined in test'));
     });
 
 });
