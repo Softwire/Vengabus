@@ -16,7 +16,7 @@ exports[`TopicList renders correctly with given props 1`] = `
           style={
             Object {
               "textAlign": "center",
-              "width": "10%",
+              "width": "30%",
             }
           }
         >
@@ -26,7 +26,7 @@ exports[`TopicList renders correctly with given props 1`] = `
           style={
             Object {
               "textAlign": "center",
-              "width": "20%",
+              "width": "30%",
             }
           }
         >
@@ -36,7 +36,7 @@ exports[`TopicList renders correctly with given props 1`] = `
           style={
             Object {
               "textAlign": "center",
-              "width": "20%",
+              "width": "30%",
             }
           }
         >
@@ -46,7 +46,7 @@ exports[`TopicList renders correctly with given props 1`] = `
     </thead>
     <tbody>
       <tr
-        className="css-f6uy7o"
+        className="css-3oxntz"
         onClick={[Function]}
         style={Object {}}
       >
@@ -56,7 +56,7 @@ exports[`TopicList renders correctly with given props 1`] = `
         <td
           onClick={[Function]}
         >
-          3
+          10
         </td>
         <td
           onClick={[Function]}
@@ -65,7 +65,7 @@ exports[`TopicList renders correctly with given props 1`] = `
         </td>
       </tr>
       <tr
-        className="css-f6uy7o"
+        className="css-3oxntz"
         onClick={[Function]}
         style={Object {}}
       >
@@ -75,7 +75,7 @@ exports[`TopicList renders correctly with given props 1`] = `
         <td
           onClick={[Function]}
         >
-          2
+          12
         </td>
         <td
           onClick={[Function]}

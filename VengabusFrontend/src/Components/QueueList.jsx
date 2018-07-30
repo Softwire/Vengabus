@@ -40,8 +40,8 @@ export class QueueList extends Component {
                 colProps={colProps}
                 dataToDisplay={queueArray}
                 tableRowStyle={tableRowStyle}
-                onRowClick={this.props.clickFun}
-                rowSelect={this.props.CurrentSelect}
+                onRowClick={this.props.clickFunction}
+                rowSelect={this.props.currentlySelectedName}
             />
         );
     }

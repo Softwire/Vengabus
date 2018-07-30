@@ -3,7 +3,7 @@ import { DataTable } from './DataTable';
 import { css } from 'react-emotion';
 import { paleGreyBlue, palerBlue } from '../colourScheme';
 
-export class TopicsList extends Component {
+export class TopicList extends Component {
 
     render() {
 
@@ -13,18 +13,17 @@ export class TopicsList extends Component {
             {
                 dataField: 'name',
                 text: 'Topic Name',
-                headerStyle: {
-                    width: '10%', textAlign: 'center'
-                }
+                headerStyle: { width: '30%', textAlign: 'center' }
             },
             {
                 dataField: 'subscriptionCount',
                 text: 'number of subscriptions',
-                headerStyle: { width: '20%', textAlign: 'center' }
-            }, {
+                headerStyle: { width: '30%', textAlign: 'center' }
+            },
+            {
                 dataField: 'topicStatus',
                 text: 'Status',
-                headerStyle: { width: '20%', textAlign: 'center' }
+                headerStyle: { width: '30%', textAlign: 'center' }
             }
         ];
 
@@ -41,8 +40,8 @@ export class TopicsList extends Component {
                 colProps={colProps}
                 dataToDisplay={topics}
                 tableRowStyle={tableRowStyle}
-                onRowClick={this.props.clickFun}
-                rowSelect={this.props.CurrentSelect}
+                onRowClick={this.props.clickFunction}
+                rowSelect={this.props.currentlySelectedName}
             />
         );
     }

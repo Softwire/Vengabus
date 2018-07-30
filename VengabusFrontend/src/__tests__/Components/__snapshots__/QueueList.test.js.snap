@@ -2,7 +2,7 @@
 
 exports[`QueueList renders correctly with given props 1`] = `
 .emotion-0:hover {
-  border: 2px solid #99ccff;
+  border: 1px solid #99ccff;
   background-color: #ecf2ff;
 }
 
@@ -21,17 +21,7 @@ exports[`QueueList renders correctly with given props 1`] = `
           style={
             Object {
               "textAlign": "center",
-              "width": "10%",
-            }
-          }
-        >
-          Number
-        </th>
-        <th
-          style={
-            Object {
-              "textAlign": "center",
-              "width": "50%",
+              "width": "30%",
             }
           }
         >
@@ -41,11 +31,21 @@ exports[`QueueList renders correctly with given props 1`] = `
           style={
             Object {
               "textAlign": "center",
-              "width": "40%",
+              "width": "30%",
             }
           }
         >
-          Status
+          active Message Count
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": "30%",
+            }
+          }
+        >
+          dead Message Count
         </th>
       </tr>
     </thead>
@@ -56,18 +56,14 @@ exports[`QueueList renders correctly with given props 1`] = `
         style={Object {}}
       >
         <td>
-          1
-        </td>
-        <td
-          onClick={[Function]}
-        >
           q1
         </td>
         <td
           onClick={[Function]}
-        >
-          active
-        </td>
+        />
+        <td
+          onClick={[Function]}
+        />
       </tr>
       <tr
         className="emotion-0"
@@ -75,18 +71,14 @@ exports[`QueueList renders correctly with given props 1`] = `
         style={Object {}}
       >
         <td>
-          2
-        </td>
-        <td
-          onClick={[Function]}
-        >
           q2
         </td>
         <td
           onClick={[Function]}
-        >
-          active
-        </td>
+        />
+        <td
+          onClick={[Function]}
+        />
       </tr>
       <tr
         className="emotion-0"
@@ -94,18 +86,14 @@ exports[`QueueList renders correctly with given props 1`] = `
         style={Object {}}
       >
         <td>
-          3
-        </td>
-        <td
-          onClick={[Function]}
-        >
           q3
         </td>
         <td
           onClick={[Function]}
-        >
-          dead
-        </td>
+        />
+        <td
+          onClick={[Function]}
+        />
       </tr>
     </tbody>
   </table>

@@ -65,21 +65,6 @@ export class VengaServiceBusService {
         return this.axiosWithSAS.get(url);
     }
 
-    /**
-      * Gets the details of all subscriptions in a given topic from the server.
-      * @param {string} topicName The name of the topic to et subscriptions from.
-      * @return {object} The subsctiptions returned by the server.
-      */
-    listMessagesFromQueue = (queueName) => {
-        const data = new Promise((resolve, reject) => (resolve([{ messageId: 10, messageBody: "<a><shipto><name>Ola Nordmann</name><address>Langgt 23</address><city>4000 Stavanger</city><country>Norway</country></shipto><item><title>Empire Burlesque</title><note>Special Edition</note><quantity>1</quantity><price>10.90</price></item><item><title>Hide your heart</title><quantity>1</quantity><price>9.90</price></item></shiporder></a>" }, { messageId: 11, messageBody: "banna" }])));
-        return data;
-    }
-
-    listMessagesFromSubscription = (subName) => {
-        const data = new Promise((resolve, reject) => (resolve([{ messageId: 10, messageBody: "<a><shipto><name>Ola Nordmann</name><address>Langgt 23</address><city>4000 Stavanger</city><country>Norway</country></shipto><item><title>Empire Burlesque</title><note>Special Edition</note><quantity>1</quantity><price>10.90</price></item><item><title>Hide your heart</title><quantity>1</quantity><price>9.90</price></item></shiporder></a>" }, { messageId: 11, messageBody: "banna" }])));
-        return data;
-    }
-
 
     /**
      * Gets the details of a particular topic.
@@ -143,6 +128,16 @@ export class VengaServiceBusService {
     deleteSubscriptionMessages = (topicName, subscriptionName) => {
         const url = this.apiRoot + `messages/subscription/${topicName}/${subscriptionName}`;
         return this.axiosWithSAS.delete(url);
+    }
+
+    listQueueMessages = (queueName) => {
+        const url = this.apiRoot + `messages/list/queue/${queueName}`;
+        return this.axiosWithSAS.get(url);
+    }
+
+    listSubscriptionMessages = (topicName, subscriptionName) => {
+        const url = this.apiRoot + `messages/list/subscription/${topicName}/${subscriptionName}`;
+        return this.axiosWithSAS.get(url);
     }
 
     // QQ Fetch from API once endpoint exists

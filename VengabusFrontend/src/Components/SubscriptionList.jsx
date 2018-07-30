@@ -40,8 +40,8 @@ export class SubscriptionList extends Component {
                 colProps={colProps}
                 dataToDisplay={subscriptionArray}
                 tableRowStyle={tableRowStyle}
-                onRowClick={this.props.clickFun}
-                rowSelect={this.props.CurrentSelect}
+                onRowClick={this.props.clickFunction}
+                rowSelect={this.props.currentlySelectedName}
             />
         );
     }
