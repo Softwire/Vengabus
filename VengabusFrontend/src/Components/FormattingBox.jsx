@@ -22,10 +22,11 @@ export class FormattingBox extends Component {
         let xmlFormattingSucceededButChangedText = false;
         let formattingError;
         let mightBeXml, mightBeJson;
-        if (originalData[0] === "<" && originalData[originalData.length - 1] === ">") { 
+        if (originalData[0] === "<" && originalData[originalData.length - 1] === ">") {
             mightBeXml = true;
         }
-        if (originalData[0] === "{" && originalData[originalData.length - 1] === "}") {
+        if ((originalData[0] === "{" && originalData[originalData.length - 1] === "}") ||
+            (originalData[0] === "[" && originalData[originalData.length - 1] === "]")) {
             mightBeJson = true;
         }
 
@@ -40,7 +41,7 @@ export class FormattingBox extends Component {
                         xmlFormattingSucceededButChangedText = true;
                     }
                 }
-                if (!formattedText&& mightBeJson) {
+                if (!formattedText && mightBeJson) {
                     formattedText = formatJSon(JSON.parse(originalData));
                 }
             }
