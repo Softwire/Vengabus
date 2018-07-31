@@ -9,27 +9,62 @@ import {
     Button
 } from "react-bootstrap";
 
-/**
- * Contains the entire UI for inputting a message.
+/** 
+ * @prop { Object } message Can take a message as a prop to replay message.
+ * @property {Object} message.MessageProperties User defined properties (key-string pairs).
+ * @property {string} message.MessageBody The text of the message.
+ * @property {string} message.MessageId The ID of the message.
+ * @property {string} message.predefinedProperty Any other predefined properties used by Azure.
  */
+
 export class MessageInput extends Component {
     constructor(props) {
         super(props);
+        const message = this.props.message;
         this.state = {
             permittedValues: [],
-            messageBody: "",
-            userDefinedProperties: [], //[{name: something, value: something}]
+            messageBody: message ? message.MessageBody : '',
+            userDefinedProperties: message ? this.getUserDefinedProperties(message) : [], //[{name: something, value: something}]
             preDefinedProperties: [], //[{name: something, value: something}]
-            // QQ add way of choosing which queue/topic a message is sent to.
             selectedQueue: "demoqueue1"
+            // QQ add way of choosing which queue/topic a message is sent to.
         };
 
         this.serviceBusService = serviceBusConnection.getServiceBusService();
         this.serviceBusService.getPermittedMessageProperties().then((result) => {
             this.setState({
-                permittedValues: result
+                permittedValues: result,
+                preDefinedProperties: message ? this.getPreDefinedPropertiesFromExistingMessage(message, result) : [] //[{name: something, value: something}]
             });
         });
+
+
+    }
+
+    getUserDefinedProperties = (message) => {
+        const userDefinedProperties = [];
+        const keys = Object.keys(message.MessageProperties);
+        for (let i = 0; i < keys.length; i++) {
+            userDefinedProperties.push({
+                name: keys[i],
+                value: message.MessageProperties[keys[i]]
+            });
+        }
+        return userDefinedProperties;
+    }
+
+    getPreDefinedPropertiesFromExistingMessage = (message, permittedValues) => {
+        const preDefinedProperties = [];
+        for (let i = 0; i < permittedValues.length; i++) {
+            const permittedValue = permittedValues[i];
+            if (typeof message[permittedValue] !== 'undefined') {
+                preDefinedProperties.push({
+                    name: permittedValue,
+                    value: message[permittedValue]
+                });
+            }
+        }
+        return preDefinedProperties;
     }
 
     /**
@@ -45,11 +80,11 @@ export class MessageInput extends Component {
     };
 
     /**
- * Updates a pre-defined property name or value in the state.
- * @param {integer} position The position of the property in the list.
- * @param {string} attribute The attribute of the property that has changed, 'name' or 'value' 
- * @param {string} newValue The new value of that attribute of the property.
- */
+    * Updates a pre-defined property name or value in the state.
+    * @param {integer} position The position of the property in the list.
+    * @param {string} attribute The attribute of the property that has changed, 'name' or 'value' 
+    * @param {string} newValue The new value of that attribute of the property.
+    */
     handlePreDefinedPropertyChange = (position, attribute, newValue) => {
         let newPreDefinedProperties = [...this.state.preDefinedProperties];
         newPreDefinedProperties[position][attribute] = newValue;
@@ -131,6 +166,14 @@ export class MessageInput extends Component {
         return message;
     }
 
+    discardMessage = () => {
+        this.setState({
+            messageBody: '',
+            userDefinedProperties: [],
+            preDefinedProperties: []
+        });
+    }
+
     submit = () => {
         const message = this.createMessageObject();
         this.serviceBusService.sendMessageToQueue(this.state.selectedQueue, message);
@@ -206,13 +249,14 @@ export class MessageInput extends Component {
                     <FormGroup
                         className={leftAlignContainerStyle}
                         controlId="formControlsMessageBodyText"
-                        onChange={(event) => this.handleMessageBodyChange(event.target.value)}
                     >
                         <ControlLabel className={headingStyle}>Body</ControlLabel>
                         <FormControl
                             componentClass="textarea"
                             placeholder="Enter message body"
                             className={bodyStyle}
+                            value={this.state.messageBody}
+                            onChange={(event) => this.handleMessageBodyChange(event.target.value)}
                         />
                     </FormGroup>
                 </form>
@@ -221,6 +265,12 @@ export class MessageInput extends Component {
                         onClick={this.submit}
                     >
                         Submit
+                    </Button>
+                    <Button
+                        onClick={this.discardMessage}
+                        bsStyle="danger"
+                    >
+                        Reset Fields
                     </Button>
                 </form>
             </div >

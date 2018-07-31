@@ -8,8 +8,10 @@ import { SendMessagePage } from './SendMessagePage';
 export class CurrentPage extends Component {
     constructor(props) {
         super(props);
-
-        this.state = { currentPage: pageSwitcher.currentPage };
+        this.state = {
+            currentPage: pageSwitcher.currentPage,
+            data: pageSwitcher.data
+        };
     }
 
     componentDidMount() {
@@ -20,8 +22,11 @@ export class CurrentPage extends Component {
         pageSwitcher.deregisterForSwitchUpdates(this.switchToPage);
     }
 
-    switchToPage = (page) => {
-        this.setState({ currentPage: page });
+    switchToPage = (page, data) => {
+        this.setState({
+            currentPage: page,
+            data: data
+        });
     };
 
     onChildInput = (e, targetProperty) => {
@@ -31,9 +36,7 @@ export class CurrentPage extends Component {
     };
 
     render() {
-        //console.log('rendering current Page: ', this.state.currentPage);
         let returnValue;
-
         switch (this.state.currentPage) {
             case PAGES.HomePage:
                 returnValue = <HomePage />;
@@ -44,7 +47,8 @@ export class CurrentPage extends Component {
                 break;
 
             case PAGES.SendMessagePage:
-                returnValue = <SendMessagePage />;
+                const messageTemplate = this.state.data;
+                returnValue = <SendMessagePage message={messageTemplate ? { ...messageTemplate } : undefined} />;
                 break;
 
             default:

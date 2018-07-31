@@ -8,6 +8,7 @@ class PageSwitcher {
     constructor() {
         this.switchCallbacks = [];
         this.currentPage = PAGES.HomePage;
+        this.data = undefined;
     }
 
     registerForSwitchUpdates(callback) {
@@ -16,8 +17,8 @@ class PageSwitcher {
 
     registerForOnlyTheNextSwitchUpdate(originalCallback) {
         let callbackWithDeregister;
-        callbackWithDeregister = (page) => {
-            originalCallback(page);
+        callbackWithDeregister = (page, data) => {
+            originalCallback(page, data);
             this.deregisterForSwitchUpdates(callbackWithDeregister);
         };
         this.registerForSwitchUpdates(callbackWithDeregister);
@@ -27,10 +28,11 @@ class PageSwitcher {
         this.switchCallbacks = this.switchCallbacks.filter((cb) => cb !== callback);
     }
 
-    switchToPage(page) {
+    switchToPage(page, data) {
         this.currentPage = page || PAGES.HomePage;
+        this.data = data;
         this.switchCallbacks.forEach((registeredCallback) => {
-            registeredCallback(this.currentPage);
+            registeredCallback(this.currentPage, data);
         });
     }
 }
