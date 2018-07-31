@@ -27,13 +27,15 @@ export class MessageInput extends Component {
         this.arePredefinedPropsLoaded = false;
         this.state = {
             permittedValues: [],
-            availableQueues: [],
             availableTopics: [],
+            availableQueues: [],
+            recipientIsQueue: true,
             messageBody: message ? message.MessageBody : '',
             userDefinedProperties: message ? this.getUserDefinedProperties(message) : [], //[{name: something, value: something}]
             preDefinedProperties: [], //[{name: something, value: something}]
             reservedPropertyNames: [], //a list of name of possible readable properties of a message
-            selectedQueue: undefined
+            selectedQueue: undefined,
+            selectedTopic: undefined
             // QQ add way of choosing which queue/topic a message is sent to.
         };
     }
@@ -48,9 +50,13 @@ export class MessageInput extends Component {
             });
         });
         this.serviceBusService.listQueues().then((result) => {
-            console.log(result);
             this.setState({
                 availableQueues: _(result.data).map((queue) => { return { value: queue.name, label: queue.name }; })
+            });
+        });
+        this.serviceBusService.listTopics().then((result) => {
+            this.setState({
+                availableTopics: _(result.data).map((topic) => { return { value: topic.name, label: topic.name }; })
             });
         });
 
@@ -153,14 +159,29 @@ export class MessageInput extends Component {
     /**
      * Changes which queue or topic the message will be sent to.
      * @param {string} newName The name of the queue or topic.
-     * @param {boolean} isQueue True if the message should be send to a queue, false if it should be sent to a topic.
      */
-    handleQueueOrTopicChange = (newName, isQueue) => {
-        if (isQueue) {
+    handleQueueOrTopicChange = (newName) => {
+        if (this.state.recipientIsQueue) {
             this.setState({
-                selectedQueue: newName
+                selectedQueue: newName,
+                selectedTopic: undefined
+            });
+        } else {
+            this.setState({
+                selectedQueue: undefined,
+                selectedTopic: newName
             });
         }
+    }
+
+    /**
+     * Changes whether the message will be sent to a queue or topic.
+     * @param {boolean} isQueue True if the message should be send to a queue, false if it should be sent to a topic.
+     */
+    handleRecipientTypeChange = (isQueue) => {
+        this.setState({
+            recipientIsQueue: isQueue
+        });
     }
 
     /**
@@ -209,7 +230,11 @@ export class MessageInput extends Component {
 
     submit = () => {
         const message = this.createMessageObject();
-        this.serviceBusService.sendMessageToQueue(this.state.selectedQueue, message);
+        if (this.state.recipientIsQueue) {
+            this.serviceBusService.sendMessageToQueue(this.state.selectedQueue, message);
+        } else {
+            this.serviceBusService.sendMessageToTopic(this.state.selectedTopic, message);
+        }
     }
 
     render() {
@@ -219,6 +244,18 @@ export class MessageInput extends Component {
             padding-top: 1%;
             width: calc(100% - 10px); /* 10px total margin */
             float: left;
+        `;
+        const queueOrTopicSelectionButtonStyle = css`
+            float: left;
+            width: 5%;
+        `;
+        const queueOrTopicSelectionStyle = css`
+            float: left;
+            width: 20%;
+        `;
+        const queueOrTopicSelectionDropdownStyle = css`
+            float: left;
+            width: 70%;
         `;
         const buttonStyle = css`
             width: 270px;
@@ -235,6 +272,13 @@ export class MessageInput extends Component {
             min-height: 350px;
             padding-left: 5px;
         `;
+        const verticalAlign = css`
+            line-height: 38px;
+        `;
+        const fullWidth = css`
+            float: left;
+            width: 100%;
+        `;
         const buttonLoading = css`
             opacity: 0.5;
             :hover {
@@ -245,18 +289,46 @@ export class MessageInput extends Component {
         const preDefinedPropertiesButtonText = this.arePredefinedPropsLoaded ? 'Add new Azure property' : 'Loading pre-defined properties...';
         return (
             <div className={formStyle} >
-                <div>
-                    <div className={leftAlignContainerStyle}>
-                        <p className={headingStyle}>Choose a queue</p>
-                    </div>
+                <div className={fullWidth}>
+                    <input
+                        className={queueOrTopicSelectionButtonStyle}
+                        type="radio"
+                        value="queue"
+                        checked={this.state.recipientIsQueue}
+                        onChange={() => this.handleRecipientTypeChange(true)}
+                    />
+                    <p className={queueOrTopicSelectionStyle + " " + headingStyle + " " + verticalAlign}>Queue</p>
                     <Select
-                        title="Choose a queue"
-                        id={`queuue-dropdown`}
+                        isDisabled={!this.state.recipientIsQueue}
+                        className={queueOrTopicSelectionDropdownStyle}
+                        title="Queue"
+                        id={`queue-dropdown`}
                         options={this.state.availableQueues}
                         value={this.state.selectedQueue ? { value: this.state.selectedQueue, label: this.state.selectedQueue } : undefined}
-                        onChange={(event) => this.handleQueueOrTopicChange(event.value, true)}
+                        onChange={(event) => this.handleQueueOrTopicChange(event.value)}
                     />
                 </div>
+                <div className={fullWidth}>
+                    <input
+                        className={queueOrTopicSelectionButtonStyle}
+                        type="radio"
+                        value="topic"
+                        checked={!this.state.recipientIsQueue}
+                        onChange={() => this.handleRecipientTypeChange(false)}
+                    />
+                    <p className={queueOrTopicSelectionStyle + " " + headingStyle + " " + verticalAlign}>Topic</p>
+                    <Select
+                        isDisabled={this.state.recipientIsQueue}
+                        className={queueOrTopicSelectionDropdownStyle}
+                        title="Topic"
+                        id={`topic-dropdown`}
+                        options={this.state.availableTopics}
+                        value={this.state.selectedTopic ? { value: this.state.selectedTopic, label: this.state.selectedTopic } : undefined}
+                        onChange={(event) => this.handleQueueOrTopicChange(event.value)}
+                    />
+                </div>
+                <br />
+                <br />
                 <hr />
                 <div className={leftAlignContainerStyle}>
                     <p className={headingStyle}>Pre-defined Properties</p>
