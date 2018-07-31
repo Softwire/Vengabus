@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormattingBox renders correctly with given props 1`] = `
+<div>
+   
+   
+  
+  <div
+    id="original"
+  >
+    <p>
+      Original Data:
+    </p>
+    <pre
+      className="css-40hyzg"
+      id="originalText"
+    >
+      test
+    </pre>
+  </div>
+</div>
+`;

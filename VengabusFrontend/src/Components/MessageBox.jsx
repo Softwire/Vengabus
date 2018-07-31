@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { PrettyXMLBox } from './PrettyXmlBox';
+import { FormattingBox } from './FormattingBox';
 
 export class MessageBox extends Component {
 
@@ -22,7 +22,7 @@ export class MessageBox extends Component {
                     </Modal.Header>
 
                     <Modal.Body>
-                        <PrettyXMLBox
+                        <FormattingBox
                             data={this.props.messageBody}
                         />
                     </Modal.Body>
