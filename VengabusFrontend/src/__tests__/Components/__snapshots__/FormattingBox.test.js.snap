@@ -1,5 +1,97 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`FormattingBox does not format plain text 1`] = `
+<div>
+   
+   
+  
+  <div
+    id="original"
+  >
+    <p>
+      Original Data:
+    </p>
+    <pre
+      className="css-40hyzg"
+      id="originalText"
+    >
+      "a":"apple","b":42, "c":false
+    </pre>
+  </div>
+</div>
+`;
+
+exports[`FormattingBox formats json correctly 1`] = `
+<div>
+   
+   
+  <div
+    id="formatted"
+  >
+    <p>
+      Formatted Data:
+    </p>
+    <pre
+      className="css-40hyzg"
+      id="formattedText"
+    >
+      {
+          a: "apple",
+          b: 42,
+          c: false
+      }
+      
+    </pre>
+  </div>
+   
+</div>
+`;
+
+exports[`FormattingBox formats xml correctly 1`] = `
+<div>
+  <div
+    className="alert alert-danger"
+    role="alert"
+  >
+    <p>
+      The XML formatter changed the text of this data. This was probably just to 'heal' malformed XML, but we can't be certain.
+    </p>
+    <p>
+       See below for the original data text.
+    </p>
+  </div>
+   
+  <div
+    id="formatted"
+  >
+    <p>
+      Formatted Data:
+    </p>
+    <pre
+      className="css-40hyzg"
+      id="formattedText"
+    >
+      &lt;a&gt;
+          This is a sample xml message
+      &lt;/a&gt;
+    </pre>
+  </div>
+  <div
+    id="original"
+  >
+    <p>
+      Original Data:
+    </p>
+    <pre
+      className="css-40hyzg"
+      id="originalText"
+    >
+      &lt;a&gt;This is a sample xml message&lt;/a&gt;
+    </pre>
+  </div>
+</div>
+`;
+
 exports[`FormattingBox renders correctly with given props 1`] = `
 .emotion-0 {
   text-align: left;
