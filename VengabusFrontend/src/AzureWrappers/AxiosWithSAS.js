@@ -80,11 +80,11 @@ export class AxiosWithSAS {
      * @param {string} uri The URI of the azure service bus.
      * @param {string} keyName The name of the key used to connect to the server, usually "RootManageSharedAccessKey"
      * @param {string} key The key used to connect to the server.
-     * @returns {object} The SAS token, valid for 1 hour.
+     * @returns {object} The SAS token, valid for 1 minute.
      */
     createSasToken(uri, keyName, key) {
-        // Token expires in one hour
-        const expiry = moment().add(1, 'hours').unix();
+        // Token expires in one minute. A new token is created for each request, so a minute is plenty.
+        const expiry = moment().add(1, 'minutes').unix();
 
         const string_to_sign = encodeURIComponent(uri) + '\n' + expiry;
         var hmac = crypto.createHmac('sha256', key);
