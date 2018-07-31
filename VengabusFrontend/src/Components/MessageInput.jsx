@@ -8,6 +8,8 @@ import {
     ControlLabel,
     Button
 } from "react-bootstrap";
+import Select from 'react-select';
+import _ from 'lodash';
 const classNames = require('classnames');
 
 /** 
@@ -25,11 +27,13 @@ export class MessageInput extends Component {
         this.arePredefinedPropsLoaded = false;
         this.state = {
             permittedValues: [],
+            availableQueues: [],
+            availableTopics: [],
             messageBody: message ? message.MessageBody : '',
             userDefinedProperties: message ? this.getUserDefinedProperties(message) : [], //[{name: something, value: something}]
             preDefinedProperties: [], //[{name: something, value: something}]
             reservedPropertyNames: [], //a list of name of possible readable properties of a message
-            selectedQueue: "demoqueue1"
+            selectedQueue: undefined
             // QQ add way of choosing which queue/topic a message is sent to.
         };
     }
@@ -43,6 +47,13 @@ export class MessageInput extends Component {
                 preDefinedProperties: this.props.message ? this.getPreDefinedProperties(this.props.message) : [] //[{name: something, value: something}]
             });
         });
+        this.serviceBusService.listQueues().then((result) => {
+            console.log(result);
+            this.setState({
+                availableQueues: _(result.data).map((queue) => { return { value: queue.name, label: queue.name }; })
+            });
+        });
+
         this.serviceBusService.getReadableMessageProperties().then((result) => {
             this.setState({
                 reservedPropertyNames: result
@@ -139,11 +150,30 @@ export class MessageInput extends Component {
         this.setState({ messageBody: newBody });
     };
 
-    createMessagePropertyDictionary = (properties) => {
-        const ret = {};
-        for (let i = 0; i < properties.length; i++) {
-            const thisPropertyName = properties[i].name;
-            const thisPropertyValue = properties[i].value;
+    /**
+     * Changes which queue or topic the message will be sent to.
+     * @param {string} newName The name of the queue or topic.
+     * @param {boolean} isQueue True if the message should be send to a queue, false if it should be sent to a topic.
+     */
+    handleQueueOrTopicChange = (newName, isQueue) => {
+        if (isQueue) {
+            this.setState({
+                selectedQueue: newName
+            });
+        }
+    }
+
+    /**
+     * Converts the userDefinedProperties and preDefinedProperties arrays to a single message object
+     * in the format that is accepted by the API.
+     * @returns {object} The created message.
+     */
+    createMessageObject() {
+        const properties = {};
+        const userDefinedProperties = this.state.userDefinedProperties;
+        for (let i = 0; i < this.state.userDefinedProperties.length; i++) {
+            const thisPropertyName = userDefinedProperties[i].name;
+            const thisPropertyValue = userDefinedProperties[i].value;
             //Prevent the user from inputting invalid property names.
             //Cannot use isPropertyNameInvalid here because if there are two properties with the same name it will mark
             //both of them as invalid whereas we just want to remove one of them.
@@ -215,6 +245,19 @@ export class MessageInput extends Component {
         const preDefinedPropertiesButtonText = this.arePredefinedPropsLoaded ? 'Add new Azure property' : 'Loading pre-defined properties...';
         return (
             <div className={formStyle} >
+                <div>
+                    <div className={leftAlignContainerStyle}>
+                        <p className={headingStyle}>Choose a queue</p>
+                    </div>
+                    <Select
+                        title="Choose a queue"
+                        id={`queuue-dropdown`}
+                        options={this.state.availableQueues}
+                        value={this.state.selectedQueue ? { value: this.state.selectedQueue, label: this.state.selectedQueue } : undefined}
+                        onChange={(event) => this.handleQueueOrTopicChange(event.value, true)}
+                    />
+                </div>
+                <hr />
                 <div className={leftAlignContainerStyle}>
                     <p className={headingStyle}>Pre-defined Properties</p>
                 </div>
