@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { ExampleServiceBusCall } from '../Components/ExampleServiceBusCall';
 import { QueueList } from '../Components/QueueList';
 import { MessageList } from '../Components/MessageList';
 import { css } from 'react-emotion';
@@ -55,7 +54,6 @@ export class HomePage extends Component {
         return (
             < div >
                 <button onClick={() => pageSwitcher.switchToPage(PAGES.SendMessagePage, exampleMessage)}>Replay Example Message</button>
-                <ExampleServiceBusCall onDataReceive={this.updateRetrievedData} />
                 <div className={queueDivStyle}>
                     <QueueList queueData={this.state.retrievedData} />
                     <MessageList messageData={this.state.messageData} />
