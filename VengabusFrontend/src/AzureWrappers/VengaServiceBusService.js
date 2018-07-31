@@ -9,7 +9,7 @@ require('util.promisify').shim();
 export class VengaServiceBusService {
     constructor(connectionString, apiRoot) {
         this.axiosWithSAS = new AxiosWithSAS(connectionString);
-        this.csAPIroot = apiRoot;
+        this.apiRoot = apiRoot;
         this.jsonConfig = {
             headers: {
                 "Content-Type": "application/json"
@@ -22,7 +22,7 @@ export class VengaServiceBusService {
      * @return {object} The queues returned by the server.
      */
     listQueues = () => {
-        const url = this.csAPIroot + 'queues/list';
+        const url = this.apiRoot + 'queues/list';
         return this.axiosWithSAS.get(url);
     }
 
@@ -32,7 +32,7 @@ export class VengaServiceBusService {
      * @return {object} The queues returned by the server.
      */
     getQueueDetails = (queueName) => {
-        const url = this.csAPIroot + 'queues/details/' + queueName;
+        const url = this.apiRoot + 'queues/details/' + queueName;
         return this.axiosWithSAS.get(url);
     }
 
@@ -41,7 +41,7 @@ export class VengaServiceBusService {
      * @return {object} The queue returned by the server.
      */
     listTopics = () => {
-        const url = this.csAPIroot + 'topics/list';
+        const url = this.apiRoot + 'topics/list';
         return this.axiosWithSAS.get(url);
     }
 
@@ -51,7 +51,7 @@ export class VengaServiceBusService {
      * @return {object} The topic returned by the server.
      */
     getTopicDetails = (topicName) => {
-        const url = this.csAPIroot + 'topics/details/' + topicName;
+        const url = this.apiRoot + 'topics/details/' + topicName;
         return this.axiosWithSAS.get(url);
     }
 
@@ -61,7 +61,7 @@ export class VengaServiceBusService {
      * @return {object} The subsctiptions returned by the server.
      */
     listSubscriptions = (topicName) => {
-        const url = this.csAPIroot + 'subscriptions/list/' + topicName;
+        const url = this.apiRoot + 'subscriptions/list/' + topicName;
         return this.axiosWithSAS.get(url);
     }
 
@@ -72,7 +72,7 @@ export class VengaServiceBusService {
      * @return {object} The topic returned by the server.
      */
     getSubscriptionDetails = (parentTopicName, subscriptionName) => {
-        const url = this.csAPIroot + 'subscriptions/details/' + parentTopicName + '/' + subscriptionName;
+        const url = this.apiRoot + 'subscriptions/details/' + parentTopicName + '/' + subscriptionName;
         return this.axiosWithSAS.get(url);
     }
 
@@ -88,7 +88,7 @@ export class VengaServiceBusService {
      * }
      */
     sendMessageToQueue = (queueName, message) => {
-        const url = this.csAPIroot + 'messages/send/queue/' + queueName;
+        const url = this.apiRoot + 'messages/send/queue/' + queueName;
         const config = this.jsonConfig;
         this.axiosWithSAS.post(url, message, config);
     }
@@ -105,7 +105,7 @@ export class VengaServiceBusService {
      * }
      */
     sendMessageToTopic = (topicName, message) => {
-        const url = this.csAPIroot + 'messages/send/topic/' + topicName;
+        const url = this.apiRoot + 'messages/send/topic/' + topicName;
         const config = {
             headers: {
                 "Content-Type": "application/json"
@@ -115,17 +115,17 @@ export class VengaServiceBusService {
     }
 
     deleteQueueMessages = (queueName) => {
-        const url = this.csAPIroot + `messages/queue/${queueName}`;
+        const url = this.apiRoot + `messages/queue/${queueName}`;
         return this.axiosWithSAS.delete(url);
     }
 
     deleteTopicMessages = (topicName) => {
-        const url = this.csAPIroot + `messages/topic/${topicName}`;
+        const url = this.apiRoot + `messages/topic/${topicName}`;
         return this.axiosWithSAS.delete(url);
     }
 
     deleteSubscriptionMessages = (topicName, subscriptionName) => {
-        const url = this.csAPIroot + `messages/subscription/${topicName}/${subscriptionName}`;
+        const url = this.apiRoot + `messages/subscription/${topicName}/${subscriptionName}`;
         return this.axiosWithSAS.delete(url);
     }
 
@@ -153,16 +153,4 @@ export class VengaServiceBusService {
             // reject('err');
         });
     }
-
-    // QQ
-    // Update this when the API is working, once the actual form of the response is know it will have to be transformed
-    // to a format which can be displayed by the BootstrapTable component (like in the hard coded example below)
-    getAllQueues = () => {
-        return new Promise((resolve, reject) => {
-            const data = [{ number: 1, name: 'q1', status: 'active' }, { number: 2, name: 'q2', status: 'active' }, { number: 3, name: 'q3', status: 'dead' }];
-            resolve(data);
-        });
-    };
-
-
 }
