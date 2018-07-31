@@ -224,6 +224,9 @@ export class MessageInput extends Component {
         return message;
     }
 
+    /**
+     * Clears the message body and removes all properties from the message.
+     */
     discardMessage = () => {
         this.setState({
             messageBody: '',
@@ -232,6 +235,9 @@ export class MessageInput extends Component {
         });
     }
 
+    /**
+     * Sends the message to the selected queue/topic.
+     */
     submit = () => {
         const message = this.createMessageObject();
         if (this.state.recipientIsQueue) {
@@ -295,16 +301,23 @@ export class MessageInput extends Component {
         const preDefinedPropertiesButtonText = this.arePredefinedPropsLoaded ? 'Add new Azure property' : 'Loading pre-defined properties...';
         return (
             <div className={formStyle} >
+                <div className={leftAlignContainerStyle}>
+                    <p className={headingStyle}>Destination</p>
+                </div>
                 <div className={fullWidth}>
-                    <input
-                        className={queueOrTopicSelectionButtonStyle}
-                        type="radio"
-                        value="queue"
-                        checked={this.state.recipientIsQueue}
-                        onChange={() => this.handleRecipientTypeChange(true)}
-                    />
-                    <div className={leftAlignContainerStyle + " " + queueOrTopicSelectionStyle + " " + headingStyle + " " + verticalAlign}>
-                        <p>Queue</p>
+                    <div
+                        onClick={() => this.handleRecipientTypeChange(true)}
+                    >
+                        <input
+                            className={queueOrTopicSelectionButtonStyle}
+                            type="radio"
+                            value="queue"
+                            checked={this.state.recipientIsQueue}
+                            onChange={() => this.handleRecipientTypeChange(true)}
+                        />
+                        <div className={leftAlignContainerStyle + " " + queueOrTopicSelectionStyle + " " + headingStyle + " " + verticalAlign}>
+                            <p>Queue</p>
+                        </div>
                     </div>
                     <Select
                         isDisabled={!this.state.recipientIsQueue}
@@ -317,15 +330,19 @@ export class MessageInput extends Component {
                     />
                 </div>
                 <div className={fullWidth}>
-                    <input
-                        className={queueOrTopicSelectionButtonStyle}
-                        type="radio"
-                        value="topic"
-                        checked={!this.state.recipientIsQueue}
-                        onChange={() => this.handleRecipientTypeChange(false)}
-                    />
-                    <div className={leftAlignContainerStyle + " " + queueOrTopicSelectionStyle + " " + headingStyle + " " + verticalAlign}>
-                        <p>Topic</p>
+                    <div
+                        onClick={() => this.handleRecipientTypeChange(false)}
+                    >
+                        <input
+                            className={queueOrTopicSelectionButtonStyle}
+                            type="radio"
+                            value="topic"
+                            checked={!this.state.recipientIsQueue}
+                            onChange={() => this.handleRecipientTypeChange(false)}
+                        />
+                        <div className={leftAlignContainerStyle + " " + queueOrTopicSelectionStyle + " " + headingStyle + " " + verticalAlign}>
+                            <p>Topic</p>
+                        </div>
                     </div>
                     <Select
                         isDisabled={this.state.recipientIsQueue}
@@ -337,6 +354,8 @@ export class MessageInput extends Component {
                         onChange={(event) => this.handleQueueOrTopicChange(event.value)}
                     />
                 </div>
+                <br />
+                <br />
                 <br />
                 <br />
                 <hr />
