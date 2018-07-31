@@ -16,25 +16,24 @@ namespace VengabusAPI.Models
             MessageId = messageId;
             ContentType = contentType;
         }
-        public VengaMessage(BrokeredMessage brokeredMessage)
-        {
-            MessageProperties = brokeredMessage.Properties;
-            MessageBody = brokeredMessage.GetBody<string>();
-            MessageId = brokeredMessage.MessageId;
-            ContentType = brokeredMessage.ContentType;
-        }
-        
 
-        public BrokeredMessage ConvertToBrokeredMessage(VengaMessage vengaMessage)
+        public BrokeredMessage ConvertToBrokeredMessage()
         {
-            var brokeredMessage = new BrokeredMessage(vengaMessage.MessageBody);
-            brokeredMessage.MessageId = vengaMessage.MessageId;
-            brokeredMessage.ContentType = vengaMessage.ContentType;
-            foreach (var property in vengaMessage.MessageProperties)
+            var message = new BrokeredMessage(MessageBody)
             {
-                brokeredMessage.Properties.Add(property.Key, property.Value);
+                MessageId = MessageId,
+                ContentType = ContentType
+            };
+            foreach (var property in MessageProperties)
+            {
+                message.Properties.Add(property.Key, property.Value);
             }
-            return brokeredMessage;
+            return message;
+        }
+        public static VengaMessage FromBrokeredMessage(BrokeredMessage brokeredMessage)
+        //create a VengaMessage from an azure brokered message
+        {
+            return new VengaMessage(brokeredMessage.Properties, brokeredMessage.GetBody<string>(), brokeredMessage.MessageId, brokeredMessage.ContentType);
         }
     }
 }
