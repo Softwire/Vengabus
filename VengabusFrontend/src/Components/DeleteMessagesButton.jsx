@@ -1,7 +1,7 @@
 import React from "react";
 import { Glyphicon, Modal, Alert, Button } from "react-bootstrap";
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
-import { EndpointTypes } from '../Helpers/EndpointType';
+import { EndpointTypes } from '../Helpers/EndpointTypes';
 
 class DeleteMessagesButton extends React.Component {
   constructor(props) {
@@ -9,39 +9,102 @@ class DeleteMessagesButton extends React.Component {
 
     this.state = {
       show: false,
-      numberOfMessages: 0
+      numberOfMessages: 0,
+      subscriptionList: [],
+      onClick: () => { }
     };
   }
 
   handleClose = () => {
     this.setState({
       show: false,
-      numberOfMessages: 0
+      numberOfMessages: 0,
+      subscriptionList: [],
+      onClick: () => { }
     });
   }
 
   handleOpening = () => {
-    let vengaServiceBusService = serviceBusConnection.getServiceBusService();
-    let promiseResponse;
+    const vengaServiceBusService = serviceBusConnection.getServiceBusService();
+    const onClick = this.getOnClickFunction();
+
     switch (this.props.type) {
       case EndpointTypes.QUEUE:
-        promiseResponse = vengaServiceBusService.getQueueDetails(this.props.endpointName);
+        vengaServiceBusService.getQueueDetails(this.props.endpointName).then((response) => {
+          this.setState({
+            show: true,
+            numberOfMessages: response.data.activeMessageCount,
+            subscriptionList: [],
+            onClick: onClick
+          });
+        });
         break;
       case EndpointTypes.TOPIC:
-        promiseResponse = vengaServiceBusService.getTopicDetails(this.props.endpointName);
+        vengaServiceBusService.listSubscriptions(this.props.endpointName).then((response) => {
+          let numberOfMessages = 0;
+          let subscriptionList = [];
+          for (let id in response.data) {
+            let subscription = response.data[id];
+            numberOfMessages += subscription.activeMessageCount;
+            subscriptionList.push(subscription.name);
+          }
+
+          this.setState({
+            show: true,
+            numberOfMessages: numberOfMessages,
+            subscriptionList: subscriptionList,
+            onClick: onClick
+          });
+        });
         break;
       case EndpointTypes.SUBSCRIPTION:
-        promiseResponse = vengaServiceBusService.getSubscriptionDetails(this.props.parentName, this.props.endpointName);
+        vengaServiceBusService.getSubscriptionDetails(this.props.parentName, this.props.endpointName).then((response) => {
+          this.setState({
+            show: true,
+            numberOfMessages: response.data.activeMessageCount,
+            subscriptionList: [],
+            onClick: onClick
+          });
+        });
         break;
       default: break;
     }
+  }
 
-    promiseResponse.then((response) => {
-      this.setState({
-        show: true,
-        numberOfMessages: response.data.activeMessageCount
-      });
-    });
+  generateTopicModalBody = () => {
+    let i = 0;
+    return (
+      <div>
+        <p> This action will delete all the messages from the next subscriptions: </p>
+        <ul>
+          {this.state.subscriptionList.map(function (listValue) {
+            i++;
+            return <li key={i}>{listValue}</li>;
+          })}
+        </ul>
+      </div>
+    );
+  }
+
+  getOnClickFunction = () => {
+    const vengaServiceBusService = serviceBusConnection.getServiceBusService();
+    let deletionFunc;
+    switch (this.props.type) {
+      case EndpointTypes.TOPIC:
+        deletionFunc = () => vengaServiceBusService.deleteTopicMessages(this.props.endpointName);
+        break;
+      case EndpointTypes.QUEUE:
+        deletionFunc = () => vengaServiceBusService.deleteQueueMessages(this.props.endpointName);
+        break;
+      case EndpointTypes.SUBSCRIPTION:
+        deletionFunc = () => vengaServiceBusService.deleteSubscriptionMessages(this.props.parentName, this.props.endpointName);
+        break;
+      default: break;
+    }
+    return () => {
+      deletionFunc();
+      this.handleClose();
+    }
   }
 
   render() {
@@ -58,13 +121,15 @@ class DeleteMessagesButton extends React.Component {
 
           <Modal.Body>
             <Alert bsStyle="danger">
-              <p>Are you sure you want to delete all the messages from the {this.props.endpointName} ?</p>
+              <p>Are you sure you want to delete all the messages from {this.props.type} "{this.props.endpointName}" ?</p>
+
+              {this.props.type === EndpointTypes.TOPIC ? this.generateTopicModalBody() : ""}
+
               <p>{this.state.numberOfMessages} messages will be deleted <b>irreversibly</b>!</p >
             </Alert >
           </Modal.Body>
-
           <Modal.Footer>
-            <Button onClick={this.props.onClick} bsStyle="danger" >Delete </Button>
+            <Button onClick={this.state.onClick} bsStyle="danger" >Delete </Button>
             <Button onClick={this.handleClose} >Close</Button>
           </Modal.Footer>
         </Modal>
