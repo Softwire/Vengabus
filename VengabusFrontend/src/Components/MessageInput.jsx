@@ -251,15 +251,17 @@ export class MessageInput extends Component {
         `;
         const queueOrTopicSelectionButtonStyle = css`
             float: left;
-            width: 5%;
+            width: 2%;
+            position:relative;
+            top:9px;
         `;
         const queueOrTopicSelectionStyle = css`
             float: left;
-            width: 20%;
+            width: 5%;
         `;
         const queueOrTopicSelectionDropdownStyle = css`
             float: left;
-            width: 70%;
+            width: 92%;
         `;
         const buttonStyle = css`
             width: 270px;
@@ -301,7 +303,9 @@ export class MessageInput extends Component {
                         checked={this.state.recipientIsQueue}
                         onChange={() => this.handleRecipientTypeChange(true)}
                     />
-                    <p className={queueOrTopicSelectionStyle + " " + headingStyle + " " + verticalAlign}>Queue</p>
+                    <div className={leftAlignContainerStyle + " " + queueOrTopicSelectionStyle + " " + headingStyle + " " + verticalAlign}>
+                        <p>Queue</p>
+                    </div>
                     <Select
                         isDisabled={!this.state.recipientIsQueue}
                         className={queueOrTopicSelectionDropdownStyle}
@@ -320,7 +324,9 @@ export class MessageInput extends Component {
                         checked={!this.state.recipientIsQueue}
                         onChange={() => this.handleRecipientTypeChange(false)}
                     />
-                    <p className={queueOrTopicSelectionStyle + " " + headingStyle + " " + verticalAlign}>Topic</p>
+                    <div className={leftAlignContainerStyle + " " + queueOrTopicSelectionStyle + " " + headingStyle + " " + verticalAlign}>
+                        <p>Topic</p>
+                    </div>
                     <Select
                         isDisabled={this.state.recipientIsQueue}
                         className={queueOrTopicSelectionDropdownStyle}
