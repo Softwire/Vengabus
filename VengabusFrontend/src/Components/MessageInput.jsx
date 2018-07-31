@@ -23,19 +23,20 @@ const classNames = require('classnames');
 export class MessageInput extends Component {
     constructor(props) {
         super(props);
-        const message = this.props.message;
+        const data = this.props.data || {};
+        const message = data.message;
         this.arePredefinedPropsLoaded = false;
         this.state = {
             permittedValues: [],
             availableTopics: [],
             availableQueues: [],
-            recipientIsQueue: true,
+            recipientIsQueue: data.recipientIsQueue ? data.recipientIsQueue : true,
             messageBody: message ? message.MessageBody : '',
             userDefinedProperties: message ? this.getUserDefinedProperties(message) : [], //[{name: something, value: something}]
             preDefinedProperties: [], //[{name: something, value: something}]
             reservedPropertyNames: [], //a list of name of possible readable properties of a message
-            selectedQueue: undefined,
-            selectedTopic: undefined
+            selectedQueue: data.selectedQueue ? data.selectedQueue : undefined,
+            selectedTopic: data.selectedTopic ? data.selectedTopic : undefined
             // QQ add way of choosing which queue/topic a message is sent to.
         };
     }

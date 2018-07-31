@@ -52,7 +52,7 @@ export class CurrentPage extends Component {
 
             case PAGES.SendMessagePage:
                 const messageTemplate = this.state.data;
-                returnValue = <SendMessagePage message={messageTemplate ? { ...messageTemplate } : undefined} />;
+                returnValue = <SendMessagePage data={messageTemplate ? { ...messageTemplate } : undefined} />;
                 break;
 
             default:
