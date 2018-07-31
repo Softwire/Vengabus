@@ -1,6 +1,5 @@
 import { AxiosWithSAS } from './AxiosWithSAS';
 
-const azure = require('azure-sb');
 const util = require('util');
 require('util.promisify').shim();
 
@@ -12,7 +11,6 @@ require('util.promisify').shim();
 */
 export class VengaServiceBusService {
     constructor(connectionString, apiRoot) {
-        this.rawService = azure.createServiceBusService(connectionString);
         this.axiosWithSAS = new AxiosWithSAS(connectionString);
         this.csAPIroot = apiRoot;
         this.jsonConfig = {
@@ -21,12 +19,6 @@ export class VengaServiceBusService {
             }
         };
     }
-
-
-
-    /* Note that the lamda here captures `this` = the VengaServiceBusService, to access rawService.
-       But it also captures `rawService` as the callee of getQueue (and hence, the value of `this` INSIDE the getQueue method)*/
-    getQueue = util.promisify((queueName, callback) => this.rawService.getQueue(queueName, callback));
 
     /**
      * Gets the details of all queues in the current namespace from the server.

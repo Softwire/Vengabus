@@ -12,7 +12,6 @@
     "dependencies": {
         "ajv": "^6.5.1",
         "axios": "^0.18.0",
-        "azure-sb": "^0.10.6",
         "babel-plugin-emotion": "^9.2.6",
         "crypto": "^1.0.1",
         "emotion": "^9.2.6",
