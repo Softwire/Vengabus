@@ -64,7 +64,7 @@ export class FormattingBox extends Component {
             </Alert>
         );
         const boxContainingOriginalText = (
-            <div id = "original">
+            <div id="original">
                 <p>Original Data:</p>
                 <pre id="originalText" className={formatCss}>
                     {originalData}
@@ -72,9 +72,9 @@ export class FormattingBox extends Component {
             </div>
         )
         const boxContainingFormattedText = (
-            <div id = "formatted">
+            <div id="formatted">
                 <p>Formatted Data:</p>
-                <pre id="formattedText"className={formatCss}>
+                <pre id="formattedText" className={formatCss}>
                     {formattedText || originalData}
                 </pre>
             </div>
