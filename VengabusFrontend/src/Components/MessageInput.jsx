@@ -13,11 +13,15 @@ import _ from 'lodash';
 const classNames = require('classnames');
 
 /** 
- * @prop { Object } message Can take a message as a prop to replay message.
- * @property {Object} message.MessageProperties User defined properties (key-string pairs).
- * @property {string} message.MessageBody The text of the message.
- * @property {string} message.MessageId The ID of the message.
- * @property {string} message.predefinedProperty Any other predefined properties used by Azure.
+ * @prop {Object} data All of the data that is passed down into this component.
+ * @property {Object} data.message Can take a message as a prop to replay message.
+ * @property {Object} data.message.MessageProperties User defined properties (key-string pairs).
+ * @property {string} data.message.MessageBody The text of the message.
+ * @property {string} data.message.MessageId The ID of the message.
+ * @property {string} data.message.predefinedProperty Any other predefined properties used by Azure.
+ * @property {bool} data.recipientIsQueue Is the recepient of the message a queue?
+ * @property {string} data.selectedQueue Name of the recepient queue.
+ * @property {string} data.selectedTopic Name of the recepient topic.
  */
 
 export class MessageInput extends Component {
@@ -37,7 +41,6 @@ export class MessageInput extends Component {
             reservedPropertyNames: [], //a list of name of possible readable properties of a message
             selectedQueue: data.selectedQueue ? data.selectedQueue : undefined,
             selectedTopic: data.selectedTopic ? data.selectedTopic : undefined
-            // QQ add way of choosing which queue/topic a message is sent to.
         };
     }
 
