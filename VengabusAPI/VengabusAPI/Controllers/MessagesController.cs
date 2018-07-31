@@ -88,7 +88,7 @@ namespace VengabusAPI.Controllers
         private void SendMessageToEndpoint(EndpointIdentifier endpoint, VengaMessage messageInfoObject)
         {
             //Sending message to queue. 
-            var brokeredMessage = CreateAzureBrokeredMessage(messageInfoObject);
+            var brokeredMessage = messageInfoObject.ConvertToBrokeredMessage(messageInfoObject);
             var factory = CreateEndpointFactory();
 
             MessageServices.SendMessageToEndpoint(endpoint, factory, brokeredMessage);
@@ -100,7 +100,8 @@ namespace VengabusAPI.Controllers
             return MessageServices.GetMessageFromEndpoint(endpoint, factory);
         }
 
-        private BrokeredMessage CreateAzureBrokeredMessage(VengaMessage messageInfoObject)
+        /*private BrokeredMessage CreateAzureBrokeredMessageFromVengaMessage(VengaMessage messageInfoObject)
+        //ConvertToBrokeredMessage
         {
             var message = new BrokeredMessage(messageInfoObject.MessageBody);
             message.MessageId = messageInfoObject.MessageId;
@@ -112,6 +113,16 @@ namespace VengabusAPI.Controllers
             }
 
             return message;
+        }*/
+
+        private VengaMessage CreateVengaMessageFromAzureBrokeredMessage(BrokeredMessage azureBrokeredMessage)
+        {
+            var properties = azureBrokeredMessage.Properties;
+            var messageBody = azureBrokeredMessage.GetBody<string>();
+            var messageId = azureBrokeredMessage.MessageId;
+            var contentType = azureBrokeredMessage.ContentType;
+            var vengaMessage = new VengaMessage(properties, messageBody, messageId, contentType);
+            return vengaMessage;
         }
 
     }
