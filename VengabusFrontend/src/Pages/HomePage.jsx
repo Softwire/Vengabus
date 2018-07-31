@@ -53,8 +53,8 @@ export class HomePage extends Component {
 
         return (
             < div >
-                <button onClick={() => pageSwitcher.switchToPage(PAGES.SendMessagePage, exampleMessage)}>Replay Example Message</button>
                 <div className={queueDivStyle}>
+                    <button onClick={() => pageSwitcher.switchToPage(PAGES.SendMessagePage, exampleMessage)}>Replay Example Message</button>
                     <QueueList queueData={this.state.retrievedData} />
                     <MessageList messageData={this.state.messageData} />
                     {/*qq delete the text in Button once implemented properly*/}

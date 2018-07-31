@@ -1,8 +1,5 @@
 import { AxiosWithSAS } from './AxiosWithSAS';
-
-const util = require('util');
 require('util.promisify').shim();
-
 
 /*
     This class exists as our own wrapper around the equivalent Azure API object,
