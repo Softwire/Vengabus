@@ -42,7 +42,7 @@ export class MessageInput extends Component {
     }
 
     getUserDefinedProperties = (message) => {
-        let userDefinedProperties = [];
+        const userDefinedProperties = [];
         const keys = Object.keys(message.MessageProperties);
         for (let i = 0; i < keys.length; i++) {
             userDefinedProperties.push({
@@ -54,7 +54,7 @@ export class MessageInput extends Component {
     }
 
     getPreDefinedPropertiesFromExistingMessage = (message, permittedValues) => {
-        let preDefinedProperties = [];
+        const preDefinedProperties = [];
         for (let i = 0; i < permittedValues.length; i++) {
             const permittedValue = permittedValues[i];
             if (typeof message[permittedValue] !== 'undefined') {
