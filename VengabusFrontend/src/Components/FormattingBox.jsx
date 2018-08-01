@@ -5,6 +5,29 @@ import formatJSon from 'prettyprint';
 const formatXML = require("xml-formatter");
 const classNames = require('classnames');
 
+function deformatOriginalText(originalText) {
+    //remove initial whitespaces (tabs), as they will be added later in xml formatting.
+    let noInitialWhitespace = originalDataWithoutComplexWhitespace = originalData.replace(/^ */gm, "");
+
+    //if original text is already formatted, there will be newlines between tags. Remove them as they will be added later.
+    let noNewLinesAfterXMLTags = noInitialWhitespace.replace(/>[\n\r]/g, ">");
+    let noNewLinesBeforeXMLTags = noNewLinesAfterXMLTags.replace(/[\n\r]</g, "<");
+
+    //replace newlines and put things in the same line, as they will be added later. 
+    //However, don't completely remove then as there might be genuine newlines in original text, so replace them by spaces.
+    let replaceNewlineBySpaces = noNewLinesBeforeXMLTags.replace(/[\n\r]/g, " ");
+    return replaceNewlineBySpaces;
+}
+
+function removeBlankLines(text) {
+    return text.replace(/^\s*\n/gm, "");
+}
+
+//I feel that text1 and text2 are really the correct names (instead of original/formatted), as this is a more general function
+//that is capable of comparing two arbitrary texts.
+function compareWithoutWhitespace(text1, text2) {
+    return text1.replace(/\s/g, "") === text2.replace(/\s/g, "");
+}
 
 export class FormattingBox extends Component {
 
@@ -42,15 +65,9 @@ export class FormattingBox extends Component {
             try {
                 //check for xml first then check for json
                 if (mightBeXml) {
-                    // console.log('started');
-                    // console.log('original:', originalData);
-                    //const originalDataWithoutComplexWhitespace = originalData.replace(/^ */gm, "").replace(/((?<=>)[\n\r]|[\n\r](?=<))/g, "").replace(/[\n\r]/g, " ");
-                    //function here. Single replace line, detailed docs of regex: What and Why (Not how - they can look that up).
-                    const originalDataWithoutComplexWhitespace = originalData.replace(/^ */gm, "").replace(/>[\n\r]/g, ">").replace(/[\n\r]</g, "<").replace(/[\n\r]/g, " ");
-                    // console.log('after "cleaning":', originalDataWithoutComplexWhitespace);
-                    formattedText = formatXML(originalDataWithoutComplexWhitespace).replace(/^\s*\n/gm, ""); //func "Remove blank lines"
-                    // console.log('after formatting:', formattedText);
-                    if (formattedText && (formattedText.replace(/\s/g, "") !== originalData.replace(/\s/g, ""))) { //func "Are exact match, excluding whitespace"  
+                    deformattedOriginalText = deformatOriginalText(originalText);
+                    formattedText = removeBlankLines(formatXML(deformattedOriginalText));
+                    if (formattedText && (compareWithoutWhitespace(formattedText, originalData))) {
                         xmlFormattingSucceededButChangedText = true;
                     }
                 }
