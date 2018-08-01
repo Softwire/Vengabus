@@ -27,41 +27,42 @@ export class Konamibus extends Component {
             perspective: 1000px;
         `;
         const busPeek = css`
+            --final-height: 180px;
             @keyframes Bus-Peek {
                 0% {
-                    transform: translateX(calc(-50% - 200px)) rotateY(0deg);
+                    transform: translateX(calc(-50% - 250px)) rotateY(0deg);
                     height: 0px;
                 }
                 10% {
-                    transform: translateX(calc(-50% - 200px)) rotateY(0deg);
-                    height: 224px;
+                    transform: translateX(calc(-50% - 250px)) rotateY(0deg);
+                    height: var(--final-height);
                 }
                 20% {
-                    transform: translateX(calc(-50% - 200px)) rotateY(0deg);
-                    height: 224px;
+                    transform: translateX(calc(-50% - 250px)) rotateY(0deg);
+                    height: var(--final-height);
                 }
                 40% {
-                    transform: translateX(calc(-50% + 100px)) rotateY(0deg);
-                    height: 224px;
+                    transform: translateX(calc(-50% + 50px)) rotateY(0deg);
+                    height: var(--final-height);
                 }
                 60% {
-                    transform: translateX(calc(-50% + 100px)) rotateY(0deg);
-                    height: 224px;
+                    transform: translateX(calc(-50% + 50px)) rotateY(0deg);
+                    height: var(--final-height);
                 }
                 70% {
-                    transform: translateX(calc(-50% + 100px)) rotateY(-180deg);
-                    height: 224px;
+                    transform: translateX(calc(-50% + 50px)) rotateY(-180deg);
+                    height: var(--final-height);
                 }
                 80% {
-                    transform: translateX(calc(-50% - 200px)) rotateY(-180deg);
-                    height: 224px;
+                    transform: translateX(calc(-50% - 250px)) rotateY(-180deg);
+                    height: var(--final-height);
                 }
                 90% {
-                    transform: translateX(calc(-50% - 200px)) rotateY(-180deg);
-                    height: 224px;
+                    transform: translateX(calc(-50% - 250px)) rotateY(-180deg);
+                    height: var(--final-height);
                 }
                 100% {
-                    transform: translateX(calc(-50% - 200px)) rotateY(-180deg);
+                    transform: translateX(calc(-50% - 250px)) rotateY(-180deg);
                     height: 0px;
                 }
             }
