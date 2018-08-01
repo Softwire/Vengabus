@@ -42,12 +42,14 @@ export class MessageList extends Component {
             {
                 dataField: 'predefinedProperties.messageId',
                 text: 'Message Id',
-                headerStyle: { width: '10%', textAlign: 'center' }
+                width: 50,
+                headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'messageBodyPreview',
                 text: 'Message Body',
-                headerStyle: { width: '50%', textAlign: 'center' }
+                width: 50,
+                headerStyle: { textAlign: 'center' }
             }
         ];
 

@@ -24,9 +24,16 @@ export class QueueList extends Component {
             {
                 dataField: 'name',
                 text: 'Name',
-                headerStyle: { width: '25%', textAlign: 'center' }
+                width: 25,
+                headerStyle: { textAlign: 'center' }
             },
             {
+                dataField: 'status',
+                text: 'Status',
+                width: 40,
+                headerStyle: { textAlign: 'center' }
+			},
+			{
                 dataField: 'activeMessageCount',
                 text: 'active Message Count',
                 headerStyle: { width: '25%', textAlign: 'center' }
