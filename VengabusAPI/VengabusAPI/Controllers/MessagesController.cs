@@ -14,14 +14,14 @@ namespace VengabusAPI.Controllers
         [Route("message/properties/gettable")]
         public IEnumerable<string> GetGettableProperties()
         {
-            return VengaMessage.SupportedGetProperties;
+            return MessageProperties.SupportedGetProperties;
         }
 
         [HttpGet]
         [Route("message/properties/settable")]
         public IEnumerable<string> GetSettableProperties()
         {
-            return VengaMessage.SupportedSetProperties;
+            return MessageProperties.SupportedSetProperties;
         }
 
         [HttpPost]

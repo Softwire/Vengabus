@@ -121,6 +121,8 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Helpers\MessageProperties.cs" />
+    <Compile Include="Helpers\VengaBrokeredMessageConverter.cs" />
     <Compile Include="Models\EndpointIdentifier.cs" />
     <Compile Include="Models\SASKey.cs" />
     <Compile Include="Models\VengaMessage.cs" />
