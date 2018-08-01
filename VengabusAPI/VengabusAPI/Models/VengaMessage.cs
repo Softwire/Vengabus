@@ -89,7 +89,7 @@ namespace VengabusAPI.Models
 
         public BrokeredMessage ToBrokeredMessage()
         {
-            var message = new BrokeredMessage();
+            var message = new BrokeredMessage(MessageBody);
             //set predefined properties
             foreach (var property in PredefinedProperties)
             {
