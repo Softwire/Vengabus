@@ -103,7 +103,7 @@ export class ConnectionStringConfigForm extends Component {
     render() {
 
         const buttonStyle = css`
-            color: black;
+            color: red;
             margin: 5px;
         `;
 

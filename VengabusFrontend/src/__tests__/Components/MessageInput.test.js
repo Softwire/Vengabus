@@ -1,13 +1,10 @@
-import { mount, configure } from 'enzyme';
-import Adaptor from 'enzyme-adapter-react-16';
+import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
-
 import React from 'react';
 import { FormControl, Button } from "react-bootstrap";
 import { MessageInput } from '../../Components/MessageInput';
 import { MessagePropertyInputRow } from '../../Components/MessagePropertyInputRow';
-
-configure({ adapter: new Adaptor() });
+import '../../TestHelpers/TestConfigAndHelpers';
 
 //QQ Implement a test that checks that the submit function works correctly
 
@@ -65,6 +62,6 @@ it('renders correctly from a predefined message', () => {
         ContentType: 'null'
     };
     let messagePropertyInput = renderer.create(
-        <MessageInput message={message}/>);
+        <MessageInput message={message} />);
     expect(messagePropertyInput.toJSON()).toMatchSnapshot();
 });

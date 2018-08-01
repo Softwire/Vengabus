@@ -1,12 +1,7 @@
 import 'jest-localstorage-mock';
-import { shallow, mount, configure } from 'enzyme';
-import Adaptor from 'enzyme-adapter-react-16';
 import renderer from 'react-test-renderer';
-
 import React from 'react';
 import { MessagePropertyInput } from '../../Components/MessagePropertyInput';
-
-configure({ adapter: new Adaptor() });
 
 //Tests no longer work due to refactoring but may be useful as templates that will need to be implemented
 //in MessageInput.test.js after the submit function is fully implemented.

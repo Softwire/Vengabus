@@ -1,6 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FormattingBox renders correctly with given props 1`] = `
+.emotion-0 {
+  text-align: left;
+}
+
 <div>
    
    
@@ -12,7 +16,7 @@ exports[`FormattingBox renders correctly with given props 1`] = `
       Original Data:
     </p>
     <pre
-      className="css-40hyzg"
+      className="emotion-0"
       id="originalText"
     >
       test

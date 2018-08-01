@@ -1,9 +1,8 @@
 import { FormattingBox } from '../../Components/FormattingBox';
 import renderer from 'react-test-renderer';
 import React from 'react';
-import Adaptor from 'enzyme-adapter-react-16';
-import { mount, configure } from 'enzyme';
-configure({ adapter: new Adaptor() });
+import { mount } from 'enzyme';
+import '../../TestHelpers/TestConfigAndHelpers';
 
 describe('FormattingBox', () => {
 

@@ -1,8 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ConnectionStringConfigForm renders correctly 1`] = `
+.emotion-0 {
+  color: red;
+  margin: 5px;
+}
+
+.emotion-3 {
+  padding: 5px;
+}
+
+.emotion-2 {
+  color: black;
+  overflow-wrap: break-word;
+}
+
+.emotion-1 {
+  background: #66b3ff;
+}
+
 <form
-  className="css-1iucxpo"
+  className="emotion-3"
 >
   <div
     className="form-group"
@@ -41,7 +59,7 @@ exports[`ConnectionStringConfigForm renders correctly 1`] = `
     />
   </div>
   <button
-    className="css-231uek btn btn-default"
+    className="emotion-0 btn btn-default"
     disabled={false}
     id="connectButton"
     onClick={[Function]}
@@ -56,12 +74,12 @@ exports[`ConnectionStringConfigForm renders correctly 1`] = `
     className="panel panel-default"
   >
     <div
-      className="css-xbbmn1 panel-heading"
+      className="emotion-1 panel-heading"
     >
       ServiceBus Details
     </div>
     <div
-      className="css-14g2jsj panel-body"
+      className="emotion-2 panel-body"
     >
       <div>
         Your Connection string: connStringInLocalStorage

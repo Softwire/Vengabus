@@ -1,10 +1,8 @@
 import 'jest-localstorage-mock';
-import { mount, configure } from 'enzyme';
-import Adaptor from 'enzyme-adapter-react-16';
+import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
-import { testHelper } from '../Helpers/testHelper';
+import { testHelper } from '../TestHelpers/TestConfigAndHelpers';
 import { ServiceBusInfoBox } from "../Components/ServiceBusInfoBox";
-
 
 import React from 'react';
 import {
@@ -12,9 +10,6 @@ import {
     LOCAL_STORAGE_STRINGS
 } from "../Components/ConnectionStringConfigForm";
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
-
-configure({ adapter: new Adaptor() });
-
 
 jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
     VengaServiceBusService: {
