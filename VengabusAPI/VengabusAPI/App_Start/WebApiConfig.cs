@@ -3,6 +3,7 @@ using System.Web.Http.Cors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using VengabusAPI.Startup;
 
 namespace VengabusAPI
 {
@@ -11,6 +12,7 @@ namespace VengabusAPI
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            if(ArtificialDelayDebuggingFilter.IsActive) { config.Filters.Add(new ArtificialDelayDebuggingFilter()); }
 
             // Web API routes
             config.MapHttpAttributeRoutes();
@@ -27,6 +29,7 @@ namespace VengabusAPI
             json.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             json.SerializerSettings.Converters = new JsonConverter[] { new StringEnumConverter() };
             json.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+
 
         }
     }
