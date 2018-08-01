@@ -12,23 +12,23 @@ namespace VengabusAPI.Controllers
 
         [HttpPost]
         [Route("messages/send/queue/{queueName}")]
-        public void SendMessageToQueue(string queueName, [FromBody]VengaMessage messageInfoObject)
+        public void SendMessageToQueue(string queueName, [FromBody]VengaMessage message)
         {
-            SendMessageToEndpoint(EndpointIdentifier.ForQueue(queueName), messageInfoObject);
+            SendMessageToEndpoint(EndpointIdentifier.ForQueue(queueName), message);
         }
 
         [HttpPost]
         [Route("messages/send/topic/{topicName}")]
-        public void SendMessageToTopic(string topicName, [FromBody]VengaMessage messageInfoObject)
+        public void SendMessageToTopic(string topicName, [FromBody]VengaMessage message)
         {
-            SendMessageToEndpoint(EndpointIdentifier.ForTopic(topicName), messageInfoObject);
+            SendMessageToEndpoint(EndpointIdentifier.ForTopic(topicName), message);
         }
 
         [HttpPost]
         [Route("messages/send/subscription/{topicName}/{subscriptionName}")]
-        public void SendMessageToSubscription(string topicName, string subscriptionName, [FromBody]VengaMessage messageInfoObject)
+        public void SendMessageToSubscription(string topicName, string subscriptionName, [FromBody]VengaMessage message)
         {
-            SendMessageToEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionName), messageInfoObject);
+            SendMessageToEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionName), message);
         }
 
         [HttpGet]
@@ -85,10 +85,10 @@ namespace VengabusAPI.Controllers
         }
         
 
-        private void SendMessageToEndpoint(EndpointIdentifier endpoint, VengaMessage messageInfoObject)
+        private void SendMessageToEndpoint(EndpointIdentifier endpoint, VengaMessage message)
         {
             //Sending message to queue. 
-            var brokeredMessage = VengaMessage.ConvertToBrokeredMessage(messageInfoObject);
+            var brokeredMessage = message.ToBrokeredMessage();
             var factory = CreateEndpointFactory();
             MessageServices.SendMessageToEndpoint(endpoint, factory, brokeredMessage);
         }
