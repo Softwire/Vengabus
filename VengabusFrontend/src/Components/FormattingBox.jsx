@@ -20,12 +20,15 @@ function deformatOriginalText(originalText) {
 }
 
 function removeBlankLines(text) {
+    if (!text) {
+        return text;
+    }
     return text.replace(/^\s*\n/gm, "");
 }
 
 //I feel that text1 and text2 are really the correct names (instead of original/formatted), as this is a more general function
 //that is capable of comparing two arbitrary texts.
-function compareWithoutWhitespace(text1, text2) {
+function matchWithoutWhitespace(text1, text2) {
     return text1.replace(/\s/g, "") === text2.replace(/\s/g, "");
 }
 
@@ -65,9 +68,9 @@ export class FormattingBox extends Component {
             try {
                 //check for xml first then check for json
                 if (mightBeXml) {
-                    deformattedOriginalText = deformatOriginalText(originalText);
+                    deformattedOriginalText = deformatOriginalText(originalData);
                     formattedText = removeBlankLines(formatXML(deformattedOriginalText));
-                    if (formattedText && (compareWithoutWhitespace(formattedText, originalData))) {
+                    if (formattedText && (!matchWithoutWhitespace(formattedText, originalData))) {
                         xmlFormattingSucceededButChangedText = true;
                     }
                 }
