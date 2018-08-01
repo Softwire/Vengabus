@@ -153,7 +153,7 @@ export class VengaServiceBusService {
 
     // QQ
     // Update this when the API is working
-    static getServiceBusProperties(connectionString) {
+    getServiceBusProperties() {
         return new Promise(function (resolve, reject) {
             resolve({
                 name: 'name ex',

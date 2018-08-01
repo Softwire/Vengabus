@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { ServiceBusInfoBox } from "./ServiceBusInfoBox";
-import { VengaServiceBusService } from "../AzureWrappers/VengaServiceBusService";
 import { serviceBusConnection } from "../AzureWrappers/ServiceBusConnection";
 import {
     FormGroup,
@@ -83,10 +82,8 @@ export class ConnectionStringConfigForm extends Component {
      * Called whenver the connect button is pressed.
      */
     submitConnectionStringClick = () => {
-
-        const infoPromise = VengaServiceBusService.getServiceBusProperties(
-            this.state.connStringVal
-        );
+        
+        const infoPromise = serviceBusConnection.getServiceBusService().getServiceBusProperties();
 
         infoPromise
             .then(response => {
