@@ -5,9 +5,9 @@ import formatJSon from 'prettyprint';
 const formatXML = require("xml-formatter");
 const classNames = require('classnames');
 
-function deformatOriginalText(originalText) {
+function deformatOriginalText(originalData) {
     //remove initial whitespaces (tabs), as they will be added later in xml formatting.
-    let noInitialWhitespace = originalDataWithoutComplexWhitespace = originalData.replace(/^ */gm, "");
+    let noInitialWhitespace = originalData.replace(/^ */gm, "");
 
     //if original text is already formatted, there will be newlines between tags. Remove them as they will be added later.
     let noNewLinesAfterXMLTags = noInitialWhitespace.replace(/>[\n\r]/g, ">");
@@ -68,7 +68,9 @@ export class FormattingBox extends Component {
             try {
                 //check for xml first then check for json
                 if (mightBeXml) {
-                    deformattedOriginalText = deformatOriginalText(originalData);
+                    //first remove existing formatting
+                    let deformattedOriginalText = deformatOriginalText(originalData);
+                    //format it, but remove blank lines
                     formattedText = removeBlankLines(formatXML(deformattedOriginalText));
                     if (formattedText && (!matchWithoutWhitespace(formattedText, originalData))) {
                         xmlFormattingSucceededButChangedText = true;
