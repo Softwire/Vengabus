@@ -42,16 +42,24 @@ export class FormattingBox extends Component {
             try {
                 //check for xml first then check for json
                 if (mightBeXml) {
-                    formattedText = formatXML(originalData);
-                    if (formattedText && (formattedText.replace(/\s/g, "") !== originalData)) {
+                    // console.log('started');
+                    // console.log('original:', originalData);
+                    //const originalDataWithoutComplexWhitespace = originalData.replace(/^ */gm, "").replace(/((?<=>)[\n\r]|[\n\r](?=<))/g, "").replace(/[\n\r]/g, " ");
+                    //function here. Single replace line, detailed docs of regex: What and Why (Not how - they can look that up).
+                    const originalDataWithoutComplexWhitespace = originalData.replace(/^ */gm, "").replace(/>[\n\r]/g, ">").replace(/[\n\r]</g, "<").replace(/[\n\r]/g, " ");
+                    // console.log('after "cleaning":', originalDataWithoutComplexWhitespace);
+                    formattedText = formatXML(originalDataWithoutComplexWhitespace).replace(/^\s*\n/gm, ""); //func "Remove blank lines"
+                    // console.log('after formatting:', formattedText);
+                    if (formattedText && (formattedText.replace(/\s/g, "") !== originalData.replace(/\s/g, ""))) { //func "Are exact match, excluding whitespace"  
                         xmlFormattingSucceededButChangedText = true;
                     }
                 }
                 if (!formattedText && mightBeJson) {
-                    formattedText = formatJSon(JSON.parse(originalData));
+                    formattedText = formatJSon(JSON.parse(originalData.replace(/\s/g, " ").replace(/(\r\nt|\n\r\t)/gm, " ")));
                 }
             }
             catch (err) {
+                console.log('errored: ', err);
                 formattingError = err;
             }
         } else {

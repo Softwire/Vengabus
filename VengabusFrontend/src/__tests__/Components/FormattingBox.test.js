@@ -3,16 +3,16 @@ import renderer from 'react-test-renderer';
 import React from 'react';
 import { mount } from 'enzyme';
 
-function expectFormattingOutput(input, expectedOutput, outputBoxId, expectedBoxId, unexpectedBoxId) {
+function expectFormattingOutput(input, expectedOutput, outputBoxId, expectedBoxIds, unexpectedBoxIds) {
     let formattingBox = mount(
         <FormattingBox
             data={input}
         />);
-    expectedBoxId.forEach((value) => {
+    expectedBoxIds.forEach((value) => {
         expect(formattingBox.find(value).exists()).toBe(true);
     });
 
-    unexpectedBoxId.forEach((value) => {
+    unexpectedBoxIds.forEach((value) => {
         expect(formattingBox.find(value).exists()).toBe(false);
     });
 
@@ -24,31 +24,32 @@ function expectFormattingOutput(input, expectedOutput, outputBoxId, expectedBoxI
 
 describe('FormattingBox', () => {
 
-    it('renders correctly with given props', () => {
-        let formattingBox = renderer.create(
-            <FormattingBox
-                data="test"
-            />);
-        expect(formattingBox.toJSON()).toMatchSnapshot();
-    });
+    describe('renders a snapshot correctly when given', () => {
+        it('renders correctly with given props', () => {
+            let formattingBox = renderer.create(
+                <FormattingBox
+                    data="test"
+                />);
+            expect(formattingBox.toJSON()).toMatchSnapshot();
+        });
 
-    it('formats xml correctly', () => {
-        let formattingBox = renderer.create(
-            <FormattingBox
-                data="<a>This is a sample xml message</a>"
-            />);
-        expect(formattingBox.toJSON()).toMatchSnapshot();
-    });
+        it('renders correctly when given xml', () => {
+            let formattingBox = renderer.create(
+                <FormattingBox
+                    data="<a>This is a sample xml message</a>"
+                />);
+            expect(formattingBox.toJSON()).toMatchSnapshot();
+        });
 
-    it('formats json correctly', () => {
-        let formattingBox = renderer.create(
-            <FormattingBox
-                data='{"a":"apple","b":42, "c":false}'
-            />);
-        expect(formattingBox.toJSON()).toMatchSnapshot();
+        it('renders correctly when given json', () => {
+            let formattingBox = renderer.create(
+                <FormattingBox
+                    data='{"a":"apple","b":42, "c":false}'
+                />);
+            expect(formattingBox.toJSON()).toMatchSnapshot();
+        });
     });
-
-    it('does not format plain text', () => {
+    it('renders correctly when given plain text', () => {
         let formattingBox = renderer.create(
             <FormattingBox
                 data='"a":"apple","b":42, "c":false'
@@ -62,7 +63,18 @@ describe('FormattingBox', () => {
             `one kilogram of fish is worth 42`;
         expectFormattingOutput(plainText, expectedOutput, "#originalText", ["#original", "#originalText"], ["#formatted", "#formattedText"]);
     });
-    it('it Formatted XML', () => {
+
+    it('does not change plain text', () => {
+        const plainText = `one kilogram
+of fish
+is worth 42`;
+        const expectedOutput = `one kilogram
+of fish
+is worth 42`;
+        expectFormattingOutput(plainText, expectedOutput, "#originalText", ["#original", "#originalText"], ["#formatted", "#formattedText"]);
+    });
+
+    it('it Formatted general XML', () => {
         const xmlInput = "<apple><b></b><c>dsagsd{}</c></apple>";
         const expectedOutput =
             `<apple>
@@ -70,6 +82,83 @@ describe('FormattingBox', () => {
     </b>
     <c>
         dsagsd{}
+    </c>
+</apple>`;
+        expectFormattingOutput(xmlInput, expectedOutput, "#formattedText", ["#formatted", "#formattedText"], []);
+    });
+
+    it('it Formatted XML with real spaces in', () => {
+        const xmlInput = "<apple><b>Some random sentence</b></apple>";
+        const expectedOutput =
+            `<apple>
+    <b>
+        Some random sentence
+    </b>
+</apple>`;
+        expectFormattingOutput(xmlInput, expectedOutput, "#formattedText", ["#formatted", "#formattedText"], []);
+    });
+
+    it('it Formatted XML with linebreaks in sentences', () => {
+        const xmlInput = `<apple><b>Some random sentence
+with linebreaks</b></apple>`;
+        const expectedOutput =
+            `<apple>
+    <b>
+        Some random sentence with linebreaks
+    </b>
+</apple>`;
+        expectFormattingOutput(xmlInput, expectedOutput, "#formattedText", ["#formatted", "#formattedText"], []);
+    });
+
+    it('it Formatted XML with tabs in text', () => {
+        const xmlInput = `<apple><b>Some random sentence with \t tabs in text</b></apple>`;
+        const expectedOutput =
+            `<apple>
+    <b>
+        Some random sentence with \t tabs in text
+    </b>
+</apple>`;
+        expectFormattingOutput(xmlInput, expectedOutput, "#formattedText", ["#formatted", "#formattedText"], []);
+    });
+
+    it('it Formatted XML with tabs between tags', () => {
+        const xmlInput = `<apple>\t<b>Some indented tag</b></apple>`;
+        const expectedOutput =
+            `<apple>
+    <b>
+        Some indented tag
+    </b>
+</apple>`;
+        expectFormattingOutput(xmlInput, expectedOutput, "#formattedText", ["#formatted", "#formattedText"], []);
+    });
+
+    it('it Formatted XML that had extra spaces between tags', () => {
+        const xmlInput = `<apple>    <b>    </b>    <c>#        dsagsd{}    #</c></apple>`;
+        const expectedOutput =
+            `<apple>
+    <b>
+    </b>
+    <c>
+        #        dsagsd{}    #
+    </c>
+</apple>`;
+        expectFormattingOutput(xmlInput, expectedOutput, "#formattedText", ["#formatted", "#formattedText"], []);
+    });
+
+    it('it Formatted XML that was already correctly formatted', () => {
+        const xmlInput = `<apple>
+    <b>
+    </b>
+    <c>
+        dsa gsd
+    </c>
+</apple>`;
+        const expectedOutput =
+            `<apple>
+    <b>
+    </b>
+    <c>
+        dsa gsd
     </c>
 </apple>`;
         expectFormattingOutput(xmlInput, expectedOutput, "#formattedText", ["#formatted", "#formattedText"], []);

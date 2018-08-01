@@ -1,27 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FormattingBox does not format plain text 1`] = `
-<div>
-   
-   
-  
-  <div
-    id="original"
-  >
-    <p>
-      Original Data:
-    </p>
-    <pre
-      className="css-40hyzg"
-      id="originalText"
-    >
-      "a":"apple","b":42, "c":false
-    </pre>
-  </div>
-</div>
-`;
-
-exports[`FormattingBox formats json correctly 1`] = `
+exports[`FormattingBox renders a snapshot correctly when given renders correctly when given json 1`] = `
 <div>
    
    
@@ -47,7 +26,98 @@ exports[`FormattingBox formats json correctly 1`] = `
 </div>
 `;
 
-exports[`FormattingBox formats xml correctly 1`] = `
+exports[`FormattingBox renders a snapshot correctly when given renders correctly when given xml 1`] = `
+<div>
+   
+   
+  <div
+    id="formatted"
+  >
+    <p>
+      Formatted Data:
+    </p>
+    <pre
+      className="css-40hyzg"
+      id="formattedText"
+    >
+      &lt;a&gt;
+          This is a sample xml message
+      &lt;/a&gt;
+    </pre>
+  </div>
+   
+</div>
+`;
+
+exports[`FormattingBox renders a snapshot correctly when given renders correctly with given props 1`] = `
+<div>
+   
+   
+  
+  <div
+    id="original"
+  >
+    <p>
+      Original Data:
+    </p>
+    <pre
+      className="css-40hyzg"
+      id="originalText"
+    >
+      test
+    </pre>
+  </div>
+</div>
+`;
+
+exports[`FormattingBox renders correctly when given json 1`] = `
+<div>
+   
+   
+  <div
+    id="formatted"
+  >
+    <p>
+      Formatted Data:
+    </p>
+    <pre
+      className="css-40hyzg"
+      id="formattedText"
+    >
+      {
+          a: "apple",
+          b: 42,
+          c: false
+      }
+      
+    </pre>
+  </div>
+   
+</div>
+`;
+
+exports[`FormattingBox renders correctly when given plain text 1`] = `
+<div>
+   
+   
+  
+  <div
+    id="original"
+  >
+    <p>
+      Original Data:
+    </p>
+    <pre
+      className="css-40hyzg"
+      id="originalText"
+    >
+      "a":"apple","b":42, "c":false
+    </pre>
+  </div>
+</div>
+`;
+
+exports[`FormattingBox renders correctly when given xml 1`] = `
 <div>
   <div
     className="alert alert-danger"
