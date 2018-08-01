@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`QueueList renders correctly with given props 1`] = `
+.emotion-0:hover {
+  border: 2px solid #99ccff;
+  background-color: #ecf2ff;
+}
+
 <div
   className="react-bootstrap-table"
 >
@@ -46,7 +51,7 @@ exports[`QueueList renders correctly with given props 1`] = `
     </thead>
     <tbody>
       <tr
-        className="css-f6uy7o"
+        className="emotion-0"
         onClick={[Function]}
         style={Object {}}
       >
@@ -65,7 +70,7 @@ exports[`QueueList renders correctly with given props 1`] = `
         </td>
       </tr>
       <tr
-        className="css-f6uy7o"
+        className="emotion-0"
         onClick={[Function]}
         style={Object {}}
       >
@@ -84,7 +89,7 @@ exports[`QueueList renders correctly with given props 1`] = `
         </td>
       </tr>
       <tr
-        className="css-f6uy7o"
+        className="emotion-0"
         onClick={[Function]}
         style={Object {}}
       >

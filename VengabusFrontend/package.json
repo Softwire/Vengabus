@@ -7,6 +7,7 @@
         "enzyme-adapter-react-16": "^1.1.1",
         "eslint-config-defaults": "^9.0.0",
         "eslint-plugin-react": "^7.10.0",
+        "jest-emotion": "^9.2.7",
         "jest-localstorage-mock": "^2.2.0"
     },
     "dependencies": {

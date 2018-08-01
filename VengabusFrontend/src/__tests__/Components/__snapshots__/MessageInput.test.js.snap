@@ -1,14 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
+.emotion-11 {
+  padding-left: 5px;
+  padding-top: 1%;
+  width: 85%;
+  float: left;
+}
+
+.emotion-2 {
+  width: 270px;
+  margin-left: 5px;
+}
+
+.emotion-0 {
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.emotion-1 {
+  text-align: left;
+}
+
+.emotion-9 {
+  min-height: 350px;
+  margin-left: 5px;
+}
+
 <div
-  className="css-lushey"
+  className="emotion-11"
 >
   <div
-    className="css-mxbhzi"
+    className="emotion-1"
   >
     <p
-      className="css-wni10w"
+      className="emotion-0"
     >
       Pre-defined Properties
     </p>
@@ -16,10 +42,10 @@ exports[`renders correctly 1`] = `
   <div />
   <form>
     <div
-      className="css-mxbhzi"
+      className="emotion-1"
     >
       <button
-        className="css-74801x btn btn-default"
+        className="emotion-2 btn btn-default"
         disabled={true}
         onClick={[Function]}
         type="button"
@@ -30,10 +56,10 @@ exports[`renders correctly 1`] = `
   </form>
   <hr />
   <div
-    className="css-mxbhzi"
+    className="emotion-1"
   >
     <p
-      className="css-wni10w"
+      className="emotion-0"
     >
       User-defined Properties
     </p>
@@ -41,10 +67,10 @@ exports[`renders correctly 1`] = `
   <div />
   <form>
     <div
-      className="css-mxbhzi"
+      className="emotion-1"
     >
       <button
-        className="css-74801x btn btn-default"
+        className="emotion-2 btn btn-default"
         disabled={false}
         onClick={[Function]}
         type="button"
@@ -56,16 +82,16 @@ exports[`renders correctly 1`] = `
   <hr />
   <form>
     <div
-      className="css-mxbhzi form-group"
+      className="emotion-1 form-group"
     >
       <label
-        className="css-wni10w control-label"
+        className="emotion-0 control-label"
         htmlFor="formControlsMessageBodyText"
       >
         Body
       </label>
       <textarea
-        className="css-cjfa1z form-control"
+        className="emotion-9 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
@@ -96,14 +122,62 @@ exports[`renders correctly 1`] = `
 `;
 
 exports[`renders correctly from a predefined message 1`] = `
+.emotion-23 {
+  padding-left: 5px;
+  padding-top: 1%;
+  width: 85%;
+  float: left;
+}
+
+.emotion-2 {
+  width: 270px;
+  margin-left: 5px;
+}
+
+.emotion-0 {
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.emotion-1 {
+  text-align: left;
+}
+
+.emotion-21 {
+  min-height: 350px;
+  margin-left: 5px;
+}
+
+.emotion-7 {
+  padding-left: 5px;
+  width: 20%;
+  float: left;
+}
+
+.emotion-9 {
+  padding-left: 5px;
+  width: 74.5%;
+  float: left;
+}
+
+.emotion-11 {
+  padding-left: 5px;
+  width: 5%;
+  float: left;
+}
+
+.emotion-6 {
+  min-height: 38px;
+}
+
 <div
-  className="css-lushey"
+  className="emotion-23"
 >
   <div
-    className="css-mxbhzi"
+    className="emotion-1"
   >
     <p
-      className="css-wni10w"
+      className="emotion-0"
     >
       Pre-defined Properties
     </p>
@@ -111,10 +185,10 @@ exports[`renders correctly from a predefined message 1`] = `
   <div />
   <form>
     <div
-      className="css-mxbhzi"
+      className="emotion-1"
     >
       <button
-        className="css-74801x btn btn-default"
+        className="emotion-2 btn btn-default"
         disabled={true}
         onClick={[Function]}
         type="button"
@@ -125,10 +199,10 @@ exports[`renders correctly from a predefined message 1`] = `
   </form>
   <hr />
   <div
-    className="css-mxbhzi"
+    className="emotion-1"
   >
     <p
-      className="css-wni10w"
+      className="emotion-0"
     >
       User-defined Properties
     </p>
@@ -136,13 +210,13 @@ exports[`renders correctly from a predefined message 1`] = `
   <div>
     <div>
       <form
-        className="css-1rnsx0x"
+        className="emotion-7"
       >
         <div
           className="form-group"
         >
           <input
-            className="css-83yc3x form-control"
+            className="emotion-6 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property name"
@@ -152,13 +226,13 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <form
-        className="css-mr74sa"
+        className="emotion-9"
       >
         <div
           className="form-group"
         >
           <input
-            className="css-83yc3x form-control"
+            className="emotion-6 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property value"
@@ -168,10 +242,10 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <div
-        className="css-146pozp"
+        className="emotion-11"
       >
         <button
-          className="css-83yc3x btn btn-danger"
+          className="emotion-6 btn btn-danger"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -182,13 +256,13 @@ exports[`renders correctly from a predefined message 1`] = `
     </div>
     <div>
       <form
-        className="css-1rnsx0x"
+        className="emotion-7"
       >
         <div
           className="form-group"
         >
           <input
-            className="css-83yc3x form-control"
+            className="emotion-6 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property name"
@@ -198,13 +272,13 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <form
-        className="css-mr74sa"
+        className="emotion-9"
       >
         <div
           className="form-group"
         >
           <input
-            className="css-83yc3x form-control"
+            className="emotion-6 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property value"
@@ -214,10 +288,10 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <div
-        className="css-146pozp"
+        className="emotion-11"
       >
         <button
-          className="css-83yc3x btn btn-danger"
+          className="emotion-6 btn btn-danger"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -229,10 +303,10 @@ exports[`renders correctly from a predefined message 1`] = `
   </div>
   <form>
     <div
-      className="css-mxbhzi"
+      className="emotion-1"
     >
       <button
-        className="css-74801x btn btn-default"
+        className="emotion-2 btn btn-default"
         disabled={false}
         onClick={[Function]}
         type="button"
@@ -244,16 +318,16 @@ exports[`renders correctly from a predefined message 1`] = `
   <hr />
   <form>
     <div
-      className="css-mxbhzi form-group"
+      className="emotion-1 form-group"
     >
       <label
-        className="css-wni10w control-label"
+        className="emotion-0 control-label"
         htmlFor="formControlsMessageBodyText"
       >
         Body
       </label>
       <textarea
-        className="css-cjfa1z form-control"
+        className="emotion-21 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
