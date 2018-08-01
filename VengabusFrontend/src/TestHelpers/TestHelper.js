@@ -1,3 +1,5 @@
+import { Button } from "react-bootstrap";
+
 class TestHelper {
     /*
      * It returns a promise that waits until the state of the components is updated and then continues.
@@ -18,6 +20,21 @@ class TestHelper {
             setTimeout(resolve, 0);
         });
     }
+
+    testVengaBusFunctionCalling = (wrapper, mockFunction) => {
+        wrapper.find(Button).at(0).simulate("click");
+
+
+        return this.afterReactHasUpdated().then(() => {
+            wrapper.update();
+            wrapper.find(Button).at(1).simulate("click");
+
+            return this.afterReactHasUpdated();
+
+        }).then(() => {
+            expect(mockFunction.mock.calls.length).toBe(1);
+        });
+    };
 }
 
 export const testHelper = new TestHelper();

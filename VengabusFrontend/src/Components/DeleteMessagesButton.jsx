@@ -104,7 +104,7 @@ class DeleteMessagesButton extends React.Component {
     return () => {
       deletionFunc();
       this.handleClose();
-    }
+    };
   }
 
   render() {
@@ -114,7 +114,7 @@ class DeleteMessagesButton extends React.Component {
           Delete ALL messages&nbsp;
             <Glyphicon glyph="trash" />
         </Button>
-        <Modal show={this.props && this.state.show} onHide={this.handleClose} >
+        <Modal show={this.state.show} onHide={this.handleClose} >
           <Modal.Header>
             <Modal.Title>Delete all messages from {this.props.type}</Modal.Title>
           </Modal.Header>
