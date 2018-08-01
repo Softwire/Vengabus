@@ -59,9 +59,7 @@ namespace VengabusAPI.Services
 
                 foreach (var message in messages)
                 {
-                    //optimally, VengaMessage should have a constructor that takes BrokeredMessage. But it's probably better to do this when restructuring VengaMessage.
-                    var vengaMessage = new VengaMessage(message.Properties, message.GetBody<String>(),
-                        message.MessageId, message.ContentType);
+                    var vengaMessage = VengaMessage.FromBrokeredMessage(message);
                     messagesToReturn.Add(vengaMessage);
                     lastSequenceNumber = message.SequenceNumber;
                 }
