@@ -22,7 +22,7 @@ exports[`MessageList renders correctly with given props 1`] = `
             style={
               Object {
                 "textAlign": "center",
-                "width": "10%",
+                "width": "50%",
               }
             }
           >

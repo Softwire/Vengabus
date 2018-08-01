@@ -21,6 +21,7 @@ Props:
                             </ Button>
                         )
                     }
+    tableRowStyle: (OPTIONAL) className for the rows
     rowEvents: (OPTIONAL) Object which contains functions that are called on certain events of the row. For example:
                 RowEvents = {
                     onClick: (row, rowIndex, e) => {
@@ -83,6 +84,25 @@ export class DataTable extends Component {
         if (dataToDisplay) {
             if (!colProps) {
                 throw new Error('column property object is not defined in ' + name);
+            }
+            if (!colProps[0].headerStyle) {
+                for (let i = 0; i < colProps.length; i++) {
+                    colProps[i].headerStyle = {};
+                }
+            }
+            if (colProps[0].headerStyle.width) {
+                throw new Error('width of column should not be specified in the style (in ' + name + ')');
+            }
+            if (colProps[0].width) {
+                let totalWidth = 0;
+                for (let i = 0; i < colProps.length; i++) {
+                    totalWidth += colProps[i].width;
+                    colProps[i].headerStyle.width = colProps[i].width.toString() + '%';
+                    colProps[i].width = undefined;
+                }
+                if (totalWidth < 98 || totalWidth > 102) {
+                    throw new Error('overall width of columns is outside of permitted range in ' + name);
+                }
             }
 
             for (let i = 0; i < colProps.length; i++) {
