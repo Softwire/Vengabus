@@ -361,3 +361,4 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder
 .mfractor/
+/VengabusFrontend/.vscode/launch.json
