@@ -13,6 +13,9 @@ class App extends Component {
         const mainPageStyle = css`
             margin-top: 50px;
         `;
+        const contentStyle = css`
+            margin-left: 15%;
+        `;
         return (
             <div className={`App ${appStyle}`}>
                 {/* Include the Bootstrap CSS at the top of the page. */}
@@ -20,7 +23,9 @@ class App extends Component {
                 <VengabusNavBar />
                 <div className={mainPageStyle}>
                     <SideBar />
-                    <CurrentPage />
+                    <div className={contentStyle}>
+                        <CurrentPage />
+                    </div>
                 </div>
             </div>
         );

@@ -13,6 +13,7 @@ export class SideBar extends Component {
         const backDiv = css`
             width: 15%;
             min-height: calc(100vh - 50px);
+            position: fixed;
             color: white;
             background: ${grey};
             float: left;

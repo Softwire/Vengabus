@@ -8,6 +8,8 @@ export class ServiceBusInfoBox extends Component {
         const infoBoxStyle = css`
             color: black;
             overflow-wrap: break-word;
+            max-height:calc(100vh - 375px);
+            overflow-y:auto;
         `;
         const headerColour = css`
             background: ${blue};
