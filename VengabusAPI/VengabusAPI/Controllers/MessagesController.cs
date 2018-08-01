@@ -10,6 +10,20 @@ namespace VengabusAPI.Controllers
     public class MessagesController : VengabusController
     {
 
+        [HttpGet]
+        [Route("message/properties/gettable")]
+        public IEnumerable<string> GetGettableProperties()
+        {
+            return VengaMessage.SupportedGetProperties;
+        }
+
+        [HttpGet]
+        [Route("message/properties/settable")]
+        public IEnumerable<string> GetSettableProperties()
+        {
+            return VengaMessage.SupportedSetProperties;
+        }
+
         [HttpPost]
         [Route("messages/send/queue/{queueName}")]
         public void SendMessageToQueue(string queueName, [FromBody]VengaMessage message)
