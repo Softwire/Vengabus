@@ -1,5 +1,4 @@
-import './ConfigureEmotionForSnapshots'
-import './TestHelper'
-import { testHelper as helper } from './testHelper';
+import './ConfigureEnzyme';
+import { testHelper as helper } from './TestHelper';
 
 export const testHelper = helper;

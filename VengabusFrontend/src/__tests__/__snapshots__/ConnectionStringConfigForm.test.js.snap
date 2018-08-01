@@ -2,7 +2,7 @@
 
 exports[`ConnectionStringConfigForm renders correctly 1`] = `
 .emotion-0 {
-  color: red;
+  color: black;
   margin: 5px;
 }
 

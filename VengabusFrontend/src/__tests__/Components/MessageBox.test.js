@@ -1,6 +1,7 @@
 import { MessageBox } from '../../Components/MessageBox';
 import renderer from 'react-test-renderer';
 import React from 'react';
+import '../../TestHelpers/TestConfigAndHelpers';
 
 describe('MessageBox', () => {
 
