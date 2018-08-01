@@ -4,9 +4,9 @@ using System;
 
 namespace VengabusAPI.Models
 {
-    public class MessageProperties
+    public static class MessageProperties
     {
-        public readonly static Dictionary<string, Action<BrokeredMessage, object>> setBrokeredMessagePropertyActions =
+        private readonly static Dictionary<string, Action<BrokeredMessage, object>> setBrokeredMessagePropertyActions =
          new Dictionary<string, Action<BrokeredMessage, object>>
          {
             {"ContentType", (message, value) => message.ContentType = (string) value },
@@ -24,7 +24,7 @@ namespace VengabusAPI.Models
             {"ViaPartitionKey", (message, value) => message.ViaPartitionKey = (string) value }
          };
 
-        public readonly static Dictionary<string, Func<BrokeredMessage, object>> getBrokeredMessagePropertyFunctions =
+        private readonly static Dictionary<string, Func<BrokeredMessage, object>> getBrokeredMessagePropertyFunctions =
         new Dictionary<string, Func<BrokeredMessage, object>>
         {
             //Getters that can be set.
@@ -57,5 +57,18 @@ namespace VengabusAPI.Models
 
         public static IEnumerable<string> SupportedSetProperties => setBrokeredMessagePropertyActions.Keys;
         public static IEnumerable<string> SupportedGetProperties => getBrokeredMessagePropertyFunctions.Keys;
+
+        public static object GetProperty(BrokeredMessage message, string property)
+        {
+            var getPropertyFunction = getBrokeredMessagePropertyFunctions[property];
+            return getPropertyFunction(message);
+        }
+
+        public static void SetProperty(BrokeredMessage message, string propertyName, object propertyValue)
+        {
+            var setPropertyFunction = setBrokeredMessagePropertyActions[propertyName];
+            setPropertyFunction(message, propertyValue);
+        }
+
     }
 }

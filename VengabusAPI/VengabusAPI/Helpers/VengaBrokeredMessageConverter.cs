@@ -4,7 +4,7 @@ using System;
 
 namespace VengabusAPI.Models
 {
-    public class VengaBrokeredMessageConverter
+    public static class VengaBrokeredMessageConverter
     {
 
         public static VengaMessage FromBrokeredMessage(BrokeredMessage brokeredMessage)
@@ -16,8 +16,7 @@ namespace VengabusAPI.Models
             {
                 try
                 {
-                    var getProperty = MessageProperties.getBrokeredMessagePropertyFunctions[property];
-                    predefinedProperties[property] = getProperty(brokeredMessage);
+                    predefinedProperties[property] = MessageProperties.GetProperty(brokeredMessage, property);
                 }
                 catch (Exception e)
                 {
@@ -34,7 +33,7 @@ namespace VengabusAPI.Models
             //set predefined properties
             foreach (var property in vengaMessage.PredefinedProperties)
             {
-                MessageProperties.setBrokeredMessagePropertyActions[property.Key](message, property.Value);
+                MessageProperties.SetProperty(message, property.Key, property.Value);
             }
             //set custom properties
             foreach (var property in vengaMessage.CustomProperties)
