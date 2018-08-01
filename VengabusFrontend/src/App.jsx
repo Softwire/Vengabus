@@ -29,6 +29,7 @@ class App extends Component {
         return (
             <React.Fragment>
                 <div className={appClassNames}>
+					<React.StrictMode>
                     {/* Include the Bootstrap CSS at the top of the page. */}
                     <BootstrapCssLinks />
                     <NotificationContainer />
@@ -40,6 +41,7 @@ class App extends Component {
                             <CurrentPage />
                         </div>
                     </div>
+					</React.StrictMode>
                 </div>
             </React.Fragment>
         );
