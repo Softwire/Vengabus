@@ -65,6 +65,7 @@ export class VengaServiceBusService {
         return this.axiosWithSAS.get(url);
     }
 
+
     /**
      * Gets the details of a particular topic.
      * @param {string} parentTopicName The name of the parent topic for the subscription.
@@ -127,6 +128,16 @@ export class VengaServiceBusService {
     deleteSubscriptionMessages = (topicName, subscriptionName) => {
         const url = this.apiRoot + `messages/subscription/${topicName}/${subscriptionName}`;
         return this.axiosWithSAS.delete(url);
+    }
+
+    listQueueMessages = (queueName) => {
+        const url = this.apiRoot + `messages/list/queue/${queueName}`;
+        return this.axiosWithSAS.get(url);
+    }
+
+    listSubscriptionMessages = (topicName, subscriptionName) => {
+        const url = this.apiRoot + `messages/list/subscription/${topicName}/${subscriptionName}`;
+        return this.axiosWithSAS.get(url);
     }
 
     // QQ Fetch from API once endpoint exists

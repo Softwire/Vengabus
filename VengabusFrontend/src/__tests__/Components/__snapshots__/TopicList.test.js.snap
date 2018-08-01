@@ -1,11 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`QueueList renders correctly with given props 1`] = `
-.emotion-0:hover {
-  border: 1px solid #99ccff;
-  background-color: #ecf2ff;
-}
-
+exports[`TopicList renders correctly with given props 1`] = `
 <div
   className="react-bootstrap-table"
 >
@@ -25,7 +20,7 @@ exports[`QueueList renders correctly with given props 1`] = `
             }
           }
         >
-          Name
+          Topic Name
         </th>
         <th
           style={
@@ -35,7 +30,7 @@ exports[`QueueList renders correctly with given props 1`] = `
             }
           }
         >
-          active Message Count
+          number of subscriptions
         </th>
         <th
           style={
@@ -45,55 +40,48 @@ exports[`QueueList renders correctly with given props 1`] = `
             }
           }
         >
-          dead Message Count
+          Status
         </th>
       </tr>
     </thead>
     <tbody>
       <tr
-        className="emotion-0"
+        className="css-3oxntz"
         onClick={[Function]}
         style={Object {}}
       >
         <td>
-          q1
+          topic 1
         </td>
         <td
           onClick={[Function]}
-        />
+        >
+          10
+        </td>
         <td
           onClick={[Function]}
-        />
+        >
+          okay
+        </td>
       </tr>
       <tr
-        className="emotion-0"
+        className="css-3oxntz"
         onClick={[Function]}
         style={Object {}}
       >
         <td>
-          q2
+          topic 2
         </td>
         <td
           onClick={[Function]}
-        />
-        <td
-          onClick={[Function]}
-        />
-      </tr>
-      <tr
-        className="emotion-0"
-        onClick={[Function]}
-        style={Object {}}
-      >
-        <td>
-          q3
+        >
+          12
         </td>
         <td
           onClick={[Function]}
-        />
-        <td
-          onClick={[Function]}
-        />
+        >
+          okay
+        </td>
       </tr>
     </tbody>
   </table>

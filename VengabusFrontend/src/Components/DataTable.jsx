@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
+import { css } from 'react-emotion';
+import { paleGreyBlue, palerBlue } from '../colourScheme';
+
 /*
 Returns a table created from an input object
 Props:
@@ -22,15 +25,27 @@ For more info see:
 https://react-bootstrap-table.github.io/react-bootstrap-table2/
 */
 export class DataTable extends Component {
-    render() {
+   
+
+      render() {
         const colProps = this.props.colProps;
         const dataToDisplay = this.props.dataToDisplay;
         const tableRowStyle = this.props.tableRowStyle;
         const rowEvents = this.props.rowEvents || {};
-        const name = this.props.name;
+          const name = this.props.name;
+          const select = this.props.rowSelect;
         let onRowClick = this.props.onRowClick;
         let finalRowEvents = undefined;
 
+          let selectRowProp = {
+              mode: 'checkbox',
+              bgColor: palerBlue, // you should give a bgcolor, otherwise, you can't regonize which row has been selected
+              hideSelectColumn: true,  // enable hide selection column.
+              clickToSelect: false,  // you should enable clickToSelect, otherwise, you can't select column.
+              selected: [select]
+          };
+     
+          
         if (dataToDisplay) {
             if (!colProps) {
                 throw new Error('column property object is not defined in ' + name);
@@ -42,6 +57,7 @@ export class DataTable extends Component {
             onRowClick = onRowClick || rowEvents.onClick || function () { };
             finalRowEvents = { ...(rowEvents), onClick: onRowClick };
         }
+     
 
         return dataToDisplay ? (
             <BootstrapTable
@@ -50,6 +66,7 @@ export class DataTable extends Component {
                 rowClasses={tableRowStyle}
                 columns={colProps}
                 rowEvents={finalRowEvents}
+                selectRow={selectRowProp}
             />
         ) : (
                 <p>No data has been retrieved yet.</p>

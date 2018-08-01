@@ -3,12 +3,12 @@ import { DataTable } from './DataTable';
 import { css } from 'react-emotion';
 import { paleGreyBlue, palerBlue } from '../colourScheme';
 
-export class QueueList extends Component {
+export class SubscriptionList extends Component {
 
     render() {
 
-        const queueArray = this.props.queueData;
-      
+        const subscriptionArray = this.props.subscriptionData;
+       
         const colProps = [
             {
                 dataField: 'name',
@@ -36,9 +36,9 @@ export class QueueList extends Component {
 
         return (
             <DataTable
-                name='QueueList'
+                name='subscriptionList'
                 colProps={colProps}
-                dataToDisplay={queueArray}
+                dataToDisplay={subscriptionArray}
                 tableRowStyle={tableRowStyle}
                 onRowClick={this.props.clickFunction}
                 rowSelect={this.props.currentlySelectedName}

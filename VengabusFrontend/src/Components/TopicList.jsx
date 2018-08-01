@@ -3,26 +3,26 @@ import { DataTable } from './DataTable';
 import { css } from 'react-emotion';
 import { paleGreyBlue, palerBlue } from '../colourScheme';
 
-export class QueueList extends Component {
+export class TopicList extends Component {
 
     render() {
 
-        const queueArray = this.props.queueData;
-      
+        const topics = this.props.topicData;
+
         const colProps = [
             {
                 dataField: 'name',
-                text: 'Name',
+                text: 'Topic Name',
                 headerStyle: { width: '30%', textAlign: 'center' }
             },
             {
-                dataField: 'activeMessageCount',
-                text: 'active Message Count',
+                dataField: 'subscriptionCount',
+                text: 'number of subscriptions',
                 headerStyle: { width: '30%', textAlign: 'center' }
             },
             {
-                dataField: 'deadletterMessageCount',
-                text: 'dead Message Count',
+                dataField: 'topicStatus',
+                text: 'Status',
                 headerStyle: { width: '30%', textAlign: 'center' }
             }
         ];
@@ -36,9 +36,9 @@ export class QueueList extends Component {
 
         return (
             <DataTable
-                name='QueueList'
+                name='TopicList'
                 colProps={colProps}
-                dataToDisplay={queueArray}
+                dataToDisplay={topics}
                 tableRowStyle={tableRowStyle}
                 onRowClick={this.props.clickFunction}
                 rowSelect={this.props.currentlySelectedName}
