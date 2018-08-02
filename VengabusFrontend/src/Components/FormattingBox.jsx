@@ -81,7 +81,6 @@ export class FormattingBox extends Component {
                 }
             }
             catch (err) {
-                console.log('errored: ', err);
                 formattingError = err;
             }
         } else {

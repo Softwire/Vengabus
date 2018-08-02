@@ -70,32 +70,6 @@ exports[`FormattingBox renders a snapshot correctly when given renders correctly
 </div>
 `;
 
-exports[`FormattingBox renders correctly when given json 1`] = `
-<div>
-   
-   
-  <div
-    id="formatted"
-  >
-    <p>
-      Formatted Data:
-    </p>
-    <pre
-      className="css-40hyzg"
-      id="formattedText"
-    >
-      {
-          a: "apple",
-          b: 42,
-          c: false
-      }
-      
-    </pre>
-  </div>
-   
-</div>
-`;
-
 exports[`FormattingBox renders correctly when given plain text 1`] = `
 <div>
    
