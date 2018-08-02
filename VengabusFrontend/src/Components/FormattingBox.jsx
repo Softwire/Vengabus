@@ -5,13 +5,27 @@ import formatJSon from 'prettyprint';
 const formatXML = require("xml-formatter");
 const classNames = require('classnames');
 
-function deformatOriginalText(originalData) {
+function deformatOriginalXML(originalData) {
     //remove initial whitespaces (tabs), as they will be added later in xml formatting.
     let noInitialWhitespace = originalData.replace(/^ */gm, "");
 
     //if original text is already formatted, there will be newlines between tags. Remove them as they will be added later.
     let noNewLinesAfterXMLTags = noInitialWhitespace.replace(/>[\n\r]/g, ">");
     let noNewLinesBeforeXMLTags = noNewLinesAfterXMLTags.replace(/[\n\r]</g, "<");
+
+    //replace newlines and put things in the same line, as they will be added later. 
+    //However, don't completely remove then as there might be genuine newlines in original text, so replace them by spaces.
+    let replaceNewlineBySpaces = noNewLinesBeforeXMLTags.replace(/[\n\r]/g, " ");
+    return replaceNewlineBySpaces;
+}
+
+function deformatOriginalJSON(originalData) {
+    //remove initial whitespaces (tabs), as they will be added later in xml formatting.
+    let noInitialWhitespace = originalData.replace(/^ */gm, "");
+
+    //if original text is already formatted, there will be newlines between tags. Remove them as they will be added later.
+    let noNewLinesAfterXMLTags = noInitialWhitespace.replace(/}[\n\r]/g, "}");
+    let noNewLinesBeforeXMLTags = noNewLinesAfterXMLTags.replace(/[\n\r]{/g, "{");
 
     //replace newlines and put things in the same line, as they will be added later. 
     //However, don't completely remove then as there might be genuine newlines in original text, so replace them by spaces.
@@ -69,7 +83,7 @@ export class FormattingBox extends Component {
                 //check for xml first then check for json
                 if (mightBeXml) {
                     //first remove existing formatting
-                    let deformattedOriginalText = deformatOriginalText(originalData);
+                    let deformattedOriginalText = deformatOriginalXML(originalData);
                     //format it, but remove blank lines
                     formattedText = removeBlankLines(formatXML(deformattedOriginalText));
                     if (formattedText && (!matchWithoutWhitespace(formattedText, originalData))) {
@@ -77,7 +91,8 @@ export class FormattingBox extends Component {
                     }
                 }
                 if (!formattedText && mightBeJson) {
-                    formattedText = formatJSon(JSON.parse(originalData.replace(/\s/g, " ").replace(/(\r\nt|\n\r\t)/gm, " ")));
+                    let deformattedOriginalText = deformatOriginalJSON(originalData);
+                    formattedText = removeBlankLines(formatJSon(JSON.parse(deformattedOriginalText)));
                 }
             }
             catch (err) {
