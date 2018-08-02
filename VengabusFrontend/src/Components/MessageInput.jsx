@@ -31,9 +31,7 @@ export class MessageInput extends Component {
         };
 
         this.serviceBusService = serviceBusConnection.getServiceBusService();
-        console.log("start");
         this.serviceBusService.getSettableMessageProperties().then((result) => {
-            console.log(result);
             this.setState({
                 permittedValues: result.data,
                 preDefinedProperties: message ? this.getPreDefinedPropertiesFromExistingMessage(message, result) : [] //[{name: something, value: something}]
