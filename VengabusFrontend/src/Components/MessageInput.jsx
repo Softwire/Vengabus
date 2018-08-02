@@ -31,10 +31,10 @@ export class MessageInput extends Component {
         };
 
         this.serviceBusService = serviceBusConnection.getServiceBusService();
-        this.serviceBusService.getSettableMessageProperties().then((result) => {
+        this.serviceBusService.getWriteableMessageProperties().then((result) => {
             this.setState({
                 permittedValues: result.data,
-                preDefinedProperties: message ? this.getPreDefinedPropertiesFromExistingMessage(message, result) : [] //[{name: something, value: something}]
+                preDefinedProperties: message ? this.getPreDefinedPropertiesFromExistingMessage(message, result.data) : [] //[{name: something, value: something}]
             });
         });
 
@@ -43,11 +43,11 @@ export class MessageInput extends Component {
 
     getUserDefinedProperties = (message) => {
         const userDefinedProperties = [];
-        const keys = Object.keys(message.MessageProperties);
+        const keys = Object.keys(message.customProperties);
         for (let i = 0; i < keys.length; i++) {
             userDefinedProperties.push({
                 name: keys[i],
-                value: message.MessageProperties[keys[i]]
+                value: message.customProperties[keys[i]]
             });
         }
         return userDefinedProperties;
@@ -57,10 +57,10 @@ export class MessageInput extends Component {
         const preDefinedProperties = [];
         for (let i = 0; i < permittedValues.length; i++) {
             const permittedValue = permittedValues[i];
-            if (typeof message[permittedValue] !== 'undefined') {
+            if (typeof message.predefinedProperties[permittedValue] !== 'undefined') {
                 preDefinedProperties.push({
                     name: permittedValue,
-                    value: message[permittedValue]
+                    value: message.predefinedProperties[permittedValue]
                 });
             }
         }
@@ -141,7 +141,7 @@ export class MessageInput extends Component {
      * @returns {object} The created message.
      */
     createMessageObject() {
-        const properties = {};
+        const customProperties = {};
         const userDefinedProperties = this.state.userDefinedProperties;
         for (let i = 0; i < this.state.userDefinedProperties.length; i++) {
             const thisPropertyName = userDefinedProperties[i].name;
@@ -149,19 +149,25 @@ export class MessageInput extends Component {
             //Prevent the user from inputting invalid property names.
             //Cannot use isPropertyNameInvalid here because if there are two properties with the same name it will mark
             //both of them as invalid whereas we just want to remove one of them.
-            if (thisPropertyName && thisPropertyValue && !properties.hasOwnProperty(userDefinedProperties[i].name)) {
+            if (thisPropertyName && thisPropertyValue && !customProperties.hasOwnProperty(userDefinedProperties[i].name)) {
                 if (thisPropertyName.length > 0) {
-                    properties[thisPropertyName] = thisPropertyValue;
+                    customProperties[thisPropertyName] = thisPropertyValue;
                 }
             }
         }
         const message = {};
-        const preDefinedProperties = this.state.preDefinedProperties;
+        const predefinedProperties = {};
         for (let i = 0; i < this.state.preDefinedProperties.length; i++) {
             //No need to prevent invalid property names for pre-defined properties as it is not possible to enter an invalid name.
-            message[preDefinedProperties[i].name] = preDefinedProperties[i].value;
+            const currentProperty = this.state.preDefinedProperties[i];
+            if (currentProperty.value && !predefinedProperties.hasOwnProperty(currentProperty.name)) {
+                if (currentProperty.value.length > 0) {
+                    predefinedProperties[currentProperty.name] = currentProperty.value;
+                }
+            }
         }
-        message.MessageProperties = properties;
+        message.customProperties = customProperties;
+        message.predefinedProperties = predefinedProperties;
         message.MessageBody = this.state.messageBody;
         return message;
     }

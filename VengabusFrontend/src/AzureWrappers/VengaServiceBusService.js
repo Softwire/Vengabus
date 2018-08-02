@@ -153,7 +153,7 @@ export class VengaServiceBusService {
      * Returns the pre-defined properties that are allowed to be set to messages.
      * @returns {string[]} The allowed properties.
      */
-    getSettableMessageProperties = () => {
+    getWriteableMessageProperties = () => {
         const url = this.apiRoot + 'messages/properties/writeable';
         return this.axiosWithSAS.get(url);
     }
