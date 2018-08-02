@@ -7,6 +7,8 @@ import { css } from 'react-emotion';
 import { Button } from 'react-bootstrap';
 import { SubscriptionList } from '../Components/SubscriptionList';
 import { EndpointTypes, typeToTitle } from '../Helpers/EndpointTypes';
+import { promptUpdate } from '../Helpers/PromptUpdate';
+
 
 export class TwoListDisplayPage extends Component {
     constructor(props) {
@@ -23,6 +25,15 @@ export class TwoListDisplayPage extends Component {
                 currentlySelected: undefined
             }
         };
+    }
+
+    componentDidMount() {
+        promptUpdate.registerForUpdatesPrompts(this.loadQueueAndTopicData);
+        
+    }
+    componentWillUnmount() {
+        promptUpdate.deregisterForUpdatesPrompts(this.loadQueueAndTopicData);
+
     }
 
     handleQueueRowClick = (e, row, rowIndex) => {
@@ -146,7 +157,7 @@ export class TwoListDisplayPage extends Component {
         });
     }
 
-    updateRetrievedData = () => {
+    loadQueueAndTopicData = () => {
         const display = {
             leftTable: EndpointTypes.QUEUE,
             rightTable: EndpointTypes.TOPIC,
@@ -212,7 +223,6 @@ export class TwoListDisplayPage extends Component {
 
         return (
             <div>
-                <Button onClick={this.updateRetrievedData}>update</Button>
                 <Button onClick={this.handleBackClick}>back</Button>
                 <div className={displayStyle}>
                     <h2>{typeToTitle(this.state.display.leftTable)}</h2>
