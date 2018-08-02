@@ -92,6 +92,15 @@ describe('DataTable', () => {
         expect(dataTable.toJSON()).toMatchSnapshot();
     });
 
+    it('renders correctly if the default key column in not unique', () => {
+        let dataTable = renderer.create(
+            <DataTable
+                colProps={getColProps()}
+                dataToDisplay={[...getDataToDisplay(), { number: 1, name: 'q4' }]}
+            />);
+        expect(dataTable.toJSON()).toMatchSnapshot();
+    });
+
     it('function is called correctly if only rowEvents is defined', () => {
         let spy = jest.fn();
         let wrapper = mount(
@@ -254,6 +263,19 @@ describe('DataTable', () => {
                 />);
         }
         expect(getDataTable).toThrow(new Error('width of column should not be specified in the style (in test:name)'));
+    });
+
+    it('throws a descriptive error if colProps is missing', () => {
+        function getDataTable() {
+            return mount(
+                <DataTable
+                    dataToDisplay={[...getDataToDisplay(), { number: 4, name: 'q1' }]}
+                    colProps={getColProps()}
+                    keyColumn={1}
+                    name='test'
+                />);
+        }
+        expect(getDataTable).toThrow(new Error('key column specified in test is not unique'));
     });
 
 });

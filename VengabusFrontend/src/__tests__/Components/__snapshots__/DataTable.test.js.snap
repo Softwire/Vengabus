@@ -24,7 +24,7 @@ exports[`DataTable renders correctly if an empty array is input as data 1`] = `
 </div>
 `;
 
-exports[`DataTable renders correctly when defaultHover=true with an additional rowClasses prop 1`] = `
+exports[`DataTable renders correctly if the default key column in not unique 1`] = `
 <div
   className="react-bootstrap-table"
 >
@@ -46,11 +46,13 @@ exports[`DataTable renders correctly when defaultHover=true with an additional r
     </thead>
     <tbody>
       <tr
-        className="css-yacq6t css-3oxntz"
+        className={null}
         onClick={[Function]}
         style={Object {}}
       >
-        <td>
+        <td
+          onClick={[Function]}
+        >
           1
         </td>
         <td
@@ -60,11 +62,13 @@ exports[`DataTable renders correctly when defaultHover=true with an additional r
         </td>
       </tr>
       <tr
-        className="css-yacq6t css-3oxntz"
+        className={null}
         onClick={[Function]}
         style={Object {}}
       >
-        <td>
+        <td
+          onClick={[Function]}
+        >
           2
         </td>
         <td
@@ -74,17 +78,35 @@ exports[`DataTable renders correctly when defaultHover=true with an additional r
         </td>
       </tr>
       <tr
-        className="css-yacq6t css-3oxntz"
+        className={null}
         onClick={[Function]}
         style={Object {}}
       >
-        <td>
+        <td
+          onClick={[Function]}
+        >
           3
         </td>
         <td
           onClick={[Function]}
         >
           q3
+        </td>
+      </tr>
+      <tr
+        className={null}
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td
+          onClick={[Function]}
+        >
+          1
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q4
         </td>
       </tr>
     </tbody>
