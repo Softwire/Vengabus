@@ -87,22 +87,15 @@ it('Connect button changes info in info box', () => {
 
     const originalMethod = serviceBusConnection.getServiceBusService;
     const mockMethod = () => {
-        class mockClass {
-            constructor() { }
-
-            getServiceBusProperties() {
+        return {
+            getServiceBusProperties: () => {
                 return new Promise(function (resolve, reject) {
                     resolve({
-                        name: 'example',
-                        status: 'true',
-                        location: 'uk?',
-                        permission: 'all'
+                        name: 'example'
                     });
                 });
             }
-        }
-
-        return new mockClass();
+        };
     };
     serviceBusConnection.getServiceBusService = mockMethod;
 
