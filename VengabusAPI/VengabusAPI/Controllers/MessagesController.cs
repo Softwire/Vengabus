@@ -11,15 +11,15 @@ namespace VengabusAPI.Controllers
     {
 
         [HttpGet]
-        [Route("messages/properties/gettable")]
-        public IEnumerable<string> GetGettableProperties()
+        [Route("messages/properties/readable")]
+        public IEnumerable<string> GetReadableProperties()
         {
             return MessageProperties.SupportedGetProperties;
         }
 
         [HttpGet]
-        [Route("messages/properties/settable")]
-        public IEnumerable<string> GetSettableProperties()
+        [Route("messages/properties/writeable")]
+        public IEnumerable<string> GetWriteableProperties()
         {
             return MessageProperties.SupportedSetProperties;
         }

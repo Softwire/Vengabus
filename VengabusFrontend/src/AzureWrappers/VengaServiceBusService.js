@@ -141,11 +141,11 @@ export class VengaServiceBusService {
     }
 
     /**
-     * Returns the pre-defined properties that are allowed to be read from messages.
+     * Returns the pre-defined properties that can be read from messages.
      * @returns {string[]} The available properties.
      */
-    getGettableMessageProperties = () => {
-        const url = this.apiRoot + 'messages/properties/gettable';
+    getReadableMessageProperties = () => {
+        const url = this.apiRoot + 'messages/properties/readable';
         return this.axiosWithSAS.get(url);
     }
 
@@ -154,7 +154,7 @@ export class VengaServiceBusService {
      * @returns {string[]} The allowed properties.
      */
     getSettableMessageProperties = () => {
-        const url = this.apiRoot + 'messages/properties/settable';
+        const url = this.apiRoot + 'messages/properties/writeable';
         return this.axiosWithSAS.get(url);
     }
 

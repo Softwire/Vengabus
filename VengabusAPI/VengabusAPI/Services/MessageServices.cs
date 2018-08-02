@@ -70,20 +70,27 @@ namespace VengabusAPI.Services
 
         public static void SendMessageToEndpoint(EndpointIdentifier endpoint, MessagingFactory clientFactory, BrokeredMessage message)
         {
-            switch (endpoint.Type)
+            try
             {
-                case EndpointType.Queue:
-                    QueueClient queueClient = clientFactory.CreateQueueClient(endpoint.Name);
-                    queueClient.Send(message);
-                    return;
+                switch (endpoint.Type)
+                {
+                    case EndpointType.Queue:
+                        QueueClient queueClient = clientFactory.CreateQueueClient(endpoint.Name);
+                        queueClient.Send(message);
+                        return;
 
-                case EndpointType.Topic:
-                    TopicClient topicClient = clientFactory.CreateTopicClient(endpoint.Name);
-                    topicClient.Send(message);
-                    return;
+                    case EndpointType.Topic:
+                        TopicClient topicClient = clientFactory.CreateTopicClient(endpoint.Name);
+                        topicClient.Send(message);
+                        return;
 
-                case EndpointType.Subscription:
-                    throw new NotImplementedException("Feature deprecated due to issues with implementation.");
+                    case EndpointType.Subscription:
+                        throw new NotImplementedException("Feature deprecated due to issues with implementation.");
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
 
