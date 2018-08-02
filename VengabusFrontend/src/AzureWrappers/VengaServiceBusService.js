@@ -140,15 +140,22 @@ export class VengaServiceBusService {
         return this.axiosWithSAS.get(url);
     }
 
-    // QQ Fetch from API once endpoint exists
     /**
-     * Returns the pre-defined properties that are allowed to be added to messages.
+     * Returns the pre-defined properties that are allowed to be read from messages.
+     * @returns {string[]} The available properties.
+     */
+    getGettableMessageProperties = () => {
+        const url = this.apiRoot + 'messages/properties/gettable';
+        return this.axiosWithSAS.get(url);
+    }
+
+    /**
+     * Returns the pre-defined properties that are allowed to be set to messages.
      * @returns {string[]} The allowed properties.
      */
-    getPermittedMessageProperties = () => {
-        return new Promise(function (resolve, reject) {
-            resolve(['MessageId', 'ContentType']);
-        });
+    getSettableMessageProperties = () => {
+        const url = this.apiRoot + 'messages/properties/settable';
+        return this.axiosWithSAS.get(url);
     }
 
     // QQ

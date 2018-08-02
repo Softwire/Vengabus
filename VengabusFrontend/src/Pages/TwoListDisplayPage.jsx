@@ -139,6 +139,7 @@ export class TwoListDisplayPage extends Component {
             fetchedMessageData = serviceBusService.listSubscriptionMessages(parentTopicIfIsSubscription, newDisplay.currentlySelected);
         }
         fetchedMessageData.then((result) => {
+            console.log(result.data);
             this.setState({
                 messageData: result.data,
                 display: newDisplay
