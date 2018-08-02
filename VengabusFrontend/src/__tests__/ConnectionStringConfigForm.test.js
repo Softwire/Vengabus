@@ -1,7 +1,7 @@
 import 'jest-localstorage-mock';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
-import { testHelper } from '../TestHelpers/TestConfigAndHelpers';
+import { testHelper } from '../TestHelpers/TestHelper';
 import { ServiceBusInfoBox } from "../Components/ServiceBusInfoBox";
 
 import React from 'react';

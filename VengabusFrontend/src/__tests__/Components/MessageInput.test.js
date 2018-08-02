@@ -4,7 +4,6 @@ import React from 'react';
 import { FormControl, Button } from "react-bootstrap";
 import { MessageInput } from '../../Components/MessageInput';
 import { MessagePropertyInputRow } from '../../Components/MessagePropertyInputRow';
-import '../../TestHelpers/TestConfigAndHelpers';
 
 //QQ Implement a test that checks that the submit function works correctly
 

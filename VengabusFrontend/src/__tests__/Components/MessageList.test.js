@@ -1,7 +1,6 @@
 import { MessageList } from "../../Components/MessageList";
 import renderer from 'react-test-renderer';
 import React from 'react';
-import '../../TestHelpers/TestConfigAndHelpers';
 
 describe('MessageList', () => {
 

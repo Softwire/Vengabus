@@ -1,7 +1,6 @@
 import { QueueList } from "../../Components/QueueList";
 import renderer from 'react-test-renderer';
 import React from 'react';
-import '../../TestHelpers/TestConfigAndHelpers';
 
 describe('QueueList', () => {
 
