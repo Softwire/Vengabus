@@ -3,6 +3,7 @@ import { BootstrapCssLinks } from './Setup/BootstrapCssLinks';
 import { VengabusNavBar } from './Nav/VengabusNavBar';
 import { SideBar } from './Nav/SideBar';
 import { CurrentPage } from './Pages/CurrentPage';
+import { sharedSizesAndDimensions } from './Helpers/SharedSizesAndDimensions';
 import { css } from 'emotion';
 
 class App extends Component {
@@ -11,10 +12,10 @@ class App extends Component {
             text-align: center;
         `;
         const mainPageStyle = css`
-            margin-top: 50px;
+            margin-top: ${sharedSizesAndDimensions.DEFAULTHEADERHEIGHT};
         `;
         const contentStyle = css`
-            margin-left: 15%;
+            margin-left: ${sharedSizesAndDimensions.SIDEBARWIDTH};
         `;
         return (
             <div className={`App ${appStyle}`}>
