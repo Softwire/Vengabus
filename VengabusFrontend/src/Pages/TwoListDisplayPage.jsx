@@ -4,7 +4,7 @@ import { QueueList } from '../Components/QueueList';
 import { TopicList } from '../Components/TopicList';
 import { MessageList } from '../Components/MessageList';
 import { css } from 'react-emotion';
-import { Button } from 'react-bootstrap';
+import { Button, Breadcrumb } from 'react-bootstrap';
 import { SubscriptionList } from '../Components/SubscriptionList';
 import { EndpointTypes, typeToTitle } from '../Helpers/EndpointTypes';
 
@@ -13,6 +13,7 @@ export class TwoListDisplayPage extends Component {
     constructor(props) {
         super(props);
         this.displayHistory = [];
+        this.breadCrumbHistory = [{ name: "Home", type: undefined }];
         this.state = {
             queueData: undefined,
             topicData: undefined,
@@ -41,6 +42,7 @@ export class TwoListDisplayPage extends Component {
             rightTable: EndpointTypes.MESSAGE,
             currentlySelected: row.name
         };
+        this.breadCrumbHistory = [{ name: "Home", type: undefined }, { name: row.name, type: EndpointTypes.QUEUE }];
         this.pushToDisplayHistory(newDisplay);
         this.updateDisplay(newDisplay);
     }
@@ -51,6 +53,7 @@ export class TwoListDisplayPage extends Component {
             rightTable: EndpointTypes.SUBSCRIPTION,
             currentlySelected: row.name
         };
+        this.breadCrumbHistory = [{ name: "Home", type: undefined }, { name: row.name, type: EndpointTypes.TOPIC }];
         this.pushToDisplayHistory(newDisplay);
         this.updateDisplay(newDisplay);
 
@@ -62,11 +65,13 @@ export class TwoListDisplayPage extends Component {
             rightTable: EndpointTypes.MESSAGE,
             currentlySelected: row.name
         };
+        this.breadCrumbHistory.push({ name: row.name, type: EndpointTypes.QUEUE });
         this.pushToDisplayHistory(newDisplay);
         this.updateDisplay(newDisplay);
     }
 
     handleBackClick = () => {
+        this.breadCrumbHistory.pop();
         const peekMostRecent = this.displayHistory[this.displayHistory.length - 1];
         if (peekMostRecent) {
             this.updateDisplay(this.displayHistory.pop(), true);
@@ -205,13 +210,36 @@ export class TwoListDisplayPage extends Component {
     }
 
 
+    getBreadcrumbElement = () => {
+        const breadcrumbStyle = css`
+            float: left;
+        `;
+
+        const breadcrumbItems = [];
+        console.log(this.breadCrumbHistory);
+        for (let i = 0; i < this.breadCrumbHistory.length; i++) {
+            breadcrumbItems.push(
+                <Breadcrumb.Item> {this.breadCrumbHistory[i].name} </Breadcrumb.Item>
+            );
+        }
+        console.log(breadcrumbItems);
+        return (
+            <Breadcrumb className={breadcrumbStyle} >
+                {breadcrumbItems}
+            </Breadcrumb>
+        )
+    }
+
     render() {
         //QQ change width when side buttons are removed
         const displayStyle = css`
-            width: 35%;
+            width: 30%;
             margin: 10px;
             display: inline-block; /*to allow tables to be displayed side by side*/
         `;
+        const outerDivDisplay = css`
+    
+            `;
 
 
         const leftBox = this.getList(this.state.display.leftTable, this.state.display.currentlySelected);
@@ -221,15 +249,19 @@ export class TwoListDisplayPage extends Component {
 
 
         return (
-            <div>
-                <Button onClick={this.handleBackClick}>back</Button>
-                <div className={displayStyle}>
-                    <h2>{typeToTitle(this.state.display.leftTable)}</h2>
-                    {leftBox}
-                </div>
-                <div className={displayStyle}>
-                    <h2>{typeToTitle(this.state.display.rightTable)}</h2>
-                    {rightBox}
+            <div className={outerDivDisplay}>
+                {this.getBreadcrumbElement()}
+                <div>
+                    <Button onClick={this.updateRetrievedData}>update</Button>
+                    <Button onClick={this.handleBackClick}>back</Button>
+                    <div className={displayStyle}>
+                        <h2>{typeToTitle(this.state.display.leftTable)}</h2>
+                        {leftBox}
+                    </div>
+                    <div className={displayStyle}>
+                        <h2>{typeToTitle(this.state.display.rightTable)}</h2>
+                        {rightBox}
+                    </div>
                 </div>
             </div>
         );
