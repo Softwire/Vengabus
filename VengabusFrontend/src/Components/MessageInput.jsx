@@ -181,9 +181,10 @@ export class MessageInput extends Component {
 
     render() {
         const formStyle = css`
-            padding-left: 5px;
+            margin-left: 5px;
+            margin-right: 5px;
             padding-top: 1%;
-            width: 85%;
+            width: calc(100% - 10px); /* 10px total margin */
             float: left;
         `;
         const buttonStyle = css`
@@ -199,7 +200,7 @@ export class MessageInput extends Component {
         `;
         const bodyStyle = css`
             min-height: 350px;
-            margin-left: 5px;
+            padding-left: 5px;
         `;
         return (
             <div className={formStyle}>

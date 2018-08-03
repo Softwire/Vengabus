@@ -43,12 +43,12 @@ export class MessagePropertyInputRow extends Component {
         `;
         const formValueStyle = css`
             padding-left: 5px;
-            width: 74.5%;
+            width: calc(80% - 80px); /* 80px for button width + 20% for form name */
             float: left;
         `;
         const deleteButtonStyle = css`
             padding-left: 5px;
-            width: 5%; 
+            width: 80px; 
             float: left;
         `;
         const inputHeightStyle = css`
