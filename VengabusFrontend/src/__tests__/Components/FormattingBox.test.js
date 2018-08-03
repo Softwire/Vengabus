@@ -224,12 +224,12 @@ with linebreaks</b></apple>`;
 
     it('formats JSON that is already formatted', () => {
         const jsonInput = `{
-            food: "fish",
-            price: {
-                GBP: 42,
-                USD: 54
+            "food": "fish",
+            "price": {
+                "GBP": 42,
+                "USD": 54
         },
-            unit: "kilogram"
+            "unit": "kilogram"
     }`;
         const expectedOutput =
             `{
