@@ -213,6 +213,8 @@ export class TwoListDisplayPage extends Component {
     getBreadcrumbElement = () => {
         const breadcrumbStyle = css`
             float: left;
+            height:2px;
+            margin:2px;
         `;
 
         const breadcrumbItems = [];
@@ -234,11 +236,18 @@ export class TwoListDisplayPage extends Component {
         //QQ change width when side buttons are removed
         const displayStyle = css`
             width: 30%;
-            margin: 10px;
+            margin-left: 10px;
+            margin-right:10px;
             display: inline-block; /*to allow tables to be displayed side by side*/
         `;
         const outerDivDisplay = css`
-    
+            display: block;
+            `;
+
+        const breadCrumbDisplay = css`
+            display: block;
+            height:40px;
+            margin:2px;
             `;
 
 
@@ -249,9 +258,11 @@ export class TwoListDisplayPage extends Component {
 
 
         return (
-            <div className={outerDivDisplay}>
-                {this.getBreadcrumbElement()}
-                <div>
+            <div >
+                <div className={breadCrumbDisplay} >
+                    {this.getBreadcrumbElement()}
+                </div>
+                <div className={outerDivDisplay}>
                     <Button onClick={this.updateRetrievedData}>update</Button>
                     <Button onClick={this.handleBackClick}>back</Button>
                     <div className={displayStyle}>
