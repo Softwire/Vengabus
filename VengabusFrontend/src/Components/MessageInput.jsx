@@ -53,11 +53,11 @@ export class MessageInput extends Component {
     }
 
     getUserDefinedProperties = (message) => {
-        return this.getTargetProperties(message, customProperties);
+        return this.getTargetProperties(message, "customProperties");
     }
 
     getPreDefinedPropertiesFromExistingMessage = (message) => {
-        return this.getTargetProperties(message, predefinedProperties);
+        return this.getTargetProperties(message, "predefinedProperties");
     }
 
     /**
@@ -136,7 +136,7 @@ export class MessageInput extends Component {
             //Prevent the user from inputting invalid property names.
             //Cannot use isPropertyNameInvalid here because if there are two properties with the same name it will mark
             //both of them as invalid whereas we just want to remove one of them.
-            if (thisPropertyName && thisPropertyValue && !customProperties.hasOwnProperty(properties[i].name)) {
+            if (thisPropertyName && thisPropertyValue && !properties.hasOwnProperty(properties[i].name)) {
                 if (thisPropertyName.length > 0) {
                     requiredDictionary[thisPropertyName] = thisPropertyValue;
                 }
