@@ -2,7 +2,6 @@ import { FormattingBox } from '../../Components/FormattingBox';
 import renderer from 'react-test-renderer';
 import React from 'react';
 import { mount } from 'enzyme';
-import '../../TestHelpers/TestConfigAndHelpers';
 
 describe('FormattingBox', () => {
 

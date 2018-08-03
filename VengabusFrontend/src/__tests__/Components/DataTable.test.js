@@ -2,7 +2,6 @@ import { DataTable } from "../../Components/DataTable";
 import renderer from 'react-test-renderer';
 import React from 'react';
 import { mount } from 'enzyme';
-import '../../TestHelpers/TestConfigAndHelpers';
 
 const rawConsoleError = console.error;
 function suppressSpecificDataTableErrors() {

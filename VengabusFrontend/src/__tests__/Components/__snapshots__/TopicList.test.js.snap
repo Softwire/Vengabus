@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TopicList renders correctly with given props 1`] = `
+.emotion-0:hover {
+  border: 1px solid #99ccff;
+  background-color: #ecf2ff;
+}
+
 <div
   className="react-bootstrap-table"
 >
@@ -46,7 +51,7 @@ exports[`TopicList renders correctly with given props 1`] = `
     </thead>
     <tbody>
       <tr
-        className="css-3oxntz"
+        className="emotion-0"
         onClick={[Function]}
         style={Object {}}
       >
@@ -65,7 +70,7 @@ exports[`TopicList renders correctly with given props 1`] = `
         </td>
       </tr>
       <tr
-        className="css-3oxntz"
+        className="emotion-0"
         onClick={[Function]}
         style={Object {}}
       >
