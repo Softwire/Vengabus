@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { FormattingBox } from './FormattingBox';
+import { CopyTextButton } from './CopyTextButton';
+import { css } from 'emotion';
 
 export class MessageBox extends Component {
 
@@ -11,6 +13,10 @@ export class MessageBox extends Component {
     }
 
     render() {
+        const buttonStyle = css`
+            float: right;
+            margin-left: 5px;
+        `;
 
         return (
             <div className="static-modal">
@@ -28,7 +34,8 @@ export class MessageBox extends Component {
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <Button onClick={this.props.handleClose} >Close</Button>
+                        <Button className={buttonStyle} onClick={this.props.handleClose}>Close</Button>
+                        <CopyTextButton className={buttonStyle} text={this.props.messageBody} />
                     </Modal.Footer>
                 </Modal>
             </div>

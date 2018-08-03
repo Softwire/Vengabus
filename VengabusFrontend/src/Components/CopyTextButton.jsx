@@ -1,0 +1,68 @@
+import React from 'react';
+import { Button, Overlay, Tooltip } from 'react-bootstrap';
+import ReactDOM from 'react-dom';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { css } from 'emotion';
+
+/**
+ * Displays a button which copies the given text to the clipboard when clicked.
+ * @prop {string} text The text to copy.
+ */
+export class CopyTextButton extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+
+        this.text = props.text;
+
+        this.state = {
+            show: false
+        };
+    }
+
+    /**
+     * Returns the component which the tooltip is pointing to.
+     * @return {object} The component.
+     */
+    getTarget = () => {
+        return ReactDOM.findDOMNode(this.target);
+    }
+
+    //Shows a 'copied' tooltip when the button is pressed
+    handleToggle = () => {
+        this.setState({ show: true });
+        setTimeout(() => {
+            this.setState({ show: false });
+        }, 2000);
+    }
+
+    render() {
+        //This is needed for the tooltip to display correctly
+        const containerStyle = css`
+            margin-right: 70px; /* Enough space for the close button */
+            position: relative;
+        `;
+
+        return (
+            <CopyToClipboard text={this.text}>
+                <div className={containerStyle}>
+                    <Button
+                        ref={button => {
+                            this.target = button;
+                        }}
+                        onClick={this.handleToggle}
+                    >
+                        Copy Body
+                    </Button>
+
+                    <Overlay
+                        container={this}
+                        target={this.getTarget}
+                        show={this.state.show} placement="top"
+                    >
+                        <Tooltip id="overload-top">Copied</Tooltip>
+                    </Overlay>
+                </div>
+            </CopyToClipboard >
+        );
+    }
+}
