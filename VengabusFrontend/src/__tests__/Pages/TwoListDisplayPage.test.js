@@ -57,6 +57,27 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
                 });
         }
 
+            listQueueMessages = () => {
+            return new Promise(
+                function (resolve, reject) {
+                    resolve = [
+                        {
+                            messageId: "test1",
+                            messageBody: "apple"
+           
+                      },
+                        {
+                            messageId: "test2",
+                            messageBody: "banna"
+                        },
+                        {
+                            messageId: "test3",
+                            messageBody: "carrot"
+                        }
+                    ];
+                });
+       
+        }
     }
 }));
 
@@ -83,10 +104,25 @@ it('queues and topics populate when clicked', () => {
     button.simulate("click");
     const queue = wrapper.find('#QueueTable').find("#Data");
     const topic = wrapper.find('#TopicTable').find("#Data");
-    console.log(queue, topic);
     testHelper.afterReactHasUpdated().then(() => {
         expect(queue.exists()).toBe(true);
         expect(topic.exists()).toBe(true);
     }
     );
+});
+
+//clicks a queue item and checks second box is a message box with messages
+it('clicking Queue work', () => {
+    let wrapper = mount(<TwoListDisplayPage />);
+    const button = wrapper.find('#Update').at(0);
+    button.simulate("click");
+    const queue = wrapper.find('#QueueTable');
+
+    queue.props().clickFunction('e',{name:"topic1"});
+    testHelper.afterReactHasUpdated().then(() => {
+        const message = wrapper.find('#MessageTable');
+        const rightTitle = wrapper.find('#rightTitle').text();
+        expect(message.exists()).toBe(true);
+        expect(rightTitle).toBe("Messages");
+    });
 });
