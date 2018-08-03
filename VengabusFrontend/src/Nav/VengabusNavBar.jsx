@@ -19,8 +19,8 @@ export class VengabusNavBar extends Component {
                             <NavItem eventKey={PAGES.HomePage} >
                                 Home
                             </NavItem>
-                            <NavItem eventKey={PAGES.OtherPage} >
-                                Other
+                            <NavItem eventKey={PAGES.DemoPage} >
+                                DemoPage
                             </NavItem>
                             <NavItem eventKey={PAGES.SendMessagePage} >
                                 Send Message

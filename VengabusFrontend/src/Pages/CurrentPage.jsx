@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Alert } from 'react-bootstrap';
 import { PAGES, pageSwitcher } from './PageSwitcherService';
 import { HomePage } from './HomePage';
-import { OtherPage } from './OtherPage';
+import { DemoPage } from './DemoPage';
 import { TwoListDisplayPage } from './TwoListDisplayPage';
 import { SendMessagePage } from './SendMessagePage';
 
@@ -43,8 +43,8 @@ export class CurrentPage extends Component {
                 returnValue = <HomePage />;
                 break;
 
-            case PAGES.OtherPage:
-                returnValue = <OtherPage />;
+            case PAGES.DemoPage:
+                returnValue = <DemoPage />;
                 break;
             case PAGES.QueueDispayPage:
                 returnValue = <TwoListDisplayPage />;

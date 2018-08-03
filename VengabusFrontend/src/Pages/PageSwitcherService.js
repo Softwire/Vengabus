@@ -1,6 +1,6 @@
 export const PAGES = Object.freeze({
     HomePage: 'Home',
-    OtherPage: 'Other',
+    DemoPage: 'DemoPage',
     SendMessagePage: 'SendMessage'
 });
 

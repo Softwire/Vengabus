@@ -8,8 +8,6 @@ import { Button, Image } from 'react-bootstrap';
 import { SubscriptionList } from '../Components/SubscriptionList';
 import { EndpointTypes, typeToTitle } from '../Helpers/EndpointTypes';
 
-
-
 export class TwoListDisplayPage extends Component {
     constructor(props) {
         super(props);
