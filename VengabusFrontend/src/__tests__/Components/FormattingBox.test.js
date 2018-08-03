@@ -222,6 +222,28 @@ with linebreaks</b></apple>`;
         expectFormattedResult(jsonInput, expectedOutput);
     });
 
+    it('formats JSON that is already formatted', () => {
+        const jsonInput = `{
+            food: "fish",
+            price: {
+                GBP: 42,
+                USD: 54
+        },
+            unit: "kilogram"
+    }`;
+        const expectedOutput =
+            `{
+    food: "fish",
+    price: {
+        GBP: 42,
+        USD: 54
+    },
+    unit: "kilogram"
+}
+`;
+        expectFormattedResult(jsonInput, expectedOutput);
+    });
+
     it('should fail to format mal-formatted JSON', () => {
         const jsonInput = '{"fish",42,"kilogram"}';
         expectNoFormattedResult(jsonInput);
