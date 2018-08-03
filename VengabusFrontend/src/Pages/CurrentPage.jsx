@@ -4,6 +4,7 @@ import { PAGES, pageSwitcher } from './PageSwitcherService';
 import { DemoPage } from './DemoPage';
 import { HomePage } from './HomePage';
 import { SendMessagePage } from './SendMessagePage';
+import { EditQueuesPage } from './EditQueuesPage';
 
 export class CurrentPage extends Component {
     constructor(props) {
@@ -50,6 +51,9 @@ export class CurrentPage extends Component {
                     <SendMessagePage
                         {...this.state.pageData}
                     />;
+                break;
+            case PAGES.EditQueuesPage:
+                returnValue = <EditQueuesPage />;
                 break;
 
             default:
