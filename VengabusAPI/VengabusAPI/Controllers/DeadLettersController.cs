@@ -36,7 +36,7 @@ namespace VengabusAPI.Controllers
         private IEnumerable<VengaMessage> GetMessageFromEndpoint(EndpointIdentifier endpoint)
         {
             MessagingFactory factory = CreateEndpointFactory();
-            return MessageServices.GetMessageFromEndpoint(endpoint, factory);
+            return MessageServices.GetMessagesFromEndpoint(endpoint, factory);
         }
     }
 }

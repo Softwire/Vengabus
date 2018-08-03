@@ -13,7 +13,7 @@ namespace VengabusAPI.Services
     
     public class MessageServices
     {
-        public static IEnumerable<VengaMessage> GetMessageFromEndpoint(EndpointIdentifier endpoint, MessagingFactory clientFactory)
+        public static IEnumerable<BrokeredMessage> GetMessagesFromEndpoint(EndpointIdentifier endpoint, MessagingFactory clientFactory)
         {
             //call the PeekBatch method of corresponding client with the provided parameters.
             Func<long, int, IEnumerable<BrokeredMessage>> peekNextBatch;
@@ -34,7 +34,7 @@ namespace VengabusAPI.Services
                     break;
             }
 
-            var messagesToReturn = new List<VengaMessage>();
+            var messagesToReturn = new List<BrokeredMessage>();
 
             /*
              * The problem here is that, QueueClient.Peekbatch(number) does not guarantee to return the specified number
@@ -59,8 +59,7 @@ namespace VengabusAPI.Services
 
                 foreach (var message in messages)
                 {
-                    var vengaMessage = VengaMessage.FromBrokeredMessage(message);
-                    messagesToReturn.Add(vengaMessage);
+                    messagesToReturn.Add(message);
                     lastSequenceNumber = message.SequenceNumber;
                 }
             }
