@@ -38,10 +38,3 @@ class App extends Component {
 }
 
 export default App;
-                </div>
-            </div>
-        );
-    }
-}
-
-export default App;
