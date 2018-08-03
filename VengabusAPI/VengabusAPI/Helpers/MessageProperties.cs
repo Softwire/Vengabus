@@ -17,9 +17,9 @@ namespace VengabusAPI.Models
             {"PartitionKey", (message, value) => message.PartitionKey = (string) value },
             {"ReplyTo", (message, value) => message.ReplyTo = (string) value },
             {"ReplyToSessionId", (message, value) => message.ReplyToSessionId = (string) value },
-            {"ScheduledEnqueueTimeUtc", (message, value) => message.ScheduledEnqueueTimeUtc = (DateTime) value },
+            {"ScheduledEnqueueTimeUtc", (message, value) => message.ScheduledEnqueueTimeUtc = DateTime.Parse((string) value) },
             {"SessionId", (message, value) => message.SessionId = (string) value },
-            {"TimeToLive", (message, value) => message.TimeToLive = (TimeSpan) value },
+            {"TimeToLive", (message, value) => message.TimeToLive = TimeSpan.Parse((string) value) },
             {"To", (message, value) => message.To = (string) value },
             {"ViaPartitionKey", (message, value) => message.ViaPartitionKey = (string) value }
          };
