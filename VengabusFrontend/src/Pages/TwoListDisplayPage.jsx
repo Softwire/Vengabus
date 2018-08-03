@@ -101,6 +101,7 @@ export class TwoListDisplayPage extends Component {
     loadQueueAndTopicData = () => {
         this.updateAllTopicData();
         this.updateAllQueueData();
+        this.breadCrumbHistory = [{ name: "Home", type: undefined }];
         this.setState({
             rightTable: EndpointTypes.TOPIC
         });
@@ -203,7 +204,7 @@ export class TwoListDisplayPage extends Component {
                 );
             } else {
                 breadcrumbItems.push(
-                    <Breadcrumb.Item onClick={() => this.HandleBreadCrumbClick(this.breadCrumbHistory[i].type,i)} >
+                    <Breadcrumb.Item onClick={() => this.HandleBreadCrumbClick(this.breadCrumbHistory[i].type, i)} >
                         {this.breadCrumbHistory[i].name}
                     </Breadcrumb.Item>
                 );
