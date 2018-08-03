@@ -84,17 +84,27 @@ it('API root location is formatted correctly', () => {
 });
 
 it('Connect button changes info in info box', () => {
+
+    const originalMethod = serviceBusConnection.getServiceBusService;
+    const mockMethod = () => {
+        return {
+            getServiceBusProperties: () => {
+                return new Promise(function (resolve, reject) {
+                    resolve({
+                        name: 'example'
+                    });
+                });
+            }
+        };
+    };
+    serviceBusConnection.getServiceBusService = mockMethod;
+
     const wrapper = mount(<ConnectionStringConfigForm />);
-
-
-    const connectionStringInput = wrapper.find('#connectionString');
-    //Actual string contents don't matter
-    connectionStringInput.value = "exampleValue";
-
 
     const connectionStringButton = wrapper.find('#connectButton').at(0);
     connectionStringButton.simulate('click');
 
+    serviceBusConnection.getServiceBusService = originalMethod;
 
     return testHelper.afterReactHasUpdated().then(() => {
         const infoBox = wrapper.find(ServiceBusInfoBox);
