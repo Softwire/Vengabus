@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly before data is added 1`] = `
+.emotion-0 {
+  width: 35%;
+  margin: 10px;
+  display: inline-block;
+}
+
+<div>
+  <button
+    className="btn btn-default"
+    disabled={false}
+    id="Update"
+    onClick={[Function]}
+    type="button"
+  >
+    update
+  </button>
+  <button
+    className="btn btn-default"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    back
+  </button>
+  <div
+    className="emotion-0"
+  >
+    <h2
+      id="leftTitle"
+    >
+      Queues
+    </h2>
+    <p
+      id="warning"
+    >
+      No data has been retrieved yet.
+    </p>
+  </div>
+  <div
+    className="emotion-0"
+  >
+    <h2
+      id="rightTitle"
+    >
+      Topics
+    </h2>
+    <p
+      id="warning"
+    >
+      No data has been retrieved yet.
+    </p>
+  </div>
+</div>
+`;

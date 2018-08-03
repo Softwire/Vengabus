@@ -287,6 +287,7 @@ export class DataTable extends Component {
 		              background-color: ${paleGreyBlue};
 		          }`}
                 {...otherProps}
+                id="Data"
             />
         ) : (
                 <p className={textAlign}>No data has been retrieved yet.</p>
