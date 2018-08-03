@@ -16,6 +16,8 @@ var typeToTitle = (type) => {
             return "Queues";
         case EndpointTypes.TOPIC:
             return "Topics";
+        default:
+            throw new Error('Invalid endpoint type.');
     }
 }
 export { EndpointTypes, typeToTitle };

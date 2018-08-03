@@ -4,7 +4,7 @@ import { QueueList } from '../Components/QueueList';
 import { TopicList } from '../Components/TopicList';
 import { MessageList } from '../Components/MessageList';
 import { css } from 'react-emotion';
-import { Button, Image } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { SubscriptionList } from '../Components/SubscriptionList';
 import { EndpointTypes, typeToTitle } from '../Helpers/EndpointTypes';
 
@@ -91,6 +91,8 @@ export class TwoListDisplayPage extends Component {
             case EndpointTypes.TOPIC:
                 this.updateAllTopicData(newDisplay);
                 break;
+            default:
+                throw new Error('Invalid endpoint type.');
         }
     }
 
@@ -187,7 +189,8 @@ export class TwoListDisplayPage extends Component {
                         messageData={this.state.messageData}
                     />
                 );
-
+            default:
+                throw new Error('Invalid endpoint type.');
         }
     }
 
