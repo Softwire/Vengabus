@@ -12,7 +12,7 @@ namespace VengabusAPI.Controllers
     public class QueuesController : VengabusController
     {
         [HttpGet]
-        [Route("queues/list")]
+        [Route("queues")]
         public IEnumerable<VengaQueue> ListQueues()
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
@@ -21,7 +21,7 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpGet]
-        [Route("queues/details/{queueName}")]
+        [Route("queues/{queueName}")]
         public VengaQueue GetDetails(string queueName)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
