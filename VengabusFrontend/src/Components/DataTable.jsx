@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
-import { palerBlue } from '../colourScheme';
-
+import { css } from 'emotion';
+import { palerBlue, paleGreyBlue } from '../colourScheme';
 /*
 Returns a table created from an input object
 Props:
     dataToDisplay: (REQUIRED) {array of objects} contains the data to be displayed in the table
     colProps: (REQUIRED) {array of objects} contains properties regarding specific columns
         dataField: (REQUIRED) {string} specifies the name of the property of DataToDisplay which is to be displayed in the column
-        text: (REQUIRED) {string} text which is to be displayed in the header of the column
+        text: (OPTIONAL) {string} Text which is to be displayed in the header of the column. If undefined then the default is going to use dataField => Data Field.
         headerStyle: (RECOMMENDED) {object} contains CSS styling for the header
         hidden: (OPTIONAL) {Boolean} If true then the column will be hidden. Default is false.
         formatter: (OPTIONAL) {function} Can be used to render more complicated stuff within the cells, can change what to render based on current cell.
@@ -28,12 +28,12 @@ Props:
                     }
                 }
                 where row is an object which contains all the information which is in that row
-    rowClasses: (OPTIONAL) {css class or function} If function then it takes the same arguments as above and returns a css class.
+    rowClasses: (OPTIONAL) {string} CSS class that applies to the rows.
     onRowClick: (OPTIONAL) Function to call when a row is clicked. Arguments are the same as above.
                            Note that this is merely a more convenience wrapper for a common usages of rowEvents. It must not be defined in both.
-    bordered: (OPTIONAL) {Boolean} If true then no vertical borders. Default is false.
+    bordered: (OPTIONAL) {Boolean} If false then no vertical borders. Default is true.
     condensed: (OPTIONAL) {Boolean} If true then reduces padding in the table. Default is false.
-    hover: (OPTIONAL) {Boolean} If true then background color of table will change to light grey on hover
+    defaultHover: (OPTIONAL) {Boolean} If true then default on hover styling will be applied.
     selectRow: (OPTIONAL) defines settings relating to selecting a row by clicking on it.
                 selected: {int or String} This identifies a row to be rendered as currently Selected.
                           It is used by the table itself to persist selection status across re-renders, but can also be used by the developer to indicate an initial 'default' selection.
@@ -59,14 +59,36 @@ https://react-bootstrap-table.github.io/react-bootstrap-table2/
 */
 export class DataTable extends Component {
 
+    getTextFromDatafield(dataField) {
+        let text;
+        for (let i = 0; i < dataField.length; i++) {
+            let char = dataField[i];
+            if (i === 0) {
+                text = char.toUpperCase();
+            } else if (char === char.toUpperCase()) {
+                text += ' ';
+                text += char;
+            } else {
+                text += char;
+            }
+        }
+        return text;
+    }
+
     render() {
-        let { colProps, dataToDisplay, rowEvents, name, onRowClick, selectRow, ...otherProps } = this.props;
+        let { colProps, dataToDisplay, rowEvents, name, onRowClick, selectRow, defaultHover, rowClasses, ...otherProps } = this.props;
         if (typeof rowEvents === 'undefined') { rowEvents = {}; }
         let finalRowEvents = undefined;
 
         if (dataToDisplay) {
             if (!colProps) {
                 throw new Error('column property object is not defined in ' + name);
+            }
+
+            for (let i = 0; i < colProps.length; i++) {
+                if (!colProps[i].text) {
+                    colProps[i].text = this.getTextFromDatafield(colProps[i].dataField);
+                }
             }
 
             if (rowEvents.onClick && onRowClick) {
@@ -99,6 +121,20 @@ export class DataTable extends Component {
                     ];
                 }
             }
+
+            if (defaultHover) {
+                const hoverClass = css`
+		          :hover {
+		              border: 1px solid ${palerBlue};
+		              background-color: ${paleGreyBlue};
+		          }
+              `;
+                if (rowClasses) {
+                    rowClasses = rowClasses + ' ' + hoverClass;
+                } else {
+                    rowClasses = hoverClass;
+                }
+            }
         }
 
         return dataToDisplay ? (
@@ -108,6 +144,7 @@ export class DataTable extends Component {
                 columns={colProps}
                 rowEvents={finalRowEvents}
                 selectRow={selectRow}
+                rowClasses={rowClasses}
                 {...otherProps}
             />
         ) : (

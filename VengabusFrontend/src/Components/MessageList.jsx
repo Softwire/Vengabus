@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { DataTable } from './DataTable';
 import { MessageBox } from './MessageBox';
-import { css } from 'react-emotion';
-import { paleGreyBlue, palerBlue } from '../colourScheme';
 import { truncate } from 'lodash';
 
 export class MessageList extends Component {
@@ -53,20 +51,13 @@ export class MessageList extends Component {
             }
         ];
 
-        const tableRowStyle = css`
-		          :hover {
-		              border: 1px solid ${palerBlue};
-		              background-color: ${paleGreyBlue};
-		          }
-              `;
-
         return (
             <div>
                 <DataTable
                     name='MessageTable'
                     colProps={colProps}
                     dataToDisplay={messageArray}
-                    tableRowStyle={tableRowStyle}
+                    defaultHover
                     onRowClick={this.handleMessageClick}
                 />
 

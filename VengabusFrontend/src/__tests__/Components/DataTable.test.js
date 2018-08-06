@@ -1,7 +1,10 @@
 import { DataTable } from "../../Components/DataTable";
 import renderer from 'react-test-renderer';
 import React from 'react';
-import { mount } from 'enzyme';
+import Adaptor from 'enzyme-adapter-react-16';
+import { mount, configure } from 'enzyme';
+import { css } from 'emotion';
+configure({ adapter: new Adaptor() });
 
 const rawConsoleError = console.error;
 function suppressSpecificDataTableErrors() {
@@ -41,9 +44,12 @@ describe('DataTable', () => {
     }
 
     it('renders without an error if only the required props are specified', () => {
+        let colProps = getColProps();
+        colProps[0].text = undefined;
+        colProps[1].text = undefined;
         let dataTable = renderer.create(
             <DataTable
-                colProps={getColProps()}
+                colProps={colProps}
                 dataToDisplay={getDataToDisplay()}
             />);
     });
@@ -66,8 +72,22 @@ describe('DataTable', () => {
         let dataTable = renderer.create(
             <DataTable
                 colProps={getColProps()}
-                dataToDisplay={[]}
+                dataToDisplay={getDataToDisplay()}
                 selectRow={selectRow}
+            />);
+        expect(dataTable.toJSON()).toMatchSnapshot();
+    });
+
+    it('renders correctly when defaultHover=true with an additional rowClasses prop', () => {
+        const rowClasses = css`
+                    background-color: grey;
+              `;
+        let dataTable = renderer.create(
+            <DataTable
+                colProps={getColProps()}
+                dataToDisplay={getDataToDisplay()}
+                rowClasses={rowClasses}
+                defaultHover
             />);
         expect(dataTable.toJSON()).toMatchSnapshot();
     });
@@ -79,7 +99,7 @@ describe('DataTable', () => {
                 colProps={getColProps()}
                 dataToDisplay={getDataToDisplay()}
                 rowEvents={{ onClick: spy }}
-                tableRowStyle='row'
+                rowClasses='row'
             />);
         let row = wrapper.find('.row').first();
         row.simulate('click');
@@ -93,7 +113,7 @@ describe('DataTable', () => {
                 colProps={getColProps()}
                 dataToDisplay={getDataToDisplay()}
                 onRowClick={spy}
-                tableRowStyle='row'
+                rowClasses='row'
             />);
         let row = wrapper.find('.row').first();
         row.simulate('click');
@@ -108,7 +128,7 @@ describe('DataTable', () => {
                 dataToDisplay={getDataToDisplay()}
                 onRowClick={spy}
                 rowEvents={{ onMouseEnter: function () { return; } }}
-                tableRowStyle='row'
+                rowClasses='row'
             />);
         let row = wrapper.find('.row').first();
         row.simulate('click');
@@ -123,7 +143,7 @@ describe('DataTable', () => {
                 dataToDisplay={getDataToDisplay()}
                 onRowClick={function () { return; }}
                 rowEvents={{ onMouseEnter: spy }}
-                tableRowStyle='row'
+                rowClasses='row'
             />);
         let row = wrapper.find('.row').first();
         row.simulate('mouseEnter');
@@ -136,7 +156,7 @@ describe('DataTable', () => {
             <DataTable
                 colProps={getColProps()}
                 dataToDisplay={getDataToDisplay()}
-                tableRowStyle='row'
+                rowClasses='row'
                 selectRow={{ onSelect: spy }}
             />);
         let row = wrapper.find('.row').first();

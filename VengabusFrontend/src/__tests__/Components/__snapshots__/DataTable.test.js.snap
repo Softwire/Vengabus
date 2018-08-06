@@ -24,6 +24,74 @@ exports[`DataTable renders correctly if an empty array is input as data 1`] = `
 </div>
 `;
 
+exports[`DataTable renders correctly when defaultHover=true with an additional rowClasses prop 1`] = `
+<div
+  className="react-bootstrap-table"
+>
+  <table
+    className="table table-bordered"
+    id={undefined}
+  >
+    <thead>
+      <tr
+        className={undefined}
+      >
+        <th>
+          Number
+        </th>
+        <th>
+          Name
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className="css-yacq6t css-3oxntz"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td>
+          1
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q1
+        </td>
+      </tr>
+      <tr
+        className="css-yacq6t css-3oxntz"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td>
+          2
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q2
+        </td>
+      </tr>
+      <tr
+        className="css-yacq6t css-3oxntz"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td>
+          3
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q3
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
 exports[`DataTable renders correctly with the selectRow prop 1`] = `
 <div
   className="react-bootstrap-table"
@@ -44,6 +112,60 @@ exports[`DataTable renders correctly with the selectRow prop 1`] = `
         </th>
       </tr>
     </thead>
+    <tbody>
+      <tr
+        className=""
+        onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": "green",
+          }
+        }
+      >
+        <td
+          onClick={[Function]}
+        >
+          1
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q1
+        </td>
+      </tr>
+      <tr
+        className={null}
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td
+          onClick={[Function]}
+        >
+          2
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q2
+        </td>
+      </tr>
+      <tr
+        className={null}
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td
+          onClick={[Function]}
+        >
+          3
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q3
+        </td>
+      </tr>
+    </tbody>
   </table>
 </div>
 `;
