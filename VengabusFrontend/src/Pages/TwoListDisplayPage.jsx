@@ -19,7 +19,7 @@ export class TwoListDisplayPage extends Component {
             topicData: undefined,
             subscriptionData: undefined,
             messageData: undefined,
-            rightTable: EndpointTypes.TOPIC
+            rightTableType: EndpointTypes.TOPIC
         };
     }
 
@@ -35,26 +35,36 @@ export class TwoListDisplayPage extends Component {
     handleQueueRowClick = (e, row, rowIndex) => {
         this.breadCrumbHistory = [{ name: "Home", type: undefined }, { name: row.name, type: EndpointTypes.QUEUE }];
         this.updateEndpointMessageData();
+        this.setState({
+            rightTableType: EndpointTypes.MESSAGE
+        });
     }
 
     handleTopicRowClick = (e, row, rowIndex) => {
         this.breadCrumbHistory = [{ name: "Home", type: undefined }, { name: row.name, type: EndpointTypes.TOPIC }];
         this.updateTopicSubscriptionData();
+        this.setState({
+            rightTableType: EndpointTypes.SUBSCRIPTION
+        });
     }
 
     handleSubscriptionRowClick = (e, row, rowIndex) => {
         this.breadCrumbHistory.push({ name: row.name, type: EndpointTypes.SUBSCRIPTION });
         this.updateEndpointMessageData();
+        this.setState({
+            rightTableType: EndpointTypes.MESSAGE
+        });
     }
 
 
     updateAllQueueData = () => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
         const fetchedQueueData = serviceBusService.listQueues();
-        fetchedQueueData.then(result =>
+        fetchedQueueData.then(result => {
             this.setState({
                 queueData: result.data
-            })
+            });
+        }
         );
     }
 
@@ -69,59 +79,62 @@ export class TwoListDisplayPage extends Component {
     }
 
     updateTopicSubscriptionData = () => {
-        const base = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
+        const topicName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
         const serviceBusService = serviceBusConnection.getServiceBusService();
-        const fetchedSubscriptionData = serviceBusService.listSubscriptions(base.name);
-        fetchedSubscriptionData.then(result =>
+        const fetchedSubscriptionData = serviceBusService.listSubscriptions(topicName);
+        fetchedSubscriptionData.then(result => {
             this.setState({
-                subscriptionData: result,
-                rightTable: EndpointTypes.SUBSCRIPTION
+                subscriptionData: result.data
             })
+        }
         );
     }
 
     updateEndpointMessageData = () => {
-        const base = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
-        const previousBase = this.breadCrumbHistory[this.breadCrumbHistory.length - 2];
         const serviceBusService = serviceBusConnection.getServiceBusService();
         let fetchedMessageData;
-        if (base.type === EndpointTypes.QUEUE || undefined) {
-            fetchedMessageData = serviceBusService.listQueueMessages(base.name);
+        const leftTableType = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].type;
+        if (leftTableType === EndpointTypes.QUEUE || leftTableType === undefined) {
+            const queueName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
+            fetchedMessageData = serviceBusService.listQueueMessages(queueName);
         } else {
-            fetchedMessageData = serviceBusService.listSubscriptionMessages(previousBase.name, base.name);
+            const topicName = this.breadCrumbHistory[this.breadCrumbHistory.length - 2].name;
+            const subscriptionName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
+            fetchedMessageData = serviceBusService.listSubscriptionMessages(topicName, subscriptionName);
         }
         fetchedMessageData.then((result) => {
             this.setState({
-                messageData: result.data,
-                rightTable: EndpointTypes.MESSAGE
+                messageData: result.data
             });
         });
     }
 
-    loadQueueAndTopicData = () => {
+    resetInitialStateData = () => {
         this.updateAllTopicData();
         this.updateAllQueueData();
         this.breadCrumbHistory = [{ name: "Home", type: undefined }];
         this.setState({
-            rightTable: EndpointTypes.TOPIC
+            rightTableType: EndpointTypes.TOPIC
         });
     };
 
-    getList = (right) => {
-        let type;
-        const currentBase = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
-        if (right) {
-            type = this.state.rightTable;
+    getList = (isForRightHandList) => {
+        let typeOfData;
+        const currentLeftTable = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
+        if (isForRightHandList) {
+            typeOfData = this.state.rightTableType;
         } else {
-            type = currentBase.type || EndpointTypes.QUEUE;
+            //if there is no history the currentLEftTable will be underfiend 
+            //if its underfined its underfiend then its the orignal state and therefore should be queue
+            typeOfData = currentLeftTable.type || EndpointTypes.QUEUE;
         }
-        switch (type) {
+        switch (typeOfData) {
             case EndpointTypes.QUEUE:
                 return (
                     <QueueList
                         queueData={this.state.queueData}
                         clickFunction={this.handleQueueRowClick}
-                        currentlySelectedName={currentBase.name}
+                        currentlySelectedName={currentLeftTable.name}
                     />
                 );
             case EndpointTypes.TOPIC:
@@ -129,16 +142,16 @@ export class TwoListDisplayPage extends Component {
                     <TopicList
                         topicData={this.state.topicData}
                         clickFunction={this.handleTopicRowClick}
-                        currentlySelectedName={currentBase.name}
+                        currentlySelectedName={currentLeftTable.name}
                     />
                 );
 
             case EndpointTypes.SUBSCRIPTION:
                 return (
                     <SubscriptionList
-                        subscriptionData={this.state.subscriptionData.data}
+                        subscriptionData={this.state.subscriptionData}
                         clickFunction={this.handleSubscriptionRowClick}
-                        currentlySelectedName={currentBase.name}
+                        currentlySelectedName={currentLeftTable.name}
                     />
                 );
             case EndpointTypes.MESSAGE:
@@ -159,7 +172,7 @@ export class TwoListDisplayPage extends Component {
                 this.updateAllQueueData();
                 this.updateEndpointMessageData();
                 this.setState({
-                    rightTable: EndpointTypes.MESSAGE
+                    rightTableType: EndpointTypes.MESSAGE
                 });
                 break;
             case (EndpointTypes.TOPIC):
@@ -167,7 +180,7 @@ export class TwoListDisplayPage extends Component {
                 this.updateAllTopicData();
                 this.updateTopicSubscriptionData();
                 this.setState({
-                    rightTable: EndpointTypes.SUBSCRIPTION
+                    rightTableType: EndpointTypes.SUBSCRIPTION
                 });
                 break;
             case (EndpointTypes.SUBSCRIPTION):
@@ -175,12 +188,12 @@ export class TwoListDisplayPage extends Component {
                 this.updateTopicSubscriptionData();
                 this.updateEndpointMessageData();
                 this.setState({
-                    rightTable: EndpointTypes.MESSAGE
+                    rightTableType: EndpointTypes.MESSAGE
                 });
                 break;
             default:
                 this.breadCrumbHistory = this.breadCrumbHistory.slice(0, newLength + 1);
-                this.updateRetrievedData();
+                this.resetInitialStateData();
                 break;
         }
 
@@ -246,13 +259,13 @@ export class TwoListDisplayPage extends Component {
                     {this.getBreadcrumbElement()}
                 </div>
                 <div className={outerDivDisplay}>
-                    <Button onClick={this.updateRetrievedData}>update</Button>
+                    <Button onClick={this.resetInitialStateData}>update</Button>
                     <div className={displayStyle}>
                         <h2>{typeToTitle(leftType)}</h2>
                         {leftBox}
                     </div>
                     <div className={displayStyle}>
-                        <h2>{typeToTitle(this.state.rightTable)}</h2>
+                        <h2>{typeToTitle(this.state.rightTableType)}</h2>
                         {rightBox}
                     </div>
                 </div>
