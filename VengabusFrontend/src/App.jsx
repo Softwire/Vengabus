@@ -5,7 +5,7 @@ import { SideBar } from './Nav/SideBar';
 import { CurrentPage } from './Pages/CurrentPage';
 import { sharedSizesAndDimensions } from './Helpers/SharedSizesAndDimensions';
 import { css } from 'emotion';
-var classNames = require('classnames');
+const classNames = require('classnames');
 
 class App extends Component {
     render() {

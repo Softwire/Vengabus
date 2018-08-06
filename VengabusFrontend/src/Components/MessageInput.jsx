@@ -8,7 +8,7 @@ import {
     ControlLabel,
     Button
 } from "react-bootstrap";
-var classNames = require('classnames');
+const classNames = require('classnames');
 
 /** 
  * @prop { Object } message Can take a message as a prop to replay message.
@@ -22,7 +22,7 @@ export class MessageInput extends Component {
     constructor(props) {
         super(props);
         const message = this.props.message;
-        this.arePreDefinedPropsLoaded = false;
+        this.arePredefinedPropsLoaded = false;
         this.state = {
             permittedValues: [],
             messageBody: message ? message.MessageBody : '',
@@ -34,15 +34,13 @@ export class MessageInput extends Component {
         };
 
         this.serviceBusService = serviceBusConnection.getServiceBusService();
-
         this.serviceBusService.getWriteableMessageProperties().then((result) => {
-            this.arePreDefinedPropsLoaded = true;
+            this.arePredefinedPropsLoaded = true;
             this.setState({
                 permittedValues: result.data,
                 preDefinedProperties: message ? this.getPreDefinedProperties(message) : [] //[{name: something, value: something}]
             });
         });
-
         this.serviceBusService.getReadableMessageProperties().then((result) => {
             this.setState({
                 reservedPropertyNames: result.data
@@ -50,7 +48,6 @@ export class MessageInput extends Component {
         });
 
     }
-
 
     getUserDefinedProperties = (message) => {
         return this.getTargetProperties(message, "customProperties");
@@ -210,13 +207,13 @@ export class MessageInput extends Component {
         const buttonLoading = css`
             opacity: 0.5;
             :hover {
-                cursor: progress; /*or progress*/	
+                cursor: progress;
             }
         `;
-        const preDefinedPropsButtonClassNames = classNames(buttonStyle, this.arePreDefinedPropsLoaded ? '' : buttonLoading);
-        const preDefinedPropertiesButtonText = this.arePreDefinedPropsLoaded ? 'Add new Azure property' : 'Loading pre-defined properties...';
+        let preDefinedPropsButtonClassNames = classNames(buttonStyle, this.arePredefinedPropsLoaded || buttonLoading);
+        const preDefinedPropertiesButtonText = this.arePredefinedPropsLoaded ? 'Add new Azure property' : 'Loading pre-defined properties...';
         return (
-            <div className={formStyle}>
+            <div className={formStyle} >
                 <div className={leftAlignContainerStyle}>
                     <p className={headingStyle}>Pre-defined Properties</p>
                 </div>
