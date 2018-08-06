@@ -10,6 +10,20 @@ namespace VengabusAPI.Controllers
     public class MessagesController : VengabusController
     {
 
+        [HttpGet]
+        [Route("messages/properties/readable")]
+        public IEnumerable<string> GetReadableProperties()
+        {
+            return MessageProperties.SupportedGetProperties;
+        }
+
+        [HttpGet]
+        [Route("messages/properties/writeable")]
+        public IEnumerable<string> GetWriteableProperties()
+        {
+            return MessageProperties.SupportedSetProperties;
+        }
+
         [HttpPost]
         [Route("messages/send/queue/{queueName}")]
         public void SendMessageToQueue(string queueName, [FromBody]VengaMessage message)
@@ -36,7 +50,7 @@ namespace VengabusAPI.Controllers
         //list the messages in a given queue
         public IEnumerable<VengaMessage> ListMessagesInQueue(string queueName)
         {
-            return GetMessageFromEndpoint(EndpointIdentifier.ForQueue(queueName));
+            return GetMessagesFromEndpoint(EndpointIdentifier.ForQueue(queueName));
         }
 
         [HttpGet]
@@ -44,7 +58,7 @@ namespace VengabusAPI.Controllers
         //list the messages in a given subscription
         public IEnumerable<VengaMessage> ListMessagesInSubscription(string topicName, string subscriptionName)
         {
-            return GetMessageFromEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionName));
+            return GetMessagesFromEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionName));
         }
 
         //delete all messages in a given queue
@@ -93,10 +107,16 @@ namespace VengabusAPI.Controllers
             MessageServices.SendMessageToEndpoint(endpoint, factory, brokeredMessage);
         }
 
-        private IEnumerable<VengaMessage> GetMessageFromEndpoint(EndpointIdentifier endpoint)
+        private IEnumerable<VengaMessage> GetMessagesFromEndpoint(EndpointIdentifier endpoint)
         {
             MessagingFactory factory = CreateEndpointFactory();
-            return MessageServices.GetMessageFromEndpoint(endpoint, factory);
+            var brokeredMessagesList = MessageServices.GetMessagesFromEndpoint(endpoint, factory);
+            var messagesToReturn = new List<VengaMessage>();
+            foreach (var message in brokeredMessagesList)
+            {
+                messagesToReturn.Add(VengaBrokeredMessageConverter.FromBrokeredMessage(message));
+            }
+            return messagesToReturn;
         }
 
     }

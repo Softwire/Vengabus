@@ -42,7 +42,7 @@ export class MessageList extends Component {
 
         const colProps = [
             {
-                dataField: 'messageId',
+                dataField: 'predefinedProperties.messageId',
                 text: 'Message Id',
                 headerStyle: { width: '10%', textAlign: 'center' }
             },

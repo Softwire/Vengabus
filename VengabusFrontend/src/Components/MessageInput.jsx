@@ -31,40 +31,34 @@ export class MessageInput extends Component {
         };
 
         this.serviceBusService = serviceBusConnection.getServiceBusService();
-        this.serviceBusService.getPermittedMessageProperties().then((result) => {
+        this.serviceBusService.getWriteableMessageProperties().then((result) => {
             this.setState({
-                permittedValues: result,
-                preDefinedProperties: message ? this.getPreDefinedPropertiesFromExistingMessage(message, result) : [] //[{name: something, value: something}]
+                permittedValues: result.data,
+                preDefinedProperties: message ? this.getPreDefinedPropertiesFromExistingMessage(message) : [] //[{name: something, value: something}]
             });
         });
-
 
     }
 
     getUserDefinedProperties = (message) => {
-        const userDefinedProperties = [];
-        const keys = Object.keys(message.MessageProperties);
-        for (let i = 0; i < keys.length; i++) {
-            userDefinedProperties.push({
-                name: keys[i],
-                value: message.MessageProperties[keys[i]]
-            });
-        }
-        return userDefinedProperties;
+        return this.getTargetProperties(message, "customProperties");
     }
 
-    getPreDefinedPropertiesFromExistingMessage = (message, permittedValues) => {
-        const preDefinedProperties = [];
-        for (let i = 0; i < permittedValues.length; i++) {
-            const permittedValue = permittedValues[i];
-            if (typeof message[permittedValue] !== 'undefined') {
-                preDefinedProperties.push({
-                    name: permittedValue,
-                    value: message[permittedValue]
-                });
-            }
+    getPreDefinedProperties = (message) => {
+        return this.getTargetProperties(message, "predefinedProperties");
+    }
+
+    getTargetProperties = (message, propertyClass) => {
+        const properties = [];
+        const keys = Object.keys(message[propertyClass]);
+        for (let i = 0; i < keys.length; i++) {
+            const key = keys[i];
+            properties.push({
+                name: key,
+                value: message[propertyClass][key]
+            });
         }
-        return preDefinedProperties;
+        return properties;
     }
 
     /**
@@ -135,33 +129,32 @@ export class MessageInput extends Component {
         this.setState({ messageBody: newBody });
     };
 
+    createMessagePropertyDictionary = (properties) => {
+        const ret = {};
+        for (let i = 0; i < properties.length; i++) {
+            const thisPropertyName = properties[i].name;
+            const thisPropertyValue = properties[i].value;
+            //Prevent the user from inputting invalid property names.
+            //Cannot use isPropertyNameInvalid here because if there are two properties with the same name it will mark
+            //both of them as invalid whereas we just want to remove one of them.
+            if (thisPropertyName && thisPropertyValue && !properties.hasOwnProperty(properties[i].name)) {
+                if (thisPropertyName.length > 0) {
+                    ret[thisPropertyName] = thisPropertyValue;
+                }
+            }
+        }
+        return ret;
+    }
+
     /**
      * Converts the userDefinedProperties and preDefinedProperties arrays to a single message object
      * in the format that is accepted by the API.
      * @returns {object} The created message.
      */
-    createMessageObject() {
-        const properties = {};
-        const userDefinedProperties = this.state.userDefinedProperties;
-        for (let i = 0; i < this.state.userDefinedProperties.length; i++) {
-            const thisPropertyName = userDefinedProperties[i].name;
-            const thisPropertyValue = userDefinedProperties[i].value;
-            //Prevent the user from inputting invalid property names.
-            //Cannot use isPropertyNameInvalid here because if there are two properties with the same name it will mark
-            //both of them as invalid whereas we just want to remove one of them.
-            if (thisPropertyName && thisPropertyValue && !properties.hasOwnProperty(userDefinedProperties[i].name)) {
-                if (thisPropertyName.length > 0) {
-                    properties[thisPropertyName] = thisPropertyValue;
-                }
-            }
-        }
+    createMessageObject = () => {
         const message = {};
-        const preDefinedProperties = this.state.preDefinedProperties;
-        for (let i = 0; i < this.state.preDefinedProperties.length; i++) {
-            //No need to prevent invalid property names for pre-defined properties as it is not possible to enter an invalid name.
-            message[preDefinedProperties[i].name] = preDefinedProperties[i].value;
-        }
-        message.MessageProperties = properties;
+        message.customProperties = this.createMessagePropertyDictionary(this.state.userDefinedProperties);
+        message.predefinedProperties = this.createMessagePropertyDictionary(this.state.preDefinedProperties);
         message.MessageBody = this.state.messageBody;
         return message;
     }
