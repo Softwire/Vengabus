@@ -38,7 +38,7 @@ export class SubscriptionList extends Component {
                 headerStyle: { width: '25%', textAlign: 'center' }
             }, {
                 dataField: 'mostRecentDeadLetter',
-                text: 'most Recent dead letter',
+                text: 'most Recent Deadletter',
                 headerStyle: { width: '25%', textAlign: 'center' }
             }
         ];

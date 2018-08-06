@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { DataTable } from './DataTable';
 import { css } from 'react-emotion';
 import { paleGreyBlue, palerBlue } from '../colourScheme';
-import  moment  from 'moment';
+import moment from 'moment';
 
 export class QueueList extends Component {
 
@@ -13,7 +13,7 @@ export class QueueList extends Component {
 
             for (let i = 0; i < queueArray.length; i++) {
                 const currentMessageArray = queueArray[i];
-                if (currentMessageArray.mostRecentDeadLetter) { 
+                if (currentMessageArray.mostRecentDeadLetter) {
                     currentMessageArray.mostRecentDeadLetter = moment(currentMessageArray.mostRecentDeadLetter).format("DD-MM-YYYY");
                 }
             }
@@ -37,7 +37,7 @@ export class QueueList extends Component {
             },
             {
                 dataField: 'mostRecentDeadLetter',
-                text: 'most Recent dead letter',
+                text: 'most Recent Deadletter',
                 headerStyle: { width: '25%', textAlign: 'center' }
             }
         ];
