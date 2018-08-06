@@ -7,7 +7,8 @@ namespace VengabusAPI.Tests
 {
     public static class TestHelper
     {
-        public const string sasString = "SharedAccessSignature sr=https%3A%2F%2Fvengabusdemo.servicebus.windows.net%2F&sig=3e1430xZG7nq41QsZNLdPIoF4L666UHb9GUlwZ9F8t8%3D&se=1533565396&skn=RootManageSharedAccessKey";
+        //apparently, we don't want the connection string to be in the code
+        public const string sasString = "SharedAccessSignature sr=https%3A%2F%2Fvengabusdemo.servicebus.windows.net%2F&sig=0WLoh4ydh0suJcL3s4yWAh6sS4lv4wKi1QyPfhfnJlA%3D&se=1533571811&skn=RootManageSharedAccessKey";
 
         public const string ServiceBusURI = "sb://vengabusdemo.servicebus.windows.net/";
 
@@ -59,8 +60,12 @@ namespace VengabusAPI.Tests
             var queueClient = factory.CreateQueueClient(queueName);
 
             string msg = "This is a test message";
+            Random rnd = new Random();
             for (int i = 0; i < messageCount; i++)
             {
+                /*var brokeredMessage = new BrokeredMessage(msg);
+                brokeredMessage.MessageId = rnd.Next(10000000).ToString();
+                queueClient.Send(brokeredMessage);*/
                 queueClient.Send(new BrokeredMessage(msg));
             }
         }
@@ -89,6 +94,24 @@ namespace VengabusAPI.Tests
             var namespaceManager = GetNamespaceManager();
             var subscriptionDescription = namespaceManager.GetSubscription(topicName, subscriptionName);
             return subscriptionDescription.MessageCountDetails;
+        }
+
+        public static int DeleteAllMessagesFromQueue(string queueName = TestQueueName)
+        {
+            var factory = CreateEndpointFactory();
+            var queueClient = factory.CreateQueueClient(queueName);
+            int ret = 0;
+            while (true)
+            {
+                var messages = queueClient.Receive(TimeSpan.FromMilliseconds(500));
+                if (messages == null)
+                {
+                    break;
+                }
+                messages.Complete();
+                ret++;
+            }
+            return ret;
         }
 
         private static NamespaceManager GetNamespaceManager()
