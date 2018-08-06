@@ -55,9 +55,10 @@ export class CopyTextButton extends React.Component {
                     </Button>
 
                     <Overlay
-                        container={this}
-                        target={this.getTarget}
-                        show={this.state.show} placement="top"
+                        container={this} /* Used to make sure the tooltip scrolls correctly with the page */
+                        target={this.getTarget} /* The tooltip should appear above the copy button */
+                        show={this.state.show} /* The tooltip should only be shown when this.state.show is true */
+                        placement="top" /* The tooltip should appear above the copy button */
                     >
                         <Tooltip id="overload-top">Copied</Tooltip>
                     </Overlay>

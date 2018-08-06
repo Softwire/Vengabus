@@ -7,11 +7,6 @@ import { css } from 'emotion';
 
 export class MessageBox extends Component {
 
-    format(originalMessageText) {
-        //QQ when we know the shape of the messege this will be used to pretty print etc
-        return originalMessageText + " +formatted";
-    }
-
     render() {
         const buttonStyle = css`
             float: right;
