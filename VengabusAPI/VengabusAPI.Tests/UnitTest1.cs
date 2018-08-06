@@ -9,6 +9,8 @@ namespace VengabusAPI.Tests
         [TestMethod]
         public void TestMethod1()
         {
+            int testvalue = 1;
+            Assert.AreEqual(testvalue, 2 - 1);
         }
     }
 }
