@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import KonamiCode from 'konami-code-js';
 import { css } from 'react-emotion';
-import bus from './vengabus.png';
+import bus from './vengabus.png'; //From https://pixabay.com/en/graphic-bus-school-school-bus-3345449/
 
 export class Konamibus extends Component {
     constructor() {
@@ -12,8 +12,7 @@ export class Konamibus extends Component {
             vengaVideo: false
         };
 
-        this.animationLength = 10000; //milliseconds
-
+        this.animationDurationSeconds = 10;
         new KonamiCode(() => {
             this.setState({
                 vengabus: true
@@ -22,7 +21,7 @@ export class Konamibus extends Component {
                 this.setState({
                     vengabus: false
                 });
-            }, this.animationLength);
+            }, this.animationDurationSeconds * 1000);
         });
     }
     render() {
@@ -32,52 +31,55 @@ export class Konamibus extends Component {
         const fixedPosition = css`
             position: fixed;
         `;
+
+        const offScreen = 'translateX(calc(-50% - 250px))';
+        const onScreen = 'translateX(calc(-50% + 50px))';
+        const facingRight = 'rotateY(0deg)';
+        const facingLeft = 'rotateY(180deg)';
+
+        //Lowers the sidebar so the bus can peek past.
+        //Needs to be done on a separate component because the bus component needs to have position:fixed so
+        //that it doesn't scroll with the page, but this means that changing it's height will not move other
+        //components out of the way.
         const heightChanger = css`
             --final-height: 180px;
             @keyframes Height-Change {
                 0% {
                     height: 0px;
+                    animation-timing-function: cubic-bezier(0.5, -0.3, 0.5, 1.3);
                 }
-                10% {
+                10%, 90% {
                     height: var(--final-height);
-                }
-                90% {
-                    height: var(--final-height);
+                    animation-timing-function: cubic-bezier(0.5, -0.3, 0.5, 1.3);
                 }
                 100% {
                     height: 0px;
                 }
             }
         transform-style: preserve-3d;
-        animation: Height-Change ${this.animationLength}ms linear;
+        animation: Height-Change ${this.animationDurationSeconds}s linear;
         `;
         const busPeek = css`
             @keyframes Bus-Peek {
-                0% {
-                    transform: translateX(calc(-50% - 250px)) rotateY(0deg);
+                0%, 20% {
+                    transform: ${offScreen} ${facingRight};
                 }
-                20% {
-                    transform: translateX(calc(-50% - 250px)) rotateY(0deg);
-                }
-                40% {
-                    transform: translateX(calc(-50% + 50px)) rotateY(0deg);
-                }
-                60% {
-                    transform: translateX(calc(-50% + 50px)) rotateY(0deg);
+                40%, 60% {
+                    transform: ${onScreen} ${facingRight};
                 }
                 70% {
-                    transform: translateX(calc(-50% + 50px)) rotateY(-180deg);
+                    transform: ${onScreen} ${facingLeft};
                 }
                 80% {
-                    transform: translateX(calc(-50% - 250px)) rotateY(-180deg);
+                    transform: ${offScreen} ${facingLeft};
                 }
                 100% {
-                    transform: translateX(calc(-50% - 250px)) rotateY(-180deg);
+                    transform: ${offScreen} ${facingLeft};
                     visibility: hidden; /* Prevents the bus from flashing when the animation ends */
                 }
             }
             transform-style: preserve-3d;
-            animation: Bus-Peek ${this.animationLength}ms linear;
+            animation: Bus-Peek ${this.animationDurationSeconds}s linear;
         `;
         if (this.state.vengabus) {
             return (
