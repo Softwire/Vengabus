@@ -57,15 +57,15 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
                 });
         }
 
-            listQueueMessages = () => {
+        listQueueMessages = () => {
             return new Promise(
                 function (resolve, reject) {
                     resolve = [
                         {
                             messageId: "test1",
                             messageBody: "apple"
-           
-                      },
+
+                        },
                         {
                             messageId: "test2",
                             messageBody: "banna"
@@ -76,7 +76,30 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
                         }
                     ];
                 });
-       
+
+        }
+        listSubscriptions = () => {
+            return new Promise(
+                function (resolve, reject) {
+                    resolve = [
+                        {
+                            name: "test1",
+                            activeMessageCount: 12,
+                            deadletterMessageCount: 17
+                        },
+                        {
+                            name: "test2",
+                            activeMessageCount: 13,
+                            deadletterMessageCount: 15
+                        },
+                        {
+                            name: "test3",
+                            activeMessageCount: 13,
+                            deadletterMessageCount: 18
+                        }
+                    ];
+                });
+
         }
     }
 }));
@@ -118,11 +141,28 @@ it('clicking Queue work', () => {
     button.simulate("click");
     const queue = wrapper.find('#QueueTable');
 
-    queue.props().clickFunction('e',{name:"topic1"});
+    queue.props().clickFunction('e', { name: "test1" });
     testHelper.afterReactHasUpdated().then(() => {
         const message = wrapper.find('#MessageTable');
         const rightTitle = wrapper.find('#rightTitle').text();
         expect(message.exists()).toBe(true);
         expect(rightTitle).toBe("Messages");
+    });
+});
+
+
+//clicks a topic item and checks second box is a subsction box with subsciptions
+it('clicking subs work', () => {
+    let wrapper = mount(<TwoListDisplayPage />);
+    const button = wrapper.find('#Update').at(0);
+    button.simulate("click");
+    const topic = wrapper.find('#TopicTable');
+
+    topic.props().clickFunction('e', { name: "test1" });
+    testHelper.afterReactHasUpdated().then(() => {
+        const message = wrapper.find('#SubscriptionTable');
+        const rightTitle = wrapper.find('#rightTitle').text();
+        expect(message.exists()).toBe(true);
+        expect(rightTitle).toBe("Subscriptions");
     });
 });
