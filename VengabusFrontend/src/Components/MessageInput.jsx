@@ -40,24 +40,25 @@ export class MessageInput extends Component {
 
     }
 
-    getTargetProperties = (message, propertyClass) => {
-        const requiredProperties = [];
-        const keys = Object.keys(message[propertyClass]);
-        for (let i = 0; i < keys.length; i++) {
-            requiredProperties.push({
-                name: keys[i],
-                value: message[propertyClass][keys[i]]
-            });
-        }
-        return requiredProperties;
-    }
-
     getUserDefinedProperties = (message) => {
         return this.getTargetProperties(message, "customProperties");
     }
 
-    getPreDefinedPropertiesFromExistingMessage = (message) => {
+    getPreDefinedProperties = (message) => {
         return this.getTargetProperties(message, "predefinedProperties");
+    }
+
+    getTargetProperties = (message, propertyClass) => {
+        const properties = [];
+        const keys = Object.keys(message[propertyClass]);
+        for (let i = 0; i < keys.length; i++) {
+            const key = keys[i];
+            properties.push({
+                name: key,
+                value: message[propertyClass][key]
+            });
+        }
+        return properties;
     }
 
     /**
@@ -129,7 +130,7 @@ export class MessageInput extends Component {
     };
 
     createMessagePropertyDictionary = (properties) => {
-        const requiredDictionary = {};
+        const ret = {};
         for (let i = 0; i < properties.length; i++) {
             const thisPropertyName = properties[i].name;
             const thisPropertyValue = properties[i].value;
@@ -138,11 +139,11 @@ export class MessageInput extends Component {
             //both of them as invalid whereas we just want to remove one of them.
             if (thisPropertyName && thisPropertyValue && !properties.hasOwnProperty(properties[i].name)) {
                 if (thisPropertyName.length > 0) {
-                    requiredDictionary[thisPropertyName] = thisPropertyValue;
+                    ret[thisPropertyName] = thisPropertyValue;
                 }
             }
         }
-        return requiredDictionary;
+        return ret;
     }
 
     /**

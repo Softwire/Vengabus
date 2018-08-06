@@ -150,7 +150,7 @@ export class VengaServiceBusService {
     }
 
     /**
-     * Returns the pre-defined properties that are allowed to be set to messages.
+     * Returns the pre-defined properties that can be set to messages.
      * @returns {string[]} The allowed properties.
      */
     getWriteableMessageProperties = () => {

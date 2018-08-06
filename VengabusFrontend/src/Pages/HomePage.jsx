@@ -7,6 +7,9 @@ export class HomePage extends Component {
     }
 
     render() {
+                MessageId: 'Message1',
+            	ContentType: 'null'
+            MessageBody: 'Hello world!'
 
         return (
             < div >
