@@ -4,7 +4,7 @@ import React from 'react';
 import { TwoListDisplayPage } from "../../Pages/TwoListDisplayPage"
 import { testHelper } from '../../TestHelpers/TestHelper'
 
-//QQ DATA 
+//QQ DATA IS HERE 
 
 jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
     VengaServiceBusService: class {
@@ -99,6 +99,26 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
             });
 
         }
+
+        listSubscriptionMessages = () => {
+            return Promise.resolve({
+                data: [
+                    {
+                        messageId: "test1",
+                        messageBody: "apple"
+
+                    },
+                    {
+                        messageId: "test2",
+                        messageBody: "banna"
+                    },
+                    {
+                        messageId: "test3",
+                        messageBody: "carrot"
+                    }
+                ]
+            });
+        }
     }
 }));
 
@@ -156,6 +176,23 @@ it('clicking Queue work', () => {
 
 
 //clicks a topic item and checks second box is a subsction box with subsciptions
+it('clicking subscriptions work', () => {
+    let wrapper = mount(<TwoListDisplayPage />);
+    const button = wrapper.find('#Update').at(0);
+    button.simulate("click");
+    const topic = wrapper.find('#TopicTable');
+    topic.props().clickFunction('e', { name: "test1" });
+    return testHelper.afterReactHasUpdated().then(() => {
+        wrapper.update();
+        const subscription = wrapper.find('#SubscriptionTable');
+        const rightTitle = wrapper.find('#rightTitle').text();
+        expect(rightTitle).toBe("Subscriptions");
+        expect(subscription.exists()).toBe(true);
+
+    });
+});
+
+//clicks a topic item and then a subscription checks a box of messages is revcived
 it('clicking subs work', () => {
     let wrapper = mount(<TwoListDisplayPage />);
     const button = wrapper.find('#Update').at(0);
@@ -164,10 +201,16 @@ it('clicking subs work', () => {
     topic.props().clickFunction('e', { name: "test1" });
     return testHelper.afterReactHasUpdated().then(() => {
         wrapper.update();
-        const message = wrapper.find('#SubscriptionTable');
-        const rightTitle = wrapper.find('#rightTitle').text();
-        expect(rightTitle).toBe("Subscriptions");
-        expect(message.exists()).toBe(true);
+        const subscriptions = wrapper.find('#SubscriptionTable');
+        subscriptions.props().clickFunction('e', { name: "test1" });
 
+        return testHelper.afterReactHasUpdated().then(() => {
+            wrapper.update();
+            const message = wrapper.find('#MessageTable');
+            const rightTitle = wrapper.find('#rightTitle').text();
+            expect(rightTitle).toBe("Messages");
+            expect(message.exists()).toBe(true);
+
+        });
     });
 });
