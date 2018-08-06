@@ -31,7 +31,7 @@ namespace VengabusAPI.Controllers
             return new VengaQueue(namespaceManager.GetQueue(queueName),getTimeStampOfMostRecentDeadletter(queueName));
         }
 
-        public DateTime? getTimeStampOfMostRecentDeadletter(string queueName) {
+        private DateTime? getTimeStampOfMostRecentDeadletter(string queueName) {
             MessagingFactory factory = CreateEndpointFactory();
             var endpoint = EndpointIdentifier.ForQueue(queueName + "/$DeadLetterQueue");
             var deadLetterList = MessageServices.GetMessagesFromEndpoint(endpoint, factory);
