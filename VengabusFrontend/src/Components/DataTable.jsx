@@ -60,6 +60,17 @@ https://react-bootstrap-table.github.io/react-bootstrap-table2/
 */
 export class DataTable extends Component {
 
+    doesPropertyExistAnywhereInArray(array, ...properties) {
+        for (let i = 0; i < array.length; i++) {
+            let property = { ...array[i] };
+            for (let j = 0; j < properties.length; j++) {
+                property = property[properties[j]];
+            }
+            if (property) { return true; }
+        }
+        return false;
+    }
+
     getTextFromDatafield(dataField) {
         let text;
         for (let i = 0; i < dataField.length; i++) {
@@ -85,12 +96,10 @@ export class DataTable extends Component {
             if (!colProps) {
                 throw new Error('column property object is not defined in ' + name);
             }
-            if (!colProps[0].headerStyle) {
-                for (let i = 0; i < colProps.length; i++) {
-                    colProps[i].headerStyle = {};
-                }
+            for (let i = 0; i < colProps.length; i++) {
+                if (!colProps[i].headerStyle) { colProps[i].headerStyle = {}; }
             }
-            if (colProps[0].headerStyle.width) {
+            if (this.doesPropertyExistAnywhereInArray(colProps, 'headerStyle', 'width')) {
                 throw new Error('width of column should not be specified in the style (in ' + name + ')');
             }
             if (colProps[0].width) {
