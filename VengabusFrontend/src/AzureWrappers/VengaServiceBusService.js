@@ -22,7 +22,7 @@ export class VengaServiceBusService {
      * @return {object} The queues returned by the server.
      */
     listQueues = () => {
-        const url = this.apiRoot + 'queues/list';
+        const url = this.apiRoot + 'queues';
         return this.axiosWithSAS.get(url);
     }
 
@@ -32,7 +32,7 @@ export class VengaServiceBusService {
      * @return {object} The queues returned by the server.
      */
     getQueueDetails = (queueName) => {
-        const url = this.apiRoot + 'queues/details/' + queueName;
+        const url = this.apiRoot + `queues/${queueName}`;
         return this.axiosWithSAS.get(url);
     }
 
@@ -41,7 +41,7 @@ export class VengaServiceBusService {
      * @return {object} The queue returned by the server.
      */
     listTopics = () => {
-        const url = this.apiRoot + 'topics/list';
+        const url = this.apiRoot + 'topics';
         return this.axiosWithSAS.get(url);
     }
 
@@ -51,7 +51,7 @@ export class VengaServiceBusService {
      * @return {object} The topic returned by the server.
      */
     getTopicDetails = (topicName) => {
-        const url = this.apiRoot + 'topics/details/' + topicName;
+        const url = this.apiRoot + `topics / ${topicName} `;
         return this.axiosWithSAS.get(url);
     }
 
@@ -61,7 +61,7 @@ export class VengaServiceBusService {
      * @return {object} The subsctiptions returned by the server.
      */
     listSubscriptions = (topicName) => {
-        const url = this.apiRoot + 'subscriptions/list/' + topicName;
+        const url = this.apiRoot + `subscriptions / ${topicName} `;
         return this.axiosWithSAS.get(url);
     }
 
@@ -73,7 +73,7 @@ export class VengaServiceBusService {
      * @return {object} The topic returned by the server.
      */
     getSubscriptionDetails = (parentTopicName, subscriptionName) => {
-        const url = this.apiRoot + 'subscriptions/details/' + parentTopicName + '/' + subscriptionName;
+        const url = this.apiRoot + `subscriptions / ${parentTopicName} /${subscriptionName}`;
         return this.axiosWithSAS.get(url);
     }
 
@@ -89,7 +89,7 @@ export class VengaServiceBusService {
      * }
      */
     sendMessageToQueue = (queueName, message) => {
-        const url = this.apiRoot + 'messages/send/queue/' + queueName;
+        const url = this.apiRoot + `queues/${queueName}/messages`;
         const config = this.jsonConfig;
         this.axiosWithSAS.post(url, message, config);
     }
@@ -106,7 +106,7 @@ export class VengaServiceBusService {
      * }
      */
     sendMessageToTopic = (topicName, message) => {
-        const url = this.apiRoot + 'messages/send/topic/' + topicName;
+        const url = this.apiRoot + `topics/${topicName}/messages`;
         const config = {
             headers: {
                 "Content-Type": "application/json"
@@ -116,27 +116,27 @@ export class VengaServiceBusService {
     }
 
     deleteQueueMessages = (queueName) => {
-        const url = this.apiRoot + `messages/queue/${queueName}`;
+        const url = this.apiRoot + `queues / ${queueName} /messages`;
         return this.axiosWithSAS.delete(url);
     }
 
     deleteTopicMessages = (topicName) => {
-        const url = this.apiRoot + `messages/topic/${topicName}`;
+        const url = this.apiRoot + `topics/${topicName}/messages`;
         return this.axiosWithSAS.delete(url);
     }
 
     deleteSubscriptionMessages = (topicName, subscriptionName) => {
-        const url = this.apiRoot + `messages/subscription/${topicName}/${subscriptionName}`;
+        const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/messages`;
         return this.axiosWithSAS.delete(url);
     }
 
     listQueueMessages = (queueName) => {
-        const url = this.apiRoot + `messages/list/queue/${queueName}`;
+        const url = this.apiRoot + `queues/${queueName}/messages`;
         return this.axiosWithSAS.get(url);
     }
 
     listSubscriptionMessages = (topicName, subscriptionName) => {
-        const url = this.apiRoot + `messages/list/subscription/${topicName}/${subscriptionName}`;
+        const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/messages`;
         return this.axiosWithSAS.get(url);
     }
 
