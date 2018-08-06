@@ -51,6 +51,7 @@ export class MessageInput extends Component {
 
     }
 
+
     getUserDefinedProperties = (message) => {
         return this.getTargetProperties(message, "customProperties");
     }
