@@ -17,7 +17,7 @@ namespace VengabusAPI.Controllers
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
-            return namespaceManager.GetQueues().Select(q => new VengaQueue(q));
+            return namespaceManager.GetQueues().Select(q => new VengaQueue(q, getTimeStampOfMostRecentDeadletter(q)));
         }
 
         [HttpGet]
@@ -26,7 +26,12 @@ namespace VengabusAPI.Controllers
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
-            return new VengaQueue(namespaceManager.GetQueue(queueName));
+
+            return new VengaQueue(namespaceManager.GetQueue(queueName),getTimeStampOfMostRecentDeadletter(queueName));
+        }
+
+        public DateTime getTimeStampOfMostRecentDeadletter(object q) {
+            return new DateTime(1999, 3, 24);
         }
     }
 }
