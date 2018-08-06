@@ -8,6 +8,7 @@ import {
     ControlLabel,
     Button
 } from "react-bootstrap";
+var classNames = require('classnames');
 
 /** 
  * @prop { Object } message Can take a message as a prop to replay message.
@@ -211,6 +212,7 @@ export class MessageInput extends Component {
                 cursor: progress; /*or progress*/	
             }
         `;
+        const preDefinedPropsButtonClassNames = classNames(buttonStyle, this.arePreDefinedPropsLoaded ? '' : buttonLoading);
         const preDefinedPropertiesButtonText = this.arePreDefinedPropsLoaded ? 'Add new Azure property' : 'Loading pre-defined properties...';
         return (
             <div className={formStyle}>
@@ -227,7 +229,7 @@ export class MessageInput extends Component {
                 <form>
                     <div className={leftAlignContainerStyle}>
                         <Button
-                            className={`${buttonStyle} ${this.arePreDefinedPropsLoaded ? '' : buttonLoading}`}
+                            className={preDefinedPropsButtonClassNames}
                             onClick={() => this.addNewProperty(false)}
                         >
                             {preDefinedPropertiesButtonText}
