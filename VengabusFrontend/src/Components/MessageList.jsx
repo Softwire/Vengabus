@@ -18,7 +18,8 @@ export class MessageList extends Component {
         this.setState({
             showMessage: true,
             messageId: id,
-            messageBody: body
+            messageBody: body,
+            vengaMessageObject: row
         });
     }
 
@@ -30,7 +31,6 @@ export class MessageList extends Component {
 
     render() {
         const messageArray = this.props.messageData ? [...this.props.messageData] : undefined;
-
         //add a preview of the body to each field which will be the first 30 chars
         const previewLength = 30;
         for (let i = 0; i < (messageArray ? messageArray.length : 0); i++) {
@@ -57,6 +57,12 @@ export class MessageList extends Component {
             }
         ];
 
+        const tableRowStyle = css`
+		          :hover {
+		              border: 1px solid ${palerBlue};
+		              background-color: ${paleGreyBlue};
+		          }
+              `;
         return (
             <div>
                 <DataTable
@@ -69,11 +75,9 @@ export class MessageList extends Component {
                 />
 
                 <MessageBox
-                    messageBody={this.state.messageBody}
-                    messageId={this.state.messageId}
+                    vengaMessageObject={this.state.vengaMessageObject}
                     show={this.state.showMessage}
                     handleClose={this.handleClose}
-
                 />
             </div>
         );

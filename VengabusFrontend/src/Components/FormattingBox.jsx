@@ -74,6 +74,7 @@ export class FormattingBox extends Component {
 
 
         //the XML library returns undefined for not XML meaning that format text will be falsely hence this working 
+
         if (!this.isMessageTooLongToFormat) {
             try {
                 //check for xml first then check for json
@@ -117,7 +118,7 @@ export class FormattingBox extends Component {
         );
         const boxContainingOriginalText = (
             <div id="original">
-                <p>Original Data:</p>
+                <h4 className={headerStyle}>Original Data:</h4>
                 <pre id="originalText" className={formatOriginalText}>
                     {originalData}
                 </pre>
@@ -125,7 +126,7 @@ export class FormattingBox extends Component {
         )
         const boxContainingFormattedText = (
             <div id="formatted">
-                <p>Formatted Data:</p>
+                <h4 className={headerStyle}>Formatted Data:</h4>
                 <pre id="formattedText" className={formatCss}>
                     {formattedText || originalData}
                 </pre>
