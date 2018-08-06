@@ -19,11 +19,11 @@ export class VengabusNavBar extends Component {
                             <NavItem eventKey={PAGES.HomePage} >
                                 Home
                             </NavItem>
-                            <NavItem eventKey={PAGES.DemoPage} >
-                                DemoPage
-                            </NavItem>
                             <NavItem eventKey={PAGES.SendMessagePage} >
                                 Send Message
+                            </NavItem>
+                            <NavItem eventKey={PAGES.DemoPage} >
+                                DemoPage
                             </NavItem>
                             <NavDropdown eventKey={'UnknownPage'} title="Dropdown" id="basic-nav-dropdown">
                                 <MenuItem eventKey={'UnknownPage1'} >
