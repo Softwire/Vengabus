@@ -5,7 +5,7 @@ namespace VengabusAPI.Models
 {
     public class VengaQueue
     {
-        public VengaQueue(QueueDescription queueFromAzure, DateTime mostRecentDeadLetterArg)
+        public VengaQueue(QueueDescription queueFromAzure, DateTime? mostRecentDeadLetterArg)
         {
             name = queueFromAzure.Path;
             activeMessageCount = queueFromAzure.MessageCountDetails.ActiveMessageCount;
@@ -16,6 +16,6 @@ namespace VengabusAPI.Models
         public string name { get; set; }
         public long activeMessageCount { get; set; }
         public long deadletterMessageCount { get; set; }
-        public DateTime mostRecentDeadLetter { get; set; }
+        public DateTime? mostRecentDeadLetter { get; set; }
     }
 }
