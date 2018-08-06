@@ -18,7 +18,6 @@ export class MessagePropertyInput extends Component {
      */
     isPropertyNameValid = (index) => {
         let name = this.props.properties[index].name;
-        console.log(this.props.reservedPropertyNames);
         if (!name ||
             _(this.props.properties)
                 .filter((current) => current.name === name)
