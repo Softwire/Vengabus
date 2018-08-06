@@ -49,7 +49,7 @@ export class TwoListDisplayPage extends Component {
     }
 
     handleSubscriptionRowClick = (e, row, rowIndex) => {
-        this.breadCrumbHistory.push({ name: row.name, type: EndpointTypes.SUBSCRIPTION });
+        this.breadCrumbHistory[2] = { name: row.name, type: EndpointTypes.SUBSCRIPTION };
         this.updateEndpointMessageData();
         this.setState({
             rightTableType: EndpointTypes.MESSAGE
