@@ -34,7 +34,7 @@ export class MessageInput extends Component {
         this.serviceBusService.getWriteableMessageProperties().then((result) => {
             this.setState({
                 permittedValues: result.data,
-                preDefinedProperties: message ? this.getPreDefinedPropertiesFromExistingMessage(message) : [] //[{name: something, value: something}]
+                preDefinedProperties: message ? this.getPreDefinedProperties(message) : [] //[{name: something, value: something}]
             });
         });
 
