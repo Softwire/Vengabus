@@ -123,15 +123,25 @@ it('renders queues and topic titles', () => {
 //press update results change
 it('queues and topics populate when clicked', () => {
     let wrapper = mount(<TwoListDisplayPage />);
+
     const button = wrapper.find('#Update').at(0);
     button.simulate("click");
+
     const queue = wrapper.find('#QueueTable').find("#Data");
-    const topic = wrapper.find('#TopicTable').find("#Data");
-    testHelper.afterReactHasUpdated().then(() => {
-        expect(queue.exists()).toBe(true);
-        expect(topic.exists()).toBe(true);
+    const topic = wrapper.find('#TopicTable');
+    
+        //.find("#Data");
+
+    return testHelper.afterReactHasUpdated().then(() => {
+        return testHelper.afterReactHasUpdated().then(() => {
+            console.log(queue);
+            console.log(topic);
+            expect(queue.exists()).toBe(true);
+            expect(topic.exists()).toBe(true);
+        });
     }
     );
+
 });
 
 //clicks a queue item and checks second box is a message box with messages
@@ -157,7 +167,6 @@ it('clicking subs work', () => {
     const button = wrapper.find('#Update').at(0);
     button.simulate("click");
     const topic = wrapper.find('#TopicTable');
-
     topic.props().clickFunction('e', { name: "test1" });
     testHelper.afterReactHasUpdated().then(() => {
         const message = wrapper.find('#SubscriptionTable');
