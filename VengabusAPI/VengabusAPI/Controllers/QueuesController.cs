@@ -35,7 +35,7 @@ namespace VengabusAPI.Controllers
             MessagingFactory factory = CreateEndpointFactory();
             var endpoint = EndpointIdentifier.ForQueue(queueName + "/$DeadLetterQueue");
             var deadLetterList = MessageServices.GetMessagesFromEndpoint(endpoint, factory);
-            var mostRecent = deadLetterList.OrderBy(x => x.EnqueuedTimeUtc).FirstOrDefault();
+            var mostRecent = deadLetterList.OrderByDescending(x => x.EnqueuedTimeUtc).FirstOrDefault();
             if (mostRecent != null)
             {
                 return mostRecent.EnqueuedTimeUtc;
