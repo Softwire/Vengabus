@@ -18,13 +18,15 @@ export class MessagePropertyInput extends Component {
      */
     isPropertyNameValid = (index) => {
         let name = this.props.properties[index].name;
+        let occurencesInUserDefinedProperties = _(this.props.properties)
+            .filter((current) => current.name === name)
+            .size();
+        let occurencesInPredefinedProperties = _(this.props.reservedPropertyNames)
+            .filter((current) => current === name)
+            .size();
         if (!name ||
-            _(this.props.properties)
-                .filter((current) => current.name === name)
-                .size() > 1 ||
-            _(this.props.reservedPropertyNames)
-                .filter((current) => current === name)
-                .size() > 0) {
+            occurencesInUserDefinedProperties > 1 ||
+            occurencesInPredefinedProperties > 0) {
             return false;
         } else {
             return true;
