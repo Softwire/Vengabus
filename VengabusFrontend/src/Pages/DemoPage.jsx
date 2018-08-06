@@ -3,8 +3,10 @@ import { QueueList } from '../Components/QueueList';
 import { MessageList } from '../Components/MessageList';
 import { css } from 'react-emotion';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
-import { Glyphicon, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { PAGES, pageSwitcher } from './PageSwitcherService';
+import { DeleteMessagesButton } from '../Components/DeleteMessagesButton';
+import { EndpointTypes } from '../Helpers/EndpointTypes';
 
 export class DemoPage extends Component {
     constructor(props) {
@@ -80,7 +82,6 @@ sit amet \nthat was a newline`
         const queueName = 'demoqueue1';
         const topicName = 'demotopic1';
         const subscriptionName = 'demosubscription1';
-        const serviceBusService = serviceBusConnection.getServiceBusService();
 
         return (
             < div >
@@ -89,18 +90,9 @@ sit amet \nthat was a newline`
                     <QueueList queueData={this.state.retrievedData} />
                     <MessageList messageData={this.state.messageData} />
                     {/*qq delete the text in Button once implemented properly*/}
-                    <Button onClick={() => serviceBusService.deleteQueueMessages(queueName)} bsStyle="danger">
-                        Delete queue messages&#160;
-                        <Glyphicon glyph="trash" />
-                    </Button>
-                    <Button onClick={() => serviceBusService.deleteTopicMessages(topicName)} bsStyle="danger">
-                        Delete topic messages&#160;
-                        <Glyphicon glyph="trash" />
-                    </Button>
-                    <Button onClick={() => serviceBusService.deleteSubscriptionMessages(topicName, subscriptionName)} bsStyle="danger">
-                        Delete subcription messages&#160;
-                        <Glyphicon glyph="trash" />
-                    </Button>
+                    <DeleteMessagesButton type={EndpointTypes.QUEUE} endpointName={queueName} />
+                    <DeleteMessagesButton type={EndpointTypes.TOPIC} endpointName={topicName} />
+                    <DeleteMessagesButton type={EndpointTypes.SUBSCRIPTION} endpointName={subscriptionName} parentName={topicName} />
 
                 </div>
 

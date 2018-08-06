@@ -1,52 +1,58 @@
 import { DeleteMessagesButton } from '../../Components/DeleteMessagesButton';
 import renderer from 'react-test-renderer';
 import React from 'react';
-import Adaptor from 'enzyme-adapter-react-16';
-import { mount, configure } from 'enzyme';
+import { mount } from 'enzyme';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
-import { Button } from "react-bootstrap";
-import { testHelper } from '../../Helpers/testHelper';
+import { testHelper } from '../../TestHelpers/testHelper';
 
 let mockDeleteSubscrionMessage = jest.fn();
 let mockDeleteQueueMessages = jest.fn();
 let mockDeleteTopicMessages = jest.fn();
-
-configure({ adapter: new Adaptor() });
 jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
     VengaServiceBusService: class {
         constructor() {
         }
 
-        getQueueDetails = () => new Promise(function (resolve, reject) {
-            resolve({
-                data: {
-                    activeMessageCount: 10
-                }
-            });
+        getQueueDetails = () => Promise.resolve({
+            data: {
+                activeMessageCount: 10
+            }
         });
 
-        getSubscriptionDetails = () => new Promise(function (resolve, reject) {
-            resolve({
-                data: {
-                    activeMessageCount: 10
-                }
-            });
+        getSubscriptionDetails = () => Promise.resolve({
+            data: {
+                activeMessageCount: 10
+            }
         });
 
-        listSubscriptions = () => new Promise(function (resolve, reject) {
-            resolve({
-                data: [{
-                    name: "subscription1",
-                    activeMessageCount: 10
-                }]
-            });
+        listSubscriptions = () => Promise.resolve({
+            data: [{
+                name: "subscription1",
+                activeMessageCount: 10
+            }]
         });
 
-        deleteQueueMessages = () => { mockDeleteQueueMessages(); }
-        deleteTopicMessages = () => { mockDeleteTopicMessages(); }
-        deleteSubscriptionMessages = () => { mockDeleteSubscrionMessage(); }
+        deleteQueueMessages = (queueName) => { mockDeleteQueueMessages(queueName); }
+        deleteTopicMessages = (topicName) => { mockDeleteTopicMessages(topicName); }
+        deleteSubscriptionMessages = (topicName, subscriptionName) => { mockDeleteSubscrionMessage(subscriptionName); }
     }
 }));
+
+function afterModalDeleteButtonIsClicked(wrapper, mockFunction, endpointName) {
+    testHelper.clickButtonWithId(wrapper, "#alertDelete");
+
+
+    return testHelper.afterReactHasUpdated().then(() => {
+        wrapper.update();
+        testHelper.clickButtonWithId(wrapper, "#delete");
+
+        return testHelper.afterReactHasUpdated();
+
+    }).then(() => {
+        expect(mockFunction).toHaveBeenCalled();
+        expect(mockFunction).toHaveBeenCalledWith(endpointName);
+    });
+}
 
 describe('DeleteMessagesButton', () => {
     let subscriptionName = "subscriptionName";
@@ -59,18 +65,45 @@ describe('DeleteMessagesButton', () => {
         expect(deleteMessagesButton.toJSON()).toMatchSnapshot();
     });
 
+    it('Modal popup has Delete and Cancel buttons', () => {
+        let wrapper = mount(<DeleteMessagesButton type={EndpointTypes.QUEUE} endpointName={queueName} />);
+        expect(wrapper.find("#cancel").hostNodes()).toHaveLength(0);
+        expect(wrapper.find("#delete").hostNodes()).toHaveLength(0);
+        testHelper.clickButtonWithId(wrapper, "#alertDelete");
+
+        return testHelper.afterReactHasUpdated().then(() => {
+            wrapper.update();
+            expect(wrapper.find("#cancel").hostNodes()).toHaveLength(1);
+            expect(wrapper.find("#delete").hostNodes()).toHaveLength(1);
+        });
+    });
+
+    it('click cancel button does not send delete reqest to endpoint and close the Modal', () => {
+        let wrapper = mount(<DeleteMessagesButton type={EndpointTypes.QUEUE} endpointName={queueName} />);
+        testHelper.clickButtonWithId(wrapper, "#alertDelete");
+
+        return testHelper.afterReactHasUpdated().then(() => {
+            wrapper.update();
+            testHelper.clickButtonWithId(wrapper, "#cancel");
+
+            return testHelper.afterReactHasUpdated();
+        }).then(() => {
+            expect(mockDeleteQueueMessages).not.toHaveBeenCalled();
+        });
+    });
+
     it('call VengaBusService delete subscription messages method once', () => {
         let wrapper = mount(<DeleteMessagesButton type={EndpointTypes.SUBSCRIPTION} endpointName={subscriptionName} parentName={topicName} />);
-        return testHelper.testVengaBusFunctionCalling(wrapper, mockDeleteSubscrionMessage);
+        return afterModalDeleteButtonIsClicked(wrapper, mockDeleteSubscrionMessage, subscriptionName);
     });
 
     it('call VengaBusService delete queue messages method once', () => {
         let wrapper = mount(<DeleteMessagesButton type={EndpointTypes.QUEUE} endpointName={queueName} />);
-        return testHelper.testVengaBusFunctionCalling(wrapper, mockDeleteQueueMessages);
+        return afterModalDeleteButtonIsClicked(wrapper, mockDeleteQueueMessages, queueName);
     });
 
     it('call VengaBusService delete topic messages method once', () => {
         let wrapper = mount(<DeleteMessagesButton type={EndpointTypes.TOPIC} endpointName={topicName} />);
-        return testHelper.testVengaBusFunctionCalling(wrapper, mockDeleteTopicMessages);
+        return afterModalDeleteButtonIsClicked(wrapper, mockDeleteTopicMessages, topicName);
     });
 });

@@ -20,21 +20,9 @@ class TestHelper {
             setTimeout(resolve, 0);
         });
     }
-
-    testVengaBusFunctionCalling = (wrapper, mockFunction) => {
-        wrapper.find(Button).at(0).simulate("click");
-
-
-        return this.afterReactHasUpdated().then(() => {
-            wrapper.update();
-            wrapper.find(Button).at(1).simulate("click");
-
-            return this.afterReactHasUpdated();
-
-        }).then(() => {
-            expect(mockFunction.mock.calls.length).toBe(1);
-        });
-    };
+    clickButtonWithId(wrapper, id) {
+        wrapper.find(id).at(0).simulate("click");
+    }
 }
 
 export const testHelper = new TestHelper();
