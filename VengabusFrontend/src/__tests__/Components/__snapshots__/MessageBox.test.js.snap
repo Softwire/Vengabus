@@ -1,7 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MessageBox renders correctly with given props 1`] = `
-<div
-  className="static-modal"
-/>
-`;
+exports[`MessageBox renders correctly with given props 1`] = `null`;

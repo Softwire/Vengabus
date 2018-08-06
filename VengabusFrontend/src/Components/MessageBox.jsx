@@ -15,7 +15,7 @@ export class MessageBox extends Component {
         `;
         const message = this.props.vengaMessageObject;
         if (!message) {
-            return <p>No message to display!</p>;
+            return null;
         }
         const preDefinedProps = message.predefinedProperties;
         const customProps = message.customProperties;
