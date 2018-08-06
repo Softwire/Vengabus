@@ -4,6 +4,7 @@ import React from 'react';
 import { TwoListDisplayPage } from "../../Pages/TwoListDisplayPage"
 import { testHelper } from '../../TestHelpers/TestHelper'
 
+//QQ DATA 
 
 jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
     VengaServiceBusService: class {
@@ -11,94 +12,91 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
 
         }
         listTopics = () => {
-            return new Promise(
-                function (resolve, reject) {
-                    resolve = [
-                        {
-                            name: "test1",
-                            subscriptionCount: 12,
-                            topicStatus: "Active"
-                        },
-                        {
-                            name: "test2",
-                            subscriptionCount: 13,
-                            topicStatus: "Active"
-                        },
-                        {
-                            name: "test3",
-                            subscriptionCount: 13,
-                            topicStatus: "Active"
-                        }
-                    ];
-                });
+            return Promise.resolve({
+                data: [
+                    {
+                        name: "test1",
+                        subscriptionCount: 12,
+                        topicStatus: "Active"
+                    },
+                    {
+                        name: "test2",
+                        subscriptionCount: 13,
+                        topicStatus: "Active"
+                    },
+                    {
+                        name: "test3",
+                        subscriptionCount: 13,
+                        topicStatus: "Active"
+                    }
+                ]
+            });
         }
 
 
         listQueues = () => {
-            return new Promise(
-                function (resolve, reject) {
-                    resolve = [
-                        {
-                            name: "test1",
-                            activeMessageCount: 12,
-                            deadletterMessageCount: 17
-                        },
-                        {
-                            name: "test2",
-                            activeMessageCount: 13,
-                            deadletterMessageCount: 15
-                        },
-                        {
-                            name: "test3",
-                            activeMessageCount: 13,
-                            deadletterMessageCount: 18
-                        }
-                    ];
-                });
+            return Promise.resolve({
+                data: [
+                    {
+                        name: "test1",
+                        activeMessageCount: 12,
+                        deadletterMessageCount: 17
+                    },
+                    {
+                        name: "test2",
+                        activeMessageCount: 13,
+                        deadletterMessageCount: 15
+                    },
+                    {
+                        name: "test3",
+                        activeMessageCount: 13,
+                        deadletterMessageCount: 18
+                    }
+                ]
+            });
+
         }
 
         listQueueMessages = () => {
-            return new Promise(
-                function (resolve, reject) {
-                    resolve = [
-                        {
-                            messageId: "test1",
-                            messageBody: "apple"
+            return Promise.resolve({
+                data: [
+                    {
+                        messageId: "test1",
+                        messageBody: "apple"
 
-                        },
-                        {
-                            messageId: "test2",
-                            messageBody: "banna"
-                        },
-                        {
-                            messageId: "test3",
-                            messageBody: "carrot"
-                        }
-                    ];
-                });
+                    },
+                    {
+                        messageId: "test2",
+                        messageBody: "banna"
+                    },
+                    {
+                        messageId: "test3",
+                        messageBody: "carrot"
+                    }
+                ]
+            });
 
         }
         listSubscriptions = () => {
-            return new Promise(
-                function (resolve, reject) {
-                    resolve = [
-                        {
-                            name: "test1",
-                            activeMessageCount: 12,
-                            deadletterMessageCount: 17
-                        },
-                        {
-                            name: "test2",
-                            activeMessageCount: 13,
-                            deadletterMessageCount: 15
-                        },
-                        {
-                            name: "test3",
-                            activeMessageCount: 13,
-                            deadletterMessageCount: 18
-                        }
-                    ];
-                });
+            return Promise.resolve({
+                data: [
+                    {
+                        name: "test1",
+                        activeMessageCount: 12,
+                        deadletterMessageCount: 17
+                    },
+                    {
+                        name: "test2",
+                        activeMessageCount: 13,
+                        deadletterMessageCount: 15
+                    },
+                    {
+                        name: "test3",
+                        activeMessageCount: 13,
+                        deadletterMessageCount: 18
+                    }
+                ]
+            });
 
         }
     }
@@ -127,18 +125,12 @@ it('queues and topics populate when clicked', () => {
     const button = wrapper.find('#Update').at(0);
     button.simulate("click");
 
-    const queue = wrapper.find('#QueueTable').find("#Data");
-    const topic = wrapper.find('#TopicTable');
-    
-        //.find("#Data");
-
     return testHelper.afterReactHasUpdated().then(() => {
-        return testHelper.afterReactHasUpdated().then(() => {
-            console.log(queue);
-            console.log(topic);
-            expect(queue.exists()).toBe(true);
-            expect(topic.exists()).toBe(true);
-        });
+        wrapper.update();
+        const queue = wrapper.find('#QueueTable').find("#Data");
+        const topic = wrapper.find('#TopicTable').find("#Data");
+        expect(queue.exists()).toBe(true);
+        expect(topic.exists()).toBe(true);
     }
     );
 
@@ -152,11 +144,13 @@ it('clicking Queue work', () => {
     const queue = wrapper.find('#QueueTable');
 
     queue.props().clickFunction('e', { name: "test1" });
-    testHelper.afterReactHasUpdated().then(() => {
+    return testHelper.afterReactHasUpdated().then(() => {
+        wrapper.update();
         const message = wrapper.find('#MessageTable');
         const rightTitle = wrapper.find('#rightTitle').text();
-        expect(message.exists()).toBe(true);
         expect(rightTitle).toBe("Messages");
+        expect(message.exists()).toBe(true);
+
     });
 });
 
@@ -168,10 +162,12 @@ it('clicking subs work', () => {
     button.simulate("click");
     const topic = wrapper.find('#TopicTable');
     topic.props().clickFunction('e', { name: "test1" });
-    testHelper.afterReactHasUpdated().then(() => {
+    return testHelper.afterReactHasUpdated().then(() => {
+        wrapper.update();
         const message = wrapper.find('#SubscriptionTable');
         const rightTitle = wrapper.find('#rightTitle').text();
-        expect(message.exists()).toBe(true);
         expect(rightTitle).toBe("Subscriptions");
+        expect(message.exists()).toBe(true);
+
     });
 });
