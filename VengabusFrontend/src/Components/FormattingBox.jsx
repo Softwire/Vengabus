@@ -16,6 +16,13 @@ export class FormattingBox extends Component {
         }
     }
 
+    startsAndEndsWith = (inputString, startCharacter, endCharacter) => {
+        if (inputString[0] === startCharacter && inputString[inputString.length - 1] === endCharacter) {
+            return true;
+        }
+        return false;
+    }
+
     render() {
 
         let formattedText;
@@ -23,11 +30,10 @@ export class FormattingBox extends Component {
         let xmlFormattingSucceededButChangedText = false;
         let formattingError;
         let mightBeXml, mightBeJson;
-        if (originalData[0] === "<" && originalData[originalData.length - 1] === ">") {
+        if (this.startsAndEndsWith(originalData, '<', '>')) {
             mightBeXml = true;
         }
-        if ((originalData[0] === "{" && originalData[originalData.length - 1] === "}") ||
-            (originalData[0] === "[" && originalData[originalData.length - 1] === "]")) {
+        if (this.startsAndEndsWith(originalData, '{', '}') || this.startsAndEndsWith(originalData, '[', ']')) {
             mightBeJson = true;
         }
 
