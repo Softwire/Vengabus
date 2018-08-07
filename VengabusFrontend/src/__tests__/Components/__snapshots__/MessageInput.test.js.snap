@@ -213,6 +213,7 @@ exports[`renders correctly from a predefined message 1`] = `
     <div>
       <form
         className="emotion-7"
+        onSubmit={[Function]}
       >
         <div
           className="form-group"
@@ -229,6 +230,7 @@ exports[`renders correctly from a predefined message 1`] = `
       </form>
       <form
         className="emotion-9"
+        onSubmit={[Function]}
       >
         <div
           className="form-group"
@@ -259,6 +261,7 @@ exports[`renders correctly from a predefined message 1`] = `
     <div>
       <form
         className="emotion-7"
+        onSubmit={[Function]}
       >
         <div
           className="form-group"
@@ -275,6 +278,7 @@ exports[`renders correctly from a predefined message 1`] = `
       </form>
       <form
         className="emotion-9"
+        onSubmit={[Function]}
       >
         <div
           className="form-group"
