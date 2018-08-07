@@ -6,7 +6,7 @@ import {
     Button
 } from "react-bootstrap";
 import Select from 'react-select';
-import { preventOnSubmitFormDefaultHandler } from '../Helpers/FormPreventDefaultHandler';
+import { preventFormDefaultHandler } from '../Helpers/FormPreventDefaultHandler';
 
 /** Required props:
  * @prop {string} propertyName Name of the property.
@@ -95,10 +95,10 @@ export class MessagePropertyInputRow extends Component {
 
         return (
             <div>
-                <form className={formNameStyle} onSubmit={preventOnSubmitFormDefaultHandler}>
+                <form className={formNameStyle} onSubmit={preventFormDefaultHandler}>
                     {propertyNameInput}
                 </form>
-                <form className={formValueStyle} onSubmit={preventOnSubmitFormDefaultHandler}>
+                <form className={formValueStyle} onSubmit={preventFormDefaultHandler}>
                     <this.FieldGroup
                         id="formControlsText"
                         className={inputHeightStyle}

@@ -1,7 +1,7 @@
 
-function preventOnSubmitFormDefaultHandler(event) {
+function preventFormDefaultHandler(event) {
     event.preventDefault();
 }
 
 
-export { preventOnSubmitFormDefaultHandler }
+export { preventFormDefaultHandler };
