@@ -51,7 +51,7 @@ export class VengaServiceBusService {
      * @return {object} The topic returned by the server.
      */
     getTopicDetails = (topicName) => {
-        const url = this.apiRoot + `topics / ${topicName} `;
+        const url = this.apiRoot + `topics/${topicName}`;
         return this.axiosWithSAS.get(url);
     }
 
@@ -61,7 +61,7 @@ export class VengaServiceBusService {
      * @return {object} The subsctiptions returned by the server.
      */
     listSubscriptions = (topicName) => {
-        const url = this.apiRoot + `subscriptions / ${topicName} `;
+        const url = this.apiRoot + `subscriptions/${topicName}`;
         return this.axiosWithSAS.get(url);
     }
 
@@ -73,7 +73,7 @@ export class VengaServiceBusService {
      * @return {object} The topic returned by the server.
      */
     getSubscriptionDetails = (parentTopicName, subscriptionName) => {
-        const url = this.apiRoot + `subscriptions / ${parentTopicName} /${subscriptionName}`;
+        const url = this.apiRoot + `subscriptions/${parentTopicName}/${subscriptionName}`;
         return this.axiosWithSAS.get(url);
     }
 
@@ -116,7 +116,7 @@ export class VengaServiceBusService {
     }
 
     deleteQueueMessages = (queueName) => {
-        const url = this.apiRoot + `queues / ${queueName} /messages`;
+        const url = this.apiRoot + `queues/${queueName}/messages`;
         return this.axiosWithSAS.delete(url);
     }
 
