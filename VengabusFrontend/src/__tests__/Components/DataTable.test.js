@@ -243,7 +243,6 @@ describe('DataTable', () => {
 
     it('throws a descriptive error if width is defined in the header style', () => {
         let colProps = getColProps();
-        //colProps[0].headerStyle = { width: '50%' };
         colProps[1].headerStyle = { width: '50%' };
 
         function getDataTable() {

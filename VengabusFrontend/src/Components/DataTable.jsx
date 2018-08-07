@@ -60,17 +60,6 @@ https://react-bootstrap-table.github.io/react-bootstrap-table2/
 */
 export class DataTable extends Component {
 
-    propertyFirstLocationInArray(array, ...properties) {
-        for (let i = 0; i < array.length; i++) {
-            let property = { ...array[i] };
-            for (let j = 0; j < properties.length; j++) {
-                property = property[properties[j]];
-            }
-            if (property) { return i; }
-        }
-        return false;
-    }
-
     getTextFromDatafield(dataField) {
         let text;
         for (let i = 0; i < dataField.length; i++) {
@@ -98,24 +87,22 @@ export class DataTable extends Component {
             }
             for (let i = 0; i < colProps.length; i++) {
                 if (!colProps[i].headerStyle) { colProps[i].headerStyle = {}; }
-            }
-            const headerStyleWidthLocation = this.propertyFirstLocationInArray(colProps, 'headerStyle', 'width');
-            if (headerStyleWidthLocation !== false) {
-                const errorDataField = colProps[headerStyleWidthLocation].dataField;
-                throw new Error(`width of column should not be specified in the style (in ${name}:${errorDataField})`);
-            }
-            const widthShouldExist = typeof colProps[0].width !== 'undefined';
-            for (let i = 1; i < colProps.length; i++) {
-                if ((typeof colProps[i].width !== 'undefined') !== widthShouldExist) {
+                else if (colProps[i].headerStyle.width) {
                     const errorDataField = colProps[i].dataField;
-                    throw new Error(`missing column width definition in ${name}:${errorDataField}`);
+                    throw new Error(`width of column should not be specified in the style (in ${name}:${errorDataField})`);
                 }
             }
+            const widthShouldExist = typeof colProps[0].width !== 'undefined';
             if (widthShouldExist) {
                 let totalWidth = 0;
                 for (let i = 0; i < colProps.length; i++) {
-                    totalWidth += colProps[i].width;
-                    colProps[i].headerStyle.width = colProps[i].width.toString() + '%';
+                    const width = colProps[i].width;
+                    if ((typeof width !== 'undefined') !== widthShouldExist) {
+                        const errorDataField = colProps[i].dataField;
+                        throw new Error(`missing column width definition in ${name}:${errorDataField}`);
+                    }
+                    totalWidth += width;
+                    colProps[i].headerStyle.width = width.toString() + '%';
                     delete colProps[i].width;
                 }
                 if (totalWidth !== 100) {
