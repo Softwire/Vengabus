@@ -193,8 +193,8 @@ export class MessageInput extends Component {
      * in the format that is accepted by the API.
      * @returns {object} The created message.
      */
-    createMessageObject() {
-        const properties = {};
+    createMessagePropertyDictionary() {
+        const propertiesToReturn = {};
         const userDefinedProperties = this.state.userDefinedProperties;
         for (let i = 0; i < this.state.userDefinedProperties.length; i++) {
             const thisPropertyName = userDefinedProperties[i].name;
@@ -202,13 +202,13 @@ export class MessageInput extends Component {
             //Prevent the user from inputting invalid property names.
             //Cannot use isPropertyNameInvalid here because if there are two properties with the same name it will mark
             //both of them as invalid whereas we just want to remove one of them.
-            if (thisPropertyName && thisPropertyValue && !properties.hasOwnProperty(properties[i].name)) {
+            if (thisPropertyName && thisPropertyValue && !propertiesToReturn.hasOwnProperty(propertiesToReturn[i].name)) {
                 if (thisPropertyName.length > 0) {
-                    ret[thisPropertyName] = thisPropertyValue;
+                    propertiesToReturn[thisPropertyName] = thisPropertyValue;
                 }
             }
         }
-        return ret;
+        return propertiesToReturn;
     }
 
     /**
