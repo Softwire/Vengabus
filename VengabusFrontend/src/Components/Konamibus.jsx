@@ -47,11 +47,11 @@ export class Konamibus extends Component {
                     height: 0px;
                     animation-timing-function: cubic-bezier(0.5, -0.3, 0.5, 1.3);
                 }
-                10%, 90% {
+                10%, 80% {
                     height: 180px;
                     animation-timing-function: cubic-bezier(0.5, -0.3, 0.5, 1.3);
                 }
-                100% {
+                90%, 100% {
                     height: 0px;
                 }
             }
@@ -60,11 +60,11 @@ export class Konamibus extends Component {
         `;
         const busPositionX = css`
             @keyframes Bus-Position-X {
-                0%, 20% {
+                0%, 5% {
                     transform: ${offScreen};
                     animation-timing-function: cubic-bezier(0.5, -0.3, 0.5, 1.3);
                 }
-                40%, 55% {
+                30%, 55% {
                     transform: ${halfOnScreen};
                     animation-timing-function: cubic-bezier(.45,.18,.52,.51);
                 }
