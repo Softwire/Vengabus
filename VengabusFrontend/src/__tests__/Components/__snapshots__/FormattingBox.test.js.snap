@@ -10,8 +10,9 @@ exports[`FormattingBox renders correctly with given props 1`] = `
 }
 
 <div>
-   
-   
+  
+  
+  
   
   <div
     id="original"

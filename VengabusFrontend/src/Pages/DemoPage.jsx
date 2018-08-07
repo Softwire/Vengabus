@@ -31,8 +31,10 @@ export class DemoPage extends Component {
                     messageBody:
                         `Lorem ipsum dolor 
     sit amet Lorem ipsum dolor 
-sit amet \nthat was a newline`,
+sit amet \nthat was a newline`
                 },
+                { predefinedProperties: { messageId: "long message under 100k" }, messageBody: `{ "theMessageBodyIs": "` + 'a'.repeat(99000) + `"}` },
+                { predefinedProperties: { messageId: "long message over 100k" }, messageBody: `{ "theMessageBodyIs": "` + 'a'.repeat(99976) + `"}` }
             ]
         };
     }

@@ -12,8 +12,13 @@ export class FormattingBox extends Component {
         super(props);
         this.state = {
             //for future use if other formats are supported and override is wanted
-            isFormattable: true
+            isFormattable: true,
+            isMessageTooLongToFormat: false
         }
+    }
+
+    componentDidMount() {
+        this.isMessageTooLongToFormat(this.props.data);
     }
 
     startsAndEndsWith = (inputString, startCharacter, endCharacter) => {
@@ -23,13 +28,24 @@ export class FormattingBox extends Component {
         return false;
     }
 
+    isMessageTooLongToFormat = (message) => {
+        if (message.length > 100000) {
+            this.setState({
+                isFormattable: false,
+                isMessageTooLongToFormat: true
+            });
+        }
+    }
+
     render() {
 
         let formattedText;
         const originalData = this.props.data;
+
         let xmlFormattingSucceededButChangedText = false;
         let formattingError;
         let mightBeXml, mightBeJson;
+
         if (this.startsAndEndsWith(originalData, '<', '>')) {
             mightBeXml = true;
         }
@@ -74,6 +90,11 @@ export class FormattingBox extends Component {
                 <p>{`The formatter threw an error whilst trying to format the text of this data: '${formattingError}'`}</p>
             </Alert>
         );
+        const longMessageAlert = (
+            <Alert bsStyle="danger">
+                <p>Long message: only messages under 100,000 characers in length are formatted. Your message is {originalData.length} characters long so was not formatted.</p>
+            </Alert>
+        );
         const boxContainingOriginalText = (
             <div id="original">
                 <p>Original Data:</p>
@@ -93,10 +114,11 @@ export class FormattingBox extends Component {
 
         return (
             <div >
-                {xmlFormattingSucceededButChangedText ? xmlChangeAlert : ' '}
-                {formattingError ? errorAlert : ' '}
+                {this.state.isMessageTooLongToFormat ? longMessageAlert : ''}
+                {xmlFormattingSucceededButChangedText ? xmlChangeAlert : ''}
+                {formattingError ? errorAlert : ''}
                 {formattedText ? boxContainingFormattedText : ''}
-                {(!formattedText || xmlFormattingSucceededButChangedText) ? boxContainingOriginalText : ' '}
+                {(!formattedText || xmlFormattingSucceededButChangedText) ? boxContainingOriginalText : ''}
             </div>
         );
     }
