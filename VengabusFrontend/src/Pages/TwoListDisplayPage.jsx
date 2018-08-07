@@ -7,7 +7,6 @@ import { css } from 'react-emotion';
 import { Button } from 'react-bootstrap';
 import { SubscriptionList } from '../Components/SubscriptionList';
 import { EndpointTypes, typeToTitle } from '../Helpers/EndpointTypes';
-import { promptUpdate } from '../Helpers/PromptUpdate';
 
 
 export class TwoListDisplayPage extends Component {
@@ -28,11 +27,11 @@ export class TwoListDisplayPage extends Component {
     }
 
     componentDidMount() {
-        promptUpdate.registerForUpdatesPrompts(this.loadQueueAndTopicData);
-        
+        serviceBusConnection.registerForUpdatesPrompts(this.loadQueueAndTopicData);
+
     }
     componentWillUnmount() {
-        promptUpdate.deregisterForUpdatesPrompts(this.loadQueueAndTopicData);
+        serviceBusConnection.deregisterForUpdatesPrompts(this.loadQueueAndTopicData);
 
     }
 

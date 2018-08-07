@@ -4,6 +4,7 @@ class ServiceBusConnection {
     constructor() {
         this.activeServiceBusConString = '';
         this.activeAPIroot = '';
+        this.updateCallBacks = [];
     }
 
     /**
@@ -57,5 +58,24 @@ class ServiceBusConnection {
             return undefined;
         }
     };
+
+    //for prompting for update from the serviceBus
+    registerForUpdatesPrompts = (callback) => {
+        this.updateCallBacks.push(callback);
+    }
+
+    deregisterForUpdatesPrompts = (callback) => {
+        this.updateCallBacks = this.updateCallBacks.filter((cb) => cb !== callback);
+    }
+
+    promptUpdate = () => {
+        this.updateCallBacks.forEach((registeredCallback) => {
+            registeredCallback();
+        });
+    }
+
+
+
+
 }
 export const serviceBusConnection = new ServiceBusConnection();
