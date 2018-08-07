@@ -40,7 +40,7 @@ export class MessageInput extends Component {
             this.arePredefinedPropsLoaded = true;
             this.setState({
                 permittedValues: result.data,
-                preDefinedProperties: this.message ? this.getPreDefinedProperties(this.message) : [] //[{name: something, value: something}]
+                preDefinedProperties: this.props.message ? this.getPreDefinedProperties(this.props.message) : [] //[{name: something, value: something}]
             });
         });
         this.serviceBusService.getReadableMessageProperties().then((result) => {
