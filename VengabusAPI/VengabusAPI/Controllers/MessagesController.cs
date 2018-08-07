@@ -25,28 +25,28 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpPost]
-        [Route("messages/send/queue/{queueName}")]
+        [Route("queues/{queueName}/messages")]
         public void SendMessageToQueue(string queueName, [FromBody]VengaMessage message)
         {
             SendMessageToEndpoint(EndpointIdentifier.ForQueue(queueName), message);
         }
 
         [HttpPost]
-        [Route("messages/send/topic/{topicName}")]
+        [Route("topics/{topicName}/messages")]
         public void SendMessageToTopic(string topicName, [FromBody]VengaMessage message)
         {
             SendMessageToEndpoint(EndpointIdentifier.ForTopic(topicName), message);
         }
 
         [HttpPost]
-        [Route("messages/send/subscription/{topicName}/{subscriptionName}")]
+        [Route("subscriptions/{topicName}/{subscriptionName}/messages")]
         public void SendMessageToSubscription(string topicName, string subscriptionName, [FromBody]VengaMessage message)
         {
             SendMessageToEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionName), message);
         }
 
         [HttpGet]
-        [Route("messages/list/queue/{queueName}")]
+        [Route("queues/{queueName}/messages")]
         //list the messages in a given queue
         public IEnumerable<VengaMessage> ListMessagesInQueue(string queueName)
         {
@@ -54,7 +54,7 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpGet]
-        [Route("messages/list/subscription/{topicName}/{subscriptionName}")]
+        [Route("subscriptions/{topicName}/{subscriptionName}/messages")]
         //list the messages in a given subscription
         public IEnumerable<VengaMessage> ListMessagesInSubscription(string topicName, string subscriptionName)
         {
@@ -63,14 +63,14 @@ namespace VengabusAPI.Controllers
 
         //delete all messages in a given queue
         [HttpDelete]
-        [Route("messages/queue/{queueName}")]
+        [Route("queues/{queueName}/messages")]
         public void DeleteAllMessagesInQueue(string queueName)
         {
             DeleteMessageFromEndpoint(EndpointIdentifier.ForQueue(queueName));
         }
 
         [HttpDelete]
-        [Route("messages/subscription/{topicName}/{subscriptionName}")]
+        [Route("subscriptions/{topicName}/{subscriptionName}/messages")]
         //delete all messages in a given subscription
         public void DeleteAllMessagesInSubscription(string topicName, string subscriptionName)
         {
@@ -78,7 +78,7 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("messages/topic/{topicName}")]
+        [Route("topics/{topicName}/messages")]
         //delete all messages in all the subscriptions for a given topic
         public void DeleteAllMessagesInTopic(string topicName)
         {

@@ -11,7 +11,7 @@ namespace VengabusAPI.Controllers
     {
 
         [HttpGet]
-        [Route("subscriptions/list/{topicName}")]
+        [Route("subscriptions/{topicName}")]
         public IEnumerable<VengaSubscription> ListSubscriptions(string topicName)
         {
             var namespaceManager = CreateNamespaceManager();
@@ -20,7 +20,7 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpGet]
-        [Route("subscriptions/details/{parentTopicName}/{subscriptionName}")]
+        [Route("subscriptions/{parentTopicName}/{subscriptionName}")]
         public VengaSubscription GetDetails(string parentTopicName, string subscriptionName)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();

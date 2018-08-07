@@ -14,7 +14,7 @@ namespace VengabusAPI.Controllers
     {
         
         [HttpGet]
-        [Route("topics/list")]
+        [Route("topics")]
         //list all topics in a service bus
         public IEnumerable<VengaTopic> ListTopics()
         {
@@ -23,7 +23,7 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpGet]
-        [Route("topics/details/{topicName}")]
+        [Route("topics/{topicName}")]
         public VengaTopic GetDetails(string topicName)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
