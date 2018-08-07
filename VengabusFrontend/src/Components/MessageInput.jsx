@@ -21,7 +21,7 @@ export class MessageInput extends Component {
     constructor(props) {
         super(props);
         const message = this.props.message;
-        this.arePreDefinedPropertiesLoaded = false;
+        this.arePreDefinedPropsLoaded = false;
         this.state = {
             permittedValues: [],
             messageBody: message ? message.MessageBody : '',
@@ -35,7 +35,7 @@ export class MessageInput extends Component {
         this.serviceBusService = serviceBusConnection.getServiceBusService();
 
         this.serviceBusService.getWriteableMessageProperties().then((result) => {
-            this.arePreDefinedPropertiesLoaded = true;
+            this.arePreDefinedPropsLoaded = true;
             this.setState({
                 permittedValues: result.data,
                 preDefinedProperties: message ? this.getPreDefinedProperties(message) : [] //[{name: something, value: something}]
@@ -207,12 +207,11 @@ export class MessageInput extends Component {
         `;
         const buttonLoading = css`
             opacity: 0.5;
-            filter: alpha(opacity=50); /* For IE8 and earlier */
             :hover {
                 cursor: progress; /*or progress*/	
             }
         `;
-        var preDefinedPropertiesButtonText = this.arePreDefinedPropertiesLoaded ? 'Add new Azure property' : 'Loading pre-defined properties...';
+        const preDefinedPropertiesButtonText = this.arePreDefinedPropsLoaded ? 'Add new Azure property' : 'Loading pre-defined properties...';
         return (
             <div className={formStyle}>
                 <div className={leftAlignContainerStyle}>
@@ -228,7 +227,7 @@ export class MessageInput extends Component {
                 <form>
                     <div className={leftAlignContainerStyle}>
                         <Button
-                            className={`${buttonStyle} ${this.arePreDefinedPropertiesLoaded ? '' : buttonLoading}`}
+                            className={`${buttonStyle} ${this.arePreDefinedPropsLoaded ? '' : buttonLoading}`}
                             onClick={() => this.addNewProperty(false)}
                         >
                             {preDefinedPropertiesButtonText}
