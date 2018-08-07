@@ -67,15 +67,17 @@ sit amet \nthat was a newline`
         `;
         // Hard coded message to replay for now
         const exampleMessage = {
-            customProperties: {
-                userDefinedProp1: 'value1',
-                userDefinedProp2: 'value2'
-            },
-            predefinedProperties: {
-                MessageId: 'Message1',
-                ContentType: 'null'
-            },
-            MessageBody: 'Hello world!'
+            message: {
+                customProperties: {
+                    userDefinedProp1: 'value1',
+                    userDefinedProp2: 'value2'
+                },
+                predefinedProperties: {
+                    MessageId: 'Message1',
+                    ContentType: 'null'
+                },
+                MessageBody: 'Hello world!'
+            }
         };
 
         //qq remove hardcoded endpoint names later

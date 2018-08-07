@@ -58,17 +58,18 @@ it('renders correctly', () => {
 
 //Snapshot tests must be first because the id of new react-select elements changes each time one is mounted
 it('renders correctly from a predefined message', () => {
-    const message = {
-        MessageProperties: {
-            userDefinedProp1: 'value1',
-            userDefinedProp2: 'value2'
-        },
-        MessageBody: 'Hello world!',
-        MessageId: 'Message1',
-        ContentType: 'null'
-    };
     const data = {
-        message
+        message: {
+            customProperties: {
+                userDefinedProp1: 'value1',
+                userDefinedProp2: 'value2'
+            },
+            predefinedProperties: {
+                MessageId: 'Message1',
+                ContentType: 'null'
+            },
+            MessageBody: 'Hello world!'
+        }
     };
     let messagePropertyInput = renderer.create(
         <MessageInput data={data} />);

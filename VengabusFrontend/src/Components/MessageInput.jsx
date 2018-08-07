@@ -15,10 +15,10 @@ const classNames = require('classnames');
 /** 
  * @prop {Object} data All of the data that is passed down into this component.
  * @property {Object} data.message Can take a message as a prop to replay message.
- * @property {Object} data.message.MessageProperties User defined properties (key-string pairs).
+ * @property {Object} data.message.customProperties User defined properties (key-string pairs).
  * @property {string} data.message.MessageBody The text of the message.
  * @property {string} data.message.MessageId The ID of the message.
- * @property {string} data.message.predefinedProperty Any other predefined properties used by Azure.
+ * @property {string} data.message.predefinedProperties Any other predefined properties used by Azure.
  * @property {bool} data.recipientIsQueue Is the recepient of the message a queue?
  * @property {string} data.selectedQueue Name of the recepient queue.
  * @property {string} data.selectedTopic Name of the recepient topic.
@@ -37,7 +37,7 @@ export class MessageInput extends Component {
             recipientIsQueue: data.recipientIsQueue ? data.recipientIsQueue : true,
             messageBody: message ? message.MessageBody : '',
             userDefinedProperties: message ? this.getUserDefinedProperties(message) : [], //[{name: something, value: something}]
-            preDefinedProperties: [], //[{name: something, value: something}]
+            preDefinedProperties: [], //Not set here because permitted values must be fetched first
             reservedPropertyNames: [], //a list of name of possible readable properties of a message
             selectedQueue: data.selectedQueue ? data.selectedQueue : undefined,
             selectedTopic: data.selectedTopic ? data.selectedTopic : undefined
