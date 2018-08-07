@@ -5,6 +5,10 @@ exports[`FormattingBox renders correctly with given props 1`] = `
   text-align: left;
 }
 
+.emotion-1 {
+  white-space: pre-wrap;
+}
+
 <div>
    
    
@@ -16,7 +20,7 @@ exports[`FormattingBox renders correctly with given props 1`] = `
       Original Data:
     </p>
     <pre
-      className="emotion-0"
+      className="emotion-0 emotion-1"
       id="originalText"
     >
       test

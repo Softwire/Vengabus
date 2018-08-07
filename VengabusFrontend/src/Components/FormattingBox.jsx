@@ -3,6 +3,7 @@ import { css } from 'react-emotion';
 import { Alert } from 'react-bootstrap';
 import formatJSon from 'prettyprint';
 const formatXML = require("xml-formatter");
+const classNames = require('classnames');
 
 
 export class FormattingBox extends Component {
@@ -52,6 +53,10 @@ export class FormattingBox extends Component {
         const formatCss = css`
             text-align: left;
         `;
+        const wordWrap = css`
+            white-space: pre-wrap;
+        `;
+        const formatOriginalText = classNames(formatCss, wordWrap);
         const xmlChangeAlert = (
             <Alert bsStyle="danger">
                 <p>The XML formatter changed the text of this data. This was probably just to 'heal' malformed XML, but we can't be certain.</p>
@@ -66,7 +71,7 @@ export class FormattingBox extends Component {
         const boxContainingOriginalText = (
             <div id="original">
                 <p>Original Data:</p>
-                <pre id="originalText" className={formatCss}>
+                <pre id="originalText" className={formatOriginalText}>
                     {originalData}
                 </pre>
             </div>
