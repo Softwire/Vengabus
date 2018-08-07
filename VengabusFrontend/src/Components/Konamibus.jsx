@@ -30,7 +30,7 @@ export class Konamibus extends Component {
             perspective: 1000px;
         `;
 
-        const offScreen = 'translateX(calc(-50% - 250px))';
+        const offScreen = 'translateX(calc(-50% - 260px))';
         const onScreen = 'translateX(calc(-50% + 75px))';
         const halfOnScreen = 'translateX(calc(-50% - 125px))';
         const facingRight = 'rotateY(0deg)';
@@ -78,11 +78,9 @@ export class Konamibus extends Component {
                 }
                 80% {
                     transform: ${offScreen};
-                    visibility: hidden; /* Prevents the bus from flashing when the animation ends */
                 }
                 100% {
                     transform: ${offScreen};
-                    visibility: hidden; /* Prevents the bus from flashing when the animation ends */
                 }
             }
             transform-style: preserve-3d;
