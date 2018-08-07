@@ -42,14 +42,13 @@ export class Konamibus extends Component {
         //that it doesn't scroll with the page, but this means that changing it's height will not move other
         //components out of the way.
         const heightChanger = css`
-            --final-height: 180px; /*css variable */
             @keyframes Height-Change {
                 0% {
                     height: 0px;
                     animation-timing-function: cubic-bezier(0.5, -0.3, 0.5, 1.3);
                 }
                 10%, 90% {
-                    height: var(--final-height);
+                    height: 180px;
                     animation-timing-function: cubic-bezier(0.5, -0.3, 0.5, 1.3);
                 }
                 100% {
