@@ -32,13 +32,15 @@ export class MessageInput extends Component {
             selectedQueue: "demoqueue1"
             // QQ add way of choosing which queue/topic a message is sent to.
         };
+    }
 
+    componentDidMount() {
         this.serviceBusService = serviceBusConnection.getServiceBusService();
         this.serviceBusService.getWriteableMessageProperties().then((result) => {
             this.arePredefinedPropsLoaded = true;
             this.setState({
                 permittedValues: result.data,
-                preDefinedProperties: message ? this.getPreDefinedProperties(message) : [] //[{name: something, value: something}]
+                preDefinedProperties: this.message ? this.getPreDefinedProperties(this.message) : [] //[{name: something, value: something}]
             });
         });
         this.serviceBusService.getReadableMessageProperties().then((result) => {
@@ -46,7 +48,6 @@ export class MessageInput extends Component {
                 reservedPropertyNames: result.data
             });
         });
-
     }
 
     getUserDefinedProperties = (message) => {
