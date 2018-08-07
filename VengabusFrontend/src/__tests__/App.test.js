@@ -2,8 +2,11 @@ import 'jest-localstorage-mock';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '../App';
+import { mount } from 'enzyme';
+import { testHelper } from '../TestHelpers/TestHelper';
+import { Button } from "react-bootstrap";
 
-jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
+jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
     VengaServiceBusService: class {
         constructor() {
 
@@ -191,8 +194,66 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
     }
 }));
 
-it('passes smoke tests', () => {
+it('renders without crashing', () => {
     const div = document.createElement('div');
     ReactDOM.render(<App />, div);
     ReactDOM.unmountComponentAtNode(div);
+});
+
+it('passes smoke tests without crashing', () => {
+    let wrapper = mount(<App />);
+
+    let noRejection = false;
+
+    const connectButton = wrapper.find("#connectButton").first();
+    const navbarHomePageButton = wrapper.find("#navbarHomePageButton").first();
+    const navbarSendMessagePageButton = wrapper.find("#navbarSendMessagePageButton").first();
+    const navbarDemoPageButton = wrapper.find("#navbarDemoPageButton").first();
+    expect(navbarHomePageButton.exists()).toBe(true);
+    expect(navbarSendMessagePageButton.exists()).toBe(true);
+    expect(navbarDemoPageButton.exists()).toBe(true);
+    expect(connectButton.exists()).toBe(true);
+
+    let demoPageReplayMessageButton;
+    let buttonsOnSendMessagePageFromDemoReplayMessage;
+    let addNewAzurePropertyButton;
+
+    connectButton.simulate("click");
+    return testHelper.afterReactHasUpdated().then(() => {
+        navbarDemoPageButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        demoPageReplayMessageButton = wrapper.find(Button).first();
+        expect(demoPageReplayMessageButton.exists()).toBe(true);
+        demoPageReplayMessageButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        return new Promise((resolve, reject) => {
+            let wait = setTimeout(() => {
+                clearTimeout(wait);
+                resolve('');
+            }, 200)
+        });
+    }).then(() => {
+        demoPageReplayMessageButton = wrapper.find("#demoPageReplayMessageButton").first();
+        expect(demoPageReplayMessageButton.exists()).toBe(false);
+        buttonsOnSendMessagePageFromDemoReplayMessage = wrapper.find(Button);
+        console.log(buttonsOnSendMessagePageFromDemoReplayMessage.debug());
+        expect(buttonsOnSendMessagePageFromDemoReplayMessage.length).toEqual(5);
+        navbarHomePageButton.simulate("click");
+        navbarSendMessagePageButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        buttonsOnSendMessagePageFromDemoReplayMessage = wrapper.find(Button);
+        expect(buttonsOnSendMessagePageFromDemoReplayMessage.length).toEqual(4);
+        addNewAzurePropertyButton = buttonsOnSendMessagePageFromDemoReplayMessage.first();
+        addNewAzurePropertyButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        buttonsOnSendMessagePageFromDemoReplayMessage = wrapper.find(Button);
+        expect(buttonsOnSendMessagePageFromDemoReplayMessage.length).toEqual(5);
+    }).catch((e) => {
+        console.log(e);
+        expect(1).toEqual(2);
+    });
 });

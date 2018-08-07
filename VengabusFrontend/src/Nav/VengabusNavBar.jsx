@@ -16,13 +16,13 @@ export class VengabusNavBar extends Component {
                     </Navbar.Header>
                     <Navbar.Collapse>
                         <Nav>
-                            <NavItem eventKey={PAGES.HomePage} >
+                            <NavItem id="navbarHomePageButton" eventKey={PAGES.HomePage} >
                                 Home
                             </NavItem>
-                            <NavItem eventKey={PAGES.SendMessagePage} >
+                            <NavItem id="navbarSendMessagePageButton" eventKey={PAGES.SendMessagePage} >
                                 Send Message
                             </NavItem>
-                            <NavItem eventKey={PAGES.DemoPage} >
+                            <NavItem id="navbarDemoPageButton" eventKey={PAGES.DemoPage} >
                                 DemoPage
                             </NavItem>
                             <NavDropdown eventKey={'UnknownPage'} title="Dropdown" id="basic-nav-dropdown">
