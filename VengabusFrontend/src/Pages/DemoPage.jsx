@@ -49,13 +49,13 @@ sit amet \nthat was a newline`
     handleListQueueMessages = (queueName) => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
         const messagePromise = serviceBusService.listQueueMessages(queueName);
-        messagePromise.then((result) => console.log(result.data));
+        messagePromise.then((result) => console.log(result));
     }
 
     handleListSubscriptionMessages = (topicName, subscriptionName) => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
         const messagePromise = serviceBusService.listSubscriptionMessages(topicName, subscriptionName);
-        messagePromise.then((result) => console.log(result.data));
+        messagePromise.then((result) => console.log(result));
     }
 
 
