@@ -16,11 +16,15 @@ namespace VengabusAPI.Models
             {
                 try
                 {
-                    predefinedProperties[property] = MessageProperties.GetProperty(brokeredMessage, property);
+                    var value = MessageProperties.GetProperty(brokeredMessage, property);
+                    if (value != null)
+                    {
+                        predefinedProperties[property] = value;
+                    }
                 }
                 catch (Exception e)
                 {
-                    predefinedProperties[property] = "Property unavailable: " + e.ToString();
+                    predefinedProperties[property] = "Property unavailable: " + e.Message;
                 }
             }
 
