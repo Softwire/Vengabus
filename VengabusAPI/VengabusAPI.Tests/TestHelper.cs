@@ -8,7 +8,7 @@ namespace VengabusAPI.Tests
     public static class TestHelper
     {
         //apparently, we don't want the connection string to be in the code
-        public const string sasString = "SharedAccessSignature sr=https%3A%2F%2Fvengabusdemo.servicebus.windows.net%2F&sig=0WLoh4ydh0suJcL3s4yWAh6sS4lv4wKi1QyPfhfnJlA%3D&se=1533571811&skn=RootManageSharedAccessKey";
+        public const string sasString = "SharedAccessSignature sr=https%3A%2F%2Fvengabusdemo.servicebus.windows.net%2F&sig=oBsCCLX9QEEnjdCDQRDe2sn5tgWgkRP35VA5jNPOTGc%3D&se=1533575815&skn=RootManageSharedAccessKey";
 
         public const string ServiceBusURI = "sb://vengabusdemo.servicebus.windows.net/";
 

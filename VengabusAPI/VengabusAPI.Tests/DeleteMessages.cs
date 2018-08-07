@@ -25,7 +25,7 @@ namespace VengabusAPI.Tests
         {
             //arrange
             //prepare the messages to be deleted
-            TestHelper.SendMessagesToQueue(100);
+            TestHelper.SendMessagesToQueue(50);
 
             var messageCount = TestHelper.getMessageCountInQueue();
 
