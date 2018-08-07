@@ -60,6 +60,8 @@ export class MessageList extends Component {
                     colProps={colProps}
                     dataToDisplay={messageArray}
                     defaultHover
+                    keyColumn='messageId'
+                    tableRowStyle={tableRowStyle}
                     onRowClick={this.handleMessageClick}
                 />
 

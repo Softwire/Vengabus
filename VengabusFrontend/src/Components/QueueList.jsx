@@ -66,6 +66,8 @@ export class QueueList extends Component {
                 defaultHover
                 onRowClick={this.props.clickFunction}
                 selectRow={selectRow}
+                keyColumn='number'
+                tableRowStyle={tableRowStyle}
             />
         );
     }
