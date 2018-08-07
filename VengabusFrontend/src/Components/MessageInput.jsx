@@ -8,6 +8,7 @@ import {
     ControlLabel,
     Button
 } from "react-bootstrap";
+const classNames = require('classnames');
 
 /** 
  * @prop { Object } message Can take a message as a prop to replay message.
@@ -21,6 +22,7 @@ export class MessageInput extends Component {
     constructor(props) {
         super(props);
         const message = this.props.message;
+        this.arePredefinedPropsLoaded = false;
         this.state = {
             permittedValues: [],
             messageBody: message ? message.MessageBody : '',
@@ -33,12 +35,12 @@ export class MessageInput extends Component {
 
         this.serviceBusService = serviceBusConnection.getServiceBusService();
         this.serviceBusService.getWriteableMessageProperties().then((result) => {
+            this.arePredefinedPropsLoaded = true;
             this.setState({
                 permittedValues: result.data,
                 preDefinedProperties: message ? this.getPreDefinedProperties(message) : [] //[{name: something, value: something}]
             });
         });
-
         this.serviceBusService.getReadableMessageProperties().then((result) => {
             this.setState({
                 reservedPropertyNames: result.data
@@ -202,8 +204,16 @@ export class MessageInput extends Component {
             min-height: 350px;
             padding-left: 5px;
         `;
+        const buttonLoading = css`
+            opacity: 0.5;
+            :hover {
+                cursor: progress;
+            }
+        `;
+        let preDefinedPropsButtonClassNames = classNames(buttonStyle, this.arePredefinedPropsLoaded || buttonLoading);
+        const preDefinedPropertiesButtonText = this.arePredefinedPropsLoaded ? 'Add new Azure property' : 'Loading pre-defined properties...';
         return (
-            <div className={formStyle}>
+            <div className={formStyle} >
                 <div className={leftAlignContainerStyle}>
                     <p className={headingStyle}>Pre-defined Properties</p>
                 </div>
@@ -217,11 +227,10 @@ export class MessageInput extends Component {
                 <form>
                     <div className={leftAlignContainerStyle}>
                         <Button
-                            className={buttonStyle}
+                            className={preDefinedPropsButtonClassNames}
                             onClick={() => this.addNewProperty(false)}
-                            disabled={this.state.preDefinedProperties.length === this.state.permittedValues.length}
                         >
-                            Add new Azure property
+                            {preDefinedPropertiesButtonText}
                         </Button>
                     </div>
                 </form>

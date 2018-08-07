@@ -16,7 +16,6 @@ export class MessageBox extends Component {
         return (
             <div className="static-modal">
 
-
                 <Modal show={this.props.show && this.props.show} onHide={this.props.handleClose} >
                     <Modal.Header>
                         <Modal.Title>Message Id : {this.props.messageId}</Modal.Title>

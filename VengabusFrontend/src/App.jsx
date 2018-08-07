@@ -5,6 +5,7 @@ import { SideBar } from './Nav/SideBar';
 import { CurrentPage } from './Pages/CurrentPage';
 import { sharedSizesAndDimensions } from './Helpers/SharedSizesAndDimensions';
 import { css } from 'emotion';
+const classNames = require('classnames');
 
 class App extends Component {
     render() {
@@ -17,8 +18,9 @@ class App extends Component {
         const contentStyle = css`
             margin-left: ${sharedSizesAndDimensions.SIDEBARWIDTH};
         `;
+        const appClassNames = classNames('App', appStyle);
         return (
-            <div className={`App ${appStyle}`}>
+            <div className={appClassNames}>
                 {/* Include the Bootstrap CSS at the top of the page. */}
                 <BootstrapCssLinks />
                 <VengabusNavBar />
