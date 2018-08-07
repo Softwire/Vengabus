@@ -26,6 +26,7 @@ export class MessageInput extends Component {
             messageBody: message ? message.MessageBody : '',
             userDefinedProperties: message ? this.getUserDefinedProperties(message) : [], //[{name: something, value: something}]
             preDefinedProperties: [], //[{name: something, value: something}]
+            reservedPropertyNames: [], //a list of name of possible readable properties of a message
             selectedQueue: "demoqueue1"
             // QQ add way of choosing which queue/topic a message is sent to.
         };
@@ -35,6 +36,13 @@ export class MessageInput extends Component {
             this.setState({
                 permittedValues: result.data,
                 preDefinedProperties: message ? this.getPreDefinedProperties(message) : [] //[{name: something, value: something}]
+            });
+        });
+
+        this.serviceBusService.getReadableMessageProperties().then((result) => {
+            console.log(result.data);
+            this.setState({
+                reservedPropertyNames: result.data
             });
         });
 
@@ -227,6 +235,7 @@ export class MessageInput extends Component {
                     handlePropertyNameChange={(newName, index) => this.handleUserDefinedPropertyChange(index, 'name', newName)}
                     handlePropertyValueChange={(newValue, index) => this.handleUserDefinedPropertyChange(index, 'value', newValue)}
                     deleteRow={(index) => this.deleteRow(index, true)}
+                    reservedPropertyNames={this.state.reservedPropertyNames}
                 />
                 <form>
                     <div className={leftAlignContainerStyle}>
