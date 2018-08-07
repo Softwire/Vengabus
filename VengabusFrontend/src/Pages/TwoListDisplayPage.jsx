@@ -24,11 +24,11 @@ export class TwoListDisplayPage extends Component {
     }
 
     componentDidMount() {
-        serviceBusConnection.registerForUpdatesPrompts(this.loadQueueAndTopicData);
+        serviceBusConnection.registerForUpdatesPrompts(this.resetInitialStateData);
 
     }
     componentWillUnmount() {
-        serviceBusConnection.deregisterForUpdatesPrompts(this.loadQueueAndTopicData);
+        serviceBusConnection.deregisterForUpdatesPrompts(this.resetInitialStateData);
 
     }
 
@@ -259,7 +259,6 @@ export class TwoListDisplayPage extends Component {
                     {this.getBreadcrumbElement()}
                 </div>
                 <div className={outerDivDisplay}>
-                    <Button onClick={this.resetInitialStateData}>update</Button>
                     <div className={displayStyle}>
                         <h2>{typeToTitle(leftType)}</h2>
                         {leftBox}
