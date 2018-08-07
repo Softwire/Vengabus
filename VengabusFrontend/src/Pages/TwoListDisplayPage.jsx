@@ -8,6 +8,7 @@ import { Button } from 'react-bootstrap';
 import { SubscriptionList } from '../Components/SubscriptionList';
 import { EndpointTypes, typeToTitle } from '../Helpers/EndpointTypes';
 
+
 export class TwoListDisplayPage extends Component {
     constructor(props) {
         super(props);
@@ -23,6 +24,15 @@ export class TwoListDisplayPage extends Component {
                 currentlySelected: undefined
             }
         };
+    }
+
+    componentDidMount() {
+        serviceBusConnection.registerForUpdatesPrompts(this.loadQueueAndTopicData);
+
+    }
+    componentWillUnmount() {
+        serviceBusConnection.deregisterForUpdatesPrompts(this.loadQueueAndTopicData);
+
     }
 
     handleQueueRowClick = (e, row, rowIndex) => {
@@ -146,7 +156,7 @@ export class TwoListDisplayPage extends Component {
         });
     }
 
-    updateRetrievedData = () => {
+    loadQueueAndTopicData = () => {
         const display = {
             leftTable: EndpointTypes.QUEUE,
             rightTable: EndpointTypes.TOPIC,
@@ -212,7 +222,6 @@ export class TwoListDisplayPage extends Component {
 
         return (
             <div>
-                <Button onClick={this.updateRetrievedData}>update</Button>
                 <Button onClick={this.handleBackClick}>back</Button>
                 <div className={displayStyle}>
                     <h2>{typeToTitle(this.state.display.leftTable)}</h2>

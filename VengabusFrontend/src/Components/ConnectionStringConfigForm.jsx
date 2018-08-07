@@ -84,17 +84,19 @@ export class ConnectionStringConfigForm extends Component {
     submitConnectionStringClick = () => {
         
         const infoPromise = serviceBusConnection.getServiceBusService().getServiceBusProperties();
-
+        serviceBusConnection.promptUpdate();
+        
         infoPromise
             .then(response => {
                 this.setState({
                     info: response
                 });
-
+                
             })
             .catch(error => {
                 console.log(error);
             });
+        
     };
 
     render() {
