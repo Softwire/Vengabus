@@ -40,7 +40,6 @@ export class MessageInput extends Component {
         });
 
         this.serviceBusService.getReadableMessageProperties().then((result) => {
-            console.log(result.data);
             this.setState({
                 reservedPropertyNames: result.data
             });

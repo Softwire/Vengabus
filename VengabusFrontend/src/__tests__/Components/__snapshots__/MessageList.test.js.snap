@@ -44,11 +44,13 @@ exports[`MessageList renders correctly with given props 1`] = `
         <tr
           className="emotion-0"
           onClick={[Function]}
-          style={Object {}}
+          style={
+            Object {
+              "backgroundColor": "#99ccff",
+            }
+          }
         >
-          <td>
-            10
-          </td>
+          <td />
           <td
             onClick={[Function]}
           >
@@ -58,11 +60,13 @@ exports[`MessageList renders correctly with given props 1`] = `
         <tr
           className="emotion-0"
           onClick={[Function]}
-          style={Object {}}
+          style={
+            Object {
+              "backgroundColor": "#99ccff",
+            }
+          }
         >
-          <td>
-            11
-          </td>
+          <td />
           <td
             onClick={[Function]}
           >

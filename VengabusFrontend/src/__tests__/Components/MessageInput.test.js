@@ -12,7 +12,14 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
         constructor() {
 
         }
-        getPermittedMessageProperties = () => {
+
+        getWriteableMessageProperties = () => {
+            return new Promise(function (resolve, reject) {
+                resolve(['MessageId', 'ContentType']);
+            });
+        }
+
+        getReadableMessageProperties = () => {
             return new Promise(function (resolve, reject) {
                 resolve(['MessageId', 'ContentType']);
             });
@@ -52,13 +59,15 @@ it('renders correctly', () => {
 
 it('renders correctly from a predefined message', () => {
     const message = {
-        MessageProperties: {
+        customProperties: {
             userDefinedProp1: 'value1',
             userDefinedProp2: 'value2'
         },
-        MessageBody: 'Hello world!',
-        MessageId: 'Message1',
-        ContentType: 'null'
+        predefinedProperties: {
+            MessageId: 'Message1',
+            ContentType: 'null'
+        },
+        MessageBody: 'Hello world!'
     };
     let messagePropertyInput = renderer.create(
         <MessageInput message={message} />);
