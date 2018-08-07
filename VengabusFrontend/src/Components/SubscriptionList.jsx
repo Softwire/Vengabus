@@ -8,7 +8,7 @@ export class SubscriptionList extends Component {
 
     render() {
 
-        let subscriptionArray = this.props.subscriptionData;
+        let subscriptionArray = undefined;
         if (this.props.subscriptionData) {
             subscriptionArray = [...this.props.subscriptionData];
 

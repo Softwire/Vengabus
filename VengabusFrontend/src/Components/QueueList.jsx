@@ -7,7 +7,7 @@ import moment from 'moment';
 export class QueueList extends Component {
 
     render() {
-        let queueArray = this.props.queueData;
+        let queueArray = undefined;
         if (this.props.queueData) {
             queueArray = [...this.props.queueData];
 

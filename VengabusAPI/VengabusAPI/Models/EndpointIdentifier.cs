@@ -1,4 +1,5 @@
 ﻿using Microsoft.ServiceBus.Messaging;
+using System;
 using VengabusAPI.Controllers;
 //docs: https://docs.microsoft.com/en-us/dotnet/api/microsoft.servicebus.messaging.queuedescription?view=azure-dotnet
 namespace VengabusAPI.Models
@@ -30,5 +31,18 @@ namespace VengabusAPI.Models
         public string Name { get; set; }
         public EndpointType Type { get; set; }
         public string ParentTopic { get; set; }
+        public EndpointIdentifier GetDeadLetterEndpoint()
+        {
+            switch (Type) {
+                case (EndpointType.Queue):
+                    return new EndpointIdentifier(Type, Name + "/$DeadLetterQueue");
+                case (EndpointType.Subscription):
+                    return new EndpointIdentifier(EndpointType.Subscription, Name+"/$DeadLetterQueue", ParentTopic);
+                default:
+                    throw new Exception("Topics do not have a dead letter");
+            }
+         
+        }
+
     }
 }

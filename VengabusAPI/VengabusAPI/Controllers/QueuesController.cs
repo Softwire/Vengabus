@@ -18,7 +18,7 @@ namespace VengabusAPI.Controllers
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
-            return namespaceManager.GetQueues().Select(q => new VengaQueue(q, getTimeStampOfMostRecentDeadletter(q.Path)));
+            return namespaceManager.GetQueues().Select(q => new VengaQueue(q, GetTimeStampOfMostRecentDeadletter(q.Path)));
         }
 
         [HttpGet]
@@ -28,19 +28,21 @@ namespace VengabusAPI.Controllers
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
 
-            return new VengaQueue(namespaceManager.GetQueue(queueName),getTimeStampOfMostRecentDeadletter(queueName));
+            return new VengaQueue(namespaceManager.GetQueue(queueName),GetTimeStampOfMostRecentDeadletter(queueName));
         }
 
-        private DateTime? getTimeStampOfMostRecentDeadletter(string queueName) {
+        private DateTime? GetTimeStampOfMostRecentDeadletter(string queueName)
+        {
             MessagingFactory factory = CreateEndpointFactory();
-            var endpoint = EndpointIdentifier.ForQueue(queueName + "/$DeadLetterQueue");
+            var endpoint = EndpointIdentifier.ForQueue(queueName).GetDeadLetterEndpoint();
             var deadLetterList = MessageServices.GetMessagesFromEndpoint(endpoint, factory);
             var mostRecent = deadLetterList.OrderByDescending(x => x.EnqueuedTimeUtc).FirstOrDefault();
             if (mostRecent != null)
             {
                 return mostRecent.EnqueuedTimeUtc;
             }
-            else {
+            else
+            {
                 return null;
             }
         }

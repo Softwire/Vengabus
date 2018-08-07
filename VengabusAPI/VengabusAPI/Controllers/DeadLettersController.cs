@@ -12,16 +12,12 @@ namespace VengabusAPI.Controllers
 {
     public class DeadLettersController : VengabusController
     {
-        private string GetDeadLetterQueueName(string endpointName)
-        {
-            return endpointName + "/$DeadLetterQueue";
-        }
-
+     
         [HttpGet]
         [Route("queues/{queueName}/deadletters")]
         public IEnumerable<VengaMessage> ListDeadLetterMessagesInQueue(string queueName)
         {
-            var endpoint = EndpointIdentifier.ForQueue(GetDeadLetterQueueName(queueName));
+            var endpoint = EndpointIdentifier.ForQueue(queueName).GetDeadLetterEndpoint(); 
             return GetMessageFromEndpoint(endpoint);
         }
 
@@ -29,7 +25,7 @@ namespace VengabusAPI.Controllers
         [Route("subscriptions/{topicName}/{subscriptionName}/deadletters")]
         public IEnumerable<VengaMessage> ListDeadLetterMessagesInSubscription(string topicName, string subscriptionName)
         {
-            var endpoint = EndpointIdentifier.ForSubscription(topicName, GetDeadLetterQueueName(subscriptionName));
+            var endpoint = EndpointIdentifier.ForSubscription(topicName, subscriptionName).GetDeadLetterEndpoint();
             return GetMessageFromEndpoint(endpoint);
         }
 
