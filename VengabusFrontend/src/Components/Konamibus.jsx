@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import KonamiCode from 'konami-code-js';
 import { css } from 'react-emotion';
-import bus from './vengabus.png'; //From https://pixabay.com/en/graphic-bus-school-school-bus-3345449/
+import bus from './vengabus.png'; //Released for free under the Creative Commons CC0 1.0 Universal (CC0 1.0) Public Domain Dedication license from https://pixabay.com/en/graphic-bus-school-school-bus-3345449/
 
 export class Konamibus extends Component {
     constructor() {
