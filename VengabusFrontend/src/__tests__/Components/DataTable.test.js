@@ -31,26 +31,15 @@ describe('DataTable', () => {
     }
 
     function getColProps() {
-        return [
-            {
-                dataField: "number",
-                text: "Number"
-            },
-            {
-                dataField: "name",
-                text: "Name"
-            }
-        ];
+        return [{ dataField: "number", text: 'Number' }, { dataField: "name", text: 'Name' }];
     }
 
     it('renders without an error if only the required props are specified', () => {
-        let colProps = getColProps();
-        colProps[0].text = undefined;
-        colProps[1].text = undefined;
-        let dataTable = renderer.create(
+        renderer.create(
             <DataTable
                 colProps={colProps}
                 dataToDisplay={getDataToDisplay()}
+                keyColumn='number'
             />);
     });
 
@@ -59,6 +48,7 @@ describe('DataTable', () => {
             <DataTable
                 colProps={getColProps()}
                 dataToDisplay={[]}
+                keyColumn='number'
             />);
         expect(dataTable.toJSON()).toMatchSnapshot();
     });
@@ -74,6 +64,8 @@ describe('DataTable', () => {
                 colProps={getColProps()}
                 dataToDisplay={getDataToDisplay()}
                 selectRow={selectRow}
+                keyColumn='number'
+                name='changeData'
             />);
         expect(dataTable.toJSON()).toMatchSnapshot();
     });
@@ -109,6 +101,7 @@ describe('DataTable', () => {
                 dataToDisplay={getDataToDisplay()}
                 rowEvents={{ onClick: spy }}
                 rowClasses='row'
+                keyColumn='number'
             />);
         let row = wrapper.find('.row').first();
         row.simulate('click');
@@ -123,6 +116,7 @@ describe('DataTable', () => {
                 dataToDisplay={getDataToDisplay()}
                 onRowClick={spy}
                 rowClasses='row'
+                keyColumn='number'
             />);
         let row = wrapper.find('.row').first();
         row.simulate('click');
@@ -138,6 +132,7 @@ describe('DataTable', () => {
                 onRowClick={spy}
                 rowEvents={{ onMouseEnter: function () { return; } }}
                 rowClasses='row'
+                keyColumn='number'
             />);
         let row = wrapper.find('.row').first();
         row.simulate('click');
@@ -153,6 +148,7 @@ describe('DataTable', () => {
                 onRowClick={function () { return; }}
                 rowEvents={{ onMouseEnter: spy }}
                 rowClasses='row'
+                keyColumn='number'
             />);
         let row = wrapper.find('.row').first();
         row.simulate('mouseEnter');
@@ -167,6 +163,7 @@ describe('DataTable', () => {
                 dataToDisplay={getDataToDisplay()}
                 rowClasses='row'
                 selectRow={{ onSelect: spy }}
+                keyColumn='number'
             />);
         let row = wrapper.find('.row').first();
         row.simulate('click');
@@ -182,6 +179,7 @@ describe('DataTable', () => {
                     rowEvents={{ onClick: function () { return; } }}
                     onRowClick={function () { return; }}
                     name='test'
+                    keyColumn='number'
                 />);
         }
         expect(getDataTable).toThrow(new Error('the onClick event for rows is defined multiple times in test'));
@@ -193,6 +191,7 @@ describe('DataTable', () => {
                 <DataTable
                     dataToDisplay={getDataToDisplay()}
                     name='test'
+                    keyColumn='number'
                 />);
         }
         expect(getDataTable).toThrow(new Error('column property object is not defined in test'));
@@ -206,6 +205,7 @@ describe('DataTable', () => {
                     dataToDisplay={getDataToDisplay()}
                     selectRow={{ bgColor: 'green', classes: 'selectrow' }}
                     name='test'
+                    keyColumn='number'
                 />);
         }
         expect(getDataTable).toThrow(new Error('background color of selected row may be multiply defined in test'));
@@ -216,6 +216,7 @@ describe('DataTable', () => {
                     dataToDisplay={getDataToDisplay()}
                     selectRow={{ bgColor: 'green', style: {} }}
                     name='test'
+                    keyColumn='number'
                 />);
         }
         expect(getDataTable2).toThrow(new Error('background color of selected row may be multiply defined in test'));
@@ -266,12 +267,35 @@ describe('DataTable', () => {
     });
 
     it('throws a descriptive error if colProps is missing', () => {
+    it('throws a descriptive error if no or invalid key column', () => {
+        function getDataTable() {
+            return mount(
+                <DataTable
+                    dataToDisplay={getDataToDisplay()}
+                    colProps={getColProps()}
+                    name='test'
+                />);
+        }
+        expect(getDataTable).toThrow(new Error('need a valid keyColumn in test'));
+        function getDataTable2() {
+            return mount(
+                <DataTable
+                    dataToDisplay={getDataToDisplay()}
+                    colProps={getColProps()}
+                    keyColumn='invalid'
+                    name='test'
+                />);
+        }
+        expect(getDataTable2).toThrow(new Error('need a valid keyColumn in test'));
+    });
+
+    it('throws a descriptive error if key column is not unique', () => {
         function getDataTable() {
             return mount(
                 <DataTable
                     dataToDisplay={[...getDataToDisplay(), { number: 4, name: 'q1' }]}
                     colProps={getColProps()}
-                    keyColumn={1}
+                    keyColumn='name'
                     name='test'
                 />);
         }
