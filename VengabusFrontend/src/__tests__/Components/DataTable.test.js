@@ -212,10 +212,9 @@ describe('DataTable', () => {
         expect(getDataTable2).toThrow(new Error('background color of selected row may be multiply defined in test'));
     });
 
-    it('throws a descriptive error if overall defined width is too small or big', () => {
+    it('throws a descriptive error if missing a width definition', () => {
         let colProps = getColProps();
         colProps[0].width = 90;
-        colProps[1].width = 7;
         function getDataTable() {
             return mount(
                 <DataTable
@@ -224,11 +223,14 @@ describe('DataTable', () => {
                     name='test'
                 />);
         }
-        expect(getDataTable).toThrow(new Error('overall width of columns is outside of permitted range in test'));
-        colProps = getColProps();
-        colProps[0].width = 100;
-        colProps[1].width = 3;
-        function getDataTable2() {
+        expect(getDataTable).toThrow(new Error('missing column width definition in test:name'));
+    });
+
+    it('throws a descriptive error if overall defined width is not 100%', () => {
+        let colProps = getColProps();
+        colProps[0].width = 90;
+        colProps[1].width = 9;
+        function getDataTable() {
             return mount(
                 <DataTable
                     dataToDisplay={getDataToDisplay()}
@@ -236,12 +238,12 @@ describe('DataTable', () => {
                     name='test'
                 />);
         }
-        expect(getDataTable2).toThrow(new Error('overall width of columns is outside of permitted range in test'));
+        expect(getDataTable).toThrow(new Error('overall width of columns is not 100% in test'));
     });
 
     it('throws a descriptive error if width is defined in the header style', () => {
         let colProps = getColProps();
-        colProps[0].headerStyle = { width: '50%' };
+        //colProps[0].headerStyle = { width: '50%' };
         colProps[1].headerStyle = { width: '50%' };
 
         function getDataTable() {
@@ -252,7 +254,7 @@ describe('DataTable', () => {
                     name='test'
                 />);
         }
-        expect(getDataTable).toThrow(new Error('width of column should not be specified in the style (in test)'));
+        expect(getDataTable).toThrow(new Error('width of column should not be specified in the style (in test:name)'));
     });
 
 });

@@ -60,13 +60,13 @@ https://react-bootstrap-table.github.io/react-bootstrap-table2/
 */
 export class DataTable extends Component {
 
-    doesPropertyExistAnywhereInArray(array, ...properties) {
+    propertyFirstLocationInArray(array, ...properties) {
         for (let i = 0; i < array.length; i++) {
             let property = { ...array[i] };
             for (let j = 0; j < properties.length; j++) {
                 property = property[properties[j]];
             }
-            if (property) { return true; }
+            if (property) { return i; }
         }
         return false;
     }
@@ -99,18 +99,27 @@ export class DataTable extends Component {
             for (let i = 0; i < colProps.length; i++) {
                 if (!colProps[i].headerStyle) { colProps[i].headerStyle = {}; }
             }
-            if (this.doesPropertyExistAnywhereInArray(colProps, 'headerStyle', 'width')) {
-                throw new Error('width of column should not be specified in the style (in ' + name + ')');
+            const headerStyleWidthLocation = this.propertyFirstLocationInArray(colProps, 'headerStyle', 'width');
+            if (headerStyleWidthLocation !== false) {
+                const errorDataField = colProps[headerStyleWidthLocation].dataField;
+                throw new Error(`width of column should not be specified in the style (in ${name}:${errorDataField})`);
             }
-            if (colProps[0].width) {
+            const widthShouldExist = typeof colProps[0].width !== 'undefined';
+            for (let i = 1; i < colProps.length; i++) {
+                if ((typeof colProps[i].width !== 'undefined') !== widthShouldExist) {
+                    const errorDataField = colProps[i].dataField;
+                    throw new Error(`missing column width definition in ${name}:${errorDataField}`);
+                }
+            }
+            if (widthShouldExist) {
                 let totalWidth = 0;
                 for (let i = 0; i < colProps.length; i++) {
                     totalWidth += colProps[i].width;
                     colProps[i].headerStyle.width = colProps[i].width.toString() + '%';
-                    colProps[i].width = undefined;
+                    delete colProps[i].width;
                 }
-                if (totalWidth < 98 || totalWidth > 102) {
-                    throw new Error('overall width of columns is outside of permitted range in ' + name);
+                if (totalWidth !== 100) {
+                    throw new Error('overall width of columns is not 100% in ' + name);
                 }
             }
 
@@ -130,6 +139,7 @@ export class DataTable extends Component {
                 if ((selectRow.style || selectRow.classes) && selectRow.bgColor) {
                     throw new Error('background color of selected row may be multiply defined in ' + name);
                 }
+                selectRow.selected = selectRow.selected ? [selectRow.selected] : undefined;
                 selectRow.mode = 'radio';
                 selectRow.hideSelectColumn = true;
                 selectRow.clickToSelect = true;
