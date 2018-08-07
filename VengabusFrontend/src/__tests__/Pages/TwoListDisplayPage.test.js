@@ -61,16 +61,16 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
             return Promise.resolve({
                 data: [
                     {
-                        messageId: "test1",
+                        predefinedProperties: { messageId: "test1" },
                         messageBody: "apple"
 
                     },
                     {
-                        messageId: "test2",
+                        predefinedProperties: { messageId: "test2" },
                         messageBody: "banna"
                     },
                     {
-                        messageId: "test3",
+                        predefinedProperties: { messageId: "test3" },
                         messageBody: "carrot"
                     }
                 ]
@@ -104,16 +104,16 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
             return Promise.resolve({
                 data: [
                     {
-                        messageId: "test1",
+                        predefinedProperties: { messageId: "test1" },
                         messageBody: "apple"
 
                     },
                     {
-                        messageId: "test2",
+                        predefinedProperties: { messageId: "test2" },
                         messageBody: "banna"
                     },
                     {
-                        messageId: "test3",
+                        predefinedProperties: { messageId: "test3" },
                         messageBody: "carrot"
                     }
                 ]
@@ -142,8 +142,7 @@ it('renders queues and topic titles', () => {
 it('queues and topics populate when clicked', () => {
     let wrapper = mount(<TwoListDisplayPage />);
 
-    const button = wrapper.find('#Update').at(0);
-    button.simulate("click");
+    wrapper.instance().loadQueueAndTopicData();
 
     return testHelper.afterReactHasUpdated().then(() => {
         wrapper.update();
@@ -159,8 +158,9 @@ it('queues and topics populate when clicked', () => {
 //clicks a queue item and checks second box is a message box with messages
 it('clicking Queue work', () => {
     let wrapper = mount(<TwoListDisplayPage />);
-    const button = wrapper.find('#Update').at(0);
-    button.simulate("click");
+   
+    wrapper.instance().loadQueueAndTopicData();
+
     const queue = wrapper.find('#QueueTable');
 
     queue.props().clickFunction('e', { name: "test1" });
@@ -178,8 +178,9 @@ it('clicking Queue work', () => {
 //clicks a topic item and checks second box is a subsction box with subsciptions
 it('clicking subscriptions work', () => {
     let wrapper = mount(<TwoListDisplayPage />);
-    const button = wrapper.find('#Update').at(0);
-    button.simulate("click");
+
+    wrapper.instance().loadQueueAndTopicData();
+
     const topic = wrapper.find('#TopicTable');
     topic.props().clickFunction('e', { name: "test1" });
     return testHelper.afterReactHasUpdated().then(() => {
@@ -195,8 +196,10 @@ it('clicking subscriptions work', () => {
 //clicks a topic item and then a subscription checks a box of messages is revcived
 it('clicking subs work', () => {
     let wrapper = mount(<TwoListDisplayPage />);
-    const button = wrapper.find('#Update').at(0);
-    button.simulate("click");
+   
+    wrapper.instance().loadQueueAndTopicData();
+
+
     const topic = wrapper.find('#TopicTable');
     topic.props().clickFunction('e', { name: "test1" });
     return testHelper.afterReactHasUpdated().then(() => {

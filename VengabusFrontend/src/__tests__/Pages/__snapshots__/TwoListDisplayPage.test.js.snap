@@ -11,15 +11,6 @@ exports[`renders correctly before data is added 1`] = `
   <button
     className="btn btn-default"
     disabled={false}
-    id="Update"
-    onClick={[Function]}
-    type="button"
-  >
-    update
-  </button>
-  <button
-    className="btn btn-default"
-    disabled={false}
     onClick={[Function]}
     type="button"
   >
