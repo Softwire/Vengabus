@@ -22,7 +22,7 @@ Props:
                         )
                     }
     tableRowStyle: (OPTIONAL) className for the rows
-    keyColumn: (OPTIONAL) Index of the column to be used as a key (defaults to 0). If specified but not unique then an error will be thrown. If not specified and default is not unique or -1 then a hidden key column willbe added.
+    keyColumn: (REQUIRED) {string} dataField property of the column to be used as the key. If not unique then an error will be thrown.
     rowEvents: (OPTIONAL) Object which contains functions that are called on certain events of the row. For example:
                 RowEvents = {
                     onClick: (row, rowIndex, e) => {
@@ -61,24 +61,7 @@ https://react-bootstrap-table.github.io/react-bootstrap-table2/
 */
 export class DataTable extends Component {
 
-    addHiddenKeyColumn() {
-        let dataToDisplay = [];
-        for (let i = 0; i < this.props.dataToDisplay.length; i++) {
-            dataToDisplay.push({ ...(this.props.dataToDisplay[i]), key: i });
-        }
-        const colProps = [
-            {
-                dataField: 'key',
-                text: 'key',
-                hidden: true
-            },
-            ...(this.props.colProps)
-        ];
-
-        return [dataToDisplay, colProps];
-    }
-
-    isColumnUnique(index) {
+    isColumnUnique = (index) => {
         const dataField = this.props.colProps[index].dataField;
         const colData = [...this.props.dataToDisplay].map((object) => object[dataField]);
         return (new Set(colData).size === colData.length);
@@ -100,16 +83,31 @@ export class DataTable extends Component {
         return text;
     }
 
+    findColumnIndexFromDataField = (dataField) => {
+        const colProps = this.props.colProps;
+        for (let i = 0; i < colProps.length; i++) {
+            if (colProps[i].dataField === dataField) { return i; }
+        }
+        return undefined;
+    }
+
     render() {
         let { colProps, dataToDisplay, rowEvents, name, onRowClick, selectRow, defaultHover, rowClasses, keyColumn, ...otherProps } = this.props;
         if (typeof rowEvents === 'undefined') { rowEvents = {}; }
         let finalRowEvents = undefined;
 
         if (dataToDisplay) {
-            let shouldAddKeyColumn = keyColumn === -1;
 
             if (!colProps) {
                 throw new Error('column property object is not defined in ' + name);
+            }
+            
+            keyColumn = this.findColumnIndexFromDataField(keyColumn);
+            if (typeof keyColumn === 'undefined') {
+                throw new Error('need a valid keyColumn in ' + name);
+            }
+            if (!this.isColumnUnique(keyColumn)) {
+                throw new Error('key column specified in ' + name + ' is not unique');
             }
             for (let i = 0; i < colProps.length; i++) {
                 if (!colProps[i].headerStyle) { colProps[i].headerStyle = {}; }
@@ -156,26 +154,11 @@ export class DataTable extends Component {
                 selectRow.mode = 'radio';
                 selectRow.hideSelectColumn = true;
                 selectRow.clickToSelect = true;
-                if (typeof selectRow.selected !== 'undefined' && typeof selectRow.selected === 'number') {
-                    selectRow.selected = selectRow.selected.toString();
-                    shouldAddKeyColumn = true;
+                if (typeof selectRow.selected === 'number') {
+                    const keyDataField = colProps[keyColumn].dataField;
+                    selectRow.selected = dataToDisplay[selectRow.selected][keyDataField];
                 }
-            }
-
-            if (!shouldAddKeyColumn) {
-                const isUnique = this.isColumnUnique(keyColumn ? keyColumn : 0);
-                if (!isUnique) {
-                    if (typeof keyColumn !== 'undefined') {
-                        throw new Error('key column specified in ' + name + ' is not unique');
-                    }
-                    shouldAddKeyColumn = true;
-                } else {
-                    if (typeof keyColumn === 'undefined') { keyColumn = 0; }
-                }
-            }
-            if (shouldAddKeyColumn) {
-                keyColumn = 0;
-                [dataToDisplay, colProps] = this.addHiddenKeyColumn();
+                selectRow.selected = selectRow.selected ? [selectRow.selected] : undefined;
             }
 
             if (defaultHover) {
