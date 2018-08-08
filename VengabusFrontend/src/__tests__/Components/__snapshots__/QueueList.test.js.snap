@@ -21,7 +21,7 @@ exports[`QueueList renders correctly with given props 1`] = `
           style={
             Object {
               "textAlign": "center",
-              "width": "30%",
+              "width": "25%",
             }
           }
         >
@@ -31,7 +31,7 @@ exports[`QueueList renders correctly with given props 1`] = `
           style={
             Object {
               "textAlign": "center",
-              "width": "30%",
+              "width": "25%",
             }
           }
         >
@@ -41,11 +41,21 @@ exports[`QueueList renders correctly with given props 1`] = `
           style={
             Object {
               "textAlign": "center",
-              "width": "30%",
+              "width": "25%",
             }
           }
         >
           dead Message Count
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": "25%",
+            }
+          }
+        >
+          most Recent Deadletter
         </th>
       </tr>
     </thead>
@@ -58,6 +68,9 @@ exports[`QueueList renders correctly with given props 1`] = `
         <td>
           q1
         </td>
+        <td
+          onClick={[Function]}
+        />
         <td
           onClick={[Function]}
         />
@@ -79,6 +92,9 @@ exports[`QueueList renders correctly with given props 1`] = `
         <td
           onClick={[Function]}
         />
+        <td
+          onClick={[Function]}
+        />
       </tr>
       <tr
         className="emotion-0"
@@ -88,6 +104,9 @@ exports[`QueueList renders correctly with given props 1`] = `
         <td>
           q3
         </td>
+        <td
+          onClick={[Function]}
+        />
         <td
           onClick={[Function]}
         />
