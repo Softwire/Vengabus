@@ -294,4 +294,20 @@ describe('DataTable', () => {
         expect(getDataTable).toThrow(new Error('key column specified in test is not unique'));
     });
 
+    it('throws a descriptive error if all columns are hidden', () => {
+        function getDataTable() {
+            let colProps = getColProps();
+            colProps[0].hidden = true;
+            colProps[1].hidden = true;
+            return mount(
+                <DataTable
+                    dataToDisplay={[...getDataToDisplay()]}
+                    colProps={colProps}
+                    keyColumn='name'
+                    name='test'
+                />);
+        }
+        expect(getDataTable).toThrow(new Error('cannot use table with only hidden columns (in test)'));
+    });
+
 });
