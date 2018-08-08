@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Alert } from 'react-bootstrap';
 import { PAGES, pageSwitcher } from './PageSwitcherService';
-import { HomePage } from './HomePage';
 import { DemoPage } from './DemoPage';
-import { TwoListDisplayPage } from './TwoListDisplayPage';
+import { HomePage } from './HomePage';
 import { SendMessagePage } from './SendMessagePage';
 
 export class CurrentPage extends Component {
@@ -46,10 +45,6 @@ export class CurrentPage extends Component {
             case PAGES.DemoPage:
                 returnValue = <DemoPage />;
                 break;
-            case PAGES.QueueDispayPage:
-                returnValue = <TwoListDisplayPage />;
-                break;
-
             case PAGES.SendMessagePage:
                 const messageTemplate = this.state.data ? this.state.data.message : undefined;
                 const recipientIsQueue = this.state.data ? this.state.data.recipientIsQueue : undefined;
