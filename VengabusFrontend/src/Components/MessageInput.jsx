@@ -255,7 +255,7 @@ export class MessageInput extends Component {
             width: calc(100% - 10px); /* 10px total margin */
             float: left;
         `;
-        const queueOrTopicSelectionButtonStyle = css`
+        const queueOrTopicSelectionRadioStyle = css`
             float: left;
             width: 2%;
             position:relative;
@@ -309,7 +309,7 @@ export class MessageInput extends Component {
                         onClick={() => this.handleRecipientTypeChange(true)}
                     >
                         <input
-                            className={queueOrTopicSelectionButtonStyle}
+                            className={queueOrTopicSelectionRadioStyle}
                             type="radio"
                             value="queue"
                             checked={this.state.recipientIsQueue}
@@ -323,7 +323,7 @@ export class MessageInput extends Component {
                         isDisabled={!this.state.recipientIsQueue}
                         className={queueOrTopicSelectionDropdownStyle}
                         title="Queue"
-                        id={`queue-dropdown`}
+                        id={"queue-dropdown"}
                         options={this.state.availableQueues}
                         value={this.state.selectedQueue ? { value: this.state.selectedQueue, label: this.state.selectedQueue } : undefined}
                         onChange={(event) => this.handleQueueOrTopicChange(event.value)}
@@ -334,7 +334,7 @@ export class MessageInput extends Component {
                         onClick={() => this.handleRecipientTypeChange(false)}
                     >
                         <input
-                            className={queueOrTopicSelectionButtonStyle}
+                            className={queueOrTopicSelectionRadioStyle}
                             type="radio"
                             value="topic"
                             checked={!this.state.recipientIsQueue}
@@ -348,17 +348,13 @@ export class MessageInput extends Component {
                         isDisabled={this.state.recipientIsQueue}
                         className={queueOrTopicSelectionDropdownStyle}
                         title="Topic"
-                        id={`topic-dropdown`}
+                        id={"topic-dropdown"}
                         options={this.state.availableTopics}
                         value={this.state.selectedTopic ? { value: this.state.selectedTopic, label: this.state.selectedTopic } : undefined}
                         onChange={(event) => this.handleQueueOrTopicChange(event.value)}
                     />
                 </div>
-                <br />
-                <br />
-                <br />
-                <br />
-                <hr />
+                <hr className={fullWidth} />
                 <div className={leftAlignContainerStyle}>
                     <p className={headingStyle}>Pre-defined Properties</p>
                 </div>
