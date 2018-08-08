@@ -1,5 +1,4 @@
-import { mount, shallow, configure } from 'enzyme';
-import Adaptor from 'enzyme-adapter-react-16';
+import { mount, shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 import React from 'react';
 import { FormControl, Button } from "react-bootstrap";
@@ -49,6 +48,10 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
     }
 }));
 
+beforeEach(() => {
+    mockedFunction.mockReset();
+});
+
 //Snapshot tests must be first because the id of new react-select elements changes each time one is mounted
 it('renders correctly', () => {
     let messagePropertyInput = renderer.create(
@@ -89,8 +92,8 @@ it('Correctly creates the properties of a message', () => {
         undefined, //Selected queue not being tested in this test
         {
             "MessageBody": "body",
-            "ContentType": "any value 3",
-            "MessageProperties": { "test1": "any value 1", "test2": "any value 2" }
+            "customProperties": { "test1": "any value 1", "test2": "any value 2" },
+            "predefinedProperties": { "ContentType": "any value 3" }
         }
     );
 });
@@ -106,7 +109,8 @@ it('Sends the message to the correct queue', () => {
         "testQueue",
         {
             "MessageBody": "",
-            "MessageProperties": {}
+            "customProperties": {},
+            "predefinedProperties": {}
         }
     );
 });
@@ -122,7 +126,8 @@ it('Correctly filters empty property names', () => {
         undefined, //Selected queue not being tested in this test
         {
             "MessageBody": "",
-            "MessageProperties": { "test2": "any value 2" }
+            "customProperties": { "test2": "any value 2" },
+            "predefinedProperties": {}
         }
     );
 });
@@ -138,7 +143,8 @@ it('Correctly filters duplicate property names', () => {
         undefined, //Selected queue not being tested in this test
         {
             "MessageBody": "",
-            "MessageProperties": { "test1": "any value 1", "test2": "any value 2" }
+            "customProperties": { "test1": "any value 1", "test2": "any value 2" },
+            "predefinedProperties": {}
         }
     );
 });

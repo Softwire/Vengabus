@@ -189,26 +189,29 @@ export class MessageInput extends Component {
     }
 
     /**
-     * Converts the userDefinedProperties and preDefinedProperties arrays to a single message object
-     * in the format that is accepted by the API.
-     * @returns {object} The created message.
+     * Converts an array of properties to a properties object:
+     * [{name: name1, value: value1}] -> {name1: value1}
+     * @param {object[]} properties The array of properties to convert.
+     * @returns {object} The created properties object.
      */
-    createMessagePropertyDictionary() {
-        const propertiesToReturn = {};
-        const userDefinedProperties = this.state.userDefinedProperties;
-        for (let i = 0; i < this.state.userDefinedProperties.length; i++) {
-            const thisPropertyName = userDefinedProperties[i].name;
-            const thisPropertyValue = userDefinedProperties[i].value;
+    createMessagePropertyDictionary = (properties) => {
+        const ret = {};
+        for (let i = 0; i < properties.length; i++) {
+            const thisPropertyName = properties[i].name;
+            const thisPropertyValue = properties[i].value;
+            console.log(properties);
             //Prevent the user from inputting invalid property names.
             //Cannot use isPropertyNameInvalid here because if there are two properties with the same name it will mark
             //both of them as invalid whereas we just want to remove one of them.
-            if (thisPropertyName && thisPropertyValue && !propertiesToReturn.hasOwnProperty(propertiesToReturn[i].name)) {
+            if (thisPropertyName && thisPropertyValue && !ret.hasOwnProperty(thisPropertyName)) {
                 if (thisPropertyName.length > 0) {
-                    propertiesToReturn[thisPropertyName] = thisPropertyValue;
+                    ret[thisPropertyName] = thisPropertyValue;
                 }
             }
         }
-        return propertiesToReturn;
+        console.log(properties);
+        console.log(ret);
+        return ret;
     }
 
     /**
