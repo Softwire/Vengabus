@@ -13,19 +13,19 @@ export class TopicList extends Component {
             {
                 dataField: 'name',
                 text: 'Topic Name',
-                width: 30,
+                width: 34,
                 headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'subscriptionCount',
                 text: 'number of subscriptions',
-                width: 30,
+                width: 33,
                 headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'topicStatus',
                 text: 'Status',
-                width: 30,
+                width: 33,
                 headerStyle: { textAlign: 'center' }
             }
         ];
@@ -41,6 +41,7 @@ export class TopicList extends Component {
             <DataTable
                 name='TopicList'
                 colProps={colProps}
+                keyColumn='name'
                 dataToDisplay={topics}
                 tableRowStyle={tableRowStyle}
                 onRowClick={this.props.clickFunction}

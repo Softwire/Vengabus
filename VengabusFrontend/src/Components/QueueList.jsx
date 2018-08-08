@@ -28,12 +28,6 @@ export class QueueList extends Component {
                 headerStyle: { textAlign: 'center' }
             },
             {
-                dataField: 'status',
-                text: 'Status',
-                width: 40,
-                headerStyle: { textAlign: 'center' }
-            },
-            {
                 dataField: 'activeMessageCount',
                 text: 'active Message Count',
                 width: 25,
@@ -66,8 +60,7 @@ export class QueueList extends Component {
                 defaultHover
                 onRowClick={this.props.clickFunction}
                 selectRow={selectRow}
-                keyColumn='number'
-                tableRowStyle={tableRowStyle}
+                keyColumn='name'
             />
         );
     }

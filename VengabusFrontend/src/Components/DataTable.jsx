@@ -9,7 +9,8 @@ Props:
     colProps: (REQUIRED) {array of objects} contains properties regarding specific columns
         dataField: (REQUIRED) {string} specifies the name of the property of DataToDisplay which is to be displayed in the column
         text: (OPTIONAL) {string} Text which is to be displayed in the header of the column. If undefined then the default is going to use dataField => Data Field.
-        headerStyle: (RECOMMENDED) {object} contains CSS styling for the header
+        width: (OPIONAL) {number} Width of the column. If defined in one column then must be defined in all columns (excluding hidden ones) and overall width has to add up to 100%.
+        headerStyle: (RECOMMENDED) {object} Contains CSS styling for the header. Width must be defined as above and not in here.
         hidden: (OPTIONAL) {Boolean} If true then the column will be hidden. Default is false.
         formatter: (OPTIONAL) {function} Can be used to render more complicated stuff within the cells, can change what to render based on current cell.
                     Takes arguments (cell, row, rowIndex) and should return a string or a JSX element to be rendered within the cell.
@@ -121,7 +122,7 @@ export class DataTable extends Component {
                 let totalWidth = 0;
                 for (let i = 0; i < colProps.length; i++) {
                     const width = colProps[i].width;
-                    if ((typeof width !== 'undefined') !== widthShouldExist) {
+                    if ((typeof width !== 'undefined') !== widthShouldExist && !colProps[i].hidden) {
                         const errorDataField = colProps[i].dataField;
                         throw new Error(`missing column width definition in ${name}:${errorDataField}`);
                     }

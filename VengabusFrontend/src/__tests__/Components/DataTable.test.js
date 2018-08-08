@@ -1,10 +1,8 @@
 import { DataTable } from "../../Components/DataTable";
 import renderer from 'react-test-renderer';
 import React from 'react';
-import Adaptor from 'enzyme-adapter-react-16';
-import { mount, configure } from 'enzyme';
+import { mount } from 'enzyme';
 import { css } from 'emotion';
-configure({ adapter: new Adaptor() });
 
 const rawConsoleError = console.error;
 function suppressSpecificDataTableErrors() {
@@ -37,7 +35,7 @@ describe('DataTable', () => {
     it('renders without an error if only the required props are specified', () => {
         renderer.create(
             <DataTable
-                colProps={colProps}
+                colProps={getColProps()}
                 dataToDisplay={getDataToDisplay()}
                 keyColumn='number'
             />);
@@ -79,16 +77,8 @@ describe('DataTable', () => {
                 colProps={getColProps()}
                 dataToDisplay={getDataToDisplay()}
                 rowClasses={rowClasses}
+                keyColumn='name'
                 defaultHover
-            />);
-        expect(dataTable.toJSON()).toMatchSnapshot();
-    });
-
-    it('renders correctly if the default key column in not unique', () => {
-        let dataTable = renderer.create(
-            <DataTable
-                colProps={getColProps()}
-                dataToDisplay={[...getDataToDisplay(), { number: 1, name: 'q4' }]}
             />);
         expect(dataTable.toJSON()).toMatchSnapshot();
     });
@@ -230,6 +220,7 @@ describe('DataTable', () => {
                 <DataTable
                     dataToDisplay={getDataToDisplay()}
                     colProps={colProps}
+                    keyColumn='number'
                     name='test'
                 />);
         }
@@ -245,6 +236,7 @@ describe('DataTable', () => {
                 <DataTable
                     dataToDisplay={getDataToDisplay()}
                     colProps={colProps}
+                    keyColumn='number'
                     name='test'
                 />);
         }
@@ -260,13 +252,13 @@ describe('DataTable', () => {
                 <DataTable
                     dataToDisplay={getDataToDisplay()}
                     colProps={colProps}
+                    keyColumn='number'
                     name='test'
                 />);
         }
         expect(getDataTable).toThrow(new Error('width of column should not be specified in the style (in test:name)'));
     });
 
-    it('throws a descriptive error if colProps is missing', () => {
     it('throws a descriptive error if no or invalid key column', () => {
         function getDataTable() {
             return mount(
