@@ -193,17 +193,10 @@ export class MessageInput extends Component {
      * @param {string} newName The name of the queue or topic.
      */
     handleQueueOrTopicChange = (newName) => {
-        if (this.state.recipientIsQueue) {
-            this.setState({
-                selectedQueue: newName,
-                selectedTopic: undefined
-            });
-        } else {
-            this.setState({
-                selectedQueue: undefined,
-                selectedTopic: newName
-            });
-        }
+        this.setState({
+            selectedQueue: this.state.recipientIsQueue ? newName : undefined,
+            selectedTopic: this.state.recipientIsQueue ? undefined : newName
+        });
     }
 
     /**
