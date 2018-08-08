@@ -5,6 +5,7 @@ import { SideBar } from './Nav/SideBar';
 import { CurrentPage } from './Pages/CurrentPage';
 import { sharedSizesAndDimensions } from './Helpers/SharedSizesAndDimensions';
 import { css } from 'emotion';
+import { Konamibus } from './Components/Konamibus';
 const classNames = require('classnames');
 
 class App extends Component {
@@ -25,6 +26,7 @@ class App extends Component {
                 <BootstrapCssLinks />
                 <VengabusNavBar />
                 <div className={mainPageStyle}>
+                    <Konamibus />
                     <SideBar />
                     <div className={contentStyle}>
                         <CurrentPage />
