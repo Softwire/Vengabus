@@ -55,12 +55,12 @@ export class MessageInput extends Component {
         });
         this.serviceBusService.listQueues().then((result) => {
             this.setState({
-                availableQueues: _(result.data).map((queue) => { return { value: queue.name, label: queue.name }; })
+                availableQueues: this.convertArrayOfNamesToValueLabel(result.data)
             });
         });
         this.serviceBusService.listTopics().then((result) => {
             this.setState({
-                availableTopics: _(result.data).map((topic) => { return { value: topic.name, label: topic.name }; })
+                availableTopics: this.convertArrayOfNamesToValueLabel(result.data)
             });
         });
 
@@ -71,6 +71,27 @@ export class MessageInput extends Component {
         });
     }
 
+    /**
+     * Converts a string to an object of the form:
+     * `{value: "string", label: "string"}`
+     * Used to add values to select elements.
+     * @param {string} str The string to convert.
+     * @returns {object} The created object.
+     */
+    convertToValueLabel = (str) => {
+        return { value: str, label: str };
+    }
+    /**
+     * Converts an array of objects with a name property to an array of objects with a value and label property:
+     * `[{..., name: "example", ...}] -> [{value: "example", label: "example"}]`
+     * Used to add values to select elements.
+     * @param {object[]} arr The array of objects containing the names to use.
+     * @returns {object[]} The created object.
+     */
+    convertArrayOfNamesToValueLabel = (arr) => {
+        return _(arr.map((element) => this.convertToValueLabel(element.name)));
+    }
+
     getUserDefinedProperties = (message) => {
         return this.getTargetProperties(message, "customProperties");
     }
@@ -79,6 +100,13 @@ export class MessageInput extends Component {
         return this.getTargetProperties(message, "predefinedProperties");
     }
 
+    /**
+     * Gets the properties of a certain type from a message.
+     * @param {object} message The message to get the properties from.
+     * @param {string} propertyClass The class of properties to get,
+     * either `customProperties` or `predefinedProperties`.
+     * @returns {object[]} The list of properties.
+     */
     getTargetProperties = (message, propertyClass) => {
         const properties = [];
         const keys = Object.keys(message[propertyClass]);
