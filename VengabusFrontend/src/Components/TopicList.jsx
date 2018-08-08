@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { DataTable } from './DataTable';
-import { css } from 'react-emotion';
-import { paleGreyBlue, palerBlue } from '../colourScheme';
+import { palerBlue } from '../colourScheme';
 
 export class TopicList extends Component {
 
@@ -30,6 +29,11 @@ export class TopicList extends Component {
             }
         ];
 
+        let selectRow = {
+            bgColor: palerBlue,
+            selected: this.props.currentlySelectedName
+        };
+
         return (
             <DataTable
                 name='TopicList'
@@ -38,7 +42,7 @@ export class TopicList extends Component {
                 dataToDisplay={topics}
                 defaultHover
                 onRowClick={this.props.clickFunction}
-                rowSelect={this.props.currentlySelectedName}
+                selectRow={selectRow}
             />
         );
     }
