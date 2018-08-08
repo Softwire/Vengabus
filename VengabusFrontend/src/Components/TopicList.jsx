@@ -13,17 +13,20 @@ export class TopicList extends Component {
             {
                 dataField: 'name',
                 text: 'Topic Name',
-                headerStyle: { width: '30%', textAlign: 'center' }
+                width: 30,
+                headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'subscriptionCount',
                 text: 'number of subscriptions',
-                headerStyle: { width: '30%', textAlign: 'center' }
+                width: 30,
+                headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'topicStatus',
                 text: 'Status',
-                headerStyle: { width: '30%', textAlign: 'center' }
+                width: 30,
+                headerStyle: { textAlign: 'center' }
             }
         ];
 

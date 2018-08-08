@@ -32,21 +32,24 @@ export class QueueList extends Component {
                 text: 'Status',
                 width: 40,
                 headerStyle: { textAlign: 'center' }
-			},
-			{
+            },
+            {
                 dataField: 'activeMessageCount',
                 text: 'active Message Count',
-                headerStyle: { width: '25%', textAlign: 'center' }
+                width: 25,
+                headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'deadletterMessageCount',
                 text: 'dead Message Count',
-                headerStyle: { width: '25%', textAlign: 'center' }
+                width: 25,
+                headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'mostRecentDeadLetter',
                 text: 'most Recent Deadletter',
-                headerStyle: { width: '25%', textAlign: 'center' }
+                width: 25,
+                headerStyle: { textAlign: 'center' }
             }
         ];
 
