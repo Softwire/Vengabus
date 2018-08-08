@@ -142,7 +142,7 @@ it('renders queues and topic titles', () => {
 it('queues and topics populate when clicked', () => {
     let wrapper = mount(<TwoListDisplayPage />);
 
-    wrapper.instance().loadQueueAndTopicData();
+    wrapper.instance().resetInitialStateData();
 
     return testHelper.afterReactHasUpdated().then(() => {
         wrapper.update();
@@ -159,7 +159,8 @@ it('queues and topics populate when clicked', () => {
 it('clicking Queue work', () => {
     let wrapper = mount(<TwoListDisplayPage />);
    
-    wrapper.instance().loadQueueAndTopicData();
+  
+    wrapper.instance().resetInitialStateData();
 
     const queue = wrapper.find('#QueueTable');
 
@@ -179,7 +180,7 @@ it('clicking Queue work', () => {
 it('clicking subscriptions work', () => {
     let wrapper = mount(<TwoListDisplayPage />);
 
-    wrapper.instance().loadQueueAndTopicData();
+    wrapper.instance().resetInitialStateData();
 
     const topic = wrapper.find('#TopicTable');
     topic.props().clickFunction('e', { name: "test1" });
@@ -197,7 +198,7 @@ it('clicking subscriptions work', () => {
 it('clicking subs work', () => {
     let wrapper = mount(<TwoListDisplayPage />);
    
-    wrapper.instance().loadQueueAndTopicData();
+    wrapper.instance().resetInitialStateData();
 
 
     const topic = wrapper.find('#TopicTable');

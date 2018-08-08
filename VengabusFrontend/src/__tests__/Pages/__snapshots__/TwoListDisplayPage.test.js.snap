@@ -1,48 +1,80 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly before data is added 1`] = `
-.emotion-0 {
-  width: 35%;
-  margin: 10px;
+.emotion-2 {
+  width: 40%;
+  margin-left: 10px;
+  margin-right: 10px;
   display: inline-block;
 }
 
+.emotion-4 {
+  display: block;
+}
+
+.emotion-1 {
+  display: block;
+  height: 40px;
+  margin: 2px;
+}
+
+.emotion-0 {
+  float: left;
+  height: 2px;
+  margin: 2px;
+}
+
 <div>
-  <button
-    className="btn btn-default"
-    disabled={false}
-    onClick={[Function]}
-    type="button"
-  >
-    back
-  </button>
   <div
-    className="emotion-0"
+    className="emotion-1"
   >
-    <h2
-      id="leftTitle"
+    <ol
+      aria-label="breadcrumbs"
+      className="emotion-0 breadcrumb"
+      role="navigation"
     >
-      Queues
-    </h2>
-    <p
-      id="warning"
-    >
-      No data has been retrieved yet.
-    </p>
+      <li
+        className="active"
+      >
+        <span
+          onClick={[Function]}
+        >
+          Home
+        </span>
+      </li>
+    </ol>
   </div>
   <div
-    className="emotion-0"
+    className="emotion-4"
   >
-    <h2
-      id="rightTitle"
+    <div
+      className="emotion-2"
     >
-      Topics
-    </h2>
-    <p
-      id="warning"
+      <h2
+        id="leftTitle"
+      >
+        Queues
+      </h2>
+      <p
+        id="warning"
+      >
+        No data has been retrieved yet.
+      </p>
+    </div>
+    <div
+      className="emotion-2"
     >
-      No data has been retrieved yet.
-    </p>
+      <h2
+        id="rightTitle"
+      >
+        Topics
+      </h2>
+      <p
+        id="warning"
+      >
+        No data has been retrieved yet.
+      </p>
+    </div>
   </div>
 </div>
 `;
