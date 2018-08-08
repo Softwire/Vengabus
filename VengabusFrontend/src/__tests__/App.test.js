@@ -200,7 +200,7 @@ it('renders without crashing', () => {
     ReactDOM.unmountComponentAtNode(div);
 });
 
-it.only('passes smoke tests without crashing', () => {
+it('passes smoke tests without crashing', () => {
     let wrapper = mount(<App />);
 
     const connectButton = wrapper.find("#connectButton").last();
