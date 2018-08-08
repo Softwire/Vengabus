@@ -4,7 +4,6 @@ import React from 'react';
 import { TwoListDisplayPage } from "../../Pages/TwoListDisplayPage";
 import { testHelper } from '../../TestHelpers/TestHelper';
 
-//QQ DATA IS HERE 
 
 jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
     VengaServiceBusService: class {
@@ -12,8 +11,8 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
 
         }
         listTopics = () => {
-            return Promise.resolve({
-                data: [
+            return Promise.resolve(
+                [
                     {
                         name: "test1",
                         subscriptionCount: 12,
@@ -30,36 +29,35 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
                         topicStatus: "Active"
                     }
                 ]
-            });
+            );
         }
 
 
         listQueues = () => {
-            return Promise.resolve({
-                data: [
-                    {
-                        name: "test1",
-                        activeMessageCount: 12,
-                        deadletterMessageCount: 17
-                    },
-                    {
-                        name: "test2",
-                        activeMessageCount: 13,
-                        deadletterMessageCount: 15
-                    },
-                    {
-                        name: "test3",
-                        activeMessageCount: 13,
-                        deadletterMessageCount: 18
-                    }
-                ]
-            });
+            return Promise.resolve([
+                {
+                    name: "test1",
+                    activeMessageCount: 12,
+                    deadletterMessageCount: 17
+                },
+                {
+                    name: "test2",
+                    activeMessageCount: 13,
+                    deadletterMessageCount: 15
+                },
+                {
+                    name: "test3",
+                    activeMessageCount: 13,
+                    deadletterMessageCount: 18
+                }
+            ]
+            );
 
         }
 
         listQueueMessages = () => {
-            return Promise.resolve({
-                data: [
+            return Promise.resolve(
+                [
                     {
                         predefinedProperties: { messageId: "test1" },
                         messageBody: "apple"
@@ -74,35 +72,34 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
                         messageBody: "carrot"
                     }
                 ]
-            });
+            );
 
         }
         listSubscriptions = () => {
-            return Promise.resolve({
-                data: [
-                    {
-                        name: "test1",
-                        activeMessageCount: 12,
-                        deadletterMessageCount: 17
-                    },
-                    {
-                        name: "test2",
-                        activeMessageCount: 13,
-                        deadletterMessageCount: 15
-                    },
-                    {
-                        name: "test3",
-                        activeMessageCount: 13,
-                        deadletterMessageCount: 18
-                    }
-                ]
-            });
+            return Promise.resolve([
+                {
+                    name: "test1",
+                    activeMessageCount: 12,
+                    deadletterMessageCount: 17
+                },
+                {
+                    name: "test2",
+                    activeMessageCount: 13,
+                    deadletterMessageCount: 15
+                },
+                {
+                    name: "test3",
+                    activeMessageCount: 13,
+                    deadletterMessageCount: 18
+                }
+            ]
+            );
 
         }
 
         listSubscriptionMessages = () => {
-            return Promise.resolve({
-                data: [
+            return Promise.resolve(
+                [
                     {
                         predefinedProperties: { messageId: "test1" },
                         messageBody: "apple"
@@ -117,7 +114,7 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
                         messageBody: "carrot"
                     }
                 ]
-            });
+            );
         }
     }
 }));

@@ -14,13 +14,13 @@ exports[`renders correctly before data is added 1`] = `
 
 .emotion-1 {
   display: block;
-  height: 40px;
+  height: 35px;
   margin: 2px;
 }
 
 .emotion-0 {
   float: left;
-  height: 2px;
+  height: 35px;
   margin: 2px;
 }
 
