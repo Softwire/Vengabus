@@ -5,6 +5,39 @@ import formatJSon from 'prettyprint';
 const formatXML = require("xml-formatter");
 const classNames = require('classnames');
 
+function removeWhitespaceFormattingFromXML(originalData) {
+    //remove any white space at the start of a line, as they will be added later in xml formatting.
+    let noInitialWhitespace = originalData.replace(/^ */gm, "");
+
+    //if original text is already formatted, there will be newlines between tags. Remove them as they will be added later.
+    let noNewLinesAfterXMLTags = noInitialWhitespace.replace(/>[\n\r]/g, ">");
+    let noNewLinesBeforeXMLTags = noNewLinesAfterXMLTags.replace(/[\n\r]</g, "<");
+
+    //replace newlines and put things in the same line, as they will be added later. 
+    //However, don't completely remove then as there might be genuine newlines in original text, so replace them by spaces.
+    let replaceNewlineBySpaces = noNewLinesBeforeXMLTags.replace(/[\n\r]/g, " ");
+    return replaceNewlineBySpaces;
+}
+
+function removeWhitespaceFormattingFromJSON(originalData) {
+    //More or less the same as above
+    let noInitialWhitespace = originalData.replace(/^ */gm, "");
+    let noNewLinesAfterJSONTags = noInitialWhitespace.replace(/}[\n\r]/g, "}");
+    let noNewLinesBeforeJSONTags = noNewLinesAfterJSONTags.replace(/[\n\r]{/g, "{");
+    let replaceNewlineBySpaces = noNewLinesBeforeJSONTags.replace(/[\n\r]/g, " ");
+    return replaceNewlineBySpaces;
+}
+
+function removeBlankLines(text) {
+    if (!text) {
+        return text;
+    }
+    return text.replace(/^\s*\n/gm, "");
+}
+
+function matchWithoutWhitespace(text1, text2) {
+    return text1.replace(/\s/g, "") === text2.replace(/\s/g, "");
+}
 
 export class FormattingBox extends Component {
 
@@ -14,6 +47,9 @@ export class FormattingBox extends Component {
     }
 
     startsAndEndsWith = (inputString, startCharacter, endCharacter) => {
+        if (!inputString) {
+            return false;
+        }
         if (inputString[0] === startCharacter && inputString[inputString.length - 1] === endCharacter) {
             return true;
         }
@@ -32,7 +68,7 @@ export class FormattingBox extends Component {
         if (this.startsAndEndsWith(originalData, '<', '>')) {
             mightBeXml = true;
         }
-        if (this.startsAndEndsWith(originalData, '{', '}') || this.startsAndEndsWith(originalData, '[', ']')) {
+        else if (this.startsAndEndsWith(originalData, '{', '}') || this.startsAndEndsWith(originalData, '[', ']')) {
             mightBeJson = true;
         }
 
@@ -42,13 +78,17 @@ export class FormattingBox extends Component {
             try {
                 //check for xml first then check for json
                 if (mightBeXml) {
-                    formattedText = formatXML(originalData);
-                    if (formattedText && (formattedText.replace(/\s/g, "") !== originalData)) {
+                    //first remove existing formatting
+                    let deformattedOriginalText = removeWhitespaceFormattingFromXML(originalData);
+                    //format it, but remove blank lines
+                    formattedText = removeBlankLines(formatXML(deformattedOriginalText));
+                    if (formattedText && (!matchWithoutWhitespace(formattedText, originalData))) {
                         xmlFormattingSucceededButChangedText = true;
                     }
                 }
-                if (!formattedText && mightBeJson) {
-                    formattedText = formatJSon(JSON.parse(originalData));
+                if (mightBeJson) {
+                    let deformattedOriginalText = removeWhitespaceFormattingFromJSON(originalData);
+                    formattedText = removeBlankLines(formatJSon(JSON.parse(deformattedOriginalText)));
                 }
             }
             catch (err) {
