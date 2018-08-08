@@ -5,7 +5,7 @@ import React from 'react';
 describe('QueueList', () => {
 
     it('renders correctly with given props', () => {
-        const data = [{ number: 1, name: 'q1', status: 'active' }, { number: 2, name: 'q2', status: 'active' }, { number: 3, name: 'q3', status: 'dead' }];
+        const data = [{ name: 'q1', activeMessageCount: 12, deadletterMessageCount: 14 }, { name: 'q2', activeMessageCount: 11, deadletterMessageCount: 15 }, { name: 'q3', activeMessageCount: 14, deadletterMessageCount: 16}];
         let queueList = renderer.create(
             <QueueList
                 queueData={data}

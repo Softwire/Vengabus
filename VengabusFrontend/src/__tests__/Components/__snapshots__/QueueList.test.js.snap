@@ -70,10 +70,14 @@ exports[`QueueList renders correctly with given props 1`] = `
         </td>
         <td
           onClick={[Function]}
-        />
+        >
+          12
+        </td>
         <td
           onClick={[Function]}
-        />
+        >
+          14
+        </td>
         <td
           onClick={[Function]}
         />
@@ -88,10 +92,14 @@ exports[`QueueList renders correctly with given props 1`] = `
         </td>
         <td
           onClick={[Function]}
-        />
+        >
+          11
+        </td>
         <td
           onClick={[Function]}
-        />
+        >
+          15
+        </td>
         <td
           onClick={[Function]}
         />
@@ -106,10 +114,14 @@ exports[`QueueList renders correctly with given props 1`] = `
         </td>
         <td
           onClick={[Function]}
-        />
+        >
+          14
+        </td>
         <td
           onClick={[Function]}
-        />
+        >
+          16
+        </td>
         <td
           onClick={[Function]}
         />
