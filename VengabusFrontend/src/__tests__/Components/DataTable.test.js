@@ -51,6 +51,7 @@ describe('DataTable', () => {
         expect(dataTable.toJSON()).toMatchSnapshot();
     });
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     it('renders correctly with the selectRow prop', () => {
         const selectRow = {
             bgColor: 'green',
@@ -63,7 +64,6 @@ describe('DataTable', () => {
                 dataToDisplay={getDataToDisplay()}
                 selectRow={selectRow}
                 keyColumn='number'
-                name='changeData'
             />);
         expect(dataTable.toJSON()).toMatchSnapshot();
     });

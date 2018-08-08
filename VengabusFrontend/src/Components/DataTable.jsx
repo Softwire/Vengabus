@@ -68,7 +68,7 @@ export class DataTable extends Component {
         return (new Set(colData).size === colData.length);
     }
 
-    getTextFromDatafield(dataField) {
+    getTextFromDatafield = (dataField) => {
         let text;
         for (let i = 0; i < dataField.length; i++) {
             let char = dataField[i];
@@ -92,6 +92,38 @@ export class DataTable extends Component {
         return undefined;
     }
 
+    checkAndApplyWidth = (colProps) => {
+        let iteration = 0;
+        while (colProps[iteration].hidden) {
+            iteration++;
+            if (iteration === colProps.length) {
+                throw new Error('cannot use table with only hidden columns (in ' + this.props.name + ')');
+            }
+        }
+        const widthShouldExist = typeof colProps[iteration].width !== 'undefined';
+        if (widthShouldExist) {
+            let totalWidth = 0;
+            for (let i = 0; i < colProps.length; i++) {
+                if (!colProps[i].hidden) {
+                    const width = colProps[i].width;
+                    if ((typeof width !== 'undefined') !== widthShouldExist) {
+                        const errorDataField = colProps[i].dataField;
+                        throw new Error(`missing column width definition in ${this.props.name}:${errorDataField}`);
+                    }
+                    if (widthShouldExist) {
+                        totalWidth += width;
+                        colProps[i].headerStyle.width = width.toString() + '%';
+                        delete colProps[i].width;
+                    }
+                }
+            }
+            if (widthShouldExist && totalWidth !== 100) {
+                throw new Error('overall width of columns is not 100% in ' + this.props.name);
+            }
+        }
+        return colProps;
+    }
+
     render() {
         let { colProps, dataToDisplay, rowEvents, name, onRowClick, selectRow, defaultHover, rowClasses, keyColumn, ...otherProps } = this.props;
         if (typeof rowEvents === 'undefined') { rowEvents = {}; }
@@ -102,7 +134,7 @@ export class DataTable extends Component {
             if (!colProps) {
                 throw new Error('column property object is not defined in ' + name);
             }
-            
+
             keyColumn = this.findColumnIndexFromDataField(keyColumn);
             if (typeof keyColumn === 'undefined') {
                 throw new Error('need a valid keyColumn in ' + name);
@@ -110,6 +142,7 @@ export class DataTable extends Component {
             if (!this.isColumnUnique(keyColumn)) {
                 throw new Error('key column specified in ' + name + ' is not unique');
             }
+
             for (let i = 0; i < colProps.length; i++) {
                 if (!colProps[i].headerStyle) { colProps[i].headerStyle = {}; }
                 else if (colProps[i].headerStyle.width) {
@@ -117,23 +150,8 @@ export class DataTable extends Component {
                     throw new Error(`width of column should not be specified in the style (in ${name}:${errorDataField})`);
                 }
             }
-            const widthShouldExist = typeof colProps[0].width !== 'undefined';
-            if (widthShouldExist) {
-                let totalWidth = 0;
-                for (let i = 0; i < colProps.length; i++) {
-                    const width = colProps[i].width;
-                    if ((typeof width !== 'undefined') !== widthShouldExist && !colProps[i].hidden) {
-                        const errorDataField = colProps[i].dataField;
-                        throw new Error(`missing column width definition in ${name}:${errorDataField}`);
-                    }
-                    totalWidth += width;
-                    colProps[i].headerStyle.width = width.toString() + '%';
-                    delete colProps[i].width;
-                }
-                if (totalWidth !== 100) {
-                    throw new Error('overall width of columns is not 100% in ' + name);
-                }
-            }
+
+            colProps = this.checkAndApplyWidth(colProps);
 
             for (let i = 0; i < colProps.length; i++) {
                 if (!colProps[i].text) {
@@ -151,7 +169,6 @@ export class DataTable extends Component {
                 if ((selectRow.style || selectRow.classes) && selectRow.bgColor) {
                     throw new Error('background color of selected row may be multiply defined in ' + name);
                 }
-                selectRow.selected = selectRow.selected ? [selectRow.selected] : undefined;
                 selectRow.mode = 'radio';
                 selectRow.hideSelectColumn = true;
                 selectRow.clickToSelect = true;
