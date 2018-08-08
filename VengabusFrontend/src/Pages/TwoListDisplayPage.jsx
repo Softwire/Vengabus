@@ -62,7 +62,7 @@ export class TwoListDisplayPage extends Component {
         const fetchedQueueData = serviceBusService.listQueues();
         fetchedQueueData.then(result => {
             this.setState({
-                queueData: result.data
+                queueData: result
             });
         });
     }
@@ -72,7 +72,7 @@ export class TwoListDisplayPage extends Component {
         const fetchedTopicData = serviceBusService.listTopics();
         fetchedTopicData.then(result => {
             this.setState({
-                topicData: result.data
+                topicData: result
             });
         });
     }
@@ -83,7 +83,7 @@ export class TwoListDisplayPage extends Component {
         const fetchedSubscriptionData = serviceBusService.listSubscriptions(topicName);
         fetchedSubscriptionData.then(result => {
             this.setState({
-                subscriptionData: result.data
+                subscriptionData: result
             });
         });
     }
@@ -102,7 +102,7 @@ export class TwoListDisplayPage extends Component {
         }
         fetchedMessageData.then((result) => {
             this.setState({
-                messageData: result.data
+                messageData: result
             });
         });
     }

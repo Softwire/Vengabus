@@ -23,7 +23,9 @@ export class AxiosWithSAS {
     get = (url, config) => {
         const token = this.getTokenFromConnectionString();
         const sasConfig = this.addAuthToConfig(config, token);
-        return axios.get(url, sasConfig);
+        return axios.get(url, sasConfig).then((result) => {
+            return result.data;
+        });
     }
 
     /**
@@ -35,7 +37,9 @@ export class AxiosWithSAS {
     delete = (url, config) => {
         const token = this.getTokenFromConnectionString();
         const sasConfig = this.addAuthToConfig(config, token);
-        return axios.delete(url, sasConfig);
+        return axios.delete(url, sasConfig).then((result) => {
+            return result.data;
+        });
     }
 
     /**
@@ -48,7 +52,9 @@ export class AxiosWithSAS {
     post = (url, body, config) => {
         const token = this.getTokenFromConnectionString();
         const sasConfig = this.addAuthToConfig(config, token);
-        return axios.post(url, body, sasConfig);
+        return axios.post(url, body, sasConfig).then((result) => {
+            return result.data;
+        });
     }
 
     /**
