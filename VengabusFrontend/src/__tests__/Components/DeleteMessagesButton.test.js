@@ -2,6 +2,7 @@ import { DeleteMessagesButton } from '../../Components/DeleteMessagesButton';
 import renderer from 'react-test-renderer';
 import React from 'react';
 import { mount } from 'enzyme';
+import { Modal } from 'react-bootstrap';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
 import { testHelper } from '../../TestHelpers/testHelper';
 
@@ -39,12 +40,12 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
 }));
 
 function afterModalDeleteButtonIsClicked(wrapper, mockFunction, endpointName) {
-    testHelper.clickButtonWithId(wrapper, "#alertDelete");
+    testHelper.clickElementWithId(wrapper, "#alertDelete");
 
 
     return testHelper.afterReactHasUpdated().then(() => {
         wrapper.update();
-        testHelper.clickButtonWithId(wrapper, "#delete");
+        testHelper.clickElementWithId(wrapper, "#delete");
 
         return testHelper.afterReactHasUpdated();
 
@@ -69,7 +70,7 @@ describe('DeleteMessagesButton', () => {
         let wrapper = mount(<DeleteMessagesButton type={EndpointTypes.QUEUE} endpointName={queueName} />);
         expect(wrapper.find("#cancel").hostNodes()).toHaveLength(0);
         expect(wrapper.find("#delete").hostNodes()).toHaveLength(0);
-        testHelper.clickButtonWithId(wrapper, "#alertDelete");
+        testHelper.clickElementWithId(wrapper, "#alertDelete");
 
         return testHelper.afterReactHasUpdated().then(() => {
             wrapper.update();
@@ -78,17 +79,18 @@ describe('DeleteMessagesButton', () => {
         });
     });
 
-    it('click cancel button does not send delete reqest to endpoint and close the Modal', () => {
+    it('clicking cancel button does not send delete request to endpoint and closes the Modal', () => {
         let wrapper = mount(<DeleteMessagesButton type={EndpointTypes.QUEUE} endpointName={queueName} />);
-        testHelper.clickButtonWithId(wrapper, "#alertDelete");
+        testHelper.clickElementWithId(wrapper, "#alertDelete");
 
         return testHelper.afterReactHasUpdated().then(() => {
             wrapper.update();
-            testHelper.clickButtonWithId(wrapper, "#cancel");
+            testHelper.clickElementWithId(wrapper, "#cancel");
 
             return testHelper.afterReactHasUpdated();
         }).then(() => {
             expect(mockDeleteQueueMessages).not.toHaveBeenCalled();
+            expect(wrapper.find(Modal).at(0).prop("show")).toBeFalsy();
         });
     });
 

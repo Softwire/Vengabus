@@ -20,7 +20,7 @@ class TestHelper {
             setTimeout(resolve, 0);
         });
     }
-    clickButtonWithId(wrapper, id) {
+    clickElementWithId(wrapper, id) {
         wrapper.find(id).at(0).simulate("click");
     }
 }

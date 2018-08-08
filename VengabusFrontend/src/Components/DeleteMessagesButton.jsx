@@ -15,7 +15,6 @@ class DeleteMessagesButton extends React.Component {
     super(props);
 
     this.state = defaultState;
-    this.onDeletionConfirmed = this.getOnDeletionConfirmed();
   }
 
   handleClose = () => {
@@ -74,7 +73,7 @@ class DeleteMessagesButton extends React.Component {
 
     return (
       <React.Fragment>
-        <p> This action will delete all the messages from the next subscriptions: </p>
+        <p> This action will delete all the messages from the following subscriptions: </p>
         <ul>
           {liArray}
         </ul>
