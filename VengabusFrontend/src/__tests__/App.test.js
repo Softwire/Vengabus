@@ -200,7 +200,7 @@ it('renders without crashing', () => {
     ReactDOM.unmountComponentAtNode(div);
 });
 
-it('passes smoke tests without crashing', () => {
+it.only('passes smoke tests without crashing', () => {
     let wrapper = mount(<App />);
 
     let noRejection = false;
@@ -218,41 +218,49 @@ it('passes smoke tests without crashing', () => {
     let buttonsOnSendMessagePageFromDemoReplayMessage;
     let addNewApplicationSpcificProperty;
 
+    /* TestPath:
+     *  Go to Demo Page
+     *  Click ReplayMessage button
+     */
     connectButton.prop("onClick")();
-    return testHelper.afterReactHasUpdated().then(() => {
-        navbarDemoPageButton.simulate("click");
-        return testHelper.afterReactHasUpdated();
-    }).then(() => {
-        demoPageReplayMessageButton = wrapper.find("#demoPageReplayMessageButton").first();
-        expect(demoPageReplayMessageButton.exists()).toBe(true);
-        demoPageReplayMessageButton.simulate("click");
-        return testHelper.afterReactHasUpdated();
-    }).then(() => {
-        return new Promise((resolve, reject) => {
-            let wait = setTimeout(() => {
-                clearTimeout(wait);
-                resolve(testHelper.afterReactHasUpdated());
-            }, 200);
+    return testHelper.afterReactHasUpdated()
+        .then(() => { /*Go to Demo Page*/
+            navbarDemoPageButton.simulate("click");
+            return testHelper.afterReactHasUpdated();
+        }).then(() => { /* Click ReplayMessage button */
+            const replayMessageButton = wrapper.find("#demoPageReplayMessageButton").first();
+            expect(replayMessageButton.exists()).toBe(true);
+            replayMessageButton.simulate("click");
+            return testHelper.afterReactHasUpdated();
+            // }).then(() => {
+            //     var prom = new Promise((resolve, reject) => {
+            //         let wait = setTimeout(() => {
+            //             clearTimeout(wait);
+            //             resolve(testHelper.afterReactHasUpdated());
+            //         }, 200);
+            //     });
+            //     return prom;
+        }).then(() => {
+            const buttonFromPreviousPage = wrapper.find("#demoPageReplayMessageButton").first();
+            expect(buttonFromPreviousPage.exists()).toBe(false);
+
+            const buttonsOnReplayMessagePage = wrapper.find(Button);
+            expect(buttonsOnReplayMessagePage.length).toBeGreaterThan(4);
+
+            navbarHomePageButton.simulate("click");
+            return testHelper.afterReactHasUpdated();
+        }).then(() => {
+            navbarSendMessagePageButton.simulate("click");
+            return testHelper.afterReactHasUpdated();
+        }).then(() => {
+            const buttonsOnSendMessagePage = wrapper.find(Button);
+            const addNewPropertyButton = buttonsOnSendMessagePage.at(2); //qq search by ID.
+            addNewPropertyButton.simulate("click");
+            return testHelper.afterReactHasUpdated();
+        }).catch((e) => {
+            //if there's an expect failing in any of the above thens, it throws and enters catch,
+            //but will not report an error in test. So we need to create a false expect here.
+            console.log(e);
+            expect(true).toEqual(false);
         });
-    }).then(() => {
-        demoPageReplayMessageButton = wrapper.find("#demoPageReplayMessageButton").first();
-        expect(demoPageReplayMessageButton.exists()).toBe(false);
-        buttonsOnSendMessagePageFromDemoReplayMessage = wrapper.find(Button);
-        expect(buttonsOnSendMessagePageFromDemoReplayMessage.length).toBeGreaterThan(4);
-        navbarHomePageButton.simulate("click");
-        navbarSendMessagePageButton.simulate("click");
-        return testHelper.afterReactHasUpdated();
-    }).then(() => {
-        buttonsOnSendMessagePageFromDemoReplayMessage = wrapper.find(Button);
-        addNewApplicationSpcificProperty = buttonsOnSendMessagePageFromDemoReplayMessage.at(2);
-        addNewApplicationSpcificProperty.simulate("click");
-        return testHelper.afterReactHasUpdated();
-    }).then(() => {
-        buttonsOnSendMessagePageFromDemoReplayMessage = wrapper.find(Button);
-    }).catch((e) => {
-        //if there's an expect failing in any of the above thens, it throws and enters catch,
-        //but will not report an error in test. So we need to create a false expect here.
-        console.log(e);
-        expect(true).toEqual(false);
-    });
 });
