@@ -10,10 +10,7 @@ export class FormattingBox extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            //for future use if other formats are supported and override is wanted
-            isFormattable: true
-        }
+        this.isMessageTooLongToFormat = (this.props.data.length > 100000);
     }
 
     startsAndEndsWith = (inputString, startCharacter, endCharacter) => {
@@ -27,9 +24,11 @@ export class FormattingBox extends Component {
 
         let formattedText;
         const originalData = this.props.data;
+
         let xmlFormattingSucceededButChangedText = false;
         let formattingError;
         let mightBeXml, mightBeJson;
+
         if (this.startsAndEndsWith(originalData, '<', '>')) {
             mightBeXml = true;
         }
@@ -39,7 +38,7 @@ export class FormattingBox extends Component {
 
 
         //the XML library returns undefined for not XML meaning that format text will be falsely hence this working 
-        if (this.state.isFormattable) {
+        if (!this.isMessageTooLongToFormat) {
             try {
                 //check for xml first then check for json
                 if (mightBeXml) {
@@ -55,6 +54,8 @@ export class FormattingBox extends Component {
             catch (err) {
                 formattingError = err;
             }
+        } else {
+            formattingError = 'Long message: only messages under 100,000 characers in length are formatted.';
         }
         const formatCss = css`
             text-align: left;
@@ -93,10 +94,10 @@ export class FormattingBox extends Component {
 
         return (
             <div >
-                {xmlFormattingSucceededButChangedText ? xmlChangeAlert : ' '}
-                {formattingError ? errorAlert : ' '}
+                {xmlFormattingSucceededButChangedText ? xmlChangeAlert : ''}
+                {formattingError ? errorAlert : ''}
                 {formattedText ? boxContainingFormattedText : ''}
-                {(!formattedText || xmlFormattingSucceededButChangedText) ? boxContainingOriginalText : ' '}
+                {(!formattedText || xmlFormattingSucceededButChangedText) ? boxContainingOriginalText : ''}
             </div>
         );
     }
