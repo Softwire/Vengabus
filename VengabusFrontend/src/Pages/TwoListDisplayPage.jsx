@@ -208,13 +208,13 @@ export class TwoListDisplayPage extends Component {
         `;
 
         const breadcrumbItems = this.breadCrumbHistory.map((breadCrumb, i) => {
-            return (<Breadcrumb.Item onClick={() => this.HandleBreadCrumbClick(breadCrumb.type, i)} active={(i === this.breadCrumbHistory.length - 1)} >
+            return (<Breadcrumb.Item onClick={() => this.HandleBreadCrumbClick(breadCrumb.type, i)} active={(i === this.breadCrumbHistory.length - 1)} key={i}>
                 {this.breadCrumbHistory[i].name}
             </Breadcrumb.Item>);
         });
 
         return (
-            <Breadcrumb className={breadcrumbStyle} >
+            <Breadcrumb className={breadcrumbStyle}>
                 {breadcrumbItems}
             </Breadcrumb>
         );
