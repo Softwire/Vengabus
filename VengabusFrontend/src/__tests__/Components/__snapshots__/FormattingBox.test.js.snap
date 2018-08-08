@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FormattingBox renders a snapshot correctly when given json 1`] = `
+.emotion-1 {
+  text-align: left;
+}
+
 .emotion-0 {
   font-weight: bold;
   display: inline-block;
-}
-
-.emotion-1 {
-  text-align: left;
 }
 
 <div>
@@ -38,17 +38,17 @@ exports[`FormattingBox renders a snapshot correctly when given json 1`] = `
 `;
 
 exports[`FormattingBox renders a snapshot correctly when given plain text 1`] = `
-.emotion-0 {
-  font-weight: bold;
-  display: inline-block;
-}
-
 .emotion-1 {
   text-align: left;
 }
 
 .emotion-2 {
   white-space: pre-wrap;
+}
+
+.emotion-0 {
+  font-weight: bold;
+  display: inline-block;
 }
 
 <div>
@@ -74,17 +74,17 @@ exports[`FormattingBox renders a snapshot correctly when given plain text 1`] = 
 `;
 
 exports[`FormattingBox renders a snapshot correctly when given props 1`] = `
-.emotion-0 {
-  font-weight: bold;
-  display: inline-block;
-}
-
 .emotion-1 {
   text-align: left;
 }
 
 .emotion-2 {
   white-space: pre-wrap;
+}
+
+.emotion-0 {
+  font-weight: bold;
+  display: inline-block;
 }
 
 <div>
@@ -110,13 +110,13 @@ exports[`FormattingBox renders a snapshot correctly when given props 1`] = `
 `;
 
 exports[`FormattingBox renders a snapshot correctly when given xml 1`] = `
+.emotion-1 {
+  text-align: left;
+}
+
 .emotion-0 {
   font-weight: bold;
   display: inline-block;
-}
-
-.emotion-1 {
-  text-align: left;
 }
 
 <div>

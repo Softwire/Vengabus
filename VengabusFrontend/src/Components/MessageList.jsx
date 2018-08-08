@@ -19,7 +19,7 @@ export class MessageList extends Component {
             showMessage: true,
             messageId: id,
             messageBody: body,
-            vengaMessageObject: row
+            message: row
         });
     }
 
@@ -75,7 +75,7 @@ export class MessageList extends Component {
                 />
 
                 <MessageBox
-                    vengaMessageObject={this.state.vengaMessageObject}
+                    message={this.state.message}
                     show={this.state.showMessage}
                     handleClose={this.handleClose}
                 />

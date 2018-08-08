@@ -1,66 +1,54 @@
-
 import React, { Component } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { FormattingBox } from './FormattingBox';
 import { CopyTextButton } from './CopyTextButton';
 import { css } from 'emotion';
-import { headerStyle, messageIdStyle } from './MessageBoxStyles';
+import { CollapsiblePanel } from './CollapsiblePanel';
 
 export class MessageBox extends Component {
+
+    getJSXFromProperties = (propertiesArray) => {
+        let propertiesJSX = [];
+        for (let propName in propertiesArray) {
+            let currentPropValue = propertiesArray[propName];
+            if (propName !== 'messageId' && currentPropValue !== null) {
+                propertiesJSX.push(
+                    <p key={propName}>{propName + ': ' + String(currentPropValue)}</p> /*string conversion needed to display booleans properly*/
+                );
+            }
+        }
+        return propertiesJSX.length > 0 ? propertiesJSX : null;
+    }
 
     render() {
         const buttonStyle = css`
             float: right;
             margin-left: 5px;
         `;
-        const message = this.props.vengaMessageObject;
+        const headerStyle = css`
+            font-weight: bold;
+            display: inline-block;
+        `;
+        const messageIdStyle = css`
+            display: inline-block;
+        `;
+        const message = this.props.message;
         if (!message) {
             return null;
         }
-        const preDefinedProps = message.predefinedProperties;
-        const customProps = message.customProperties;
-        const preDefinedPropsJSX = [];
-        const customPropsJSX = [];
-        for (let propName in preDefinedProps) {
-            let currentPropValue = preDefinedProps[propName];
-            if (currentPropValue !== null) {
-                preDefinedPropsJSX.push(
-                    <div key={propName}>
-                        <p>{propName + ': ' + String(currentPropValue)}</p> {/*string conversion needed to display booleans properly*/}
-                    </div>
-                );
-            }
-        }
-        if (preDefinedPropsJSX === []) {
-            preDefinedPropsJSX.push(<p>There are no pre-defined properties to display.</p>);
-        }
-        if (customProps) {
-            for (let propName in customProps) {
-                customPropsJSX.push(
-                    <div key={propName}>
-                        <p>{propName + ': ' + String(customProps[propName])}</p>
-                    </div>
-                );
-            }
-        } else {
-            customPropsJSX.push(<p>There are no user-defined properties to display.</p>);
-        }
-
+        const preDefinedPropsJSX = this.getJSXFromProperties(message.predefinedProperties) || <p>There are no pre-defined properties to display</p>;
+        const customPropsJSX = this.getJSXFromProperties(message.customProperties) || <p>There are no user-defined properties to display</p>;
         return (
-            <div className="static-modal">
-                <Modal show={this.props.show} onHide={this.props.handleClose} > {/*qq JF AW was previously this.props.show && this.props.show, not sure why */}
+            <div className="static-modal" >
+                <Modal show={this.props.show} onHide={this.props.handleClose} >
                     <Modal.Header>
                         <Modal.Title className={headerStyle}>Message Id:&nbsp;</Modal.Title>
-                        <Modal.Title className={messageIdStyle}>{preDefinedProps.messageId}</Modal.Title>
+                        <Modal.Title className={messageIdStyle}>{message.predefinedProperties.messageId}</Modal.Title>
                     </Modal.Header>
 
                     <Modal.Body>
-                        <h4 className={headerStyle}>Pre-defined Properties</h4>
-                        {preDefinedPropsJSX}
-                        <br />
-                        <h4 className={headerStyle}>User-defined Properties</h4>
-                        {customPropsJSX}
-                        <br />
+                        <CollapsiblePanel panelTitle={"Pre-defined Properties"} panelContent={<pre>{preDefinedPropsJSX}</pre>}  />
+                        <CollapsiblePanel panelTitle={"User-defined Properties"} panelContent={<pre>{customPropsJSX}</pre>} />
                         <FormattingBox
                             data={message.messageBody}
                         />

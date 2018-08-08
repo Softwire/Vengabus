@@ -5,13 +5,12 @@ import React from 'react';
 describe('MessageBox', () => {
 
     const showMessage = true;
-
+    const message = { predefinedProperties: [{ messageId: 'id1' }], messageBody: "Hello world!", customProperties: [{ userDefinedProp1: "value 1" }, { userDefinedProp2: "value 2" }] };
 
     it('renders correctly with given props', () => {
         let messageBox = renderer.create(
             <MessageBox
-                messageBody="ID"
-                messageId="BODY"
+                message={message}
             />);
         expect(messageBox.toJSON()).toMatchSnapshot();
     });
