@@ -13,6 +13,8 @@ export class SubscriptionList extends Component {
             subscriptionArray = [...this.props.subscriptionData];
 
             for (let i = 0; i < subscriptionArray.length; i++) {
+                //needs to be cloned
+                subscriptionArray[i] = { ...subscriptionArray[i] };
                 const currentMessageArray = subscriptionArray[i];
                 if (currentMessageArray.mostRecentDeadLetter) {
                     currentMessageArray.mostRecentDeadLetter = moment(currentMessageArray.mostRecentDeadLetter).format("DD-MM-YYYY");
