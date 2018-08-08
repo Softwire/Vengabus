@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-.emotion-45 {
+.emotion-46 {
   margin-left: 5px;
   margin-right: 5px;
   padding-top: 1%;
@@ -40,7 +40,7 @@ exports[`renders correctly 1`] = `
   text-align: left;
 }
 
-.emotion-43 {
+.emotion-44 {
   min-height: 350px;
   padding-left: 5px;
 }
@@ -52,6 +52,14 @@ exports[`renders correctly 1`] = `
 .emotion-17 {
   float: left;
   width: 100%;
+}
+
+.emotion-37 {
+  opacity: 0.5;
+}
+
+.emotion-37:hover {
+  cursor: progress;
 }
 
 .emotion-15 {
@@ -240,7 +248,7 @@ exports[`renders correctly 1`] = `
 }
 
 <div
-  className="emotion-45"
+  className="emotion-46"
 >
   <div
     className="emotion-1"
@@ -527,12 +535,12 @@ exports[`renders correctly 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-36 btn btn-default"
-        disabled={true}
+        className="emotion-36 emotion-37 btn btn-default"
+        disabled={false}
         onClick={[Function]}
         type="button"
       >
-        Add new Azure property
+        Loading pre-defined properties...
       </button>
     </div>
   </form>
@@ -573,7 +581,7 @@ exports[`renders correctly 1`] = `
         Body
       </label>
       <textarea
-        className="emotion-43 form-control"
+        className="emotion-44 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
@@ -605,7 +613,7 @@ exports[`renders correctly 1`] = `
 `;
 
 exports[`renders correctly 2`] = `
-.emotion-45 {
+.emotion-46 {
   margin-left: 5px;
   margin-right: 5px;
   padding-top: 1%;
@@ -644,7 +652,7 @@ exports[`renders correctly 2`] = `
   text-align: left;
 }
 
-.emotion-43 {
+.emotion-44 {
   min-height: 350px;
   padding-left: 5px;
 }
@@ -656,6 +664,14 @@ exports[`renders correctly 2`] = `
 .emotion-17 {
   float: left;
   width: 100%;
+}
+
+.emotion-37 {
+  opacity: 0.5;
+}
+
+.emotion-37:hover {
+  cursor: progress;
 }
 
 .emotion-15 {
@@ -844,7 +860,7 @@ exports[`renders correctly 2`] = `
 }
 
 <div
-  className="emotion-45"
+  className="emotion-46"
 >
   <div
     className="emotion-1"
@@ -1131,12 +1147,12 @@ exports[`renders correctly 2`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-36 btn btn-default"
-        disabled={true}
+        className="emotion-36 emotion-37 btn btn-default"
+        disabled={false}
         onClick={[Function]}
         type="button"
       >
-        Add new Azure property
+        Loading pre-defined properties...
       </button>
     </div>
   </form>
@@ -1177,7 +1193,7 @@ exports[`renders correctly 2`] = `
         Body
       </label>
       <textarea
-        className="emotion-43 form-control"
+        className="emotion-44 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
@@ -1209,7 +1225,7 @@ exports[`renders correctly 2`] = `
 `;
 
 exports[`renders correctly from a predefined message 1`] = `
-.emotion-57 {
+.emotion-58 {
   margin-left: 5px;
   margin-right: 5px;
   padding-top: 1%;
@@ -1248,7 +1264,7 @@ exports[`renders correctly from a predefined message 1`] = `
   text-align: left;
 }
 
-.emotion-55 {
+.emotion-56 {
   min-height: 350px;
   padding-left: 5px;
 }
@@ -1260,6 +1276,14 @@ exports[`renders correctly from a predefined message 1`] = `
 .emotion-17 {
   float: left;
   width: 100%;
+}
+
+.emotion-37 {
+  opacity: 0.5;
+}
+
+.emotion-37:hover {
+  cursor: progress;
 }
 
 .emotion-15 {
@@ -1447,30 +1471,30 @@ exports[`renders correctly from a predefined message 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-41 {
+.emotion-42 {
   padding-left: 5px;
   width: 20%;
   float: left;
 }
 
-.emotion-43 {
+.emotion-44 {
   padding-left: 5px;
   width: calc(80% - 80px);
   float: left;
 }
 
-.emotion-45 {
+.emotion-46 {
   padding-left: 5px;
   width: 80px;
   float: left;
 }
 
-.emotion-40 {
+.emotion-41 {
   min-height: 38px;
 }
 
 <div
-  className="emotion-57"
+  className="emotion-58"
 >
   <div
     className="emotion-1"
@@ -1757,12 +1781,12 @@ exports[`renders correctly from a predefined message 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-36 btn btn-default"
-        disabled={true}
+        className="emotion-36 emotion-37 btn btn-default"
+        disabled={false}
         onClick={[Function]}
         type="button"
       >
-        Add new Azure property
+        Loading pre-defined properties...
       </button>
     </div>
   </form>
@@ -1779,14 +1803,14 @@ exports[`renders correctly from a predefined message 1`] = `
   <div>
     <div>
       <form
-        className="emotion-41"
+        className="emotion-42"
         onSubmit={[Function]}
       >
         <div
           className="form-group"
         >
           <input
-            className="emotion-40 form-control"
+            className="emotion-41 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property name"
@@ -1796,14 +1820,14 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <form
-        className="emotion-43"
+        className="emotion-44"
         onSubmit={[Function]}
       >
         <div
           className="form-group"
         >
           <input
-            className="emotion-40 form-control"
+            className="emotion-41 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property value"
@@ -1813,10 +1837,10 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <div
-        className="emotion-45"
+        className="emotion-46"
       >
         <button
-          className="emotion-40 btn btn-danger"
+          className="emotion-41 btn btn-danger"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -1827,14 +1851,14 @@ exports[`renders correctly from a predefined message 1`] = `
     </div>
     <div>
       <form
-        className="emotion-41"
+        className="emotion-42"
         onSubmit={[Function]}
       >
         <div
           className="form-group"
         >
           <input
-            className="emotion-40 form-control"
+            className="emotion-41 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property name"
@@ -1844,14 +1868,14 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <form
-        className="emotion-43"
+        className="emotion-44"
         onSubmit={[Function]}
       >
         <div
           className="form-group"
         >
           <input
-            className="emotion-40 form-control"
+            className="emotion-41 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property value"
@@ -1861,10 +1885,10 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <div
-        className="emotion-45"
+        className="emotion-46"
       >
         <button
-          className="emotion-40 btn btn-danger"
+          className="emotion-41 btn btn-danger"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -1900,7 +1924,7 @@ exports[`renders correctly from a predefined message 1`] = `
         Body
       </label>
       <textarea
-        className="emotion-55 form-control"
+        className="emotion-56 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
@@ -1932,7 +1956,7 @@ exports[`renders correctly from a predefined message 1`] = `
 `;
 
 exports[`renders correctly from a predefined message 2`] = `
-.emotion-45 {
+.emotion-46 {
   margin-left: 5px;
   margin-right: 5px;
   padding-top: 1%;
@@ -1971,7 +1995,7 @@ exports[`renders correctly from a predefined message 2`] = `
   text-align: left;
 }
 
-.emotion-43 {
+.emotion-44 {
   min-height: 350px;
   padding-left: 5px;
 }
@@ -1983,6 +2007,14 @@ exports[`renders correctly from a predefined message 2`] = `
 .emotion-17 {
   float: left;
   width: 100%;
+}
+
+.emotion-37 {
+  opacity: 0.5;
+}
+
+.emotion-37:hover {
+  cursor: progress;
 }
 
 .emotion-15 {
@@ -2171,7 +2203,7 @@ exports[`renders correctly from a predefined message 2`] = `
 }
 
 <div
-  className="emotion-45"
+  className="emotion-46"
 >
   <div
     className="emotion-1"
@@ -2458,12 +2490,12 @@ exports[`renders correctly from a predefined message 2`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-36 btn btn-default"
-        disabled={true}
+        className="emotion-36 emotion-37 btn btn-default"
+        disabled={false}
         onClick={[Function]}
         type="button"
       >
-        Add new Azure property
+        Loading pre-defined properties...
       </button>
     </div>
   </form>
@@ -2504,7 +2536,7 @@ exports[`renders correctly from a predefined message 2`] = `
         Body
       </label>
       <textarea
-        className="emotion-43 form-control"
+        className="emotion-44 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"

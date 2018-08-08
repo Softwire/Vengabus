@@ -199,7 +199,6 @@ export class MessageInput extends Component {
         for (let i = 0; i < properties.length; i++) {
             const thisPropertyName = properties[i].name;
             const thisPropertyValue = properties[i].value;
-            console.log(properties);
             //Prevent the user from inputting invalid property names.
             //Cannot use isPropertyNameInvalid here because if there are two properties with the same name it will mark
             //both of them as invalid whereas we just want to remove one of them.
@@ -209,8 +208,6 @@ export class MessageInput extends Component {
                 }
             }
         }
-        console.log(properties);
-        console.log(ret);
         return ret;
     }
 
