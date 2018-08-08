@@ -30,9 +30,15 @@ export class CopyTextButton extends React.Component {
     //Shows a 'copied' tooltip when the button is pressed
     handleToggle = () => {
         this.setState({ show: true });
-        setTimeout(() => {
+        this.hideCopiedTooltip = setTimeout(() => {
             this.setState({ show: false });
         }, 2000);
+    }
+
+    componentWillUnmount() {
+        if (this.hideCopiedTooltip) {
+            clearTimeout(this.hideCopiedTooltip);
+        }
     }
 
     render() {
