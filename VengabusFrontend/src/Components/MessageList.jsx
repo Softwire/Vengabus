@@ -31,11 +31,11 @@ export class MessageList extends Component {
     }
 
     render() {
-        const messageArray = [...this.props.messageData];
+        const messageArray = this.props.messageData ? [...this.props.messageData] : undefined;
 
         //add a preview of the body to each field which will be the first 30 chars
         const previewLength = 30;
-        for (let i = 0; i < messageArray.length; i++) {
+        for (let i = 0; i < (messageArray ? messageArray.length : 0); i++) {
             const currentMessageArray = messageArray[i];
             currentMessageArray.messageBodyPreview = truncate(currentMessageArray.messageBody, { length: previewLength });
         }

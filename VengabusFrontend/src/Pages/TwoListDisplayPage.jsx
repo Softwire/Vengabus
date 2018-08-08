@@ -4,7 +4,7 @@ import { QueueList } from '../Components/QueueList';
 import { TopicList } from '../Components/TopicList';
 import { MessageList } from '../Components/MessageList';
 import { css } from 'react-emotion';
-import { Button } from 'react-bootstrap';
+import { Breadcrumb } from 'react-bootstrap';
 import { SubscriptionList } from '../Components/SubscriptionList';
 import { EndpointTypes, typeToTitle } from '../Helpers/EndpointTypes';
 
@@ -13,167 +13,128 @@ export class TwoListDisplayPage extends Component {
     constructor(props) {
         super(props);
         this.displayHistory = [];
+        this.breadCrumbHistory = [{ name: "Home", type: undefined }];
         this.state = {
             queueData: undefined,
             topicData: undefined,
             subscriptionData: undefined,
             messageData: undefined,
-            display: {
-                leftTable: EndpointTypes.QUEUE,
-                rightTable: EndpointTypes.TOPIC,
-                currentlySelected: undefined
-            }
+            rightTableType: EndpointTypes.TOPIC
         };
     }
 
     componentDidMount() {
-        serviceBusConnection.registerForUpdatesPrompts(this.loadQueueAndTopicData);
+        serviceBusConnection.registerForUpdatesPrompts(this.resetInitialStateData);
 
     }
     componentWillUnmount() {
-        serviceBusConnection.deregisterForUpdatesPrompts(this.loadQueueAndTopicData);
+        serviceBusConnection.deregisterForUpdatesPrompts(this.resetInitialStateData);
 
     }
 
     handleQueueRowClick = (e, row, rowIndex) => {
-        const newDisplay = {
-            leftTable: EndpointTypes.QUEUE,
-            rightTable: EndpointTypes.MESSAGE,
-            currentlySelected: row.name
-        };
-        this.pushToDisplayHistory(newDisplay);
-        this.updateDisplay(newDisplay);
+        this.breadCrumbHistory = [{ name: "Home", type: undefined }, { name: row.name, type: EndpointTypes.QUEUE }];
+        this.updateEndpointMessageData();
+        this.setState({
+            rightTableType: EndpointTypes.MESSAGE
+        });
     }
 
     handleTopicRowClick = (e, row, rowIndex) => {
-        const newDisplay = {
-            leftTable: EndpointTypes.TOPIC,
-            rightTable: EndpointTypes.SUBSCRIPTION,
-            currentlySelected: row.name
-        };
-        this.pushToDisplayHistory(newDisplay);
-        this.updateDisplay(newDisplay);
-
+        this.breadCrumbHistory = [{ name: "Home", type: undefined }, { name: row.name, type: EndpointTypes.TOPIC }];
+        this.updateTopicSubscriptionData();
+        this.setState({
+            rightTableType: EndpointTypes.SUBSCRIPTION
+        });
     }
 
     handleSubscriptionRowClick = (e, row, rowIndex) => {
-        const newDisplay = {
-            leftTable: EndpointTypes.SUBSCRIPTION,
-            rightTable: EndpointTypes.MESSAGE,
-            currentlySelected: row.name
-        };
-        this.pushToDisplayHistory(newDisplay);
-        this.updateDisplay(newDisplay);
+        this.breadCrumbHistory[2] = { name: row.name, type: EndpointTypes.SUBSCRIPTION };
+        this.updateEndpointMessageData();
+        this.setState({
+            rightTableType: EndpointTypes.MESSAGE
+        });
     }
 
-    handleBackClick = () => {
-        const peekMostRecent = this.displayHistory[this.displayHistory.length - 1];
-        if (peekMostRecent) {
-            this.updateDisplay(this.displayHistory.pop(), true);
-        }
-    }
 
-    pushToDisplayHistory = (newDisplay) => {
-        const currentDisplay = this.state.display;
-        const bothSidesUnchanged = (currentDisplay.leftTable === newDisplay.leftTable && currentDisplay.rightTable === newDisplay.rightTable);
-        if (!bothSidesUnchanged) {
-            this.displayHistory.push(currentDisplay);
-        }
-    }
-
-    updateDisplay = (newDisplay, isBackStep) => {
-        //when moving "forward" the right column always contains fresh data and the left contains old data
-        //when moving "backward" this is reversed
-        const currentDisplay = this.state.display;
-
-        const dataToFetch = isBackStep ? newDisplay.leftTable : newDisplay.rightTable;
-
-        switch (dataToFetch) {
-            case EndpointTypes.MESSAGE:
-                this.updateEndpointMessageData(newDisplay, currentDisplay.currentlySelected);
-                break;
-            case EndpointTypes.SUBSCRIPTION:
-                this.updateTopicSubscriptionData(newDisplay);
-                break;
-            case EndpointTypes.QUEUE:
-                this.updateAllQueueData(newDisplay);
-                break;
-            case EndpointTypes.TOPIC:
-                this.updateAllTopicData(newDisplay);
-                break;
-            default:
-                throw new Error('Invalid endpoint type.');
-        }
-    }
-
-    updateAllQueueData = (newDisplay) => {
+    updateAllQueueData = () => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
         const fetchedQueueData = serviceBusService.listQueues();
-        fetchedQueueData.then(result =>
+        fetchedQueueData.then(result => {
             this.setState({
-                queueData: result.data,
-                display: newDisplay
-            })
-        );
-    }
-
-    updateAllTopicData = (newDisplay) => {
-        const serviceBusService = serviceBusConnection.getServiceBusService();
-        const fetchedTopicData = serviceBusService.listTopics();
-        fetchedTopicData.then(result =>
-            this.setState({
-                topicData: result.data,
-                display: newDisplay
-            })
-        );
-    }
-
-    updateTopicSubscriptionData = (newDisplay) => {
-        const serviceBusService = serviceBusConnection.getServiceBusService();
-        const selectedTopicName = newDisplay.currentlySelected;
-        const fetchedSubscriptionData = serviceBusService.listSubscriptions(selectedTopicName);
-        fetchedSubscriptionData.then(result =>
-            this.setState({
-                subscriptionData: result,
-                display: newDisplay
-            })
-        );
-    }
-
-    updateEndpointMessageData = (newDisplay, parentTopicIfIsSubscription) => {
-        const serviceBusService = serviceBusConnection.getServiceBusService();
-        let fetchedMessageData;
-        if (newDisplay.leftTable === EndpointTypes.QUEUE) {
-            fetchedMessageData = serviceBusService.listQueueMessages(newDisplay.currentlySelected);
-        } else {
-            fetchedMessageData = serviceBusService.listSubscriptionMessages(parentTopicIfIsSubscription, newDisplay.currentlySelected);
-        }
-        fetchedMessageData.then((result) => {
-            this.setState({
-                messageData: result.data,
-                display: newDisplay
+                queueData: result.data
             });
         });
     }
 
-    loadQueueAndTopicData = () => {
-        const display = {
-            leftTable: EndpointTypes.QUEUE,
-            rightTable: EndpointTypes.TOPIC,
-            currentlySelected: undefined
-        };
-        this.updateAllQueueData(display);
-        this.updateAllTopicData(display);
+    updateAllTopicData = () => {
+        const serviceBusService = serviceBusConnection.getServiceBusService();
+        const fetchedTopicData = serviceBusService.listTopics();
+        fetchedTopicData.then(result => {
+            this.setState({
+                topicData: result.data
+            });
+        });
+    }
+
+    updateTopicSubscriptionData = () => {
+        const topicName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
+        const serviceBusService = serviceBusConnection.getServiceBusService();
+        const fetchedSubscriptionData = serviceBusService.listSubscriptions(topicName);
+        fetchedSubscriptionData.then(result => {
+            this.setState({
+                subscriptionData: result.data
+            });
+        });
+    }
+
+    updateEndpointMessageData = () => {
+        const serviceBusService = serviceBusConnection.getServiceBusService();
+        let fetchedMessageData;
+        const leftTableType = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].type;
+        if (leftTableType === EndpointTypes.QUEUE || typeof leftTableType === 'undefined') {
+            const queueName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
+            fetchedMessageData = serviceBusService.listQueueMessages(queueName);
+        } else {
+            const topicName = this.breadCrumbHistory[this.breadCrumbHistory.length - 2].name;
+            const subscriptionName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
+            fetchedMessageData = serviceBusService.listSubscriptionMessages(topicName, subscriptionName);
+        }
+        fetchedMessageData.then((result) => {
+            this.setState({
+                messageData: result.data
+            });
+        });
+    }
+
+    resetInitialStateData = () => {
+        this.updateAllTopicData();
+        this.updateAllQueueData();
+        this.breadCrumbHistory = [{ name: "Home", type: undefined }];
+        this.setState({
+            rightTableType: EndpointTypes.TOPIC
+        });
     };
 
-    getList = (type, currentlySelected) => {
-        switch (type) {
+    getList = (isForRightHandList) => {
+        let typeOfData;
+        const currentLeftTable = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
+        let currentSelection;
+        if (isForRightHandList) {
+            typeOfData = this.state.rightTableType;
+        } else {
+            //if there is no history the currentLeftTable will be undefined
+            //if its undefined its undefined then its the original state and therefore should be queue
+            typeOfData = currentLeftTable.type || EndpointTypes.QUEUE;
+            currentSelection = currentLeftTable.name;
+        }
+        switch (typeOfData) {
             case EndpointTypes.QUEUE:
                 return (
                     <QueueList
                         queueData={this.state.queueData}
                         clickFunction={this.handleQueueRowClick}
-                        currentlySelectedName={currentlySelected}
+                        currentlySelectedName={currentSelection}
                     />
                 );
             case EndpointTypes.TOPIC:
@@ -181,16 +142,16 @@ export class TwoListDisplayPage extends Component {
                     <TopicList
                         topicData={this.state.topicData}
                         clickFunction={this.handleTopicRowClick}
-                        currentlySelectedName={currentlySelected}
+                        currentlySelectedName={currentSelection}
                     />
                 );
 
             case EndpointTypes.SUBSCRIPTION:
                 return (
                     <SubscriptionList
-                        subscriptionData={this.state.subscriptionData.data}
+                        subscriptionData={this.state.subscriptionData}
                         clickFunction={this.handleSubscriptionRowClick}
-                        currentlySelectedName={currentlySelected}
+                        currentlySelectedName={currentSelection}
                     />
                 );
             case EndpointTypes.MESSAGE:
@@ -204,32 +165,99 @@ export class TwoListDisplayPage extends Component {
         }
     }
 
+    HandleBreadCrumbClick = (type, newLength) => {
+        switch (type) {
+            case (EndpointTypes.QUEUE):
+                this.breadCrumbHistory = this.breadCrumbHistory.slice(0, newLength + 1);
+                this.updateAllQueueData();
+                this.updateEndpointMessageData();
+                this.setState({
+                    rightTableType: EndpointTypes.MESSAGE
+                });
+                break;
+            case (EndpointTypes.TOPIC):
+                this.breadCrumbHistory = this.breadCrumbHistory.slice(0, newLength + 1);
+                this.updateAllTopicData();
+                this.updateTopicSubscriptionData();
+                this.setState({
+                    rightTableType: EndpointTypes.SUBSCRIPTION
+                });
+                break;
+            case (EndpointTypes.SUBSCRIPTION):
+                this.breadCrumbHistory = this.breadCrumbHistory.slice(0, newLength + 1);
+                this.updateTopicSubscriptionData();
+                this.updateEndpointMessageData();
+                this.setState({
+                    rightTableType: EndpointTypes.MESSAGE
+                });
+                break;
+            default:
+                this.breadCrumbHistory = this.breadCrumbHistory.slice(0, newLength + 1);
+                this.resetInitialStateData();
+                break;
+        }
 
-    render() {
-        //QQ change width when side buttons are removed
-        const displayStyle = css`
-            width: 35%;
-            margin: 10px;
-            display: inline-block; /*to allow tables to be displayed side by side*/
+    }
+
+
+    getBreadcrumbElement = () => {
+        const breadcrumbStyle = css`
+            float: left;
+            height:2px;
+            margin:2px;
         `;
 
-
-        const leftBox = this.getList(this.state.display.leftTable, this.state.display.currentlySelected);
-
-
-        const rightBox = this.getList(this.state.display.rightTable);
-
+        const breadcrumbItems = this.breadCrumbHistory.map((breadCrumb, i) => {
+            return (<Breadcrumb.Item onClick={() => this.HandleBreadCrumbClick(breadCrumb.type, i)} active={(i === this.breadCrumbHistory.length - 1)} key={i}>
+                {this.breadCrumbHistory[i].name}
+            </Breadcrumb.Item>);
+        });
 
         return (
-            <div>
-                <Button onClick={this.handleBackClick}>back</Button>
-                <div className={displayStyle}>
-                    <h2>{typeToTitle(this.state.display.leftTable)}</h2>
-                    {leftBox}
+            <Breadcrumb className={breadcrumbStyle}>
+                {breadcrumbItems}
+            </Breadcrumb>
+        );
+    }
+
+    render() {
+
+        const displayStyle = css`
+            width: 40%;
+            margin-left: 10px;
+            margin-right:10px;
+            display: inline-block; /*to allow tables to be displayed side by side*/
+        `;
+        const outerDivDisplay = css`
+            display: block;
+            `;
+
+        const breadCrumbDisplay = css`
+            display: block;
+            height:40px;
+            margin:2px;
+            `;
+
+
+        const leftBox = this.getList();
+        const rightBox = this.getList(true);
+        const rightType = this.state.rightTableType;
+        const leftType = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].type || EndpointTypes.QUEUE;
+
+        return (
+            <div >
+                <div className={breadCrumbDisplay} >
+                    {this.getBreadcrumbElement()}
                 </div>
-                <div className={displayStyle}>
-                    <h2>{typeToTitle(this.state.display.rightTable)}</h2>
-                    {rightBox}
+                <div className={outerDivDisplay}>
+                    <div className={displayStyle}>
+                        <h2>{typeToTitle(leftType)}</h2>
+                        {leftBox}
+                    </div>
+                    <div className={displayStyle}>
+                        <h2>{typeToTitle(rightType)}</h2>
+                        {rightBox}
+                    </div>
                 </div>
             </div>
         );
