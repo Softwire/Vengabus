@@ -203,7 +203,7 @@ export class TwoListDisplayPage extends Component {
     getBreadcrumbElement = () => {
         const breadcrumbStyle = css`
             float: left;
-            height:2px;
+            height:35px;
             margin:2px;
         `;
 
@@ -234,7 +234,7 @@ export class TwoListDisplayPage extends Component {
 
         const breadCrumbDisplay = css`
             display: block;
-            height:40px;
+            height:35px;
             margin:2px;
             `;
 
