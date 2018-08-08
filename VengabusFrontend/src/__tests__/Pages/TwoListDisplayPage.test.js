@@ -1,8 +1,8 @@
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import React from 'react';
-import { TwoListDisplayPage } from "../../Pages/TwoListDisplayPage"
-import { testHelper } from '../../TestHelpers/TestHelper'
+import { TwoListDisplayPage } from "../../Pages/TwoListDisplayPage";
+import { testHelper } from '../../TestHelpers/TestHelper';
 
 //QQ DATA IS HERE 
 
@@ -122,99 +122,171 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
     }
 }));
 
-//Test when page loads it looks correct pre data update
+
 it('renders correctly before data is added', () => {
     let messagePropertyInput = renderer.create(
         <TwoListDisplayPage />);
     expect(messagePropertyInput.toJSON()).toMatchSnapshot();
 });
 
-//Test when page loads it looks correct pre data update
+
 it('renders queues and topic titles', () => {
     let wrapper = mount(<TwoListDisplayPage />);
+
     const leftTitle = wrapper.find('#leftTitle').text();
     const rightTitle = wrapper.find('#rightTitle').text();
     expect(leftTitle).toBe("Queues");
     expect(rightTitle).toBe("Topics");
 });
 
-//press update results change
-it('queues and topics populate when clicked', () => {
-    let wrapper = mount(<TwoListDisplayPage />);
 
+it('queues and topics populate', () => {
+    let wrapper = mount(<TwoListDisplayPage />);
     wrapper.instance().resetInitialStateData();
 
     return testHelper.afterReactHasUpdated().then(() => {
         wrapper.update();
-        const queue = wrapper.find('#QueueTable').find("#Data");
-        const topic = wrapper.find('#TopicTable').find("#Data");
-        expect(queue.exists()).toBe(true);
-        expect(topic.exists()).toBe(true);
+
+        const queueList = wrapper.find('#QueueTable').find("#Data");
+        const topicList = wrapper.find('#TopicTable').find("#Data");
+        expect(queueList.exists()).toBe(true);
+        expect(topicList.exists()).toBe(true);
     }
     );
 
 });
 
-//clicks a queue item and checks second box is a message box with messages
-it('clicking Queue work', () => {
+
+it('clicking Queues retrieves messages', () => {
     let wrapper = mount(<TwoListDisplayPage />);
-   
-  
     wrapper.instance().resetInitialStateData();
 
-    const queue = wrapper.find('#QueueTable');
+    const queueList = wrapper.find('#QueueTable');
+    queueList.props().clickFunction('e', { name: "test1" });
 
-    queue.props().clickFunction('e', { name: "test1" });
     return testHelper.afterReactHasUpdated().then(() => {
         wrapper.update();
-        const message = wrapper.find('#MessageTable');
+        const messageList = wrapper.find('#MessageTable');
         const rightTitle = wrapper.find('#rightTitle').text();
         expect(rightTitle).toBe("Messages");
-        expect(message.exists()).toBe(true);
+        expect(messageList.exists()).toBe(true);
 
     });
 });
 
-
-//clicks a topic item and checks second box is a subsction box with subsciptions
-it('clicking subscriptions work', () => {
+it('clicking Topics retrieves subscriptions', () => {
     let wrapper = mount(<TwoListDisplayPage />);
-
     wrapper.instance().resetInitialStateData();
 
     const topic = wrapper.find('#TopicTable');
     topic.props().clickFunction('e', { name: "test1" });
+
     return testHelper.afterReactHasUpdated().then(() => {
         wrapper.update();
-        const subscription = wrapper.find('#SubscriptionTable');
+
+        const subscriptionTable = wrapper.find('#SubscriptionTable');
         const rightTitle = wrapper.find('#rightTitle').text();
+
         expect(rightTitle).toBe("Subscriptions");
-        expect(subscription.exists()).toBe(true);
+        expect(subscriptionTable.exists()).toBe(true);
 
     });
 });
 
-//clicks a topic item and then a subscription checks a box of messages is revcived
-it('clicking subs work', () => {
+
+it('clicking Subscriptions retrieves messages', () => {
     let wrapper = mount(<TwoListDisplayPage />);
-   
     wrapper.instance().resetInitialStateData();
 
+    const topicTable = wrapper.find('#TopicTable');
+    topicTable.props().clickFunction('e', { name: "test1" });
 
-    const topic = wrapper.find('#TopicTable');
-    topic.props().clickFunction('e', { name: "test1" });
     return testHelper.afterReactHasUpdated().then(() => {
         wrapper.update();
-        const subscriptions = wrapper.find('#SubscriptionTable');
-        subscriptions.props().clickFunction('e', { name: "test1" });
+
+        const subscriptionTable = wrapper.find('#SubscriptionTable');
+        subscriptionTable.props().clickFunction('e', { name: "test1" });
 
         return testHelper.afterReactHasUpdated().then(() => {
             wrapper.update();
-            const message = wrapper.find('#MessageTable');
-            const rightTitle = wrapper.find('#rightTitle').text();
-            expect(rightTitle).toBe("Messages");
-            expect(message.exists()).toBe(true);
 
+            const messageTable = wrapper.find('#MessageTable');
+            const rightTitle = wrapper.find('#rightTitle').text();
+
+            expect(rightTitle).toBe("Messages");
+            expect(messageTable.exists()).toBe(true);
+
+        });
+    });
+});
+
+
+it('Home breadCrumb resets state', () => {
+    let wrapper = mount(<TwoListDisplayPage />);
+    wrapper.instance().resetInitialStateData();
+
+    const queueTable = wrapper.find('#QueueTable');
+    queueTable.props().clickFunction('e', { name: "test1" });
+
+    return testHelper.afterReactHasUpdated().then(() => {
+        wrapper.update();
+
+        const homeBreadCrumb = wrapper.find('#Home').hostNodes();
+        homeBreadCrumb.simulate("click");
+
+        return testHelper.afterReactHasUpdated().then(() => {
+            wrapper.update();
+
+            const queueTable = wrapper.find('#QueueTable').find("#Data");
+            const topicTable = wrapper.find('#TopicTable').find("#Data");
+
+            const rightTitle = wrapper.find('#rightTitle').text();
+            expect(rightTitle).toBe("Topics");
+
+            const leftTitle = wrapper.find('#leftTitle').text();
+            expect(leftTitle).toBe("Queues");
+
+            expect(queueTable.exists()).toBe(true);
+            expect(topicTable.exists()).toBe(true);
+        });
+    });
+});
+
+
+it('Can go back to Topic from Subscription using BreadCrumbs', () => {
+    let wrapper = mount(<TwoListDisplayPage />);
+    wrapper.instance().resetInitialStateData();
+
+    const topicTable = wrapper.find('#TopicTable');
+    topicTable.props().clickFunction('e', { name: "test1" });
+
+    return testHelper.afterReactHasUpdated().then(() => {
+        wrapper.update();
+
+        const subscriptionTable = wrapper.find('#SubscriptionTable');
+        subscriptionTable.props().clickFunction('e', { name: "test2" });
+
+        return testHelper.afterReactHasUpdated().then(() => {
+            wrapper.update();
+
+            const topicBreadCrumb = wrapper.find('#test1').hostNodes();
+            topicBreadCrumb.simulate("click");
+
+            return testHelper.afterReactHasUpdated().then(() => {
+                wrapper.update();
+
+                const subscriptionTable = wrapper.find('#SubscriptionTable');
+                const topicTable = wrapper.find('#TopicTable');
+
+                const rightTitle = wrapper.find('#rightTitle').text();
+                const leftTitle = wrapper.find('#leftTitle').text();
+
+                expect(rightTitle).toBe("Subscriptions");
+                expect(leftTitle).toBe("Topics");
+
+                expect(subscriptionTable.exists()).toBe(true);
+                expect(topicTable.exists()).toBe(true);
+            });
         });
     });
 });

@@ -37,6 +37,7 @@ exports[`renders correctly before data is added 1`] = `
         className="active"
       >
         <span
+          id="Home"
           onClick={[Function]}
         >
           Home

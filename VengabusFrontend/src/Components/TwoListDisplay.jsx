@@ -285,7 +285,7 @@ export class TwoListDisplay extends Component {
         `;
         
         const breadcrumbItems = this.breadCrumbHistory.map((breadCrumb, i) => {
-            return (<Breadcrumb.Item onClick={() => this.HandleBreadCrumbClick(breadCrumb.type, i)} active={(i === this.breadCrumbHistory.length - 1)} key={i}>
+            return (<Breadcrumb.Item id={this.breadCrumbHistory[i].name} onClick={() => this.HandleBreadCrumbClick(breadCrumb.type, i)} active={(i === this.breadCrumbHistory.length - 1)} key={i}>
                 {this.breadCrumbHistory[i].name}
             </Breadcrumb.Item>);
         });
