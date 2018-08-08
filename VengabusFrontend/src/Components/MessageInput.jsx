@@ -89,7 +89,7 @@ export class MessageInput extends Component {
      * @returns {object[]} The created object.
      */
     convertArrayOfNamesToValueLabel = (arr) => {
-        return _(arr.map((element) => this.convertToValueLabel(element.name)));
+        return _(arr).map((element) => this.convertToValueLabel(element.name));
     }
 
     getUserDefinedProperties = (message) => {
@@ -221,7 +221,7 @@ export class MessageInput extends Component {
             const thisPropertyName = properties[i].name;
             const thisPropertyValue = properties[i].value;
             //Prevent the user from inputting invalid property names.
-            //Cannot use isPropertyNameInvalid here because if there are two properties with the same name it will mark
+            //Cannot use isPropertyNameValid here because if there are two properties with the same name it will mark
             //both of them as invalid whereas we just want to remove one of them.
             if (thisPropertyName && thisPropertyValue && !ret.hasOwnProperty(thisPropertyName)) {
                 if (thisPropertyName.length > 0) {

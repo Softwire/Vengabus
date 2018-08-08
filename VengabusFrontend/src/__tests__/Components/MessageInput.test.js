@@ -2,8 +2,10 @@ import { mount, shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 import React from 'react';
 import { FormControl, Button } from "react-bootstrap";
+import toJson from 'enzyme-to-json';
 import { MessageInput } from '../../Components/MessageInput';
 import { MessagePropertyInputRow } from '../../Components/MessagePropertyInputRow';
+import { testHelper } from '../../TestHelpers/TestHelper';
 
 let mockedFunction = jest.fn();
 jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
@@ -77,6 +79,18 @@ it('renders correctly from a predefined message', () => {
     let messagePropertyInput = renderer.create(
         <MessageInput data={data} />);
     expect(messagePropertyInput.toJSON()).toMatchSnapshot();
+});
+
+it('Shows a red border around invalid property names', () => {
+    //Must use mount because setState cannot be called on renderer.create
+    let wrapper = mount(<MessageInput />);
+    wrapper.setState({
+        userDefinedProperties: [{ name: "test1", value: "any value 1" }, { name: "test2", value: "any value 2" }, { name: "test2", value: "any value 3" }]
+    });
+    expect.assertions(1);
+    return testHelper.afterReactHasUpdated().then(() => {
+        expect(toJson(wrapper)).toMatchSnapshot();
+    });
 });
 
 it('Correctly creates the properties of a message', () => {
