@@ -36,21 +36,21 @@ class DeleteMessagesButton extends React.Component {
     switch (this.props.type) {
       case EndpointTypes.QUEUE:
         response = await vengaServiceBusService.getQueueDetails(this.props.endpointName);
-        numMessages = response.data.activeMessageCount;
+        numMessages = response.activeMessageCount;
         break;
       case EndpointTypes.TOPIC:
         response = await vengaServiceBusService.listSubscriptions(this.props.endpointName);
-        numMessages = Lodash.sumBy(response.data, (subscription) => {
+        numMessages = Lodash.sumBy(response, (subscription) => {
           return subscription.activeMessageCount;
         });
 
-        topicSubList = Lodash.map(response.data, (subscription) => {
+        topicSubList = Lodash.map(response, (subscription) => {
           return subscription.name;
         });
         break;
       case EndpointTypes.SUBSCRIPTION:
         response = await vengaServiceBusService.getSubscriptionDetails(this.props.parentName, this.props.endpointName);
-        numMessages = response.data.activeMessageCount;
+        numMessages = response.activeMessageCount;
         break;
       default: break;
     }
