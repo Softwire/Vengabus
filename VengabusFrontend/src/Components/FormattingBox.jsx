@@ -10,15 +10,7 @@ export class FormattingBox extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            //for future use if other formats are supported and override is wanted
-            isFormattable: true,
-            isMessageTooLongToFormat: false
-        }
-    }
-
-    componentDidMount() {
-        this.isMessageTooLongToFormat(this.props.data);
+        this.isMessageTooLongToFormat = (this.props.data.length > 100000);
     }
 
     startsAndEndsWith = (inputString, startCharacter, endCharacter) => {
@@ -26,15 +18,6 @@ export class FormattingBox extends Component {
             return true;
         }
         return false;
-    }
-
-    isMessageTooLongToFormat = (message) => {
-        if (message.length > 100000) {
-            this.setState({
-                isFormattable: false,
-                isMessageTooLongToFormat: true
-            });
-        }
     }
 
     render() {
@@ -55,7 +38,7 @@ export class FormattingBox extends Component {
 
 
         //the XML library returns undefined for not XML meaning that format text will be falsely hence this working 
-        if (this.state.isFormattable) {
+        if (!this.isMessageTooLongToFormat) {
             try {
                 //check for xml first then check for json
                 if (mightBeXml) {
@@ -71,6 +54,8 @@ export class FormattingBox extends Component {
             catch (err) {
                 formattingError = err;
             }
+        } else {
+            formattingError = 'Long message: only messages under 100,000 characers in length are formatted.';
         }
         const formatCss = css`
             text-align: left;
@@ -88,11 +73,6 @@ export class FormattingBox extends Component {
         const errorAlert = (
             <Alert bsStyle="danger">
                 <p>{`The formatter threw an error whilst trying to format the text of this data: '${formattingError}'`}</p>
-            </Alert>
-        );
-        const longMessageAlert = (
-            <Alert bsStyle="danger">
-                <p>Long message: only messages under 100,000 characers in length are formatted. Your message is {originalData.length} characters long so was not formatted.</p>
             </Alert>
         );
         const boxContainingOriginalText = (
@@ -114,7 +94,6 @@ export class FormattingBox extends Component {
 
         return (
             <div >
-                {this.state.isMessageTooLongToFormat ? longMessageAlert : ''}
                 {xmlFormattingSucceededButChangedText ? xmlChangeAlert : ''}
                 {formattingError ? errorAlert : ''}
                 {formattedText ? boxContainingFormattedText : ''}
