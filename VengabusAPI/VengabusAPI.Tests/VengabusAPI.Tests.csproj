@@ -83,7 +83,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LockTest.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="DeleteMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

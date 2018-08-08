@@ -4,14 +4,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VengabusAPI.Controllers;
 using VengabusAPI.Models;
-using VengabusAPI.Services;
-using Microsoft.ServiceBus;
-using Microsoft.ServiceBus.Messaging;
-using System.Web;
-using System.Net;
 using System.Net.Http;
-using System.Web.Http;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace VengabusAPI.Tests

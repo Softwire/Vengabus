@@ -7,8 +7,9 @@ namespace VengabusAPI.Tests
 {
     public static class TestHelper
     {
-        //apparently, we don't want the connection string to be in the code
-        public const string sasString = "SharedAccessSignature sr=https%3A%2F%2Fvengabusdemo.servicebus.windows.net%2F&sig=80OVOUnX382NcruJitI8skdTF5p%2FVvavHaBBEa%2FG2bM%3D&se=1533652302&skn=RootManageSharedAccessKey";
+        //Having to put a new SAS string here when we test is not the best way,
+        //but we don't want the connection string in our code
+        public const string sasString = "SharedAccessSignature sr=https%3A%2F%2Fvengabusdemo.servicebus.windows.net%2F&sig=hEoQxZQDsLtGod3h3nVVfJpw2ojvwRxVMDiXT%2Bmmj0o%3D&se=1533737828&skn=RootManageSharedAccessKey";
 
         public const string ServiceBusURI = "sb://vengabusdemo.servicebus.windows.net/";
 
@@ -103,7 +104,7 @@ namespace VengabusAPI.Tests
             int ret = 0;
             while (true)
             {
-                var messages = queueClient.Receive(TimeSpan.FromMilliseconds(500));
+                var messages = queueClient.Receive(TimeSpan.FromMilliseconds(5000));
                 if (messages == null)
                 {
                     break;
