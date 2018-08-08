@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { DataTable } from './DataTable';
 import moment from 'moment';
+import { palerBlue } from '../colourScheme';
 
 export class QueueList extends Component {
 
@@ -42,6 +43,11 @@ export class QueueList extends Component {
             }
         ];
 
+        let selectRow = {
+            bgColor: palerBlue,
+            selected: this.props.currentlySelectedName
+        };
+
         return (
             <DataTable
                 name='QueueList'
@@ -49,7 +55,7 @@ export class QueueList extends Component {
                 dataToDisplay={queueArray}
                 defaultHover
                 onRowClick={this.props.clickFunction}
-                rowSelect={this.props.currentlySelectedName}
+                selectRow={selectRow}
             />
         );
     }
