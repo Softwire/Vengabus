@@ -205,10 +205,10 @@ it('passes smoke tests without crashing', () => {
 
     let noRejection = false;
 
-    const connectButton = wrapper.find("#connectButton").first();
-    const navbarHomePageButton = wrapper.find("#navbarHomePageButton").first();
-    const navbarSendMessagePageButton = wrapper.find("#navbarSendMessagePageButton").first();
-    const navbarDemoPageButton = wrapper.find("#navbarDemoPageButton").first();
+    const connectButton = wrapper.find("#connectButton").last();
+    const navbarHomePageButton = wrapper.find("#navbarHomePageButton").last();
+    const navbarSendMessagePageButton = wrapper.find("#navbarSendMessagePageButton").last();
+    const navbarDemoPageButton = wrapper.find("#navbarDemoPageButton").last();
     expect(navbarHomePageButton.exists()).toBe(true);
     expect(navbarSendMessagePageButton.exists()).toBe(true);
     expect(navbarDemoPageButton.exists()).toBe(true);
@@ -216,14 +216,14 @@ it('passes smoke tests without crashing', () => {
 
     let demoPageReplayMessageButton;
     let buttonsOnSendMessagePageFromDemoReplayMessage;
-    let addNewAzurePropertyButton;
+    let addNewApplicationSpcificProperty;
 
-    connectButton.simulate("click");
+    connectButton.prop("onClick")();
     return testHelper.afterReactHasUpdated().then(() => {
         navbarDemoPageButton.simulate("click");
         return testHelper.afterReactHasUpdated();
     }).then(() => {
-        demoPageReplayMessageButton = wrapper.find(Button).first();
+        demoPageReplayMessageButton = wrapper.find("#demoPageReplayMessageButton").first();
         expect(demoPageReplayMessageButton.exists()).toBe(true);
         demoPageReplayMessageButton.simulate("click");
         return testHelper.afterReactHasUpdated();
@@ -231,29 +231,28 @@ it('passes smoke tests without crashing', () => {
         return new Promise((resolve, reject) => {
             let wait = setTimeout(() => {
                 clearTimeout(wait);
-                resolve('');
-            }, 200)
+                resolve(testHelper.afterReactHasUpdated());
+            }, 200);
         });
     }).then(() => {
         demoPageReplayMessageButton = wrapper.find("#demoPageReplayMessageButton").first();
         expect(demoPageReplayMessageButton.exists()).toBe(false);
         buttonsOnSendMessagePageFromDemoReplayMessage = wrapper.find(Button);
-        console.log(buttonsOnSendMessagePageFromDemoReplayMessage.debug());
-        expect(buttonsOnSendMessagePageFromDemoReplayMessage.length).toEqual(5);
+        expect(buttonsOnSendMessagePageFromDemoReplayMessage.length).toBeGreaterThan(4);
         navbarHomePageButton.simulate("click");
         navbarSendMessagePageButton.simulate("click");
         return testHelper.afterReactHasUpdated();
     }).then(() => {
         buttonsOnSendMessagePageFromDemoReplayMessage = wrapper.find(Button);
-        expect(buttonsOnSendMessagePageFromDemoReplayMessage.length).toEqual(4);
-        addNewAzurePropertyButton = buttonsOnSendMessagePageFromDemoReplayMessage.first();
-        addNewAzurePropertyButton.simulate("click");
+        addNewApplicationSpcificProperty = buttonsOnSendMessagePageFromDemoReplayMessage.at(2);
+        addNewApplicationSpcificProperty.simulate("click");
         return testHelper.afterReactHasUpdated();
     }).then(() => {
         buttonsOnSendMessagePageFromDemoReplayMessage = wrapper.find(Button);
-        expect(buttonsOnSendMessagePageFromDemoReplayMessage.length).toEqual(5);
     }).catch((e) => {
+        //if there's an expect failing in any of the above thens, it throws and enters catch,
+        //but will not report an error in test. So we need to create a false expect here.
         console.log(e);
-        expect(1).toEqual(2);
+        expect(true).toEqual(false);
     });
 });
