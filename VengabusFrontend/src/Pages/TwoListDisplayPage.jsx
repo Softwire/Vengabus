@@ -158,36 +158,53 @@ export class TwoListDisplayPage extends Component {
             typeOfData = currentLeftTable.type || EndpointTypes.QUEUE;
             currentSelection = currentLeftTable.name;
         }
+        const displayStyle = css`
+                    display: inline-block;
+                    margin:10px;
+                `;
         switch (typeOfData) {
             case EndpointTypes.QUEUE:
                 return (
-                    <QueueList
-                        queueData={this.state.queueData}
-                        clickFunction={this.handleQueueRowClick}
-                        currentlySelectedName={currentSelection}
-                    />
+                    <div>
+                        <h2>{typeToTitle(EndpointTypes.QUEUE)}</h2>
+                        <QueueList
+                            queueData={this.state.queueData}
+                            clickFunction={this.handleQueueRowClick}
+                            currentlySelectedName={currentSelection}
+                        />
+                    </div>
                 );
             case EndpointTypes.TOPIC:
                 return (
-                    <TopicList
-                        topicData={this.state.topicData}
-                        clickFunction={this.handleTopicRowClick}
-                        currentlySelectedName={currentSelection}
-                    />
+                    <div>
+                        <h2>{typeToTitle(EndpointTypes.TOPIC)}</h2>
+                        <TopicList
+                            topicData={this.state.topicData}
+                            clickFunction={this.handleTopicRowClick}
+                            currentlySelectedName={currentSelection}
+                        />
+                    </div>
                 );
 
             case EndpointTypes.SUBSCRIPTION:
                 return (
-                    <SubscriptionList
-                        subscriptionData={this.state.subscriptionData}
-                        clickFunction={this.handleSubscriptionRowClick}
-                        currentlySelectedName={currentSelection}
-                    />
+                    <div>
+                        <h2>{typeToTitle(EndpointTypes.SUBSCRIPTION)}</h2>
+                        <SubscriptionList
+                            subscriptionData={this.state.subscriptionData}
+                            clickFunction={this.handleSubscriptionRowClick}
+                            currentlySelectedName={currentSelection}
+                        />
+                    </div>
                 );
             case EndpointTypes.MESSAGE:
+
                 return (
                     <div>
-                        <Button onClick={this.handleDeadLetterClick}> DeadLetter </Button>
+                        <div >
+                            <h2 className={displayStyle} >{typeToTitle(EndpointTypes.MESSAGE)}</h2>
+                            <Button className={displayStyle} onClick={this.handleDeadLetterClick}> DeadLetter </Button>
+                        </div>
                         <MessageList
                             messageData={this.state.messageData}
                         />
@@ -197,7 +214,10 @@ export class TwoListDisplayPage extends Component {
             case EndpointTypes.DEADLETTER:
                 return (
                     <div>
-                        <Button onClick={this.handleNormalMessageClick} > normal </Button>
+                        <div>
+                            <h2 className={displayStyle} >{typeToTitle(EndpointTypes.DEADLETTER)}</h2>
+                            <Button className={displayStyle} onClick={this.handleNormalMessageClick} > normal </Button>
+                        </div>
                         <MessageList
                             messageData={this.state.messageData}
                         />
@@ -295,11 +315,9 @@ export class TwoListDisplayPage extends Component {
                 </div>
                 <div className={outerDivDisplay}>
                     <div className={displayStyle}>
-                        <h2>{typeToTitle(leftType)}</h2>
                         {leftBox}
                     </div>
                     <div className={displayStyle}>
-                        <h2>{typeToTitle(rightType)}</h2>
                         {rightBox}
                     </div>
                 </div>
