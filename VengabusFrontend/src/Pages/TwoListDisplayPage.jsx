@@ -4,7 +4,7 @@ import { QueueList } from '../Components/QueueList';
 import { TopicList } from '../Components/TopicList';
 import { MessageList } from '../Components/MessageList';
 import { css } from 'react-emotion';
-import { Breadcrumb } from 'react-bootstrap';
+import { Breadcrumb, Button } from 'react-bootstrap';
 import { SubscriptionList } from '../Components/SubscriptionList';
 import { EndpointTypes, typeToTitle } from '../Helpers/EndpointTypes';
 
@@ -56,7 +56,19 @@ export class TwoListDisplayPage extends Component {
         });
     }
 
+    handleDeadLetterClick = (e) => {
+        this.updateEndpointDeadLetterData();
+        this.setState({
+            rightTableType: EndpointTypes.DEADLETTER
+        });
+    }
 
+    handleNormalMessageClick = (e) => {
+        this.updateEndpointMessageData();
+        this.setState({
+            rightTableType: EndpointTypes.MESSAGE
+        });
+    }
     updateAllQueueData = () => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
         const fetchedQueueData = serviceBusService.listQueues();
@@ -103,6 +115,24 @@ export class TwoListDisplayPage extends Component {
         fetchedMessageData.then((result) => {
             this.setState({
                 messageData: result
+            });
+        });
+    }
+    updateEndpointDeadLetterData = () => {
+        const serviceBusService = serviceBusConnection.getServiceBusService();
+        let fetchedDeadLetterData;
+        const leftTableType = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].type;
+        if (leftTableType === EndpointTypes.QUEUE || typeof leftTableType === 'undefined') {
+            const queueName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
+            fetchedDeadLetterData = serviceBusService.listQueueDeadLetterMessages(queueName);
+        } else {
+            const topicName = this.breadCrumbHistory[this.breadCrumbHistory.length - 2].name;
+            const subscriptionName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
+            fetchedDeadLetterData = serviceBusService.listSubscriptionDeadLetterMessages(topicName, subscriptionName);
+        }
+        fetchedDeadLetterData.then((result) => {
+            this.setState({
+                messageData: result.data
             });
         });
     }
@@ -156,9 +186,23 @@ export class TwoListDisplayPage extends Component {
                 );
             case EndpointTypes.MESSAGE:
                 return (
-                    <MessageList
-                        messageData={this.state.messageData}
-                    />
+                    <div>
+                        <Button onClick={this.handleDeadLetterClick}> DeadLetter </Button>
+                        <MessageList
+                            messageData={this.state.messageData}
+                        />
+                    </div>
+
+                );
+            case EndpointTypes.DEADLETTER:
+                return (
+                    <div>
+                        <Button onClick={this.handleNormalMessageClick} > normal </Button>
+                        <MessageList
+                            messageData={this.state.messageData}
+                        />
+                    </div>
+
                 );
             default:
                 throw new Error('Invalid endpoint type.');
