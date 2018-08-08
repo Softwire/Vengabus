@@ -3,8 +3,8 @@ import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import { QueueList } from '../Components/QueueList';
 import { TopicList } from '../Components/TopicList';
 import { MessageList } from '../Components/MessageList';
-import { css, injectGlobal } from 'react-emotion';
-import { Button, Breadcrumb } from 'react-bootstrap';
+import { css } from 'react-emotion';
+import { Breadcrumb } from 'react-bootstrap';
 import { SubscriptionList } from '../Components/SubscriptionList';
 import { EndpointTypes, typeToTitle } from '../Helpers/EndpointTypes';
 
@@ -64,18 +64,17 @@ export class TwoListDisplayPage extends Component {
             this.setState({
                 queueData: result.data
             });
-        }
-        );
+        });
     }
 
     updateAllTopicData = () => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
         const fetchedTopicData = serviceBusService.listTopics();
-        fetchedTopicData.then(result =>
+        fetchedTopicData.then(result => {
             this.setState({
                 topicData: result.data
-            })
-        );
+            });
+        });
     }
 
     updateTopicSubscriptionData = () => {
@@ -85,16 +84,15 @@ export class TwoListDisplayPage extends Component {
         fetchedSubscriptionData.then(result => {
             this.setState({
                 subscriptionData: result.data
-            })
-        }
-        );
+            });
+        });
     }
 
     updateEndpointMessageData = () => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
         let fetchedMessageData;
         const leftTableType = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].type;
-        if (leftTableType === EndpointTypes.QUEUE || leftTableType === undefined) {
+        if (leftTableType === EndpointTypes.QUEUE || typeof leftTableType === 'undefined') {
             const queueName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
             fetchedMessageData = serviceBusService.listQueueMessages(queueName);
         } else {
@@ -121,12 +119,14 @@ export class TwoListDisplayPage extends Component {
     getList = (isForRightHandList) => {
         let typeOfData;
         const currentLeftTable = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
+        let currentSelection;
         if (isForRightHandList) {
             typeOfData = this.state.rightTableType;
         } else {
-            //if there is no history the currentLEftTable will be underfiend 
-            //if its underfined its underfiend then its the orignal state and therefore should be queue
+            //if there is no history the currentLeftTable will be undefined
+            //if its undefined its undefined then its the original state and therefore should be queue
             typeOfData = currentLeftTable.type || EndpointTypes.QUEUE;
+            currentSelection = currentLeftTable.name;
         }
         switch (typeOfData) {
             case EndpointTypes.QUEUE:
@@ -134,7 +134,7 @@ export class TwoListDisplayPage extends Component {
                     <QueueList
                         queueData={this.state.queueData}
                         clickFunction={this.handleQueueRowClick}
-                        currentlySelectedName={currentLeftTable.name}
+                        currentlySelectedName={currentSelection}
                     />
                 );
             case EndpointTypes.TOPIC:
@@ -142,7 +142,7 @@ export class TwoListDisplayPage extends Component {
                     <TopicList
                         topicData={this.state.topicData}
                         clickFunction={this.handleTopicRowClick}
-                        currentlySelectedName={currentLeftTable.name}
+                        currentlySelectedName={currentSelection}
                     />
                 );
 
@@ -151,7 +151,7 @@ export class TwoListDisplayPage extends Component {
                     <SubscriptionList
                         subscriptionData={this.state.subscriptionData}
                         clickFunction={this.handleSubscriptionRowClick}
-                        currentlySelectedName={currentLeftTable.name}
+                        currentlySelectedName={currentSelection}
                     />
                 );
             case EndpointTypes.MESSAGE:
@@ -207,22 +207,12 @@ export class TwoListDisplayPage extends Component {
             margin:2px;
         `;
 
-        const breadcrumbItems = [];
-        for (let i = 0; i < this.breadCrumbHistory.length; i++) {
-            if (i === this.breadCrumbHistory.length - 1) {
-                breadcrumbItems.push(
-                    <Breadcrumb.Item onClick={() => this.HandleBreadCrumbClick(this.breadCrumbHistory[i].type, i)} active >
-                        {this.breadCrumbHistory[i].name}
-                    </Breadcrumb.Item>
-                );
-            } else {
-                breadcrumbItems.push(
-                    <Breadcrumb.Item onClick={() => this.HandleBreadCrumbClick(this.breadCrumbHistory[i].type, i)} >
-                        {this.breadCrumbHistory[i].name}
-                    </Breadcrumb.Item>
-                );
-            }
-        }
+        const breadcrumbItems = this.breadCrumbHistory.map((breadCrumb, i) => {
+            return (<Breadcrumb.Item onClick={() => this.HandleBreadCrumbClick(breadCrumb.type, i)} active={(i === this.breadCrumbHistory.length - 1)} >
+                {this.breadCrumbHistory[i].name}
+            </Breadcrumb.Item>);
+        });
+
         return (
             <Breadcrumb className={breadcrumbStyle} >
                 {breadcrumbItems}
@@ -231,9 +221,9 @@ export class TwoListDisplayPage extends Component {
     }
 
     render() {
-        //QQ change width when side buttons are removed
+
         const displayStyle = css`
-            width: 30%;
+            width: 40%;
             margin-left: 10px;
             margin-right:10px;
             display: inline-block; /*to allow tables to be displayed side by side*/
@@ -251,6 +241,7 @@ export class TwoListDisplayPage extends Component {
 
         const leftBox = this.getList();
         const rightBox = this.getList(true);
+        const rightType = this.state.rightTableType;
         const leftType = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].type || EndpointTypes.QUEUE;
 
         return (
@@ -264,7 +255,7 @@ export class TwoListDisplayPage extends Component {
                         {leftBox}
                     </div>
                     <div className={displayStyle}>
-                        <h2>{typeToTitle(this.state.rightTableType)}</h2>
+                        <h2>{typeToTitle(rightType)}</h2>
                         {rightBox}
                     </div>
                 </div>
