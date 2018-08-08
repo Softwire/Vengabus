@@ -1,3 +1,5 @@
+import { Button } from "react-bootstrap";
+
 class TestHelper {
     /*
      * It returns a promise that waits until the state of the components is updated and then continues.
@@ -17,6 +19,9 @@ class TestHelper {
         return new Promise(function (resolve) {
             setTimeout(resolve, 0);
         });
+    }
+    clickElementWithId(wrapper, id) {
+        wrapper.find(id).at(0).simulate("click");
     }
 }
 

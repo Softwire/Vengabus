@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeleteMessagesButton renders correctly with given props 1`] = `
+<button
+  className="btn btn-danger"
+  disabled={false}
+  id="alertDelete"
+  onClick={[Function]}
+  type="button"
+>
+  Delete ALL messages 
+  <span
+    className="glyphicon glyphicon-trash"
+  />
+</button>
+`;
