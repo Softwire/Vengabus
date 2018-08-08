@@ -12,6 +12,8 @@ export class QueueList extends Component {
             queueArray = [...this.props.queueData];
 
             for (let i = 0; i < queueArray.length; i++) {
+                //needs to be cloned
+                queueArray[i] = { ...queueArray[i] };
                 const currentMessageArray = queueArray[i];
                 if (currentMessageArray.mostRecentDeadLetter) {
                     currentMessageArray.mostRecentDeadLetter = moment(currentMessageArray.mostRecentDeadLetter).format("DD-MM-YYYY");
