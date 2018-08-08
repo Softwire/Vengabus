@@ -5,8 +5,8 @@ import formatJSon from 'prettyprint';
 const formatXML = require("xml-formatter");
 const classNames = require('classnames');
 
-function deformatOriginalXML(originalData) {
-    //remove initial whitespaces (tabs), as they will be added later in xml formatting.
+function removeWhitespaceFormatting(originalData) {
+    //remove any white space at the start of a line, as they will be added later in xml formatting.
     let noInitialWhitespace = originalData.replace(/^ */gm, "");
 
     //if original text is already formatted, there will be newlines between tags. Remove them as they will be added later.
@@ -35,8 +35,6 @@ function removeBlankLines(text) {
     return text.replace(/^\s*\n/gm, "");
 }
 
-//I feel that text1 and text2 are really the correct names (instead of original/formatted), as this is a more general function
-//that is capable of comparing two arbitrary texts.
 function matchWithoutWhitespace(text1, text2) {
     return text1.replace(/\s/g, "") === text2.replace(/\s/g, "");
 }
@@ -49,6 +47,9 @@ export class FormattingBox extends Component {
     }
 
     startsAndEndsWith = (inputString, startCharacter, endCharacter) => {
+        if (!inputString) {
+            return false;
+        }
         if (inputString[0] === startCharacter && inputString[inputString.length - 1] === endCharacter) {
             return true;
         }
@@ -67,7 +68,7 @@ export class FormattingBox extends Component {
         if (this.startsAndEndsWith(originalData, '<', '>')) {
             mightBeXml = true;
         }
-        if (this.startsAndEndsWith(originalData, '{', '}') || this.startsAndEndsWith(originalData, '[', ']')) {
+        else if (this.startsAndEndsWith(originalData, '{', '}') || this.startsAndEndsWith(originalData, '[', ']')) {
             mightBeJson = true;
         }
 
@@ -78,21 +79,19 @@ export class FormattingBox extends Component {
                 //check for xml first then check for json
                 if (mightBeXml) {
                     //first remove existing formatting
-                    let deformattedOriginalText = deformatOriginalXML(originalData);
+                    let deformattedOriginalText = removeWhitespaceFormatting(originalData);
                     //format it, but remove blank lines
                     formattedText = removeBlankLines(formatXML(deformattedOriginalText));
                     if (formattedText && (!matchWithoutWhitespace(formattedText, originalData))) {
                         xmlFormattingSucceededButChangedText = true;
                     }
                 }
-                if (!formattedText && mightBeJson) {
+                if (mightBeJson) {
                     let deformattedOriginalText = deformatOriginalJSON(originalData);
                     formattedText = removeBlankLines(formatJSon(JSON.parse(deformattedOriginalText)));
-                    console.log(formattedText);
                 }
             }
             catch (err) {
-                console.log(err);
                 formattingError = err;
             }
         } else {

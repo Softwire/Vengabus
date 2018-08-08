@@ -1,5 +1,93 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`FormattingBox renders a snapshot correctly when given json 1`] = `
+.emotion-0 {
+  text-align: left;
+}
+
+<div>
+   
+   
+  <div
+    id="formatted"
+  >
+    <p>
+      Formatted Data:
+    </p>
+    <pre
+      className="emotion-0"
+      id="formattedText"
+    >
+      {
+          a: "apple",
+          b: 42,
+          c: false
+      }
+      
+    </pre>
+  </div>
+   
+</div>
+`;
+
+exports[`FormattingBox renders a snapshot correctly when given plain text 1`] = `
+.emotion-0 {
+  text-align: left;
+}
+
+.emotion-1 {
+  white-space: pre-wrap;
+}
+
+<div>
+   
+   
+  
+  <div
+    id="original"
+  >
+    <p>
+      Original Data:
+    </p>
+    <pre
+      className="emotion-0 emotion-1"
+      id="originalText"
+    >
+      "a":"apple","b":42, "c":false
+    </pre>
+  </div>
+</div>
+`;
+
+exports[`FormattingBox renders a snapshot correctly when given props 1`] = `
+.emotion-0 {
+  text-align: left;
+}
+
+.emotion-1 {
+  white-space: pre-wrap;
+}
+
+<div>
+   
+   
+  
+  <div
+    id="original"
+  >
+    <p>
+      Original Data:
+    </p>
+    <pre
+      className="emotion-0 emotion-1"
+      id="originalText"
+    >
+      test
+    </pre>
+  </div>
+</div>
+`;
+
 exports[`FormattingBox renders a snapshot correctly when given renders correctly when given json 1`] = `
 .emotion-0 {
   text-align: left;
@@ -27,6 +115,35 @@ exports[`FormattingBox renders a snapshot correctly when given renders correctly
     </pre>
   </div>
    
+</div>
+`;
+
+exports[`FormattingBox renders a snapshot correctly when given renders correctly when given plain text 1`] = `
+.emotion-0 {
+  text-align: left;
+}
+
+.emotion-1 {
+  white-space: pre-wrap;
+}
+
+<div>
+   
+   
+  
+  <div
+    id="original"
+  >
+    <p>
+      Original Data:
+    </p>
+    <pre
+      className="emotion-0 emotion-1"
+      id="originalText"
+    >
+      "a":"apple","b":42, "c":false
+    </pre>
+  </div>
 </div>
 `;
 
@@ -62,6 +179,10 @@ exports[`FormattingBox renders a snapshot correctly when given renders correctly
   text-align: left;
 }
 
+.emotion-1 {
+  white-space: pre-wrap;
+}
+
 <div>
    
    
@@ -73,12 +194,39 @@ exports[`FormattingBox renders a snapshot correctly when given renders correctly
       Original Data:
     </p>
     <pre
-      className="emotion-0"
+      className="emotion-0 emotion-1"
       id="originalText"
     >
       test
     </pre>
   </div>
+</div>
+`;
+
+exports[`FormattingBox renders a snapshot correctly when given xml 1`] = `
+.emotion-0 {
+  text-align: left;
+}
+
+<div>
+   
+   
+  <div
+    id="formatted"
+  >
+    <p>
+      Formatted Data:
+    </p>
+    <pre
+      className="emotion-0"
+      id="formattedText"
+    >
+      &lt;a&gt;
+          This is a sample xml message
+      &lt;/a&gt;
+    </pre>
+  </div>
+   
 </div>
 `;
 

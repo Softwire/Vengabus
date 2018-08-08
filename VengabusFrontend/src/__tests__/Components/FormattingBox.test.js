@@ -33,7 +33,7 @@ function expectNoFormattedResult(input) {
 describe('FormattingBox', () => {
 
     describe('renders a snapshot correctly when given', () => {
-        it('renders correctly with given props', () => {
+        it('props', () => {
             let formattingBox = renderer.create(
                 <FormattingBox
                     data="test"
@@ -41,7 +41,7 @@ describe('FormattingBox', () => {
             expect(formattingBox.toJSON()).toMatchSnapshot();
         });
 
-        it('renders correctly when given xml', () => {
+        it('xml', () => {
             let formattingBox = renderer.create(
                 <FormattingBox
                     data="<a>This is a sample xml message</a>"
@@ -49,20 +49,21 @@ describe('FormattingBox', () => {
             expect(formattingBox.toJSON()).toMatchSnapshot();
         });
 
-        it('renders correctly when given json', () => {
+        it('json', () => {
             let formattingBox = renderer.create(
                 <FormattingBox
                     data='{"a":"apple","b":42, "c":false}'
                 />);
             expect(formattingBox.toJSON()).toMatchSnapshot();
         });
-    });
-    it('renders correctly when given plain text', () => {
-        let formattingBox = renderer.create(
-            <FormattingBox
-                data='"a":"apple","b":42, "c":false'
-            />);
-        expect(formattingBox.toJSON()).toMatchSnapshot();
+
+        it('plain text', () => {
+            let formattingBox = renderer.create(
+                <FormattingBox
+                    data='"a":"apple","b":42, "c":false'
+                />);
+            expect(formattingBox.toJSON()).toMatchSnapshot();
+        });
     });
 
     it('does not change plain text', () => {
@@ -70,7 +71,7 @@ describe('FormattingBox', () => {
         expectNoFormattedResult(plainText);
     });
 
-    it('does not change plain text', () => {
+    it('does not change plain text with line breaks', () => {
         const plainText = `one kilogram
 of fish
 is worth 42`;
@@ -156,15 +157,7 @@ with linebreaks</b></apple>`;
         dsa gsd
     </c>
 </apple>`;
-        const expectedOutput =
-            `<apple>
-    <b>
-    </b>
-    <c>
-        dsa gsd
-    </c>
-</apple>`;
-        expectFormattedResult(xmlInput, expectedOutput);
+        expectFormattedResult(xmlInput, xmlInput);
     });
 
     it('formats simple JSON object', () => {
