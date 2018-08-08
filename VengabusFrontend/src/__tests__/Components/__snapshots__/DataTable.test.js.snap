@@ -131,9 +131,7 @@ exports[`DataTable renders correctly with the selectRow prop 1`] = `
           }
         }
       >
-        <td
-          onClick={[Function]}
-        >
+        <td>
           1
         </td>
         <td
@@ -147,9 +145,7 @@ exports[`DataTable renders correctly with the selectRow prop 1`] = `
         onClick={[Function]}
         style={Object {}}
       >
-        <td
-          onClick={[Function]}
-        >
+        <td>
           2
         </td>
         <td
@@ -163,9 +159,7 @@ exports[`DataTable renders correctly with the selectRow prop 1`] = `
         onClick={[Function]}
         style={Object {}}
       >
-        <td
-          onClick={[Function]}
-        >
+        <td>
           3
         </td>
         <td

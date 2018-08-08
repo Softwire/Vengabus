@@ -46,7 +46,9 @@ exports[`MessageList renders correctly with given props 1`] = `
           onClick={[Function]}
           style={Object {}}
         >
-          <td>
+          <td
+            onClick={[Function]}
+          >
             10
           </td>
           <td
@@ -60,7 +62,9 @@ exports[`MessageList renders correctly with given props 1`] = `
           onClick={[Function]}
           style={Object {}}
         >
-          <td>
+          <td
+            onClick={[Function]}
+          >
             11
           </td>
           <td
