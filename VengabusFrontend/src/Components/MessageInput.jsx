@@ -331,13 +331,14 @@ export class MessageInput extends Component {
                         onClick={() => this.handleRecipientTypeChange(true)}
                     >
                         <input
+                            id="queue-selection-radio"
                             className={queueOrTopicSelectionRadioStyle}
                             type="radio"
                             value="queue"
                             checked={this.state.recipientIsQueue}
                             onChange={() => this.handleRecipientTypeChange(true)}
                         />
-                        <div className={leftAlign + " " + queueOrTopicSelectionStyle + " " + headingStyle + " " + verticalAlign}>
+                        <div className={classNames(leftAlign, queueOrTopicSelectionStyle, headingStyle, verticalAlign)}>
                             <p>Queue</p>
                         </div>
                     </div>
@@ -356,13 +357,14 @@ export class MessageInput extends Component {
                         onClick={() => this.handleRecipientTypeChange(false)}
                     >
                         <input
+                            id="topic-selection-radio"
                             className={queueOrTopicSelectionRadioStyle}
                             type="radio"
                             value="topic"
                             checked={!this.state.recipientIsQueue}
                             onChange={() => this.handleRecipientTypeChange(false)}
                         />
-                        <div className={leftAlign + " " + queueOrTopicSelectionStyle + " " + headingStyle + " " + verticalAlign}>
+                        <div className={classNames(leftAlign, queueOrTopicSelectionStyle, headingStyle, verticalAlign)}>
                             <p>Topic</p>
                         </div>
                     </div>

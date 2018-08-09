@@ -66,7 +66,7 @@ export class MessagePropertyInputRow extends Component {
             permittedValueMenuItems = permittedValues.map((permittedValue) => { return { value: permittedValue, label: permittedValue }; });
         }
 
-        const preDefinedPropertyNameSelect = (
+        const preDefinedPropertyNameSelect = 
             <Select
                 className={leftAlign}
                 title="Choose a property"
@@ -75,10 +75,9 @@ export class MessagePropertyInputRow extends Component {
                 options={permittedValueMenuItems}
                 value={propertyName ? { value: propertyName, label: propertyName } : undefined}
                 onChange={(event) => this.props.handlePropertyNameChange(event.value, index)}
-            />
-        );
+            />;
 
-        const customPropertyTextField = (
+        const customPropertyTextField =
             <this.FieldGroup
                 id="formControlsText"
                 className={inputHeightStyle}
@@ -88,8 +87,7 @@ export class MessagePropertyInputRow extends Component {
                 placeholder="Enter property name"
                 value={propertyName}
                 onChange={(event) => this.props.handlePropertyNameChange(event.target.value, index)}
-            />
-        );
+            />;
 
         const propertyNameInput = this.props.permittedValues ? preDefinedPropertyNameSelect : customPropertyTextField;
 

@@ -28,21 +28,22 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
 
         listQueues = () => {
             return new Promise(function (resolve, reject) {
-                resolve({
+                resolve([{
                     name: "queue1"
-                });
+                }]);
             });
         }
 
         listTopics = () => {
             return new Promise(function (resolve, reject) {
-                resolve({
+                resolve([{
                     name: "topic1"
-                });
+                }]);
             });
         }
 
         sendMessageToQueue = (...args) => { mockedFunction(...args); }
+        sendMessageToTopic = (...args) => { mockedFunction(...args); }
     }
 }));
 
@@ -183,25 +184,78 @@ it('Discard Message button works', () => {
     expect(body.value).toBeUndefined();
 });
 
-it('renders correctly', () => {
-    let messagePropertyInput = renderer.create(
-        <MessageInput />);
-    expect(messagePropertyInput.toJSON()).toMatchSnapshot();
+
+it('Switches from sending to a queue to sending to a topic correctly', () => {
+    //Click topic radio -> Click topic dropdown -> Press down then enter to select the first topic ->
+    //Click submit -> Empty message should be sent to topic1
+    let wrapper = mount(<MessageInput />);
+    wrapper.setState({
+        selectedQueue: "testQueue" //Should not be used
+    });
+    //Click the topic radio button
+    testHelper.clickElementWithId(wrapper, "#topic-selection-radio");
+    return testHelper.afterReactHasUpdated().then(() => {
+        //Click the topic dropdown
+        testHelper.clickElementWithId(wrapper, "#topic-dropdown");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        //Press down followed by enter to select the first topic in the list
+        let topicDropdown = wrapper.find("#topic-dropdown").last();
+        topicDropdown.simulate('keyDown', { key: 'ArrowDown', keyCode: 40, which: 40 });
+        topicDropdown.simulate('keyDown', { key: 'Enter', keyCode: 13, which: 13 });
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        //Send the message
+        testHelper.clickElementWithId(wrapper, "#submitButton");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        expect(mockedFunction).toBeCalledWith(
+            "topic1",
+            {
+                "MessageBody": "",
+                "customProperties": {},
+                "predefinedProperties": {}
+            }
+        );
+    });
 });
 
-it('renders correctly from a predefined message', () => {
-    const message = {
-        customProperties: {
-            userDefinedProp1: 'value1',
-            userDefinedProp2: 'value2'
-        },
-        predefinedProperties: {
-            MessageId: 'Message1',
-            ContentType: 'null'
-        },
-        MessageBody: 'Hello world!'
-    };
-    let messagePropertyInput = renderer.create(
-        <MessageInput message={message} />);
-    expect(messagePropertyInput.toJSON()).toMatchSnapshot();
+
+it('Rememembers which queue was selected if the topic radio is pressed', () => {
+    //Click queue dropdown -> Press down then enter to select the first queue -> Click topic radio -> Click queue radio ->
+    //Click submit -> Empty message should be sent to queue1
+    let wrapper = mount(<MessageInput />);
+    wrapper.setState({
+        selectedQueue: "testQueue" //Should not be used
+    });
+    //Click the queue dropdown
+    testHelper.clickElementWithId(wrapper, "#queue-dropdown");
+    return testHelper.afterReactHasUpdated().then(() => {
+        //Press down followed by enter to select the first queue in the list
+        let topicDropdown = wrapper.find("#queue-dropdown").last();
+        topicDropdown.simulate('keyDown', { key: 'ArrowDown', keyCode: 40, which: 40 });
+        topicDropdown.simulate('keyDown', { key: 'Enter', keyCode: 13, which: 13 });
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        //Click the topic radio button
+        testHelper.clickElementWithId(wrapper, "#topic-selection-radio");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        //Click the queue radio button
+        testHelper.clickElementWithId(wrapper, "#queue-selection-radio");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        //Send the message
+        testHelper.clickElementWithId(wrapper, "#submitButton");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        expect(mockedFunction).toBeCalledWith(
+            "queue1",
+            {
+                "MessageBody": "",
+                "customProperties": {},
+                "predefinedProperties": {}
+            }
+        );
+    });
 });
