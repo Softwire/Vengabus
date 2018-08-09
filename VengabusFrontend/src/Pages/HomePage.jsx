@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TwoListDisplay } from './TwoListDisplayPage';
+import { TwoListDisplay } from '../Components/TwoListDisplay';
 
 export class HomePage extends Component {
 
