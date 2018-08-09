@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import Select from 'react-select';
 import _ from 'lodash';
-const classNames = require('classnames');
+import classNames from 'classnames';
 
 /** 
  * @prop {Object} data All of the data that is passed down into this component.

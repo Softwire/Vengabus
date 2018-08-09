@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { css } from 'react-emotion';
 import { Alert } from 'react-bootstrap';
 import formatJSon from 'prettyprint';
-const formatXML = require("xml-formatter");
-const classNames = require('classnames');
+import classNames from 'classnames';
+import formatXML from 'xml-formatter';
 
 function removeWhitespaceFormattingFromXML(originalData) {
     //remove any white space at the start of a line, as they will be added later in xml formatting.

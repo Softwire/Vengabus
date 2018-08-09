@@ -6,7 +6,7 @@ import { CurrentPage } from './Pages/CurrentPage';
 import { sharedSizesAndDimensions } from './Helpers/SharedSizesAndDimensions';
 import { css } from 'emotion';
 import { Konamibus } from './Components/Konamibus';
-const classNames = require('classnames');
+import classNames from 'classnames';
 
 class App extends Component {
     render() {
