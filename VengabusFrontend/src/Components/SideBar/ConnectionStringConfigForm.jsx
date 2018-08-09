@@ -46,9 +46,11 @@ export class ConnectionStringConfigForm extends Component {
             connectionStringList = [];
         }
 
+        //maybe for some reason it's not an array, we'll fix it here so that the code doesn't crash later
         if (!Array.isArray(connectionStringList)) {
             connectionStringList = [];
         }
+
         //for backward compatibility -- to be removed in the future
         if (connectionStringList.length === 0) {
             let connectionString = localStorageAccessor.getItem("connectionString");
@@ -64,15 +66,22 @@ export class ConnectionStringConfigForm extends Component {
         this.populateAPIRoot(localStorageApiRoot);
     }
 
+    /** Populates the connection string list on page.
+     * @param {string[]} newConnectionStringList The list to be populated.
+     */
     populateConnectionStringList = newConnectionStringList => {
         this.setState({ connectionStringList: newConnectionStringList });
         if (newConnectionStringList.length > 0) {
+            //if we have some strings, use the first one by default
             this.setState({
                 connectionString: newConnectionStringList[0]
             });
         }
     }
 
+    /** Populates the apiRoot on page.
+     * @param {string} newApiRoot The apiRoot to be populated.  
+     */
     populateAPIRoot = newApiRoot => {
         this.setState({ APIroot: newApiRoot });
     }
@@ -82,6 +91,7 @@ export class ConnectionStringConfigForm extends Component {
      */
     updateConnectionStringStorage = (connectionString) => {
 
+        //put the most recently used string to the top
         let connectionStringList = this.state.connectionStringList;
         for (let i = 0; i < connectionStringList.length; i++) {
             if (connectionStringList[i].label === connectionString.label) {
@@ -91,12 +101,14 @@ export class ConnectionStringConfigForm extends Component {
         connectionStringList.splice(0, 0, connectionString);
 
         this.setState({
-            connectionString: connectionString
+            connectionString: connectionString,
+            connectionStringList: connectionStringList
         });
-        console.log(connectionString);
-        console.log(connectionStringList);
 
+        //set servicebus to use new connection string
         serviceBusConnection.setConnectionString(connectionString.value);
+
+        //local storage only supports strings, so stringify our list and save in local storage
         localStorageAccessor.setItem(
             LOCAL_STORAGE_STRINGS.ConnectionStringList,
             JSON.stringify(connectionStringList)
@@ -124,6 +136,9 @@ export class ConnectionStringConfigForm extends Component {
 
     // Called whenever the value of the connection string label select box changes (or when a new one is created).
     handleConnectionStringLabelChange = event => {
+        //react-select has a different onChange event structure.
+        //The new value is directly in event, instead of event.target.*
+
         //a new connection string
         let newConnectionStringList = this.state.connectionStringList;
         if (event.value === event.label) {
@@ -148,6 +163,7 @@ export class ConnectionStringConfigForm extends Component {
      */
     submitConnectionStringClick = () => {
 
+        //only save new strings when they are used
         this.updateConnectionStringStorage(this.state.connectionString);
         this.updateAPIrootStorage(this.state.APIroot);
 
@@ -177,11 +193,15 @@ export class ConnectionStringConfigForm extends Component {
             padding: 5px;
         `;
 
+        const selectStyle = css`
+            color: black;
+        `;
+
         return (
             <form className={formStyle}>
                 <FormGroup controlId="connectionStringLabel">
                     <ControlLabel>Connection String Label</ControlLabel>
-                    <Creatable
+                    <Creatable className={selectStyle}
                         value={this.state.connectionString}
                         placeholder="Select a connection string"
                         onChange={this.handleConnectionStringLabelChange}
