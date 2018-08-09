@@ -125,6 +125,7 @@ export class TwoListDisplayPage extends Component {
         if (leftTableType === EndpointTypes.QUEUE || typeof leftTableType === 'undefined') {
             const queueName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
             fetchedDeadLetterData = serviceBusService.listQueueDeadLetterMessages(queueName);
+
         } else {
             const topicName = this.breadCrumbHistory[this.breadCrumbHistory.length - 2].name;
             const subscriptionName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
@@ -132,7 +133,7 @@ export class TwoListDisplayPage extends Component {
         }
         fetchedDeadLetterData.then((result) => {
             this.setState({
-                messageData: result.data
+                messageData: result
             });
         });
     }
