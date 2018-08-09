@@ -320,6 +320,20 @@ export class MessageInput extends Component {
         `;
         let preDefinedPropsButtonClassNames = classNames(buttonStyle, this.arePredefinedPropsLoaded || buttonLoading);
         const preDefinedPropertiesButtonText = this.arePredefinedPropsLoaded ? 'Add new Azure property' : 'Loading pre-defined properties...';
+
+        //generate warnings of certain property names.
+        let warningList = [];
+        let customPropertyNames = this.state.userDefinedProperties.map((item) => item.name);
+        let reservedPropertyNames = this.state.reservedPropertyNames;
+        for (let i = 0; i < this.state.userDefinedProperties.length; i++) {
+            if (customPropertyNames.slice(0, i).includes(customPropertyNames[i])) {
+                warningList.push(<p key={"repetitiveWarning" + i}>{"Warning: repetitive property name: '" + customPropertyNames[i] + "'"}</p>);
+            }
+            if (reservedPropertyNames.includes(customPropertyNames[i])) {
+                warningList.push(<p key={"predefinedWarning" + i}>{"Warning: custom property '" + customPropertyNames[i] + "' is potentially a predefined property"}</p>);
+            }
+        }
+        let warnings = <div>{warningList}</div>;
         return (
             <div className={formStyle} >
                 <div className={leftAlign}>
@@ -440,7 +454,7 @@ export class MessageInput extends Component {
                         id="submitButton"
                         buttonText={"Send Message"}
                         modalTitle={"Send Message to " + this.state.selectedQueue}
-                        modalBody={"Send the message below?"}
+                        modalBody={warningList.length > 0 ? warnings : "Confirm sending message?"}
                         confirmButtonText={"Send"}
                         cancelButtonText={"Cancel"}
                         showModalAction={() => { }}
