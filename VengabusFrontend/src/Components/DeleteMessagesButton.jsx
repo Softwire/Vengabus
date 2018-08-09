@@ -113,6 +113,7 @@ class DeleteMessagesButton extends React.Component {
         return (
             <ButtonWithPopupConfirmation
                 buttonText={buttonText}
+                buttonStyle={"danger"}
                 modalTitle={"Delete all messages from " + this.props.type}
                 modalBody={this.state.modalBody}
                 confirmButtonText={"Delete"}

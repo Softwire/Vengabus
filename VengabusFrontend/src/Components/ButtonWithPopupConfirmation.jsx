@@ -30,7 +30,7 @@ class ButtonWithPopupConfirmation extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Button onClick={this.handleOpening} bsStyle="danger">
+                <Button onClick={this.handleOpening} bsStyle={this.props.buttonStyle}>
                     {this.props.buttonText}
                 </Button>
                 <Modal show={this.state.show} onHide={this.handleClose} >
