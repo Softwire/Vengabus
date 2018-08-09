@@ -204,7 +204,7 @@ export class TwoListDisplayPage extends Component {
         const breadcrumbStyle = css`
             float: left;
             height:35px;
-            margin:2px;
+            margin-bottom: 1px !important;
         `;
 
         const breadcrumbItems = this.breadCrumbHistory.map((breadCrumb, i) => {
