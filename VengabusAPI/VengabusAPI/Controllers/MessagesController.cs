@@ -71,11 +71,27 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpDelete]
+        [Route("queues/{queueName}/message/{uniqueId}")]
+        public void DeleteSingleMessageInQueue(string queueName, string uniqueId, [FromUri]string messageId)
+        {
+            DeleteSingleMessageFromEndpoint(EndpointIdentifier.ForQueue(queueName), messageId, uniqueId);
+        }
+
+        [HttpDelete]
         [Route("subscriptions/{topicName}/{subscriptionName}/messages")]
         //delete all messages in a given subscription
         public void PurgeSubscriptionMessages(string topicName, string subscriptionName)
         {
             DeleteMessageFromEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionName));
+        }
+
+        [HttpDelete]
+        [Route("subscriptions/{topicName}/{subscriptionName}/message/{uniqueId}")]
+        //delete all messages in a given subscription
+        public void DeleteSingleMessageInSubscription(string topicName, string subscriptionName, string uniqueId, [FromUri]string messageId)
+        {
+            DeleteSingleMessageFromEndpoint(
+                EndpointIdentifier.ForSubscription(topicName, subscriptionName), messageId, uniqueId);
         }
 
         [HttpDelete]
@@ -92,11 +108,33 @@ namespace VengabusAPI.Controllers
             }
         }
 
+        [HttpDelete]
+        [Route("topics/{topicName}/message/{uniqueId}")]
+        //delete all messages in all the subscriptions for a given topic
+        public void DeleteSingleMessageInTopic(string topicName, string uniqueId, [FromUri]string messageId)
+        {
+            //get all subscriptions, and delete for each of them.
+            var namespaceManager = CreateNamespaceManager();
+            var topicDescription = namespaceManager.GetSubscriptions(topicName);
+            foreach (var subscriptionDescription in topicDescription)
+            {
+                DeleteSingleMessageFromEndpoint(
+                    EndpointIdentifier.ForSubscription(topicName, subscriptionDescription.Name), messageId, uniqueId);
+            }
+        }
+
         private void DeleteMessageFromEndpoint(EndpointIdentifier endpoint)
         {
             var factory = CreateEndpointFactory();
             var namespaceManager = CreateNamespaceManager();
             MessageServices.DeleteMessageFromEndpoint(factory, namespaceManager, endpoint);
+        }
+
+        private void DeleteSingleMessageFromEndpoint(EndpointIdentifier endpoint, string messageId, string uniqueId)
+        {
+            var factory = CreateEndpointFactory();
+            var namespaceManager = CreateNamespaceManager();
+            MessageServices.DeleteSingleMessageFromEndpoint(factory, namespaceManager, endpoint, messageId, uniqueId);
         }
         
 
