@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.ServiceBus.Messaging;
 using System;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace VengabusAPI.Models
 {
@@ -28,7 +30,16 @@ namespace VengabusAPI.Models
                 }
             }
 
-            return new VengaMessage(customProperties, predefinedProperties, brokeredMessage.GetBody<string>());
+            string messageBody = brokeredMessage.GetBody<string>();
+            string stringToHash = brokeredMessage.MessageId + messageBody + brokeredMessage.EnqueuedTimeUtc;
+            Guid guid;
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] hash = md5.ComputeHash(Encoding.Default.GetBytes(stringToHash));
+                guid = new Guid(hash);
+            }
+
+            return new VengaMessage(customProperties, predefinedProperties, messageBody, guid.ToString());
         }
 
         public static BrokeredMessage ToBrokeredMessage(VengaMessage vengaMessage)
