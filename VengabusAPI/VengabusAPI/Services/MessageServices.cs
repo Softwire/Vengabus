@@ -65,6 +65,11 @@ namespace VengabusAPI.Services
                 }
             }
 
+            messagesToReturn.Sort(delegate (BrokeredMessage x, BrokeredMessage y)
+            {
+                return x.EnqueuedTimeUtc < y.EnqueuedTimeUtc ? -1 : 1;
+            });
+
             return messagesToReturn;
         }
 
