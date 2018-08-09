@@ -257,7 +257,16 @@ export class DataTable extends Component {
         const textAlign = css`
             text-align:center;
         `;
-
+        const tableBorder = css`
+             
+             .table{
+             margin-bottom:0px;
+             border-top-style: solid;
+             border-left-style: solid;
+             border-right-style: solid;
+             border-bottom-style: solid;
+             }
+         `;
         return dataToDisplay ? (
             <BootstrapTable
                 data={dataToDisplay}
