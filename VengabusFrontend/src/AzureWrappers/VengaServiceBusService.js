@@ -116,13 +116,39 @@ export class VengaServiceBusService {
         return this.axiosWithSAS.delete(url);
     }
 
+<<<<<<< HEAD
     purgeTopicMessages = (topicName) => {
+=======
+    deleteQueueSingleMessage = (queueName, messageId, uniqueId) => {
+        const messageIdEncoded = encodeURIComponent(messageId);
+        const url = this.apiRoot + `queues/${queueName}/message/${uniqueId}?messageId=${messageIdEncoded}`;
+        return this.axiosWithSAS.delete(url);
+    }
+
+    deleteTopicMessages = (topicName) => {
+>>>>>>> Add methods for calling deleting single message endpoints
         const url = this.apiRoot + `topics/${topicName}/messages`;
         return this.axiosWithSAS.delete(url);
     }
 
+<<<<<<< HEAD
     purgeSubscriptionMessages = (topicName, subscriptionName) => {
+=======
+    deleteTopicSingleMessage = (topicName, messageId, uniqueId) => {
+        const messageIdEncoded = encodeURIComponent(messageId);
+        const url = this.apiRoot + `topics/${topicName}/message/${uniqueId}?messageId=${messageIdEncoded}`;
+        return this.axiosWithSAS.delete(url);
+    }
+
+    deleteSubscriptionMessages = (topicName, subscriptionName) => {
+>>>>>>> Add methods for calling deleting single message endpoints
         const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/messages`;
+        return this.axiosWithSAS.delete(url);
+    }
+
+    deleteSubscriptionSingleMessage = (topicName, subscriptionName, messageId, uniqueId) => {
+        const messageIdEncoded = encodeURIComponent(messageId);
+        const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/message/${uniqueId}?messageId=${messageIdEncoded}`;
         return this.axiosWithSAS.delete(url);
     }
 
