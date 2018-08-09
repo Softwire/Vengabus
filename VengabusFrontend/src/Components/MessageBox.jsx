@@ -5,6 +5,7 @@ import { CopyTextButton } from './CopyTextButton';
 import { css } from 'emotion';
 import { CollapsiblePanel } from './CollapsiblePanel';
 import { PAGES, pageSwitcher } from '../Pages/PageSwitcherService';
+import { FormatBox } from './FormatBox';
 
 export class MessageBox extends Component {
 
@@ -72,9 +73,10 @@ export class MessageBox extends Component {
                         <CollapsiblePanel panelTitle={"User-defined Properties"}>
                             <pre>{customPropsJSX}</pre>
                         </CollapsiblePanel>
-                        <FormattingBox
+                        {/*<FormattingBox
                             data={message.messageBody /* qqMDM data */}
-                        />
+                        />*/}
+                        <FormatBox data={this.props.messageBody} />
                     </Modal.Body>
 
                     <Modal.Footer>
