@@ -11,7 +11,7 @@ import classNames from 'classnames';
 class App extends Component {
     render() {
         const appStyle = css`
-            text-align: center;
+            text-align: left;
         `;
         const mainPageStyle = css`
             margin-top: ${sharedSizesAndDimensions.DEFAULTHEADERHEIGHT};

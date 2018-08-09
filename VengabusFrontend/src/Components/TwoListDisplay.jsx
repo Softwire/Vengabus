@@ -301,8 +301,8 @@ export class TwoListDisplay extends Component {
 
         const displayStyle = css`
             width: 45%;
-            margin-left: 5px;
-            margin-right:5px;
+            margin-left: 10px;
+            margin-right:10px;
             display: inline-block; /*to allow tables to be displayed side by side*/
         `;
 
@@ -317,6 +317,9 @@ export class TwoListDisplay extends Component {
             `;
         const minWidth = css`
             min-width:1300px;
+        `;
+        const titleStyle = css`
+            text-align:center;
         `;
 
         const leftBox = this.getList();
