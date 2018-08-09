@@ -12,18 +12,15 @@ export class TopicList extends Component {
             {
                 dataField: 'name',
                 width: 34,
-                headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'subscriptionCount',
                 width: 33,
-                headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'topicStatus',
                 text: 'Status',
                 width: 33,
-                headerStyle: { textAlign: 'center' }
             }
         ];
 

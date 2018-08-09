@@ -255,9 +255,8 @@ export class DataTable extends Component {
         }
 
         const textAlign = css`
-            text-align:center
-        `
-
+            text-align:center;
+        `;
 
         return dataToDisplay ? (
             <BootstrapTable
@@ -268,6 +267,8 @@ export class DataTable extends Component {
                 selectRow={finalSelectRow}
                 rowClasses={finalRowClasses}
                 {...otherProps}
+                striped
+               
             />
         ) : (
                 <p className={textAlign}>No data has been retrieved yet.</p>

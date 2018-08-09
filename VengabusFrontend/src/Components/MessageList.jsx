@@ -54,13 +54,11 @@ export class MessageList extends Component {
                 dataField: 'predefinedProperties.messageId',
                 text: 'Message Id',
                 width: 33,
-                headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'messageBodyPreview',
                 text: 'Message Body',
                 width: 33,
-                headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'timestamp',
