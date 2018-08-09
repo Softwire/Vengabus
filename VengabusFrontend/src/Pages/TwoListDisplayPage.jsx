@@ -286,12 +286,18 @@ export class TwoListDisplayPage extends Component {
             margin-bottom: 1px !important;
         `;
 
-        const breadcrumbItems = this.breadCrumbHistory.map((breadCrumb, i) => {
+        let breadcrumbItems = this.breadCrumbHistory.map((breadCrumb, i) => {
             return (<Breadcrumb.Item onClick={() => this.HandleBreadCrumbClick(breadCrumb.type, i)} active={(i === this.breadCrumbHistory.length - 1)} key={i}>
                 {this.breadCrumbHistory[i].name}
             </Breadcrumb.Item>);
         });
-
+        if (this.breadCrumbHistory[1]) {
+            breadcrumbItems.push(
+                (<Breadcrumb.Item key={breadcrumbItems.length} active>
+                    {typeToTitle(this.state.rightTableType)}
+                </Breadcrumb.Item>)
+            );
+        }
         return (
             <Breadcrumb className={breadcrumbStyle}>
                 {breadcrumbItems}
