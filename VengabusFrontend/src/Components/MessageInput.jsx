@@ -55,12 +55,12 @@ export class MessageInput extends Component {
         });
         this.serviceBusService.listQueues().then((result) => {
             this.setState({
-                availableQueues: this.convertArrayOfNamesToValueLabel(result.data)
+                availableQueues: this.convertArrayOfNamesToValueLabel(result)
             });
         });
         this.serviceBusService.listTopics().then((result) => {
             this.setState({
-                availableTopics: this.convertArrayOfNamesToValueLabel(result.data)
+                availableTopics: this.convertArrayOfNamesToValueLabel(result)
             });
         });
 
@@ -346,7 +346,7 @@ export class MessageInput extends Component {
                         title="Queue"
                         id={"queue-dropdown"}
                         options={this.state.availableQueues}
-                        value={this.state.selectedQueue ? { value: this.state.selectedQueue, label: this.state.selectedQueue } : undefined}
+                        value={this.state.selectedQueue ? this.convertToValueLabel(this.state.selectedQueue) : undefined}
                         onChange={(event) => this.handleQueueOrTopicChange(event.value)}
                     />
                 </div>
@@ -371,7 +371,7 @@ export class MessageInput extends Component {
                         title="Topic"
                         id={"topic-dropdown"}
                         options={this.state.availableTopics}
-                        value={this.state.selectedTopic ? { value: this.state.selectedTopic, label: this.state.selectedTopic } : undefined}
+                        value={this.state.selectedTopic ? this.convertToValueLabel(this.state.selectedTopic) : undefined}
                         onChange={(event) => this.handleQueueOrTopicChange(event.value)}
                     />
                 </div>

@@ -29,9 +29,7 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
         listQueues = () => {
             return new Promise(function (resolve, reject) {
                 resolve({
-                    data: {
-                        name: "queue1"
-                    }
+                    name: "queue1"
                 });
             });
         }
@@ -39,9 +37,7 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
         listTopics = () => {
             return new Promise(function (resolve, reject) {
                 resolve({
-                    data: {
-                        name: "topic1"
-                    }
+                    name: "topic1"
                 });
             });
         }
