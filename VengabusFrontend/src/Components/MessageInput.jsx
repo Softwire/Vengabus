@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { css } from 'react-emotion';
 import { MessagePropertyInput } from './MessagePropertyInput';
+import { ButtonWithPopupConfirmation } from './ButtonWithPopupConfirmation';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import {
     FormGroup,
@@ -441,12 +442,17 @@ export class MessageInput extends Component {
                     >
                         Submit
                     </Button>
-                    <Button
-                        onClick={this.discardMessage}
-                        bsStyle="danger"
-                    >
-                        Reset Fields
-                    </Button>
+                    <ButtonWithPopupConfirmation
+                        buttonText={"Reset All"}
+                        buttonStyle={"danger"}
+                        modalTitle={"Reset all fields"}
+                        modalBody={"Are you sure you want to reset ALL fields of the current message? The current message will be lost!"}
+                        confirmButtonText={"Reset"}
+                        cancelButtonText={"Cancel"}
+                        showModalAction={() => { }}
+                        confirmAction={this.discardMessage}
+                        closeModalAction={() => { }}
+                    />
                 </form>
             </div >
         );
