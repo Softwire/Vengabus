@@ -1,12 +1,8 @@
 import React from 'react';
-import { Glyphicon, Modal, Alert, Button } from 'react-bootstrap';
-import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
-import { EndpointTypes } from '../Helpers/EndpointTypes';
-import Lodash from 'lodash';
+import { Modal, Alert, Button } from 'react-bootstrap';
 
 const defaultState = {
-    show: false,
-    onConfirmed: () => { }
+    show: false
 };
 
 class ButtonWithPopupConfirmation extends React.Component {
