@@ -39,7 +39,7 @@ export class QueueList extends Component {
             {
                 dataField: 'mostRecentDeadLetter',
                 width: 25,
-                headerStyle: { textAlign: 'center' }
+                headerStyle: { width: '25%', textAlign: 'center', 'min-width': '90px' }
             }
         ];
 
