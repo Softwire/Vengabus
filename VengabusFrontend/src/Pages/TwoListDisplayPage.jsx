@@ -104,6 +104,7 @@ export class TwoListDisplayPage extends Component {
         const serviceBusService = serviceBusConnection.getServiceBusService();
         let fetchedMessageData;
         const leftTableType = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].type;
+
         if (leftTableType === EndpointTypes.QUEUE || typeof leftTableType === 'undefined') {
             const queueName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
             fetchedMessageData = serviceBusService.listQueueMessages(queueName);
@@ -163,66 +164,79 @@ export class TwoListDisplayPage extends Component {
                     display: inline-block;
                     margin:10px;
                 `;
+        const buttonStyle = css`
+                margin-right: 0px;
+                float: right;
+                margin: 9px;
+                width: 96px;
+        `;
+
         switch (typeOfData) {
             case EndpointTypes.QUEUE:
                 return (
-                    <div>
-                        <h2>{typeToTitle(EndpointTypes.QUEUE)}</h2>
+                    <React.Fragment>
+                        <div>
+                            <h2>{typeToTitle(EndpointTypes.QUEUE)}</h2>
+                        </div>
                         <QueueList
                             queueData={this.state.queueData}
                             clickFunction={this.handleQueueRowClick}
                             currentlySelectedName={currentSelection}
                         />
-                    </div>
+                    </React.Fragment>
                 );
             case EndpointTypes.TOPIC:
                 return (
-                    <div>
-                        <h2>{typeToTitle(EndpointTypes.TOPIC)}</h2>
+                    <React.Fragment>
+                        <div>
+                            <h2>{typeToTitle(EndpointTypes.TOPIC)}</h2>
+                        </div>
                         <TopicList
                             topicData={this.state.topicData}
                             clickFunction={this.handleTopicRowClick}
                             currentlySelectedName={currentSelection}
                         />
-                    </div>
+                    </React.Fragment>
                 );
 
             case EndpointTypes.SUBSCRIPTION:
                 return (
-                    <div>
-                        <h2>{typeToTitle(EndpointTypes.SUBSCRIPTION)}</h2>
+                    <React.Fragment>
+                        <div>
+                            <h2>{typeToTitle(EndpointTypes.SUBSCRIPTION)}</h2>
+                        </div>
                         <SubscriptionList
                             subscriptionData={this.state.subscriptionData}
                             clickFunction={this.handleSubscriptionRowClick}
                             currentlySelectedName={currentSelection}
                         />
-                    </div>
+                    </React.Fragment>
                 );
             case EndpointTypes.MESSAGE:
 
                 return (
-                    <div>
+                    <React.Fragment>
                         <div >
                             <h2 className={displayStyle} >{typeToTitle(EndpointTypes.MESSAGE)}</h2>
-                            <Button className={displayStyle} onClick={this.handleDeadLetterClick}> DeadLetter </Button>
+                            <Button className={buttonStyle} onClick={this.handleDeadLetterClick}> DeadLetter </Button>
                         </div>
                         <MessageList
                             messageData={this.state.messageData}
                         />
-                    </div>
+                    </React.Fragment>
 
                 );
             case EndpointTypes.DEADLETTER:
                 return (
-                    <div>
+                    <React.Fragment>
                         <div>
                             <h2 className={displayStyle} >{typeToTitle(EndpointTypes.DEADLETTER)}</h2>
-                            <Button className={displayStyle} onClick={this.handleNormalMessageClick} > normal </Button>
+                            <Button className={buttonStyle} onClick={this.handleNormalMessageClick}> normal </Button>
                         </div>
                         <MessageList
                             messageData={this.state.messageData}
                         />
-                    </div>
+                    </React.Fragment>
 
                 );
             default:
@@ -306,8 +320,6 @@ export class TwoListDisplayPage extends Component {
 
         const leftBox = this.getList();
         const rightBox = this.getList(true);
-        const rightType = this.state.rightTableType;
-        const leftType = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].type || EndpointTypes.QUEUE;
 
         return (
             <div >

@@ -18,7 +18,7 @@ var typeToTitle = (type) => {
         case EndpointTypes.TOPIC:
             return "Topics";
         case EndpointTypes.DEADLETTER:
-            return "Deadletter messages";
+            return "Deadletters";
         default:
             throw new Error('Invalid endpoint type.');
     }
