@@ -11,19 +11,20 @@ exports[`Shows a red border around invalid property names 1`] = `
 
 .emotion-2 {
   float: left;
-  width: 2%;
+  width: 20px;
   position: relative;
   top: 9px;
 }
 
 .emotion-4 {
   float: left;
-  width: 5%;
+  width: 75px;
 }
 
 .emotion-16 {
   float: left;
-  width: 92%;
+  width: 275px;
+  text-align: left;
 }
 
 .emotion-43 {
@@ -2305,19 +2306,20 @@ exports[`renders correctly 1`] = `
 
 .emotion-2 {
   float: left;
-  width: 2%;
+  width: 20px;
   position: relative;
   top: 9px;
 }
 
 .emotion-4 {
   float: left;
-  width: 5%;
+  width: 75px;
 }
 
 .emotion-16 {
   float: left;
-  width: 92%;
+  width: 275px;
+  text-align: left;
 }
 
 .emotion-37 {
@@ -2915,19 +2917,20 @@ exports[`renders correctly 2`] = `
 
 .emotion-2 {
   float: left;
-  width: 2%;
+  width: 20px;
   position: relative;
   top: 9px;
 }
 
 .emotion-4 {
   float: left;
-  width: 5%;
+  width: 75px;
 }
 
 .emotion-16 {
   float: left;
-  width: 92%;
+  width: 275px;
+  text-align: left;
 }
 
 .emotion-37 {
@@ -3525,19 +3528,20 @@ exports[`renders correctly from a predefined message 1`] = `
 
 .emotion-2 {
   float: left;
-  width: 2%;
+  width: 20px;
   position: relative;
   top: 9px;
 }
 
 .emotion-4 {
   float: left;
-  width: 5%;
+  width: 75px;
 }
 
 .emotion-16 {
   float: left;
-  width: 92%;
+  width: 275px;
+  text-align: left;
 }
 
 .emotion-37 {
@@ -4254,19 +4258,20 @@ exports[`renders correctly from a predefined message 2`] = `
 
 .emotion-2 {
   float: left;
-  width: 2%;
+  width: 20px;
   position: relative;
   top: 9px;
 }
 
 .emotion-4 {
   float: left;
-  width: 5%;
+  width: 75px;
 }
 
 .emotion-16 {
   float: left;
-  width: 92%;
+  width: 275px;
+  text-align: left;
 }
 
 .emotion-37 {

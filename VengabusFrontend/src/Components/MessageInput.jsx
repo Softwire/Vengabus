@@ -278,17 +278,18 @@ export class MessageInput extends Component {
         `;
         const queueOrTopicSelectionRadioStyle = css`
             float: left;
-            width: 2%;
+            width: 20px;
             position:relative;
             top:9px;
         `;
         const queueOrTopicSelectionStyle = css`
             float: left;
-            width: 5%;
+            width: 75px;
         `;
         const queueOrTopicSelectionDropdownStyle = css`
             float: left;
-            width: 92%;
+            width: 275px;
+            text-align:left;
         `;
         const buttonStyle = css`
             width: 270px;
@@ -298,7 +299,7 @@ export class MessageInput extends Component {
             font-weight: bold;
             margin-left: 5px;
         `;
-        const leftAlignContainerStyle = css`
+        const leftAlign = css`
             text-align:left;
         `;
         const bodyStyle = css`
@@ -322,7 +323,7 @@ export class MessageInput extends Component {
         const preDefinedPropertiesButtonText = this.arePredefinedPropsLoaded ? 'Add new Azure property' : 'Loading pre-defined properties...';
         return (
             <div className={formStyle} >
-                <div className={leftAlignContainerStyle}>
+                <div className={leftAlign}>
                     <p className={headingStyle}>Destination</p>
                 </div>
                 <div className={fullWidth}>
@@ -336,7 +337,7 @@ export class MessageInput extends Component {
                             checked={this.state.recipientIsQueue}
                             onChange={() => this.handleRecipientTypeChange(true)}
                         />
-                        <div className={leftAlignContainerStyle + " " + queueOrTopicSelectionStyle + " " + headingStyle + " " + verticalAlign}>
+                        <div className={leftAlign + " " + queueOrTopicSelectionStyle + " " + headingStyle + " " + verticalAlign}>
                             <p>Queue</p>
                         </div>
                     </div>
@@ -361,7 +362,7 @@ export class MessageInput extends Component {
                             checked={!this.state.recipientIsQueue}
                             onChange={() => this.handleRecipientTypeChange(false)}
                         />
-                        <div className={leftAlignContainerStyle + " " + queueOrTopicSelectionStyle + " " + headingStyle + " " + verticalAlign}>
+                        <div className={leftAlign + " " + queueOrTopicSelectionStyle + " " + headingStyle + " " + verticalAlign}>
                             <p>Topic</p>
                         </div>
                     </div>
@@ -376,7 +377,7 @@ export class MessageInput extends Component {
                     />
                 </div>
                 <hr className={fullWidth} />
-                <div className={leftAlignContainerStyle}>
+                <div className={leftAlign}>
                     <p className={headingStyle}>Pre-defined Properties</p>
                 </div>
                 <MessagePropertyInput
@@ -387,7 +388,7 @@ export class MessageInput extends Component {
                     permittedValues={this.state.permittedValues}
                 />
                 <form>
-                    <div className={leftAlignContainerStyle}>
+                    <div className={leftAlign}>
                         <Button
                             className={preDefinedPropsButtonClassNames}
                             onClick={() => this.addNewProperty(false)}
@@ -397,7 +398,7 @@ export class MessageInput extends Component {
                     </div>
                 </form>
                 <hr />
-                <div className={leftAlignContainerStyle}>
+                <div className={leftAlign}>
                     <p className={headingStyle}>User-defined Properties</p>
                 </div>
                 <MessagePropertyInput
@@ -408,7 +409,7 @@ export class MessageInput extends Component {
                     reservedPropertyNames={this.state.reservedPropertyNames}
                 />
                 <form>
-                    <div className={leftAlignContainerStyle}>
+                    <div className={leftAlign}>
                         <Button
                             className={buttonStyle}
                             onClick={() => this.addNewProperty(true)}
@@ -420,7 +421,7 @@ export class MessageInput extends Component {
                 <hr />
                 <form>
                     <FormGroup
-                        className={leftAlignContainerStyle}
+                        className={leftAlign}
                         controlId="formControlsMessageBodyText"
                     >
                         <ControlLabel className={headingStyle}>Body</ControlLabel>
