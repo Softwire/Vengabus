@@ -60,7 +60,7 @@ it('renders correctly', () => {
 
 //Snapshot tests must be first because the id of new react-select elements changes each time one is mounted
 it('renders correctly from a predefined message', () => {
-    const data = {
+    const exampleMessage = {
         message: {
             customProperties: {
                 userDefinedProp1: 'value1',
@@ -71,10 +71,12 @@ it('renders correctly from a predefined message', () => {
                 ContentType: 'null'
             },
             MessageBody: 'Hello world!'
-        }
+        },
+        recipientIsQueue: true,
+        selectedQueue: 'demoqueue1'
     };
     let messagePropertyInput = renderer.create(
-        <MessageInput data={data} />);
+        <MessageInput {...exampleMessage} />);
     expect(messagePropertyInput.toJSON()).toMatchSnapshot();
 });
 

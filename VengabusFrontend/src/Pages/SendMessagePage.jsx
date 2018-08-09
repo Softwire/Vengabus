@@ -5,7 +5,7 @@ export class SendMessagePage extends Component {
     render() {
         return (
             <div>
-                <MessageInput data={this.props.data} />
+                <MessageInput {...this.props} />
             </div>
         );
     }

@@ -13,34 +13,32 @@ import _ from 'lodash';
 import classNames from 'classnames';
 
 /** 
- * @prop {Object} data All of the data that is passed down into this component.
- * @property {Object} data.message Can take a message as a prop to replay message.
- * @property {Object} data.message.customProperties User defined properties (key-string pairs).
- * @property {string} data.message.MessageBody The text of the message.
- * @property {string} data.message.MessageId The ID of the message.
- * @property {string} data.message.predefinedProperties Any other predefined properties used by Azure.
- * @property {bool} data.recipientIsQueue Is the recepient of the message a queue?
- * @property {string} data.selectedQueue Name of the recepient queue.
- * @property {string} data.selectedTopic Name of the recepient topic.
+ * @property {Object} message Can take a message as a prop to replay message.
+ * @property {Object} message.customProperties User defined properties (key-string pairs).
+ * @property {string} message.MessageBody The text of the message.
+ * @property {string} message.MessageId The ID of the message.
+ * @property {string} message.predefinedProperties Any other predefined properties used by Azure.
+ * @property {bool} recipientIsQueue Is the recepient of the message a queue?
+ * @property {string} selectedQueue Name of the recepient queue.
+ * @property {string} selectedTopic Name of the recepient topic.
  */
 
 export class MessageInput extends Component {
     constructor(props) {
         super(props);
-        const data = this.props.data || {};
-        const message = data.message;
+        const message = this.props.message;
         this.arePredefinedPropsLoaded = false;
         this.state = {
             permittedValues: [],
             availableTopics: [],
             availableQueues: [],
-            recipientIsQueue: data.recipientIsQueue ? data.recipientIsQueue : true,
+            recipientIsQueue: this.props.recipientIsQueue ? this.props.recipientIsQueue : true,
             messageBody: message ? message.MessageBody : '',
             userDefinedProperties: message ? this.getUserDefinedProperties(message) : [], //[{name: something, value: something}]
             preDefinedProperties: [], //Not set here because permitted values must be fetched first
             reservedPropertyNames: [], //a list of name of possible readable properties of a message
-            selectedQueue: data.selectedQueue ? data.selectedQueue : undefined,
-            selectedTopic: data.selectedTopic ? data.selectedTopic : undefined
+            selectedQueue: this.props.selectedQueue ? this.props.selectedQueue : undefined,
+            selectedTopic: this.props.selectedTopic ? this.props.selectedTopic : undefined
         };
     }
 

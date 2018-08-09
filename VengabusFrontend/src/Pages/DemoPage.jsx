@@ -77,7 +77,9 @@ sit amet \nthat was a newline`
                     ContentType: 'null'
                 },
                 MessageBody: 'Hello world!'
-            }
+            },
+            recipientIsQueue: true,
+            selectedQueue: 'demoqueue1'
         };
 
         //qq remove hardcoded endpoint names later
