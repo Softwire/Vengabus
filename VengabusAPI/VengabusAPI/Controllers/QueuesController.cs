@@ -37,6 +37,28 @@ namespace VengabusAPI.Controllers
         [HttpGet]
         [Route("queues/{queueName}/mostRecentDeadletter")]
         public DateTime? GetTimeStampOfMostRecentDeadletter(string queueName)
+        [HttpPost]
+        [Route("queues/update")]
+        public void UpdateQueue([FromBody]VengaQueue vengaQueue)
+        {
+            NamespaceManager namespaceManager = CreateNamespaceManager();
+
+            QueueDescription description = ConvertVengaQueueToQueueDescription(vengaQueue);
+
+            namespaceManager.UpdateQueue(description);
+        }
+
+        private QueueDescription ConvertVengaQueueToQueueDescription(VengaQueue vengaQueue)
+        {
+            var description = new QueueDescription(vengaQueue.name)
+            {
+                SupportOrdering = vengaQueue.supportOrdering
+            };
+
+            return description;
+        }
+
+        private DateTime? GetTimeStampOfMostRecentDeadletter(string queueName)
         {
             var endpoint = new QueueDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName);
             var deadLetterList = MessageServices.GetMessagesFromEndpoint(endpoint);

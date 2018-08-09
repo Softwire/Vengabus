@@ -37,6 +37,17 @@ export class VengaServiceBusService {
     }
 
     /**
+     * Updates the properties of a queue
+     * @param {object} queueDescription Object containing the new properties of the queue. It is specified in this which queue we are updating.
+     * For more information on the form of this object see https://docs.microsoft.com/en-us/dotnet/api/microsoft.servicebus.messaging.queuedescription?view=azure-dotnet
+     */
+    updateQueue = (queueDescription) => {
+        const url = this.apiRoot + 'queues/update';
+        const config = this.jsonConfig;
+        this.axiosWithSAS.post(url, queueDescription, config);
+    }
+
+    /**
      * Gets the details of all topics in the current namespace from the server.
      * @return {object} The queue returned by the server.
      */
