@@ -300,7 +300,7 @@ export class TwoListDisplay extends Component {
     render() {
 
         const displayStyle = css`
-            width: 40%;
+            width: 45%;
             margin-left: 5px;
             margin-right:5px;
             display: inline-block; /*to allow tables to be displayed side by side*/
