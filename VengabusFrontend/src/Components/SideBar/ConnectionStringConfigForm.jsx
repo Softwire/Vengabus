@@ -8,9 +8,10 @@ import {
     Button
 } from "react-bootstrap";
 import { css } from "react-emotion";
+import { Creatable } from "react-select";
 
 export const LOCAL_STORAGE_STRINGS = Object.freeze({
-    ConnectionString: "connectionString",
+    ConnectionStringList: "connectionStringList",
     APIroot: "apiRoot"
 });
 
@@ -26,38 +27,86 @@ export class ConnectionStringConfigForm extends Component {
         super(props);
 
         this.state = {
-            connStringVal: "",
+            connectionStringList: [],
+            connectionString: { label: "", value: "" },
             APIroot: ""
         };
     }
 
     componentDidMount() {
-        const localStorageConnectionString =
-            localStorageAccessor.getItem(LOCAL_STORAGE_STRINGS.ConnectionString) ||
+        //local storage only supports strings. So we have to get the string first, then use JSON.parse
+        //to recover the original list (array).
+        let connectionStringListStringified =
+            localStorageAccessor.getItem(LOCAL_STORAGE_STRINGS.ConnectionStringList) ||
             "";
-        this.updateConString(localStorageConnectionString);
+        let connectionStringList;
+        try {
+            connectionStringList = JSON.parse(connectionStringListStringified);
+        } catch (e) {
+            connectionStringList = [];
+        }
+
+        if (!Array.isArray(connectionStringList)) {
+            connectionStringList = [];
+        }
+        //for backward compatibility -- to be removed in the future
+        if (connectionStringList.length === 0) {
+            let connectionString = localStorageAccessor.getItem("connectionString");
+            if (connectionString) {
+                connectionStringList = [{ value: connectionString, label: "Old Connection String" }];
+            }
+        }
+        this.populateConnectionStringList(connectionStringList);
+
         const localStorageApiRoot =
             localStorageAccessor.getItem(LOCAL_STORAGE_STRINGS.APIroot) ||
             "";
-        this.updateAPIroot(localStorageApiRoot);
+        this.populateAPIRoot(localStorageApiRoot);
+    }
+
+    populateConnectionStringList = newConnectionStringList => {
+        this.setState({ connectionStringList: newConnectionStringList });
+        if (newConnectionStringList.length > 0) {
+            this.setState({
+                connectionString: newConnectionStringList[0]
+            });
+        }
+    }
+
+    populateAPIRoot = newApiRoot => {
+        this.setState({ APIroot: newApiRoot });
     }
 
     /** Updates the value of the connection string in the state, in serviceBusConnection, and in the localstorage.  
-     * @param {string} newConString The updated value of the connection string.  
+     * @param {object} newConnection The updated value of the connection.  
      */
-    updateConString = newConString => {
-        this.setState({ connStringVal: newConString });
-        serviceBusConnection.setConnectionString(newConString);
+    updateConnectionStringStorage = (connectionString) => {
+
+        let connectionStringList = this.state.connectionStringList;
+        for (let i = 0; i < connectionStringList.length; i++) {
+            if (connectionStringList[i].label === connectionString.label) {
+                connectionStringList.splice(i, 1);
+            }
+        }
+        connectionStringList.splice(0, 0, connectionString);
+
+        this.setState({
+            connectionString: connectionString
+        });
+        console.log(connectionString);
+        console.log(connectionStringList);
+
+        serviceBusConnection.setConnectionString(connectionString.value);
         localStorageAccessor.setItem(
-            LOCAL_STORAGE_STRINGS.ConnectionString,
-            newConString
+            LOCAL_STORAGE_STRINGS.ConnectionStringList,
+            JSON.stringify(connectionStringList)
         );
     };
 
     /** Updates the value of the API root location in the state, in serviceBusConnection, and in the localstorage.  
      * @param {string} newURI The updated value of the API root.  
      */
-    updateAPIroot = newURI => {
+    updateAPIrootStorage = newURI => {
         this.setState({ APIroot: newURI });
         serviceBusConnection.setApiRoot(newURI);
         localStorageAccessor.setItem(
@@ -68,22 +117,53 @@ export class ConnectionStringConfigForm extends Component {
 
     // Called whenever the value of the connection string input box changes.
     handleConnectionChange = event => {
-        this.updateConString(event.target.value);
+        let newConnectionString = this.state.connectionString;
+        newConnectionString.value = event.target.value;
+        this.setState({ connectionString: newConnectionString });
     };
+
+    // Called whenever the value of the connection string label select box changes (or when a new one is created).
+    handleConnectionStringLabelChange = event => {
+        //a new connection string
+        let newConnectionStringList = this.state.connectionStringList;
+        if (event.value === event.label) {
+            event.value = '';
+            newConnectionStringList.splice(0, 0, event);
+        }
+        this.setState({
+            connectionString: event,
+            connectionStringList: newConnectionStringList
+        });
+    }
 
     // Called whenever the value of the API server input box changes.
     handleAPIChange = event => {
-        this.updateAPIroot(event.target.value);
+        this.setState({ APIroot: event.target.value });
     }
 
     /**
-     * Updates the current connection string to be sent to the API.
-     * Called whenever the connect button is pressed.
+     * Updates the info in the sidebar based on the current status of VengaServiceBusService,
+     * and save data in local storage.
+     * Called whenver the connect button is pressed.
      */
     submitConnectionStringClick = () => {
-        
+
+        this.updateConnectionStringStorage(this.state.connectionString);
+        this.updateAPIrootStorage(this.state.APIroot);
+
         serviceBusConnection.promptUpdate();
-        
+
+        infoPromise
+            .then(response => {
+                this.setState({
+                    info: response
+                });
+
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
     };
 
     render() {
@@ -99,12 +179,22 @@ export class ConnectionStringConfigForm extends Component {
 
         return (
             <form className={formStyle}>
+                <FormGroup controlId="connectionStringLabel">
+                    <ControlLabel>Connection String Label</ControlLabel>
+                    <Creatable
+                        value={this.state.connectionString}
+                        placeholder="Select a connection string"
+                        onChange={this.handleConnectionStringLabelChange}
+                        options={this.state.connectionStringList}
+                    />
+                </FormGroup>
+
                 <FormGroup controlId="connectionString">
-                    <ControlLabel>ServiceBus Connection String</ControlLabel>
+                    <ControlLabel>Connection String</ControlLabel>
                     <FormControl
                         type="text"
-                        value={this.state.connStringVal}
-                        placeholder="Enter Connection String"
+                        value={this.state.connectionString.value}
+                        placeholder="Connection String"
                         onChange={this.handleConnectionChange}
                     />
                 </FormGroup>
@@ -132,7 +222,7 @@ export class ConnectionStringConfigForm extends Component {
                     <br />
                 </div>
                 <ServiceBusInfoBox
-                    connStringVal={this.state.connStringVal}
+                    connectionStringValue={this.state.connectionStringValue}
                 />
             </form>
         );
