@@ -107,11 +107,7 @@ export class VengaServiceBusService {
      */
     sendMessageToTopic = (topicName, message) => {
         const url = this.apiRoot + `topics/${topicName}/messages`;
-        const config = {
-            headers: {
-                "Content-Type": "application/json"
-            }
-        };
+        const config = this.jsonConfig;
         this.axiosWithSAS.post(url, message, config);
     }
 
