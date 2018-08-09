@@ -436,12 +436,17 @@ export class MessageInput extends Component {
                     </FormGroup>
                 </form>
                 <form>
-                    <Button
+                    <ButtonWithPopupConfirmation
                         id="submitButton"
-                        onClick={this.submit}
-                    >
-                        Submit
-                    </Button>
+                        buttonText={"Send Message"}
+                        modalTitle={"Send Message to " + this.state.selectedQueue}
+                        modalBody={"Send the message below?"}
+                        confirmButtonText={"Send"}
+                        cancelButtonText={"Cancel"}
+                        showModalAction={() => { }}
+                        confirmAction={this.submit}
+                        closeModalAction={() => { }}
+                    />
                     <ButtonWithConfirmationModal
                         buttonText={"Reset Fields"}
                         modalTitle={"Reset all fields"}
