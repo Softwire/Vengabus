@@ -31,13 +31,7 @@ namespace VengabusAPI.Models
             }
 
             string messageBody = brokeredMessage.GetBody<string>();
-            string stringToHash = brokeredMessage.MessageId + messageBody + brokeredMessage.EnqueuedTimeUtc;
-            Guid guid;
-            using (MD5 md5 = MD5.Create())
-            {
-                byte[] hash = md5.ComputeHash(Encoding.Default.GetBytes(stringToHash));
-                guid = new Guid(hash);
-            }
+            Guid guid = GetMessageHash(brokeredMessage.MessageId, messageBody, brokeredMessage.EnqueuedTimeUtc);
 
             return new VengaMessage(customProperties, predefinedProperties, messageBody, guid.ToString());
         }
@@ -56,6 +50,19 @@ namespace VengabusAPI.Models
                 message.Properties.Add(property.Key, property.Value);
             }
             return message;
+        }
+
+        public static Guid GetMessageHash(string id, string messageBody, DateTime enqueuedTimeUtc)
+        {
+            string stringToHash = id + messageBody + enqueuedTimeUtc;
+            Guid guid;
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] hash = md5.ComputeHash(Encoding.Default.GetBytes(stringToHash));
+                guid = new Guid(hash);
+            }
+
+            return guid;
         }
     }
 }
