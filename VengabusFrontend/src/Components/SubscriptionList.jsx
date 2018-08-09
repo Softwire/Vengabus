@@ -58,7 +58,7 @@ export class SubscriptionList extends Component {
                 name='subscriptionList'
                 colProps={colProps}
                 dataToDisplay={subscriptionArray}
-                keyColumn='name'
+                uniqueKeyColumn='name'
                 defaultHover
                 onRowClick={this.props.clickFunction}
                 selectRow={selectRow}

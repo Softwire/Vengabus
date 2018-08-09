@@ -68,7 +68,7 @@ export class MessageList extends Component {
                 <DataTable
                     name='MessageTable'
                     colProps={colProps}
-                    keyColumn='hiddenKey'
+                    uniqueKeyColumn='hiddenKey'
                     dataToDisplay={messageArray}
                     defaultHover
                     onRowClick={this.handleMessageClick}

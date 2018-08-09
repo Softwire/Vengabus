@@ -38,7 +38,7 @@ export class TopicList extends Component {
             <DataTable
                 name='TopicList'
                 colProps={colProps}
-                keyColumn='name'
+                uniqueKeyColumn='name'
                 dataToDisplay={topics}
                 defaultHover
                 onRowClick={this.props.clickFunction}

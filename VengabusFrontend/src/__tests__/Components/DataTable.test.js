@@ -51,7 +51,6 @@ describe('DataTable', () => {
         expect(dataTable.toJSON()).toMatchSnapshot();
     });
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     it('renders correctly with the selectRow prop', () => {
         const selectRow = {
             bgColor: 'green',
@@ -259,7 +258,7 @@ describe('DataTable', () => {
         expect(getDataTable).toThrow(new Error('width of column should not be specified in the style (in test:name)'));
     });
 
-    it('throws a descriptive error if no or invalid key column', () => {
+    it('throws a descriptive error if no key column', () => {
         function getDataTable() {
             return mount(
                 <DataTable
@@ -269,6 +268,9 @@ describe('DataTable', () => {
                 />);
         }
         expect(getDataTable).toThrow(new Error('need a valid keyColumn in test'));
+    });
+
+    it('throws a descriptive error if key column is invalid', () => {
         function getDataTable2() {
             return mount(
                 <DataTable

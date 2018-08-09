@@ -47,7 +47,7 @@ export class QueueList extends Component {
             }
         ];
 
-        let selectRow = {
+        const selectRow = {
             bgColor: palerBlue,
             selected: this.props.currentlySelectedName
         };
@@ -60,7 +60,7 @@ export class QueueList extends Component {
                 defaultHover
                 onRowClick={this.props.clickFunction}
                 selectRow={selectRow}
-                keyColumn='name'
+                uniqueKeyColumn='name'
             />
         );
     }
