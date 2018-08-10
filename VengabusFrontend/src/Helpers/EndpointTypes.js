@@ -2,7 +2,8 @@ var EndpointTypes = Object.freeze({
     QUEUE: "queue",
     TOPIC: "topic",
     SUBSCRIPTION: "subscription",
-    MESSAGE: "message"
+    MESSAGE: "message",
+    DEADLETTER: "deadLetters"
 });
 
 
@@ -16,6 +17,8 @@ var typeToTitle = (type) => {
             return "Queues";
         case EndpointTypes.TOPIC:
             return "Topics";
+        case EndpointTypes.DEADLETTER:
+            return "Deadletters";
         default:
             throw new Error('Invalid endpoint type.');
     }

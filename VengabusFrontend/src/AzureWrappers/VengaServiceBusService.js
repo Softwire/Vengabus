@@ -136,6 +136,19 @@ export class VengaServiceBusService {
         return this.axiosWithSAS.get(url);
     }
 
+
+    listQueueDeadLetterMessages = (queueName) => {
+        const url = this.apiRoot + `queues/${queueName}/deadletters`;
+        return this.axiosWithSAS.get(url);
+    }
+
+    listSubscriptionDeadLetterMessages = (topicName, subscriptionName) => {
+        const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/deadletters`;
+        return this.axiosWithSAS.get(url);
+    }
+
+
+
     /**
      * Returns the pre-defined properties that can be read from messages.
      * @returns {string[]} The available properties.

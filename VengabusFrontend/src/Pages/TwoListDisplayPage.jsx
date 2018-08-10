@@ -4,7 +4,7 @@ import { QueueList } from '../Components/QueueList';
 import { TopicList } from '../Components/TopicList';
 import { MessageList } from '../Components/MessageList';
 import { css } from 'react-emotion';
-import { Breadcrumb } from 'react-bootstrap';
+import { Breadcrumb, Button } from 'react-bootstrap';
 import { SubscriptionList } from '../Components/SubscriptionList';
 import { EndpointTypes, typeToTitle } from '../Helpers/EndpointTypes';
 
@@ -56,7 +56,19 @@ export class TwoListDisplayPage extends Component {
         });
     }
 
+    handleDeadLetterClick = (e) => {
+        this.updateEndpointMessageData(true);
+        this.setState({
+            rightTableType: EndpointTypes.DEADLETTER
+        });
+    }
 
+    handleNormalMessageClick = (e) => {
+        this.updateEndpointMessageData();
+        this.setState({
+            rightTableType: EndpointTypes.MESSAGE
+        });
+    }
     updateAllQueueData = () => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
         const fetchedQueueData = serviceBusService.listQueues();
@@ -88,17 +100,26 @@ export class TwoListDisplayPage extends Component {
         });
     }
 
-    updateEndpointMessageData = () => {
+
+    updateEndpointMessageData = (isMessageDeadletters) => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
         let fetchedMessageData;
         const leftTableType = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].type;
         if (leftTableType === EndpointTypes.QUEUE || typeof leftTableType === 'undefined') {
             const queueName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
-            fetchedMessageData = serviceBusService.listQueueMessages(queueName);
+            if (isMessageDeadletters) {
+                fetchedMessageData = serviceBusService.listQueueDeadLetterMessages(queueName);
+            } else {
+                fetchedMessageData = serviceBusService.listQueueMessages(queueName);
+            }
         } else {
             const topicName = this.breadCrumbHistory[this.breadCrumbHistory.length - 2].name;
             const subscriptionName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
-            fetchedMessageData = serviceBusService.listSubscriptionMessages(topicName, subscriptionName);
+            if (isMessageDeadletters) {
+                fetchedMessageData = serviceBusService.listSubscriptionDeadLetterMessages(topicName, subscriptionName);
+            } else {
+                fetchedMessageData = serviceBusService.listSubscriptionMessages(topicName, subscriptionName);
+            }
         }
         fetchedMessageData.then((result) => {
             this.setState({
@@ -128,37 +149,85 @@ export class TwoListDisplayPage extends Component {
             typeOfData = currentLeftTable.type || EndpointTypes.QUEUE;
             currentSelection = currentLeftTable.name;
         }
+        const displayStyle = css`
+                    display: inline-block;
+                    margin:10px;
+                `;
+
+        const deadLetterToggleButtonStyle = css`
+                margin-right: 0px;
+                float: right;
+                margin: 9px;
+                width: 96px;
+        `;
+
         switch (typeOfData) {
             case EndpointTypes.QUEUE:
                 return (
-                    <QueueList
-                        queueData={this.state.queueData}
-                        clickFunction={this.handleQueueRowClick}
-                        currentlySelectedName={currentSelection}
-                    />
+                    <React.Fragment>
+                        <div>
+                            <h2>{typeToTitle(EndpointTypes.QUEUE)}</h2>
+                        </div>
+                        <QueueList
+                            queueData={this.state.queueData}
+                            clickFunction={this.handleQueueRowClick}
+                            currentlySelectedName={currentSelection}
+                        />
+                    </React.Fragment>
                 );
             case EndpointTypes.TOPIC:
                 return (
-                    <TopicList
-                        topicData={this.state.topicData}
-                        clickFunction={this.handleTopicRowClick}
-                        currentlySelectedName={currentSelection}
-                    />
+                    <React.Fragment>
+                        <div>
+                            <h2>{typeToTitle(EndpointTypes.TOPIC)}</h2>
+                        </div>
+                        <TopicList
+                            topicData={this.state.topicData}
+                            clickFunction={this.handleTopicRowClick}
+                            currentlySelectedName={currentSelection}
+                        />
+                    </React.Fragment>
                 );
 
             case EndpointTypes.SUBSCRIPTION:
                 return (
-                    <SubscriptionList
-                        subscriptionData={this.state.subscriptionData}
-                        clickFunction={this.handleSubscriptionRowClick}
-                        currentlySelectedName={currentSelection}
-                    />
+                    <React.Fragment>
+                        <div>
+                            <h2>{typeToTitle(EndpointTypes.SUBSCRIPTION)}</h2>
+                        </div>
+                        <SubscriptionList
+                            subscriptionData={this.state.subscriptionData}
+                            clickFunction={this.handleSubscriptionRowClick}
+                            currentlySelectedName={currentSelection}
+                        />
+                    </React.Fragment>
                 );
             case EndpointTypes.MESSAGE:
+
                 return (
-                    <MessageList
-                        messageData={this.state.messageData}
-                    />
+                    <React.Fragment>
+                        <div >
+                            <h2 className={displayStyle} >{typeToTitle(EndpointTypes.MESSAGE)}</h2>
+                            <Button className={deadLetterToggleButtonStyle} onClick={this.handleDeadLetterClick}> DeadLetter </Button>
+                        </div>
+                        <MessageList
+                            messageData={this.state.messageData}
+                        />
+                    </React.Fragment>
+
+                );
+            case EndpointTypes.DEADLETTER:
+                return (
+                    <React.Fragment>
+                        <div>
+                            <h2 className={displayStyle} >{typeToTitle(EndpointTypes.DEADLETTER)}</h2>
+                            <Button className={deadLetterToggleButtonStyle} onClick={this.handleNormalMessageClick}> normal </Button>
+                        </div>
+                        <MessageList
+                            messageData={this.state.messageData}
+                        />
+                    </React.Fragment>
+
                 );
             default:
                 throw new Error('Invalid endpoint type.');
@@ -212,6 +281,15 @@ export class TwoListDisplayPage extends Component {
                 {this.breadCrumbHistory[i].name}
             </Breadcrumb.Item>);
         });
+        const areOnHomePage = (this.breadCrumbHistory.length === 1);
+        
+        if (!areOnHomePage) {
+            breadcrumbItems.push(
+                (<Breadcrumb.Item key={breadcrumbItems.length} active>
+                    {typeToTitle(this.state.rightTableType)}
+                </Breadcrumb.Item>)
+            );
+        }
 
         return (
             <Breadcrumb className={breadcrumbStyle}>
@@ -241,8 +319,6 @@ export class TwoListDisplayPage extends Component {
 
         const leftBox = this.getList();
         const rightBox = this.getList(true);
-        const rightType = this.state.rightTableType;
-        const leftType = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].type || EndpointTypes.QUEUE;
 
         return (
             <div >
@@ -251,11 +327,9 @@ export class TwoListDisplayPage extends Component {
                 </div>
                 <div className={outerDivDisplay}>
                     <div className={displayStyle}>
-                        <h2>{typeToTitle(leftType)}</h2>
                         {leftBox}
                     </div>
                     <div className={displayStyle}>
-                        <h2>{typeToTitle(rightType)}</h2>
                         {rightBox}
                     </div>
                 </div>
