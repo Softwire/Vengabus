@@ -13,10 +13,13 @@ exports[`DataTable renders correctly if an empty array is input as data 1`] = `
         className={undefined}
       >
         <th>
-          Number
+          Number With Complex Label
         </th>
         <th>
           Name
+        </th>
+        <th>
+          Not the same as the dataField
         </th>
       </tr>
     </thead>
@@ -114,10 +117,13 @@ exports[`DataTable renders correctly with the selectRow prop 1`] = `
         className={undefined}
       >
         <th>
-          Number
+          Number With Complex Label
         </th>
         <th>
           Name
+        </th>
+        <th>
+          Not the same as the dataField
         </th>
       </tr>
     </thead>
@@ -139,6 +145,11 @@ exports[`DataTable renders correctly with the selectRow prop 1`] = `
         >
           q1
         </td>
+        <td
+          onClick={[Function]}
+        >
+          text
+        </td>
       </tr>
       <tr
         className={null}
@@ -153,6 +164,11 @@ exports[`DataTable renders correctly with the selectRow prop 1`] = `
         >
           q2
         </td>
+        <td
+          onClick={[Function]}
+        >
+          text
+        </td>
       </tr>
       <tr
         className={null}
@@ -166,6 +182,11 @@ exports[`DataTable renders correctly with the selectRow prop 1`] = `
           onClick={[Function]}
         >
           q3
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          text
         </td>
       </tr>
     </tbody>

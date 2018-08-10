@@ -40,7 +40,7 @@ Props:
     defaultHover: (OPTIONAL) {boolean} If true then default on hover styling will be applied.
     selectRow: (OPTIONAL) {object} Defines settings relating to selecting a row by clicking on it.
                 selected: {int or string} This identifies a row to be rendered as currently Selected.
-                          It is used by the table itself to persist selection status across re-renders, but can also be used by the developer to indicate an initial 'default' selection.
+                          It is used by us to persist selection status across re-renders, but can also be used to indicate an initial 'default' selection.
                           Note that setting an initial selection does NOT invoke any relevant onSelect functions - it ONLY does css etc.
                           Row to be selected is determined by:
                               If {int} then index (0-based, excluding header) of row.
@@ -65,9 +65,9 @@ https://react-bootstrap-table.github.io/react-bootstrap-table2/
 export class DataTable extends Component {
 
     getValidatedKeyColumn = (uniqueKeyColumn) => {
-        uniqueKeyColumn = this.findColumnIndexFromDataField(uniqueKeyColumn);
-        if (typeof uniqueKeyColumn === 'undefined') {
-            throw new Error('need a valid keyColumn in ' + this.props.name);
+        uniqueKeyColumn = _(this.props.colProps).findIndex(col => col.dataField === uniqueKeyColumn);
+        if (typeof uniqueKeyColumn === 'undefined' || uniqueKeyColumn === -1) {
+            throw new Error('need a valid key column in ' + this.props.name);
         }
         if (!this.isColumnUnique(uniqueKeyColumn)) {
             throw new Error('key column specified in ' + this.props.name + ' is not unique');
@@ -82,7 +82,7 @@ export class DataTable extends Component {
     }
 
     applyDefaultHeaderTextIfNecessary = (colProps) => {
-        for (let col in colProps) {
+        for (let col of colProps) {
             if (!col.text) {
                 col.text = this.getTextFromDatafield(col.dataField);
             }
@@ -105,14 +105,6 @@ export class DataTable extends Component {
         return text;
     }
 
-    findColumnIndexFromDataField = (dataField) => {
-        const colProps = this.props.colProps;
-        for (let i = 0; i < colProps.length; i++) {
-            if (colProps[i].dataField === dataField) { return i; }
-        }
-        return undefined;
-    }
-
     applyValidatedWidth = (colProps) => {
         this.checkIfHeaderStyleHasWidth(colProps);
 
@@ -124,7 +116,7 @@ export class DataTable extends Component {
             let totalWidth = 0;
             for (let i = 0; i < colProps.length; i++) {
                 if (!colProps[i].hidden) {
-                    const width = getColumnWidthWhichShouldExist(i);
+                    const width = this.getColumnWidthWhichShouldExist(colProps, i);
                     totalWidth += width;
                     colProps[i].headerStyle.width = width.toString() + '%';
                     delete colProps[i].width;
@@ -137,7 +129,7 @@ export class DataTable extends Component {
     }
 
     checkIfHeaderStyleHasWidth = (colProps) => {
-        for (let col in colProps) {
+        for (let col of colProps) {
             if (!col.headerStyle) {
                 col.headerStyle = {};   // QQ This doesn't really fit into the function name //////////////////////////////////////////////////////////////////////////////////////////////////////////
             }
@@ -165,18 +157,18 @@ export class DataTable extends Component {
         }
     }
 
-    getColumnWidthWhichShouldExist = (index) => {
+    getColumnWidthWhichShouldExist = (colProps, index) => {
         const width = colProps[index].width;
         if (typeof width === 'undefined') {
             const errorDataField = colProps[index].dataField;
-            throw new Error(`missing column width definition in ${name}:${errorDataField}`);
+            throw new Error(`missing column width definition in ${this.props.name}:${errorDataField}`);
         }
         return width;
     }
 
     getValidatedRowEvents = (rowEvents, onRowClick) => {
         if (rowEvents.onClick && onRowClick) {
-            throw new Error('the onClick event for rows is defined multiple times in ' + name);
+            throw new Error('the onClick event for rows is defined multiple times in ' + this.props.name);
         }
         onRowClick = onRowClick || rowEvents.onClick || function () { };
         return { ...(rowEvents), onClick: onRowClick };
@@ -185,14 +177,14 @@ export class DataTable extends Component {
     validateAndConfigureSelectRow = (selectRow, keyColumnIndex) => {
         if (selectRow) {
             if ((selectRow.style || selectRow.classes) && selectRow.bgColor) {
-                throw new Error('background color of selected row may be multiply defined in ' + name);
+                throw new Error('background color of selected row may be multiply defined in ' + this.props.name);
             }
             selectRow.mode = 'radio';
             selectRow.hideSelectColumn = true;
             selectRow.clickToSelect = true;
             if (typeof selectRow.selected === 'number') {
-                const keyDataField = colProps[keyColumnIndex].dataField;
-                selectRow.selected = dataToDisplay[selectRow.selected][keyDataField];
+                const keyDataField = this.props.colProps[keyColumnIndex].dataField;
+                selectRow.selected = this.props.dataToDisplay[selectRow.selected][keyDataField];
             }
             selectRow.selected = selectRow.selected ? [selectRow.selected] : undefined;
         }

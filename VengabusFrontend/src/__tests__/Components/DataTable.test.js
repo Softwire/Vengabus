@@ -3,6 +3,7 @@ import renderer from 'react-test-renderer';
 import React from 'react';
 import { mount } from 'enzyme';
 import { css } from 'emotion';
+import 'enzyme-matchers';
 
 const rawConsoleError = console.error;
 function suppressSpecificDataTableErrors() {
@@ -25,11 +26,19 @@ afterAll(resetConsoleError);
 describe('DataTable', () => {
 
     function getDataToDisplay() {
-        return [{ number: 1, name: 'q1' }, { number: 2, name: 'q2' }, { number: 3, name: 'q3' }];
+        return [
+            { numberWithComplexLabel: 1, name: 'q1', overridenField: 'text' },
+            { numberWithComplexLabel: 2, name: 'q2', overridenField: 'text' },
+            { numberWithComplexLabel: 3, name: 'q3', overridenField: 'text' }
+        ];
     }
 
     function getColProps() {
-        return [{ dataField: "number", text: 'Number' }, { dataField: "name", text: 'Name' }];
+        return [
+            { dataField: "numberWithComplexLabel" },
+            { dataField: "name" },
+            { dataField: "overridenField", text: "Not the same as the dataField" }
+        ];
     }
 
     it('renders without an error if only the required props are specified', () => {
@@ -37,7 +46,7 @@ describe('DataTable', () => {
             <DataTable
                 colProps={getColProps()}
                 dataToDisplay={getDataToDisplay()}
-                keyColumn='number'
+                uniqueKeyColumn='numberWithComplexLabel'
             />);
     });
 
@@ -46,7 +55,7 @@ describe('DataTable', () => {
             <DataTable
                 colProps={getColProps()}
                 dataToDisplay={[]}
-                keyColumn='number'
+                uniqueKeyColumn='numberWithComplexLabel'
             />);
         expect(dataTable.toJSON()).toMatchSnapshot();
     });
@@ -62,24 +71,33 @@ describe('DataTable', () => {
                 colProps={getColProps()}
                 dataToDisplay={getDataToDisplay()}
                 selectRow={selectRow}
-                keyColumn='number'
+                uniqueKeyColumn='numberWithComplexLabel'
             />);
         expect(dataTable.toJSON()).toMatchSnapshot();
     });
 
-    it('renders correctly when defaultHover=true with an additional rowClasses prop', () => {
+    test.only('renders correctly when defaultHover=true with an additional rowClasses prop', () => {
         const rowClasses = css`
                     background-color: grey;
               `;
-        let dataTable = renderer.create(
+        // let dataTable = renderer.create(
+        //     <DataTable
+        //         colProps={getColProps()}
+        //         dataToDisplay={getDataToDisplay()}
+        //         rowClasses={rowClasses}
+        //         uniqueKeyColumn='name'
+        //         defaultHover
+        //     />);
+        let wrapper = mount(
             <DataTable
                 colProps={getColProps()}
                 dataToDisplay={getDataToDisplay()}
                 rowClasses={rowClasses}
-                keyColumn='name'
+                uniqueKeyColumn='numberWithComplexLabel'
                 defaultHover
             />);
-        expect(dataTable.toJSON()).toMatchSnapshot();
+        //expect(dataTable.toJSON()).toMatchSnapshot();
+        expect(wrapper.find(`.${rowClasses}`)).toHaveStyle('background-color', 'grey');
     });
 
     it('function is called correctly if only rowEvents is defined', () => {
@@ -90,7 +108,7 @@ describe('DataTable', () => {
                 dataToDisplay={getDataToDisplay()}
                 rowEvents={{ onClick: spy }}
                 rowClasses='row'
-                keyColumn='number'
+                uniqueKeyColumn='numberWithComplexLabel'
             />);
         let row = wrapper.find('.row').first();
         row.simulate('click');
@@ -105,7 +123,7 @@ describe('DataTable', () => {
                 dataToDisplay={getDataToDisplay()}
                 onRowClick={spy}
                 rowClasses='row'
-                keyColumn='number'
+                uniqueKeyColumn='numberWithComplexLabel'
             />);
         let row = wrapper.find('.row').first();
         row.simulate('click');
@@ -121,7 +139,7 @@ describe('DataTable', () => {
                 onRowClick={spy}
                 rowEvents={{ onMouseEnter: function () { return; } }}
                 rowClasses='row'
-                keyColumn='number'
+                uniqueKeyColumn='numberWithComplexLabel'
             />);
         let row = wrapper.find('.row').first();
         row.simulate('click');
@@ -137,7 +155,7 @@ describe('DataTable', () => {
                 onRowClick={function () { return; }}
                 rowEvents={{ onMouseEnter: spy }}
                 rowClasses='row'
-                keyColumn='number'
+                uniqueKeyColumn='numberWithComplexLabel'
             />);
         let row = wrapper.find('.row').first();
         row.simulate('mouseEnter');
@@ -152,7 +170,7 @@ describe('DataTable', () => {
                 dataToDisplay={getDataToDisplay()}
                 rowClasses='row'
                 selectRow={{ onSelect: spy }}
-                keyColumn='number'
+                uniqueKeyColumn='numberWithComplexLabel'
             />);
         let row = wrapper.find('.row').first();
         row.simulate('click');
@@ -168,7 +186,7 @@ describe('DataTable', () => {
                     rowEvents={{ onClick: function () { return; } }}
                     onRowClick={function () { return; }}
                     name='test'
-                    keyColumn='number'
+                    uniqueKeyColumn='numberWithComplexLabel'
                 />);
         }
         expect(getDataTable).toThrow(new Error('the onClick event for rows is defined multiple times in test'));
@@ -180,7 +198,7 @@ describe('DataTable', () => {
                 <DataTable
                     dataToDisplay={getDataToDisplay()}
                     name='test'
-                    keyColumn='number'
+                    uniqueKeyColumn='numberWithComplexLabel'
                 />);
         }
         expect(getDataTable).toThrow(new Error('column property object is not defined in test'));
@@ -194,7 +212,7 @@ describe('DataTable', () => {
                     dataToDisplay={getDataToDisplay()}
                     selectRow={{ bgColor: 'green', classes: 'selectrow' }}
                     name='test'
-                    keyColumn='number'
+                    uniqueKeyColumn='numberWithComplexLabel'
                 />);
         }
         expect(getDataTable).toThrow(new Error('background color of selected row may be multiply defined in test'));
@@ -205,7 +223,7 @@ describe('DataTable', () => {
                     dataToDisplay={getDataToDisplay()}
                     selectRow={{ bgColor: 'green', style: {} }}
                     name='test'
-                    keyColumn='number'
+                    uniqueKeyColumn='numberWithComplexLabel'
                 />);
         }
         expect(getDataTable2).toThrow(new Error('background color of selected row may be multiply defined in test'));
@@ -219,7 +237,7 @@ describe('DataTable', () => {
                 <DataTable
                     dataToDisplay={getDataToDisplay()}
                     colProps={colProps}
-                    keyColumn='number'
+                    uniqueKeyColumn='numberWithComplexLabel'
                     name='test'
                 />);
         }
@@ -228,14 +246,15 @@ describe('DataTable', () => {
 
     it('throws a descriptive error if overall defined width is not 100%', () => {
         let colProps = getColProps();
-        colProps[0].width = 90;
+        colProps[0].width = 80;
         colProps[1].width = 9;
+        colProps[2].width = 10;
         function getDataTable() {
             return mount(
                 <DataTable
                     dataToDisplay={getDataToDisplay()}
                     colProps={colProps}
-                    keyColumn='number'
+                    uniqueKeyColumn='numberWithComplexLabel'
                     name='test'
                 />);
         }
@@ -251,11 +270,11 @@ describe('DataTable', () => {
                 <DataTable
                     dataToDisplay={getDataToDisplay()}
                     colProps={colProps}
-                    keyColumn='number'
+                    uniqueKeyColumn='numberWithComplexLabel'
                     name='test'
                 />);
         }
-        expect(getDataTable).toThrow(new Error('width of column should not be specified in the style (in test:name)'));
+        expect(getDataTable).toThrow(new Error('width of column must not be specified in the style (in test:name)'));
     });
 
     it('throws a descriptive error if no key column', () => {
@@ -267,7 +286,7 @@ describe('DataTable', () => {
                     name='test'
                 />);
         }
-        expect(getDataTable).toThrow(new Error('need a valid keyColumn in test'));
+        expect(getDataTable).toThrow(new Error('need a valid key column in test'));
     });
 
     it('throws a descriptive error if key column is invalid', () => {
@@ -276,20 +295,20 @@ describe('DataTable', () => {
                 <DataTable
                     dataToDisplay={getDataToDisplay()}
                     colProps={getColProps()}
-                    keyColumn='invalid'
+                    uniqueKeyColumn='invalid'
                     name='test'
                 />);
         }
-        expect(getDataTable2).toThrow(new Error('need a valid keyColumn in test'));
+        expect(getDataTable2).toThrow(new Error('need a valid key column in test'));
     });
 
     it('throws a descriptive error if key column is not unique', () => {
         function getDataTable() {
             return mount(
                 <DataTable
-                    dataToDisplay={[...getDataToDisplay(), { number: 4, name: 'q1' }]}
+                    dataToDisplay={getDataToDisplay()}
                     colProps={getColProps()}
-                    keyColumn='name'
+                    uniqueKeyColumn='overridenField'
                     name='test'
                 />);
         }
@@ -301,11 +320,12 @@ describe('DataTable', () => {
             let colProps = getColProps();
             colProps[0].hidden = true;
             colProps[1].hidden = true;
+            colProps[2].hidden = true;
             return mount(
                 <DataTable
-                    dataToDisplay={[...getDataToDisplay()]}
+                    dataToDisplay={getDataToDisplay()}
                     colProps={colProps}
-                    keyColumn='name'
+                    uniqueKeyColumn='numberWithComplexLabel'
                     name='test'
                 />);
         }
