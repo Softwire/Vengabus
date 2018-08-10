@@ -216,6 +216,10 @@ namespace VengabusAPI.Services
                         message.Complete();
                         break;
                     }
+                    else
+                    {
+                        message.Abandon();
+                    }
                 }
                 
                 remainingMessagesToDelete--;
