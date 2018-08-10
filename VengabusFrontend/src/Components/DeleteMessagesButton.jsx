@@ -96,21 +96,12 @@ class DeleteMessagesButton extends React.Component {
                 break;
             default: break;
         }
-        return () => {
-            deletionFunc();
-        };
+        return deletionFunc;
     }
 
     render() {
-        let buttonText = (
-            <span>Delete All Messages <Glyphicon glyph="trash" /></span>
-        );
-        let sampleChildren = (
-            <Alert bsStyle="info">
-                {"This is a sample child to show that the children functionality works."}
-            </Alert >
-        );
-        return (
+        let buttonText = <span>Delete All Messages <Glyphicon glyph="trash" /></span>;
+        return 
             <ButtonWithPopupConfirmation
                 buttonText={buttonText}
                 buttonStyle={"danger"}
@@ -119,11 +110,10 @@ class DeleteMessagesButton extends React.Component {
                 confirmButtonText={"Delete"}
                 cancelButtonText={"Cancel"}
                 showModalAction={this.showModalAction}
-                children={sampleChildren}
                 confirmAction={this.state.onDeletionConfirmed}
                 closeModalAction={this.resetState}
             />
-        );
+        ;
     }
 }
 
