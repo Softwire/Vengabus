@@ -34,40 +34,40 @@ export class TwoListDisplayPage extends Component {
 
     handleQueueRowClick = (e, row, rowIndex) => {
         this.breadCrumbHistory = [{ name: "Home", type: undefined }, { name: row.name, type: EndpointTypes.QUEUE }];
-        this.updateEndpointMessageData();
         this.setState({
+            messageData: undefined,
             rightTableType: EndpointTypes.MESSAGE
-        });
+        }, this.updateEndpointMessageData);
     }
 
     handleTopicRowClick = (e, row, rowIndex) => {
         this.breadCrumbHistory = [{ name: "Home", type: undefined }, { name: row.name, type: EndpointTypes.TOPIC }];
-        this.updateTopicSubscriptionData();
         this.setState({
+            subscriptionData: undefined,
             rightTableType: EndpointTypes.SUBSCRIPTION
-        });
+        }, this.updateTopicSubscriptionData);
     }
 
     handleSubscriptionRowClick = (e, row, rowIndex) => {
         this.breadCrumbHistory[2] = { name: row.name, type: EndpointTypes.SUBSCRIPTION };
-        this.updateEndpointMessageData();
         this.setState({
+            messageData: undefined,
             rightTableType: EndpointTypes.MESSAGE
-        });
+        }, () => this.updateEndpointMessageData(false));
     }
 
     handleDeadLetterClick = (e) => {
-        this.updateEndpointMessageData(true);
         this.setState({
+            messageData: undefined,
             rightTableType: EndpointTypes.DEADLETTER
-        });
+        }, () => this.updateEndpointMessageData(true));
     }
 
     handleNormalMessageClick = (e) => {
-        this.updateEndpointMessageData();
         this.setState({
+            messageData: undefined,
             rightTableType: EndpointTypes.MESSAGE
-        });
+        }, () => this.updateEndpointMessageData(false));
     }
     updateAllQueueData = () => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
@@ -282,7 +282,7 @@ export class TwoListDisplayPage extends Component {
             </Breadcrumb.Item>);
         });
         const areOnHomePage = (this.breadCrumbHistory.length === 1);
-        
+
         if (!areOnHomePage) {
             breadcrumbItems.push(
                 (<Breadcrumb.Item key={breadcrumbItems.length} active>
