@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { css } from 'react-emotion';
 import { MessagePropertyInput } from './MessagePropertyInput';
 import { MessageDestination } from './MessageDestination';
+import { MessageBodyInput } from './MessageBodyInput';
 import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import {
@@ -420,21 +421,10 @@ export class MessageInput extends Component {
                     </div>
                 </form>
                 <hr />
-                <form>
-                    <FormGroup
-                        className={leftAlign}
-                        controlId="formControlsMessageBodyText"
-                    >
-                        <ControlLabel className={headingStyle}>Body</ControlLabel>
-                        <FormControl
-                            componentClass="textarea"
-                            placeholder="Enter message body"
-                            className={bodyStyle}
-                            value={this.state.messageBody}
-                            onChange={(event) => this.handleMessageBodyChange(event.target.value)}
-                        />
-                    </FormGroup>
-                </form>
+                <MessageBodyInput
+                    messageBody={this.state.messageBody}
+                    handleMessageBodyChange={this.handleMessageBodyChange}
+                />
                 <form>
                     <ButtonWithConfirmationModal
                         id="submitButton"
