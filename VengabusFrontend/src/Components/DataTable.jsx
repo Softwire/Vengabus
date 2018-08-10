@@ -8,6 +8,7 @@ import _ from 'lodash';
 Returns a table created from an input object
 Props:
     dataToDisplay: (REQUIRED) {array of objects} Contains the data to be displayed in the table.
+    name: (STRONGLY RECOMMENDED) {string} Will be included in the error messages to help identify the source.
     uniqueKeyColumn: (REQUIRED) {string} dataField property of the column (see colProps below) to be used as the key. If not unique then an error will be thrown.
     colProps: (REQUIRED) {array of objects} Contains properties regarding specific columns.
         dataField: (REQUIRED) {string} Specifies the name of the property of DataToDisplay which is to be displayed in the column.
@@ -34,10 +35,6 @@ Props:
                 }
     onRowClick: (OPTIONAL) {function} Called when a row is clicked. Arguments are the same as above.
                 Note that this is merely a more convenience wrapper for a common usages of rowEvents. It must not be defined in both.
-    rowClasses: (OPTIONAL) {string} CSS class that applies to the rows.
-    bordered: (OPTIONAL) {boolean} If false then no vertical borders. Default is true.
-    condensed: (OPTIONAL) {boolean} If true then reduces padding in the table. Default is false.
-    defaultHover: (OPTIONAL) {boolean} If true then default on hover styling will be applied.
     selectRow: (OPTIONAL) {object} Defines settings relating to selecting a row by clicking on it.
                 selected: {int or string} This identifies a row to be rendered as currently Selected.
                           It is used by us to persist selection status across re-renders, but can also be used to indicate an initial 'default' selection.
@@ -50,9 +47,13 @@ Props:
                 classes: {string} Allows passing in css classes for styling (not an array).
                 bgColor: {string} Sets background color of selected row, will throw an error if style or classes is defined.
                 onSelect: {function(row, isSelect, rowIndex, e)} Called when row is selected (clicked).
-    NOTES: 
-            Any props not specified here will be handed down to BootstrapTable untouched.
-            Every time a function will be called with one of the arguments being 'row' it will contain a 'key' property which is the index of the row.
+    rowClasses: (OPTIONAL) {string} CSS class that applies to the rows.
+    bordered: (OPTIONAL) {boolean} If false then no vertical borders. Default is true.
+    condensed: (OPTIONAL) {boolean} If true then reduces padding in the table. Default is false.
+    defaultHover: (OPTIONAL) {boolean} If true then default on hover styling will be applied.
+    <underlyingLibraryProps>: (OPTIONAL) Any props not specified here will be handed down to BootstrapTable untouched.
+
+    NOTE: Every time a function will be called with one of the arguments being 'row' it will contain a 'key' property which is the index of the row.
 
 Potentially useful in the future (find it in the API docs):
     sorting: Column Props => sort / sortFunc / onSort
@@ -63,6 +64,13 @@ For more info see:
 https://react-bootstrap-table.github.io/react-bootstrap-table2/
 */
 export class DataTable extends Component {
+
+    throwIfOnlyHiddenColumns = () => {
+        const onlyHiddenColumns = _(this.props.colProps).every(col => col.hidden);
+        if (onlyHiddenColumns) {
+            throw new Error('cannot use table with only hidden columns (in ' + this.props.name + ')');
+        }
+    }
 
     getValidatedKeyColumn = (uniqueKeyColumn) => {
         uniqueKeyColumn = _(this.props.colProps).findIndex(col => col.dataField === uniqueKeyColumn);
@@ -131,7 +139,7 @@ export class DataTable extends Component {
     checkIfHeaderStyleHasWidth = (colProps) => {
         for (let col of colProps) {
             if (!col.headerStyle) {
-                col.headerStyle = {};   // QQ This doesn't really fit into the function name //////////////////////////////////////////////////////////////////////////////////////////////////////////
+                col.headerStyle = {};
             }
 
             if (col.headerStyle.width) {
@@ -167,6 +175,7 @@ export class DataTable extends Component {
     }
 
     getValidatedRowEvents = (rowEvents, onRowClick) => {
+        if (typeof rowEvents === 'undefined') { rowEvents = {}; }
         if (rowEvents.onClick && onRowClick) {
             throw new Error('the onClick event for rows is defined multiple times in ' + this.props.name);
         }
@@ -204,42 +213,33 @@ export class DataTable extends Component {
     }
 
     render() {
-        let { colProps, dataToDisplay, rowEvents, name, onRowClick, selectRow, defaultHover, rowClasses, uniqueKeyColumn, ...otherProps } = this.props;
-        if (typeof rowEvents === 'undefined') { rowEvents = {}; }
-        let finalRowEvents;
+        let { dataToDisplay, name, uniqueKeyColumn, colProps, rowEvents, onRowClick, selectRow, rowClasses, defaultHover, ...otherProps } = this.props;
         let keyColumnIndex;
+        let finalRowEvents;
+        let finalRowClasses;
 
         if (dataToDisplay) {
             if (!colProps) {
                 throw new Error('column property object is not defined in ' + name);
             }
 
-            const onlyHiddenColumns = _(colProps).every(col => col.hidden);
-            if (onlyHiddenColumns) {
-                throw new Error('cannot use table with only hidden columns (in ' + name + ')');
-            }
-
+            this.throwIfOnlyHiddenColumns();
             keyColumnIndex = this.getValidatedKeyColumn(uniqueKeyColumn);
-
             this.applyDefaultHeaderTextIfNecessary(colProps);
-
             this.applyValidatedWidth(colProps);
-
             finalRowEvents = this.getValidatedRowEvents(rowEvents, onRowClick);
-
             this.validateAndConfigureSelectRow(selectRow, keyColumnIndex);
-
-            rowClasses = this.configureDefaultHover(defaultHover, rowClasses);
+            finalRowClasses = this.configureDefaultHover(defaultHover, rowClasses);
         }
 
         return dataToDisplay ? (
             <BootstrapTable
-                keyField={colProps[keyColumnIndex].dataField}
                 data={dataToDisplay}
+                keyField={colProps[keyColumnIndex].dataField}
                 columns={colProps}
                 rowEvents={finalRowEvents}
                 selectRow={selectRow}
-                rowClasses={rowClasses}
+                rowClasses={finalRowClasses}
                 {...otherProps}
             />
         ) : (

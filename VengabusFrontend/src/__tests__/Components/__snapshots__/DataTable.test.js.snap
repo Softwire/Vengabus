@@ -49,10 +49,13 @@ exports[`DataTable renders correctly when defaultHover=true with an additional r
         className={undefined}
       >
         <th>
-          Number
+          Number With Complex Label
         </th>
         <th>
           Name
+        </th>
+        <th>
+          Not the same as the dataField
         </th>
       </tr>
     </thead>
@@ -70,6 +73,11 @@ exports[`DataTable renders correctly when defaultHover=true with an additional r
         <td>
           q1
         </td>
+        <td
+          onClick={[Function]}
+        >
+          text
+        </td>
       </tr>
       <tr
         className="emotion-0 emotion-1"
@@ -84,6 +92,11 @@ exports[`DataTable renders correctly when defaultHover=true with an additional r
         <td>
           q2
         </td>
+        <td
+          onClick={[Function]}
+        >
+          text
+        </td>
       </tr>
       <tr
         className="emotion-0 emotion-1"
@@ -97,6 +110,11 @@ exports[`DataTable renders correctly when defaultHover=true with an additional r
         </td>
         <td>
           q3
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          text
         </td>
       </tr>
     </tbody>

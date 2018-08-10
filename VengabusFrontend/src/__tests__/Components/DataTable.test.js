@@ -3,7 +3,6 @@ import renderer from 'react-test-renderer';
 import React from 'react';
 import { mount } from 'enzyme';
 import { css } from 'emotion';
-import 'enzyme-matchers';
 
 const rawConsoleError = console.error;
 function suppressSpecificDataTableErrors() {
@@ -80,24 +79,15 @@ describe('DataTable', () => {
         const rowClasses = css`
                     background-color: grey;
               `;
-        // let dataTable = renderer.create(
-        //     <DataTable
-        //         colProps={getColProps()}
-        //         dataToDisplay={getDataToDisplay()}
-        //         rowClasses={rowClasses}
-        //         uniqueKeyColumn='name'
-        //         defaultHover
-        //     />);
-        let wrapper = mount(
+        let dataTable = renderer.create(
             <DataTable
                 colProps={getColProps()}
                 dataToDisplay={getDataToDisplay()}
                 rowClasses={rowClasses}
-                uniqueKeyColumn='numberWithComplexLabel'
+                uniqueKeyColumn='name'
                 defaultHover
             />);
-        //expect(dataTable.toJSON()).toMatchSnapshot();
-        expect(wrapper.find(`.${rowClasses}`)).toHaveStyle('background-color', 'grey');
+        expect(dataTable.toJSON()).toMatchSnapshot();
     });
 
     it('function is called correctly if only rowEvents is defined', () => {
