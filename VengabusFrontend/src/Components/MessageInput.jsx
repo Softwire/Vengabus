@@ -3,6 +3,7 @@ import { css } from 'react-emotion';
 import { MessagePropertyInput } from './MessagePropertyInput';
 import { MessageDestination } from './MessageDestination';
 import { MessageBodyInput } from './MessageBodyInput';
+import { MessageProperties } from './MessageProperties';
 import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import {
@@ -29,7 +30,6 @@ export class MessageInput extends Component {
     constructor(props) {
         super(props);
         const message = this.props.message;
-        this.arePredefinedPropsLoaded = false;
         this.state = {
             permittedValues: [],
             availableTopics: [],
@@ -40,7 +40,8 @@ export class MessageInput extends Component {
             preDefinedProperties: [], //need to fetch permittedValues and reservedPropertyNames before this can be set
             reservedPropertyNames: [], //a list of name of possible readable properties of a message
             selectedQueue: this.props.selectedQueue ? this.props.selectedQueue : undefined,
-            selectedTopic: this.props.selectedTopic ? this.props.selectedTopic : undefined
+            selectedTopic: this.props.selectedTopic ? this.props.selectedTopic : undefined,
+            arePredefinedPropsLoaded: false
         };
     }
 
@@ -49,7 +50,6 @@ export class MessageInput extends Component {
         let permittedValuesPromise = this.serviceBusService.getWriteableMessageProperties();
         let reservedPropertyNamesPromise = this.serviceBusService.getReadableMessageProperties();
         Promise.all([permittedValuesPromise, reservedPropertyNamesPromise]).then((result) => {
-            this.arePredefinedPropsLoaded = true;
             this.setState({
                 permittedValues: result[0],
                 reservedPropertyNames: result[1],
@@ -298,10 +298,6 @@ export class MessageInput extends Component {
             width: calc(100% - 10px); /* 10px total margin */
             float: left;
         `;
-        const buttonStyle = css`
-            width: 270px;
-            margin-left: 5px;
-        `;
         const headingStyle = css`
             font-weight: bold;
             margin-left: 5px;
@@ -309,22 +305,10 @@ export class MessageInput extends Component {
         const leftAlign = css`
             text-align:left;
         `;
-        const bodyStyle = css`
-            min-height: 350px;
-            padding-left: 5px;
-        `;
         const fullWidth = css`
             float: left;
             width: 100%;
         `;
-        const buttonLoading = css`
-            opacity: 0.5;
-            :hover {
-                cursor: progress;
-            }
-        `;
-        let preDefinedPropsButtonClassNames = classNames(buttonStyle, this.arePredefinedPropsLoaded || buttonLoading);
-        const preDefinedPropertiesButtonText = this.arePredefinedPropsLoaded ? 'Add new Azure property' : 'Loading pre-defined properties...';
 
         //generate warnings of certain property names.
         let customPropertyNames = this.state.userDefinedProperties.map((item) => item.name);
@@ -379,47 +363,17 @@ export class MessageInput extends Component {
                 {this.renderMessageDestination(true)}
                 {this.renderMessageDestination(false)}
                 <hr className={fullWidth} />
-                <div className={leftAlign}>
-                    <p className={headingStyle}>Pre-defined Properties</p>
-                </div>
-                <MessagePropertyInput
-                    properties={this.state.preDefinedProperties}
-                    handlePropertyNameChange={(newName, index) => this.handlePreDefinedPropertyChange(index, 'name', newName)}
-                    handlePropertyValueChange={(newValue, index) => this.handlePreDefinedPropertyChange(index, 'value', newValue)}
-                    deleteRow={(index) => this.deleteRow(index, false)}
+                <MessageProperties
+                    arePredefinedPropsLoaded={this.state.arePredefinedPropsLoaded}
+                    preDefinedProperties={this.state.preDefinedProperties}
+                    handlePreDefinedPropertyChange={this.handlePreDefinedPropertyChange}
+                    userDefinedProperties={this.state.userDefinedProperties}
+                    handleUserDefinedPropertyChange={this.handleUserDefinedPropertyChange}
                     permittedValues={this.state.permittedValues}
-                />
-                <form>
-                    <div className={leftAlign}>
-                        <Button
-                            className={preDefinedPropsButtonClassNames}
-                            onClick={() => this.addNewProperty(false)}
-                        >
-                            {preDefinedPropertiesButtonText}
-                        </Button>
-                    </div>
-                </form>
-                <hr />
-                <div className={leftAlign}>
-                    <p className={headingStyle}>User-defined Properties</p>
-                </div>
-                <MessagePropertyInput
-                    properties={this.state.userDefinedProperties}
-                    handlePropertyNameChange={(newName, index) => this.handleUserDefinedPropertyChange(index, 'name', newName)}
-                    handlePropertyValueChange={(newValue, index) => this.handleUserDefinedPropertyChange(index, 'value', newValue)}
-                    deleteRow={(index) => this.deleteRow(index, true)}
                     reservedPropertyNames={this.state.reservedPropertyNames}
+                    addNewProperty={this.addNewProperty}
+                    deleteRow={this.deleteRow}
                 />
-                <form>
-                    <div className={leftAlign}>
-                        <Button
-                            className={buttonStyle}
-                            onClick={() => this.addNewProperty(true)}
-                        >
-                            Add new application specific property
-                        </Button>
-                    </div>
-                </form>
                 <hr />
                 <MessageBodyInput
                     messageBody={this.state.messageBody}
