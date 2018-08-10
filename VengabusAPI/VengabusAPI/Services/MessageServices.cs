@@ -7,6 +7,7 @@ using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
 using VengabusAPI.Models;
 using VengabusAPI.Controllers;
+using VengabusAPI.Helpers;
 
 namespace VengabusAPI.Services
 {

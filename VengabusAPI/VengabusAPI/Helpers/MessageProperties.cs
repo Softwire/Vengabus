@@ -3,7 +3,7 @@ using Microsoft.ServiceBus.Messaging;
 using System;
 using System.Globalization;
 
-namespace VengabusAPI.Models
+namespace VengabusAPI.Helpers
 {
     public static class MessageProperties
     {

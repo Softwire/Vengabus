@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Http;
 using Microsoft.ServiceBus.Messaging;
+using VengabusAPI.Helpers;
 using VengabusAPI.Models;
 using VengabusAPI.Services;
 
@@ -114,7 +115,7 @@ namespace VengabusAPI.Controllers
             var messagesToReturn = new List<VengaMessage>();
             foreach (var message in brokeredMessagesList)
             {
-                messagesToReturn.Add(VengaBrokeredMessageConverter.FromBrokeredMessage(message));
+                messagesToReturn.Add(VengaMessage.FromBrokeredMessage(message));
             }
             return messagesToReturn;
         }

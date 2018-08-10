@@ -3,11 +3,32 @@ using Microsoft.ServiceBus.Messaging;
 using System;
 using System.Security.Cryptography;
 using System.Text;
+using VengabusAPI.Models;
 
-namespace VengabusAPI.Models
+namespace VengabusAPI.Helpers
 {
+    public class BodyAndHash
+    {
+        public string Body { get; }
+        public Guid Hash { get; }
+        public BodyAndHash(string body, Guid hash)
+        {
+            Body = body;
+            Hash = hash;
+        }
+    }
+    public static class BrokeredMessageExtantions
+    {
+
+        public static BodyAndHash GetBodyAndHash(this BrokeredMessage brokeredMessage)
+        {
+            string messageBody = brokeredMessage.GetBody<string>();
+            return new BodyAndHash(messageBody, VengaBrokeredMessageConverter.GetMessageHash(brokeredMessage.MessageId, messageBody, brokeredMessage.EnqueuedTimeUtc));
+        }
+    }
     public static class VengaBrokeredMessageConverter
     {
+        
 
         public static VengaMessage FromBrokeredMessage(BrokeredMessage brokeredMessage)
         {
@@ -30,10 +51,9 @@ namespace VengabusAPI.Models
                 }
             }
 
-            string messageBody = brokeredMessage.GetBody<string>();
-            Guid guid = GetMessageHash(brokeredMessage.MessageId, messageBody, brokeredMessage.EnqueuedTimeUtc);
+            BodyAndHash bodyAndHash = brokeredMessage.GetBodyAndHash();
 
-            return new VengaMessage(customProperties, predefinedProperties, messageBody, guid.ToString());
+            return new VengaMessage(customProperties, predefinedProperties, bodyAndHash.Body, bodyAndHash.Hash.ToString());
         }
 
         public static BrokeredMessage ToBrokeredMessage(VengaMessage vengaMessage)
@@ -52,17 +72,19 @@ namespace VengabusAPI.Models
             return message;
         }
 
+        /**
+         * For a message send to a topic, the resulting messages send to the subscription have the same enqueuedTimeUtc.
+         * This means we have the same hash for all of those messages.
+         */
         public static Guid GetMessageHash(string id, string messageBody, DateTime enqueuedTimeUtc)
         {
-            string stringToHash = id + messageBody + enqueuedTimeUtc;
-            Guid guid;
+            string enqueuedTimeUtcString = $"{enqueuedTimeUtc:MM/dd/yyyy/hh/mm/ss}";
+            string stringToHash = id + messageBody + enqueuedTimeUtcString;
             using (MD5 md5 = MD5.Create())
             {
                 byte[] hash = md5.ComputeHash(Encoding.Default.GetBytes(stringToHash));
-                guid = new Guid(hash);
+                return new Guid(hash);
             }
-
-            return guid;
         }
     }
 }
