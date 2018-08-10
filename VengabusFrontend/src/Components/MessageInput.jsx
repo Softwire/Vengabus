@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
 import { css } from 'react-emotion';
-import { MessagePropertyInput } from './MessagePropertyInput';
 import { MessageDestination } from './MessageDestination';
 import { MessageBodyInput } from './MessageBodyInput';
 import { MessageProperties } from './MessageProperties';
+import { MessageDestinationForm } from './MessageDestinationForm';
 import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import {
-    FormGroup,
-    FormControl,
-    ControlLabel,
     Button
 } from "react-bootstrap";
 import _ from 'lodash';
-import classNames from 'classnames';
 
 /** 
  * @property {Object} message Can take a message as a prop to replay message.
@@ -357,12 +353,16 @@ export class MessageInput extends Component {
 
         return (
             <div className={formStyle} >
-                <div className={leftAlign}>
-                    <p className={headingStyle}>Destination</p>
-                </div>
-                {this.renderMessageDestination(true)}
-                {this.renderMessageDestination(false)}
-                <hr className={fullWidth} />
+                <MessageDestinationForm
+                    handleRecipientTypeChange={this.handleRecipientTypeChange}
+                    recipientIsQueue={this.state.recipientIsQueue}
+                    availableQueues={this.state.availableQueues}
+                    availableTopics={this.state.availableTopics}
+                    selectedQueue={this.state.selectedQueue}
+                    selectedTopic={this.state.selectedTopic}
+                    convertToValueLabel={this.convertToValueLabel}
+                    handleQueueorTopicChange={this.handleQueueOrTopicChange}
+                />
                 <MessageProperties
                     arePredefinedPropsLoaded={this.state.arePredefinedPropsLoaded}
                     preDefinedProperties={this.state.preDefinedProperties}

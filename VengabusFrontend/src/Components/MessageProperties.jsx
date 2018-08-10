@@ -8,14 +8,7 @@ import classNames from 'classnames';
 
 export class MessageProperties extends Component {
 
-    render() {
-        const formStyle = css`
-            margin-left: 5px;
-            margin-right: 5px;
-            padding-top: 1%;
-            width: calc(100% - 10px); /* 10px total margin */
-            float: left;
-        `;
+    renderMessagePropertyClass = (isPredefined) => {
         const buttonStyle = css`
             width: 270px;
             margin-left: 5px;
@@ -27,62 +20,48 @@ export class MessageProperties extends Component {
         const leftAlign = css`
             text-align:left;
         `;
-        const fullWidth = css`
-            float: left;
-            width: 100%;
-        `;
         const buttonLoading = css`
-            opacity: 0.5;
+                    opacity: 0.5;
             :hover {
-                cursor: progress;
+                    cursor: progress;
             }
         `;
         let preDefinedPropsButtonClassNames = classNames(buttonStyle, this.props.arePredefinedPropsLoaded || buttonLoading);
         const preDefinedPropertiesButtonText = this.props.arePredefinedPropsLoaded ? 'Add new Azure property' : 'Loading pre-defined properties...';
+        const propertyChangeHandler = isPredefined ? this.props.handlePreDefinedPropertyChange : this.props.handleUserDefinedPropertyChange;
         return (
             <React.Fragment>
-                <hr className={fullWidth} />
                 <div className={leftAlign}>
-                    <p className={headingStyle}>Pre-defined Properties</p>
+                    <p className={headingStyle}>{(isPredefined ? "Pre" : "User") + "-defined Properties"}</p>
                 </div>
                 <MessagePropertyInput
-                    properties={this.props.preDefinedProperties}
-                    handlePropertyNameChange={(newName, index) => this.props.handlePreDefinedPropertyChange(index, 'name', newName)}
-                    handlePropertyValueChange={(newValue, index) => this.props.handlePreDefinedPropertyChange(index, 'value', newValue)}
-                    deleteRow={(index) => this.props.deleteRow(index, false)}
-                    permittedValues={this.props.permittedValues}
+                    properties={isPredefined ? this.props.preDefinedProperties : this.props.userDefinedProperties}
+                    handlePropertyNameChange={(newName, index) => propertyChangeHandler(index, 'name', newName)}
+                    handlePropertyValueChange={(newValue, index) => propertyChangeHandler(index, 'value', newValue)}
+                    deleteRow={(index) => this.props.deleteRow(index, !isPredefined)}
+                    permittedValues={isPredefined ? this.props.permittedValues : undefined}
+                    reservedPropertyNames={isPredefined ? undefined : this.props.reservedPropertyNames}
                 />
                 <form>
                     <div className={leftAlign}>
                         <Button
-                            className={preDefinedPropsButtonClassNames}
-                            onClick={() => this.props.addNewProperty(false)}
+                            className={isPredefined ? preDefinedPropsButtonClassNames : buttonStyle}
+                            onClick={() => this.props.addNewProperty(!isPredefined)}
                         >
-                            {preDefinedPropertiesButtonText}
+                            {isPredefined ? preDefinedPropertiesButtonText : "Add new application specific property"}
                         </Button>
                     </div>
                 </form>
+            </React.Fragment>
+        );
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                {this.renderMessagePropertyClass(true)}
                 <hr />
-                <div className={leftAlign}>
-                    <p className={headingStyle}>User-defined Properties</p>
-                </div>
-                <MessagePropertyInput
-                    properties={this.props.userDefinedProperties}
-                    handlePropertyNameChange={(newName, index) => this.props.handleUserDefinedPropertyChange(index, 'name', newName)}
-                    handlePropertyValueChange={(newValue, index) => this.props.handleUserDefinedPropertyChange(index, 'value', newValue)}
-                    deleteRow={(index) => this.props.deleteRow(index, true)}
-                    reservedPropertyNames={this.props.reservedPropertyNames}
-                />
-                <form>
-                    <div className={leftAlign}>
-                        <Button
-                            className={buttonStyle}
-                            onClick={() => this.props.addNewProperty(true)}
-                        >
-                            Add new application specific property
-                        </Button>
-                    </div>
-                </form>
+                {this.renderMessagePropertyClass(false)}
             </React.Fragment>
         );
     }
