@@ -19,6 +19,12 @@ export class CopyTextButton extends React.Component {
         };
     }
 
+    componentWillUnmount() {
+        if (this.hideCopiedTooltip) {
+            clearTimeout(this.hideCopiedTooltip);
+        }
+    }
+
     /**
      * Returns the component which the tooltip is pointing to.
      * @return {object} The component.
@@ -27,18 +33,14 @@ export class CopyTextButton extends React.Component {
         return ReactDOM.findDOMNode(this.target);
     }
 
-    //Shows a 'copied' tooltip when the button is pressed
+    /**
+     * Shows a 'copied' tooltip when the button is pressed.
+     */
     handleToggle = () => {
         this.setState({ show: true });
         this.hideCopiedTooltip = setTimeout(() => {
             this.setState({ show: false });
         }, 2000);
-    }
-
-    componentWillUnmount() {
-        if (this.hideCopiedTooltip) {
-            clearTimeout(this.hideCopiedTooltip);
-        }
     }
 
     render() {
