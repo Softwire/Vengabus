@@ -75,7 +75,7 @@ describe('DataTable', () => {
         expect(dataTable.toJSON()).toMatchSnapshot();
     });
 
-    test.only('renders correctly when defaultHover=true with an additional rowClasses prop', () => {
+    it('renders correctly when defaultHover=true with an additional rowClasses prop', () => {
         const rowClasses = css`
                     background-color: grey;
               `;
