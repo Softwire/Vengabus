@@ -275,6 +275,20 @@ export class MessageInput extends Component {
         }
     }
 
+    renderMessageDestination = (isQueue) => {
+        return (
+            <MessageDestination
+                isDestinationQueue={isQueue}
+                handleRecipientTypeChange={this.handleRecipientTypeChange}
+                recipientIsQueue={this.state.recipientIsQueue}
+                availableDestinations={isQueue ? this.state.availableQueues : this.state.availableTopics}
+                selectedDestination={isQueue ? this.state.selectedQueue : this.state.selectedTopic}
+                convertToValueLabel={this.convertToValueLabel}
+                handleQueueorTopicChange={this.handleQueueOrTopicChange}
+            />
+        );
+    }
+
     render() {
         const formStyle = css`
             margin-left: 5px;
@@ -361,24 +375,8 @@ export class MessageInput extends Component {
                 <div className={leftAlign}>
                     <p className={headingStyle}>Destination</p>
                 </div>
-                <MessageDestination
-                    isDestinationQueue={true}
-                    handleRecipientTypeChange={this.handleRecipientTypeChange}
-                    recipientIsQueue={this.state.recipientIsQueue}
-                    availableDestinations={this.state.availableQueues}
-                    selectedDestination={this.state.selectedQueue}
-                    convertToValueLabel={this.convertToValueLabel}
-                    handleQueueorTopicChange={this.handleQueueOrTopicChange}
-                />
-                <MessageDestination
-                    isDestinationQueue={false}
-                    handleRecipientTypeChange={this.handleRecipientTypeChange}
-                    recipientIsQueue={this.state.recipientIsQueue}
-                    availableDestinations={this.state.availableTopics}
-                    selectedDestination={this.state.selectedTopic}
-                    convertToValueLabel={this.convertToValueLabel}
-                    handleQueueorTopicChange={this.handleQueueOrTopicChange}
-                />
+                {this.renderMessageDestination(true)}
+                {this.renderMessageDestination(false)}
                 <hr className={fullWidth} />
                 <div className={leftAlign}>
                     <p className={headingStyle}>Pre-defined Properties</p>
