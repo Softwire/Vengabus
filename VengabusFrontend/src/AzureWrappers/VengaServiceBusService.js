@@ -125,6 +125,12 @@ export class VengaServiceBusService {
         return this.axiosWithSAS.delete(url);
     }
 
+    deleteQueueSingleDeadLetterMessage = (queueName, messageId, uniqueId) => {
+        const messageIdEncoded = encodeURIComponent(messageId);
+        const url = this.apiRoot + `queues/${queueName}/deadletter/${uniqueId}?messageId=${messageIdEncoded}`;
+        return this.axiosWithSAS.delete(url);
+    }
+
     deleteTopicMessages = (topicName) => {
 >>>>>>> Add methods for calling deleting single message endpoints
         const url = this.apiRoot + `topics/${topicName}/messages`;
@@ -149,6 +155,12 @@ export class VengaServiceBusService {
     deleteSubscriptionSingleMessage = (topicName, subscriptionName, messageId, uniqueId) => {
         const messageIdEncoded = encodeURIComponent(messageId);
         const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/message/${uniqueId}?messageId=${messageIdEncoded}`;
+        return this.axiosWithSAS.delete(url);
+    }
+
+    deleteSubscriptionSingleDeadLetterMessage = (topicName, subscriptionName, messageId, uniqueId) => {
+        const messageIdEncoded = encodeURIComponent(messageId);
+        const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/deadletter/${uniqueId}?messageId=${messageIdEncoded}`;
         return this.axiosWithSAS.delete(url);
     }
 
