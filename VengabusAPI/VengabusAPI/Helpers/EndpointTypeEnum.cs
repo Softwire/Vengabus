@@ -1,4 +1,4 @@
-﻿namespace VengabusAPI.Controllers
+﻿namespace VengabusAPI.Helpers
 {
     public enum EndpointType
     {

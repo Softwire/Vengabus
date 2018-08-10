@@ -36,7 +36,7 @@ namespace VengabusAPI.Controllers
             var messagesToReturn = new List<VengaMessage>();
             foreach (var message in brokeredMessagesList)
             {
-                messagesToReturn.Add(VengaBrokeredMessageConverter.FromBrokeredMessage(message));
+                messagesToReturn.Add(VengaMessage.FromBrokeredMessage(message));
             }
             return messagesToReturn;
         }

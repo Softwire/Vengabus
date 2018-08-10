@@ -1,6 +1,8 @@
 ﻿using Microsoft.ServiceBus.Messaging;
 using System;
 using VengabusAPI.Controllers;
+using VengabusAPI.Helpers;
+
 //docs: https://docs.microsoft.com/en-us/dotnet/api/microsoft.servicebus.messaging.queuedescription?view=azure-dotnet
 namespace VengabusAPI.Models
 {
