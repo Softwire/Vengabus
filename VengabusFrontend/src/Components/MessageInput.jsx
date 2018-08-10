@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { css } from 'react-emotion';
 import { MessagePropertyInput } from './MessagePropertyInput';
+import { MessageDestination } from './MessageDestination';
 import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import {
@@ -9,7 +10,6 @@ import {
     ControlLabel,
     Button
 } from "react-bootstrap";
-import Select from 'react-select';
 import _ from 'lodash';
 import classNames from 'classnames';
 
@@ -283,21 +283,6 @@ export class MessageInput extends Component {
             width: calc(100% - 10px); /* 10px total margin */
             float: left;
         `;
-        const queueOrTopicSelectionRadioStyle = css`
-            float: left;
-            width: 20px;
-            position:relative;
-            top:9px;
-        `;
-        const queueOrTopicSelectionStyle = css`
-            float: left;
-            width: 75px;
-        `;
-        const queueOrTopicSelectionDropdownStyle = css`
-            float: left;
-            width: 275px;
-            text-align:left;
-        `;
         const buttonStyle = css`
             width: 270px;
             margin-left: 5px;
@@ -312,9 +297,6 @@ export class MessageInput extends Component {
         const bodyStyle = css`
             min-height: 350px;
             padding-left: 5px;
-        `;
-        const verticalAlign = css`
-            line-height: 38px;
         `;
         const fullWidth = css`
             float: left;
@@ -379,58 +361,24 @@ export class MessageInput extends Component {
                 <div className={leftAlign}>
                     <p className={headingStyle}>Destination</p>
                 </div>
-                <div className={fullWidth}>
-                    <div
-                        onClick={() => this.handleRecipientTypeChange(true)}
-                    >
-                        <input
-                            id="queue-selection-radio"
-                            className={queueOrTopicSelectionRadioStyle}
-                            type="radio"
-                            value="queue"
-                            checked={this.state.recipientIsQueue}
-                            onChange={() => this.handleRecipientTypeChange(true)}
-                        />
-                        <div className={classNames(leftAlign, queueOrTopicSelectionStyle, headingStyle, verticalAlign)}>
-                            <p>Queue</p>
-                        </div>
-                    </div>
-                    <Select
-                        isDisabled={!this.state.recipientIsQueue}
-                        className={queueOrTopicSelectionDropdownStyle}
-                        title="Queue"
-                        id={"queue-dropdown"}
-                        options={this.state.availableQueues}
-                        value={this.state.selectedQueue ? this.convertToValueLabel(this.state.selectedQueue) : undefined}
-                        onChange={(event) => this.handleQueueOrTopicChange(event.value)}
-                    />
-                </div>
-                <div className={fullWidth}>
-                    <div
-                        onClick={() => this.handleRecipientTypeChange(false)}
-                    >
-                        <input
-                            id="topic-selection-radio"
-                            className={queueOrTopicSelectionRadioStyle}
-                            type="radio"
-                            value="topic"
-                            checked={!this.state.recipientIsQueue}
-                            onChange={() => this.handleRecipientTypeChange(false)}
-                        />
-                        <div className={classNames(leftAlign, queueOrTopicSelectionStyle, headingStyle, verticalAlign)}>
-                            <p>Topic</p>
-                        </div>
-                    </div>
-                    <Select
-                        isDisabled={this.state.recipientIsQueue}
-                        className={queueOrTopicSelectionDropdownStyle}
-                        title="Topic"
-                        id={"topic-dropdown"}
-                        options={this.state.availableTopics}
-                        value={this.state.selectedTopic ? this.convertToValueLabel(this.state.selectedTopic) : undefined}
-                        onChange={(event) => this.handleQueueOrTopicChange(event.value)}
-                    />
-                </div>
+                <MessageDestination
+                    isDestinationQueue={true}
+                    handleRecipientTypeChange={this.handleRecipientTypeChange}
+                    recipientIsQueue={this.state.recipientIsQueue}
+                    availableDestinations={this.state.availableQueues}
+                    selectedDestination={this.state.selectedQueue}
+                    convertToValueLabel={this.convertToValueLabel}
+                    handleQueueorTopicChange={this.handleQueueOrTopicChange}
+                />
+                <MessageDestination
+                    isDestinationQueue={false}
+                    handleRecipientTypeChange={this.handleRecipientTypeChange}
+                    recipientIsQueue={this.state.recipientIsQueue}
+                    availableDestinations={this.state.availableTopics}
+                    selectedDestination={this.state.selectedTopic}
+                    convertToValueLabel={this.convertToValueLabel}
+                    handleQueueorTopicChange={this.handleQueueOrTopicChange}
+                />
                 <hr className={fullWidth} />
                 <div className={leftAlign}>
                     <p className={headingStyle}>Pre-defined Properties</p>
