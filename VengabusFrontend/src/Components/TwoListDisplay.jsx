@@ -159,13 +159,14 @@ export class TwoListDisplay extends Component {
                 margin: 9px;
                 width: 120px ;
         `;
+    
 
         switch (typeOfData) {
             case EndpointTypes.QUEUE:
                 return (
                     <React.Fragment>
                         <div>
-                            <h2>{typeToTitle(EndpointTypes.QUEUE)}</h2>
+                            <h2 className={titleStyle}>{typeToTitle(EndpointTypes.QUEUE)}</h2>
                         </div>
                         <QueueList
                             queueData={this.state.queueData}
@@ -178,7 +179,7 @@ export class TwoListDisplay extends Component {
                 return (
                     <React.Fragment>
                         <div>
-                            <h2>{typeToTitle(EndpointTypes.TOPIC)}</h2>
+                            <h2 className={titleStyle}>{typeToTitle(EndpointTypes.TOPIC)}</h2>
                         </div>
                         <TopicList
                             topicData={this.state.topicData}
@@ -192,7 +193,7 @@ export class TwoListDisplay extends Component {
                 return (
                     <React.Fragment>
                         <div>
-                            <h2>{typeToTitle(EndpointTypes.SUBSCRIPTION)}</h2>
+                            <h2 className={titleStyle}>{typeToTitle(EndpointTypes.SUBSCRIPTION)}</h2>
                         </div>
                         <SubscriptionList
                             subscriptionData={this.state.subscriptionData}
@@ -318,9 +319,7 @@ export class TwoListDisplay extends Component {
         const minWidth = css`
             min-width:1300px;
         `;
-        const titleStyle = css`
-            text-align:center;
-        `;
+
 
         const leftBox = this.getList();
         const rightBox = this.getList(true);
