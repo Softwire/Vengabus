@@ -4,7 +4,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { Modal } from 'react-bootstrap';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
-import { testHelper } from '../../TestHelpers/testHelper';
+import { testHelper } from '../../TestHelpers/TestHelper';
 
 let mockDeleteSubscrionMessage = jest.fn();
 let mockDeleteQueueMessages = jest.fn();
