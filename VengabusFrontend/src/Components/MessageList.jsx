@@ -30,12 +30,6 @@ export class MessageList extends Component {
 
     render() {
         const messageArray = this.props.messageData ? [...this.props.messageData] : undefined;
-        // Add a hidden key column
-        if (messageArray) {
-            for (let i = 0; i < messageArray.length; i++){
-                messageArray[i].hiddenKey = i;
-            }
-        }
 
         //add a preview of the body to each field which will be the first 30 chars
         const previewLength = 30;
@@ -46,7 +40,7 @@ export class MessageList extends Component {
 
         const colProps = [
             {
-                dataField: 'hiddenKey',
+                dataField: 'uniqueId',
                 hidden: true
             },
             {
@@ -68,7 +62,7 @@ export class MessageList extends Component {
                 <DataTable
                     name='MessageTable'
                     colProps={colProps}
-                    uniqueKeyColumn='hiddenKey'
+                    uniqueKeyColumn='uniqueId'
                     dataToDisplay={messageArray}
                     defaultHover
                     onRowClick={this.handleMessageClick}
