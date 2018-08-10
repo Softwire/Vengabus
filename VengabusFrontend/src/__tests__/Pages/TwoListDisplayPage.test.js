@@ -130,8 +130,8 @@ it('renders correctly before data is added', () => {
 it('renders queues and topic titles', () => {
     let wrapper = mount(<TwoListDisplayPage />);
 
-    const leftTitle = wrapper.find('#leftTitle').text();
-    const rightTitle = wrapper.find('#rightTitle').text();
+    const leftTitle = wrapper.find('#left').find('#title').text();
+    const rightTitle = wrapper.find('#right').find('#title').text();
     expect(leftTitle).toBe("Queues");
     expect(rightTitle).toBe("Topics");
 });
@@ -164,7 +164,7 @@ it('clicking Queues retrieves messages', () => {
     return testHelper.afterReactHasUpdated().then(() => {
         wrapper.update();
         const messageList = wrapper.find('#MessageTable');
-        const rightTitle = wrapper.find('#rightTitle').text();
+        const rightTitle = wrapper.find('#right').find('#title').text();
         expect(rightTitle).toBe("Messages");
         expect(messageList.exists()).toBe(true);
 
@@ -182,7 +182,7 @@ it('clicking Topics retrieves subscriptions', () => {
         wrapper.update();
 
         const subscriptionTable = wrapper.find('#SubscriptionTable');
-        const rightTitle = wrapper.find('#rightTitle').text();
+        const rightTitle = wrapper.find('#right').find('#title').text();
 
         expect(rightTitle).toBe("Subscriptions");
         expect(subscriptionTable.exists()).toBe(true);
@@ -208,7 +208,7 @@ it('clicking Subscriptions retrieves messages', () => {
             wrapper.update();
 
             const messageTable = wrapper.find('#MessageTable');
-            const rightTitle = wrapper.find('#rightTitle').text();
+            const rightTitle = wrapper.find('#right').find('#title').text();
 
             expect(rightTitle).toBe("Messages");
             expect(messageTable.exists()).toBe(true);
@@ -237,10 +237,10 @@ it('Home breadCrumb resets state', () => {
             const queueTable = wrapper.find('#QueueTable').find("#Data");
             const topicTable = wrapper.find('#TopicTable').find("#Data");
 
-            const rightTitle = wrapper.find('#rightTitle').text();
+            const rightTitle = wrapper.find('#right').find('#title').text();
             expect(rightTitle).toBe("Topics");
 
-            const leftTitle = wrapper.find('#leftTitle').text();
+            const leftTitle = wrapper.find('#left').find('#title').text();
             expect(leftTitle).toBe("Queues");
 
             expect(queueTable.exists()).toBe(true);
@@ -275,8 +275,8 @@ it('Can go back to Topic from Subscription using BreadCrumbs', () => {
                 const subscriptionTable = wrapper.find('#SubscriptionTable');
                 const topicTable = wrapper.find('#TopicTable');
 
-                const rightTitle = wrapper.find('#rightTitle').text();
-                const leftTitle = wrapper.find('#leftTitle').text();
+                const rightTitle = wrapper.find('#right').find('#title').text();
+                const leftTitle = wrapper.find('#left').find('#title').text();
 
                 expect(rightTitle).toBe("Subscriptions");
                 expect(leftTitle).toBe("Topics");

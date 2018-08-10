@@ -50,12 +50,15 @@ exports[`renders correctly before data is added 1`] = `
   >
     <div
       className="emotion-2"
+      id="left"
     >
-      <h2
-        id="leftTitle"
-      >
-        Queues
-      </h2>
+      <div>
+        <h2
+          id="title"
+        >
+          Queues
+        </h2>
+      </div>
       <p
         id="warning"
       >
@@ -64,12 +67,15 @@ exports[`renders correctly before data is added 1`] = `
     </div>
     <div
       className="emotion-2"
+      id="right"
     >
-      <h2
-        id="rightTitle"
-      >
-        Topics
-      </h2>
+      <div>
+        <h2
+          id="title"
+        >
+          Topics
+        </h2>
+      </div>
       <p
         id="warning"
       >
