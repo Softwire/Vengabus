@@ -39,23 +39,14 @@ namespace VengabusAPI.Controllers
         public DateTime? GetTimeStampOfMostRecentDeadletter(string queueName)
         [HttpPost]
         [Route("queues/update")]
-        public void UpdateQueue([FromBody]VengaQueue vengaQueue)
+        public void UpdateQueue([FromBody]Dictionary<string, dynamic> queueData)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
-            QueueDescription description = ConvertVengaQueueToQueueDescription(vengaQueue);
+            QueueDescription description = namespaceManager.GetQueue(queueData["name"]);
+            description.SupportOrdering = queueData["supportOrdering"];
 
             namespaceManager.UpdateQueue(description);
-        }
-
-        private QueueDescription ConvertVengaQueueToQueueDescription(VengaQueue vengaQueue)
-        {
-            var description = new QueueDescription(vengaQueue.name)
-            {
-                SupportOrdering = vengaQueue.supportOrdering
-            };
-
-            return description;
         }
 
         private DateTime? GetTimeStampOfMostRecentDeadletter(string queueName)

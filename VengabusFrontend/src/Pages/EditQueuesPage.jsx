@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Checkbox } from 'react-bootstrap';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import Select from 'react-select';
 import { css } from 'emotion';
+import classNames from 'classnames';
+import { DataTable } from '../Components/DataTable';
 
 export class EditQueuesPage extends Component {
     constructor(props) {
@@ -11,8 +13,8 @@ export class EditQueuesPage extends Component {
         this.state = {
             selectedQueue: "mkdemoqueue",
             queueData: {},
-            newQueueData: {}
-
+            newQueueData: {},
+            receivedData: false
         };
 
 
@@ -21,8 +23,20 @@ export class EditQueuesPage extends Component {
     componentDidMount = () => {
         serviceBusConnection.getServiceBusService().getQueueDetails(this.state.selectedQueue)
             .then((result) => {
-                this.setState({ queueData: result, newQueueData: result });
+                this.setState({ queueData: result, newQueueData: result, receivedData: true });
             });
+    }
+
+    assembleReadOnlyProperties = (properties) => {
+        let readOnlyProperties = [];
+        const keys = Object.keys(properties);
+        for (let i = 0; i < keys.length; i++) {
+            readOnlyProperties.push({
+                name: keys[i],
+                value: properties[keys[i]]
+            });
+        }
+        return readOnlyProperties;
     }
 
     updateQueue = () => {
@@ -32,8 +46,16 @@ export class EditQueuesPage extends Component {
 
     render() {
         const newQueueData = this.state.newQueueData;
-        const permittedBoolValues = [{ value: true, label: 'true' }, { value: false, label: 'false' }];
-        const supportOrdering = newQueueData.supportOrdering;
+        const { name, activeMessageCount, deadletterMessageCount, mostRecentDeadLetter, enablePartitioning, requiresSession, supportOrdering } = newQueueData;
+
+        const readOnlyProperties = this.assembleReadOnlyProperties(
+            {   // text in the left column: value in the right column
+                "Name": name,
+                "Active Message Count": activeMessageCount,
+                "Dead Letter Message Count": deadletterMessageCount,
+                "Most Recent Dead Letter": mostRecentDeadLetter
+            });
+        const colProps = [{ dataField: 'name', text: 'Property Name', headerStyle: { textAlign: 'left' } }, { dataField: 'value', headerStyle: { textAlign: 'left' } }];
 
         const leftAlign = css`
             text-align: left;
@@ -54,13 +76,27 @@ export class EditQueuesPage extends Component {
         `;
 
         return (
-            <div>
-                <br />
-                <p className={leftAlign + ' ' + headerStyle}>Editable Properties</p>
-                <hr className={hrStlye} />
-                <p className={leftAlign}>SupportsOrdering</p>
-                <Select
-                    className={leftAlign + ' ' + width20}
+            this.state.receivedData ? (
+                <div>
+                    <br />
+
+                    <p className={classNames(leftAlign, headerStyle)}>Read-Only Properties</p>
+                    <hr className={hrStlye} />
+                    <div className={css`width: 98%; padding-left: 20px`} >
+                        <DataTable
+                            dataToDisplay={readOnlyProperties}
+                            uniqueKeyColumn='name'
+                            colProps={colProps}
+                            rowClasses={css`text-align: left`}
+                            bordered={false}
+                        />
+                    </div>
+
+                    <p className={classNames(leftAlign, headerStyle)}>Editable Properties</p>
+                    <hr className={hrStlye} />
+                    <p className={leftAlign}>SupportsOrdering</p>
+                    {/* <Select
+                    className={classNames(leftAlign, width20)}
                     title="Choose a value"
                     options={permittedBoolValues}
                     value={typeof supportOrdering !== 'undefined' ? { value: supportOrdering, label: supportOrdering.toString() } : undefined}
@@ -69,14 +105,37 @@ export class EditQueuesPage extends Component {
                             newQueueData: { ...newQueueData, supportOrdering: event.value }
                         });
                     }}
-                />
-                <hr className={hrStlye} />
-                <Button
-                    onClick={this.updateQueue}
-                >
-                    Update
+                /> */}
+                    <Checkbox
+                        className={leftAlign}
+                        checked={supportOrdering}
+                        onChange={(event) => {
+                            this.setState({
+                                newQueueData: { ...newQueueData, supportOrdering: event.target.checked }
+                            });
+                        }}
+                    />
+                    <hr className={hrStlye} />
+                    <p className={leftAlign}>RequiresSession</p>
+                    <Checkbox
+                        className={leftAlign}
+                        checked={requiresSession}
+                        onChange={(event) => {
+                            this.setState({
+                                newQueueData: { ...newQueueData, requiresSession: event.target.checked }
+                            });
+                        }}
+                    />
+                    <hr className={hrStlye} />
+                    <Button
+                        onClick={this.updateQueue}
+                    >
+                        Update
                 </Button>
-            </div>
+                </div>
+            ) : (
+                    <p>Fetching data</p>
+                )
         );
 
     }

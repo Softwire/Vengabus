@@ -12,21 +12,16 @@ namespace VengabusAPI.Models
             name = queueFromAzure.Path;
             activeMessageCount = queueFromAzure.MessageCountDetails.ActiveMessageCount;
             deadletterMessageCount = queueFromAzure.MessageCountDetails.DeadLetterMessageCount;
+            enablePartitioning = queueFromAzure.EnablePartitioning;
+            requiresSession = queueFromAzure.RequiresSession;
             supportOrdering = queueFromAzure.SupportOrdering;
-        }
-
-        public VengaQueue(Dictionary<string, dynamic> queue)
-        {
-            name = queue["name"];
-            activeMessageCount = queue["activeMessageCount"];
-            deadletterMessageCount = queue["deadletterMessageCount"];
-            supportOrdering = queue["supportOrdering"];
-            mostRecentDeadLetter = queue["mostRecentDeadLetter"];
         }
 
         public string name { get; set; }
         public long activeMessageCount { get; }
         public long deadletterMessageCount { get; }
+        public bool enablePartitioning { get; set; }
+        public bool requiresSession { get; set; }
         public bool supportOrdering { get; set; }
     }
 }
