@@ -322,7 +322,6 @@ export class MessageInput extends Component {
         const preDefinedPropertiesButtonText = this.arePredefinedPropsLoaded ? 'Add new Azure property' : 'Loading pre-defined properties...';
 
         //generate warnings of certain property names.
-        let warningList = [];
         let customPropertyNames = this.state.userDefinedProperties.map((item) => item.name);
         let reservedPropertyNames = this.state.reservedPropertyNames;
         let repetitivePropertyList = [];
@@ -349,6 +348,8 @@ export class MessageInput extends Component {
         });
 
         reservedPropWarningList = reservedPropWarningList.filter((value) => value !== '');
+
+        let warningCount = reservedPropWarningList.length + repetitivePropWarningList.length;
 
         let warnings = (
             <React.Fragment>
@@ -477,7 +478,7 @@ export class MessageInput extends Component {
                         id="submitButton"
                         buttonText={"Send Message"}
                         modalTitle={"Send Message to " + this.state.selectedQueue}
-                        modalBody={warningList ? warnings : "Confirm sending message?"}
+                        modalBody={warningCount ? warnings : "Confirm sending message?"}
                         confirmButtonText={"Send"}
                         cancelButtonText={"Cancel"}
                         showModalAction={() => { }}
