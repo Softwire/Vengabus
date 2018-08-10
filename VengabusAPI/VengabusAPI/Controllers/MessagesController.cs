@@ -130,14 +130,6 @@ namespace VengabusAPI.Controllers
             MessageServices.DeleteMessageFromEndpoint(factory, namespaceManager, endpoint);
         }
 
-        private void DeleteSingleMessageFromEndpoint(EndpointIdentifier endpoint, string messageId, string uniqueId)
-        {
-            var factory = CreateEndpointFactory();
-            var namespaceManager = CreateNamespaceManager();
-            MessageServices.DeleteSingleMessageFromEndpoint(factory, namespaceManager, endpoint, messageId, uniqueId);
-        }
-        
-
         private void SendMessageToEndpoint(EndpointIdentifier endpoint, VengaMessage message)
         {
             //Sending message to queue. 

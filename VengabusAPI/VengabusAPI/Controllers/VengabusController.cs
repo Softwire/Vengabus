@@ -7,6 +7,7 @@ using System.Web.Http;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
 using VengabusAPI.Models;
+using VengabusAPI.Services;
 
 namespace VengabusAPI.Controllers
 {
@@ -82,6 +83,13 @@ namespace VengabusAPI.Controllers
             var sasToken = GetSASToken();
             var factory = MessagingFactory.Create(serviceBusUri, sasToken);
             return factory;
+        }
+
+        protected void DeleteSingleMessageFromEndpoint(EndpointIdentifier endpoint, string messageId, string uniqueId)
+        {
+            var factory = CreateEndpointFactory();
+            var namespaceManager = CreateNamespaceManager();
+            MessageServices.DeleteSingleMessageFromEndpoint(factory, namespaceManager, endpoint, messageId, uniqueId);
         }
     }
 }
