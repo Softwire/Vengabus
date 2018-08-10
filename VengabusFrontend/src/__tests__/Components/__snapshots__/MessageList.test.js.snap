@@ -6,6 +6,10 @@ exports[`MessageList renders correctly with given props 1`] = `
   background-color: #ecf2ff;
 }
 
+.emotion-1 {
+  cursor: pointer;
+}
+
 <div>
   <div
     className="react-bootstrap-table"
@@ -42,7 +46,7 @@ exports[`MessageList renders correctly with given props 1`] = `
       </thead>
       <tbody>
         <tr
-          className="emotion-0"
+          className="emotion-0 emotion-1"
           onClick={[Function]}
           style={Object {}}
         >
@@ -58,7 +62,7 @@ exports[`MessageList renders correctly with given props 1`] = `
           </td>
         </tr>
         <tr
-          className="emotion-0"
+          className="emotion-0 emotion-1"
           onClick={[Function]}
           style={Object {}}
         >

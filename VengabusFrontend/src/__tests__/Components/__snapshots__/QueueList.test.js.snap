@@ -6,6 +6,10 @@ exports[`QueueList renders correctly with given props 1`] = `
   background-color: #ecf2ff;
 }
 
+.emotion-1 {
+  cursor: pointer;
+}
+
 <div
   className="react-bootstrap-table"
 >
@@ -61,7 +65,7 @@ exports[`QueueList renders correctly with given props 1`] = `
     </thead>
     <tbody>
       <tr
-        className="emotion-0"
+        className="emotion-0 emotion-1"
         onClick={[Function]}
         style={Object {}}
       >
@@ -83,7 +87,7 @@ exports[`QueueList renders correctly with given props 1`] = `
         />
       </tr>
       <tr
-        className="emotion-0"
+        className="emotion-0 emotion-1"
         onClick={[Function]}
         style={Object {}}
       >
@@ -105,7 +109,7 @@ exports[`QueueList renders correctly with given props 1`] = `
         />
       </tr>
       <tr
-        className="emotion-0"
+        className="emotion-0 emotion-1"
         onClick={[Function]}
         style={Object {}}
       >
