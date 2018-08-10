@@ -325,15 +325,38 @@ export class MessageInput extends Component {
         let warningList = [];
         let customPropertyNames = this.state.userDefinedProperties.map((item) => item.name);
         let reservedPropertyNames = this.state.reservedPropertyNames;
-        for (let i = 0; i < this.state.userDefinedProperties.length; i++) {
-            if (customPropertyNames.slice(0, i).includes(customPropertyNames[i])) {
-                warningList.push(<p key={"repetitiveWarning" + i}>{"Warning: repetitive property name: '" + customPropertyNames[i] + "'"}</p>);
+        let repetitivePropertyList = [];
+        let seenProperties = [];
+
+        for (let i = 0; i < customPropertyNames.length; i++) {
+            let propertyName = customPropertyNames[i];
+            if (!repetitivePropertyList.includes(propertyName) && seenProperties.includes(propertyName)) {
+                repetitivePropertyList.push(propertyName);
             }
-            if (reservedPropertyNames.includes(customPropertyNames[i])) {
-                warningList.push(<p key={"predefinedWarning" + i}>{"Warning: custom property '" + customPropertyNames[i] + "' is potentially a predefined property"}</p>);
+            else if (!seenProperties.includes(propertyName)) {
+                seenProperties.push(propertyName);
             }
         }
-        let warnings = <div>{warningList}</div>;
+
+        let repetitivePropWarningList = repetitivePropertyList.map((value) =>
+            "Warning: repetitive property name: '" + value + "'"
+        );
+
+        let reservedPropWarningList = reservedPropertyNames.map((value) => {
+            return seenProperties.includes(value) ?
+                "Warning: custom property '" + value + "' is potentially a predefined property"
+                : ''
+        });
+
+        reservedPropWarningList = reservedPropWarningList.filter((value) => value !== '');
+
+        let warnings = (
+            <React.Fragment>
+                {repetitivePropWarningList.map((value) => <p key={"repetitiveWarning " + value}>{value}</p>)}
+                {reservedPropWarningList.map((value) => <p key={"reservedWarning " + value}>{value}</p>)}
+            </React.Fragment>
+        );
+
         return (
             <div className={formStyle} >
                 <div className={leftAlign}>
@@ -454,7 +477,7 @@ export class MessageInput extends Component {
                         id="submitButton"
                         buttonText={"Send Message"}
                         modalTitle={"Send Message to " + this.state.selectedQueue}
-                        modalBody={warningList.length > 0 ? warnings : "Confirm sending message?"}
+                        modalBody={warningList ? warnings : "Confirm sending message?"}
                         confirmButtonText={"Send"}
                         cancelButtonText={"Cancel"}
                         showModalAction={() => { }}
