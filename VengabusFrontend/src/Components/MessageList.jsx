@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { DataTable } from './DataTable';
 import { MessageBox } from './MessageBox';
-import { css } from 'react-emotion';
-import { paleGreyBlue, palerBlue } from '../colourScheme';
 import { truncate } from 'lodash';
 
 export class MessageList extends Component {
@@ -32,6 +30,12 @@ export class MessageList extends Component {
 
     render() {
         const messageArray = this.props.messageData ? [...this.props.messageData] : undefined;
+        // Add a hidden key column
+        if (messageArray) {
+            for (let i = 0; i < messageArray.length; i++){
+                messageArray[i].hiddenKey = i;
+            }
+        }
 
         //add a preview of the body to each field which will be the first 30 chars
         const previewLength = 30;
@@ -42,31 +46,31 @@ export class MessageList extends Component {
 
         const colProps = [
             {
+                dataField: 'hiddenKey',
+                hidden: true
+            },
+            {
                 dataField: 'predefinedProperties.messageId',
                 text: 'Message Id',
-                headerStyle: { width: '10%', textAlign: 'center' }
+                width: 50,
+                headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'messageBodyPreview',
                 text: 'Message Body',
-                headerStyle: { width: '50%', textAlign: 'center' }
+                width: 50,
+                headerStyle: { textAlign: 'center' }
             }
         ];
-
-        const tableRowStyle = css`
-		          :hover {
-		              border: 1px solid ${palerBlue};
-		              background-color: ${paleGreyBlue};
-		          }
-              `;
 
         return (
             <div>
                 <DataTable
                     name='MessageTable'
                     colProps={colProps}
+                    uniqueKeyColumn='hiddenKey'
                     dataToDisplay={messageArray}
-                    tableRowStyle={tableRowStyle}
+                    defaultHover
                     onRowClick={this.handleMessageClick}
                 />
 

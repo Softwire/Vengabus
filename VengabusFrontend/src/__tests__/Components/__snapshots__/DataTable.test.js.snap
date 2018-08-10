@@ -13,13 +13,201 @@ exports[`DataTable renders correctly if an empty array is input as data 1`] = `
         className={undefined}
       >
         <th>
-          Number
+          Number With Complex Label
         </th>
         <th>
           Name
         </th>
+        <th>
+          Not the same as the dataField
+        </th>
       </tr>
     </thead>
+  </table>
+</div>
+`;
+
+exports[`DataTable renders correctly when defaultHover=true with an additional rowClasses prop 1`] = `
+.emotion-0 {
+  background-color: grey;
+}
+
+.emotion-1:hover {
+  border: 1px solid #99ccff;
+  background-color: #ecf2ff;
+}
+
+<div
+  className="react-bootstrap-table"
+>
+  <table
+    className="table table-bordered"
+    id={undefined}
+  >
+    <thead>
+      <tr
+        className={undefined}
+      >
+        <th>
+          Number With Complex Label
+        </th>
+        <th>
+          Name
+        </th>
+        <th>
+          Not the same as the dataField
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className="emotion-0 emotion-1"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td
+          onClick={[Function]}
+        >
+          1
+        </td>
+        <td>
+          q1
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          text
+        </td>
+      </tr>
+      <tr
+        className="emotion-0 emotion-1"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td
+          onClick={[Function]}
+        >
+          2
+        </td>
+        <td>
+          q2
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          text
+        </td>
+      </tr>
+      <tr
+        className="emotion-0 emotion-1"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td
+          onClick={[Function]}
+        >
+          3
+        </td>
+        <td>
+          q3
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          text
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`DataTable renders correctly with the selectRow prop 1`] = `
+<div
+  className="react-bootstrap-table"
+>
+  <table
+    className="table table-bordered"
+    id={undefined}
+  >
+    <thead>
+      <tr
+        className={undefined}
+      >
+        <th>
+          Number With Complex Label
+        </th>
+        <th>
+          Name
+        </th>
+        <th>
+          Not the same as the dataField
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className=""
+        onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": "green",
+          }
+        }
+      >
+        <td>
+          1
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q1
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          text
+        </td>
+      </tr>
+      <tr
+        className={null}
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td>
+          2
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q2
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          text
+        </td>
+      </tr>
+      <tr
+        className={null}
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td>
+          3
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          q3
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          text
+        </td>
+      </tr>
+    </tbody>
   </table>
 </div>
 `;

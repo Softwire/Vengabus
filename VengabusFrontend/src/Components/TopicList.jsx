@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { DataTable } from './DataTable';
-import { css } from 'react-emotion';
-import { paleGreyBlue, palerBlue } from '../colourScheme';
+import { palerBlue } from '../colourScheme';
 
 export class TopicList extends Component {
 
@@ -13,35 +12,37 @@ export class TopicList extends Component {
             {
                 dataField: 'name',
                 text: 'Topic Name',
-                headerStyle: { width: '30%', textAlign: 'center' }
+                width: 34,
+                headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'subscriptionCount',
                 text: 'number of subscriptions',
-                headerStyle: { width: '30%', textAlign: 'center' }
+                width: 33,
+                headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'topicStatus',
                 text: 'Status',
-                headerStyle: { width: '30%', textAlign: 'center' }
+                width: 33,
+                headerStyle: { textAlign: 'center' }
             }
         ];
 
-        const tableRowStyle = css`
-		          :hover {
-		              border: 1px solid ${palerBlue};
-		              background-color: ${paleGreyBlue};
-		          }
-              `;
+        let selectRow = {
+            bgColor: palerBlue,
+            selected: this.props.currentlySelectedName
+        };
 
         return (
             <DataTable
                 name='TopicList'
                 colProps={colProps}
+                uniqueKeyColumn='name'
                 dataToDisplay={topics}
-                tableRowStyle={tableRowStyle}
+                defaultHover
                 onRowClick={this.props.clickFunction}
-                rowSelect={this.props.currentlySelectedName}
+                selectRow={selectRow}
             />
         );
     }

@@ -21,7 +21,7 @@ exports[`TopicList renders correctly with given props 1`] = `
           style={
             Object {
               "textAlign": "center",
-              "width": "30%",
+              "width": "34%",
             }
           }
         >
@@ -31,7 +31,7 @@ exports[`TopicList renders correctly with given props 1`] = `
           style={
             Object {
               "textAlign": "center",
-              "width": "30%",
+              "width": "33%",
             }
           }
         >
@@ -41,7 +41,7 @@ exports[`TopicList renders correctly with given props 1`] = `
           style={
             Object {
               "textAlign": "center",
-              "width": "30%",
+              "width": "33%",
             }
           }
         >

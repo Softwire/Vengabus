@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { DataTable } from './DataTable';
-import { css } from 'react-emotion';
-import { paleGreyBlue, palerBlue } from '../colourScheme';
 import moment from 'moment';
+import { palerBlue } from '../colourScheme';
 
 export class SubscriptionList extends Component {
 
@@ -27,39 +26,42 @@ export class SubscriptionList extends Component {
             {
                 dataField: 'name',
                 text: 'Name',
-                headerStyle: { width: '25%', textAlign: 'center' }
+                width: 25,
+                headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'activeMessageCount',
                 text: 'active Message Count',
-                headerStyle: { width: '25%', textAlign: 'center' }
+                width: 25,
+                headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'deadletterMessageCount',
                 text: 'dead Message Count',
-                headerStyle: { width: '25%', textAlign: 'center' }
+                width: 25,
+                headerStyle: { textAlign: 'center' }
             }, {
                 dataField: 'mostRecentDeadLetter',
                 text: 'most Recent Deadletter',
-                headerStyle: { width: '25%', textAlign: 'center' }
+                width: 25,
+                headerStyle: { textAlign: 'center' }
             }
         ];
 
-        const tableRowStyle = css`
-		          :hover {
-		              border: 1px solid ${palerBlue};
-		              background-color: ${paleGreyBlue};
-		          }
-              `;
+        let selectRow = {
+            bgColor: palerBlue,
+            selected: this.props.currentlySelectedName
+        };
 
         return (
             <DataTable
                 name='subscriptionList'
                 colProps={colProps}
                 dataToDisplay={subscriptionArray}
-                tableRowStyle={tableRowStyle}
+                uniqueKeyColumn='name'
+                defaultHover
                 onRowClick={this.props.clickFunction}
-                rowSelect={this.props.currentlySelectedName}
+                selectRow={selectRow}
             />
         );
     }
