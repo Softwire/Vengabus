@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { css } from 'react-emotion';
-import { MessageDestination } from './MessageDestination';
 import { MessageBodyInput } from './MessageBodyInput';
 import { MessageProperties } from './MessageProperties';
 import { MessageDestinationForm } from './MessageDestinationForm';
@@ -272,20 +271,6 @@ export class MessageInput extends Component {
         }
     }
 
-    renderMessageDestination = (isQueue) => {
-        return (
-            <MessageDestination
-                isDestinationQueue={isQueue}
-                handleRecipientTypeChange={this.handleRecipientTypeChange}
-                recipientIsQueue={this.state.recipientIsQueue}
-                availableDestinations={isQueue ? this.state.availableQueues : this.state.availableTopics}
-                selectedDestination={isQueue ? this.state.selectedQueue : this.state.selectedTopic}
-                convertToValueLabel={this.convertToValueLabel}
-                handleQueueorTopicChange={this.handleQueueOrTopicChange}
-            />
-        );
-    }
-
     render() {
         const formStyle = css`
             margin-left: 5px;
@@ -293,13 +278,6 @@ export class MessageInput extends Component {
             padding-top: 1%;
             width: calc(100% - 10px); /* 10px total margin */
             float: left;
-        `;
-        const headingStyle = css`
-            font-weight: bold;
-            margin-left: 5px;
-        `;
-        const leftAlign = css`
-            text-align:left;
         `;
         const fullWidth = css`
             float: left;
@@ -361,8 +339,9 @@ export class MessageInput extends Component {
                     selectedQueue={this.state.selectedQueue}
                     selectedTopic={this.state.selectedTopic}
                     convertToValueLabel={this.convertToValueLabel}
-                    handleQueueorTopicChange={this.handleQueueOrTopicChange}
+                    handleQueueOrTopicChange={this.handleQueueOrTopicChange}
                 />
+                <hr className={fullWidth} />
                 <MessageProperties
                     arePredefinedPropsLoaded={this.state.arePredefinedPropsLoaded}
                     preDefinedProperties={this.state.preDefinedProperties}
@@ -374,7 +353,7 @@ export class MessageInput extends Component {
                     addNewProperty={this.addNewProperty}
                     deleteRow={this.deleteRow}
                 />
-                <hr />
+                <hr className={fullWidth} />
                 <MessageBodyInput
                     messageBody={this.state.messageBody}
                     handleMessageBodyChange={this.handleMessageBodyChange}

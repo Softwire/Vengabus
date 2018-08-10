@@ -13,7 +13,7 @@ export class MessageDestinationForm extends Component {
                 availableDestinations={isQueue ? this.props.availableQueues : this.props.availableTopics}
                 selectedDestination={isQueue ? this.props.selectedQueue : this.props.selectedTopic}
                 convertToValueLabel={this.props.convertToValueLabel}
-                handleQueueorTopicChange={this.props.handleQueueOrTopicChange}
+                handleQueueOrTopicChange={this.props.handleQueueOrTopicChange}
             />
         );
     }
