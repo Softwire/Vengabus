@@ -39,20 +39,27 @@ export class CollapsiblePanel extends Component {
             pre p {
                 margin: 0;
             }
+            
         `;
         const headerStyle = css`
             font-weight: bold;
             display: inline-block;
         `;
-        const gylphiconStyle = css`
-            margin-right: 10px;
+        const glyphiconStyle = css`
+            .glyphicon-plus {
+                margin-left: 1px;
+                margin-right: 10px;
+            }
+            .glyphicon-minus {
+                margin-right: 11px;
+            }
         `;
         return (
             <Panel defaultExpanded={this.props.isDefaultExpanded} className={panelStyle} onToggle={() => this.toggleGlyphicon()} >
                 <Panel.Toggle>
                     <Panel.Heading>
-                        <Panel.Title >
-                            <Glyphicon glyph={this.state.glyphicon} className={gylphiconStyle} /><h4 className={headerStyle}>{this.props.panelTitle}</h4>
+                        <Panel.Title className={glyphiconStyle} >
+                            <Glyphicon glyph={this.state.glyphicon} /><h4 className={headerStyle}>{this.props.panelTitle}</h4>
                         </Panel.Title>
                     </Panel.Heading>
                 </Panel.Toggle>

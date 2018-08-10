@@ -32,6 +32,11 @@ export class MessageBox extends Component {
         const messageIdStyle = css`
             display: inline-block;
         `;
+        const panelStyle = css`
+            .panel {
+                margin-bottom: 15px;
+            }
+        `;
         const message = this.props.message;
         if (!message) {
             return null;
@@ -46,8 +51,8 @@ export class MessageBox extends Component {
                         <Modal.Title className={messageIdStyle}>{message.predefinedProperties.messageId}</Modal.Title>
                     </Modal.Header>
 
-                    <Modal.Body>
-                        <CollapsiblePanel panelTitle={"Pre-defined Properties"} panelContent={<pre>{preDefinedPropsJSX}</pre>}  />
+                    <Modal.Body className={panelStyle}>
+                        <CollapsiblePanel panelTitle={"Pre-defined Properties"} panelContent={<pre>{preDefinedPropsJSX}</pre>} />
                         <CollapsiblePanel panelTitle={"User-defined Properties"} panelContent={<pre>{customPropsJSX}</pre>} />
                         <FormattingBox
                             data={message.messageBody}

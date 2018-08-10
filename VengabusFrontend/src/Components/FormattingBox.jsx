@@ -107,6 +107,7 @@ export class FormattingBox extends Component {
         const headerStyle = css`
             font-weight: bold;
             display: inline-block;
+            margin-top: 0;
         `;
         const formatOriginalText = classNames(formatCss, wordWrap);
         const xmlChangeAlert = (
