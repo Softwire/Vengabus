@@ -30,6 +30,14 @@ export class FormatBox extends Component {
         );
     }
 
+    warningAlert(warningMessage, key) {
+        return (
+            <Alert bsStyle="warning" key={key}>
+                <p>{`The formatter returned a warning whilst trying to format the text of this data: '${warningMessage}'`}</p>
+            </Alert>
+        );
+    }
+
     identifyTextFormat(originalText, JSONerror, XMLerror) {
         //choose which tab in messageBox to default to
         if (this.isMessageTooLongToFormat) {
@@ -57,13 +65,13 @@ export class FormatBox extends Component {
             contentToDisplay.push(this.errorAlert(error, formattedObject.formatType + "error"));
         }
         if (warning) {
-            contentToDisplay.push(this.errorAlert(warning, formattedObject.formatType + "warning"));
+            contentToDisplay.push(this.warningAlert(warning, formattedObject.formatType + "warning"));
         }
         if (formattedText) {
             contentToDisplay.push(<pre key={formattedObject.formatType}>{formattedText}</pre>);
         }
         if (contentToDisplay.length === 0) {
-            contentToDisplay.push(<pre key={formattedObject.formatType}>The formatter didn't return any text to display.</pre>);
+            contentToDisplay.push(this.warningAlert("The formatter didn't return any text to display.", formattedObject.formatType + "warning"));
         }
         return contentToDisplay;
     }
@@ -79,23 +87,23 @@ export class FormatBox extends Component {
             JSONobject = { errorMessage: longFormattingError };
             XMLobject = { errorMessage: longFormattingError };
         }
-        var JSONdisplay = this.getContentToDisplay(JSONobject);
-        var XMLdisplay = this.getContentToDisplay(XMLobject);
+        const JSONdisplay = this.getContentToDisplay(JSONobject);
+        const XMLdisplay = this.getContentToDisplay(XMLobject);
+        const defaultTabToDisplay = this.identifyTextFormat(originalText, JSONobject.errorMessage, XMLobject.errorMessage);
 
         const formatOriginalText = css`
             text-align: left;
             white-space: pre-wrap;
         `;
-        const alertStyle = css`
-            .alert {
-                margin-top: 20px;
+        const tabStyle = css`
+            .nav-tabs {
+                margin-bottom: 20px;
             }
-
         `;
 
         return (
-            <div className={alertStyle}>
-                <Tabs defaultActiveKey={this.identifyTextFormat(originalText, JSONobject.errorMessage, XMLobject.errorMessage)} id="message-formatting-tabs">
+            <div>
+                <Tabs animation={false} defaultActiveKey={defaultTabToDisplay} id="message-formatting-tabs" className={tabStyle}>
                     <Tab eventKey={1} title="Original Text">
                         <pre className={formatOriginalText}>{originalText}</pre>
                     </Tab>
