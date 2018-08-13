@@ -2275,23 +2275,94 @@ exports[`Shows a red border around invalid property names 1`] = `
           Submit
         </button>
       </Button>
-      <Button
-        active={false}
-        block={false}
-        bsClass="btn"
-        bsStyle="danger"
-        disabled={false}
-        onClick={[Function]}
+      <ButtonWithConfirmationModal
+        buttonText="Reset Fields"
+        confirmAction={[Function]}
+        confirmButtonText="Reset"
+        modalBody={
+          <Unknown>
+            <p>
+              Are you sure you want to reset ALL fields of the current message?
+            </p>
+            <p>
+              Note: if you are replaying an existing message, resetting the fields here will have NO effect on the orignal message.
+            </p>
+          </Unknown>
+        }
+        modalTitle="Reset all fields"
       >
-        <button
-          className="btn btn-danger"
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="danger"
           disabled={false}
           onClick={[Function]}
-          type="button"
         >
-          Reset Fields
-        </button>
-      </Button>
+          <button
+            className="btn btn-danger"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Reset Fields
+          </button>
+        </Button>
+        <Modal
+          animation={true}
+          autoFocus={true}
+          backdrop={true}
+          bsClass="modal"
+          dialogComponentClass={[Function]}
+          enforceFocus={true}
+          keyboard={true}
+          manager={
+            ModalManager {
+              "add": [Function],
+              "containers": Array [],
+              "data": Array [],
+              "handleContainerOverflow": true,
+              "hideSiblingNodes": true,
+              "isTopModal": [Function],
+              "modals": Array [],
+              "remove": [Function],
+            }
+          }
+          onHide={[Function]}
+          renderBackdrop={[Function]}
+          restoreFocus={true}
+          show={false}
+        >
+          <Modal
+            autoFocus={true}
+            backdrop={true}
+            backdropClassName="modal-backdrop"
+            backdropTransition={[Function]}
+            containerClassName="modal-open"
+            enforceFocus={true}
+            keyboard={true}
+            manager={
+              ModalManager {
+                "add": [Function],
+                "containers": Array [],
+                "data": Array [],
+                "handleContainerOverflow": true,
+                "hideSiblingNodes": true,
+                "isTopModal": [Function],
+                "modals": Array [],
+                "remove": [Function],
+              }
+            }
+            onEntering={[Function]}
+            onExited={[Function]}
+            onHide={[Function]}
+            renderBackdrop={[Function]}
+            restoreFocus={true}
+            show={false}
+            transition={[Function]}
+          />
+        </Modal>
+      </ButtonWithConfirmationModal>
     </form>
   </div>
 </MessageInput>

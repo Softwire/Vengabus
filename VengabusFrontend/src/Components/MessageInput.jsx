@@ -443,7 +443,7 @@ export class MessageInput extends Component {
                         Submit
                     </Button>
                     <ButtonWithConfirmationModal
-                        buttonText={"Reset All"}
+                        buttonText={"Reset Fields"}
                         modalTitle={"Reset all fields"}
                         modalBody={
                             <React.Fragment>
