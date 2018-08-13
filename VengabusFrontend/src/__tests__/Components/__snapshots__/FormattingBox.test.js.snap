@@ -1,8 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FormattingBox renders a snapshot correctly when given json 1`] = `
-.emotion-0 {
+.emotion-1 {
   text-align: left;
+}
+
+.emotion-0 {
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 0;
 }
 
 <div>
@@ -11,11 +17,13 @@ exports[`FormattingBox renders a snapshot correctly when given json 1`] = `
   <div
     id="formatted"
   >
-    <p>
-      Formatted Data:
-    </p>
-    <pre
+    <h4
       className="emotion-0"
+    >
+      Formatted Data:
+    </h4>
+    <pre
+      className="emotion-1"
       id="formattedText"
     >
       {
@@ -31,12 +39,18 @@ exports[`FormattingBox renders a snapshot correctly when given json 1`] = `
 `;
 
 exports[`FormattingBox renders a snapshot correctly when given plain text 1`] = `
-.emotion-0 {
+.emotion-1 {
   text-align: left;
 }
 
-.emotion-1 {
+.emotion-2 {
   white-space: pre-wrap;
+}
+
+.emotion-0 {
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 0;
 }
 
 <div>
@@ -46,11 +60,13 @@ exports[`FormattingBox renders a snapshot correctly when given plain text 1`] = 
   <div
     id="original"
   >
-    <p>
+    <h4
+      className="emotion-0"
+    >
       Original Data:
-    </p>
+    </h4>
     <pre
-      className="emotion-0 emotion-1"
+      className="emotion-1 emotion-2"
       id="originalText"
     >
       "a":"apple","b":42, "c":false
@@ -60,12 +76,18 @@ exports[`FormattingBox renders a snapshot correctly when given plain text 1`] = 
 `;
 
 exports[`FormattingBox renders a snapshot correctly when given props 1`] = `
-.emotion-0 {
+.emotion-1 {
   text-align: left;
 }
 
-.emotion-1 {
+.emotion-2 {
   white-space: pre-wrap;
+}
+
+.emotion-0 {
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 0;
 }
 
 <div>
@@ -75,11 +97,13 @@ exports[`FormattingBox renders a snapshot correctly when given props 1`] = `
   <div
     id="original"
   >
-    <p>
+    <h4
+      className="emotion-0"
+    >
       Original Data:
-    </p>
+    </h4>
     <pre
-      className="emotion-0 emotion-1"
+      className="emotion-1 emotion-2"
       id="originalText"
     >
       test
@@ -89,8 +113,14 @@ exports[`FormattingBox renders a snapshot correctly when given props 1`] = `
 `;
 
 exports[`FormattingBox renders a snapshot correctly when given xml 1`] = `
-.emotion-0 {
+.emotion-1 {
   text-align: left;
+}
+
+.emotion-0 {
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 0;
 }
 
 <div>
@@ -99,11 +129,13 @@ exports[`FormattingBox renders a snapshot correctly when given xml 1`] = `
   <div
     id="formatted"
   >
-    <p>
-      Formatted Data:
-    </p>
-    <pre
+    <h4
       className="emotion-0"
+    >
+      Formatted Data:
+    </h4>
+    <pre
+      className="emotion-1"
       id="formattedText"
     >
       &lt;a&gt;

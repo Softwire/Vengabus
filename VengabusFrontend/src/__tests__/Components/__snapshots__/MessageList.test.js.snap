@@ -76,8 +76,5 @@ exports[`MessageList renders correctly with given props 1`] = `
       </tbody>
     </table>
   </div>
-  <div
-    className="static-modal"
-  />
 </div>
 `;

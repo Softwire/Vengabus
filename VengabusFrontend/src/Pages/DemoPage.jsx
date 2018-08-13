@@ -37,7 +37,14 @@ export class DemoPage extends Component {
 sit amet \nthat was a newline`
                 },
                 { uniqueId: "7da528ab-1095-475d-ae74-539c3a3c926d", predefinedProperties: { messageId: "long message under 100k" }, messageBody: `{ "theMessageBodyIs": "` + 'a'.repeat(99000) + `"}` },
-                { uniqueId: "def7f260-c3ee-4975-b809-9aaabfd2001c", predefinedProperties: { messageId: "long message over 100k" }, messageBody: `{ "theMessageBodyIs": "` + 'a'.repeat(99976) + `"}` }
+                { uniqueId: "def7f260-c3ee-4975-b809-9aaabfd2001c", predefinedProperties: { messageId: "long message over 100k" }, messageBody: `{ "theMessageBodyIs": "` + 'a'.repeat(99976) + `"}` },
+                {
+                    uniqueId: "15",
+                    customProperties: { favCol: "red", age: 19 },
+                    messageBody: "hello world!jf",
+                    predefinedProperties: { forcePersistence: false, messageId: "testingJF1", scheduledEnqueueTimeUtc: "0001-01-01T00:00:00Z", sequenceNumber: 45317471370415620, size: 173, state: "Active", timeToLive: "10675199.02:48:05.4775807" }
+                }
+
             ]
         };
     }

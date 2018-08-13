@@ -4,3 +4,6 @@ export const blue = '#66b3ff';
 export const palerBlue = '#99ccff';
 export const paleGreyBlue = '#ecf2ff';
 export const mediumGreyBlue = '#80a8ff';
+export const panelDarkGrey = '#333';
+export const panelLightGrey = '#ddd';
+export const panelWhiteGrey = '#f5f5f5';
