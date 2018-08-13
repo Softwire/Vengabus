@@ -83,7 +83,7 @@ export class TimeSpanInput extends Component {
                     <ControlLabel className={labelStyle}>Seconds</ControlLabel>
                     <FormControl
                         type="number"
-                        value={this.props.time.months}
+                        value={this.props.time.seconds}
                         placeholder="Enter Seconds"
                         onChange={(event) => this.props.handleTimeChange({ ...this.props.time, seconds: parseInt(event.target.value, 10) })}
                     />
@@ -92,7 +92,7 @@ export class TimeSpanInput extends Component {
                     <ControlLabel className={labelStyle}>Milliseconds</ControlLabel>
                     <FormControl
                         type="number"
-                        value={this.props.time.months}
+                        value={this.props.time.milliseconds}
                         placeholder="Enter Milliseconds"
                         onChange={(event) => this.props.handleTimeChange({ ...this.props.time, milliseconds: parseInt(event.target.value, 10) })}
                     />

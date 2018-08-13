@@ -79,7 +79,7 @@ export class EditQueuesPage extends Component {
     }
 
     updateQueue = () => {
-        //serviceBusConnection.getServiceBusService().updateQueue(this.state.newQueueData);
+        serviceBusConnection.getServiceBusService().updateQueue(this.state.newQueueData);
         console.log(this.state.newQueueData);
     }
 
