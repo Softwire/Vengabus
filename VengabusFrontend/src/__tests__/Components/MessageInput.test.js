@@ -6,6 +6,7 @@ import toJson from 'enzyme-to-json';
 import { MessageInput } from '../../Components/MessageInput';
 import { MessagePropertyInputRow } from '../../Components/MessagePropertyInputRow';
 import { testHelper } from '../../TestHelpers/TestHelper';
+import { wrap } from 'module';
 
 let mockedFunction = jest.fn();
 jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
@@ -92,8 +93,10 @@ it('Shows a red border around invalid property names', () => {
     });
 });
 
-it('Correctly creates the properties of a message', () => {
-    let wrapper = shallow(<MessageInput />);
+it('Correctly creates the properties of a message', async () => {
+    let wrapper = mount(<MessageInput />);
+    await testHelper.afterReactHasUpdated();
+    wrapper.update();
     wrapper.setState({
         userDefinedProperties: [{ name: "test1", value: "any value 1" }, { name: "test2", value: "any value 2" }],
         preDefinedProperties: [{ name: "ContentType", value: "any value 3" }],
@@ -101,6 +104,11 @@ it('Correctly creates the properties of a message', () => {
     });
     let submitButton = wrapper.find("#submitButton").at(0);
     submitButton.simulate('click');
+    await testHelper.afterReactHasUpdated().then(() => {
+        wrapper.update();
+        let confirmButton = wrapper.find("#confirm").last();
+        confirmButton.simulate('click');
+    });
     expect(mockedFunction).toBeCalledWith(
         undefined, //Selected queue not being tested in this test
         {
@@ -111,13 +119,17 @@ it('Correctly creates the properties of a message', () => {
     );
 });
 
-it('Sends the message to the correct queue', () => {
-    let wrapper = shallow(<MessageInput />);
+it('Sends the message to the correct queue', async () => {
+    let wrapper = mount(<MessageInput />);
     wrapper.setState({
         selectedQueue: "testQueue"
     });
     let submitButton = wrapper.find("#submitButton").at(0);
     submitButton.simulate('click');
+    await testHelper.afterReactHasUpdated().then(() => {
+        let confirmButton = wrapper.find("#confirm").last();
+        confirmButton.simulate('click');
+    });
     expect(mockedFunction).toBeCalledWith(
         "testQueue",
         {
@@ -128,13 +140,17 @@ it('Sends the message to the correct queue', () => {
     );
 });
 
-it('Correctly filters empty property names', () => {
-    let wrapper = shallow(<MessageInput />);
+it('Correctly filters empty property names', async () => {
+    let wrapper = mount(<MessageInput />);
     wrapper.setState({
         userDefinedProperties: [{ name: "test1", value: "" }, { name: "test2", value: "any value 2" }]
     });
     let submitButton = wrapper.find("#submitButton").at(0);
     submitButton.simulate('click');
+    await testHelper.afterReactHasUpdated().then(() => {
+        let confirmButton = wrapper.find("#confirm").last();
+        confirmButton.simulate('click');
+    });
     expect(mockedFunction).toBeCalledWith(
         undefined, //Selected queue not being tested in this test
         {
@@ -145,13 +161,18 @@ it('Correctly filters empty property names', () => {
     );
 });
 
-it('Correctly filters duplicate property names', () => {
-    let wrapper = shallow(<MessageInput />);
+it('Correctly filters duplicate property names', async () => {
+    let wrapper = mount(<MessageInput />);
     wrapper.setState({
         userDefinedProperties: [{ name: "test1", value: "any value 1" }, { name: "test2", value: "any value 2" }, { name: "test2", value: "any value 3" }]
     });
     let submitButton = wrapper.find("#submitButton").at(0);
     submitButton.simulate('click');
+    await testHelper.afterReactHasUpdated().then(() => {
+        wrapper.update();
+        let confirmButton = wrapper.find("#confirm").last();
+        confirmButton.simulate('click');
+    });
     expect(mockedFunction).toBeCalledWith(
         undefined, //Selected queue not being tested in this test
         {
@@ -172,8 +193,8 @@ it('Deletes a property when the delete button is pressed', () => {
     expect(wrapper.find(MessagePropertyInputRow).length).toEqual(2);
 });
 
-it('Discard Message button works', () => {
-    let wrapper = shallow(<MessageInput />);
+it('Discard Message button works', async () => {
+    let wrapper = mount(<MessageInput />);
     wrapper.setState({
         userDefinedProperties: [{ name: "test1", value: "any value 1" }, { name: "test2", value: "any value 2" }, { name: "test3", value: "any value 3" }],
         preDefinedProperties: [{ name: 'MessageID', value: 'id' }],
@@ -181,6 +202,11 @@ it('Discard Message button works', () => {
     });
     let discardButton = wrapper.find(Button).last();
     discardButton.simulate('click');
+    await testHelper.afterReactHasUpdated().then(() => {
+        wrapper.update();
+        let confirmButton = wrapper.find("#confirm").last();
+        confirmButton.simulate('click');
+    });
     expect(wrapper.find(MessagePropertyInputRow).length).toEqual(0);
     let body = wrapper.find(FormControl);
     expect(body.value).toBeUndefined();
@@ -209,6 +235,9 @@ it('Switches from sending to a queue to sending to a topic correctly', () => {
     }).then(() => {
         //Send the message
         testHelper.clickElementWithId(wrapper, "#submitButton");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        testHelper.clickElementWithId(wrapper, "#confirm");
         return testHelper.afterReactHasUpdated();
     }).then(() => {
         expect(mockedFunction).toBeCalledWith(
@@ -249,6 +278,9 @@ it('Rememembers which queue was selected if the topic radio is pressed', () => {
     }).then(() => {
         //Send the message
         testHelper.clickElementWithId(wrapper, "#submitButton");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        testHelper.clickElementWithId(wrapper, "#confirm");
         return testHelper.afterReactHasUpdated();
     }).then(() => {
         expect(mockedFunction).toBeCalledWith(

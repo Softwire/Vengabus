@@ -320,6 +320,53 @@ export class MessageInput extends Component {
         `;
         let preDefinedPropsButtonClassNames = classNames(buttonStyle, this.arePredefinedPropsLoaded || buttonLoading);
         const preDefinedPropertiesButtonText = this.arePredefinedPropsLoaded ? 'Add new Azure property' : 'Loading pre-defined properties...';
+
+        //generate warnings of certain property names.
+        let customPropertyNames = this.state.userDefinedProperties.map((item) => item.name);
+        let reservedPropertyNames = this.state.reservedPropertyNames;
+        let repetitivePropertyList = [];
+        let seenProperties = [];
+
+        for (let i = 0; i < customPropertyNames.length; i++) {
+            let propertyName = customPropertyNames[i];
+            if (!repetitivePropertyList.includes(propertyName) && seenProperties.includes(propertyName)) {
+                repetitivePropertyList.push(propertyName);
+            }
+            else if (!seenProperties.includes(propertyName)) {
+                seenProperties.push(propertyName);
+            }
+        }
+
+        let repetitivePropWarningList = repetitivePropertyList.map((value) =>
+            "Warning: repetitive property name: '" + value + "'"
+        );
+
+        let reservedPropWarningList = reservedPropertyNames.map((value) => {
+            return seenProperties.includes(value) ?
+                "Warning: custom property '" + value + "' is potentially a predefined property"
+                : ''
+        });
+
+        reservedPropWarningList = reservedPropWarningList.filter((value) => value !== '');
+
+        let warningCount = reservedPropWarningList.length + repetitivePropWarningList.length;
+
+        let warnings;
+
+        if (!warningCount) {
+            warnings = null;
+        }
+        else {
+            warnings = (
+                <React.Fragment>
+                    {repetitivePropWarningList.map((value) => <p key={"repetitiveWarning " + value}>{value}</p>)}
+                    {reservedPropWarningList.map((value) => <p key={"reservedWarning " + value}>{value}</p>)}
+                </React.Fragment>
+            );
+        }
+
+        let selectedEndpoint = this.state.recipientIsQueue ? this.state.selectedQueue : this.state.selectedTopic;
+
         return (
             <div className={formStyle} >
                 <div className={leftAlign}>
@@ -436,13 +483,23 @@ export class MessageInput extends Component {
                     </FormGroup>
                 </form>
                 <form>
-                    <Button
-                        id="submitButton"
-                        onClick={this.submit}
-                    >
-                        Submit
-                    </Button>
                     <ButtonWithConfirmationModal
+                        id="submitButton"
+                        buttonText={"Send Message"}
+                        buttonStyle="default"
+                        modalTitle={"Send Message to " + selectedEndpoint}
+                        modalBody={
+                            <React.Fragment>
+                                <p>{"Message will be sent to queue: " + selectedEndpoint}</p>
+                                {warnings}
+                                <p>{"Confirm sending message?"}</p>
+                            </React.Fragment>
+                        }
+                        confirmButtonText={"Send"}
+                        confirmAction={this.submit}
+                    />
+                    <ButtonWithConfirmationModal
+                        id="cancelButton"
                         buttonText={"Reset Fields"}
                         modalTitle={"Reset all fields"}
                         modalBody={
