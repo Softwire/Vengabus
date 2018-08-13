@@ -71,7 +71,7 @@ it('renders correctly from a predefined message', () => {
                 MessageId: 'Message1',
                 ContentType: 'null'
             },
-            MessageBody: 'Hello world!'
+            messageBody: 'Hello world!'
         },
         recipientIsQueue: true,
         selectedQueue: 'demoqueue1'

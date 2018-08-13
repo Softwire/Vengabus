@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, ButtonToolbar } from 'react-bootstrap';
 import { FormattingBox } from './FormattingBox';
 import { CopyTextButton } from './CopyTextButton';
 import { css } from 'emotion';
 import { CollapsiblePanel } from './CollapsiblePanel';
+import { PAGES, pageSwitcher } from '../Pages/PageSwitcherService';
 
 export class MessageBox extends Component {
 
@@ -21,9 +22,11 @@ export class MessageBox extends Component {
     }
 
     render() {
-        const buttonStyle = css`
-            float: right;
-            margin-left: 5px;
+        const buttonToolbarStyle = css`
+            .btn.btn-default {
+                margin-left: 8px;
+                float: right;
+            }
         `;
         const headerStyle = css`
             font-weight: bold;
@@ -64,8 +67,13 @@ export class MessageBox extends Component {
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <Button className={buttonStyle} onClick={this.props.handleClose}>Close</Button>
-                        <CopyTextButton className={buttonStyle} text={this.props.messageBody} />
+                        <ButtonToolbar className={buttonToolbarStyle}>
+                            <Button onClick={this.props.handleClose}>Close</Button>
+                            <CopyTextButton text={this.props.messageBody} />
+                            <Button onClick={() => pageSwitcher.switchToPage(PAGES.SendMessagePage, { message: message, recipientIsQueue: true, selectedQueue: 'demoqueue1' })} >
+                                Replay Message
+                            </ Button>
+                        </ButtonToolbar>
                     </Modal.Footer>
                 </Modal>
             </div>

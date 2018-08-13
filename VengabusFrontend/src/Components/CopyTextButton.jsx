@@ -44,15 +44,10 @@ export class CopyTextButton extends React.Component {
     }
 
     render() {
-        //This is needed for the tooltip to display correctly
-        const containerStyle = css`
-            margin-right: 70px; /* Enough space for the close button */
-            position: relative;
-        `;
 
         return (
             <CopyToClipboard text={this.text}>
-                <div className={containerStyle}>
+                <div>
                     <Button
                         ref={button => {
                             this.target = button;
