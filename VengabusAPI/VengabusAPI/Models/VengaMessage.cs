@@ -18,7 +18,7 @@ namespace VengabusAPI.Models
 
         public Dictionary<string, object> CustomProperties { get; set; }
         public Dictionary<string, object> PredefinedProperties { get; set; }
-        public string UniqueId { get; set; }
+        public string UniqueId { get; set; } // format 6de22ba0-8ccc-e83f-456d-702cc19b44ae
         public string MessageBody { get; set; }
 
         public static VengaMessage FromBrokeredMessage(BrokeredMessage brokeredMessage)
