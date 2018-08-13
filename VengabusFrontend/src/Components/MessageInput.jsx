@@ -445,7 +445,12 @@ export class MessageInput extends Component {
                     <ButtonWithConfirmationModal
                         buttonText={"Reset All"}
                         modalTitle={"Reset all fields"}
-                        modalBody={"Are you sure you want to reset ALL fields of the current message?"}
+                        modalBody={
+                            <React.Fragment>
+                                <p>Are you sure you want to reset ALL fields of the current message?</p>
+                                <p>Note: if you are replaying an existing message, resetting the fields here will have NO effect on the orignal message.</p>
+                            </React.Fragment>
+                        }
                         confirmButtonText={"Reset"}
                         confirmAction={this.discardMessage}
                     />
