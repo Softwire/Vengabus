@@ -44,9 +44,19 @@ namespace VengabusAPI.Controllers
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
             QueueDescription description = namespaceManager.GetQueue(queueData["name"]);
-            description.SupportOrdering = queueData["supportOrdering"];
+            description = UpdateDescription(description, queueData);
 
             namespaceManager.UpdateQueue(description);
+        }
+
+        public QueueDescription UpdateDescription(QueueDescription description, Dictionary<string, dynamic> queueData)
+        {
+            description.SupportOrdering = queueData["supportOrdering"];
+            description.RequiresSession = queueData["requiresSession"];
+            description.EnablePartitioning = queueData["enablePartitioning"];
+            description.AutoDeleteOnIdle = queueData["autoDeleteOnIdle"];
+
+            return description;
         }
 
         private DateTime? GetTimeStampOfMostRecentDeadletter(string queueName)

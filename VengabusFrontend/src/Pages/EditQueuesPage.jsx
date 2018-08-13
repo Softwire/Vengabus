@@ -5,13 +5,15 @@ import Select from 'react-select';
 import { css } from 'emotion';
 import classNames from 'classnames';
 import { DataTable } from '../Components/DataTable';
+import moment from 'moment';
+import { TimeInput } from '../Components/TimeInput';
 
 export class EditQueuesPage extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            selectedQueue: "mkdemoqueue",
+            selectedQueue: "mkdemoqueue2",
             queueData: {},
             newQueueData: {},
             receivedData: false
@@ -23,8 +25,37 @@ export class EditQueuesPage extends Component {
     componentDidMount = () => {
         serviceBusConnection.getServiceBusService().getQueueDetails(this.state.selectedQueue)
             .then((result) => {
+                result.autoDeleteOnIdle = result.autoDeleteOnIdle ? moment.duration(result.autoDeleteOnIdle)._data : undefined;
                 this.setState({ queueData: result, newQueueData: result, receivedData: true });
             });
+    }
+
+    getStyles = () => {
+        const leftAlign = css`
+            text-align: left;
+            padding-left: 15px;
+        `;
+        // const width20 = css`
+        //     width: 20%;
+        // `;
+        const hrStlye = css`
+            color: black;
+            background-color: black;
+            height: 1px;
+            width: 98%;
+        `;
+        const headerStyle = css`
+            font-weight: bold;
+            font-size: 1.6em;
+        `;
+        const tableStyle = css`
+            width: 98%;
+            padding-left: 20px;
+        `;
+        const rowStyle = css`
+            text-align: left;
+        `;
+        return [leftAlign, hrStlye, headerStyle, tableStyle, rowStyle];
     }
 
     assembleReadOnlyProperties = (properties) => {
@@ -46,8 +77,11 @@ export class EditQueuesPage extends Component {
 
     render() {
         const newQueueData = this.state.newQueueData;
-        const { name, activeMessageCount, deadletterMessageCount, mostRecentDeadLetter, enablePartitioning, requiresSession, supportOrdering } = newQueueData;
-
+        const { name, autoDeleteOnIdle, activeMessageCount, deadletterMessageCount, mostRecentDeadLetter, enablePartitioning, requiresSession, supportOrdering } = newQueueData;
+        if (this.state.receivedData) {
+            console.log(Object.keys(autoDeleteOnIdle));
+            console.log(autoDeleteOnIdle);
+        }
         const readOnlyProperties = this.assembleReadOnlyProperties(
             {   // text in the left column: value in the right column
                 "Name": name,
@@ -56,24 +90,7 @@ export class EditQueuesPage extends Component {
                 "Most Recent Dead Letter": mostRecentDeadLetter
             });
         const colProps = [{ dataField: 'name', text: 'Property Name', headerStyle: { textAlign: 'left' } }, { dataField: 'value', headerStyle: { textAlign: 'left' } }];
-
-        const leftAlign = css`
-            text-align: left;
-            padding-left: 15px;
-        `;
-        const width20 = css`
-            width: 20%;
-        `;
-        const hrStlye = css`
-            color: black;
-            background-color: black;
-            height: 1px;
-            width: 98%;
-        `;
-        const headerStyle = css`
-            font-weight: bold;
-            font-size: 1.6em;
-        `;
+        const [leftAlign, hrStlye, headerStyle, tableStyle, rowStyle] = this.getStyles();
 
         return (
             this.state.receivedData ? (
@@ -82,12 +99,12 @@ export class EditQueuesPage extends Component {
 
                     <p className={classNames(leftAlign, headerStyle)}>Read-Only Properties</p>
                     <hr className={hrStlye} />
-                    <div className={css`width: 98%; padding-left: 20px`} >
+                    <div className={tableStyle} >
                         <DataTable
                             dataToDisplay={readOnlyProperties}
                             uniqueKeyColumn='name'
                             colProps={colProps}
-                            rowClasses={css`text-align: left`}
+                            rowClasses={rowStyle}
                             bordered={false}
                         />
                     </div>
@@ -105,7 +122,7 @@ export class EditQueuesPage extends Component {
                             newQueueData: { ...newQueueData, supportOrdering: event.value }
                         });
                     }}
-                /> */}
+                    /> */}
                     <Checkbox
                         className={leftAlign}
                         checked={supportOrdering}
@@ -126,6 +143,20 @@ export class EditQueuesPage extends Component {
                             });
                         }}
                     />
+                    <hr className={hrStlye} />
+                    <p className={leftAlign}>EnablePartitioning</p>
+                    <Checkbox
+                        className={leftAlign}
+                        checked={enablePartitioning}
+                        onChange={(event) => {
+                            this.setState({
+                                newQueueData: { ...newQueueData, enablePartitioning: event.target.checked }
+                            });
+                        }}
+                    />
+                    <hr className={hrStlye} />
+                    <p className={leftAlign}>EnablePartitioning</p>
+                    <TimeInput time={autoDeleteOnIdle} handleTimeChange={(time) => this.handleTimeChange(time, 'autoDeleteOnIdle')} />
                     <hr className={hrStlye} />
                     <Button
                         onClick={this.updateQueue}
