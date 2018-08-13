@@ -2256,29 +2256,106 @@ exports[`Shows a red border around invalid property names 1`] = `
       </FormGroup>
     </form>
     <form>
-      <Button
-        active={false}
-        block={false}
-        bsClass="btn"
-        bsStyle="default"
-        disabled={false}
+      <ButtonWithConfirmationModal
+        buttonStyle="default"
+        buttonText="Send Message"
+        confirmAction={[Function]}
+        confirmButtonText="Send"
         id="submitButton"
-        onClick={[Function]}
+        modalBody={
+          <Unknown>
+            <p>
+              Message will be sent to queue: undefined
+            </p>
+            <Unknown>
+              <p>
+                Warning: repetitive property name: 'test2'
+              </p>
+            </Unknown>
+            <p>
+              Confirm sending message?
+            </p>
+          </Unknown>
+        }
+        modalTitle="Send Message to undefined"
       >
-        <button
-          className="btn btn-default"
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="default"
           disabled={false}
-          id="submitButton"
           onClick={[Function]}
-          type="button"
         >
-          Submit
-        </button>
-      </Button>
+          <button
+            className="btn btn-default"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Send Message
+          </button>
+        </Button>
+        <Modal
+          animation={true}
+          autoFocus={true}
+          backdrop={true}
+          bsClass="modal"
+          dialogComponentClass={[Function]}
+          enforceFocus={true}
+          keyboard={true}
+          manager={
+            ModalManager {
+              "add": [Function],
+              "containers": Array [],
+              "data": Array [],
+              "handleContainerOverflow": true,
+              "hideSiblingNodes": true,
+              "isTopModal": [Function],
+              "modals": Array [],
+              "remove": [Function],
+            }
+          }
+          onHide={[Function]}
+          renderBackdrop={[Function]}
+          restoreFocus={true}
+          show={false}
+        >
+          <Modal
+            autoFocus={true}
+            backdrop={true}
+            backdropClassName="modal-backdrop"
+            backdropTransition={[Function]}
+            containerClassName="modal-open"
+            enforceFocus={true}
+            keyboard={true}
+            manager={
+              ModalManager {
+                "add": [Function],
+                "containers": Array [],
+                "data": Array [],
+                "handleContainerOverflow": true,
+                "hideSiblingNodes": true,
+                "isTopModal": [Function],
+                "modals": Array [],
+                "remove": [Function],
+              }
+            }
+            onEntering={[Function]}
+            onExited={[Function]}
+            onHide={[Function]}
+            renderBackdrop={[Function]}
+            restoreFocus={true}
+            show={false}
+            transition={[Function]}
+          />
+        </Modal>
+      </ButtonWithConfirmationModal>
       <ButtonWithConfirmationModal
         buttonText="Reset Fields"
         confirmAction={[Function]}
         confirmButtonText="Reset"
+        id="cancelButton"
         modalBody={
           <Unknown>
             <p>
@@ -2963,11 +3040,10 @@ exports[`renders correctly 1`] = `
     <button
       className="btn btn-default"
       disabled={false}
-      id="submitButton"
       onClick={[Function]}
       type="button"
     >
-      Submit
+      Send Message
     </button>
     <button
       className="btn btn-danger"
@@ -3711,11 +3787,10 @@ exports[`renders correctly from a predefined message 1`] = `
     <button
       className="btn btn-default"
       disabled={false}
-      id="submitButton"
       onClick={[Function]}
       type="button"
     >
-      Submit
+      Send Message
     </button>
     <button
       className="btn btn-danger"
