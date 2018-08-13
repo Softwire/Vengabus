@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
-import { QueueList } from '../Components/QueueList';
-import { TopicList } from '../Components/TopicList';
-import { MessageList } from '../Components/MessageList';
+import { QueueList } from './QueueList';
+import { TopicList } from './TopicList';
+import { MessageList } from './MessageList';
 import { css } from 'react-emotion';
 import { Breadcrumb, Button } from 'react-bootstrap';
-import { SubscriptionList } from '../Components/SubscriptionList';
+import { SubscriptionList } from './SubscriptionList';
 import { EndpointTypes, typeToTitle } from '../Helpers/EndpointTypes';
 
 
-export class TwoListDisplayPage extends Component {
+export class TwoListDisplay extends Component {
     constructor(props) {
         super(props);
         this.displayHistory = [];
