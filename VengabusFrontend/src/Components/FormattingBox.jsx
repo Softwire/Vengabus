@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { css } from 'react-emotion';
 import { Alert } from 'react-bootstrap';
-import formatJSon from 'prettyprint';
 import classNames from 'classnames';
 import formatXML from 'xml-formatter';
 
@@ -89,7 +88,7 @@ export class FormattingBox extends Component {
                 }
                 if (mightBeJson) {
                     let deformattedOriginalText = removeWhitespaceFormattingFromJSON(originalData);
-                    formattedText = removeBlankLines(formatJSon(JSON.parse(deformattedOriginalText)));
+                    formattedText = removeBlankLines(JSON.stringify(JSON.parse(deformattedOriginalText), null, 4));
                 }
             }
             catch (err) {
