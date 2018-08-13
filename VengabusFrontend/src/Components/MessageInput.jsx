@@ -499,6 +499,7 @@ export class MessageInput extends Component {
                         confirmAction={this.submit}
                     />
                     <ButtonWithConfirmationModal
+                        id="cancelButton"
                         buttonText={"Reset Fields"}
                         modalTitle={"Reset all fields"}
                         modalBody={
