@@ -208,8 +208,7 @@ namespace VengabusAPI.Services
 
                 if (messageId == message.MessageId)
                 {
-                    Guid currentMessageUniqueId = VengaBrokeredMessageConverter.GetMessageHash(message.MessageId,
-                        message.GetBody<string>(), message.EnqueuedTimeUtc);
+                    Guid currentMessageUniqueId = VengaBrokeredMessageConverter.GetMessageHash(message, message.GetBody<string>());
 
                     if (currentMessageUniqueId.ToString() == uniqueId)
                     {
