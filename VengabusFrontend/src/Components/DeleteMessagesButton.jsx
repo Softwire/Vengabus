@@ -1,9 +1,9 @@
 import React from 'react';
-import { Glyphicon, Alert } from 'react-bootstrap';
+import { Glyphicon } from 'react-bootstrap';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import { EndpointTypes } from '../Helpers/EndpointTypes';
 import Lodash from 'lodash';
-import { ButtonWithPopupConfirmation } from './ButtonWithPopupConfirmation';
+import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
 
 const defaultState = {
     modalBody: "",
@@ -101,19 +101,17 @@ class DeleteMessagesButton extends React.Component {
 
     render() {
         let buttonText = <span>Delete All Messages <Glyphicon glyph="trash" /></span>;
-        return 
-            <ButtonWithPopupConfirmation
-                buttonText={buttonText}
-                buttonStyle={"danger"}
-                modalTitle={"Delete all messages from " + this.props.type}
-                modalBody={this.state.modalBody}
-                confirmButtonText={"Delete"}
-                cancelButtonText={"Cancel"}
-                showModalAction={this.showModalAction}
-                confirmAction={this.state.onDeletionConfirmed}
-                closeModalAction={this.resetState}
-            />
-        ;
+        return (<ButtonWithConfirmationModal
+            buttonText={buttonText}
+            buttonStyle={"danger"}
+            modalTitle={"Delete all messages from " + this.props.type}
+            modalBody={this.state.modalBody}
+            confirmButtonText={"Delete"}
+            cancelButtonText={"Cancel"}
+            showModalAction={this.showModalAction}
+            confirmAction={this.state.onDeletionConfirmed}
+            closeModalAction={this.resetState}
+        />);
     }
 }
 

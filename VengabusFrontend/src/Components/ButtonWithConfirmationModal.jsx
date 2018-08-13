@@ -5,7 +5,7 @@ const defaultState = {
     show: false
 };
 
-class ButtonWithPopupConfirmation extends React.Component {
+class ButtonWithConfirmationModal extends React.Component {
     constructor(props) {
         super(props);
 
@@ -18,19 +18,23 @@ class ButtonWithPopupConfirmation extends React.Component {
     }
 
     handleClose = () => {
-        this.props.closeModalAction();
+        if (this.props.closeModalAction) {
+            this.props.closeModalAction();
+        }
         this.setState(defaultState);
     }
 
     handleOpening = () => {
         this.setState({ show: true });
-        this.props.showModalAction();
+        if (this.props.showModalAction) {
+            this.props.showModalAction();
+        }
     }
 
     render() {
         return (
             <React.Fragment>
-                <Button onClick={this.handleOpening} bsStyle={this.props.buttonStyle}>
+                <Button onClick={this.handleOpening} bsStyle={this.props.buttonStyle ? this.props.buttonStyle : "danger"}>
                     {this.props.buttonText}
                 </Button>
                 <Modal show={this.state.show} onHide={this.handleClose} >
@@ -39,9 +43,11 @@ class ButtonWithPopupConfirmation extends React.Component {
                     </Modal.Header>
 
                     <Modal.Body>
-                        <Alert bsStyle="danger">
-                            {this.props.modalBody}
-                        </Alert >
+                        {this.props.modalBody ?
+                            <Alert bsStyle="danger">
+                                {this.props.modalBody}
+                            </Alert > : {}
+                        }
                         {this.props.children}
                     </Modal.Body>
                     <Modal.Footer>
@@ -54,4 +60,4 @@ class ButtonWithPopupConfirmation extends React.Component {
     }
 }
 
-export { ButtonWithPopupConfirmation };
+export { ButtonWithConfirmationModal };
