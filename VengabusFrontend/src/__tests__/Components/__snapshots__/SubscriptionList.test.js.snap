@@ -20,7 +20,7 @@ exports[`Subscription List renders correctly with given props 1`] = `
 >
   <table
     className="table table-striped table-bordered"
-    id={undefined}
+    id="Data"
   >
     <thead>
       <tr

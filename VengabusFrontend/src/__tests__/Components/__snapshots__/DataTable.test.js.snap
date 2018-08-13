@@ -63,7 +63,7 @@ exports[`DataTable renders correctly when defaultHover=true with an additional r
 >
   <table
     className="table table-striped table-bordered"
-    id={undefined}
+    id="Data"
   >
     <thead>
       <tr
@@ -166,7 +166,7 @@ exports[`DataTable renders correctly with the selectRow prop 1`] = `
 >
   <table
     className="table table-striped table-bordered"
-    id={undefined}
+    id="Data"
   >
     <thead>
       <tr
