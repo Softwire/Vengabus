@@ -164,11 +164,21 @@ with linebreaks</b></apple>`;
         const jsonInput = '{"food":"fish", "price":42, "unit":"kilogram"}';
         const expectedOutput =
             `{
-    food: "fish",
-    price: 42,
-    unit: "kilogram"
-}
-`;
+    "food": "fish",
+    "price": 42,
+    "unit": "kilogram"
+}`;
+        expectFormattedResult(jsonInput, expectedOutput);
+    });
+
+    it('formats simple JSON object with complex keys', () => {
+        const jsonInput = '{"food-test":"fish", "price test":42, "unit.test":"kilogram"}';
+        const expectedOutput =
+            `{
+    "food-test": "fish",
+    "price test": 42,
+    "unit.test": "kilogram"
+}`;
         expectFormattedResult(jsonInput, expectedOutput);
     });
 
@@ -179,8 +189,7 @@ with linebreaks</b></apple>`;
     "fish",
     42,
     "kilogram"
-]
-`;
+]`;
         expectFormattedResult(jsonInput, expectedOutput);
     });
 
@@ -188,14 +197,13 @@ with linebreaks</b></apple>`;
         const jsonInput = '{"food":"fish", "price":{"GBP":42, "USD":54}, "unit":"kilogram"}';
         const expectedOutput =
             `{
-    food: "fish",
-    price: {
-        GBP: 42,
-        USD: 54
+    "food": "fish",
+    "price": {
+        "GBP": 42,
+        "USD": 54
     },
-    unit: "kilogram"
-}
-`;
+    "unit": "kilogram"
+}`;
         expectFormattedResult(jsonInput, expectedOutput);
     });
 
@@ -205,13 +213,12 @@ with linebreaks</b></apple>`;
             `[
     "fish",
     {
-        GBP: 42,
-        USD: 54
+        "GBP": 42,
+        "USD": 54
     },
     "kilogram",
     false
-]
-`;
+]`;
         expectFormattedResult(jsonInput, expectedOutput);
     });
 
@@ -226,14 +233,13 @@ with linebreaks</b></apple>`;
     }`;
         const expectedOutput =
             `{
-    food: "fish",
-    price: {
-        GBP: 42,
-        USD: 54
+    "food": "fish",
+    "price": {
+        "GBP": 42,
+        "USD": 54
     },
-    unit: "kilogram"
-}
-`;
+    "unit": "kilogram"
+}`;
         expectFormattedResult(jsonInput, expectedOutput);
     });
 

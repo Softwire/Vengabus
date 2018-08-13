@@ -27,11 +27,10 @@ exports[`FormattingBox renders a snapshot correctly when given json 1`] = `
       id="formattedText"
     >
       {
-          a: "apple",
-          b: 42,
-          c: false
+          "a": "apple",
+          "b": 42,
+          "c": false
       }
-      
     </pre>
   </div>
   
