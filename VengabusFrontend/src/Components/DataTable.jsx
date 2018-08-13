@@ -179,8 +179,12 @@ export class DataTable extends Component {
         if (rowEvents.onClick && onRowClick) {
             throw new Error('the onClick event for rows is defined multiple times in ' + this.props.name);
         }
-        onRowClick = onRowClick || rowEvents.onClick || undefined;
-        return { ...(rowEvents), onClick: onRowClick };
+        onRowClick = onRowClick || rowEvents.onClick;
+        rowEvents = { ...(rowEvents), onClick: onRowClick };
+        if (!rowEvents.onClick) {
+            delete rowEvents.onClick;
+        }
+        return rowEvents;
     }
 
     validateAndConfigureSelectRow = (selectRow, keyColumnIndex) => {

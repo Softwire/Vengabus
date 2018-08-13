@@ -91,8 +91,9 @@ describe('DataTable', () => {
         expect(dataTable.toJSON()).toMatchSnapshot();
     });
 
-    it('renders correctly when formatter is used to render a button within cells', () => {
+    it('formatter prop renders components correctly within cells', () => {
         let dataToDisplay = getDataToDisplay();
+        // This is required by the BootstrapTable library even if we are using the formatter
         dataToDisplay[0].button = 0;
         dataToDisplay[1].button = 1;
         dataToDisplay[2].button = 2;
@@ -102,14 +103,26 @@ describe('DataTable', () => {
                 <Button onClick={() => { return; }}>Button</ Button>
             );
         };
-        colProps.push({ dataField: 'button', fomratter: getButton });
-        let dataTable = renderer.create(
+        colProps.push({ dataField: 'button', formatter: getButton });
+        let wrapper = mount(
             <DataTable
                 colProps={colProps}
                 dataToDisplay={dataToDisplay}
                 uniqueKeyColumn='name'
             />);
-        expect(dataTable.toJSON()).toMatchSnapshot();
+        expect(wrapper.find(Button)).toHaveLength(3);
+    });
+
+    it('clicking on row does not throw an error if there is no onClick function defined', () => {
+        let wrapper = mount(
+            <DataTable
+                colProps={getColProps()}
+                dataToDisplay={getDataToDisplay()}
+                rowClasses='row'
+                uniqueKeyColumn='numberWithComplexLabel'
+            />);
+        let row = wrapper.find('.row').first();
+        row.simulate('click');
     });
 
     it('function is called correctly if only rowEvents is defined', () => {
