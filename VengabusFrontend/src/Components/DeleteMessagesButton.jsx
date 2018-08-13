@@ -5,22 +5,43 @@ import { EndpointTypes } from '../Helpers/EndpointTypes';
 import Lodash from 'lodash';
 import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
 
-const defaultState = {
+let defaultState = {
     modalBody: "",
     onDeletionConfirmed: () => { }
-}
+};
 
 class DeleteMessagesButton extends React.Component {
     constructor(props) {
         super(props);
 
+        const vengaServiceBusService = serviceBusConnection.getServiceBusService();
+        let deletionFunc;
+        switch (this.props.type) {
+            case EndpointTypes.TOPIC:
+                deletionFunc = () => vengaServiceBusService.deleteTopicMessages(this.props.endpointName);
+                break;
+            case EndpointTypes.QUEUE:
+                deletionFunc = () => vengaServiceBusService.deleteQueueMessages(this.props.endpointName);
+                break;
+            case EndpointTypes.SUBSCRIPTION:
+                deletionFunc = () => vengaServiceBusService.deleteSubscriptionMessages(this.props.parentName, this.props.endpointName);
+                break;
+            default: break;
+        }
+
+        defaultState.onDeletionConfirmed = deletionFunc;
+
         this.state = defaultState;
     }
 
     showModalAction = () => {
-        this.setState({ show: true });
+        console.log(this);
         this.generateModalWarningBody().then(bodyResult => this.setState({ modalBody: bodyResult }));
         this.getOnDeletionConfirmed().then(onDeletionResult => this.setState({ onDeletionConfirmed: onDeletionResult }));
+    }
+
+    getOnDeletionConfirmed = async () => {
+        return defaultState.onDeletionConfirmed;
     }
 
     generateModalWarningBody = async () => {
@@ -81,24 +102,6 @@ class DeleteMessagesButton extends React.Component {
         this.setState(defaultState);
     }
 
-    getOnDeletionConfirmed = async () => {
-        const vengaServiceBusService = serviceBusConnection.getServiceBusService();
-        let deletionFunc;
-        switch (this.props.type) {
-            case EndpointTypes.TOPIC:
-                deletionFunc = () => vengaServiceBusService.deleteTopicMessages(this.props.endpointName);
-                break;
-            case EndpointTypes.QUEUE:
-                deletionFunc = () => vengaServiceBusService.deleteQueueMessages(this.props.endpointName);
-                break;
-            case EndpointTypes.SUBSCRIPTION:
-                deletionFunc = () => vengaServiceBusService.deleteSubscriptionMessages(this.props.parentName, this.props.endpointName);
-                break;
-            default: break;
-        }
-        return deletionFunc;
-    }
-
     render() {
         let buttonText = <span>Delete All Messages <Glyphicon glyph="trash" /></span>;
         return (<ButtonWithConfirmationModal
@@ -108,9 +111,9 @@ class DeleteMessagesButton extends React.Component {
             modalBody={this.state.modalBody}
             confirmButtonText={"Delete"}
             cancelButtonText={"Cancel"}
-            showModalAction={this.showModalAction}
+            afterShowModalAction={this.showModalAction}
             confirmAction={this.state.onDeletionConfirmed}
-            closeModalAction={this.resetState}
+            afterCloseModalAction={this.resetState}
         />);
     }
 }

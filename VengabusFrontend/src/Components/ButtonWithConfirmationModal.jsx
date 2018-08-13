@@ -18,16 +18,16 @@ class ButtonWithConfirmationModal extends React.Component {
     }
 
     handleClose = () => {
-        if (this.props.closeModalAction) {
-            this.props.closeModalAction();
+        if (this.props.afterCloseModalAction) {
+            this.props.afterCloseModalAction();
         }
         this.setState(defaultState);
     }
 
     handleOpening = () => {
         this.setState({ show: true });
-        if (this.props.showModalAction) {
-            this.props.showModalAction();
+        if (this.props.afterShowModalAction) {
+            this.props.afterShowModalAction();
         }
     }
 
@@ -46,13 +46,13 @@ class ButtonWithConfirmationModal extends React.Component {
                         {this.props.modalBody ?
                             <Alert bsStyle="danger">
                                 {this.props.modalBody}
-                            </Alert > : {}
+                            </Alert > : null
                         }
                         {this.props.children}
                     </Modal.Body>
                     <Modal.Footer>
                         <Button id="confirm" onClick={this.handleConfirm} bsStyle="danger">{this.props.confirmButtonText}</Button>
-                        <Button id="cancel" onClick={this.handleClose}>{this.props.cancelButtonText}</Button>
+                        <Button id="cancel" onClick={this.handleClose}>{this.props.cancelButtonText ? this.props.cancelButtonText : "Cancel"}</Button>
                     </Modal.Footer>
                 </Modal>
             </React.Fragment>
