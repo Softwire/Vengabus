@@ -45,7 +45,7 @@ function afterModalDeleteButtonIsClicked(wrapper, mockFunction, endpointName) {
 
     return testHelper.afterReactHasUpdated().then(() => {
         wrapper.update();
-        testHelper.clickElementWithId(wrapper, "#delete");
+        testHelper.clickElementWithId(wrapper, "#confirm");
 
         return testHelper.afterReactHasUpdated();
 
@@ -69,13 +69,13 @@ describe('DeleteMessagesButton', () => {
     it('Modal popup has Delete and Cancel buttons', () => {
         let wrapper = mount(<DeleteMessagesButton type={EndpointTypes.QUEUE} endpointName={queueName} />);
         expect(wrapper.find("#cancel").hostNodes()).toHaveLength(0);
-        expect(wrapper.find("#delete").hostNodes()).toHaveLength(0);
+        expect(wrapper.find("#confirm").hostNodes()).toHaveLength(0);
         testHelper.clickElementWithId(wrapper, "#alertDelete");
 
         return testHelper.afterReactHasUpdated().then(() => {
             wrapper.update();
             expect(wrapper.find("#cancel").hostNodes()).toHaveLength(1);
-            expect(wrapper.find("#delete").hostNodes()).toHaveLength(1);
+            expect(wrapper.find("#confirm").hostNodes()).toHaveLength(1);
         });
     });
 
