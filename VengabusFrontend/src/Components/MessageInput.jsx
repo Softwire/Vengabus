@@ -477,13 +477,11 @@ export class MessageInput extends Component {
                     <ButtonWithConfirmationModal
                         id="submitButton"
                         buttonText={"Send Message"}
+                        buttonStyle="default"
                         modalTitle={"Send Message to " + this.state.selectedQueue}
                         modalBody={warningCount ? warnings : "Confirm sending message?"}
                         confirmButtonText={"Send"}
-                        cancelButtonText={"Cancel"}
-                        showModalAction={() => { }}
                         confirmAction={this.submit}
-                        closeModalAction={() => { }}
                     />
                     <ButtonWithConfirmationModal
                         buttonText={"Reset Fields"}
