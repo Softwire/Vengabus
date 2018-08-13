@@ -5,43 +5,35 @@ import { EndpointTypes } from '../Helpers/EndpointTypes';
 import Lodash from 'lodash';
 import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
 
-let defaultState = {
-    modalBody: "",
-    onDeletionConfirmed: () => { }
-};
-
 class DeleteMessagesButton extends React.Component {
     constructor(props) {
         super(props);
 
         const vengaServiceBusService = serviceBusConnection.getServiceBusService();
-        let deletionFunc;
+
+        this.initialState = {
+            onDeletionConfirmed: () => { },
+            modalBody: ""
+        };
+
         switch (this.props.type) {
             case EndpointTypes.TOPIC:
-                deletionFunc = () => vengaServiceBusService.deleteTopicMessages(this.props.endpointName);
+                this.initialState.onDeletionConfirmed = () => vengaServiceBusService.deleteTopicMessages(this.props.endpointName);
                 break;
             case EndpointTypes.QUEUE:
-                deletionFunc = () => vengaServiceBusService.deleteQueueMessages(this.props.endpointName);
+                this.initialState.onDeletionConfirmed = () => vengaServiceBusService.deleteQueueMessages(this.props.endpointName);
                 break;
             case EndpointTypes.SUBSCRIPTION:
-                deletionFunc = () => vengaServiceBusService.deleteSubscriptionMessages(this.props.parentName, this.props.endpointName);
+                this.initialState.onDeletionConfirmed = () => vengaServiceBusService.deleteSubscriptionMessages(this.props.parentName, this.props.endpointName);
                 break;
             default: break;
         }
 
-        defaultState.onDeletionConfirmed = deletionFunc;
-
-        this.state = defaultState;
+        this.state = this.initialState;
     }
 
     showModalAction = () => {
-        console.log(this);
         this.generateModalWarningBody().then(bodyResult => this.setState({ modalBody: bodyResult }));
-        this.getOnDeletionConfirmed().then(onDeletionResult => this.setState({ onDeletionConfirmed: onDeletionResult }));
-    }
-
-    getOnDeletionConfirmed = async () => {
-        return defaultState.onDeletionConfirmed;
     }
 
     generateModalWarningBody = async () => {
@@ -99,18 +91,16 @@ class DeleteMessagesButton extends React.Component {
     }
 
     resetState = () => {
-        this.setState(defaultState);
+        this.setState({ modalBody: "" });
     }
 
     render() {
         let buttonText = <span>Delete All Messages <Glyphicon glyph="trash" /></span>;
         return (<ButtonWithConfirmationModal
             buttonText={buttonText}
-            buttonStyle={"danger"}
             modalTitle={"Delete all messages from " + this.props.type}
             modalBody={this.state.modalBody}
             confirmButtonText={"Delete"}
-            cancelButtonText={"Cancel"}
             afterShowModalAction={this.showModalAction}
             confirmAction={this.state.onDeletionConfirmed}
             afterCloseModalAction={this.resetState}
