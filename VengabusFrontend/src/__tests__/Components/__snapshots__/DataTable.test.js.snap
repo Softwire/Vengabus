@@ -62,7 +62,6 @@ exports[`DataTable renders correctly when defaultHover=true with an additional r
     <tbody>
       <tr
         className="emotion-0 emotion-1"
-        onClick={[Function]}
         style={Object {}}
       >
         <td
@@ -81,7 +80,6 @@ exports[`DataTable renders correctly when defaultHover=true with an additional r
       </tr>
       <tr
         className="emotion-0 emotion-1"
-        onClick={[Function]}
         style={Object {}}
       >
         <td
@@ -100,7 +98,6 @@ exports[`DataTable renders correctly when defaultHover=true with an additional r
       </tr>
       <tr
         className="emotion-0 emotion-1"
-        onClick={[Function]}
         style={Object {}}
       >
         <td
@@ -123,6 +120,10 @@ exports[`DataTable renders correctly when defaultHover=true with an additional r
 `;
 
 exports[`DataTable renders correctly with the selectRow prop 1`] = `
+.emotion-0 {
+  cursor: pointer;
+}
+
 <div
   className="react-bootstrap-table"
 >
@@ -147,7 +148,7 @@ exports[`DataTable renders correctly with the selectRow prop 1`] = `
     </thead>
     <tbody>
       <tr
-        className=""
+        className="emotion-0"
         onClick={[Function]}
         style={
           Object {
@@ -170,7 +171,7 @@ exports[`DataTable renders correctly with the selectRow prop 1`] = `
         </td>
       </tr>
       <tr
-        className={null}
+        className="emotion-0"
         onClick={[Function]}
         style={Object {}}
       >
@@ -189,7 +190,7 @@ exports[`DataTable renders correctly with the selectRow prop 1`] = `
         </td>
       </tr>
       <tr
-        className={null}
+        className="emotion-0"
         onClick={[Function]}
         style={Object {}}
       >

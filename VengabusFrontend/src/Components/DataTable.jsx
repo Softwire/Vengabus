@@ -174,13 +174,17 @@ export class DataTable extends Component {
         return width;
     }
 
-    getValidatedRowEvents = (rowEvents, onRowClick) => {
+    validateAndConfigureRowEvents = (rowEvents, onRowClick) => {
         if (typeof rowEvents === 'undefined') { rowEvents = {}; }
         if (rowEvents.onClick && onRowClick) {
             throw new Error('the onClick event for rows is defined multiple times in ' + this.props.name);
         }
-        onRowClick = onRowClick || rowEvents.onClick || function () { };
-        return { ...(rowEvents), onClick: onRowClick };
+        onRowClick = onRowClick || rowEvents.onClick;
+        rowEvents = { ...(rowEvents), onClick: onRowClick };
+        if (!rowEvents.onClick) {
+            delete rowEvents.onClick;
+        }
+        return rowEvents;
     }
 
     validateAndConfigureSelectRow = (selectRow, keyColumnIndex) => {
@@ -197,6 +201,7 @@ export class DataTable extends Component {
             }
             selectRow.selected = selectRow.selected ? [selectRow.selected] : undefined;
         }
+        return selectRow;
     }
 
     configureDefaultHover = (defaultHover, rowClasses) => {
@@ -212,10 +217,27 @@ export class DataTable extends Component {
         return rowClasses;
     }
 
+    configureCursor = (rowClasses, rowEvents, selectRow) => {
+        if (rowEvents.onClick || selectRow) {
+            const pointerCurser = css`
+                cursor: pointer;
+            `;
+
+            return classNames(rowClasses, pointerCurser);
+        }
+        return rowClasses;
+    }
+
+    configureRowClasses = (defaultHover, rowClasses, rowEvents, selectRow) => {
+        const partiallyProcessedRowClasses = this.configureDefaultHover(defaultHover, rowClasses);
+        return this.configureCursor(partiallyProcessedRowClasses, rowEvents, selectRow);
+    }
+
     render() {
         let { dataToDisplay, name, uniqueKeyColumn, colProps, rowEvents, onRowClick, selectRow, rowClasses, defaultHover, ...otherProps } = this.props;
         let keyColumnIndex;
         let finalRowEvents;
+        let finalSelectRow;
         let finalRowClasses;
 
         if (dataToDisplay) {
@@ -227,9 +249,9 @@ export class DataTable extends Component {
             keyColumnIndex = this.getValidatedKeyColumn(uniqueKeyColumn);
             this.applyDefaultHeaderTextIfNecessary(colProps);
             this.applyValidatedWidth(colProps);
-            finalRowEvents = this.getValidatedRowEvents(rowEvents, onRowClick);
-            this.validateAndConfigureSelectRow(selectRow, keyColumnIndex);
-            finalRowClasses = this.configureDefaultHover(defaultHover, rowClasses);
+            finalRowEvents = this.validateAndConfigureRowEvents(rowEvents, onRowClick);
+            finalSelectRow = this.validateAndConfigureSelectRow(selectRow, keyColumnIndex);
+            finalRowClasses = this.configureRowClasses(defaultHover, rowClasses, finalRowEvents, finalSelectRow);
         }
 
         return dataToDisplay ? (
@@ -238,7 +260,7 @@ export class DataTable extends Component {
                 keyField={colProps[keyColumnIndex].dataField}
                 columns={colProps}
                 rowEvents={finalRowEvents}
-                selectRow={selectRow}
+                selectRow={finalSelectRow}
                 rowClasses={finalRowClasses}
                 {...otherProps}
             />
