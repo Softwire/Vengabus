@@ -7,11 +7,11 @@ import { CollapsiblePanel } from './CollapsiblePanel';
 
 export class MessageBox extends Component {
 
-    getJSXFromProperties = (propertiesArray) => {
-        let propertiesJSX = [];
+    convertMessagePropertiesToJSXArray = (propertiesArray) => {
+        const propertiesJSX = [];
         for (let propName in propertiesArray) {
             let currentPropValue = propertiesArray[propName];
-            if (propName !== 'messageId' && currentPropValue !== null) {
+            if (propName !== 'messageId') {
                 propertiesJSX.push(
                     <p key={propName}>{propName + ': ' + String(currentPropValue)}</p> /*string conversion needed to display booleans properly*/
                 );
@@ -41,8 +41,8 @@ export class MessageBox extends Component {
         if (!message) {
             return null;
         }
-        const preDefinedPropsJSX = this.getJSXFromProperties(message.predefinedProperties) || <p>There are no pre-defined properties to display</p>;
-        const customPropsJSX = this.getJSXFromProperties(message.customProperties) || <p>There are no user-defined properties to display</p>;
+        const preDefinedPropsJSX = this.convertMessagePropertiesToJSXArray(message.predefinedProperties) || <p>There are no pre-defined properties to display</p>;
+        const customPropsJSX = this.convertMessagePropertiesToJSXArray(message.customProperties) || <p>There are no user-defined properties to display</p>;
         return (
             <div className="static-modal" >
                 <Modal show={this.props.show} onHide={this.props.handleClose} >
@@ -52,8 +52,12 @@ export class MessageBox extends Component {
                     </Modal.Header>
 
                     <Modal.Body className={panelStyle}>
-                        <CollapsiblePanel panelTitle={"Pre-defined Properties"} panelContent={<pre>{preDefinedPropsJSX}</pre>} />
-                        <CollapsiblePanel panelTitle={"User-defined Properties"} panelContent={<pre>{customPropsJSX}</pre>} />
+                        <CollapsiblePanel panelTitle={"Pre-defined Properties"}>
+                            <pre>{preDefinedPropsJSX}</pre>
+                        </CollapsiblePanel>
+                        <CollapsiblePanel panelTitle={"User-defined Properties"}>
+                            <pre>{customPropsJSX}</pre>
+                        </CollapsiblePanel>
                         <FormattingBox
                             data={message.messageBody}
                         />

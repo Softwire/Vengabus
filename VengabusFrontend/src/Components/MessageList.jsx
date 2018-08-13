@@ -57,12 +57,6 @@ export class MessageList extends Component {
             }
         ];
 
-        const tableRowStyle = css`
-		          :hover {
-		              border: 1px solid ${palerBlue};
-		              background-color: ${paleGreyBlue};
-		          }
-              `;
         return (
             <div>
                 <DataTable
