@@ -64,8 +64,8 @@ namespace VengabusAPI.Services
                     lastSequenceNumber = message.SequenceNumber;
                 }
             }
-
-            return messagesToReturn;
+            
+            return messagesToReturn.OrderBy(item => item.EnqueuedTimeUtc);
         }
 
         public static void SendMessageToEndpoint(EndpointIdentifier endpoint, MessagingFactory clientFactory, BrokeredMessage message)
