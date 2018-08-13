@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`QueueList renders correctly with given props 1`] = `
+exports[`Subscription List renders correctly with given props 1`] = `
 .emotion-0:hover {
   border: 1px solid #99ccff;
   background-color: #ecf2ff;
@@ -66,7 +66,7 @@ exports[`QueueList renders correctly with given props 1`] = `
         style={Object {}}
       >
         <td>
-          q1
+          s1
         </td>
         <td
           onClick={[Function]}
@@ -88,7 +88,7 @@ exports[`QueueList renders correctly with given props 1`] = `
         style={Object {}}
       >
         <td>
-          q2
+          s2
         </td>
         <td
           onClick={[Function]}
@@ -110,7 +110,7 @@ exports[`QueueList renders correctly with given props 1`] = `
         style={Object {}}
       >
         <td>
-          q3
+          s3
         </td>
         <td
           onClick={[Function]}
