@@ -97,6 +97,7 @@ class DeleteMessagesButton extends React.Component {
     render() {
         let buttonText = <span>Delete All Messages <Glyphicon glyph="trash" /></span>;
         return (<ButtonWithConfirmationModal
+            id={"alertDelete"}
             buttonText={buttonText}
             modalTitle={"Delete all messages from " + this.props.type}
             modalBody={this.state.modalBody}

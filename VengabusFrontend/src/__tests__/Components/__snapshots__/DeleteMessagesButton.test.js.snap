@@ -4,13 +4,14 @@ exports[`DeleteMessagesButton renders correctly with given props 1`] = `
 <button
   className="btn btn-danger"
   disabled={false}
-  id="alertDelete"
   onClick={[Function]}
   type="button"
 >
-  Delete ALL messages 
-  <span
-    className="glyphicon glyphicon-trash"
-  />
+  <span>
+    Delete All Messages 
+    <span
+      className="glyphicon glyphicon-trash"
+    />
+  </span>
 </button>
 `;
