@@ -8,10 +8,10 @@ import {
     Button
 } from "react-bootstrap";
 import { css } from "react-emotion";
-import { Creatable } from "react-select";
+import Select from "react-select";
 
 export const LOCAL_STORAGE_STRINGS = Object.freeze({
-    ConnectionStringList: "connectionStringList",
+    ConnectionStrings: "connectionStrings",
     APIroot: "apiRoot"
 });
 
@@ -28,7 +28,7 @@ export class ConnectionStringConfigForm extends Component {
 
         this.state = {
             connectionStringList: [],
-            connectionString: { label: "", value: "" },
+            activeConnectionString: { label: "", value: "" },
             APIroot: ""
         };
     }
@@ -73,8 +73,9 @@ export class ConnectionStringConfigForm extends Component {
         this.setState({ connectionStringList: newConnectionStringList });
         if (newConnectionStringList.length > 0) {
             //if we have some strings, use the first one by default
+            serviceBusConnection.setConnectionString(newConnectionStringList[0].value);
             this.setState({
-                connectionString: newConnectionStringList[0]
+                activeConnectionString: newConnectionStringList[0]
             });
         }
     }
@@ -83,6 +84,7 @@ export class ConnectionStringConfigForm extends Component {
      * @param {string} newApiRoot The apiRoot to be populated.  
      */
     populateAPIRoot = newApiRoot => {
+        serviceBusConnection.setApiRoot(newApiRoot);
         this.setState({ APIroot: newApiRoot });
     }
 
@@ -101,7 +103,7 @@ export class ConnectionStringConfigForm extends Component {
         connectionStringList.splice(0, 0, connectionString);
 
         this.setState({
-            connectionString: connectionString,
+            activeConnectionString: connectionString,
             connectionStringList: connectionStringList
         });
 
@@ -125,6 +127,19 @@ export class ConnectionStringConfigForm extends Component {
             LOCAL_STORAGE_STRINGS.APIroot,
             newURI
         );
+    }
+
+    createNewConnectionString = () => {
+        let emptyConnectionString = { value: "", label: "" };
+        let newConnectionStringList = this.state.connectionStringList.splice(0, 0, emptyConnectionString);
+        this.setState({
+            connectionStringList: newConnectionStringList,
+            activeConnectionString: emptyConnectionString
+        });
+    }
+
+    deleteConnection = () => {
+
     }
 
     // Called whenever the value of the connection string input box changes.
@@ -194,6 +209,7 @@ export class ConnectionStringConfigForm extends Component {
         `;
 
         const selectStyle = css`
+            padding: 5px;
             color: black;
         `;
 
@@ -201,7 +217,7 @@ export class ConnectionStringConfigForm extends Component {
             <form className={formStyle}>
                 <FormGroup controlId="connectionStringLabel">
                     <ControlLabel>Connection String Label</ControlLabel>
-                    <Creatable className={selectStyle}
+                    <Select className={selectStyle}
                         value={this.state.connectionString}
                         placeholder="Select a connection string"
                         onChange={this.handleConnectionStringLabelChange}
@@ -213,7 +229,7 @@ export class ConnectionStringConfigForm extends Component {
                     <ControlLabel>Connection String</ControlLabel>
                     <FormControl
                         type="text"
-                        value={this.state.connectionString.value}
+                        value={this.state.activeConnectionString.value}
                         placeholder="Connection String"
                         onChange={this.handleConnectionChange}
                     />
@@ -230,10 +246,24 @@ export class ConnectionStringConfigForm extends Component {
                 </FormGroup>
                 <Button
                     className={buttonStyle}
+                    onClick={this.createNewConnectionString}
+                    id="newConnectionStringButton">
+                    New Connection
+                </Button>
+                <Button
+                    className={buttonStyle}
                     onClick={this.submitConnectionStringClick}
                     id="connectButton"
                 >
                     Connect
+                </Button>
+                <Button
+                    className={buttonStyle}
+                    onClick={this.deleteConnection}
+                    id="deleteConnectionButton"
+                    bsStyle="danger"
+                >
+                    Delete Connection
                 </Button>
                 {
                     //buttons want to grip on to the top of things not pretty so add a break to separate
