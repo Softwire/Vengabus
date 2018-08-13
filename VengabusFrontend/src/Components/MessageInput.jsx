@@ -351,12 +351,21 @@ export class MessageInput extends Component {
 
         let warningCount = reservedPropWarningList.length + repetitivePropWarningList.length;
 
-        let warnings = (
-            <React.Fragment>
-                {repetitivePropWarningList.map((value) => <p key={"repetitiveWarning " + value}>{value}</p>)}
-                {reservedPropWarningList.map((value) => <p key={"reservedWarning " + value}>{value}</p>)}
-            </React.Fragment>
-        );
+        let warnings;
+
+        if (!warningCount) {
+            warnings = null;
+        }
+        else {
+            warnings = (
+                <React.Fragment>
+                    {repetitivePropWarningList.map((value) => <p key={"repetitiveWarning " + value}>{value}</p>)}
+                    {reservedPropWarningList.map((value) => <p key={"reservedWarning " + value}>{value}</p>)}
+                </React.Fragment>
+            );
+        }
+
+        let selectedEndpoint = this.state.recipientIsQueue ? this.state.selectedQueue : this.state.selectedTopic;
 
         return (
             <div className={formStyle} >
@@ -478,8 +487,14 @@ export class MessageInput extends Component {
                         id="submitButton"
                         buttonText={"Send Message"}
                         buttonStyle="default"
-                        modalTitle={"Send Message to " + this.state.selectedQueue}
-                        modalBody={warningCount ? warnings : "Confirm sending message?"}
+                        modalTitle={"Send Message to " + selectedEndpoint}
+                        modalBody={
+                            <React.Fragment>
+                                <p>{"Message will be sent to queue: " + selectedEndpoint}</p>
+                                {warnings}
+                                <p>{"Confirm sending message?"}</p>
+                            </React.Fragment>
+                        }
                         confirmButtonText={"Send"}
                         confirmAction={this.submit}
                     />
