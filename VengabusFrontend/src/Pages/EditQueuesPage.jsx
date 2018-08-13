@@ -6,14 +6,14 @@ import { css } from 'emotion';
 import classNames from 'classnames';
 import { DataTable } from '../Components/DataTable';
 import moment from 'moment';
-import { TimeInput } from '../Components/TimeInput';
+import { TimeSpanInput } from '../Components/TimeSpanInput';
 
 export class EditQueuesPage extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            selectedQueue: "mkdemoqueue2",
+            selectedQueue: "mkdemoqueue",
             queueData: {},
             newQueueData: {},
             receivedData: false
@@ -70,18 +70,22 @@ export class EditQueuesPage extends Component {
         return readOnlyProperties;
     }
 
+    handleTimeSpanChange(time, property) {
+        const updatedNewQueueData = { ...this.state.newQueueData };
+        updatedNewQueueData[property] = time;
+        this.setState({
+            newQueueData: updatedNewQueueData
+        });
+    }
+
     updateQueue = () => {
-        serviceBusConnection.getServiceBusService().updateQueue(this.state.newQueueData);
+        //serviceBusConnection.getServiceBusService().updateQueue(this.state.newQueueData);
         console.log(this.state.newQueueData);
     }
 
     render() {
         const newQueueData = this.state.newQueueData;
         const { name, autoDeleteOnIdle, activeMessageCount, deadletterMessageCount, mostRecentDeadLetter, enablePartitioning, requiresSession, supportOrdering } = newQueueData;
-        if (this.state.receivedData) {
-            console.log(Object.keys(autoDeleteOnIdle));
-            console.log(autoDeleteOnIdle);
-        }
         const readOnlyProperties = this.assembleReadOnlyProperties(
             {   // text in the left column: value in the right column
                 "Name": name,
@@ -106,6 +110,7 @@ export class EditQueuesPage extends Component {
                             colProps={colProps}
                             rowClasses={rowStyle}
                             bordered={false}
+                            hover
                         />
                     </div>
 
@@ -155,14 +160,14 @@ export class EditQueuesPage extends Component {
                         }}
                     />
                     <hr className={hrStlye} />
-                    <p className={leftAlign}>EnablePartitioning</p>
-                    <TimeInput time={autoDeleteOnIdle} handleTimeChange={(time) => this.handleTimeChange(time, 'autoDeleteOnIdle')} />
+                    <p className={leftAlign}>AutoDeleteOnIdle</p>
+                    <TimeSpanInput time={autoDeleteOnIdle} handleTimeChange={(time) => this.handleTimeSpanChange(time, 'autoDeleteOnIdle')} />
                     <hr className={hrStlye} />
                     <Button
                         onClick={this.updateQueue}
                     >
                         Update
-                </Button>
+                    </Button>
                 </div>
             ) : (
                     <p>Fetching data</p>
