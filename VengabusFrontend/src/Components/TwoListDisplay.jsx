@@ -159,7 +159,7 @@ export class TwoListDisplay extends Component {
                 margin: 9px;
                 width: 120px ;
         `;
-      
+
         switch (typeOfData) {
             case EndpointTypes.QUEUE:
                 return (
@@ -316,7 +316,7 @@ export class TwoListDisplay extends Component {
             margin:2px;
             `;
         const minWidth = css`
-            min-width:1300px;
+            min-width:1000px;
         `;
 
 

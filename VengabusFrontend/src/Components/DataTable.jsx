@@ -149,6 +149,13 @@ export class DataTable extends Component {
         }
     }
 
+
+    addDepthToColProps = (colProps) => {
+        for (let col of colProps) {
+            col.headerStyle = { ...col.headerStyle, "height": "92px" };
+        }
+    }
+
     determineIfWidthShouldExist = (colProps) => {
         let columnIndex = 0;
         while (colProps[columnIndex].hidden) { columnIndex++; } //Skip any leading hidden columns.
@@ -254,20 +261,11 @@ export class DataTable extends Component {
             finalSelectRow = this.validateAndConfigureSelectRow(selectRow, keyColumnIndex);
             finalRowClasses = this.configureRowClasses(defaultHover, rowClasses, finalRowEvents, finalSelectRow);
         }
-
+        this.addDepthToColProps(colProps);
         const textAlign = css`
             text-align:center;
         `;
-        const tableBorder = css`
-             
-             .table{
-             margin-bottom:0px;
-             border-top-style: solid;
-             border-left-style: solid;
-             border-right-style: solid;
-             border-bottom-style: solid;
-             }
-         `;
+
         return dataToDisplay ? (
             <BootstrapTable
                 data={dataToDisplay}
