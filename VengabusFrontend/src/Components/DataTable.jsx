@@ -209,9 +209,10 @@ export class DataTable extends Component {
             const hoverClass = css`
 		          :hover {
 		              border: 1px solid ${palerBlue};
-		              background-color: ${paleGreyBlue};
+		              background-color: ${paleGreyBlue} !important ;
 		          }
               `;
+
             return classNames(rowClasses, hoverClass);
         }
         return rowClasses;
@@ -277,7 +278,6 @@ export class DataTable extends Component {
                 rowClasses={finalRowClasses}
                 {...otherProps}
                 striped
-               
             />
         ) : (
                 <p className={textAlign}>No data has been retrieved yet.</p>

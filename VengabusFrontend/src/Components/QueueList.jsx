@@ -31,7 +31,7 @@ export class QueueList extends Component {
             },
             {
                 dataField: 'deadletterMessageCount',
-                headerStyle: { width: '25%', 'height': '60px'}
+                width: 25,
             },
             {
                 dataField: 'mostRecentDeadLetter',
