@@ -36,7 +36,7 @@ export function createFormattedXMLobject(originalText) {
         }
     }
     catch (error) {
-        formattedObj.errorMessage = error;
+        formattedObj.errorMessage = error.toString();
     }
     return formattedObj;
 }

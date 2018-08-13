@@ -22,7 +22,7 @@ export function createFormattedJSONobject(originalText) {
         formattedObj.formattedText = removeBlankLines(formatJSon(JSON.parse(deformattedOriginalText)));
     }
     catch (error) {
-        formattedObj.errorMessage = error;
+        formattedObj.errorMessage = error.toString();
     }
     return formattedObj;
 }

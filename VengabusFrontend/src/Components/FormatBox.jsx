@@ -5,7 +5,6 @@ import { createFormattedJSONobject } from '../Helpers/JSONformatter';
 import { createFormattedXMLobject } from '../Helpers/XMLformatter';
 import { SSL_OP_CRYPTOPRO_TLSEXT_BUG } from 'constants';
 
-
 export class FormatBox extends Component {
     constructor(props) {
         super(props);
@@ -22,18 +21,25 @@ export class FormatBox extends Component {
         return false;
     }
 
-    errorAlert(errorMessage, key) {
-        return (
-            <Alert bsStyle="danger" key={key}>
-                <p>{`The formatter threw an error whilst trying to format the text of this data: '${errorMessage}'`}</p>
-            </Alert>
-        );
+    formatterErrorAlert(message, key) {
+        return this.alertBlock("danger", key, `The formatter threw an error whilst trying to format the text of this data:`, message);
     }
 
-    warningAlert(warningMessage, key) {
+    formatterWarningAlert(message, key) {
+        return this.alertBlock("warning", key, `The formatter returned a warning whilst trying to format the text of this data:`, message);
+    }
+
+    noTextAlert(key) {
+        return this.alertBlock("danger", key, "The formatter didn't return any text to display.");
+    }
+
+    alertBlock(alertType, key, ...messageLines) {
+        const lines = messageLines.map((line, index) =>
+            <p key={index}>{line}</p>
+        );
         return (
-            <Alert bsStyle="warning" key={key}>
-                <p>{`The formatter returned a warning whilst trying to format the text of this data: '${warningMessage}'`}</p>
+            <Alert bsStyle={alertType} key={key}>
+                {lines}
             </Alert>
         );
     }
@@ -62,16 +68,16 @@ export class FormatBox extends Component {
         let warning = formattedObject.warningMessage;
         let formattedText = formattedObject.formattedText;
         if (error) {
-            contentToDisplay.push(this.errorAlert(error, formattedObject.formatType + "error"));
+            contentToDisplay.push(this.formatterErrorAlert(error, formattedObject.formatType + "error"));
         }
         if (warning) {
-            contentToDisplay.push(this.warningAlert(warning, formattedObject.formatType + "warning"));
+            contentToDisplay.push(this.formatterWarningAlert(warning, formattedObject.formatType + "warning"));
         }
         if (formattedText) {
             contentToDisplay.push(<pre key={formattedObject.formatType}>{formattedText}</pre>);
         }
         if (contentToDisplay.length === 0) {
-            contentToDisplay.push(this.warningAlert("The formatter didn't return any text to display.", formattedObject.formatType + "warning"));
+            contentToDisplay.push(this.noTextAlert(formattedObject.formatType + "warning"));
         }
         return contentToDisplay;
     }
