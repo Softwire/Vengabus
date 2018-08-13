@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Modal, Button, ButtonToolbar } from 'react-bootstrap';
-import { FormattingBox } from './FormattingBox';
 import { CopyTextButton } from './CopyTextButton';
 import { css } from 'emotion';
 import { CollapsiblePanel } from './CollapsiblePanel';
@@ -73,10 +72,7 @@ export class MessageBox extends Component {
                         <CollapsiblePanel panelTitle={"User-defined Properties"}>
                             <pre>{customPropsJSX}</pre>
                         </CollapsiblePanel>
-                        {/*<FormattingBox
-                            data={message.messageBody /* qqMDM data */}
-                        />*/}
-                        <FormatBox data={this.props.messageBody} />
+                        <FormatBox message={this.props.message.messageBody} />
                     </Modal.Body>
 
                     <Modal.Footer>

@@ -26,13 +26,13 @@ const matchWithoutWhitespace = (text1, text2) => {
 }
 
 export function createFormattedXMLobject(originalText) {
-    let formattedObj = {};
+    let formattedObj = { formatType: "XML" };
     try {
         let deformattedOriginalText = removeWhitespaceFormattingFromXML(originalText);
         let XMLtext = removeBlankLines(formatXML(deformattedOriginalText));
         formattedObj.formattedText = XMLtext;
         if (XMLtext && (!matchWithoutWhitespace(XMLtext, originalText))) {
-            formattedObj.warningMessage = "The XML formatter changed the text of this data. This was probably just to 'heal' malformed XML, but we can't be certain.nSee below for the original data text.";
+            formattedObj.warningMessage = "The XML formatter changed the text of this data. This was probably just to 'heal' malformed XML, but we can't be certain. See below for the original data text.";
         }
     }
     catch (error) {

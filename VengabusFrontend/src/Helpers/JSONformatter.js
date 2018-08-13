@@ -16,13 +16,12 @@ const removeBlankLines = (text) => {
 };
 
 export function createFormattedJSONobject(originalText) {
-    let formattedObj = {};
+    let formattedObj = { formatType: "JSON" };
     try {
         let deformattedOriginalText = removeWhitespaceFormattingFromJSON(originalText);
         formattedObj.formattedText = removeBlankLines(formatJSon(JSON.parse(deformattedOriginalText)));
     }
     catch (error) {
-        //formattedObj.formattedText = '';
         formattedObj.errorMessage = error;
     }
     return formattedObj;
