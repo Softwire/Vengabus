@@ -14,6 +14,7 @@ export class TwoListDisplay extends Component {
         super(props);
         this.displayHistory = [];
         this.breadCrumbHistory = [{ name: "Home", type: undefined }];
+        this.buttonDisabled = false;
         this.state = {
             queueData: undefined,
             topicData: undefined,
@@ -34,6 +35,7 @@ export class TwoListDisplay extends Component {
 
     handleQueueRowClick = (e, row, rowIndex) => {
         this.breadCrumbHistory = [{ name: "Home", type: undefined }, { name: row.name, type: EndpointTypes.QUEUE }];
+        this.buttonDisabled = true;
         this.setState({
             messageData: undefined,
             rightTableType: EndpointTypes.MESSAGE
@@ -50,6 +52,7 @@ export class TwoListDisplay extends Component {
 
     handleSubscriptionRowClick = (e, row, rowIndex) => {
         this.breadCrumbHistory[2] = { name: row.name, type: EndpointTypes.SUBSCRIPTION };
+        this.buttonDisabled = true;
         this.setState({
             messageData: undefined,
             rightTableType: EndpointTypes.MESSAGE
@@ -57,6 +60,7 @@ export class TwoListDisplay extends Component {
     }
 
     handleDeadLetterClick = (e) => {
+        this.buttonDisabled = true;
         this.setState({
             messageData: undefined,
             rightTableType: EndpointTypes.DEADLETTER
@@ -64,6 +68,7 @@ export class TwoListDisplay extends Component {
     }
 
     handleNormalMessageClick = (e) => {
+        this.buttonDisabled = true;
         this.setState({
             messageData: undefined,
             rightTableType: EndpointTypes.MESSAGE
@@ -122,6 +127,7 @@ export class TwoListDisplay extends Component {
             }
         }
         fetchedMessageData.then((result) => {
+            this.buttonDisabled = false;
             this.setState({
                 messageData: result
             });
@@ -208,7 +214,7 @@ export class TwoListDisplay extends Component {
                     <React.Fragment>
                         <div >
                             <h2 className={displayStyle} >{typeToTitle(EndpointTypes.MESSAGE)}</h2>
-                            <Button className={deadLetterToggleButtonStyle} onClick={this.handleDeadLetterClick}> DeadLetter </Button>
+                            <Button className={deadLetterToggleButtonStyle} onClick={this.handleDeadLetterClick} disabled={this.buttonDisabled} > DeadLetter </Button>
                         </div>
                         <MessageList
                             messageData={this.state.messageData}
@@ -221,7 +227,7 @@ export class TwoListDisplay extends Component {
                     <React.Fragment>
                         <div>
                             <h2 className={displayStyle} >{typeToTitle(EndpointTypes.DEADLETTER)}</h2>
-                            <Button className={deadLetterToggleButtonStyle} onClick={this.handleNormalMessageClick}> normal </Button>
+                            <Button className={deadLetterToggleButtonStyle} onClick={this.handleNormalMessageClick} disabled={this.buttonDisabled} > Normal </Button>
                         </div>
                         <MessageList
                             messageData={this.state.messageData}
