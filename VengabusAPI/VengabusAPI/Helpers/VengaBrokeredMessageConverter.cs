@@ -23,7 +23,7 @@ namespace VengabusAPI.Helpers
         public static BodyAndHash GetBodyAndHash(this BrokeredMessage brokeredMessage)
         {
             string messageBody = brokeredMessage.GetBody<string>();
-            return new BodyAndHash(messageBody, VengaBrokeredMessageConverter.GetMessageHash(brokeredMessage.MessageId, messageBody, brokeredMessage.EnqueuedTimeUtc));
+            return new BodyAndHash(messageBody, VengaBrokeredMessageConverter.GetMessageHash(brokeredMessage, messageBody));
         }
     }
     public static class VengaBrokeredMessageConverter
@@ -75,11 +75,13 @@ namespace VengabusAPI.Helpers
         /**
          * For a message send to a topic, the resulting messages send to the subscription have the same enqueuedTimeUtc.
          * This means we have the same hash for all of those messages.
+         * The SequenceNumber seems to be unique, but how bad the Service Bus is implemented, we also added the enqueued
+         * time, message body and message id, to make sure the messages are uniquely identified.
          */
-        public static Guid GetMessageHash(string id, string messageBody, DateTime enqueuedTimeUtc)
+        public static Guid GetMessageHash(BrokeredMessage brokeredMessage, string messageBody)
         {
-            string enqueuedTimeUtcString = $"{enqueuedTimeUtc:MM/dd/yyyy/hh/mm/ss}";
-            string stringToHash = id + messageBody + enqueuedTimeUtcString;
+            string enqueuedTimeUtcString = $"{brokeredMessage.EnqueuedTimeUtc:MM/dd/yyyy/hh/mm/ss}";
+            string stringToHash = brokeredMessage.MessageId + messageBody + enqueuedTimeUtcString + brokeredMessage.SequenceNumber;
             using (MD5 md5 = MD5.Create())
             {
                 byte[] hash = md5.ComputeHash(Encoding.Default.GetBytes(stringToHash));
