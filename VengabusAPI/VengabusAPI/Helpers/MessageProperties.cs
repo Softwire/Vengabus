@@ -10,6 +10,10 @@ namespace VengabusAPI.Helpers
         private const string DATETIME_STRING_FORMAT = "O";
         private static string FormatDateTime(DateTime input) => input.ToString(DATETIME_STRING_FORMAT, CultureInfo.InvariantCulture);
         private static DateTime ParseDateTime(string input) => DateTime.ParseExact(input, DATETIME_STRING_FORMAT, CultureInfo.InvariantCulture);
+        
+        private const string TIMESPAN_STRING_FORMAT = "O";
+        private static string FormatTimeSpan(TimeSpan input) => input.ToString(DATETIME_STRING_FORMAT, CultureInfo.InvariantCulture);
+        private static TimeSpan ParseTimeSpan(string input) => TimeSpan.ParseExact(input, DATETIME_STRING_FORMAT, CultureInfo.InvariantCulture);
 
         private static readonly Dictionary<string, Action<BrokeredMessage, object>> setBrokeredMessagePropertyActions =
          new Dictionary<string, Action<BrokeredMessage, object>>
@@ -22,7 +26,7 @@ namespace VengabusAPI.Helpers
             {"PartitionKey", (message, value) => message.PartitionKey = (string) value },
             {"ReplyTo", (message, value) => message.ReplyTo = (string) value },
             {"ReplyToSessionId", (message, value) => message.ReplyToSessionId = (string) value },
-            {"ScheduledEnqueueTimeUtc", (message, value) => message.ScheduledEnqueueTimeUtc = ParseDateTime((string) value) },
+            {"ScheduledEnqueueTimeUtc", (message, value) => message.ScheduledEnqueueTimeUtc = (DateTime) value },
             {"SessionId", (message, value) => message.SessionId = (string) value },
             {"TimeToLive", (message, value) => message.TimeToLive = TimeSpan.Parse((string) value) },
             {"To", (message, value) => message.To = (string) value },
