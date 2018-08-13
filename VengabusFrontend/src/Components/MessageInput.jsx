@@ -474,7 +474,7 @@ export class MessageInput extends Component {
                     </FormGroup>
                 </form>
                 <form>
-                    <ButtonWithPopupConfirmation
+                    <ButtonWithConfirmationModal
                         id="submitButton"
                         buttonText={"Send Message"}
                         modalTitle={"Send Message to " + this.state.selectedQueue}
