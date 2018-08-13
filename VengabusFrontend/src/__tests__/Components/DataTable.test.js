@@ -3,6 +3,7 @@ import renderer from 'react-test-renderer';
 import React from 'react';
 import { mount } from 'enzyme';
 import { css } from 'emotion';
+import { Button } from 'react-bootstrap';
 
 const rawConsoleError = console.error;
 function suppressSpecificDataTableErrors() {
@@ -86,6 +87,27 @@ describe('DataTable', () => {
                 rowClasses={rowClasses}
                 uniqueKeyColumn='name'
                 defaultHover
+            />);
+        expect(dataTable.toJSON()).toMatchSnapshot();
+    });
+
+    it('renders correctly when formatter is used to render a button within cells', () => {
+        let dataToDisplay = getDataToDisplay();
+        dataToDisplay[0].button = 0;
+        dataToDisplay[1].button = 1;
+        dataToDisplay[2].button = 2;
+        let colProps = getColProps(); 
+        const getButton = (cell, row, rowIndex) => {
+            return (
+                <Button onClick={() => { return; }}>Button</ Button>
+            );
+        };
+        colProps.push({ dataField: 'button', fomratter: getButton });
+        let dataTable = renderer.create(
+            <DataTable
+                colProps={colProps}
+                dataToDisplay={dataToDisplay}
+                uniqueKeyColumn='name'
             />);
         expect(dataTable.toJSON()).toMatchSnapshot();
     });

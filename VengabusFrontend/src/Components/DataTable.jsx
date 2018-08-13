@@ -224,6 +224,11 @@ export class DataTable extends Component {
         return rowClasses;
     }
 
+    configureRowClasses = (defaultHover, rowClasses, rowEvents, selectRow) => {
+        const partiallyProcessedRowClasses = this.configureDefaultHover(defaultHover, rowClasses);
+        return this.configureCursor(partiallyProcessedRowClasses, rowEvents, selectRow);
+    }
+
     render() {
         let { dataToDisplay, name, uniqueKeyColumn, colProps, rowEvents, onRowClick, selectRow, rowClasses, defaultHover, ...otherProps } = this.props;
         let keyColumnIndex;
@@ -242,8 +247,7 @@ export class DataTable extends Component {
             this.applyValidatedWidth(colProps);
             finalRowEvents = this.validateAndConfigureRowEvents(rowEvents, onRowClick);
             finalSelectRow = this.validateAndConfigureSelectRow(selectRow, keyColumnIndex);
-            rowClasses = this.configureDefaultHover(defaultHover, rowClasses);
-            finalRowClasses = this.configureCursor(rowClasses, finalRowEvents, finalSelectRow);
+            finalRowClasses = this.configureRowClasses(defaultHover, rowClasses, finalRowEvents, finalSelectRow);
         }
 
         return dataToDisplay ? (
@@ -252,7 +256,7 @@ export class DataTable extends Component {
                 keyField={colProps[keyColumnIndex].dataField}
                 columns={colProps}
                 rowEvents={finalRowEvents}
-                selectRow={selectRow}
+                selectRow={finalSelectRow}
                 rowClasses={finalRowClasses}
                 {...otherProps}
             />
