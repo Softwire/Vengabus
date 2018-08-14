@@ -66,16 +66,19 @@ export class AxiosWithSAS {
         let endPoint = '', sharedAccessKeyName = '', sharedAccessKey = '';
 
         for (let i = 0; i < connectionArray.length; i++) {
+            const EndpointLabel = 'Endpoint=sb://';
+            const KeyNameLabel = 'SharedAccessKeyName=';
+            const KeyLabel = 'SharedAccessKey=';
             const currentSection = connectionArray[i];
-
-            if (currentSection.startsWith('Endpoint=')) {
-                endPoint = 'https:/' + currentSection.slice(13);
+            
+            if (currentSection.startsWith(EndpointLabel)) {
+                endPoint = 'https://' + currentSection.slice(EndpointLabel.length);
             }
-            if (currentSection.startsWith('SharedAccessKeyName=')) {
-                sharedAccessKeyName = currentSection.slice(20);
+            if (currentSection.startsWith(KeyNameLabel)) {
+                sharedAccessKeyName = currentSection.slice(KeyNameLabel.length);
             }
-            if (currentSection.startsWith('SharedAccessKey=')) {
-                sharedAccessKey = currentSection.slice(16);
+            if (currentSection.startsWith(KeyLabel)) {
+                sharedAccessKey = currentSection.slice(KeyLabel.length);
             }
         }
         return this.createSasToken(endPoint, sharedAccessKeyName, sharedAccessKey);
