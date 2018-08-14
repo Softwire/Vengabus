@@ -21,7 +21,11 @@ export class TwoListDisplay extends Component {
             topicData: undefined,
             subscriptionData: undefined,
             messageData: undefined,
-            rightTableType: EndpointTypes.TOPIC
+            rightTableType: EndpointTypes.TOPIC,
+            rightTableEndpointType: undefined,
+            rightTableEndpointName: undefined,
+            rightTableParentName: undefined
+
         };
     }
 
@@ -39,7 +43,9 @@ export class TwoListDisplay extends Component {
         this.messageButtonDisabled = true;
         this.setState({
             messageData: undefined,
-            rightTableType: EndpointTypes.MESSAGE
+            rightTableType: EndpointTypes.MESSAGE,
+            rightTableEndpointType: EndpointTypes.QUEUE,
+            rightTableEndpointName: row.name
         }, this.updateEndpointMessageData);
     }
 
@@ -47,16 +53,22 @@ export class TwoListDisplay extends Component {
         this.breadCrumbHistory = [{ name: "Home", type: undefined }, { name: row.name, type: EndpointTypes.TOPIC }];
         this.setState({
             subscriptionData: undefined,
-            rightTableType: EndpointTypes.SUBSCRIPTION
+            rightTableType: EndpointTypes.SUBSCRIPTION,
+            rightTableEndpointName: row.name,
+            rightTableParentName: row.name
         }, this.updateTopicSubscriptionData);
     }
 
     handleSubscriptionRowClick = (e, row, rowIndex) => {
         this.breadCrumbHistory[2] = { name: row.name, type: EndpointTypes.SUBSCRIPTION };
         this.messageButtonDisabled = true;
+        let parentName = this.state.rightTableEndpointType === EndpointTypes.SUBSCRIPTION ? this.state.rightTableParentName : this.state.rightTableEndpointName;
         this.setState({
             messageData: undefined,
-            rightTableType: EndpointTypes.MESSAGE
+            rightTableType: EndpointTypes.MESSAGE,
+            rightTableEndpointType: EndpointTypes.SUBSCRIPTION,
+            rightTableParentName: parentName,
+            rightTableEndpointName: row.name
         }, () => this.updateEndpointMessageData(false));
     }
 
@@ -212,6 +224,10 @@ export class TwoListDisplay extends Component {
                         </div>
                         <MessageList
                             messageData={this.state.messageData}
+                            messageType={EndpointTypes.MESSAGE}
+                            endpointType={this.state.rightTableEndpointType}
+                            endpointName={this.state.rightTableEndpointName}
+                            endpointParent={this.state.rightTableParentName}
                         />
                     </React.Fragment>
 
@@ -225,6 +241,10 @@ export class TwoListDisplay extends Component {
                         </div>
                         <MessageList
                             messageData={this.state.messageData}
+                            messageType={EndpointTypes.DEADLETTER}
+                            endpointType={this.state.rightTableEndpointType}
+                            endpointName={this.state.rightTableEndpointName}
+                            endpointParent={this.state.rightTableParentName}
                         />
                     </React.Fragment>
 

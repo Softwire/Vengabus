@@ -80,6 +80,10 @@ export class MessageList extends Component {
                 <MessageBox
                     message={this.state.message}
                     show={this.state.showMessage}
+                    endpointType={this.props.endpointType}
+                    messageType={this.props.messageType}
+                    endpointName={this.props.endpointName}
+                    endpointParent={this.props.endpointParent}
                     handleClose={this.handleClose}
                 />
             </div>

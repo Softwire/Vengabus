@@ -5,6 +5,7 @@ import { css } from 'emotion';
 import { CollapsiblePanel } from '../CollapsiblePanel';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { FormattingBox } from './FormattingBox';
+import { DeleteSingleMessageButton } from '../Components/DeleteSingleMessageButton';
 
 export class MessageBox extends Component {
 
@@ -78,9 +79,17 @@ export class MessageBox extends Component {
                     <Modal.Footer>
                         <ButtonToolbar className={buttonToolbarStyle}>
                             { /*Note that these buttons are rendered in order, Right-to-Left*/}
-                            <Button onClick={this.props.handleClose} id="messageBoxClose">Close</Button>
-                            <CopyTextButton text={message.messageBody} id="messageBoxCopy" />
-                            <Button onClick={() => this.handleReplayMessage(message)} id="messageBoxReplayMessage">Replay Message to demoqueue1</ Button>
+                            <Button onClick={this.props.handleClose}>Close</Button>
+                            <CopyTextButton text={message.messageBody} />
+                            <DeleteSingleMessageButton
+                                uniqueId={message.uniqueId}
+                                messageId={message.predefinedProperties.messageId}
+                                type={this.props.endpointType}
+                                messageType={this.props.messageType}
+                                parentName={this.props.endpointParent}
+                                endpointName={this.props.endpointName}
+                            />
+                            <Button onClick={() => this.handleReplayMessage(message)} >Replay Message to demoqueue1</ Button>
                         </ButtonToolbar>
                     </Modal.Footer>
                 </Modal>

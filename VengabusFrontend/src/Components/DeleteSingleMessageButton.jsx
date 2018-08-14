@@ -14,6 +14,7 @@ class DeleteSingleMessageButton extends React.Component {
             onDeletionConfirmed: () => { },
             modalBody: ""
         };
+        console.log(this.props);
         if (this.props.messageType) {
             switch (this.props.type) {
                 case EndpointTypes.TOPIC:
@@ -51,7 +52,7 @@ class DeleteSingleMessageButton extends React.Component {
             <React.Fragment>
                 <p>Are you sure you want to delete this message ?</p>
 
-                <p>"{this.messageId}" message will be deleted <b>irreversibly</b>!</p >
+                <p>"{this.props.messageId}" message will be deleted <b>irreversibly</b>!</p >
             </React.Fragment>
         );
     }
