@@ -14,10 +14,10 @@ class App extends Component {
             text-align: left;
         `;
         const mainPageStyle = css`
-            margin-top: ${sharedSizesAndDimensions.DEFAULTHEADERHEIGHT};
+            margin-top: ${sharedSizesAndDimensions.DEFAULT_HEADER_HEIGHT}px;
         `;
         const contentStyle = css`
-            margin-left: ${sharedSizesAndDimensions.SIDEBARWIDTH};
+            margin-left: ${sharedSizesAndDimensions.SIDEBAR_WIDTH}px;
         `;
         const appClassNames = classNames('App', appStyle);
         return (
