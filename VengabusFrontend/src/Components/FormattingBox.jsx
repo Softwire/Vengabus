@@ -42,7 +42,8 @@ export class FormattingBox extends Component {
 
     constructor(props) {
         super(props);
-        this.isMessageTooLongToFormat = this.props.data && (this.props.data.length > 100000);
+        this.isMessageTooLongToFormat = this.props.data && (this.props.data.length > 100000);  //qqMDM data
+
     }
 
     startsAndEndsWith = (inputString, startCharacter, endCharacter) => {
@@ -58,7 +59,7 @@ export class FormattingBox extends Component {
     render() {
 
         let formattedText;
-        const originalData = this.props.data;
+        const originalData = this.props.data; //qqMDM data
 
         let xmlFormattingSucceededButChangedText = false;
         let formattingError;
