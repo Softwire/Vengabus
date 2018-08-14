@@ -2,7 +2,6 @@ import React from 'react';
 import { Glyphicon } from 'react-bootstrap';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import { EndpointTypes } from '../Helpers/EndpointTypes';
-import Lodash from 'lodash';
 import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
 
 class DeleteSingleMessageButton extends React.Component {
@@ -15,18 +14,29 @@ class DeleteSingleMessageButton extends React.Component {
             onDeletionConfirmed: () => { },
             modalBody: ""
         };
-
-        switch (this.props.type) {
-            case EndpointTypes.TOPIC:
-                this.initialState.onDeletionConfirmed = () => vengaServiceBusService.deleteTopicSingleMessage(this.props.endpointName, this.props.messageId, this.props.uniqueId);
-                break;
-            case EndpointTypes.QUEUE:
-                this.initialState.onDeletionConfirmed = () => vengaServiceBusService.deleteQueueSingleMessage(this.props.endpointName, this.props.messageId, this.props.uniqueId);
-                break;
-            case EndpointTypes.SUBSCRIPTION:
-                this.initialState.onDeletionConfirmed = () => vengaServiceBusService.deleteSubscriptionSingleMessage(this.props.parentName, this.props.endpointName, this.props.messageId, this.props.uniqueId);
-                break;
-            default: break;
+        if (this.props.messageType) {
+            switch (this.props.type) {
+                case EndpointTypes.TOPIC:
+                    this.initialState.onDeletionConfirmed = () => vengaServiceBusService.deleteTopicSingleMessage(this.props.endpointName, this.props.messageId, this.props.uniqueId);
+                    break;
+                case EndpointTypes.QUEUE:
+                    this.initialState.onDeletionConfirmed = () => vengaServiceBusService.deleteQueueSingleMessage(this.props.endpointName, this.props.messageId, this.props.uniqueId);
+                    break;
+                case EndpointTypes.SUBSCRIPTION:
+                    this.initialState.onDeletionConfirmed = () => vengaServiceBusService.deleteSubscriptionSingleMessage(this.props.parentName, this.props.endpointName, this.props.messageId, this.props.uniqueId);
+                    break;
+                default: break;
+            }
+        } else {
+            switch (this.props.type) {
+                case EndpointTypes.QUEUE:
+                    this.initialState.onDeletionConfirmed = () => vengaServiceBusService.deleteQueueSingleDeadLetterMessage(this.props.endpointName, this.props.messageId, this.props.uniqueId);
+                    break;
+                case EndpointTypes.SUBSCRIPTION:
+                    this.initialState.onDeletionConfirmed = () => vengaServiceBusService.deleteSubscriptionSingleDeadLetterMessage(this.props.parentName, this.props.endpointName, this.props.messageId, this.props.uniqueId);
+                    break;
+                default: break;
+            }
         }
 
         this.state = this.initialState;
@@ -52,8 +62,8 @@ class DeleteSingleMessageButton extends React.Component {
 
     render() {
         let buttonText = <span>Delete Message <Glyphicon glyph="trash" /></span>;
-        return (<ButtonWithConfirmationModal
-            id={"alertDelete"}
+        return <ButtonWithConfirmationModal
+            id={"alertDeleteSingleMessage"}
             buttonText={buttonText}
             modalTitle="Delete message"
             modalBody={this.state.modalBody}
@@ -61,7 +71,7 @@ class DeleteSingleMessageButton extends React.Component {
             afterShowModalAction={this.showModalAction}
             confirmAction={this.state.onDeletionConfirmed}
             afterCloseModalAction={this.resetState}
-        />);
+        />;
     }
 }
 
