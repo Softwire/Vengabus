@@ -6,7 +6,7 @@ import { mount } from 'enzyme';
 function expectFormattingOutput(input, expectedOutput, outputBoxId, expectedBoxIds, unexpectedBoxIds) {
     let formattingBox = mount(
         <FormattingBox
-            data={input}
+            data={input/* qqMDM data*/}
         />);
     expectedBoxIds.forEach((value) => {
         expect(formattingBox.find(value).exists()).toBe(true);
@@ -38,7 +38,7 @@ describe('FormattingBox', () => {
                 <FormattingBox
                     data="test"
                 />);
-            expect(formattingBox.toJSON()).toMatchSnapshot();
+            expect(formattingBox.toJSON()).toMatchSnapshot();/* qqMDM data 2 lines above*/
         });
 
         it('xml', () => {
@@ -46,7 +46,7 @@ describe('FormattingBox', () => {
                 <FormattingBox
                     data="<a>This is a sample xml message</a>"
                 />);
-            expect(formattingBox.toJSON()).toMatchSnapshot();
+            expect(formattingBox.toJSON()).toMatchSnapshot();/* qqMDM data 2 lines above*/
         });
 
         it('json', () => {
@@ -54,7 +54,7 @@ describe('FormattingBox', () => {
                 <FormattingBox
                     data='{"a":"apple","b":42, "c":false}'
                 />);
-            expect(formattingBox.toJSON()).toMatchSnapshot();
+            expect(formattingBox.toJSON()).toMatchSnapshot();/* qqMDM data 2 lines above*/
         });
 
         it('plain text', () => {
@@ -62,7 +62,7 @@ describe('FormattingBox', () => {
                 <FormattingBox
                     data='"a":"apple","b":42, "c":false'
                 />);
-            expect(formattingBox.toJSON()).toMatchSnapshot();
+            expect(formattingBox.toJSON()).toMatchSnapshot();/* qqMDM data 2 lines above*/
         });
     });
 

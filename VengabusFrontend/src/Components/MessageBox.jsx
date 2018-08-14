@@ -70,7 +70,7 @@ export class MessageBox extends Component {
                             <pre>{customPropsJSX}</pre>
                         </CollapsiblePanel>
                         <FormattingBox
-                            data={message.messageBody}
+                            data={message.messageBody /* qqMDM data */}
                         />
                     </Modal.Body>
 

@@ -50,8 +50,8 @@ sit amet \nthat was a newline`
         };
     }
 
-    updateRetrievedData = (data) => {
-        this.setState({ retrievedData: data });
+    updateRetrievedData = (apiData) => {
+        this.setState({ retrievedData: apiData });
     };
 
 

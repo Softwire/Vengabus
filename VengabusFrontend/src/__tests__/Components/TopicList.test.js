@@ -5,10 +5,13 @@ import React from 'react';
 describe('TopicList', () => {
 
     it('renders correctly with given props', () => {
-        const data = [{ name: "topic 1", subscriptionCount: "10", topicStatus: "okay" }, { name: "topic 2", subscriptionCount: "12", topicStatus: "okay" }]
+        const topics = [
+            { name: "topic 1", subscriptionCount: "10", topicStatus: "okay" },
+            { name: "topic 2", subscriptionCount: "12", topicStatus: "okay" }
+        ];
         let topicsList = renderer.create(
             <TopicList
-                topicData={data}
+                topicData={topics}
             />);
         expect(topicsList.toJSON()).toMatchSnapshot();
     });
