@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Web.Http;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
+using Newtonsoft.Json;
 using VengabusAPI.Models;
 using VengabusAPI.Services;
 
@@ -57,6 +58,11 @@ namespace VengabusAPI.Controllers
             description.AutoDeleteOnIdle = queueData["autoDeleteOnIdle"];
 
             return description;
+        }
+
+        public TimeSpan ConvertJsonToTimeSpan(string json)
+        {
+            var dictionary = JsonConvert.DeserializeObject<Dictionary<string, int>>(json);
         }
 
         private DateTime? GetTimeStampOfMostRecentDeadletter(string queueName)
