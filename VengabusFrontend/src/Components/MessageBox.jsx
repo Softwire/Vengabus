@@ -31,8 +31,11 @@ export class MessageBox extends Component {
 
     render() {
         const buttonToolbarStyle = css`
+            margin-right: -8px; /* This counteracts the right margin for the "first" (right-most) button. See comment below. */
+            
             &.btn-toolbar .btn {
-                margin-left: 8px;
+                margin-right: 8px; /* The tooltip library's layout code doesn't handle margins, so we have to have the margin on the right. */
+                margin-left: 0px;
                 float: right;
             }
         `;
@@ -76,7 +79,7 @@ export class MessageBox extends Component {
 
                     <Modal.Footer>
                         <ButtonToolbar className={buttonToolbarStyle}>
-                            { /*Note that these buttons are rendered in order, Right-to-Left*/ }
+                            { /*Note that these buttons are rendered in order, Right-to-Left*/}
                             <Button onClick={this.props.handleClose}>Close</Button>
                             <CopyTextButton text={message.messageBody} />
                             <Button onClick={() => this.handleReplayMessage(message)} >Replay Message to demoqueue1</ Button>

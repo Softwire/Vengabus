@@ -40,7 +40,7 @@ export class CopyTextButton extends React.Component {
         this.setState({ show: true });
         this.hideCopiedTooltip = setTimeout(() => {
             this.setState({ show: false });
-        }, 2000);
+        }, 20000);
     }
 
     render() {
