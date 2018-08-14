@@ -64,7 +64,7 @@ export class MessageList extends Component {
             },
             {
                 dataField: 'timestamp',
-                text: 'Timestamp',
+                //text: 'Timestamp',
                 width: 34,
                 headerStyle: { textAlign: 'center' }
             }

@@ -11,13 +11,11 @@ export class TopicList extends Component {
         const colProps = [
             {
                 dataField: 'name',
-                text: 'Topic Name',
                 width: 34,
                 headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'subscriptionCount',
-                text: 'number of subscriptions',
                 width: 33,
                 headerStyle: { textAlign: 'center' }
             },
