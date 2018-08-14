@@ -112,7 +112,7 @@ it('Correctly creates the properties of a message', async () => {
     expect(mockedFunction).toBeCalledWith(
         undefined, //Selected queue not being tested in this test
         {
-            "MessageBody": "body",
+            "messageBody": "body",
             "customProperties": { "test1": "any value 1", "test2": "any value 2" },
             "predefinedProperties": { "ContentType": "any value 3" }
         }
@@ -133,7 +133,7 @@ it('Sends the message to the correct queue', async () => {
     expect(mockedFunction).toBeCalledWith(
         "testQueue",
         {
-            "MessageBody": "",
+            "messageBody": "",
             "customProperties": {},
             "predefinedProperties": {}
         }
@@ -154,7 +154,7 @@ it('Correctly filters empty property names', async () => {
     expect(mockedFunction).toBeCalledWith(
         undefined, //Selected queue not being tested in this test
         {
-            "MessageBody": "",
+            "messageBody": "",
             "customProperties": { "test2": "any value 2" },
             "predefinedProperties": {}
         }
@@ -176,7 +176,7 @@ it('Correctly filters duplicate property names', async () => {
     expect(mockedFunction).toBeCalledWith(
         undefined, //Selected queue not being tested in this test
         {
-            "MessageBody": "",
+            "messageBody": "",
             "customProperties": { "test1": "any value 1", "test2": "any value 2" },
             "predefinedProperties": {}
         }
@@ -243,7 +243,7 @@ it('Switches from sending to a queue to sending to a topic correctly', () => {
         expect(mockedFunction).toBeCalledWith(
             "topic1",
             {
-                "MessageBody": "",
+                "messageBody": "",
                 "customProperties": {},
                 "predefinedProperties": {}
             }
@@ -286,7 +286,7 @@ it('Rememembers which queue was selected if the topic radio is pressed', () => {
         expect(mockedFunction).toBeCalledWith(
             "queue1",
             {
-                "MessageBody": "",
+                "messageBody": "",
                 "customProperties": {},
                 "predefinedProperties": {}
             }

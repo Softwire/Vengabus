@@ -243,7 +243,7 @@ export class MessageInput extends Component {
         const message = {};
         message.customProperties = this.createMessagePropertyDictionary(this.state.userDefinedProperties);
         message.predefinedProperties = this.createMessagePropertyDictionary(this.state.preDefinedProperties);
-        message.MessageBody = this.state.messageBody;
+        message.messageBody = this.state.messageBody;
         return message;
     }
 

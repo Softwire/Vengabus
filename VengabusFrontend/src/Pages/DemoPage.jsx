@@ -84,7 +84,7 @@ sit amet \nthat was a newline`
                     MessageId: 'Message1',
                     ContentType: 'null'
                 },
-                MessageBody: 'Hello world!'
+                messageBody: 'Hello world!'
             },
             recipientIsQueue: true,
             selectedQueue: 'demoqueue1'
