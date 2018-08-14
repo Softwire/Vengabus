@@ -42,7 +42,7 @@ export class FormattingBox extends Component {
 
     constructor(props) {
         super(props);
-        this.isMessageTooLongToFormat = (this.props.data.length > 100000);
+        this.isMessageTooLongToFormat = this.props.data && (this.props.data.length > 100000);
     }
 
     startsAndEndsWith = (inputString, startCharacter, endCharacter) => {
