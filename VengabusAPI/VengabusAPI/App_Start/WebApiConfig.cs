@@ -26,11 +26,10 @@ namespace VengabusAPI
             config.EnableCors(new EnableCorsAttribute(origins: "*", headers: "*", methods: "*"));
 
             var json = config.Formatters.JsonFormatter;
+            //Note that this is also used in \Helpers\MessageProperties.cs !
             json.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             json.SerializerSettings.Converters = new JsonConverter[] { new StringEnumConverter() };
             json.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-
-
         }
     }
 }
