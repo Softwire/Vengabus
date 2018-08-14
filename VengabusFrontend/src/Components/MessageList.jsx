@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { DataTable } from './DataTable';
 import { MessageBox } from './MessageBox';
 import { truncate } from 'lodash';
-import moment from 'moment';
+import { DateTimeToString } from '../Helpers/FormattingHelpers';
+
 
 export class MessageList extends Component {
     constructor(props) {
@@ -37,7 +38,7 @@ export class MessageList extends Component {
         for (let i = 0; i < (messageArray ? messageArray.length : 0); i++) {
             const currentMessageArray = messageArray[i];
             currentMessageArray.messageBodyPreview = truncate(currentMessageArray.messageBody, { length: previewLength });
-            currentMessageArray.timeStamp = moment(currentMessageArray.predefinedProperties.enqueuedTimeUtc).format("DD-MM-YYYY HH:mm:ss");
+            currentMessageArray.timestamp = DateTimeToString(currentMessageArray.predefinedProperties.enqueuedTimeUtc);
         }
         const colProps = [
             {
@@ -57,8 +58,8 @@ export class MessageList extends Component {
                 headerStyle: { textAlign: 'center' }
             },
             {
-                dataField: 'timeStamp',
-                text: 'Time Stamp',
+                dataField: 'timestamp',
+                text: 'Timestamp',
                 width: 34,
                 headerStyle: { textAlign: 'center' }
             }

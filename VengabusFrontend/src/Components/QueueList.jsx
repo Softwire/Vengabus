@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DataTable } from './DataTable';
-import moment from 'moment';
+import { DateTimeToString } from '../Helpers/FormattingHelpers';
 import { palerBlue } from '../colourScheme';
 
 export class QueueList extends Component {
@@ -15,7 +15,7 @@ export class QueueList extends Component {
                 queueArray[i] = { ...queueArray[i] };
                 const currentMessageArray = queueArray[i];
                 if (currentMessageArray.mostRecentDeadLetter) {
-                    currentMessageArray.mostRecentDeadLetter = moment(currentMessageArray.mostRecentDeadLetter).format("DD-MM-YYYY HH:mm:ss");
+                    currentMessageArray.mostRecentDeadLetter = DateTimeToString(currentMessageArray.mostRecentDeadLetter);
                 }
             }
         }
