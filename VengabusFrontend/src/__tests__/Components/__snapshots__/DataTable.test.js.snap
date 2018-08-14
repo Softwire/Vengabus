@@ -5,20 +5,38 @@ exports[`DataTable renders correctly if an empty array is input as data 1`] = `
   className="react-bootstrap-table"
 >
   <table
-    className="table table-bordered"
+    className="table table-striped table-bordered"
     id={undefined}
   >
     <thead>
       <tr
         className={undefined}
       >
-        <th>
+        <th
+          style={
+            Object {
+              "height": "92px",
+            }
+          }
+        >
           Number With Complex Label
         </th>
-        <th>
+        <th
+          style={
+            Object {
+              "height": "92px",
+            }
+          }
+        >
           Name
         </th>
-        <th>
+        <th
+          style={
+            Object {
+              "height": "92px",
+            }
+          }
+        >
           Not the same as the dataField
         </th>
       </tr>
@@ -34,27 +52,45 @@ exports[`DataTable renders correctly when defaultHover=true with an additional r
 
 .emotion-1:hover {
   border: 1px solid #99ccff;
-  background-color: #ecf2ff;
+  background-color: #ecf2ff !important;
 }
 
 <div
   className="react-bootstrap-table"
 >
   <table
-    className="table table-bordered"
+    className="table table-striped table-bordered"
     id={undefined}
   >
     <thead>
       <tr
         className={undefined}
       >
-        <th>
+        <th
+          style={
+            Object {
+              "height": "92px",
+            }
+          }
+        >
           Number With Complex Label
         </th>
-        <th>
+        <th
+          style={
+            Object {
+              "height": "92px",
+            }
+          }
+        >
           Name
         </th>
-        <th>
+        <th
+          style={
+            Object {
+              "height": "92px",
+            }
+          }
+        >
           Not the same as the dataField
         </th>
       </tr>
@@ -128,20 +164,38 @@ exports[`DataTable renders correctly with the selectRow prop 1`] = `
   className="react-bootstrap-table"
 >
   <table
-    className="table table-bordered"
+    className="table table-striped table-bordered"
     id={undefined}
   >
     <thead>
       <tr
         className={undefined}
       >
-        <th>
+        <th
+          style={
+            Object {
+              "height": "92px",
+            }
+          }
+        >
           Number With Complex Label
         </th>
-        <th>
+        <th
+          style={
+            Object {
+              "height": "92px",
+            }
+          }
+        >
           Name
         </th>
-        <th>
+        <th
+          style={
+            Object {
+              "height": "92px",
+            }
+          }
+        >
           Not the same as the dataField
         </th>
       </tr>

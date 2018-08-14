@@ -149,6 +149,13 @@ export class DataTable extends Component {
         }
     }
 
+
+    addDepthToColProps = (colProps) => {
+        for (let col of colProps) {
+            col.headerStyle = { ...col.headerStyle, "height": "92px" };
+        }
+    }
+
     determineIfWidthShouldExist = (colProps) => {
         let columnIndex = 0;
         while (colProps[columnIndex].hidden) { columnIndex++; } //Skip any leading hidden columns.
@@ -209,9 +216,10 @@ export class DataTable extends Component {
             const hoverClass = css`
 		          :hover {
 		              border: 1px solid ${palerBlue};
-		              background-color: ${paleGreyBlue};
+		              background-color: ${paleGreyBlue} !important ;
 		          }
               `;
+
             return classNames(rowClasses, hoverClass);
         }
         return rowClasses;
@@ -253,6 +261,10 @@ export class DataTable extends Component {
             finalSelectRow = this.validateAndConfigureSelectRow(selectRow, keyColumnIndex);
             finalRowClasses = this.configureRowClasses(defaultHover, rowClasses, finalRowEvents, finalSelectRow);
         }
+        this.addDepthToColProps(colProps);
+        const textAlign = css`
+            text-align:center;
+        `;
 
         return dataToDisplay ? (
             <BootstrapTable
@@ -263,9 +275,10 @@ export class DataTable extends Component {
                 selectRow={finalSelectRow}
                 rowClasses={finalRowClasses}
                 {...otherProps}
+                striped
             />
         ) : (
-                <p>No data has been retrieved yet.</p>
+                <p className={textAlign}>No data has been retrieved yet.</p>
             );
     }
 }

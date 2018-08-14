@@ -24,22 +24,18 @@ export class QueueList extends Component {
             {
                 dataField: 'name',
                 width: 25,
-                headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'activeMessageCount',
                 width: 25,
-                headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'deadletterMessageCount',
                 width: 25,
-                headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'mostRecentDeadLetter',
                 width: 25,
-                headerStyle: { textAlign: 'center' }
             }
         ];
 

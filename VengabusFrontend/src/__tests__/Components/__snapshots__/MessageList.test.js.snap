@@ -3,7 +3,7 @@
 exports[`MessageList renders correctly with given props 1`] = `
 .emotion-0:hover {
   border: 1px solid #99ccff;
-  background-color: #ecf2ff;
+  background-color: #ecf2ff !important;
 }
 
 .emotion-1 {
@@ -15,7 +15,7 @@ exports[`MessageList renders correctly with given props 1`] = `
     className="react-bootstrap-table"
   >
     <table
-      className="table table-bordered"
+      className="table table-striped table-bordered"
       id={undefined}
     >
       <thead>
@@ -25,7 +25,7 @@ exports[`MessageList renders correctly with given props 1`] = `
           <th
             style={
               Object {
-                "textAlign": "center",
+                "height": "92px",
                 "width": "33%",
               }
             }
@@ -35,7 +35,7 @@ exports[`MessageList renders correctly with given props 1`] = `
           <th
             style={
               Object {
-                "textAlign": "center",
+                "height": "92px",
                 "width": "33%",
               }
             }
@@ -45,6 +45,7 @@ exports[`MessageList renders correctly with given props 1`] = `
           <th
             style={
               Object {
+                "height": "92px",
                 "textAlign": "center",
                 "width": "34%",
               }

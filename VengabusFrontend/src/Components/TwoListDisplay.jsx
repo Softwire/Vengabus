@@ -300,11 +300,12 @@ export class TwoListDisplay extends Component {
     render() {
 
         const displayStyle = css`
-            width: 40%;
+            width: 45%;
             margin-left: 10px;
             margin-right:10px;
             display: inline-block; /*to allow tables to be displayed side by side*/
         `;
+
         const outerDivDisplay = css`
             display: block;
             `;
@@ -314,13 +315,22 @@ export class TwoListDisplay extends Component {
             height:35px;
             margin:2px;
             `;
-
+        const minWidth = css`
+            min-width:1000px;
+        `;
+        const areOnHomePage = (this.breadCrumbHistory.length === 1);
+        const line = css`
+            border-left: 1px solid black;
+            display : ${(areOnHomePage) ? "inline-block" : "none"};
+            height : 100%;
+            position: absolute;
+        `;
 
         const leftBox = this.getList();
         const rightBox = this.getList(true);
 
         return (
-            <div >
+            <div className={minWidth} >
                 <div className={breadCrumbDisplay} >
                     {this.getBreadcrumbElement()}
                 </div>
@@ -328,6 +338,7 @@ export class TwoListDisplay extends Component {
                     <div className={displayStyle}>
                         {leftBox}
                     </div>
+                    <div className={line} />
                     <div className={displayStyle}>
                         {rightBox}
                     </div>

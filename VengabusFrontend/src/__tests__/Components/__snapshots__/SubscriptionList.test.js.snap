@@ -3,7 +3,7 @@
 exports[`Subscription List renders correctly with given props 1`] = `
 .emotion-0:hover {
   border: 1px solid #99ccff;
-  background-color: #ecf2ff;
+  background-color: #ecf2ff !important;
 }
 
 .emotion-1 {
@@ -14,7 +14,7 @@ exports[`Subscription List renders correctly with given props 1`] = `
   className="react-bootstrap-table"
 >
   <table
-    className="table table-bordered"
+    className="table table-striped table-bordered"
     id={undefined}
   >
     <thead>
@@ -24,7 +24,7 @@ exports[`Subscription List renders correctly with given props 1`] = `
         <th
           style={
             Object {
-              "textAlign": "center",
+              "height": "92px",
               "width": "25%",
             }
           }
@@ -34,7 +34,7 @@ exports[`Subscription List renders correctly with given props 1`] = `
         <th
           style={
             Object {
-              "textAlign": "center",
+              "height": "92px",
               "width": "25%",
             }
           }
@@ -44,7 +44,7 @@ exports[`Subscription List renders correctly with given props 1`] = `
         <th
           style={
             Object {
-              "textAlign": "center",
+              "height": "92px",
               "width": "25%",
             }
           }
@@ -54,7 +54,7 @@ exports[`Subscription List renders correctly with given props 1`] = `
         <th
           style={
             Object {
-              "textAlign": "center",
+              "height": "92px",
               "width": "25%",
             }
           }
