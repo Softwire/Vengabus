@@ -31,7 +31,7 @@ export class MessageBox extends Component {
 
     render() {
         const buttonToolbarStyle = css`
-            .btn.btn-default {
+            &.btn-toolbar .btn {
                 margin-left: 8px;
                 float: right;
             }
@@ -76,6 +76,7 @@ export class MessageBox extends Component {
 
                     <Modal.Footer>
                         <ButtonToolbar className={buttonToolbarStyle}>
+                            { /*Note that these buttons are rendered in order, Right-to-Left*/ }
                             <Button onClick={this.props.handleClose}>Close</Button>
                             <CopyTextButton text={message.messageBody} />
                             <Button onClick={() => this.handleReplayMessage(message)} >Replay Message to demoqueue1</ Button>
