@@ -14,8 +14,8 @@ class DeleteSingleMessageButton extends React.Component {
             onDeletionConfirmed: () => { },
             modalBody: ""
         };
-        console.log(this.props);
-        if (this.props.messageType) {
+
+        if (this.props.messageType === EndpointTypes.MESSAGE) {
             switch (this.props.type) {
                 case EndpointTypes.TOPIC:
                     this.initialState.onDeletionConfirmed = () => vengaServiceBusService.deleteTopicSingleMessage(this.props.endpointName, this.props.messageId, this.props.uniqueId);

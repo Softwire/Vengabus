@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Web.Http;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
+using VengabusAPI.Helpers;
 using VengabusAPI.Models;
 using VengabusAPI.Services;
 
@@ -33,16 +34,16 @@ namespace VengabusAPI.Controllers
         [Route("queues/{queueName}/deadletter/{uniqueId}")]
         public void DeleteSingleDeadLetterMessageInQueue(string queueName, string uniqueId, [FromUri]string messageId)
         {
-            var endpoint = EndpointIdentifier.ForQueue(queueName).GetDeadLetterEndpoint();
-            DeleteSingleMessageFromEndpoint(endpoint, messageId, uniqueId);
+            var endpoint = EndpointIdentifier.ForQueue(queueName);
+            DeleteSingleMessageFromEndpoint(endpoint, EndpointType.DeadLetter, messageId, uniqueId);
         }
 
         [HttpDelete]
         [Route("subscriptions/{topicName}/{subscriptionName}/deadletter/{uniqueId}")]
         public void DeleteSingleDeadLetterMessageInSubscription(string topicName, string subscriptionName, string uniqueId, [FromUri]string messageId)
         {
-            var endpoint = EndpointIdentifier.ForSubscription(topicName, subscriptionName).GetDeadLetterEndpoint();
-            DeleteSingleMessageFromEndpoint(endpoint, messageId, uniqueId);
+            var endpoint = EndpointIdentifier.ForSubscription(topicName, subscriptionName);
+            DeleteSingleMessageFromEndpoint(endpoint, EndpointType.DeadLetter, messageId, uniqueId);
         }
 
         private IEnumerable<VengaMessage> GetMessageFromEndpoint(EndpointIdentifier endpoint)

@@ -148,28 +148,39 @@ namespace VengabusAPI.Services
             }
         }
 
-        public static void DeleteSingleMessageFromEndpoint(MessagingFactory clientFactory, NamespaceManager namespaceManager, EndpointIdentifier endpoint, string messageId, string uniqueId)
+        public static void DeleteSingleMessageFromEndpoint(MessagingFactory clientFactory, NamespaceManager namespaceManager, EndpointIdentifier endpoint, EndpointType type, string messageId, string uniqueId)
         {
 
             long remainingMessagesToDelete = 0;
             Func<long, BrokeredMessage> receiveNextMessage;
             Func<long> getMessageCount;
             long defaultTimeout = 200;
+            string endpointName = endpoint.Name;
+            EndpointIdentifier endpointIdentifier =
+                type == EndpointType.DeadLetter ? endpoint.GetDeadLetterEndpoint() : endpoint;
 
-            switch (endpoint.Type)
+            switch (endpointIdentifier.Type)
             {
                 case EndpointType.Queue:
-                    QueueClient queueClient = clientFactory.CreateQueueClient(endpoint.Name);
+                    QueueClient queueClient = clientFactory.CreateQueueClient(endpointIdentifier.Name);
                     receiveNextMessage = (timeout) => queueClient.Receive(TimeSpan.FromMilliseconds(timeout));
                     getMessageCount = () =>
-                        namespaceManager.GetQueue(endpoint.Name).MessageCountDetails.ActiveMessageCount;
+                    {
+                        var queue =
+                            namespaceManager.GetQueue( endpointName);
+                        return type == EndpointType.DeadLetter ? queue.MessageCountDetails.DeadLetterMessageCount : queue.MessageCountDetails.ActiveMessageCount;
+                    };
                     break;
                 case EndpointType.Subscription:
                     SubscriptionClient subscriptionClient =
-                        clientFactory.CreateSubscriptionClient(endpoint.ParentTopic, endpoint.Name);
+                        clientFactory.CreateSubscriptionClient(endpointIdentifier.ParentTopic, endpointIdentifier.Name);
                     receiveNextMessage = (timeout) => subscriptionClient.Receive(TimeSpan.FromMilliseconds(timeout));
-                    getMessageCount = () => namespaceManager.GetSubscription(endpoint.ParentTopic, endpoint.Name)
-                        .MessageCountDetails.ActiveMessageCount;
+                    getMessageCount = () =>
+                    {
+                        var subscription =
+                            namespaceManager.GetSubscription(endpointIdentifier.ParentTopic, endpointName);
+                        return type == EndpointType.DeadLetter ? subscription.MessageCountDetails.DeadLetterMessageCount : subscription.MessageCountDetails.ActiveMessageCount;
+                    };
                     break;
                 default:
                     receiveNextMessage = (timeout) => null;

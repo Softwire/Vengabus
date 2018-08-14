@@ -4,6 +4,8 @@
     {
         Queue,
         Topic,
-        Subscription
+        Subscription,
+        Message,
+        DeadLetter
     }
 }

@@ -74,7 +74,7 @@ namespace VengabusAPI.Controllers
         [Route("queues/{queueName}/message/{uniqueId}")]
         public void DeleteSingleMessageInQueue(string queueName, string uniqueId, [FromUri]string messageId)
         {
-            DeleteSingleMessageFromEndpoint(EndpointIdentifier.ForQueue(queueName), messageId, uniqueId);
+            DeleteSingleMessageFromEndpoint(EndpointIdentifier.ForQueue(queueName), EndpointType.Message, messageId, uniqueId);
         }
 
         [HttpDelete]
@@ -91,7 +91,7 @@ namespace VengabusAPI.Controllers
         public void DeleteSingleMessageInSubscription(string topicName, string subscriptionName, string uniqueId, [FromUri]string messageId)
         {
             DeleteSingleMessageFromEndpoint(
-                EndpointIdentifier.ForSubscription(topicName, subscriptionName), messageId, uniqueId);
+                EndpointIdentifier.ForSubscription(topicName, subscriptionName), EndpointType.Message, messageId, uniqueId);
         }
 
         [HttpDelete]
@@ -119,7 +119,7 @@ namespace VengabusAPI.Controllers
             foreach (var subscriptionDescription in topicDescription)
             {
                 DeleteSingleMessageFromEndpoint(
-                    EndpointIdentifier.ForSubscription(topicName, subscriptionDescription.Name), messageId, uniqueId);
+                    EndpointIdentifier.ForSubscription(topicName, subscriptionDescription.Name), EndpointType.Message, messageId, uniqueId);
             }
         }
 
