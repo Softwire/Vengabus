@@ -36,7 +36,7 @@ export class MessageInput extends Component {
             recipientIsQueue: this.props.recipientIsQueue ? this.props.recipientIsQueue : true,
             messageBody: message ? message.messageBody : '',
             userDefinedProperties: message ? this.getUserDefinedProperties(message) : [], //[{name: something, value: something}]
-            preDefinedProperties: [], //need to fetch permittedValues before this can be set
+            preDefinedProperties: [], //need to fetch permittedValues and reservedPropertyNames before this can be set
             reservedPropertyNames: [], //a list of name of possible readable properties of a message
             selectedQueue: this.props.selectedQueue ? this.props.selectedQueue : undefined,
             selectedTopic: this.props.selectedTopic ? this.props.selectedTopic : undefined
@@ -102,7 +102,7 @@ export class MessageInput extends Component {
      * @param {string} propertyClass The class of properties to get,
      * either `customProperties` or `predefinedProperties`.
      * @param {string[]} settableProps List of keys whose value can be set.
-     * @param {string[]} gettableProps List of keys whose value is read-only.
+     * @param {string[]} gettableProps List of keys whose value can be read.
      * @returns {object[]} The list of properties.
      */
     getTargetProperties = (message, propertyClass, settableProps, gettableProps) => {
@@ -119,7 +119,7 @@ export class MessageInput extends Component {
                         value: message[propertyClass][key]
                     });
                 } else if (!gettableProps.includes(key)) {
-                    throw new Error('key was not found in either settable or read-only properties');
+                    throw new Error('key was not found in either settable or readable properties');
                 }
             }
         }
