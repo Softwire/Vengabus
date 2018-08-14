@@ -16,8 +16,8 @@ import classNames from 'classnames';
 /** 
  * @property {Object} message Can take a message as a prop to replay message.
  * @property {Object} message.customProperties User defined properties (key-string pairs).
- * @property {string} message.MessageBody The text of the message.
- * @property {string} message.MessageId The ID of the message.
+ * @property {string} message.messageBody The text of the message.
+ * @property {string} message.messageId The ID of the message.
  * @property {string} message.predefinedProperties Any other predefined properties used by Azure.
  * @property {bool} recipientIsQueue Is the recepient of the message a queue?
  * @property {string} selectedQueue Name of the recepient queue.
@@ -34,7 +34,7 @@ export class MessageInput extends Component {
             availableTopics: [],
             availableQueues: [],
             recipientIsQueue: this.props.recipientIsQueue ? this.props.recipientIsQueue : true,
-            messageBody: message ? message.MessageBody : '',
+            messageBody: message ? message.messageBody : '',
             userDefinedProperties: message ? this.getUserDefinedProperties(message) : [], //[{name: something, value: something}]
             preDefinedProperties: [], //Not set here because permitted values must be fetched first
             reservedPropertyNames: [], //a list of name of possible readable properties of a message
@@ -107,16 +107,19 @@ export class MessageInput extends Component {
      * @returns {object[]} The list of properties.
      */
     getTargetProperties = (message, propertyClass) => {
-        const properties = [];
-        const keys = Object.keys(message[propertyClass]);
-        for (let i = 0; i < keys.length; i++) {
-            const key = keys[i];
-            properties.push({
-                name: key,
-                value: message[propertyClass][key]
-            });
+        const outputProperties = [];
+        const properties = message[propertyClass];
+        if (properties) { //check if properties are defined
+            const keys = Object.keys(message[propertyClass]);
+            for (let i = 0; i < keys.length; i++) {
+                const key = keys[i];
+                outputProperties.push({
+                    name: key,
+                    value: message[propertyClass][key]
+                });
+            }
         }
-        return properties;
+        return outputProperties;
     }
 
     /**
@@ -240,7 +243,7 @@ export class MessageInput extends Component {
         const message = {};
         message.customProperties = this.createMessagePropertyDictionary(this.state.userDefinedProperties);
         message.predefinedProperties = this.createMessagePropertyDictionary(this.state.preDefinedProperties);
-        message.MessageBody = this.state.messageBody;
+        message.messageBody = this.state.messageBody;
         return message;
     }
 
@@ -344,7 +347,7 @@ export class MessageInput extends Component {
         let reservedPropWarningList = reservedPropertyNames.map((value) => {
             return seenProperties.includes(value) ?
                 "Warning: custom property '" + value + "' is potentially a predefined property"
-                : ''
+                : '';
         });
 
         reservedPropWarningList = reservedPropWarningList.filter((value) => value !== '');
@@ -357,12 +360,11 @@ export class MessageInput extends Component {
             warnings = null;
         }
         else {
-            warnings = (
+            warnings =
                 <React.Fragment>
                     {repetitivePropWarningList.map((value) => <p key={"repetitiveWarning " + value}>{value}</p>)}
                     {reservedPropWarningList.map((value) => <p key={"reservedWarning " + value}>{value}</p>)}
-                </React.Fragment>
-            );
+                </React.Fragment>;
         }
 
         let selectedEndpoint = this.state.recipientIsQueue ? this.state.selectedQueue : this.state.selectedTopic;
