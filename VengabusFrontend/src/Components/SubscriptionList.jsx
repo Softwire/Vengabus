@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DataTable } from './DataTable';
-import { DateTimeToString } from '../Helpers/FormattingHelpers';
+import { formatTimeStamp } from '../Helpers/FormattingHelpers';
 import { palerBlue } from '../colourScheme';
 
 export class SubscriptionList extends Component {
@@ -16,7 +16,7 @@ export class SubscriptionList extends Component {
                 subscriptionArray[i] = { ...subscriptionArray[i] };
                 const currentMessageArray = subscriptionArray[i];
                 if (currentMessageArray.mostRecentDeadLetter) {
-                    currentMessageArray.mostRecentDeadLetter = DateTimeToString(currentMessageArray.mostRecentDeadLetter);
+                    currentMessageArray.mostRecentDeadLetter = formatTimeStamp(currentMessageArray.mostRecentDeadLetter);
                 }
             }
         }
