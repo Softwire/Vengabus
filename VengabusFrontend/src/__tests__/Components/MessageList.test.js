@@ -5,7 +5,7 @@ import React from 'react';
 describe('MessageList', () => {
 
     it('renders correctly with given props', () => {
-        const data = [
+        const messages = [
             {
                 predefinedProperties:
                     { messageId: 10 },
@@ -17,10 +17,11 @@ describe('MessageList', () => {
                     { messageId: 11 },
                 uniqueId: "fc6637ad-b19e-440a-b90e-ec7d277e6159",
                 messageBody: "banna"
-            }];
+            }
+        ];
         let messageList = renderer.create(
             <MessageList
-                messageData={data}
+                messageData={messages}
             />);
         expect(messageList.toJSON()).toMatchSnapshot();
     });

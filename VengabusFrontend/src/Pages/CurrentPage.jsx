@@ -10,7 +10,7 @@ export class CurrentPage extends Component {
         super(props);
         this.state = {
             currentPage: pageSwitcher.currentPage,
-            data: pageSwitcher.data
+            pageData: pageSwitcher.pageData
         };
     }
 
@@ -22,10 +22,10 @@ export class CurrentPage extends Component {
         pageSwitcher.deregisterForSwitchUpdates(this.switchToPage);
     }
 
-    switchToPage = (page, data) => {
+    switchToPage = (page, pageData) => {
         this.setState({
             currentPage: page,
-            data: data
+            pageData: pageData
         });
     };
 
@@ -46,9 +46,9 @@ export class CurrentPage extends Component {
                 returnValue = <DemoPage />;
                 break;
             case PAGES.SendMessagePage:
-                const messageTemplate = this.state.data ? this.state.data.message : undefined;
-                const recipientIsQueue = this.state.data ? this.state.data.recipientIsQueue : undefined;
-                const selectedQueue = this.state.data ? this.state.data.selectedQueue : undefined;
+                const messageTemplate = this.state.pageData ? this.state.pageData.message : undefined;
+                const recipientIsQueue = this.state.pageData ? this.state.pageData.recipientIsQueue : undefined;
+                const selectedQueue = this.state.pageData ? this.state.pageData.selectedQueue : undefined;
                 returnValue =
                     <SendMessagePage
                         message={messageTemplate}
