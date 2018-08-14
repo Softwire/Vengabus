@@ -317,10 +317,11 @@ export class TwoListDisplay extends Component {
             `;
         const minWidth = css`
             min-width:1000px;
-        `
+        `;
+        const areOnHomePage = (this.breadCrumbHistory.length === 1);
         const line = css`
             border-left: 1px solid black;
-            display : inline-block;
+            display : ${(areOnHomePage) ? "inline-block" : "none"};
             height : 100%;
             position: absolute;
         `;
