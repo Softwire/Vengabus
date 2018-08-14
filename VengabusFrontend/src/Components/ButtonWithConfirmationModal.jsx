@@ -34,7 +34,10 @@ class ButtonWithConfirmationModal extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Button onClick={this.handleOpening} bsStyle={this.props.buttonStyle ? this.props.buttonStyle : "danger"}>
+                <Button
+                    onClick={this.handleOpening}
+                    bsStyle={this.props.buttonStyle ? this.props.buttonStyle : "danger"}
+                    disabled={this.props.buttonDisabled ? true : false} >
                     {this.props.buttonText}
                 </Button>
                 <Modal show={this.state.show} onHide={this.handleClose} >

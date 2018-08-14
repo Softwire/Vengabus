@@ -489,10 +489,11 @@ export class MessageInput extends Component {
                         id="submitButton"
                         buttonText={"Send Message"}
                         buttonStyle="default"
+                        buttonDisabled={selectedEndpoint ? false : true}
                         modalTitle={"Send Message to " + selectedEndpoint}
                         modalBody={
                             <React.Fragment>
-                                <p>{"Message will be sent to queue: " + selectedEndpoint}</p>
+                                <p>{"Message will be sent to: " + selectedEndpoint}</p>
                                 {warnings}
                                 <p>{"Confirm sending message?"}</p>
                             </React.Fragment>
