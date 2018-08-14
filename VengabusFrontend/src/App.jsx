@@ -7,8 +7,14 @@ import { sharedSizesAndDimensions } from './Helpers/SharedSizesAndDimensions';
 import { css } from 'emotion';
 import { Konamibus } from './Components/Konamibus';
 import classNames from 'classnames';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 class App extends Component {
+    componentDidCatch(error, info) {
+        NotificationManager.error(error);
+    }
+
     render() {
         const appStyle = css`
             text-align: left;
@@ -21,18 +27,21 @@ class App extends Component {
         `;
         const appClassNames = classNames('App', appStyle);
         return (
-            <div className={appClassNames}>
-                {/* Include the Bootstrap CSS at the top of the page. */}
-                <BootstrapCssLinks />
-                <VengabusNavBar />
-                <div className={mainPageStyle}>
-                    <Konamibus />
-                    <SideBar />
-                    <div className={contentStyle}>
-                        <CurrentPage />
+            <React.Fragment>
+                <div className={appClassNames}>
+                    {/* Include the Bootstrap CSS at the top of the page. */}
+                    <BootstrapCssLinks />
+                    <NotificationContainer />
+                    <VengabusNavBar />
+                    <div className={mainPageStyle}>
+                        <Konamibus />
+                        <SideBar />
+                        <div className={contentStyle}>
+                            <CurrentPage />
+                        </div>
                     </div>
                 </div>
-            </div>
+            </React.Fragment>
         );
     }
 }

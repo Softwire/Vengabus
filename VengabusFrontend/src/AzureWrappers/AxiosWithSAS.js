@@ -1,6 +1,8 @@
 import axios from 'axios';
 import moment from 'moment';
 import crypto from 'crypto';
+import { NotificationManager } from 'react-notifications';
+
 
 
 /**
@@ -13,6 +15,35 @@ export class AxiosWithSAS {
     constructor(connectionString) {
         this.connectionString = connectionString;
     }
+    /**
+     * Handle the errors coming from Axios.
+     * @param error the error object returned by Axios
+     */
+
+    errorHandler = (error) => {
+        if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            this.errorNotificationPopup(error.response.status + " " + error.response.data);
+        } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            if (error.request.status === 0) {
+                this.errorNotificationPopup("Backend is offline!");
+            } else {
+                this.errorNotificationPopup("Status code:" + error.request.status + " " + error.request.statusText);
+            }
+        } else {
+            // Something happened in setting up the request that triggered an Error
+            this.errorNotificationPopup(error.message);
+        }
+        throw error;
+    }
+
+    errorNotificationPopup(message) {
+        NotificationManager.error(message, "Error", 5000);
+    }
 
     /**
      * Performs a GET request after being passed a url, with the appropriate SAS header.
@@ -23,9 +54,9 @@ export class AxiosWithSAS {
     get = (url, config) => {
         const token = this.getTokenFromConnectionString();
         const sasConfig = this.addAuthToConfig(config, token);
-        return axios.get(url, sasConfig).then((result) => {
-            return result.data;
-        });
+        return axios.get(url, sasConfig)
+            .then((result) => { return result.data; })
+            .catch(this.errorHandler);
     }
 
     /**
@@ -39,7 +70,7 @@ export class AxiosWithSAS {
         const sasConfig = this.addAuthToConfig(config, token);
         return axios.delete(url, sasConfig).then((result) => {
             return result.data;
-        });
+        }).catch(this.errorHandler);
     }
 
     /**
@@ -54,7 +85,7 @@ export class AxiosWithSAS {
         const sasConfig = this.addAuthToConfig(config, token);
         return axios.post(url, body, sasConfig).then((result) => {
             return result.data;
-        });
+        }).catch(this.errorHandler);
     }
 
     /**
