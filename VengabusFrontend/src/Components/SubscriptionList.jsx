@@ -16,7 +16,7 @@ export class SubscriptionList extends Component {
                 subscriptionArray[i] = { ...subscriptionArray[i] };
                 const currentMessageArray = subscriptionArray[i];
                 if (currentMessageArray.mostRecentDeadLetter) {
-                    currentMessageArray.mostRecentDeadLetter = moment(currentMessageArray.mostRecentDeadLetter).format("DD-MM-YYYY");
+                    currentMessageArray.mostRecentDeadLetter = moment(currentMessageArray.mostRecentDeadLetter).format("DD-MM-YYYY HH:mm:ss");
                 }
             }
         }
