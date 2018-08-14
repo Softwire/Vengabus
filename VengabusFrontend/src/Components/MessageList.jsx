@@ -37,7 +37,7 @@ export class MessageList extends Component {
         for (let i = 0; i < (messageArray ? messageArray.length : 0); i++) {
             const currentMessageArray = messageArray[i];
             currentMessageArray.messageBodyPreview = truncate(currentMessageArray.messageBody, { length: previewLength });
-            currentMessageArray.timeStamp = moment(currentMessageArray.timeStamp).format("DD-MM-YYYY HH:mm:ss");
+            currentMessageArray.timeStamp = moment(currentMessageArray.predefinedProperties.enqueuedTimeUtc).format("DD-MM-YYYY HH:mm:ss");
         }
         const colProps = [
             {
