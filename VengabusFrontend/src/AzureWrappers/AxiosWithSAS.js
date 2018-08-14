@@ -63,7 +63,7 @@ export class AxiosWithSAS {
      */
     getTokenFromConnectionString() {
         const connectionArray = this.connectionString.split(';');
-        let endPoint, sharedAccessKeyName, sharedAccessKey;
+        let endPoint = '', sharedAccessKeyName = '', sharedAccessKey = '';
 
         for (let i = 0; i < connectionArray.length; i++) {
             const currentSection = connectionArray[i];
