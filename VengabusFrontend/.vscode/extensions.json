@@ -9,6 +9,7 @@
     "christian-kohler.npm-intellisense",
     "angryobject.react-pure-to-class-vscode",
     "jpoissonnier.vscode-styled-components",
-    "burkeholland.simple-react-snippets"
+    "burkeholland.simple-react-snippets",
+    "asvetliakov.snapshot-tools"
   ]
 }
