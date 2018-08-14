@@ -21,6 +21,14 @@ export class MessageBox extends Component {
         return propertiesJSX.length > 0 ? propertiesJSX : null;
     }
 
+    handleReplayMessage = (message) => {
+        //qq change hardcoded recipientIsQueue and selectedQueue later
+        pageSwitcher.switchToPage(
+            PAGES.SendMessagePage,
+            { message: message, recipientIsQueue: true, selectedQueue: 'demoqueue1' }
+        );
+    }
+
     render() {
         const buttonToolbarStyle = css`
             .btn.btn-default {
@@ -70,9 +78,7 @@ export class MessageBox extends Component {
                         <ButtonToolbar className={buttonToolbarStyle}>
                             <Button onClick={this.props.handleClose}>Close</Button>
                             <CopyTextButton text={this.props.messageBody} />
-                            <Button onClick={() => pageSwitcher.switchToPage(PAGES.SendMessagePage, { message: message, recipientIsQueue: true, selectedQueue: 'demoqueue1' })} >
-                                Replay Message
-                            </ Button>
+                            <Button onClick={() => this.handleReplayMessage(message)} >Replay Message to demoqueue1</ Button>
                         </ButtonToolbar>
                     </Modal.Footer>
                 </Modal>
