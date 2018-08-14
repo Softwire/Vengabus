@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { DataTable } from './DataTable';
 import { MessageBox } from './MessageBox';
 import { truncate } from 'lodash';
+import moment from 'moment';
 
 export class MessageList extends Component {
     constructor(props) {
@@ -36,8 +37,8 @@ export class MessageList extends Component {
         for (let i = 0; i < (messageArray ? messageArray.length : 0); i++) {
             const currentMessageArray = messageArray[i];
             currentMessageArray.messageBodyPreview = truncate(currentMessageArray.messageBody, { length: previewLength });
+            currentMessageArray.timeStamp = moment(currentMessageArray.timeStamp).format("DD-MM-YYYY HH:mm:ss");
         }
-
         const colProps = [
             {
                 dataField: 'uniqueId',
@@ -46,13 +47,19 @@ export class MessageList extends Component {
             {
                 dataField: 'predefinedProperties.messageId',
                 text: 'Message Id',
-                width: 50,
+                width: 33,
                 headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'messageBodyPreview',
                 text: 'Message Body',
-                width: 50,
+                width: 33,
+                headerStyle: { textAlign: 'center' }
+            },
+            {
+                dataField: 'timeStamp',
+                text: 'Time Stamp',
+                width: 34,
                 headerStyle: { textAlign: 'center' }
             }
         ];
