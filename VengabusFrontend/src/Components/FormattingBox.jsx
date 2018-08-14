@@ -96,7 +96,7 @@ export class FormattingBox extends Component {
                 formattingError = err;
             }
         } else {
-            formattingError = 'Long message: only messages under 100,000 characers in length are formatted.';
+            formattingError = 'Long message: only messages under 100,000 characters in length are formatted.';
         }
         const formatCss = css`
             text-align: left;
