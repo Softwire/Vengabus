@@ -77,7 +77,7 @@ export class MessageBox extends Component {
                     <Modal.Footer>
                         <ButtonToolbar className={buttonToolbarStyle}>
                             <Button onClick={this.props.handleClose}>Close</Button>
-                            <CopyTextButton text={this.props.messageBody} />
+                            <CopyTextButton text={message.messageBody} />
                             <Button onClick={() => this.handleReplayMessage(message)} >Replay Message to demoqueue1</ Button>
                         </ButtonToolbar>
                     </Modal.Footer>
