@@ -4,7 +4,6 @@ import { MessageList } from '../Components/MessageList';
 import { css } from 'react-emotion';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import { Button } from 'react-bootstrap';
-import { PAGES, pageSwitcher } from './PageSwitcherService';
 import { DeleteMessagesButton } from '../Components/DeleteMessagesButton';
 import { EndpointTypes } from '../Helpers/EndpointTypes';
 
@@ -13,7 +12,6 @@ export class DemoPage extends Component {
         super(props);
 
         this.state = {
-            retrievedData: [{ number: 1, name: 'q1', status: 'active' }, { number: 2, name: 'q2', status: 'active' }, { number: 3, name: 'q3', status: 'dead' }],
             messageData: [
                 { uniqueId: "12f546de-481c-4ea5-aca5-e9559d0d8430", predefinedProperties: { messageId: "mal formatted xml 1" }, messageBody: "<a><shipto><name>Ola Nordmann</name><address>Langgt 23</address><city>4000 Stavanger</city><country>Norway</country></shipto><shiporder><item><title>Empire Burlesque</title><note>Special Edition</note><quantity>1</quantity><price>10.90</price></item><item><title>Hide your heart</title><quantity>1</quantity><price>9.90</price></item></shiporder></a>", type: "XML" },
                 { uniqueId: "a29bdf0c-18b2-425d-aa2e-0b0a1ded44f1", predefinedProperties: { messageId: "perfect XML" }, messageBody: "<a><b>sdfds</b><c>sdgsdg</c></a>" },
@@ -74,22 +72,6 @@ sit amet \nthat was a newline`
             margin: 10px;
             display: inline-block; /*to allow tables to be displayed side by side*/
         `;
-        // Hard coded message to replay for now
-        const exampleMessage = {
-            message: {
-                customProperties: {
-                    userDefinedProp1: 'value1',
-                    userDefinedProp2: 'value2'
-                },
-                predefinedProperties: {
-                    MessageId: 'Message1',
-                    ContentType: 'null'
-                },
-                messageBody: 'Hello world!'
-            },
-            recipientIsQueue: true,
-            selectedQueue: 'demoqueue1'
-        };
 
         //qq remove hardcoded endpoint names later
         const queueName = 'demoqueue1';
@@ -99,8 +81,6 @@ sit amet \nthat was a newline`
         return (
             < div >
                 <div className={queueDivStyle}>
-                    <button onClick={() => pageSwitcher.switchToPage(PAGES.SendMessagePage, exampleMessage)}>Replay Example Message</button>
-                    <QueueList queueData={this.state.retrievedData} />
                     <MessageList messageData={this.state.messageData} />
                     {/*qq delete the text in Button once implemented properly*/}
                     <DeleteMessagesButton type={EndpointTypes.QUEUE} endpointName={queueName} />
