@@ -43,7 +43,8 @@ sit amet \nthat was a newline`
                     customProperties: { favCol: "red", age: 19 },
                     messageBody: "hello world!jf",
                     predefinedProperties: { forcePersistence: false, messageId: "testingJF1", scheduledEnqueueTimeUtc: "0001-01-01T00:00:00Z", sequenceNumber: 45317471370415620, size: 173, state: "Active", timeToLive: "10675199.02:48:05.4775807" }
-                }
+                },
+                { uniqueId: "16", customProperties: { customProp: "testVal" }, messageBody: "", predefinedProperties: { messageId: "No body" } }
 
             ]
         };
