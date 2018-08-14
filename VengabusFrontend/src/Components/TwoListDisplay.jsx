@@ -317,8 +317,13 @@ export class TwoListDisplay extends Component {
             `;
         const minWidth = css`
             min-width:1000px;
+        `
+        const line = css`
+            border-left: 1px solid black;
+            display : inline-block;
+            height : 100%;
+            position: absolute;
         `;
-
 
         const leftBox = this.getList();
         const rightBox = this.getList(true);
@@ -332,6 +337,7 @@ export class TwoListDisplay extends Component {
                     <div className={displayStyle}>
                         {leftBox}
                     </div>
+                    <div className={line} />
                     <div className={displayStyle}>
                         {rightBox}
                     </div>
