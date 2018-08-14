@@ -29,7 +29,7 @@ exports[`TopicList renders correctly with given props 1`] = `
             }
           }
         >
-          Topic Name
+          Name
         </th>
         <th
           style={
@@ -39,7 +39,7 @@ exports[`TopicList renders correctly with given props 1`] = `
             }
           }
         >
-          number of subscriptions
+          Subscription Count
         </th>
         <th
           style={

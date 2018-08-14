@@ -23,25 +23,21 @@ export class QueueList extends Component {
         const colProps = [
             {
                 dataField: 'name',
-                text: 'Name',
                 width: 25,
                 headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'activeMessageCount',
-                text: 'active Message Count',
                 width: 25,
                 headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'deadletterMessageCount',
-                text: 'dead Message Count',
                 width: 25,
                 headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'mostRecentDeadLetter',
-                text: 'most Recent Deadletter',
                 width: 25,
                 headerStyle: { textAlign: 'center' }
             }

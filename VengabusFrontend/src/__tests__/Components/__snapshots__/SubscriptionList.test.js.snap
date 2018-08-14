@@ -39,7 +39,7 @@ exports[`Subscription List renders correctly with given props 1`] = `
             }
           }
         >
-          active Message Count
+          Active Message Count
         </th>
         <th
           style={
@@ -49,7 +49,7 @@ exports[`Subscription List renders correctly with given props 1`] = `
             }
           }
         >
-          dead Message Count
+          Deadletter Message Count
         </th>
         <th
           style={
@@ -59,7 +59,7 @@ exports[`Subscription List renders correctly with given props 1`] = `
             }
           }
         >
-          most Recent Deadletter
+          Most Recent Dead Letter
         </th>
       </tr>
     </thead>
