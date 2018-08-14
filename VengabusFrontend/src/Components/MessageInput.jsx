@@ -36,7 +36,7 @@ export class MessageInput extends Component {
             recipientIsQueue: this.props.recipientIsQueue ? this.props.recipientIsQueue : true,
             messageBody: message ? message.messageBody : '',
             userDefinedProperties: message ? this.getUserDefinedProperties(message) : [], //[{name: something, value: something}]
-            preDefinedProperties: [], //Not set here because permitted values must be fetched first
+            preDefinedProperties: [], //need to fetch permittedValues and reservedPropertyNames before this can be set
             reservedPropertyNames: [], //a list of name of possible readable properties of a message
             selectedQueue: this.props.selectedQueue ? this.props.selectedQueue : undefined,
             selectedTopic: this.props.selectedTopic ? this.props.selectedTopic : undefined
@@ -45,11 +45,14 @@ export class MessageInput extends Component {
 
     componentDidMount() {
         this.serviceBusService = serviceBusConnection.getServiceBusService();
-        this.serviceBusService.getWriteableMessageProperties().then((result) => {
+        let permittedValuesPromise = this.serviceBusService.getWriteableMessageProperties();
+        let reservedPropertyNamesPromise = this.serviceBusService.getReadableMessageProperties();
+        Promise.all([permittedValuesPromise, reservedPropertyNamesPromise]).then((result) => {
             this.arePredefinedPropsLoaded = true;
             this.setState({
-                permittedValues: result,
-                preDefinedProperties: this.props.message ? this.getPreDefinedProperties(this.props.message) : [] //[{name: something, value: something}]
+                permittedValues: result[0],
+                reservedPropertyNames: result[1],
+                preDefinedProperties: this.props.message ? this.getPreDefinedProperties(this.props.message, result[0], result[1]) : [] //[{name: something, value: something}]
             });
         });
         this.serviceBusService.listQueues().then((result) => {
@@ -60,12 +63,6 @@ export class MessageInput extends Component {
         this.serviceBusService.listTopics().then((result) => {
             this.setState({
                 availableTopics: this.convertArrayOfNamesToValueLabel(result)
-            });
-        });
-
-        this.serviceBusService.getReadableMessageProperties().then((result) => {
-            this.setState({
-                reservedPropertyNames: result
             });
         });
     }
@@ -95,8 +92,8 @@ export class MessageInput extends Component {
         return this.getTargetProperties(message, "customProperties");
     }
 
-    getPreDefinedProperties = (message) => {
-        return this.getTargetProperties(message, "predefinedProperties");
+    getPreDefinedProperties = (message, permittedValues, reservedPropertyNames) => {
+        return this.getTargetProperties(message, "predefinedProperties", permittedValues, reservedPropertyNames);
     }
 
     /**
@@ -104,19 +101,27 @@ export class MessageInput extends Component {
      * @param {object} message The message to get the properties from.
      * @param {string} propertyClass The class of properties to get,
      * either `customProperties` or `predefinedProperties`.
+     * @param {string[]} settableProps List of keys whose value can be written.
+     * @param {string[]} gettableProps List of keys whose value can be read.
      * @returns {object[]} The list of properties.
      */
-    getTargetProperties = (message, propertyClass) => {
+    getTargetProperties = (message, propertyClass, settableProps, gettableProps) => {
         const outputProperties = [];
         const properties = message[propertyClass];
+        const acceptAllProps = !settableProps || settableProps.length === 0;
         if (properties) { //check if properties are defined
             const keys = Object.keys(message[propertyClass]);
             for (let i = 0; i < keys.length; i++) {
                 const key = keys[i];
-                outputProperties.push({
-                    name: key,
-                    value: message[propertyClass][key]
-                });
+                if (acceptAllProps || settableProps.includes(key)) {
+                    outputProperties.push({
+                        name: key,
+                        value: message[propertyClass][key]
+                    });
+                } else if (!gettableProps.includes(key)) {  //if the property is read-only then that is expected and can be ignored
+                    //if this error is thrown then it is expected to be a programming error, not a user error or a bad message
+                    throw new Error(`key ${key} was not an expected predefined property`);
+                }
             }
         }
         return outputProperties;
