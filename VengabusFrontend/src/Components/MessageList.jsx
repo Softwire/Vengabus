@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { DataTable } from './DataTable';
 import { MessageBox } from './MessageBox';
 import { truncate } from 'lodash';
+import { formatTimeStamp } from '../Helpers/FormattingHelpers';
+
 
 export class MessageList extends Component {
     constructor(props) {
@@ -36,8 +38,13 @@ export class MessageList extends Component {
         for (let i = 0; i < (messageArray ? messageArray.length : 0); i++) {
             const currentMessageArray = messageArray[i];
             currentMessageArray.messageBodyPreview = truncate(currentMessageArray.messageBody, { length: previewLength });
+            const enqueuedTime = currentMessageArray.predefinedProperties.enqueuedTimeUtc;
+            if (enqueuedTime) {
+                currentMessageArray.timestamp = formatTimeStamp(enqueuedTime);
+            } else {
+                currentMessageArray.timestamp = '##-##-#### ##:##:##';
+            }
         }
-
         const colProps = [
             {
                 dataField: 'uniqueId',
@@ -46,13 +53,19 @@ export class MessageList extends Component {
             {
                 dataField: 'predefinedProperties.messageId',
                 text: 'Message Id',
-                width: 50,
+                width: 33,
                 headerStyle: { textAlign: 'center' }
             },
             {
                 dataField: 'messageBodyPreview',
                 text: 'Message Body',
-                width: 50,
+                width: 33,
+                headerStyle: { textAlign: 'center' }
+            },
+            {
+                dataField: 'timestamp',
+                text: 'Timestamp',
+                width: 34,
                 headerStyle: { textAlign: 'center' }
             }
         ];

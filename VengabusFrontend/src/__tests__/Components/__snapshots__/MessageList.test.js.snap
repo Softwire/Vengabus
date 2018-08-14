@@ -26,7 +26,7 @@ exports[`MessageList renders correctly with given props 1`] = `
             style={
               Object {
                 "textAlign": "center",
-                "width": "50%",
+                "width": "33%",
               }
             }
           >
@@ -36,11 +36,21 @@ exports[`MessageList renders correctly with given props 1`] = `
             style={
               Object {
                 "textAlign": "center",
-                "width": "50%",
+                "width": "33%",
               }
             }
           >
             Message Body
+          </th>
+          <th
+            style={
+              Object {
+                "textAlign": "center",
+                "width": "34%",
+              }
+            }
+          >
+            Timestamp
           </th>
         </tr>
       </thead>
@@ -60,6 +70,11 @@ exports[`MessageList renders correctly with given props 1`] = `
           >
             &lt;shipto&gt;&lt;name&gt;Ola Nordmann&lt;...
           </td>
+          <td
+            onClick={[Function]}
+          >
+            ##-##-#### ##:##:##
+          </td>
         </tr>
         <tr
           className="emotion-0 emotion-1"
@@ -75,6 +90,11 @@ exports[`MessageList renders correctly with given props 1`] = `
             onClick={[Function]}
           >
             banna
+          </td>
+          <td
+            onClick={[Function]}
+          >
+            ##-##-#### ##:##:##
           </td>
         </tr>
       </tbody>
