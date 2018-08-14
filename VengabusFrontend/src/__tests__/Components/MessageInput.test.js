@@ -98,6 +98,7 @@ it('Correctly creates the properties of a message', async () => {
     await testHelper.afterReactHasUpdated();
     wrapper.update();
     wrapper.setState({
+        selectedQueue: "testQueue",
         userDefinedProperties: [{ name: "test1", value: "any value 1" }, { name: "test2", value: "any value 2" }],
         preDefinedProperties: [{ name: "ContentType", value: "any value 3" }],
         messageBody: "body"
@@ -110,7 +111,7 @@ it('Correctly creates the properties of a message', async () => {
         confirmButton.simulate('click');
     });
     expect(mockedFunction).toBeCalledWith(
-        undefined, //Selected queue not being tested in this test
+        "testQueue",
         {
             "messageBody": "body",
             "customProperties": { "test1": "any value 1", "test2": "any value 2" },
@@ -143,6 +144,7 @@ it('Sends the message to the correct queue', async () => {
 it('Correctly filters empty property names', async () => {
     let wrapper = mount(<MessageInput />);
     wrapper.setState({
+        selectedQueue: "testQueue",
         userDefinedProperties: [{ name: "test1", value: "" }, { name: "test2", value: "any value 2" }]
     });
     let submitButton = wrapper.find("#submitButton").at(0);
@@ -152,7 +154,7 @@ it('Correctly filters empty property names', async () => {
         confirmButton.simulate('click');
     });
     expect(mockedFunction).toBeCalledWith(
-        undefined, //Selected queue not being tested in this test
+        "testQueue",
         {
             "messageBody": "",
             "customProperties": { "test2": "any value 2" },
@@ -164,6 +166,7 @@ it('Correctly filters empty property names', async () => {
 it('Correctly filters duplicate property names', async () => {
     let wrapper = mount(<MessageInput />);
     wrapper.setState({
+        selectedQueue: "testQueue",
         userDefinedProperties: [{ name: "test1", value: "any value 1" }, { name: "test2", value: "any value 2" }, { name: "test2", value: "any value 3" }]
     });
     let submitButton = wrapper.find("#submitButton").at(0);
@@ -174,7 +177,7 @@ it('Correctly filters duplicate property names', async () => {
         confirmButton.simulate('click');
     });
     expect(mockedFunction).toBeCalledWith(
-        undefined, //Selected queue not being tested in this test
+        "testQueue",
         {
             "messageBody": "",
             "customProperties": { "test1": "any value 1", "test2": "any value 2" },

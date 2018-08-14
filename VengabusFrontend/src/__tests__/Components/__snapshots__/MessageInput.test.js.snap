@@ -2257,6 +2257,7 @@ exports[`Shows a red border around invalid property names 1`] = `
     </form>
     <form>
       <ButtonWithConfirmationModal
+        buttonDisabled={true}
         buttonStyle="default"
         buttonText="Send Message"
         confirmAction={[Function]}
@@ -2265,7 +2266,7 @@ exports[`Shows a red border around invalid property names 1`] = `
         modalBody={
           <Unknown>
             <p>
-              Message will be sent to queue: undefined
+              Message will be sent to: undefined
             </p>
             <Unknown>
               <p>
@@ -2284,12 +2285,12 @@ exports[`Shows a red border around invalid property names 1`] = `
           block={false}
           bsClass="btn"
           bsStyle="default"
-          disabled={false}
+          disabled={true}
           onClick={[Function]}
         >
           <button
             className="btn btn-default"
-            disabled={false}
+            disabled={true}
             onClick={[Function]}
             type="button"
           >
@@ -3039,7 +3040,7 @@ exports[`renders correctly 1`] = `
   <form>
     <button
       className="btn btn-default"
-      disabled={false}
+      disabled={true}
       onClick={[Function]}
       type="button"
     >
