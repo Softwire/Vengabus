@@ -38,7 +38,12 @@ export class MessageList extends Component {
         for (let i = 0; i < (messageArray ? messageArray.length : 0); i++) {
             const currentMessageArray = messageArray[i];
             currentMessageArray.messageBodyPreview = truncate(currentMessageArray.messageBody, { length: previewLength });
-            currentMessageArray.timestamp = formatTimeStamp(currentMessageArray.predefinedProperties.enqueuedTimeUtc);
+            const enqueuedTime = currentMessageArray.predefinedProperties.enqueuedTimeUtc;
+            if (enqueuedTime) {
+                currentMessageArray.timestamp = formatTimeStamp(enqueuedTime);
+            } else {
+                currentMessageArray.timestamp = '##-##-#### ##:##:##';
+            }
         }
         const colProps = [
             {

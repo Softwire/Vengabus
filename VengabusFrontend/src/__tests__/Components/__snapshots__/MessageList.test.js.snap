@@ -73,7 +73,7 @@ exports[`MessageList renders correctly with given props 1`] = `
           <td
             onClick={[Function]}
           >
-            14-08-2018 11:33:11
+            ##-##-#### ##:##:##
           </td>
         </tr>
         <tr
@@ -94,7 +94,7 @@ exports[`MessageList renders correctly with given props 1`] = `
           <td
             onClick={[Function]}
           >
-            14-08-2018 11:33:11
+            ##-##-#### ##:##:##
           </td>
         </tr>
       </tbody>
