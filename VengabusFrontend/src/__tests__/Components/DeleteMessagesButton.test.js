@@ -15,19 +15,19 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
         }
 
         getQueueDetails = () => Promise.resolve({
-            data: {
+            data: { //qqMDM data!?
                 activeMessageCount: 10
             }
         });
 
         getSubscriptionDetails = () => Promise.resolve({
-            data: {
+            data: { //qqMDM data!?
                 activeMessageCount: 10
             }
         });
 
         listSubscriptions = () => Promise.resolve({
-            data: [{
+            data: [{ //qqMDM data!?
                 name: "subscription1",
                 activeMessageCount: 10
             }]
