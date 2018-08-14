@@ -101,7 +101,7 @@ export class MessageInput extends Component {
      * @param {object} message The message to get the properties from.
      * @param {string} propertyClass The class of properties to get,
      * either `customProperties` or `predefinedProperties`.
-     * @param {string[]} settableProps List of keys whose value can be set.
+     * @param {string[]} settableProps List of keys whose value can be written.
      * @param {string[]} gettableProps List of keys whose value can be read.
      * @returns {object[]} The list of properties.
      */
@@ -118,8 +118,9 @@ export class MessageInput extends Component {
                         name: key,
                         value: message[propertyClass][key]
                     });
-                } else if (!gettableProps.includes(key)) {
-                    throw new Error('key was not found in either settable or readable properties');
+                } else if (!gettableProps.includes(key)) {  //if the property is read-only then that is expected and can be ignored
+                    //if this error is thrown then it is expected to be a programming error, not a user error or a bad message
+                    throw new Error(`key ${key} was not an expected predefined property`);
                 }
             }
         }
