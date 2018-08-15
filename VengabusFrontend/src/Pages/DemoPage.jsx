@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { QueueList } from '../Components/QueueList';
 import { MessageList } from '../Components/MessageList';
 import { css } from 'react-emotion';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
