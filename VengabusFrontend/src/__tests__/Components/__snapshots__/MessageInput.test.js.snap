@@ -1,7 +1,201 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Shows a red border around invalid property names 1`] = `
-.emotion-92 {
+exports[`RawHtml snapshot for "Shows a red border around invalid property names" 1`] = `
+"<div class=\\"css-10yh0c4\\">
+    <div class=\\"css-mxbhzi\\">
+        <p class=\\"css-wni10w\\">
+            Destination
+        </p>
+    </div>
+    <div class=\\"css-1m1gf12\\">
+        <div>
+            <input id=\\"queue-selection-radio\\" class=\\"css-85g23i\\" type=\\"radio\\" value=\\"queue\\">
+                <div class=\\"css-mxbhzi css-5g10zq css-wni10w css-1nkn65\\">
+                    <p>
+                        Queue
+                    </p>
+                </div>
+            </input>
+            <div class=\\"css-10nd86i css-pkykf7\\" id=\\"queue-dropdown\\">
+                <div class=\\"css-1aya2g8\\">
+                    <div class=\\"css-1rtrksz\\">
+                        <div class=\\"css-1492t68\\">
+                            Select...
+                        </div>
+                        <div class=\\"css-rsyb7x\\">
+                            <div class=\\"\\" style=\\"display: inline-block;\\">
+                                <input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-10-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
+                                    <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; font-family: -webkit-small-control; letter-spacing: normal; text-transform: none;\\">
+                                    </div>
+                                </input>
+                            </div>
+                        </div>
+                        <div class=\\"css-1wy0on6\\">
+                            <span class=\\"css-d8oujb\\">
+                            </span>
+                            <div aria-hidden=\\"true\\" class=\\"css-1ep9fjw\\">
+                                <svg height=\\"20\\" width=\\"20\\" viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" class=\\"css-19bqh2r\\">
+                                    <path d=\\"M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z\\">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=\\"css-1m1gf12\\">
+                <div>
+                    <input id=\\"topic-selection-radio\\" class=\\"css-85g23i\\" type=\\"radio\\" value=\\"topic\\">
+                        <div class=\\"css-mxbhzi css-5g10zq css-wni10w css-1nkn65\\">
+                            <p>
+                                Topic
+                            </p>
+                        </div>
+                    </input>
+                    <div class=\\"css-1sontr1 css-pkykf7\\" id=\\"topic-dropdown\\">
+                        <div class=\\"css-162g8z5\\">
+                            <div class=\\"css-1rtrksz\\">
+                                <div class=\\"css-1492t68\\">
+                                    Select...
+                                </div>
+                                <div class=\\"css-rsyb7x\\">
+                                    <div class=\\"\\" style=\\"display: inline-block;\\">
+                                        <input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-11-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
+                                            <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; font-family: -webkit-small-control; letter-spacing: normal; text-transform: none;\\">
+                                            </div>
+                                        </input>
+                                    </div>
+                                </div>
+                                <div class=\\"css-1wy0on6\\">
+                                    <span class=\\"css-ln5n5c\\">
+                                    </span>
+                                    <div aria-hidden=\\"true\\" class=\\"css-1ep9fjw\\">
+                                        <svg height=\\"20\\" width=\\"20\\" viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" class=\\"css-19bqh2r\\">
+                                            <path d=\\"M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z\\">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class=\\"css-1m1gf12\\">
+                        <div class=\\"css-mxbhzi\\">
+                            <p class=\\"css-wni10w\\">
+                                Pre-defined Properties
+                            </p>
+                        </div>
+                        <div>
+                        </div>
+                        <form>
+                            <div class=\\"css-mxbhzi\\">
+                                <button type=\\"button\\" class=\\"css-74801x btn btn-default\\">
+                                    Add new Azure property
+                                </button>
+                            </div>
+                        </form>
+                        <hr>
+                            <div class=\\"css-mxbhzi\\">
+                                <p class=\\"css-wni10w\\">
+                                    User-defined Properties
+                                </p>
+                            </div>
+                            <div>
+                                <div>
+                                    <form class=\\"css-1rnsx0x\\">
+                                        <div class=\\"form-group\\">
+                                            <input placeholder=\\"Enter property name\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"test1\\">
+                                            </input>
+                                        </div>
+                                        <form class=\\"css-fztffm\\">
+                                            <div class=\\"form-group\\">
+                                                <input placeholder=\\"Enter property value\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"any value 1\\">
+                                                </input>
+                                            </div>
+                                            <div class=\\"css-g376pn\\">
+                                                <button type=\\"button\\" class=\\"css-83yc3x btn btn-danger\\">
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </form>
+                                        <div>
+                                            <form class=\\"css-1rnsx0x\\">
+                                                <div class=\\"form-group has-error\\">
+                                                    <input placeholder=\\"Enter property name\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"test2\\">
+                                                    </input>
+                                                </div>
+                                                <form class=\\"css-fztffm\\">
+                                                    <div class=\\"form-group\\">
+                                                        <input placeholder=\\"Enter property value\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"any value 2\\">
+                                                        </input>
+                                                    </div>
+                                                    <div class=\\"css-g376pn\\">
+                                                        <button type=\\"button\\" class=\\"css-83yc3x btn btn-danger\\">
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                                <div>
+                                                    <form class=\\"css-1rnsx0x\\">
+                                                        <div class=\\"form-group has-error\\">
+                                                            <input placeholder=\\"Enter property name\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"test2\\">
+                                                            </input>
+                                                        </div>
+                                                        <form class=\\"css-fztffm\\">
+                                                            <div class=\\"form-group\\">
+                                                                <input placeholder=\\"Enter property value\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"any value 3\\">
+                                                                </input>
+                                                            </div>
+                                                            <div class=\\"css-g376pn\\">
+                                                                <button type=\\"button\\" class=\\"css-83yc3x btn btn-danger\\">
+                                                                    Delete
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </form>
+                                                    <form>
+                                                        <div class=\\"css-mxbhzi\\">
+                                                            <button type=\\"button\\" class=\\"css-74801x btn btn-default\\">
+                                                                Add new application specific property
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                    <hr>
+                                                        <form>
+                                                            <div class=\\"css-mxbhzi form-group\\">
+                                                                <label for=\\"formControlsMessageBodyText\\" class=\\"css-wni10w control-label\\">
+                                                                    Body
+                                                                </label>
+                                                                <textarea placeholder=\\"Enter message body\\" id=\\"formControlsMessageBodyText\\" class=\\"css-4jk989 form-control\\">
+                                                                </textarea>
+                                                            </div>
+                                                        </form>
+                                                        <form>
+                                                            <button disabled=\\"\\" type=\\"button\\" class=\\"btn btn-default\\">
+                                                                Send Message
+                                                            </button>
+                                                            <button type=\\"button\\" class=\\"btn btn-danger\\">
+                                                                Reset Fields
+                                                            </button>
+                                                        </form>
+                                                    </hr>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </hr>
+                    </hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>"
+`;
+
+exports[`renders correctly after data has loaded 1`] = `
+.emotion-46 {
   margin-left: 5px;
   margin-right: 5px;
   padding-top: 1%;
@@ -27,7 +221,7 @@ exports[`Shows a red border around invalid property names 1`] = `
   text-align: left;
 }
 
-.emotion-43 {
+.emotion-37 {
   width: 270px;
   margin-left: 5px;
 }
@@ -41,7 +235,7 @@ exports[`Shows a red border around invalid property names 1`] = `
   text-align: left;
 }
 
-.emotion-88 {
+.emotion-44 {
   min-height: 350px;
   padding-left: 5px;
 }
@@ -50,17 +244,9 @@ exports[`Shows a red border around invalid property names 1`] = `
   line-height: 38px;
 }
 
-.emotion-20 {
+.emotion-17 {
   float: left;
   width: 100%;
-}
-
-.emotion-44 {
-  opacity: 0.5;
-}
-
-.emotion-44:hover {
-  cursor: progress;
 }
 
 .emotion-15 {
@@ -197,13 +383,13 @@ exports[`Shows a red border around invalid property names 1`] = `
   stroke-width: 0;
 }
 
-.emotion-34 {
+.emotion-31 {
   pointer-events: none;
   position: relative;
   box-sizing: border-box;
 }
 
-.emotion-33 {
+.emotion-30 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -233,11 +419,11 @@ exports[`Shows a red border around invalid property names 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-33:hover {
+.emotion-30:hover {
   border-color: hsl(0,0%,70%);
 }
 
-.emotion-29 {
+.emotion-26 {
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -248,2205 +434,371 @@ exports[`Shows a red border around invalid property names 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-53 {
-  padding-left: 5px;
-  width: 20%;
-  float: left;
-}
-
-.emotion-57 {
-  padding-left: 5px;
-  width: calc(80% - 80px);
-  float: left;
-}
-
-.emotion-60 {
-  padding-left: 5px;
-  width: 80px;
-  float: left;
-}
-
-.emotion-50 {
-  min-height: 38px;
-}
-
-<MessageInput>
+<div
+  className="emotion-46"
+>
   <div
-    className="emotion-92"
+    className="emotion-1"
+  >
+    <p
+      className="emotion-0"
+    >
+      Destination
+    </p>
+  </div>
+  <div
+    className="emotion-17"
   >
     <div
-      className="emotion-1"
+      onClick={[Function]}
     >
-      <p
-        className="emotion-0"
-      >
-        Destination
-      </p>
-    </div>
-    <div
-      className="emotion-20"
-    >
-      <div
-        onClick={[Function]}
-      >
-        <input
-          checked={true}
-          className="emotion-2"
-          id="queue-selection-radio"
-          onChange={[Function]}
-          type="radio"
-          value="queue"
-        />
-        <div
-          className="emotion-1 emotion-4 emotion-0 emotion-6"
-        >
-          <p>
-            Queue
-          </p>
-        </div>
-      </div>
-      <StateManager
-        className="emotion-16"
-        defaultInputValue=""
-        defaultMenuIsOpen={false}
-        defaultValue={null}
-        id="queue-dropdown"
-        isDisabled={false}
+      <input
+        checked={true}
+        className="emotion-2"
+        id="queue-selection-radio"
         onChange={[Function]}
-        options={Array []}
-        title="Queue"
+        type="radio"
+        value="queue"
+      />
+      <div
+        className="emotion-1 emotion-4 emotion-0 emotion-6"
       >
-        <Select
-          backspaceRemovesValue={true}
-          blurInputOnSelect={true}
-          captureMenuScroll={false}
-          className="emotion-16"
-          closeMenuOnScroll={false}
-          closeMenuOnSelect={true}
-          components={Object {}}
-          controlShouldRenderValue={true}
-          defaultInputValue=""
-          defaultMenuIsOpen={false}
-          defaultValue={null}
-          escapeClearsValue={false}
-          filterOption={[Function]}
-          formatGroupLabel={[Function]}
-          getOptionLabel={[Function]}
-          getOptionValue={[Function]}
-          id="queue-dropdown"
-          inputValue=""
-          isDisabled={false}
-          isLoading={false}
-          isMulti={false}
-          isOptionDisabled={[Function]}
-          isRtl={false}
-          isSearchable={true}
-          loadingMessage={[Function]}
-          maxMenuHeight={300}
-          menuIsOpen={false}
-          menuPlacement="bottom"
-          menuPosition="absolute"
-          menuShouldBlockScroll={false}
-          menuShouldScrollIntoView={true}
-          minMenuHeight={140}
-          noOptionsMessage={[Function]}
-          onChange={[Function]}
-          onInputChange={[Function]}
-          onMenuClose={[Function]}
-          onMenuOpen={[Function]}
-          openMenuOnClick={true}
-          openMenuOnFocus={false}
-          options={Array []}
-          pageSize={5}
-          placeholder="Select..."
-          screenReaderStatus={[Function]}
-          styles={Object {}}
-          tabIndex="0"
-          tabSelectsValue={true}
-          title="Queue"
-          value={null}
-        >
-          <SelectContainer
-            className="emotion-16"
-            clearValue={[Function]}
-            cx={[Function]}
-            getStyles={[Function]}
-            getValue={[Function]}
-            hasValue={false}
-            innerProps={
-              Object {
-                "id": "queue-dropdown",
-                "onKeyDown": [Function],
-              }
-            }
-            isDisabled={false}
-            isFocused={false}
-            isMulti={false}
-            isRtl={false}
-            options={Array []}
-            selectOption={[Function]}
-            selectProps={
-              Object {
-                "backspaceRemovesValue": true,
-                "blurInputOnSelect": true,
-                "captureMenuScroll": false,
-                "className": "emotion-16",
-                "closeMenuOnScroll": false,
-                "closeMenuOnSelect": true,
-                "components": Object {},
-                "controlShouldRenderValue": true,
-                "defaultInputValue": "",
-                "defaultMenuIsOpen": false,
-                "defaultValue": null,
-                "escapeClearsValue": false,
-                "filterOption": [Function],
-                "formatGroupLabel": [Function],
-                "getOptionLabel": [Function],
-                "getOptionValue": [Function],
-                "id": "queue-dropdown",
-                "inputValue": "",
-                "isDisabled": false,
-                "isLoading": false,
-                "isMulti": false,
-                "isOptionDisabled": [Function],
-                "isRtl": false,
-                "isSearchable": true,
-                "loadingMessage": [Function],
-                "maxMenuHeight": 300,
-                "menuIsOpen": false,
-                "menuPlacement": "bottom",
-                "menuPosition": "absolute",
-                "menuShouldBlockScroll": false,
-                "menuShouldScrollIntoView": true,
-                "minMenuHeight": 140,
-                "noOptionsMessage": [Function],
-                "onChange": [Function],
-                "onInputChange": [Function],
-                "onMenuClose": [Function],
-                "onMenuOpen": [Function],
-                "openMenuOnClick": true,
-                "openMenuOnFocus": false,
-                "options": Array [],
-                "pageSize": 5,
-                "placeholder": "Select...",
-                "screenReaderStatus": [Function],
-                "styles": Object {},
-                "tabIndex": "0",
-                "tabSelectsValue": true,
-                "title": "Queue",
-                "value": null,
-              }
-            }
-            setValue={[Function]}
-          >
-            <div
-              className="emotion-15 emotion-16"
-              id="queue-dropdown"
-              onKeyDown={[Function]}
-            >
-              <Control
-                clearValue={[Function]}
-                cx={[Function]}
-                getStyles={[Function]}
-                getValue={[Function]}
-                hasValue={false}
-                innerProps={
-                  Object {
-                    "onMouseDown": [Function],
-                    "onTouchEnd": [Function],
-                  }
-                }
-                innerRef={[Function]}
-                isDisabled={false}
-                isFocused={false}
-                isMulti={false}
-                isRtl={false}
-                options={Array []}
-                selectOption={[Function]}
-                selectProps={
-                  Object {
-                    "backspaceRemovesValue": true,
-                    "blurInputOnSelect": true,
-                    "captureMenuScroll": false,
-                    "className": "emotion-16",
-                    "closeMenuOnScroll": false,
-                    "closeMenuOnSelect": true,
-                    "components": Object {},
-                    "controlShouldRenderValue": true,
-                    "defaultInputValue": "",
-                    "defaultMenuIsOpen": false,
-                    "defaultValue": null,
-                    "escapeClearsValue": false,
-                    "filterOption": [Function],
-                    "formatGroupLabel": [Function],
-                    "getOptionLabel": [Function],
-                    "getOptionValue": [Function],
-                    "id": "queue-dropdown",
-                    "inputValue": "",
-                    "isDisabled": false,
-                    "isLoading": false,
-                    "isMulti": false,
-                    "isOptionDisabled": [Function],
-                    "isRtl": false,
-                    "isSearchable": true,
-                    "loadingMessage": [Function],
-                    "maxMenuHeight": 300,
-                    "menuIsOpen": false,
-                    "menuPlacement": "bottom",
-                    "menuPosition": "absolute",
-                    "menuShouldBlockScroll": false,
-                    "menuShouldScrollIntoView": true,
-                    "minMenuHeight": 140,
-                    "noOptionsMessage": [Function],
-                    "onChange": [Function],
-                    "onInputChange": [Function],
-                    "onMenuClose": [Function],
-                    "onMenuOpen": [Function],
-                    "openMenuOnClick": true,
-                    "openMenuOnFocus": false,
-                    "options": Array [],
-                    "pageSize": 5,
-                    "placeholder": "Select...",
-                    "screenReaderStatus": [Function],
-                    "styles": Object {},
-                    "tabIndex": "0",
-                    "tabSelectsValue": true,
-                    "title": "Queue",
-                    "value": null,
-                  }
-                }
-                setValue={[Function]}
-              >
-                <div
-                  className="emotion-14"
-                  onMouseDown={[Function]}
-                  onTouchEnd={[Function]}
-                >
-                  <ValueContainer
-                    clearValue={[Function]}
-                    cx={[Function]}
-                    getStyles={[Function]}
-                    getValue={[Function]}
-                    hasValue={false}
-                    isDisabled={false}
-                    isMulti={false}
-                    isRtl={false}
-                    options={Array []}
-                    selectOption={[Function]}
-                    selectProps={
-                      Object {
-                        "backspaceRemovesValue": true,
-                        "blurInputOnSelect": true,
-                        "captureMenuScroll": false,
-                        "className": "emotion-16",
-                        "closeMenuOnScroll": false,
-                        "closeMenuOnSelect": true,
-                        "components": Object {},
-                        "controlShouldRenderValue": true,
-                        "defaultInputValue": "",
-                        "defaultMenuIsOpen": false,
-                        "defaultValue": null,
-                        "escapeClearsValue": false,
-                        "filterOption": [Function],
-                        "formatGroupLabel": [Function],
-                        "getOptionLabel": [Function],
-                        "getOptionValue": [Function],
-                        "id": "queue-dropdown",
-                        "inputValue": "",
-                        "isDisabled": false,
-                        "isLoading": false,
-                        "isMulti": false,
-                        "isOptionDisabled": [Function],
-                        "isRtl": false,
-                        "isSearchable": true,
-                        "loadingMessage": [Function],
-                        "maxMenuHeight": 300,
-                        "menuIsOpen": false,
-                        "menuPlacement": "bottom",
-                        "menuPosition": "absolute",
-                        "menuShouldBlockScroll": false,
-                        "menuShouldScrollIntoView": true,
-                        "minMenuHeight": 140,
-                        "noOptionsMessage": [Function],
-                        "onChange": [Function],
-                        "onInputChange": [Function],
-                        "onMenuClose": [Function],
-                        "onMenuOpen": [Function],
-                        "openMenuOnClick": true,
-                        "openMenuOnFocus": false,
-                        "options": Array [],
-                        "pageSize": 5,
-                        "placeholder": "Select...",
-                        "screenReaderStatus": [Function],
-                        "styles": Object {},
-                        "tabIndex": "0",
-                        "tabSelectsValue": true,
-                        "title": "Queue",
-                        "value": null,
-                      }
-                    }
-                    setValue={[Function]}
-                  >
-                    <div
-                      className="emotion-9"
-                    >
-                      <Placeholder
-                        clearValue={[Function]}
-                        cx={[Function]}
-                        getStyles={[Function]}
-                        getValue={[Function]}
-                        hasValue={false}
-                        isDisabled={false}
-                        isMulti={false}
-                        isRtl={false}
-                        key="placeholder"
-                        options={Array []}
-                        selectOption={[Function]}
-                        selectProps={
-                          Object {
-                            "backspaceRemovesValue": true,
-                            "blurInputOnSelect": true,
-                            "captureMenuScroll": false,
-                            "className": "emotion-16",
-                            "closeMenuOnScroll": false,
-                            "closeMenuOnSelect": true,
-                            "components": Object {},
-                            "controlShouldRenderValue": true,
-                            "defaultInputValue": "",
-                            "defaultMenuIsOpen": false,
-                            "defaultValue": null,
-                            "escapeClearsValue": false,
-                            "filterOption": [Function],
-                            "formatGroupLabel": [Function],
-                            "getOptionLabel": [Function],
-                            "getOptionValue": [Function],
-                            "id": "queue-dropdown",
-                            "inputValue": "",
-                            "isDisabled": false,
-                            "isLoading": false,
-                            "isMulti": false,
-                            "isOptionDisabled": [Function],
-                            "isRtl": false,
-                            "isSearchable": true,
-                            "loadingMessage": [Function],
-                            "maxMenuHeight": 300,
-                            "menuIsOpen": false,
-                            "menuPlacement": "bottom",
-                            "menuPosition": "absolute",
-                            "menuShouldBlockScroll": false,
-                            "menuShouldScrollIntoView": true,
-                            "minMenuHeight": 140,
-                            "noOptionsMessage": [Function],
-                            "onChange": [Function],
-                            "onInputChange": [Function],
-                            "onMenuClose": [Function],
-                            "onMenuOpen": [Function],
-                            "openMenuOnClick": true,
-                            "openMenuOnFocus": false,
-                            "options": Array [],
-                            "pageSize": 5,
-                            "placeholder": "Select...",
-                            "screenReaderStatus": [Function],
-                            "styles": Object {},
-                            "tabIndex": "0",
-                            "tabSelectsValue": true,
-                            "title": "Queue",
-                            "value": null,
-                          }
-                        }
-                        setValue={[Function]}
-                      >
-                        <div
-                          className="emotion-7"
-                        >
-                          Select...
-                        </div>
-                      </Placeholder>
-                      <Input
-                        aria-autocomplete="list"
-                        autoCapitalize="none"
-                        autoComplete="off"
-                        autoCorrect="off"
-                        cx={[Function]}
-                        getStyles={[Function]}
-                        id="react-select-8-input"
-                        innerRef={[Function]}
-                        isDisabled={false}
-                        isHidden={false}
-                        onBlur={[Function]}
-                        onChange={[Function]}
-                        onFocus={[Function]}
-                        spellCheck="false"
-                        tabIndex="0"
-                        type="text"
-                        value=""
-                      >
-                        <div
-                          className="emotion-8"
-                        >
-                          <AutosizeInput
-                            aria-autocomplete="list"
-                            autoCapitalize="none"
-                            autoComplete="off"
-                            autoCorrect="off"
-                            className=""
-                            disabled={false}
-                            id="react-select-8-input"
-                            injectStyles={true}
-                            inputRef={[Function]}
-                            inputStyle={
-                              Object {
-                                "background": 0,
-                                "border": 0,
-                                "color": "inherit",
-                                "fontSize": "inherit",
-                                "opacity": 1,
-                                "outline": 0,
-                                "padding": 0,
-                              }
-                            }
-                            minWidth={1}
-                            onBlur={[Function]}
-                            onChange={[Function]}
-                            onFocus={[Function]}
-                            spellCheck="false"
-                            tabIndex="0"
-                            type="text"
-                            value=""
-                          >
-                            <div
-                              className=""
-                              style={
-                                Object {
-                                  "display": "inline-block",
-                                }
-                              }
-                            >
-                              <input
-                                aria-autocomplete="list"
-                                autoCapitalize="none"
-                                autoComplete="off"
-                                autoCorrect="off"
-                                disabled={false}
-                                id="react-select-8-input"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                spellCheck="false"
-                                style={
-                                  Object {
-                                    "background": 0,
-                                    "border": 0,
-                                    "boxSizing": "content-box",
-                                    "color": "inherit",
-                                    "fontSize": "inherit",
-                                    "opacity": 1,
-                                    "outline": 0,
-                                    "padding": 0,
-                                    "width": "2px",
-                                  }
-                                }
-                                tabIndex="0"
-                                type="text"
-                                value=""
-                              />
-                              <div
-                                style={
-                                  Object {
-                                    "height": 0,
-                                    "left": 0,
-                                    "overflow": "scroll",
-                                    "position": "absolute",
-                                    "top": 0,
-                                    "visibility": "hidden",
-                                    "whiteSpace": "pre",
-                                  }
-                                }
-                              />
-                            </div>
-                          </AutosizeInput>
-                        </div>
-                      </Input>
-                    </div>
-                  </ValueContainer>
-                  <IndicatorsContainer
-                    clearValue={[Function]}
-                    cx={[Function]}
-                    getStyles={[Function]}
-                    getValue={[Function]}
-                    hasValue={false}
-                    isDisabled={false}
-                    isMulti={false}
-                    isRtl={false}
-                    options={Array []}
-                    selectOption={[Function]}
-                    selectProps={
-                      Object {
-                        "backspaceRemovesValue": true,
-                        "blurInputOnSelect": true,
-                        "captureMenuScroll": false,
-                        "className": "emotion-16",
-                        "closeMenuOnScroll": false,
-                        "closeMenuOnSelect": true,
-                        "components": Object {},
-                        "controlShouldRenderValue": true,
-                        "defaultInputValue": "",
-                        "defaultMenuIsOpen": false,
-                        "defaultValue": null,
-                        "escapeClearsValue": false,
-                        "filterOption": [Function],
-                        "formatGroupLabel": [Function],
-                        "getOptionLabel": [Function],
-                        "getOptionValue": [Function],
-                        "id": "queue-dropdown",
-                        "inputValue": "",
-                        "isDisabled": false,
-                        "isLoading": false,
-                        "isMulti": false,
-                        "isOptionDisabled": [Function],
-                        "isRtl": false,
-                        "isSearchable": true,
-                        "loadingMessage": [Function],
-                        "maxMenuHeight": 300,
-                        "menuIsOpen": false,
-                        "menuPlacement": "bottom",
-                        "menuPosition": "absolute",
-                        "menuShouldBlockScroll": false,
-                        "menuShouldScrollIntoView": true,
-                        "minMenuHeight": 140,
-                        "noOptionsMessage": [Function],
-                        "onChange": [Function],
-                        "onInputChange": [Function],
-                        "onMenuClose": [Function],
-                        "onMenuOpen": [Function],
-                        "openMenuOnClick": true,
-                        "openMenuOnFocus": false,
-                        "options": Array [],
-                        "pageSize": 5,
-                        "placeholder": "Select...",
-                        "screenReaderStatus": [Function],
-                        "styles": Object {},
-                        "tabIndex": "0",
-                        "tabSelectsValue": true,
-                        "title": "Queue",
-                        "value": null,
-                      }
-                    }
-                    setValue={[Function]}
-                  >
-                    <div
-                      className="emotion-13"
-                    >
-                      <IndicatorSeparator
-                        clearValue={[Function]}
-                        cx={[Function]}
-                        getStyles={[Function]}
-                        getValue={[Function]}
-                        hasValue={false}
-                        isDisabled={false}
-                        isFocused={false}
-                        isMulti={false}
-                        isRtl={false}
-                        options={Array []}
-                        selectOption={[Function]}
-                        selectProps={
-                          Object {
-                            "backspaceRemovesValue": true,
-                            "blurInputOnSelect": true,
-                            "captureMenuScroll": false,
-                            "className": "emotion-16",
-                            "closeMenuOnScroll": false,
-                            "closeMenuOnSelect": true,
-                            "components": Object {},
-                            "controlShouldRenderValue": true,
-                            "defaultInputValue": "",
-                            "defaultMenuIsOpen": false,
-                            "defaultValue": null,
-                            "escapeClearsValue": false,
-                            "filterOption": [Function],
-                            "formatGroupLabel": [Function],
-                            "getOptionLabel": [Function],
-                            "getOptionValue": [Function],
-                            "id": "queue-dropdown",
-                            "inputValue": "",
-                            "isDisabled": false,
-                            "isLoading": false,
-                            "isMulti": false,
-                            "isOptionDisabled": [Function],
-                            "isRtl": false,
-                            "isSearchable": true,
-                            "loadingMessage": [Function],
-                            "maxMenuHeight": 300,
-                            "menuIsOpen": false,
-                            "menuPlacement": "bottom",
-                            "menuPosition": "absolute",
-                            "menuShouldBlockScroll": false,
-                            "menuShouldScrollIntoView": true,
-                            "minMenuHeight": 140,
-                            "noOptionsMessage": [Function],
-                            "onChange": [Function],
-                            "onInputChange": [Function],
-                            "onMenuClose": [Function],
-                            "onMenuOpen": [Function],
-                            "openMenuOnClick": true,
-                            "openMenuOnFocus": false,
-                            "options": Array [],
-                            "pageSize": 5,
-                            "placeholder": "Select...",
-                            "screenReaderStatus": [Function],
-                            "styles": Object {},
-                            "tabIndex": "0",
-                            "tabSelectsValue": true,
-                            "title": "Queue",
-                            "value": null,
-                          }
-                        }
-                        setValue={[Function]}
-                      >
-                        <span
-                          className="emotion-10"
-                        />
-                      </IndicatorSeparator>
-                      <DropdownIndicator
-                        clearValue={[Function]}
-                        cx={[Function]}
-                        getStyles={[Function]}
-                        getValue={[Function]}
-                        hasValue={false}
-                        innerProps={
-                          Object {
-                            "aria-hidden": "true",
-                            "onMouseDown": [Function],
-                            "onTouchEnd": [Function],
-                          }
-                        }
-                        isDisabled={false}
-                        isFocused={false}
-                        isMulti={false}
-                        isRtl={false}
-                        options={Array []}
-                        selectOption={[Function]}
-                        selectProps={
-                          Object {
-                            "backspaceRemovesValue": true,
-                            "blurInputOnSelect": true,
-                            "captureMenuScroll": false,
-                            "className": "emotion-16",
-                            "closeMenuOnScroll": false,
-                            "closeMenuOnSelect": true,
-                            "components": Object {},
-                            "controlShouldRenderValue": true,
-                            "defaultInputValue": "",
-                            "defaultMenuIsOpen": false,
-                            "defaultValue": null,
-                            "escapeClearsValue": false,
-                            "filterOption": [Function],
-                            "formatGroupLabel": [Function],
-                            "getOptionLabel": [Function],
-                            "getOptionValue": [Function],
-                            "id": "queue-dropdown",
-                            "inputValue": "",
-                            "isDisabled": false,
-                            "isLoading": false,
-                            "isMulti": false,
-                            "isOptionDisabled": [Function],
-                            "isRtl": false,
-                            "isSearchable": true,
-                            "loadingMessage": [Function],
-                            "maxMenuHeight": 300,
-                            "menuIsOpen": false,
-                            "menuPlacement": "bottom",
-                            "menuPosition": "absolute",
-                            "menuShouldBlockScroll": false,
-                            "menuShouldScrollIntoView": true,
-                            "minMenuHeight": 140,
-                            "noOptionsMessage": [Function],
-                            "onChange": [Function],
-                            "onInputChange": [Function],
-                            "onMenuClose": [Function],
-                            "onMenuOpen": [Function],
-                            "openMenuOnClick": true,
-                            "openMenuOnFocus": false,
-                            "options": Array [],
-                            "pageSize": 5,
-                            "placeholder": "Select...",
-                            "screenReaderStatus": [Function],
-                            "styles": Object {},
-                            "tabIndex": "0",
-                            "tabSelectsValue": true,
-                            "title": "Queue",
-                            "value": null,
-                          }
-                        }
-                        setValue={[Function]}
-                      >
-                        <div
-                          aria-hidden="true"
-                          className="emotion-12"
-                          onMouseDown={[Function]}
-                          onTouchEnd={[Function]}
-                        >
-                          <DownChevron>
-                            <Svg
-                              size={20}
-                            >
-                              <svg
-                                aria-hidden="true"
-                                className="emotion-11"
-                                focusable="false"
-                                height={20}
-                                viewBox="0 0 20 20"
-                                width={20}
-                              >
-                                <path
-                                  d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
-                                />
-                              </svg>
-                            </Svg>
-                          </DownChevron>
-                        </div>
-                      </DropdownIndicator>
-                    </div>
-                  </IndicatorsContainer>
-                </div>
-              </Control>
-            </div>
-          </SelectContainer>
-        </Select>
-      </StateManager>
+        <p>
+          Queue
+        </p>
+      </div>
     </div>
     <div
-      className="emotion-20"
+      className="emotion-15 emotion-16"
+      id="queue-dropdown"
+      onKeyDown={[Function]}
     >
       <div
-        onClick={[Function]}
-      >
-        <input
-          checked={false}
-          className="emotion-2"
-          id="topic-selection-radio"
-          onChange={[Function]}
-          type="radio"
-          value="topic"
-        />
-        <div
-          className="emotion-1 emotion-4 emotion-0 emotion-6"
-        >
-          <p>
-            Topic
-          </p>
-        </div>
-      </div>
-      <StateManager
-        className="emotion-16"
-        defaultInputValue=""
-        defaultMenuIsOpen={false}
-        defaultValue={null}
-        id="topic-dropdown"
-        isDisabled={true}
-        onChange={[Function]}
-        options={Array []}
-        title="Topic"
-      >
-        <Select
-          backspaceRemovesValue={true}
-          blurInputOnSelect={true}
-          captureMenuScroll={false}
-          className="emotion-16"
-          closeMenuOnScroll={false}
-          closeMenuOnSelect={true}
-          components={Object {}}
-          controlShouldRenderValue={true}
-          defaultInputValue=""
-          defaultMenuIsOpen={false}
-          defaultValue={null}
-          escapeClearsValue={false}
-          filterOption={[Function]}
-          formatGroupLabel={[Function]}
-          getOptionLabel={[Function]}
-          getOptionValue={[Function]}
-          id="topic-dropdown"
-          inputValue=""
-          isDisabled={true}
-          isLoading={false}
-          isMulti={false}
-          isOptionDisabled={[Function]}
-          isRtl={false}
-          isSearchable={true}
-          loadingMessage={[Function]}
-          maxMenuHeight={300}
-          menuIsOpen={false}
-          menuPlacement="bottom"
-          menuPosition="absolute"
-          menuShouldBlockScroll={false}
-          menuShouldScrollIntoView={true}
-          minMenuHeight={140}
-          noOptionsMessage={[Function]}
-          onChange={[Function]}
-          onInputChange={[Function]}
-          onMenuClose={[Function]}
-          onMenuOpen={[Function]}
-          openMenuOnClick={true}
-          openMenuOnFocus={false}
-          options={Array []}
-          pageSize={5}
-          placeholder="Select..."
-          screenReaderStatus={[Function]}
-          styles={Object {}}
-          tabIndex="0"
-          tabSelectsValue={true}
-          title="Topic"
-          value={null}
-        >
-          <SelectContainer
-            className="emotion-16"
-            clearValue={[Function]}
-            cx={[Function]}
-            getStyles={[Function]}
-            getValue={[Function]}
-            hasValue={false}
-            innerProps={
-              Object {
-                "id": "topic-dropdown",
-                "onKeyDown": [Function],
-              }
-            }
-            isDisabled={true}
-            isFocused={false}
-            isMulti={false}
-            isRtl={false}
-            options={Array []}
-            selectOption={[Function]}
-            selectProps={
-              Object {
-                "backspaceRemovesValue": true,
-                "blurInputOnSelect": true,
-                "captureMenuScroll": false,
-                "className": "emotion-16",
-                "closeMenuOnScroll": false,
-                "closeMenuOnSelect": true,
-                "components": Object {},
-                "controlShouldRenderValue": true,
-                "defaultInputValue": "",
-                "defaultMenuIsOpen": false,
-                "defaultValue": null,
-                "escapeClearsValue": false,
-                "filterOption": [Function],
-                "formatGroupLabel": [Function],
-                "getOptionLabel": [Function],
-                "getOptionValue": [Function],
-                "id": "topic-dropdown",
-                "inputValue": "",
-                "isDisabled": true,
-                "isLoading": false,
-                "isMulti": false,
-                "isOptionDisabled": [Function],
-                "isRtl": false,
-                "isSearchable": true,
-                "loadingMessage": [Function],
-                "maxMenuHeight": 300,
-                "menuIsOpen": false,
-                "menuPlacement": "bottom",
-                "menuPosition": "absolute",
-                "menuShouldBlockScroll": false,
-                "menuShouldScrollIntoView": true,
-                "minMenuHeight": 140,
-                "noOptionsMessage": [Function],
-                "onChange": [Function],
-                "onInputChange": [Function],
-                "onMenuClose": [Function],
-                "onMenuOpen": [Function],
-                "openMenuOnClick": true,
-                "openMenuOnFocus": false,
-                "options": Array [],
-                "pageSize": 5,
-                "placeholder": "Select...",
-                "screenReaderStatus": [Function],
-                "styles": Object {},
-                "tabIndex": "0",
-                "tabSelectsValue": true,
-                "title": "Topic",
-                "value": null,
-              }
-            }
-            setValue={[Function]}
-          >
-            <div
-              className="emotion-34 emotion-16"
-              id="topic-dropdown"
-              onKeyDown={[Function]}
-            >
-              <Control
-                clearValue={[Function]}
-                cx={[Function]}
-                getStyles={[Function]}
-                getValue={[Function]}
-                hasValue={false}
-                innerProps={
-                  Object {
-                    "onMouseDown": [Function],
-                    "onTouchEnd": [Function],
-                  }
-                }
-                innerRef={[Function]}
-                isDisabled={true}
-                isFocused={false}
-                isMulti={false}
-                isRtl={false}
-                options={Array []}
-                selectOption={[Function]}
-                selectProps={
-                  Object {
-                    "backspaceRemovesValue": true,
-                    "blurInputOnSelect": true,
-                    "captureMenuScroll": false,
-                    "className": "emotion-16",
-                    "closeMenuOnScroll": false,
-                    "closeMenuOnSelect": true,
-                    "components": Object {},
-                    "controlShouldRenderValue": true,
-                    "defaultInputValue": "",
-                    "defaultMenuIsOpen": false,
-                    "defaultValue": null,
-                    "escapeClearsValue": false,
-                    "filterOption": [Function],
-                    "formatGroupLabel": [Function],
-                    "getOptionLabel": [Function],
-                    "getOptionValue": [Function],
-                    "id": "topic-dropdown",
-                    "inputValue": "",
-                    "isDisabled": true,
-                    "isLoading": false,
-                    "isMulti": false,
-                    "isOptionDisabled": [Function],
-                    "isRtl": false,
-                    "isSearchable": true,
-                    "loadingMessage": [Function],
-                    "maxMenuHeight": 300,
-                    "menuIsOpen": false,
-                    "menuPlacement": "bottom",
-                    "menuPosition": "absolute",
-                    "menuShouldBlockScroll": false,
-                    "menuShouldScrollIntoView": true,
-                    "minMenuHeight": 140,
-                    "noOptionsMessage": [Function],
-                    "onChange": [Function],
-                    "onInputChange": [Function],
-                    "onMenuClose": [Function],
-                    "onMenuOpen": [Function],
-                    "openMenuOnClick": true,
-                    "openMenuOnFocus": false,
-                    "options": Array [],
-                    "pageSize": 5,
-                    "placeholder": "Select...",
-                    "screenReaderStatus": [Function],
-                    "styles": Object {},
-                    "tabIndex": "0",
-                    "tabSelectsValue": true,
-                    "title": "Topic",
-                    "value": null,
-                  }
-                }
-                setValue={[Function]}
-              >
-                <div
-                  className="emotion-33"
-                  onMouseDown={[Function]}
-                  onTouchEnd={[Function]}
-                >
-                  <ValueContainer
-                    clearValue={[Function]}
-                    cx={[Function]}
-                    getStyles={[Function]}
-                    getValue={[Function]}
-                    hasValue={false}
-                    isDisabled={true}
-                    isMulti={false}
-                    isRtl={false}
-                    options={Array []}
-                    selectOption={[Function]}
-                    selectProps={
-                      Object {
-                        "backspaceRemovesValue": true,
-                        "blurInputOnSelect": true,
-                        "captureMenuScroll": false,
-                        "className": "emotion-16",
-                        "closeMenuOnScroll": false,
-                        "closeMenuOnSelect": true,
-                        "components": Object {},
-                        "controlShouldRenderValue": true,
-                        "defaultInputValue": "",
-                        "defaultMenuIsOpen": false,
-                        "defaultValue": null,
-                        "escapeClearsValue": false,
-                        "filterOption": [Function],
-                        "formatGroupLabel": [Function],
-                        "getOptionLabel": [Function],
-                        "getOptionValue": [Function],
-                        "id": "topic-dropdown",
-                        "inputValue": "",
-                        "isDisabled": true,
-                        "isLoading": false,
-                        "isMulti": false,
-                        "isOptionDisabled": [Function],
-                        "isRtl": false,
-                        "isSearchable": true,
-                        "loadingMessage": [Function],
-                        "maxMenuHeight": 300,
-                        "menuIsOpen": false,
-                        "menuPlacement": "bottom",
-                        "menuPosition": "absolute",
-                        "menuShouldBlockScroll": false,
-                        "menuShouldScrollIntoView": true,
-                        "minMenuHeight": 140,
-                        "noOptionsMessage": [Function],
-                        "onChange": [Function],
-                        "onInputChange": [Function],
-                        "onMenuClose": [Function],
-                        "onMenuOpen": [Function],
-                        "openMenuOnClick": true,
-                        "openMenuOnFocus": false,
-                        "options": Array [],
-                        "pageSize": 5,
-                        "placeholder": "Select...",
-                        "screenReaderStatus": [Function],
-                        "styles": Object {},
-                        "tabIndex": "0",
-                        "tabSelectsValue": true,
-                        "title": "Topic",
-                        "value": null,
-                      }
-                    }
-                    setValue={[Function]}
-                  >
-                    <div
-                      className="emotion-9"
-                    >
-                      <Placeholder
-                        clearValue={[Function]}
-                        cx={[Function]}
-                        getStyles={[Function]}
-                        getValue={[Function]}
-                        hasValue={false}
-                        isDisabled={true}
-                        isMulti={false}
-                        isRtl={false}
-                        key="placeholder"
-                        options={Array []}
-                        selectOption={[Function]}
-                        selectProps={
-                          Object {
-                            "backspaceRemovesValue": true,
-                            "blurInputOnSelect": true,
-                            "captureMenuScroll": false,
-                            "className": "emotion-16",
-                            "closeMenuOnScroll": false,
-                            "closeMenuOnSelect": true,
-                            "components": Object {},
-                            "controlShouldRenderValue": true,
-                            "defaultInputValue": "",
-                            "defaultMenuIsOpen": false,
-                            "defaultValue": null,
-                            "escapeClearsValue": false,
-                            "filterOption": [Function],
-                            "formatGroupLabel": [Function],
-                            "getOptionLabel": [Function],
-                            "getOptionValue": [Function],
-                            "id": "topic-dropdown",
-                            "inputValue": "",
-                            "isDisabled": true,
-                            "isLoading": false,
-                            "isMulti": false,
-                            "isOptionDisabled": [Function],
-                            "isRtl": false,
-                            "isSearchable": true,
-                            "loadingMessage": [Function],
-                            "maxMenuHeight": 300,
-                            "menuIsOpen": false,
-                            "menuPlacement": "bottom",
-                            "menuPosition": "absolute",
-                            "menuShouldBlockScroll": false,
-                            "menuShouldScrollIntoView": true,
-                            "minMenuHeight": 140,
-                            "noOptionsMessage": [Function],
-                            "onChange": [Function],
-                            "onInputChange": [Function],
-                            "onMenuClose": [Function],
-                            "onMenuOpen": [Function],
-                            "openMenuOnClick": true,
-                            "openMenuOnFocus": false,
-                            "options": Array [],
-                            "pageSize": 5,
-                            "placeholder": "Select...",
-                            "screenReaderStatus": [Function],
-                            "styles": Object {},
-                            "tabIndex": "0",
-                            "tabSelectsValue": true,
-                            "title": "Topic",
-                            "value": null,
-                          }
-                        }
-                        setValue={[Function]}
-                      >
-                        <div
-                          className="emotion-7"
-                        >
-                          Select...
-                        </div>
-                      </Placeholder>
-                      <Input
-                        aria-autocomplete="list"
-                        autoCapitalize="none"
-                        autoComplete="off"
-                        autoCorrect="off"
-                        cx={[Function]}
-                        getStyles={[Function]}
-                        id="react-select-9-input"
-                        innerRef={[Function]}
-                        isDisabled={true}
-                        isHidden={false}
-                        onBlur={[Function]}
-                        onChange={[Function]}
-                        onFocus={[Function]}
-                        spellCheck="false"
-                        tabIndex="0"
-                        type="text"
-                        value=""
-                      >
-                        <div
-                          className="emotion-8"
-                        >
-                          <AutosizeInput
-                            aria-autocomplete="list"
-                            autoCapitalize="none"
-                            autoComplete="off"
-                            autoCorrect="off"
-                            className=""
-                            disabled={true}
-                            id="react-select-9-input"
-                            injectStyles={true}
-                            inputRef={[Function]}
-                            inputStyle={
-                              Object {
-                                "background": 0,
-                                "border": 0,
-                                "color": "inherit",
-                                "fontSize": "inherit",
-                                "opacity": 1,
-                                "outline": 0,
-                                "padding": 0,
-                              }
-                            }
-                            minWidth={1}
-                            onBlur={[Function]}
-                            onChange={[Function]}
-                            onFocus={[Function]}
-                            spellCheck="false"
-                            tabIndex="0"
-                            type="text"
-                            value=""
-                          >
-                            <div
-                              className=""
-                              style={
-                                Object {
-                                  "display": "inline-block",
-                                }
-                              }
-                            >
-                              <input
-                                aria-autocomplete="list"
-                                autoCapitalize="none"
-                                autoComplete="off"
-                                autoCorrect="off"
-                                disabled={true}
-                                id="react-select-9-input"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                spellCheck="false"
-                                style={
-                                  Object {
-                                    "background": 0,
-                                    "border": 0,
-                                    "boxSizing": "content-box",
-                                    "color": "inherit",
-                                    "fontSize": "inherit",
-                                    "opacity": 1,
-                                    "outline": 0,
-                                    "padding": 0,
-                                    "width": "2px",
-                                  }
-                                }
-                                tabIndex="0"
-                                type="text"
-                                value=""
-                              />
-                              <div
-                                style={
-                                  Object {
-                                    "height": 0,
-                                    "left": 0,
-                                    "overflow": "scroll",
-                                    "position": "absolute",
-                                    "top": 0,
-                                    "visibility": "hidden",
-                                    "whiteSpace": "pre",
-                                  }
-                                }
-                              />
-                            </div>
-                          </AutosizeInput>
-                        </div>
-                      </Input>
-                    </div>
-                  </ValueContainer>
-                  <IndicatorsContainer
-                    clearValue={[Function]}
-                    cx={[Function]}
-                    getStyles={[Function]}
-                    getValue={[Function]}
-                    hasValue={false}
-                    isDisabled={true}
-                    isMulti={false}
-                    isRtl={false}
-                    options={Array []}
-                    selectOption={[Function]}
-                    selectProps={
-                      Object {
-                        "backspaceRemovesValue": true,
-                        "blurInputOnSelect": true,
-                        "captureMenuScroll": false,
-                        "className": "emotion-16",
-                        "closeMenuOnScroll": false,
-                        "closeMenuOnSelect": true,
-                        "components": Object {},
-                        "controlShouldRenderValue": true,
-                        "defaultInputValue": "",
-                        "defaultMenuIsOpen": false,
-                        "defaultValue": null,
-                        "escapeClearsValue": false,
-                        "filterOption": [Function],
-                        "formatGroupLabel": [Function],
-                        "getOptionLabel": [Function],
-                        "getOptionValue": [Function],
-                        "id": "topic-dropdown",
-                        "inputValue": "",
-                        "isDisabled": true,
-                        "isLoading": false,
-                        "isMulti": false,
-                        "isOptionDisabled": [Function],
-                        "isRtl": false,
-                        "isSearchable": true,
-                        "loadingMessage": [Function],
-                        "maxMenuHeight": 300,
-                        "menuIsOpen": false,
-                        "menuPlacement": "bottom",
-                        "menuPosition": "absolute",
-                        "menuShouldBlockScroll": false,
-                        "menuShouldScrollIntoView": true,
-                        "minMenuHeight": 140,
-                        "noOptionsMessage": [Function],
-                        "onChange": [Function],
-                        "onInputChange": [Function],
-                        "onMenuClose": [Function],
-                        "onMenuOpen": [Function],
-                        "openMenuOnClick": true,
-                        "openMenuOnFocus": false,
-                        "options": Array [],
-                        "pageSize": 5,
-                        "placeholder": "Select...",
-                        "screenReaderStatus": [Function],
-                        "styles": Object {},
-                        "tabIndex": "0",
-                        "tabSelectsValue": true,
-                        "title": "Topic",
-                        "value": null,
-                      }
-                    }
-                    setValue={[Function]}
-                  >
-                    <div
-                      className="emotion-13"
-                    >
-                      <IndicatorSeparator
-                        clearValue={[Function]}
-                        cx={[Function]}
-                        getStyles={[Function]}
-                        getValue={[Function]}
-                        hasValue={false}
-                        isDisabled={true}
-                        isFocused={false}
-                        isMulti={false}
-                        isRtl={false}
-                        options={Array []}
-                        selectOption={[Function]}
-                        selectProps={
-                          Object {
-                            "backspaceRemovesValue": true,
-                            "blurInputOnSelect": true,
-                            "captureMenuScroll": false,
-                            "className": "emotion-16",
-                            "closeMenuOnScroll": false,
-                            "closeMenuOnSelect": true,
-                            "components": Object {},
-                            "controlShouldRenderValue": true,
-                            "defaultInputValue": "",
-                            "defaultMenuIsOpen": false,
-                            "defaultValue": null,
-                            "escapeClearsValue": false,
-                            "filterOption": [Function],
-                            "formatGroupLabel": [Function],
-                            "getOptionLabel": [Function],
-                            "getOptionValue": [Function],
-                            "id": "topic-dropdown",
-                            "inputValue": "",
-                            "isDisabled": true,
-                            "isLoading": false,
-                            "isMulti": false,
-                            "isOptionDisabled": [Function],
-                            "isRtl": false,
-                            "isSearchable": true,
-                            "loadingMessage": [Function],
-                            "maxMenuHeight": 300,
-                            "menuIsOpen": false,
-                            "menuPlacement": "bottom",
-                            "menuPosition": "absolute",
-                            "menuShouldBlockScroll": false,
-                            "menuShouldScrollIntoView": true,
-                            "minMenuHeight": 140,
-                            "noOptionsMessage": [Function],
-                            "onChange": [Function],
-                            "onInputChange": [Function],
-                            "onMenuClose": [Function],
-                            "onMenuOpen": [Function],
-                            "openMenuOnClick": true,
-                            "openMenuOnFocus": false,
-                            "options": Array [],
-                            "pageSize": 5,
-                            "placeholder": "Select...",
-                            "screenReaderStatus": [Function],
-                            "styles": Object {},
-                            "tabIndex": "0",
-                            "tabSelectsValue": true,
-                            "title": "Topic",
-                            "value": null,
-                          }
-                        }
-                        setValue={[Function]}
-                      >
-                        <span
-                          className="emotion-29"
-                        />
-                      </IndicatorSeparator>
-                      <DropdownIndicator
-                        clearValue={[Function]}
-                        cx={[Function]}
-                        getStyles={[Function]}
-                        getValue={[Function]}
-                        hasValue={false}
-                        innerProps={
-                          Object {
-                            "aria-hidden": "true",
-                            "onMouseDown": [Function],
-                            "onTouchEnd": [Function],
-                          }
-                        }
-                        isDisabled={true}
-                        isFocused={false}
-                        isMulti={false}
-                        isRtl={false}
-                        options={Array []}
-                        selectOption={[Function]}
-                        selectProps={
-                          Object {
-                            "backspaceRemovesValue": true,
-                            "blurInputOnSelect": true,
-                            "captureMenuScroll": false,
-                            "className": "emotion-16",
-                            "closeMenuOnScroll": false,
-                            "closeMenuOnSelect": true,
-                            "components": Object {},
-                            "controlShouldRenderValue": true,
-                            "defaultInputValue": "",
-                            "defaultMenuIsOpen": false,
-                            "defaultValue": null,
-                            "escapeClearsValue": false,
-                            "filterOption": [Function],
-                            "formatGroupLabel": [Function],
-                            "getOptionLabel": [Function],
-                            "getOptionValue": [Function],
-                            "id": "topic-dropdown",
-                            "inputValue": "",
-                            "isDisabled": true,
-                            "isLoading": false,
-                            "isMulti": false,
-                            "isOptionDisabled": [Function],
-                            "isRtl": false,
-                            "isSearchable": true,
-                            "loadingMessage": [Function],
-                            "maxMenuHeight": 300,
-                            "menuIsOpen": false,
-                            "menuPlacement": "bottom",
-                            "menuPosition": "absolute",
-                            "menuShouldBlockScroll": false,
-                            "menuShouldScrollIntoView": true,
-                            "minMenuHeight": 140,
-                            "noOptionsMessage": [Function],
-                            "onChange": [Function],
-                            "onInputChange": [Function],
-                            "onMenuClose": [Function],
-                            "onMenuOpen": [Function],
-                            "openMenuOnClick": true,
-                            "openMenuOnFocus": false,
-                            "options": Array [],
-                            "pageSize": 5,
-                            "placeholder": "Select...",
-                            "screenReaderStatus": [Function],
-                            "styles": Object {},
-                            "tabIndex": "0",
-                            "tabSelectsValue": true,
-                            "title": "Topic",
-                            "value": null,
-                          }
-                        }
-                        setValue={[Function]}
-                      >
-                        <div
-                          aria-hidden="true"
-                          className="emotion-12"
-                          onMouseDown={[Function]}
-                          onTouchEnd={[Function]}
-                        >
-                          <DownChevron>
-                            <Svg
-                              size={20}
-                            >
-                              <svg
-                                aria-hidden="true"
-                                className="emotion-11"
-                                focusable="false"
-                                height={20}
-                                viewBox="0 0 20 20"
-                                width={20}
-                              >
-                                <path
-                                  d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
-                                />
-                              </svg>
-                            </Svg>
-                          </DownChevron>
-                        </div>
-                      </DropdownIndicator>
-                    </div>
-                  </IndicatorsContainer>
-                </div>
-              </Control>
-            </div>
-          </SelectContainer>
-        </Select>
-      </StateManager>
-    </div>
-    <hr
-      className="emotion-20"
-    />
-    <div
-      className="emotion-1"
-    >
-      <p
-        className="emotion-0"
-      >
-        Pre-defined Properties
-      </p>
-    </div>
-    <MessagePropertyInput
-      deleteRow={[Function]}
-      handlePropertyNameChange={[Function]}
-      handlePropertyValueChange={[Function]}
-      permittedValues={Array []}
-      properties={Array []}
-    >
-      <div />
-    </MessagePropertyInput>
-    <form>
-      <div
-        className="emotion-1"
-      >
-        <Button
-          active={false}
-          block={false}
-          bsClass="btn"
-          bsStyle="default"
-          className="emotion-43 emotion-44"
-          disabled={false}
-          onClick={[Function]}
-        >
-          <button
-            className="emotion-43 emotion-44 btn btn-default"
-            disabled={false}
-            onClick={[Function]}
-            type="button"
-          >
-            Loading pre-defined properties...
-          </button>
-        </Button>
-      </div>
-    </form>
-    <hr />
-    <div
-      className="emotion-1"
-    >
-      <p
-        className="emotion-0"
-      >
-        User-defined Properties
-      </p>
-    </div>
-    <MessagePropertyInput
-      deleteRow={[Function]}
-      handlePropertyNameChange={[Function]}
-      handlePropertyValueChange={[Function]}
-      properties={
-        Array [
-          Object {
-            "name": "test1",
-            "value": "any value 1",
-          },
-          Object {
-            "name": "test2",
-            "value": "any value 2",
-          },
-          Object {
-            "name": "test2",
-            "value": "any value 3",
-          },
-        ]
-      }
-      reservedPropertyNames={Array []}
-    >
-      <div>
-        <MessagePropertyInputRow
-          deleteRow={[Function]}
-          handlePropertyNameChange={[Function]}
-          handlePropertyValueChange={[Function]}
-          index={0}
-          isPropertyNameValid={[Function]}
-          key="0"
-          propertyName="test1"
-          propertyValue="any value 1"
-        >
-          <div>
-            <form
-              className="emotion-53"
-              onSubmit={[Function]}
-            >
-              <FieldGroup
-                className="emotion-50"
-                id="formControlsText"
-                key="0"
-                onChange={[Function]}
-                placeholder="Enter property name"
-                type="text"
-                validation={null}
-                value="test1"
-              >
-                <FormGroup
-                  bsClass="form-group"
-                  controlId="formControlsText"
-                  validationState={null}
-                >
-                  <div
-                    className="form-group"
-                  >
-                    <FormControl
-                      bsClass="form-control"
-                      className="emotion-50"
-                      componentClass="input"
-                      onChange={[Function]}
-                      placeholder="Enter property name"
-                      type="text"
-                      value="test1"
-                    >
-                      <input
-                        className="emotion-50 form-control"
-                        id="formControlsText"
-                        onChange={[Function]}
-                        placeholder="Enter property name"
-                        type="text"
-                        value="test1"
-                      />
-                    </FormControl>
-                  </div>
-                </FormGroup>
-              </FieldGroup>
-            </form>
-            <form
-              className="emotion-57"
-              onSubmit={[Function]}
-            >
-              <FieldGroup
-                className="emotion-50"
-                id="formControlsText"
-                key="0"
-                onChange={[Function]}
-                placeholder="Enter property value"
-                type="text"
-                value="any value 1"
-              >
-                <FormGroup
-                  bsClass="form-group"
-                  controlId="formControlsText"
-                >
-                  <div
-                    className="form-group"
-                  >
-                    <FormControl
-                      bsClass="form-control"
-                      className="emotion-50"
-                      componentClass="input"
-                      onChange={[Function]}
-                      placeholder="Enter property value"
-                      type="text"
-                      value="any value 1"
-                    >
-                      <input
-                        className="emotion-50 form-control"
-                        id="formControlsText"
-                        onChange={[Function]}
-                        placeholder="Enter property value"
-                        type="text"
-                        value="any value 1"
-                      />
-                    </FormControl>
-                  </div>
-                </FormGroup>
-              </FieldGroup>
-            </form>
-            <div
-              className="emotion-60"
-            >
-              <Button
-                active={false}
-                block={false}
-                bsClass="btn"
-                bsStyle="danger"
-                className="emotion-50"
-                disabled={false}
-                onClick={[Function]}
-              >
-                <button
-                  className="emotion-50 btn btn-danger"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Delete
-                </button>
-              </Button>
-            </div>
-          </div>
-        </MessagePropertyInputRow>
-        <MessagePropertyInputRow
-          deleteRow={[Function]}
-          handlePropertyNameChange={[Function]}
-          handlePropertyValueChange={[Function]}
-          index={1}
-          isPropertyNameValid={[Function]}
-          key="1"
-          propertyName="test2"
-          propertyValue="any value 2"
-        >
-          <div>
-            <form
-              className="emotion-53"
-              onSubmit={[Function]}
-            >
-              <FieldGroup
-                className="emotion-50"
-                id="formControlsText"
-                key="1"
-                onChange={[Function]}
-                placeholder="Enter property name"
-                type="text"
-                validation="error"
-                value="test2"
-              >
-                <FormGroup
-                  bsClass="form-group"
-                  controlId="formControlsText"
-                  validationState="error"
-                >
-                  <div
-                    className="form-group has-error"
-                  >
-                    <FormControl
-                      bsClass="form-control"
-                      className="emotion-50"
-                      componentClass="input"
-                      onChange={[Function]}
-                      placeholder="Enter property name"
-                      type="text"
-                      value="test2"
-                    >
-                      <input
-                        className="emotion-50 form-control"
-                        id="formControlsText"
-                        onChange={[Function]}
-                        placeholder="Enter property name"
-                        type="text"
-                        value="test2"
-                      />
-                    </FormControl>
-                  </div>
-                </FormGroup>
-              </FieldGroup>
-            </form>
-            <form
-              className="emotion-57"
-              onSubmit={[Function]}
-            >
-              <FieldGroup
-                className="emotion-50"
-                id="formControlsText"
-                key="1"
-                onChange={[Function]}
-                placeholder="Enter property value"
-                type="text"
-                value="any value 2"
-              >
-                <FormGroup
-                  bsClass="form-group"
-                  controlId="formControlsText"
-                >
-                  <div
-                    className="form-group"
-                  >
-                    <FormControl
-                      bsClass="form-control"
-                      className="emotion-50"
-                      componentClass="input"
-                      onChange={[Function]}
-                      placeholder="Enter property value"
-                      type="text"
-                      value="any value 2"
-                    >
-                      <input
-                        className="emotion-50 form-control"
-                        id="formControlsText"
-                        onChange={[Function]}
-                        placeholder="Enter property value"
-                        type="text"
-                        value="any value 2"
-                      />
-                    </FormControl>
-                  </div>
-                </FormGroup>
-              </FieldGroup>
-            </form>
-            <div
-              className="emotion-60"
-            >
-              <Button
-                active={false}
-                block={false}
-                bsClass="btn"
-                bsStyle="danger"
-                className="emotion-50"
-                disabled={false}
-                onClick={[Function]}
-              >
-                <button
-                  className="emotion-50 btn btn-danger"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Delete
-                </button>
-              </Button>
-            </div>
-          </div>
-        </MessagePropertyInputRow>
-        <MessagePropertyInputRow
-          deleteRow={[Function]}
-          handlePropertyNameChange={[Function]}
-          handlePropertyValueChange={[Function]}
-          index={2}
-          isPropertyNameValid={[Function]}
-          key="2"
-          propertyName="test2"
-          propertyValue="any value 3"
-        >
-          <div>
-            <form
-              className="emotion-53"
-              onSubmit={[Function]}
-            >
-              <FieldGroup
-                className="emotion-50"
-                id="formControlsText"
-                key="2"
-                onChange={[Function]}
-                placeholder="Enter property name"
-                type="text"
-                validation="error"
-                value="test2"
-              >
-                <FormGroup
-                  bsClass="form-group"
-                  controlId="formControlsText"
-                  validationState="error"
-                >
-                  <div
-                    className="form-group has-error"
-                  >
-                    <FormControl
-                      bsClass="form-control"
-                      className="emotion-50"
-                      componentClass="input"
-                      onChange={[Function]}
-                      placeholder="Enter property name"
-                      type="text"
-                      value="test2"
-                    >
-                      <input
-                        className="emotion-50 form-control"
-                        id="formControlsText"
-                        onChange={[Function]}
-                        placeholder="Enter property name"
-                        type="text"
-                        value="test2"
-                      />
-                    </FormControl>
-                  </div>
-                </FormGroup>
-              </FieldGroup>
-            </form>
-            <form
-              className="emotion-57"
-              onSubmit={[Function]}
-            >
-              <FieldGroup
-                className="emotion-50"
-                id="formControlsText"
-                key="2"
-                onChange={[Function]}
-                placeholder="Enter property value"
-                type="text"
-                value="any value 3"
-              >
-                <FormGroup
-                  bsClass="form-group"
-                  controlId="formControlsText"
-                >
-                  <div
-                    className="form-group"
-                  >
-                    <FormControl
-                      bsClass="form-control"
-                      className="emotion-50"
-                      componentClass="input"
-                      onChange={[Function]}
-                      placeholder="Enter property value"
-                      type="text"
-                      value="any value 3"
-                    >
-                      <input
-                        className="emotion-50 form-control"
-                        id="formControlsText"
-                        onChange={[Function]}
-                        placeholder="Enter property value"
-                        type="text"
-                        value="any value 3"
-                      />
-                    </FormControl>
-                  </div>
-                </FormGroup>
-              </FieldGroup>
-            </form>
-            <div
-              className="emotion-60"
-            >
-              <Button
-                active={false}
-                block={false}
-                bsClass="btn"
-                bsStyle="danger"
-                className="emotion-50"
-                disabled={false}
-                onClick={[Function]}
-              >
-                <button
-                  className="emotion-50 btn btn-danger"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                >
-                  Delete
-                </button>
-              </Button>
-            </div>
-          </div>
-        </MessagePropertyInputRow>
-      </div>
-    </MessagePropertyInput>
-    <form>
-      <div
-        className="emotion-1"
-      >
-        <Button
-          active={false}
-          block={false}
-          bsClass="btn"
-          bsStyle="default"
-          className="emotion-43"
-          disabled={false}
-          onClick={[Function]}
-        >
-          <button
-            className="emotion-43 btn btn-default"
-            disabled={false}
-            onClick={[Function]}
-            type="button"
-          >
-            Add new application specific property
-          </button>
-        </Button>
-      </div>
-    </form>
-    <hr />
-    <form>
-      <FormGroup
-        bsClass="form-group"
-        className="emotion-1"
-        controlId="formControlsMessageBodyText"
+        className="emotion-14"
+        onMouseDown={[Function]}
+        onTouchEnd={[Function]}
       >
         <div
-          className="emotion-1 form-group"
+          className="emotion-9"
         >
-          <ControlLabel
-            bsClass="control-label"
-            className="emotion-0"
-            srOnly={false}
+          <div
+            className="emotion-7"
           >
-            <label
-              className="emotion-0 control-label"
-              htmlFor="formControlsMessageBodyText"
+            Select...
+          </div>
+          <div
+            className="emotion-8"
+          >
+            <div
+              className=""
+              style={
+                Object {
+                  "display": "inline-block",
+                }
+              }
             >
-              Body
-            </label>
-          </ControlLabel>
-          <FormControl
-            bsClass="form-control"
-            className="emotion-88"
-            componentClass="textarea"
-            onChange={[Function]}
-            placeholder="Enter message body"
-            value=""
-          >
-            <textarea
-              className="emotion-88 form-control"
-              id="formControlsMessageBodyText"
-              onChange={[Function]}
-              placeholder="Enter message body"
-              value=""
-            />
-          </FormControl>
+              <input
+                aria-autocomplete="list"
+                aria-label={undefined}
+                aria-labelledby={undefined}
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
+                className={undefined}
+                disabled={false}
+                id="react-select-4-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                spellCheck="false"
+                style={
+                  Object {
+                    "background": 0,
+                    "border": 0,
+                    "boxSizing": "content-box",
+                    "color": "inherit",
+                    "fontSize": "inherit",
+                    "opacity": 1,
+                    "outline": 0,
+                    "padding": 0,
+                    "width": "1px",
+                  }
+                }
+                tabIndex="0"
+                type="text"
+                value=""
+              />
+              <div
+                style={
+                  Object {
+                    "height": 0,
+                    "left": 0,
+                    "overflow": "scroll",
+                    "position": "absolute",
+                    "top": 0,
+                    "visibility": "hidden",
+                    "whiteSpace": "pre",
+                  }
+                }
+              >
+                
+              </div>
+            </div>
+          </div>
         </div>
-      </FormGroup>
-    </form>
-    <form>
-      <ButtonWithConfirmationModal
-        buttonDisabled={true}
-        buttonStyle="default"
-        buttonText="Send Message"
-        confirmAction={[Function]}
-        confirmButtonText="Send"
-        id="submitButton"
-        modalBody={
-          <Unknown>
-            <p>
-              Message will be sent to: undefined
-            </p>
-            <Unknown>
-              <p>
-                Warning: repetitive property name: 'test2'
-              </p>
-            </Unknown>
-            <p>
-              Confirm sending message?
-            </p>
-          </Unknown>
-        }
-        modalTitle="Send Message to undefined"
-      >
-        <Button
-          active={false}
-          block={false}
-          bsClass="btn"
-          bsStyle="default"
-          disabled={true}
-          onClick={[Function]}
+        <div
+          className="emotion-13"
         >
-          <button
-            className="btn btn-default"
-            disabled={true}
-            onClick={[Function]}
-            type="button"
-          >
-            Send Message
-          </button>
-        </Button>
-        <Modal
-          animation={true}
-          autoFocus={true}
-          backdrop={true}
-          bsClass="modal"
-          dialogComponentClass={[Function]}
-          enforceFocus={true}
-          keyboard={true}
-          manager={
-            ModalManager {
-              "add": [Function],
-              "containers": Array [],
-              "data": Array [],
-              "handleContainerOverflow": true,
-              "hideSiblingNodes": true,
-              "isTopModal": [Function],
-              "modals": Array [],
-              "remove": [Function],
-            }
-          }
-          onHide={[Function]}
-          renderBackdrop={[Function]}
-          restoreFocus={true}
-          show={false}
-        >
-          <Modal
-            autoFocus={true}
-            backdrop={true}
-            backdropClassName="modal-backdrop"
-            backdropTransition={[Function]}
-            containerClassName="modal-open"
-            enforceFocus={true}
-            keyboard={true}
-            manager={
-              ModalManager {
-                "add": [Function],
-                "containers": Array [],
-                "data": Array [],
-                "handleContainerOverflow": true,
-                "hideSiblingNodes": true,
-                "isTopModal": [Function],
-                "modals": Array [],
-                "remove": [Function],
-              }
-            }
-            onEntering={[Function]}
-            onExited={[Function]}
-            onHide={[Function]}
-            renderBackdrop={[Function]}
-            restoreFocus={true}
-            show={false}
-            transition={[Function]}
+          <span
+            className="emotion-10"
           />
-        </Modal>
-      </ButtonWithConfirmationModal>
-      <ButtonWithConfirmationModal
-        buttonText="Reset Fields"
-        confirmAction={[Function]}
-        confirmButtonText="Reset"
-        id="cancelButton"
-        modalBody={
-          <Unknown>
-            <p>
-              Are you sure you want to reset ALL fields of the current message?
-            </p>
-            <p>
-              Note: if you are replaying an existing message, resetting the fields here will have NO effect on the orignal message.
-            </p>
-          </Unknown>
-        }
-        modalTitle="Reset all fields"
-      >
-        <Button
-          active={false}
-          block={false}
-          bsClass="btn"
-          bsStyle="danger"
-          disabled={false}
-          onClick={[Function]}
-        >
-          <button
-            className="btn btn-danger"
-            disabled={false}
-            onClick={[Function]}
-            type="button"
+          <div
+            aria-hidden="true"
+            className="emotion-12"
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
           >
-            Reset Fields
-          </button>
-        </Button>
-        <Modal
-          animation={true}
-          autoFocus={true}
-          backdrop={true}
-          bsClass="modal"
-          dialogComponentClass={[Function]}
-          enforceFocus={true}
-          keyboard={true}
-          manager={
-            ModalManager {
-              "add": [Function],
-              "containers": Array [],
-              "data": Array [],
-              "handleContainerOverflow": true,
-              "hideSiblingNodes": true,
-              "isTopModal": [Function],
-              "modals": Array [],
-              "remove": [Function],
-            }
-          }
-          onHide={[Function]}
-          renderBackdrop={[Function]}
-          restoreFocus={true}
-          show={false}
-        >
-          <Modal
-            autoFocus={true}
-            backdrop={true}
-            backdropClassName="modal-backdrop"
-            backdropTransition={[Function]}
-            containerClassName="modal-open"
-            enforceFocus={true}
-            keyboard={true}
-            manager={
-              ModalManager {
-                "add": [Function],
-                "containers": Array [],
-                "data": Array [],
-                "handleContainerOverflow": true,
-                "hideSiblingNodes": true,
-                "isTopModal": [Function],
-                "modals": Array [],
-                "remove": [Function],
-              }
-            }
-            onEntering={[Function]}
-            onExited={[Function]}
-            onHide={[Function]}
-            renderBackdrop={[Function]}
-            restoreFocus={true}
-            show={false}
-            transition={[Function]}
-          />
-        </Modal>
-      </ButtonWithConfirmationModal>
-    </form>
+            <svg
+              aria-hidden="true"
+              className="emotion-11"
+              focusable="false"
+              height={20}
+              viewBox="0 0 20 20"
+              width={20}
+            >
+              <path
+                d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</MessageInput>
+  <div
+    className="emotion-17"
+  >
+    <div
+      onClick={[Function]}
+    >
+      <input
+        checked={false}
+        className="emotion-2"
+        id="topic-selection-radio"
+        onChange={[Function]}
+        type="radio"
+        value="topic"
+      />
+      <div
+        className="emotion-1 emotion-4 emotion-0 emotion-6"
+      >
+        <p>
+          Topic
+        </p>
+      </div>
+    </div>
+    <div
+      className="emotion-31 emotion-16"
+      id="topic-dropdown"
+      onKeyDown={[Function]}
+    >
+      <div
+        className="emotion-30"
+        onMouseDown={[Function]}
+        onTouchEnd={[Function]}
+      >
+        <div
+          className="emotion-9"
+        >
+          <div
+            className="emotion-7"
+          >
+            Select...
+          </div>
+          <div
+            className="emotion-8"
+          >
+            <div
+              className=""
+              style={
+                Object {
+                  "display": "inline-block",
+                }
+              }
+            >
+              <input
+                aria-autocomplete="list"
+                aria-label={undefined}
+                aria-labelledby={undefined}
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
+                className={undefined}
+                disabled={true}
+                id="react-select-5-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                spellCheck="false"
+                style={
+                  Object {
+                    "background": 0,
+                    "border": 0,
+                    "boxSizing": "content-box",
+                    "color": "inherit",
+                    "fontSize": "inherit",
+                    "opacity": 1,
+                    "outline": 0,
+                    "padding": 0,
+                    "width": "1px",
+                  }
+                }
+                tabIndex="0"
+                type="text"
+                value=""
+              />
+              <div
+                style={
+                  Object {
+                    "height": 0,
+                    "left": 0,
+                    "overflow": "scroll",
+                    "position": "absolute",
+                    "top": 0,
+                    "visibility": "hidden",
+                    "whiteSpace": "pre",
+                  }
+                }
+              >
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="emotion-13"
+        >
+          <span
+            className="emotion-26"
+          />
+          <div
+            aria-hidden="true"
+            className="emotion-12"
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+          >
+            <svg
+              aria-hidden="true"
+              className="emotion-11"
+              focusable="false"
+              height={20}
+              viewBox="0 0 20 20"
+              width={20}
+            >
+              <path
+                d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr
+    className="emotion-17"
+  />
+  <div
+    className="emotion-1"
+  >
+    <p
+      className="emotion-0"
+    >
+      Pre-defined Properties
+    </p>
+  </div>
+  <div />
+  <form>
+    <div
+      className="emotion-1"
+    >
+      <button
+        className="emotion-37 btn btn-default"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Add new Azure property
+      </button>
+    </div>
+  </form>
+  <hr />
+  <div
+    className="emotion-1"
+  >
+    <p
+      className="emotion-0"
+    >
+      User-defined Properties
+    </p>
+  </div>
+  <div />
+  <form>
+    <div
+      className="emotion-1"
+    >
+      <button
+        className="emotion-37 btn btn-default"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Add new application specific property
+      </button>
+    </div>
+  </form>
+  <hr />
+  <form>
+    <div
+      className="emotion-1 form-group"
+    >
+      <label
+        className="emotion-0 control-label"
+        htmlFor="formControlsMessageBodyText"
+      >
+        Body
+      </label>
+      <textarea
+        className="emotion-44 form-control"
+        id="formControlsMessageBodyText"
+        onChange={[Function]}
+        placeholder="Enter message body"
+        type={undefined}
+        value=""
+      />
+    </div>
+  </form>
+  <form>
+    <button
+      className="btn btn-default"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      Send Message
+    </button>
+    <button
+      className="btn btn-danger"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Reset Fields
+    </button>
+  </form>
+</div>
 `;
 
-exports[`renders correctly 1`] = `
+exports[`renders correctly before data has loaded 1`] = `
 .emotion-47 {
   margin-left: 5px;
   margin-right: 5px;
@@ -3416,7 +1768,7 @@ exports[`renders correctly from a predefined message 1`] = `
                 autoCorrect="off"
                 className={undefined}
                 disabled={false}
-                id="react-select-4-input"
+                id="react-select-6-input"
                 onBlur={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
@@ -3545,7 +1897,7 @@ exports[`renders correctly from a predefined message 1`] = `
                 autoCorrect="off"
                 className={undefined}
                 disabled={true}
-                id="react-select-5-input"
+                id="react-select-7-input"
                 onBlur={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
