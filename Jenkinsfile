@@ -40,6 +40,7 @@ pipeline {
         unstable {
             notifySlack(":large_orange_diamond: Build unstable")
         }
+    }
 }
 
 
