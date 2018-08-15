@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Button, Checkbox } from 'react-bootstrap';
+import { Checkbox, Tooltip } from 'react-bootstrap';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
-import Select from 'react-select';
 import { css } from 'emotion';
 import classNames from 'classnames';
 import { DataTable } from '../Components/DataTable';
 import moment from 'moment';
 import { TimeSpanInput } from '../Components/TimeSpanInput';
+import { CheckboxInput } from '../Components/CheckboxInput';
 import { ButtonWithConfirmationModal } from '../Components/ButtonWithConfirmationModal';
 
 export class EditQueuesPage extends Component {
@@ -19,8 +19,6 @@ export class EditQueuesPage extends Component {
             newQueueData: {},
             receivedData: false
         };
-
-
     }
 
     componentDidMount = () => {
@@ -46,9 +44,6 @@ export class EditQueuesPage extends Component {
             text-align: left;
             padding-left: 15px;
         `;
-        // const width20 = css`
-        //     width: 20%;
-        // `;
         const hrStlye = css`
             color: black;
             background-color: black;
@@ -66,7 +61,19 @@ export class EditQueuesPage extends Component {
         const rowStyle = css`
             text-align: left;
         `;
-        return [leftAlign, hrStlye, headerStyle, tableStyle, rowStyle];
+        const buttonFormStyle = css`
+            text-align: center;
+            padding-bottom: 15px;
+        `;
+        return [leftAlign, hrStlye, headerStyle, tableStyle, rowStyle, buttonFormStyle];
+    }
+
+    getTooltips = () => {
+        const requiresSessionTooltip = <Tooltip id="tooltip">
+            True if the receiver application can only receive from the queue through a MessageSession; false if a queue cannot receive using MessageSession.
+        </Tooltip>;
+
+        return [requiresSessionTooltip];
     }
 
     assembleReadOnlyProperties = (properties) => {
@@ -81,12 +88,31 @@ export class EditQueuesPage extends Component {
         return readOnlyProperties;
     }
 
-    handleTimeSpanChange(time, property) {
+    handlePropertyChange(value, property) {
         const updatedNewQueueData = { ...this.state.newQueueData };
-        updatedNewQueueData[property] = time;
+        updatedNewQueueData[property] = value;
         this.setState({
             newQueueData: updatedNewQueueData
         });
+    }
+
+    //Does not support arrays as properties
+    checkObjectEquality = (obj1, obj2) => {
+        const keys1 = Object.keys(obj1);
+        const keys2 = Object.keys(obj2);
+
+        if (keys1.length !== keys2.length) { return false; }
+
+        for (let i = 0; i < keys1.length; i++) {
+            const key = keys1[i];
+            if (typeof obj1[key] === 'object' && obj1[key] !== null) {  // because typeof null = 'object'
+                if (typeof obj2[key] !== 'object' || !this.checkObjectEquality(obj1[key], obj2[key])) { return false; }
+            } else if (obj1[key] !== obj2[key]) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     updateQueue = () => {
@@ -105,20 +131,21 @@ export class EditQueuesPage extends Component {
         const newQueueData = this.state.newQueueData;
         const { name, autoDeleteOnIdle, activeMessageCount, deadletterMessageCount, mostRecentDeadLetter, enablePartitioning, requiresSession, supportOrdering } = newQueueData;
         const readOnlyProperties = this.assembleReadOnlyProperties(
-            {   // text in the left column: value in the right column
+            {   // text in the left column: key to value in the right column
                 "Name": name,
                 "Active Message Count": activeMessageCount,
                 "Dead Letter Message Count": deadletterMessageCount,
                 "Most Recent Dead Letter": mostRecentDeadLetter
             });
         const colProps = [{ dataField: 'name', text: 'Property Name', headerStyle: { textAlign: 'left' } }, { dataField: 'value', headerStyle: { textAlign: 'left' } }];
-        const [leftAlign, hrStlye, headerStyle, tableStyle, rowStyle] = this.getStyles();
+        const [leftAlign, hrStlye, headerStyle, tableStyle, rowStyle, buttonFormStyle] = this.getStyles();
+        const [requiresSessionTooltip] = this.getTooltips();
 
         return (
             this.state.receivedData ? (
                 <div>
                     <br />
-
+                    {/*Read-only properties*/}
                     <p className={classNames(leftAlign, headerStyle)}>Read-Only Properties</p>
                     <hr className={hrStlye} />
                     <div className={tableStyle} >
@@ -132,73 +159,66 @@ export class EditQueuesPage extends Component {
                         />
                     </div>
 
+                    {/*Editable properties*/}
                     <p className={classNames(leftAlign, headerStyle)}>Editable Properties</p>
                     <hr className={hrStlye} />
-                    <p className={leftAlign}>SupportsOrdering</p>
-                    {/* <Select
-                    className={classNames(leftAlign, width20)}
-                    title="Choose a value"
-                    options={permittedBoolValues}
-                    value={typeof supportOrdering !== 'undefined' ? { value: supportOrdering, label: supportOrdering.toString() } : undefined}
-                    onChange={(event) => {
-                        this.setState({
-                            newQueueData: { ...newQueueData, supportOrdering: event.value }
-                        });
-                    }}
-                    /> */}
-                    <Checkbox
-                        className={leftAlign}
-                        checked={supportOrdering}
-                        onChange={(event) => {
-                            this.setState({
-                                newQueueData: { ...newQueueData, supportOrdering: event.target.checked }
-                            });
-                        }}
+                    <CheckboxInput
+                        text='SupportOrdering'
+                        data={supportOrdering}
+                        onChange={(bool) => this.handlePropertyChange(bool, 'supportOrdering')}
                     />
                     <hr className={hrStlye} />
-                    <p className={leftAlign}>RequiresSession</p>
-                    <Checkbox
-                        className={leftAlign}
-                        checked={requiresSession}
-                        onChange={(event) => {
-                            this.setState({
-                                newQueueData: { ...newQueueData, requiresSession: event.target.checked }
-                            });
-                        }}
+                    <CheckboxInput
+                        text='RequiresSession'
+                        data={requiresSession}
+                        tooltip={requiresSessionTooltip}
+                        onChange={(bool) => this.handlePropertyChange(bool, 'requiresSession')}
                     />
                     <hr className={hrStlye} />
-                    <p className={leftAlign}>EnablePartitioning</p>
-                    <Checkbox
-                        className={leftAlign}
-                        checked={enablePartitioning}
-                        onChange={(event) => {
-                            this.setState({
-                                newQueueData: { ...newQueueData, enablePartitioning: event.target.checked }
-                            });
-                        }}
+                    <CheckboxInput
+                        text='EnablePartitioning'
+                        data={enablePartitioning}
+                        onChange={(bool) => this.handlePropertyChange(bool, 'enablePartitioning')}
                     />
                     <hr className={hrStlye} />
+
                     <p className={leftAlign}>AutoDeleteOnIdle</p>
-                    <TimeSpanInput time={autoDeleteOnIdle} handleTimeChange={(time) => this.handleTimeSpanChange(time, 'autoDeleteOnIdle')} />
+                    <TimeSpanInput time={autoDeleteOnIdle} handleTimeChange={(duration) => this.handlePropertyChange(duration, 'autoDeleteOnIdle')} />
+
                     <hr className={hrStlye} />
-                    <Button
-                        onClick={this.updateQueue}
-                    >
-                        Update
-                    </Button>
-                    <ButtonWithConfirmationModal
-                        id="cancelButton"
-                        buttonText={"Reset Fields"}
-                        modalTitle={"Reset all fields"}
-                        modalBody={
-                            <React.Fragment>
-                                <p>Are you sure you want to reset ALL fields of the current queue?</p>
-                                <p>Note: if you are updating an existing queue, resetting the fields here will have NO effect on the orignal queue.</p>
-                            </React.Fragment>
-                        }
-                        confirmButtonText={"Reset"}
-                        confirmAction={this.resetFields}
-                    />
+
+                    {/*Buttons*/}
+                    <form className={buttonFormStyle}>
+                        <ButtonWithConfirmationModal
+                            id="submitButton"
+                            buttonText={"Update"}
+                            buttonStyle="default"
+                            buttonDisabled={this.checkObjectEquality(this.state.queueData, newQueueData)}
+                            modalTitle={"Update Queue"}
+                            modalBody={
+                                <React.Fragment>
+                                    <p>{"Following queue will be updated: " + this.state.selectedQueue}</p>
+                                    <p>{"Confirm action?"}</p>
+                                </React.Fragment>
+                            }
+                            confirmButtonText={"Update"}
+                            confirmAction={this.updateQueue}
+                        />
+                        <ButtonWithConfirmationModal
+                            id="resetButton"
+                            buttonText={"Reset Fields"}
+                            buttonDisabled={this.checkObjectEquality(this.state.queueData, newQueueData)}
+                            modalTitle={"Reset all fields"}
+                            modalBody={
+                                <React.Fragment>
+                                    <p>Are you sure you want to reset ALL fields of the current queue?</p>
+                                    <p>Note: if you are updating an existing queue, resetting the fields here will have NO effect on the orignal queue.</p>
+                                </React.Fragment>
+                            }
+                            confirmButtonText={"Reset"}
+                            confirmAction={this.resetFields}
+                        />
+                    </form>
                 </div>
             ) : (
                     <p>Fetching data</p>
