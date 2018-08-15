@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Web.Http;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
@@ -40,29 +41,24 @@ namespace VengabusAPI.Controllers
         public DateTime? GetTimeStampOfMostRecentDeadletter(string queueName)
         [HttpPost]
         [Route("queues/update")]
-        public void UpdateQueue([FromBody]Dictionary<string, dynamic> queueData)
+        public void UpdateQueue([FromBody]VengaQueueUpload queueData)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
-            QueueDescription description = namespaceManager.GetQueue(queueData["name"]);
+            QueueDescription description = namespaceManager.GetQueue(queueData.name);
             description = UpdateDescription(description, queueData);
 
             namespaceManager.UpdateQueue(description);
         }
 
-        public QueueDescription UpdateDescription(QueueDescription description, Dictionary<string, dynamic> queueData)
+        public QueueDescription UpdateDescription(QueueDescription description, VengaQueueUpload queueData)
         {
-            description.SupportOrdering = queueData["supportOrdering"];
-            description.RequiresSession = queueData["requiresSession"];
-            description.EnablePartitioning = queueData["enablePartitioning"];
-            description.AutoDeleteOnIdle = queueData["autoDeleteOnIdle"];
+            description.SupportOrdering = queueData.supportOrdering;
+            description.RequiresSession = queueData.requiresSession;
+            description.EnablePartitioning = queueData.enablePartitioning;
+            description.AutoDeleteOnIdle = queueData.autoDeleteOnIdle.AsTimeSpan();
 
             return description;
-        }
-
-        public TimeSpan ConvertJsonToTimeSpan(string json)
-        {
-            var dictionary = JsonConvert.DeserializeObject<Dictionary<string, int>>(json);
         }
 
         private DateTime? GetTimeStampOfMostRecentDeadletter(string queueName)

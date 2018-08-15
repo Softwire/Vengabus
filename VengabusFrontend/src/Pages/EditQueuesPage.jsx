@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import { DataTable } from '../Components/DataTable';
 import moment from 'moment';
 import { TimeSpanInput } from '../Components/TimeSpanInput';
+import { ButtonWithConfirmationModal } from '../Components/ButtonWithConfirmationModal';
 
 export class EditQueuesPage extends Component {
     constructor(props) {
@@ -25,9 +26,19 @@ export class EditQueuesPage extends Component {
     componentDidMount = () => {
         serviceBusConnection.getServiceBusService().getQueueDetails(this.state.selectedQueue)
             .then((result) => {
-                result.autoDeleteOnIdle = result.autoDeleteOnIdle ? moment.duration(result.autoDeleteOnIdle)._data : undefined;
+                result.autoDeleteOnIdle = this.parseTimeSpanFromBackend(result.autoDeleteOnIdle);
                 this.setState({ queueData: result, newQueueData: result, receivedData: true });
             });
+    }
+
+    parseTimeSpanFromBackend = (timespan) => {
+        const momentDuration = moment.duration(timespan);
+        const days = Math.floor(momentDuration.asDays());
+        let result = momentDuration._data;
+        delete result.years;
+        delete result.months;
+        result.days = days;
+        return result;
     }
 
     getStyles = () => {
@@ -79,8 +90,15 @@ export class EditQueuesPage extends Component {
     }
 
     updateQueue = () => {
+        const queueToSend = { ...this.state.newQueueData };
+        console.log(queueToSend);
         serviceBusConnection.getServiceBusService().updateQueue(this.state.newQueueData);
-        console.log(this.state.newQueueData);
+    }
+
+    resetFields = () => {
+        this.setState({
+            newQueueData: this.state.queueData
+        });
     }
 
     render() {
@@ -168,6 +186,19 @@ export class EditQueuesPage extends Component {
                     >
                         Update
                     </Button>
+                    <ButtonWithConfirmationModal
+                        id="cancelButton"
+                        buttonText={"Reset Fields"}
+                        modalTitle={"Reset all fields"}
+                        modalBody={
+                            <React.Fragment>
+                                <p>Are you sure you want to reset ALL fields of the current queue?</p>
+                                <p>Note: if you are updating an existing queue, resetting the fields here will have NO effect on the orignal queue.</p>
+                            </React.Fragment>
+                        }
+                        confirmButtonText={"Reset"}
+                        confirmAction={this.resetFields}
+                    />
                 </div>
             ) : (
                     <p>Fetching data</p>
