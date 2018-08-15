@@ -8,6 +8,46 @@ import classNames from 'classnames';
 
 export class MessageProperties extends Component {
 
+    /**
+     * Updates a collection of properties by applying the given updateOperation to it.
+     * @param {boolean} isUserDefined Should be true if the property is user-defined, false if it is a pre-defined property.
+     * @param {funciton} updateOperation The operation to be applied to the properties collection.
+     */
+    updatePropertiesCollection = (isUserDefined, updateOperation) => {
+        const propertyType = isUserDefined ? "userDefinedProperties" : "preDefinedProperties";
+        const newProperties = [...this.props[propertyType]];
+        updateOperation(newProperties);
+        this.props.handlePropertiesChange(propertyType, newProperties);
+    };
+
+    /**
+     * Adds a new property to the list of user-defined properties.
+     * @param {boolean} isUserDefined Should be true if the property is user-defined, false if it is a pre-defined property.
+     */
+    addNewProperty = (isUserDefined) => {
+        this.updatePropertiesCollection(isUserDefined, (propertyCollectionToMutate) => {
+            propertyCollectionToMutate.push({ name: "", value: "" });
+        });
+    }
+
+    /**
+     * Deletes a row from the list of user defined properties.
+     * @param {integer} index The index of the row to delete.
+     * @param {boolean} isUserDefined Should be true if the property is user-defined, false if it is a pre-defined property.
+     */
+    deleteRow = (index, isUserDefined) => {
+        this.updatePropertiesCollection(isUserDefined, (propertyCollectionToMutate) => {
+            propertyCollectionToMutate.splice(index, 1);
+        });
+    };
+
+    handlePropertiesEdit = (isPreDefined, position, attribute, newValue) => {
+        const propertyType = isPreDefined ? "preDefinedProperties" : "userDefinedProperties";
+        const newProperties = [...this.props[propertyType]];
+        newProperties[position][attribute] = newValue;
+        this.props.handlePropertiesChange(propertyType, newProperties);
+    }
+
     renderMessagePropertyInput = (isPredefined) => {
         const buttonStyle = css`
             width: 270px;
@@ -29,7 +69,6 @@ export class MessageProperties extends Component {
         let preDefinedPropsButtonClassNames = classNames(buttonStyle, this.props.arePreDefinedPropsLoaded || buttonLoading);
         const addPropertyText = isPredefined ? 'Add new Azure property' : 'Add new application specific property';
         const arePropertiesLoaded = !isPredefined || this.props.arePreDefinedPropsLoaded;
-        const propertyChangeHandler = isPredefined ? this.props.handlePreDefinedPropertyChange : this.props.handleUserDefinedPropertyChange;
         return (
             <React.Fragment>
                 <div className={leftAlign}>
@@ -37,9 +76,9 @@ export class MessageProperties extends Component {
                 </div>
                 <MessagePropertyInput
                     properties={isPredefined ? this.props.preDefinedProperties : this.props.userDefinedProperties}
-                    handlePropertyNameChange={(newName, index) => propertyChangeHandler(index, 'name', newName)}
-                    handlePropertyValueChange={(newValue, index) => propertyChangeHandler(index, 'value', newValue)}
-                    deleteRow={(index) => this.props.deleteRow(index, !isPredefined)}
+                    handlePropertyNameChange={(newName, index) => this.handlePropertiesEdit(isPredefined, index, 'name', newName)}
+                    handlePropertyValueChange={(newValue, index) => this.handlePropertiesEdit(isPredefined, index, 'value', newValue)}
+                    deleteRow={(index) => this.deleteRow(index, !isPredefined)}
                     permittedValues={isPredefined ? this.props.permittedValues : undefined}
                     reservedPropertyNames={isPredefined ? undefined : this.props.reservedPropertyNames}
                 />
@@ -47,7 +86,7 @@ export class MessageProperties extends Component {
                     <div className={leftAlign}>
                         <Button
                             className={isPredefined ? preDefinedPropsButtonClassNames : buttonStyle}
-                            onClick={() => this.props.addNewProperty(!isPredefined)}
+                            onClick={() => this.addNewProperty(!isPredefined)}
                         >
                             {arePropertiesLoaded ? addPropertyText : 'Loading pre-defined properties...'}
                         </Button>

@@ -122,29 +122,9 @@ export class MessageInput extends Component {
         return outputProperties;
     }
 
-    /**
-     * Updates a user-defined property name or value in the state.
-     * @param {integer} position The position of the property in the list.
-     * @param {string} attribute The attribute of the property that has changed, 'name' or 'value' 
-     * @param {string} newValue The new value of that attribute of the property.
-     */
-    handleUserDefinedPropertyChange = (position, attribute, newValue) => {
-        const newUserDefinedProperties = [...this.state.userDefinedProperties];
-        newUserDefinedProperties[position][attribute] = newValue;
-        this.setState({ userDefinedProperties: newUserDefinedProperties });
-    };
-
-    /**
-    * Updates a pre-defined property name or value in the state.
-    * @param {integer} position The position of the property in the list.
-    * @param {string} attribute The attribute of the property that has changed, 'name' or 'value' 
-    * @param {string} newValue The new value of that attribute of the property.
-    */
-    handlePreDefinedPropertyChange = (position, attribute, newValue) => {
-        let newPreDefinedProperties = [...this.state.preDefinedProperties];
-        newPreDefinedProperties[position][attribute] = newValue;
-        this.setState({ preDefinedProperties: newPreDefinedProperties });
-    };
+    handlePropertiesChange = (propertyType, newProperties) => {
+        this.setState({ [propertyType]: newProperties });
+    }
 
     /**
      * Updates a collection of properties by applying the given updateOperation to it.
@@ -328,13 +308,10 @@ export class MessageInput extends Component {
                 <MessageProperties
                     arePreDefinedPropsLoaded={this.state.arePreDefinedPropsLoaded}
                     preDefinedProperties={this.state.preDefinedProperties}
-                    handlePreDefinedPropertyChange={this.handlePreDefinedPropertyChange}
                     userDefinedProperties={this.state.userDefinedProperties}
-                    handleUserDefinedPropertyChange={this.handleUserDefinedPropertyChange}
                     permittedValues={this.state.permittedValues}
                     reservedPropertyNames={this.state.reservedPropertyNames}
-                    addNewProperty={this.addNewProperty}
-                    deleteRow={this.deleteRow}
+                    handlePropertiesChange={this.handlePropertiesChange}
                 />
                 <hr className={fullWidth} />
                 <MessageBodyInput
