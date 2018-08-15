@@ -12,8 +12,7 @@ export class MessageDestinationForm extends Component {
                 handleRecipientTypeChange={this.props.handleRecipientTypeChange}
                 availableDestinations={isQueue ? this.props.availableQueues : this.props.availableTopics}
                 selectedDestination={isQueue ? this.props.selectedQueue : this.props.selectedTopic}
-                handleQueueOrTopicChange={this.props.handleQueueOrTopicChange}
-                switchSelectedDestinationType={() => this.props.handleRecipientTypeChange(isQueue)}
+                handleDestinationChange={(destinationName) => this.props.handleDestinationChange(isQueue, destinationName)}
             />
         );
     }

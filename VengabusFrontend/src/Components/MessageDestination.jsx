@@ -57,7 +57,7 @@ export class MessageDestination extends Component {
                         id={this.props.destinationType.toLowerCase() + "-selection-radio"}
                         className={radioStyle}
                         checked={this.props.isSelected}
-                        onChange={this.props.switchSelectedDestinationType}
+                        onChange={() => this.props.handleDestinationChange(null)}
                     />
                     <div className={classNames(leftAlign, selectionStyle, headingStyle, verticalAlign)}>
                         <p>{this.props.destinationType}</p>
@@ -70,7 +70,7 @@ export class MessageDestination extends Component {
                     id={this.props.destinationType.toLowerCase() + "-dropdown"}
                     options={this.props.availableDestinations}
                     value={this.props.selectedDestination ? this.convertToValueLabel(this.props.selectedDestination) : undefined}
-                    onChange={(event) => this.props.handleQueueOrTopicChange(event.value)}
+                    onChange={(event) => this.props.handleDestinationChange(event.value)}
                 />
             </div>
         );

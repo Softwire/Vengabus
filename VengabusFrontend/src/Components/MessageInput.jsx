@@ -190,25 +190,23 @@ export class MessageInput extends Component {
         this.setState({ messageBody: newBody });
     };
 
-    /**
-     * Changes which queue or topic the message will be sent to.
-     * @param {string} newName The name of the queue or topic.
-     */
-    handleQueueOrTopicChange = (newName) => {
-        this.setState({
-            selectedQueue: this.state.recipientIsQueue ? newName : undefined,
-            selectedTopic: this.state.recipientIsQueue ? undefined : newName
-        });
-    }
-
-    /**
-     * Changes whether the message will be sent to a queue or topic.
-     * @param {boolean} isQueue True if the message should be send to a queue, false if it should be sent to a topic.
-     */
-    handleRecipientTypeChange = (isQueue) => {
-        this.setState({
-            recipientIsQueue: isQueue
-        });
+    handleDestinationChange = (isDestinationQueue, destinationName) => {
+        if (!destinationName) { //this happens when we switch between queue/topic
+            this.setState({
+                recipientIsQueue: isDestinationQueue
+            });
+        }
+        else if (isDestinationQueue) {
+            this.setState({
+                recipientIsQueue: true,
+                selectedQueue: destinationName
+            });
+        } else {
+            this.setState({
+                recipientIsQueue: false,
+                selectedTopic: destinationName
+            });
+        }
     }
 
     /**
@@ -331,13 +329,12 @@ export class MessageInput extends Component {
         return (
             <div className={formStyle} >
                 <MessageDestinationForm
-                    handleRecipientTypeChange={this.handleRecipientTypeChange}
                     recipientIsQueue={this.state.recipientIsQueue}
                     availableQueues={this.state.availableQueues}
                     availableTopics={this.state.availableTopics}
                     selectedQueue={this.state.selectedQueue}
                     selectedTopic={this.state.selectedTopic}
-                    handleQueueOrTopicChange={this.handleQueueOrTopicChange}
+                    handleDestinationChange={this.handleDestinationChange}
                 />
                 <hr className={fullWidth} />
                 <MessageProperties
