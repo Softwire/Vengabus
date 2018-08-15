@@ -264,6 +264,8 @@ export class DataTable extends Component {
         this.addDepthToColProps(colProps);
         const textAlign = css`
             text-align:center;
+            float:left;
+            width:100%;
         `;
 
         return dataToDisplay ? (
