@@ -12,7 +12,6 @@ export class MessageList extends Component {
             showMessage: false
         };
     }
-    // QQ delete when final function is implemented
 
     handleMessageClick = (e, row, rowIndex) => {
         const id = row.messageId;
