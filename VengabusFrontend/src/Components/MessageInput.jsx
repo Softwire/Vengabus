@@ -191,22 +191,10 @@ export class MessageInput extends Component {
     };
 
     handleDestinationChange = (isDestinationQueue, destinationName) => {
-        if (!destinationName) { //this happens when we switch between queue/topic
-            this.setState({
-                recipientIsQueue: isDestinationQueue
-            });
-        }
-        else if (isDestinationQueue) {
-            this.setState({
-                recipientIsQueue: true,
-                selectedQueue: destinationName
-            });
-        } else {
-            this.setState({
-                recipientIsQueue: false,
-                selectedTopic: destinationName
-            });
-        }
+        this.setState({
+            recipientIsQueue: isDestinationQueue,
+            [isDestinationQueue ? "selectedQueue" : "selectedTopic"]: destinationName
+        });
     }
 
     /**

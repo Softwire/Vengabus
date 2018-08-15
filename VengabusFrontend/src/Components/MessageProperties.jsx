@@ -27,7 +27,8 @@ export class MessageProperties extends Component {
             }
         `;
         let preDefinedPropsButtonClassNames = classNames(buttonStyle, this.props.arePreDefinedPropsLoaded || buttonLoading);
-        const preDefinedPropertiesButtonText = this.props.arePreDefinedPropsLoaded ? 'Add new Azure property' : 'Loading pre-defined properties...';
+        const addPropertyText = isPredefined ? 'Add new Azure property' : 'Add new application specific property';
+        const arePropertiesLoaded = !isPredefined || this.props.arePreDefinedPropsLoaded;
         const propertyChangeHandler = isPredefined ? this.props.handlePreDefinedPropertyChange : this.props.handleUserDefinedPropertyChange;
         return (
             <React.Fragment>
@@ -48,7 +49,7 @@ export class MessageProperties extends Component {
                             className={isPredefined ? preDefinedPropsButtonClassNames : buttonStyle}
                             onClick={() => this.props.addNewProperty(!isPredefined)}
                         >
-                            {isPredefined ? preDefinedPropertiesButtonText : "Add new application specific property"}
+                            {arePropertiesLoaded ? addPropertyText : 'Loading pre-defined properties...'}
                         </Button>
                     </div>
                 </form>

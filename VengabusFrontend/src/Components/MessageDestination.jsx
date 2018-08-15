@@ -50,14 +50,14 @@ export class MessageDestination extends Component {
         return (
             <div className={fullWidth}>
                 <div
-                    onClick={() => this.props.handleDestinationChange(null)}
+                    onClick={() => this.props.handleDestinationChange(this.props.selectedDestination)}
                 >
                     <input
                         type="radio"
                         id={this.props.destinationType.toLowerCase() + "-selection-radio"}
                         className={radioStyle}
                         checked={this.props.isSelected}
-                        onChange={() => this.props.handleDestinationChange(null)}
+                        onChange={() => { /*Handled in the parent div. Keyboard inputs also handled. */ }}
                     />
                     <div className={classNames(leftAlign, selectionStyle, headingStyle, verticalAlign)}>
                         <p>{this.props.destinationType}</p>
