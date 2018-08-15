@@ -270,12 +270,14 @@ export class TwoListDisplay extends Component {
 
 
     getBreadcrumbElement = () => {
-        const breadcrumbStyle = css`
-            float: left;
+        const breadCrumbStyle = css`
+        &.breadcrumb{
+          float: left;
             height:${sharedSizesAndDimensions.BREADCRUMBS_HEIGHT}px;
-            margin-bottom: 1px !important;
+            margin-bottom: 1px;
+        }
         `;
-
+        
         const breadcrumbItems = this.breadCrumbHistory.map((breadCrumb, i) => {
             return (<Breadcrumb.Item onClick={() => this.HandleBreadCrumbClick(breadCrumb.type, i)} active={(i === this.breadCrumbHistory.length - 1)} key={i}>
                 {this.breadCrumbHistory[i].name}
@@ -292,7 +294,7 @@ export class TwoListDisplay extends Component {
         }
 
         return (
-            <Breadcrumb className={breadcrumbStyle}>
+            <Breadcrumb className={breadCrumbStyle}>
                 {breadcrumbItems}
             </Breadcrumb>
         );
@@ -323,7 +325,7 @@ export class TwoListDisplay extends Component {
 
         const areOnHomePage = (this.breadCrumbHistory.length === 1);
         const totalDiff = sharedSizesAndDimensions.DEFAULT_HEADER_HEIGHT + sharedSizesAndDimensions.BREADCRUMBS_HEIGHT + sharedSizesAndDimensions.BOTTOM_GUTTERING;
-        console.log(totalDiff);
+
         const line = css`
             border-left: 1px solid black;
             display : ${(areOnHomePage) ? "inline-block" : "none"};
