@@ -87,7 +87,6 @@ namespace VengabusAPI.Controllers
 
         [HttpDelete]
         [Route("subscriptions/{topicName}/{subscriptionName}/messages/{uniqueId}")]
-        //delete all messages in a given subscription
         public void DeleteSingleMessageInSubscription(string topicName, string subscriptionName, string uniqueId, [FromUri]string messageId)
         {
             DeleteSingleMessageFromEndpoint(
@@ -110,7 +109,6 @@ namespace VengabusAPI.Controllers
 
         [HttpDelete]
         [Route("topics/{topicName}/messages/{uniqueId}")]
-        //delete all messages in all the subscriptions for a given topic
         public void DeleteSingleMessageInTopic(string topicName, string uniqueId, [FromUri]string messageId)
         {
             //get all subscriptions, and delete for each of them.
