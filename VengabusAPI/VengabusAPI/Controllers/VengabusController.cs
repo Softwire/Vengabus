@@ -86,11 +86,32 @@ namespace VengabusAPI.Controllers
             return factory;
         }
 
-        protected void DeleteSingleMessageFromEndpoint(EndpointIdentifier endpoint,EndpointType type, string messageId, string uniqueId)
+        protected void DeleteMessageFromEndpoint(EndpointIdentifier endpoint, EndpointType type)
         {
             var factory = CreateEndpointFactory();
             var namespaceManager = CreateNamespaceManager();
-            MessageServices.DeleteSingleMessageFromEndpoint(factory, namespaceManager, endpoint,type, messageId, uniqueId);
+            Predicate<BrokeredMessage> deleteMessageChecker = (BrokeredMessage brokeredMessage) => true;
+            MessageServices.DeleteMessagesFromEndpoint(factory, namespaceManager, endpoint, type, deleteMessageChecker);
+        }
+
+        protected void DeleteSingleMessageFromEndpoint(EndpointIdentifier endpoint, EndpointType type, string messageId, string uniqueId)
+        {
+            var factory = CreateEndpointFactory();
+            var namespaceManager = CreateNamespaceManager();
+            Predicate<BrokeredMessage> deleteMessageChecker = (BrokeredMessage brokeredMessage) =>
+            {
+                if (messageId == brokeredMessage.MessageId)
+                {
+                    BodyAndHash bodyAndHash = brokeredMessage.GetBodyAndHash();
+
+                    return bodyAndHash.Hash.ToString() == uniqueId;
+                }
+                else
+                {
+                    return false;
+                }
+            };
+            MessageServices.DeleteMessagesFromEndpoint(factory, namespaceManager, endpoint, type, deleteMessageChecker);
         }
     }
 }

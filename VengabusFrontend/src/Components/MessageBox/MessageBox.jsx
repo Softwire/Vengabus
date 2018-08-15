@@ -30,6 +30,13 @@ export class MessageBox extends Component {
         );
     }
 
+    handleAfterConfirmationDeletion = () => {
+        this.props.handleClose();
+        if (this.props.refreshMessageTableHandler) {
+            this.props.refreshMessageTableHandler();
+        }
+    }
+
     render() {
         const buttonToolbarStyle = css`
             margin-right: -8px; /* This counteracts the right margin for the "first" (right-most) button. See comment below. */
@@ -88,6 +95,7 @@ export class MessageBox extends Component {
                                 messageType={this.props.messageType}
                                 parentName={this.props.endpointParent}
                                 endpointName={this.props.endpointName}
+                                afterConfirmationAction={this.handleAfterConfirmationDeletion}
                             />
                             <Button onClick={() => this.handleReplayMessage(message)} >Replay Message to demoqueue1</ Button>
                         </ButtonToolbar>

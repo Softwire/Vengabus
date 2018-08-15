@@ -228,6 +228,12 @@ export class TwoListDisplay extends Component {
                             endpointType={this.state.rightTableEndpointType}
                             endpointName={this.state.rightTableEndpointName}
                             endpointParent={this.state.rightTableParentName}
+                            refreshMessageTableHandler={() => {
+                                this.setState({
+                                    messageData: undefined
+                                });
+                                this.updateEndpointMessageData(false);
+                            }}
                         />
                     </React.Fragment>
 
@@ -245,6 +251,12 @@ export class TwoListDisplay extends Component {
                             endpointType={this.state.rightTableEndpointType}
                             endpointName={this.state.rightTableEndpointName}
                             endpointParent={this.state.rightTableParentName}
+                            refreshMessageTableHandler={() => {
+                                this.setState({
+                                    messageData: undefined
+                                });
+                                this.updateEndpointMessageData(true);
+                            }}
                         />
                     </React.Fragment>
 

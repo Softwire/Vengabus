@@ -85,6 +85,7 @@ export class MessageList extends Component {
                     endpointName={this.props.endpointName}
                     endpointParent={this.props.endpointParent}
                     handleClose={this.handleClose}
+                    refreshMessageTableHandler={this.props.refreshMessageTableHandler}
                 />
             </div>
         );

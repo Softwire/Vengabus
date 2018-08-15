@@ -15,30 +15,42 @@ class DeleteSingleMessageButton extends React.Component {
             modalBody: ""
         };
 
+        let onDeletionConfirmed;
+
         if (this.props.messageType === EndpointTypes.MESSAGE) {
             switch (this.props.type) {
                 case EndpointTypes.TOPIC:
-                    this.initialState.onDeletionConfirmed = () => vengaServiceBusService.deleteTopicSingleMessage(this.props.endpointName, this.props.messageId, this.props.uniqueId);
+                    onDeletionConfirmed = () => vengaServiceBusService.deleteTopicSingleMessage(this.props.endpointName, this.props.messageId, this.props.uniqueId);
                     break;
                 case EndpointTypes.QUEUE:
-                    this.initialState.onDeletionConfirmed = () => vengaServiceBusService.deleteQueueSingleMessage(this.props.endpointName, this.props.messageId, this.props.uniqueId);
+                    onDeletionConfirmed = () => vengaServiceBusService.deleteQueueSingleMessage(this.props.endpointName, this.props.messageId, this.props.uniqueId);
                     break;
                 case EndpointTypes.SUBSCRIPTION:
-                    this.initialState.onDeletionConfirmed = () => vengaServiceBusService.deleteSubscriptionSingleMessage(this.props.parentName, this.props.endpointName, this.props.messageId, this.props.uniqueId);
+                    onDeletionConfirmed = () => vengaServiceBusService.deleteSubscriptionSingleMessage(this.props.parentName, this.props.endpointName, this.props.messageId, this.props.uniqueId);
                     break;
                 default: break;
             }
         } else {
             switch (this.props.type) {
                 case EndpointTypes.QUEUE:
-                    this.initialState.onDeletionConfirmed = () => vengaServiceBusService.deleteQueueSingleDeadLetterMessage(this.props.endpointName, this.props.messageId, this.props.uniqueId);
+                    onDeletionConfirmed = () => vengaServiceBusService.deleteQueueSingleDeadLetterMessage(this.props.endpointName, this.props.messageId, this.props.uniqueId);
                     break;
                 case EndpointTypes.SUBSCRIPTION:
-                    this.initialState.onDeletionConfirmed = () => vengaServiceBusService.deleteSubscriptionSingleDeadLetterMessage(this.props.parentName, this.props.endpointName, this.props.messageId, this.props.uniqueId);
+                    onDeletionConfirmed = () => vengaServiceBusService.deleteSubscriptionSingleDeadLetterMessage(this.props.parentName, this.props.endpointName, this.props.messageId, this.props.uniqueId);
                     break;
                 default: break;
             }
         }
+
+        this.initialState.onDeletionConfirmed = () => {
+            onDeletionConfirmed().then(() => {
+                console.log("Yes");
+                if (this.props.afterConfirmationAction) {
+                    this.props.afterConfirmationAction();
+                }
+            });
+
+        };
 
         this.state = this.initialState;
     }

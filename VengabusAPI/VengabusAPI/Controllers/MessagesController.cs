@@ -67,7 +67,7 @@ namespace VengabusAPI.Controllers
         [Route("queues/{queueName}/messages")]
         public void PurgeQueueMessages(string queueName)
         {
-            DeleteMessageFromEndpoint(EndpointIdentifier.ForQueue(queueName));
+            DeleteMessagesFromEndpoint(EndpointIdentifier.ForQueue(queueName));
         }
 
         [HttpDelete]
@@ -82,7 +82,7 @@ namespace VengabusAPI.Controllers
         //delete all messages in a given subscription
         public void PurgeSubscriptionMessages(string topicName, string subscriptionName)
         {
-            DeleteMessageFromEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionName));
+            DeleteMessagesFromEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionName));
         }
 
         [HttpDelete]
@@ -104,7 +104,7 @@ namespace VengabusAPI.Controllers
             var topicDescription = namespaceManager.GetSubscriptions(topicName);
             foreach (var subscriptionDescription in topicDescription)
             {
-                DeleteMessageFromEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionDescription.Name));
+                DeleteMessagesFromEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionDescription.Name));
             }
         }
 
@@ -121,13 +121,6 @@ namespace VengabusAPI.Controllers
                 DeleteSingleMessageFromEndpoint(
                     EndpointIdentifier.ForSubscription(topicName, subscriptionDescription.Name), EndpointType.Message, messageId, uniqueId);
             }
-        }
-
-        private void DeleteMessageFromEndpoint(EndpointIdentifier endpoint)
-        {
-            var factory = CreateEndpointFactory();
-            var namespaceManager = CreateNamespaceManager();
-            MessageServices.DeleteMessageFromEndpoint(factory, namespaceManager, endpoint);
         }
 
         private void SendMessageToEndpoint(EndpointIdentifier endpoint, VengaMessage message)
@@ -148,6 +141,11 @@ namespace VengabusAPI.Controllers
                 messagesToReturn.Add(VengaMessage.FromBrokeredMessage(message));
             }
             return messagesToReturn;
+        }
+
+        private void DeleteMessagesFromEndpoint(EndpointIdentifier endpoint)
+        {
+            DeleteMessageFromEndpoint(endpoint, EndpointType.Message);
         }
 
     }
