@@ -8,7 +8,7 @@ import classNames from 'classnames';
 
 export class MessageProperties extends Component {
 
-    renderMessagePropertyClass = (isPredefined) => {
+    renderMessagePropertyInput = (isPredefined) => {
         const buttonStyle = css`
             width: 270px;
             margin-left: 5px;
@@ -57,8 +57,8 @@ export class MessageProperties extends Component {
     }
 
     render() {
-        let preDefinedPropertiesForm = this.renderMessagePropertyClass(true);
-        let userDefinedPropertiesForm = this.renderMessagePropertyClass(false);
+        let preDefinedPropertiesInput = this.renderMessagePropertyInput(true);
+        let userDefinedPropertiesInput = this.renderMessagePropertyInput(false);
         return (
             <React.Fragment>
                 {preDefinedPropertiesForm}
