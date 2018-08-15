@@ -31,7 +31,7 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("queues/{queueName}/deadletter/{uniqueId}")]
+        [Route("queues/{queueName}/deadletters/{uniqueId}")]
         public void DeleteSingleDeadLetterMessageInQueue(string queueName, string uniqueId, [FromUri]string messageId)
         {
             var endpoint = EndpointIdentifier.ForQueue(queueName);
@@ -39,7 +39,7 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("subscriptions/{topicName}/{subscriptionName}/deadletter/{uniqueId}")]
+        [Route("subscriptions/{topicName}/{subscriptionName}/deadletters/{uniqueId}")]
         public void DeleteSingleDeadLetterMessageInSubscription(string topicName, string subscriptionName, string uniqueId, [FromUri]string messageId)
         {
             var endpoint = EndpointIdentifier.ForSubscription(topicName, subscriptionName);

@@ -71,7 +71,7 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("queues/{queueName}/message/{uniqueId}")]
+        [Route("queues/{queueName}/messages/{uniqueId}")]
         public void DeleteSingleMessageInQueue(string queueName, string uniqueId, [FromUri]string messageId)
         {
             DeleteSingleMessageFromEndpoint(EndpointIdentifier.ForQueue(queueName), EndpointType.Message, messageId, uniqueId);
@@ -86,7 +86,7 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("subscriptions/{topicName}/{subscriptionName}/message/{uniqueId}")]
+        [Route("subscriptions/{topicName}/{subscriptionName}/messages/{uniqueId}")]
         //delete all messages in a given subscription
         public void DeleteSingleMessageInSubscription(string topicName, string subscriptionName, string uniqueId, [FromUri]string messageId)
         {
@@ -109,7 +109,7 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("topics/{topicName}/message/{uniqueId}")]
+        [Route("topics/{topicName}/messages/{uniqueId}")]
         //delete all messages in all the subscriptions for a given topic
         public void DeleteSingleMessageInTopic(string topicName, string uniqueId, [FromUri]string messageId)
         {
