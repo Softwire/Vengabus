@@ -47,31 +47,27 @@ export class MessageDestination extends Component {
             line-height: 38px;
         `;
 
-        let isCurrentDestinationSelected = this.props.isDestinationQueue === this.props.recipientIsQueue;
-
-        let destinationType = this.props.isDestinationQueue ? "Queue" : "Topic";
-
         return (
             <div className={fullWidth}>
                 <div
-                    onClick={() => this.props.handleRecipientTypeChange(this.props.isDestinationQueue)}
+                    onClick={this.props.switchSelectedDestinationType}
                 >
                     <input
                         type="radio"
-                        id={destinationType.toLowerCase() + "-selection-radio"}
+                        id={this.props.destinationType.toLowerCase() + "-selection-radio"}
                         className={radioStyle}
-                        checked={isCurrentDestinationSelected}
-                        onChange={() => this.props.handleRecipientTypeChange(this.props.isDestinationQueue)}
+                        checked={this.props.isSelected}
+                        onChange={this.props.switchSelectedDestinationType}
                     />
                     <div className={classNames(leftAlign, selectionStyle, headingStyle, verticalAlign)}>
-                        <p>{destinationType}</p>
+                        <p>{this.props.destinationType}</p>
                     </div>
                 </div>
                 <Select
-                    isDisabled={!isCurrentDestinationSelected}
+                    isDisabled={!this.props.isSelected}
                     className={dropdownStyle}
-                    title={destinationType}
-                    id={destinationType.toLowerCase() + "-dropdown"}
+                    title={this.props.destinationType}
+                    id={this.props.destinationType.toLowerCase() + "-dropdown"}
                     options={this.props.availableDestinations}
                     value={this.props.selectedDestination ? this.convertToValueLabel(this.props.selectedDestination) : undefined}
                     onChange={(event) => this.props.handleQueueOrTopicChange(event.value)}
