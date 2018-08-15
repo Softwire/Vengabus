@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
 import { css } from 'react-emotion';
-import { MessagePropertyInput } from './MessagePropertyInput';
+import { MessageBodyInput } from './MessageBodyInput';
+import { MessageProperties } from './MessageProperties';
+import { MessageDestinationForm } from './MessageDestinationForm';
 import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
-import {
-    FormGroup,
-    FormControl,
-    ControlLabel,
-    Button
-} from "react-bootstrap";
-import Select from 'react-select';
 import _ from 'lodash';
-import classNames from 'classnames';
 
 /** 
  * @property {Object} message Can take a message as a prop to replay message.
@@ -28,7 +22,6 @@ export class MessageInput extends Component {
     constructor(props) {
         super(props);
         const message = this.props.message;
-        this.arePredefinedPropsLoaded = false;
         this.state = {
             permittedValues: [],
             availableTopics: [],
@@ -39,7 +32,8 @@ export class MessageInput extends Component {
             preDefinedProperties: [], //need to fetch permittedValues and reservedPropertyNames before this can be set
             reservedPropertyNames: [], //a list of name of possible readable properties of a message
             selectedQueue: this.props.selectedQueue ? this.props.selectedQueue : undefined,
-            selectedTopic: this.props.selectedTopic ? this.props.selectedTopic : undefined
+            selectedTopic: this.props.selectedTopic ? this.props.selectedTopic : undefined,
+            arePreDefinedPropsLoaded: false
         };
     }
 
@@ -48,10 +42,10 @@ export class MessageInput extends Component {
         let permittedValuesPromise = this.serviceBusService.getWriteableMessageProperties();
         let reservedPropertyNamesPromise = this.serviceBusService.getReadableMessageProperties();
         Promise.all([permittedValuesPromise, reservedPropertyNamesPromise]).then((result) => {
-            this.arePredefinedPropsLoaded = true;
             this.setState({
                 permittedValues: result[0],
                 reservedPropertyNames: result[1],
+                arePreDefinedPropsLoaded: true,
                 preDefinedProperties: this.props.message ? this.getPreDefinedProperties(this.props.message, result[0], result[1]) : [] //[{name: something, value: something}]
             });
         });
@@ -77,6 +71,7 @@ export class MessageInput extends Component {
     convertToValueLabel = (str) => {
         return { value: str, label: str };
     }
+
     /**
      * Converts an array of objects with a name property to an array of objects with a value and label property:
      * `[{..., name: "example", ...}] -> [{value: "example", label: "example"}]`
@@ -195,24 +190,10 @@ export class MessageInput extends Component {
         this.setState({ messageBody: newBody });
     };
 
-    /**
-     * Changes which queue or topic the message will be sent to.
-     * @param {string} newName The name of the queue or topic.
-     */
-    handleQueueOrTopicChange = (newName) => {
+    handleDestinationChange = (isDestinationQueue, destinationName) => {
         this.setState({
-            selectedQueue: this.state.recipientIsQueue ? newName : undefined,
-            selectedTopic: this.state.recipientIsQueue ? undefined : newName
-        });
-    }
-
-    /**
-     * Changes whether the message will be sent to a queue or topic.
-     * @param {boolean} isQueue True if the message should be send to a queue, false if it should be sent to a topic.
-     */
-    handleRecipientTypeChange = (isQueue) => {
-        this.setState({
-            recipientIsQueue: isQueue
+            recipientIsQueue: isDestinationQueue,
+            [isDestinationQueue ? "selectedQueue" : "selectedTopic"]: destinationName
         });
     }
 
@@ -283,51 +264,10 @@ export class MessageInput extends Component {
             width: calc(100% - 10px); /* 10px total margin */
             float: left;
         `;
-        const queueOrTopicSelectionRadioStyle = css`
-            float: left;
-            width: 20px;
-            position:relative;
-            top:9px;
-        `;
-        const queueOrTopicSelectionStyle = css`
-            float: left;
-            width: 75px;
-        `;
-        const queueOrTopicSelectionDropdownStyle = css`
-            float: left;
-            width: 275px;
-            text-align:left;
-        `;
-        const buttonStyle = css`
-            width: 270px;
-            margin-left: 5px;
-        `;
-        const headingStyle = css`
-            font-weight: bold;
-            margin-left: 5px;
-        `;
-        const leftAlign = css`
-            text-align:left;
-        `;
-        const bodyStyle = css`
-            min-height: 350px;
-            padding-left: 5px;
-        `;
-        const verticalAlign = css`
-            line-height: 38px;
-        `;
         const fullWidth = css`
             float: left;
             width: 100%;
         `;
-        const buttonLoading = css`
-            opacity: 0.5;
-            :hover {
-                cursor: progress;
-            }
-        `;
-        let preDefinedPropsButtonClassNames = classNames(buttonStyle, this.arePredefinedPropsLoaded || buttonLoading);
-        const preDefinedPropertiesButtonText = this.arePredefinedPropsLoaded ? 'Add new Azure property' : 'Loading pre-defined properties...';
 
         //generate warnings of certain property names.
         let customPropertyNames = this.state.userDefinedProperties.map((item) => item.name);
@@ -376,119 +316,31 @@ export class MessageInput extends Component {
 
         return (
             <div className={formStyle} >
-                <div className={leftAlign}>
-                    <p className={headingStyle}>Destination</p>
-                </div>
-                <div className={fullWidth}>
-                    <div
-                        onClick={() => this.handleRecipientTypeChange(true)}
-                    >
-                        <input
-                            id="queue-selection-radio"
-                            className={queueOrTopicSelectionRadioStyle}
-                            type="radio"
-                            value="queue"
-                            checked={this.state.recipientIsQueue}
-                            onChange={() => this.handleRecipientTypeChange(true)}
-                        />
-                        <div className={classNames(leftAlign, queueOrTopicSelectionStyle, headingStyle, verticalAlign)}>
-                            <p>Queue</p>
-                        </div>
-                    </div>
-                    <Select
-                        isDisabled={!this.state.recipientIsQueue}
-                        className={queueOrTopicSelectionDropdownStyle}
-                        title="Queue"
-                        id={"queue-dropdown"}
-                        options={this.state.availableQueues}
-                        value={this.state.selectedQueue ? this.convertToValueLabel(this.state.selectedQueue) : undefined}
-                        onChange={(event) => this.handleQueueOrTopicChange(event.value)}
-                    />
-                </div>
-                <div className={fullWidth}>
-                    <div
-                        onClick={() => this.handleRecipientTypeChange(false)}
-                    >
-                        <input
-                            id="topic-selection-radio"
-                            className={queueOrTopicSelectionRadioStyle}
-                            type="radio"
-                            value="topic"
-                            checked={!this.state.recipientIsQueue}
-                            onChange={() => this.handleRecipientTypeChange(false)}
-                        />
-                        <div className={classNames(leftAlign, queueOrTopicSelectionStyle, headingStyle, verticalAlign)}>
-                            <p>Topic</p>
-                        </div>
-                    </div>
-                    <Select
-                        isDisabled={this.state.recipientIsQueue}
-                        className={queueOrTopicSelectionDropdownStyle}
-                        title="Topic"
-                        id={"topic-dropdown"}
-                        options={this.state.availableTopics}
-                        value={this.state.selectedTopic ? this.convertToValueLabel(this.state.selectedTopic) : undefined}
-                        onChange={(event) => this.handleQueueOrTopicChange(event.value)}
-                    />
-                </div>
+                <MessageDestinationForm
+                    recipientIsQueue={this.state.recipientIsQueue}
+                    availableQueues={this.state.availableQueues}
+                    availableTopics={this.state.availableTopics}
+                    selectedQueue={this.state.selectedQueue}
+                    selectedTopic={this.state.selectedTopic}
+                    handleDestinationChange={this.handleDestinationChange}
+                />
                 <hr className={fullWidth} />
-                <div className={leftAlign}>
-                    <p className={headingStyle}>Pre-defined Properties</p>
-                </div>
-                <MessagePropertyInput
-                    properties={this.state.preDefinedProperties}
-                    handlePropertyNameChange={(newName, index) => this.handlePreDefinedPropertyChange(index, 'name', newName)}
-                    handlePropertyValueChange={(newValue, index) => this.handlePreDefinedPropertyChange(index, 'value', newValue)}
-                    deleteRow={(index) => this.deleteRow(index, false)}
+                <MessageProperties
+                    arePreDefinedPropsLoaded={this.state.arePreDefinedPropsLoaded}
+                    preDefinedProperties={this.state.preDefinedProperties}
+                    handlePreDefinedPropertyChange={this.handlePreDefinedPropertyChange}
+                    userDefinedProperties={this.state.userDefinedProperties}
+                    handleUserDefinedPropertyChange={this.handleUserDefinedPropertyChange}
                     permittedValues={this.state.permittedValues}
-                />
-                <form>
-                    <div className={leftAlign}>
-                        <Button
-                            className={preDefinedPropsButtonClassNames}
-                            onClick={() => this.addNewProperty(false)}
-                        >
-                            {preDefinedPropertiesButtonText}
-                        </Button>
-                    </div>
-                </form>
-                <hr />
-                <div className={leftAlign}>
-                    <p className={headingStyle}>User-defined Properties</p>
-                </div>
-                <MessagePropertyInput
-                    properties={this.state.userDefinedProperties}
-                    handlePropertyNameChange={(newName, index) => this.handleUserDefinedPropertyChange(index, 'name', newName)}
-                    handlePropertyValueChange={(newValue, index) => this.handleUserDefinedPropertyChange(index, 'value', newValue)}
-                    deleteRow={(index) => this.deleteRow(index, true)}
                     reservedPropertyNames={this.state.reservedPropertyNames}
+                    addNewProperty={this.addNewProperty}
+                    deleteRow={this.deleteRow}
                 />
-                <form>
-                    <div className={leftAlign}>
-                        <Button
-                            className={buttonStyle}
-                            onClick={() => this.addNewProperty(true)}
-                        >
-                            Add new application specific property
-                        </Button>
-                    </div>
-                </form>
-                <hr />
-                <form>
-                    <FormGroup
-                        className={leftAlign}
-                        controlId="formControlsMessageBodyText"
-                    >
-                        <ControlLabel className={headingStyle}>Body</ControlLabel>
-                        <FormControl
-                            componentClass="textarea"
-                            placeholder="Enter message body"
-                            className={bodyStyle}
-                            value={this.state.messageBody}
-                            onChange={(event) => this.handleMessageBodyChange(event.target.value)}
-                        />
-                    </FormGroup>
-                </form>
+                <hr className={fullWidth} />
+                <MessageBodyInput
+                    messageBody={this.state.messageBody}
+                    handleMessageBodyChange={this.handleMessageBodyChange}
+                />
                 <form>
                     <ButtonWithConfirmationModal
                         id="submitButton"
