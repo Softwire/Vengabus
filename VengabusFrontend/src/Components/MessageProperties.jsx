@@ -21,9 +21,9 @@ export class MessageProperties extends Component {
             text-align:left;
         `;
         const buttonLoading = css`
-                    opacity: 0.5;
+            opacity: 0.5;
             :hover {
-                    cursor: progress;
+                cursor: progress;
             }
         `;
         let preDefinedPropsButtonClassNames = classNames(buttonStyle, this.props.arePredefinedPropsLoaded || buttonLoading);
@@ -57,11 +57,13 @@ export class MessageProperties extends Component {
     }
 
     render() {
+        let preDefinedPropertiesForm = this.renderMessagePropertyClass(true);
+        let userDefinedPropertiesForm = this.renderMessagePropertyClass(false);
         return (
             <React.Fragment>
-                {this.renderMessagePropertyClass(true)}
+                {preDefinedPropertiesForm}
                 <hr />
-                {this.renderMessagePropertyClass(false)}
+                {userDefinedPropertiesForm}
             </React.Fragment>
         );
     }

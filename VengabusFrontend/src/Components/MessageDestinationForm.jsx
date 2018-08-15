@@ -12,7 +12,6 @@ export class MessageDestinationForm extends Component {
                 recipientIsQueue={this.props.recipientIsQueue}
                 availableDestinations={isQueue ? this.props.availableQueues : this.props.availableTopics}
                 selectedDestination={isQueue ? this.props.selectedQueue : this.props.selectedTopic}
-                convertToValueLabel={this.props.convertToValueLabel}
                 handleQueueOrTopicChange={this.props.handleQueueOrTopicChange}
             />
         );
@@ -26,13 +25,15 @@ export class MessageDestinationForm extends Component {
         const leftAlign = css`
             text-align:left;
         `;
+        let queueSelection = this.renderMessageDestination(true);
+        let topicSelection = this.renderMessageDestination(false);
         return (
             <React.Fragment>
                 <div className={leftAlign}>
                     <p className={headingStyle}>Destination</p>
                 </div>
-                {this.renderMessageDestination(true)}
-                {this.renderMessageDestination(false)}
+                {queueSelection}
+                {topicSelection}
             </React.Fragment>
         );
     }

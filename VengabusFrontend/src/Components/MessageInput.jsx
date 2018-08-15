@@ -33,7 +33,7 @@ export class MessageInput extends Component {
             reservedPropertyNames: [], //a list of name of possible readable properties of a message
             selectedQueue: this.props.selectedQueue ? this.props.selectedQueue : undefined,
             selectedTopic: this.props.selectedTopic ? this.props.selectedTopic : undefined,
-            arePredefinedPropsLoaded: false
+            arePreDefinedPropsLoaded: false
         };
     }
 
@@ -45,7 +45,7 @@ export class MessageInput extends Component {
             this.setState({
                 permittedValues: result[0],
                 reservedPropertyNames: result[1],
-                arePredefinedPropsLoaded: true,
+                arePreDefinedPropsLoaded: true,
                 preDefinedProperties: this.props.message ? this.getPreDefinedProperties(this.props.message, result[0], result[1]) : [] //[{name: something, value: something}]
             });
         });
@@ -71,6 +71,7 @@ export class MessageInput extends Component {
     convertToValueLabel = (str) => {
         return { value: str, label: str };
     }
+
     /**
      * Converts an array of objects with a name property to an array of objects with a value and label property:
      * `[{..., name: "example", ...}] -> [{value: "example", label: "example"}]`
@@ -336,12 +337,11 @@ export class MessageInput extends Component {
                     availableTopics={this.state.availableTopics}
                     selectedQueue={this.state.selectedQueue}
                     selectedTopic={this.state.selectedTopic}
-                    convertToValueLabel={this.convertToValueLabel}
                     handleQueueOrTopicChange={this.handleQueueOrTopicChange}
                 />
                 <hr className={fullWidth} />
                 <MessageProperties
-                    arePredefinedPropsLoaded={this.state.arePredefinedPropsLoaded}
+                    arePreDefinedPropsLoaded={this.state.arePreDefinedPropsLoaded}
                     preDefinedProperties={this.state.preDefinedProperties}
                     handlePreDefinedPropertyChange={this.handlePreDefinedPropertyChange}
                     userDefinedProperties={this.state.userDefinedProperties}
