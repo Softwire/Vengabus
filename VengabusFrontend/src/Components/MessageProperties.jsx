@@ -61,9 +61,9 @@ export class MessageProperties extends Component {
         let userDefinedPropertiesInput = this.renderMessagePropertyInput(false);
         return (
             <React.Fragment>
-                {preDefinedPropertiesForm}
+                {preDefinedPropertiesInput}
                 <hr />
-                {userDefinedPropertiesForm}
+                {userDefinedPropertiesInput}
             </React.Fragment>
         );
     }
