@@ -1,24 +1,17 @@
 import React, { Component } from 'react';
 import { css } from 'react-emotion';
 import { Alert, Tabs, Tab } from 'react-bootstrap';
-import { createFormattedJSONobject } from '../Helpers/JSONformatter';
-import { createFormattedXMLobject } from '../Helpers/XMLformatter';
-import { SSL_OP_CRYPTOPRO_TLSEXT_BUG } from 'constants';
+import { JSONformatter } from '../Helpers/JSONformatter';
+import { XMLformatter } from '../Helpers/XMLformatter';
+import { OriginalFormatter } from '../Helpers/OriginalFormatter';
+import _ from 'lodash';
 
 export class FormatBox extends Component {
     constructor(props) {
         super(props);
-        this.isMessageTooLongToFormat = this.props.message.length > 100000;
-    }
-
-    startsAndEndsWith(inputString, startCharacter, endCharacter) {
-        if (!inputString) {
-            return false;
-        }
-        if (inputString[0] === startCharacter && inputString[inputString.length - 1] === endCharacter) {
-            return true;
-        }
-        return false;
+        this.JSONformatter = new JSONformatter();
+        this.XMLformatter = new XMLformatter();
+        this.OriginalFormatter = new OriginalFormatter();
     }
 
     formatterErrorAlert(message, key) {
@@ -26,7 +19,7 @@ export class FormatBox extends Component {
     }
 
     formatterWarningAlert(message, key) {
-        return this.alertBlock("warning", key, `The formatter returned a warning whilst trying to format the text of this data:`, message);
+        return this.alertBlock("warning", key, `The formatter returned a warning whilst trying to format the text of this data:`, message, 'See "Original Text" for the unformatted data.');
     }
 
     noTextAlert(key) {
@@ -44,63 +37,40 @@ export class FormatBox extends Component {
         );
     }
 
-    identifyTextFormat(originalText, JSONerror, XMLerror) {
+    identifyTextFormat(formattedObjectArray) {
         //choose which tab in messageBox to default to
-        if (this.isMessageTooLongToFormat) {
-            return 1;
-        }
-        if (this.startsAndEndsWith(originalText, '{', '}') || this.startsAndEndsWith(originalText, '[', ']')) {
-            if (!JSONerror) {
-                //might be JSON
-                return 2;
-            }
-        }
-        if (this.startsAndEndsWith(originalText, '<', '>') && !XMLerror) {
-            //might be XML
-            return 3;
-        }
-        return 1;
+        const mostLikelyFormat = _.maxBy(formattedObjectArray, 'matchConfidence');
+        return formattedObjectArray.indexOf(mostLikelyFormat);
     }
 
-    getContentToDisplay(formattedObject) {
+    getContentToDisplay(formattingAttemptResult, key) {
         let contentToDisplay = [];
-        let error = formattedObject.errorMessage;
-        let warning = formattedObject.warningMessage;
-        let formattedText = formattedObject.formattedText;
+        const error = formattingAttemptResult.errorMessage;
+        const warning = formattingAttemptResult.warningMessage;
+        const formattedText = formattingAttemptResult.formattedText;
         if (error) {
-            contentToDisplay.push(this.formatterErrorAlert(error, formattedObject.formatType + "error"));
+            contentToDisplay.push(this.formatterErrorAlert(error, formattingAttemptResult.formatType + "error"));
         }
         if (warning) {
-            contentToDisplay.push(this.formatterWarningAlert(warning, formattedObject.formatType + "warning"));
+            contentToDisplay.push(this.formatterWarningAlert(warning, formattingAttemptResult.formatType + "warning"));
         }
         if (formattedText) {
-            contentToDisplay.push(<pre key={formattedObject.formatType}>{formattedText}</pre>);
+            const textStyle = formattingAttemptResult.formatType === 'original' ? css`white-space: pre-wrap;` : ''; //wordwrap original text
+            contentToDisplay.push(<pre key={formattingAttemptResult.formatType} className={textStyle}>{formattedText}</pre>);
         }
         if (contentToDisplay.length === 0) {
-            contentToDisplay.push(this.noTextAlert(formattedObject.formatType + "warning"));
+            contentToDisplay.push(this.noTextAlert(formattingAttemptResult.formatType + "warning"));
         }
-        return contentToDisplay;
+        return <Tab title={formattingAttemptResult.formatType} eventKey={key} key={key}> {contentToDisplay}</ Tab>;
     }
 
     render() {
         const originalText = this.props.message;
-        let JSONobject, XMLobject;
-        if (!this.isMessageTooLongToFormat) {
-            JSONobject = createFormattedJSONobject(originalText);
-            XMLobject = createFormattedXMLobject(originalText);
-        } else {
-            var longFormattingError = 'Long message: only messages under 100,000 characters in length are formatted.';
-            JSONobject = { errorMessage: longFormattingError };
-            XMLobject = { errorMessage: longFormattingError };
-        }
-        const JSONdisplay = this.getContentToDisplay(JSONobject);
-        const XMLdisplay = this.getContentToDisplay(XMLobject);
-        const defaultTabToDisplay = this.identifyTextFormat(originalText, JSONobject.errorMessage, XMLobject.errorMessage);
+        const formatters = [this.OriginalFormatter, this.XMLformatter, this.JSONformatter];
+        const formattedObjectArray = formatters.map(formatter => formatter.getFormatResult(originalText));
+        const messageTabsArray = formattedObjectArray.map((formattedObj, index) => this.getContentToDisplay(formattedObj, index));
+        const defaultTabToDisplay = this.identifyTextFormat(formattedObjectArray);
 
-        const formatOriginalText = css`
-            text-align: left;
-            white-space: pre-wrap;
-        `;
         const tabStyle = css`
             .nav-tabs {
                 margin-bottom: 20px;
@@ -110,15 +80,7 @@ export class FormatBox extends Component {
         return (
             <div>
                 <Tabs animation={false} defaultActiveKey={defaultTabToDisplay} id="message-formatting-tabs" className={tabStyle}>
-                    <Tab eventKey={1} title="Original Text">
-                        <pre className={formatOriginalText}>{originalText}</pre>
-                    </Tab>
-                    <Tab eventKey={2} title="JSON">
-                        {JSONdisplay}
-                    </Tab>
-                    <Tab eventKey={3} title="XML">
-                        {XMLdisplay}
-                    </Tab>
+                    {messageTabsArray}
                 </Tabs>
             </div>
         );

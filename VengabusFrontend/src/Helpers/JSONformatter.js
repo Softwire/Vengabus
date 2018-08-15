@@ -1,28 +1,29 @@
-import formatJSon from 'prettyprint/dist/prettyPrintObject';
+import { BaseFormatter } from './BaseFormatter';
 
-const removeWhitespaceFormattingFromJSON = (originalData) => {
-    let noInitialWhitespace = originalData.replace(/^ */gm, "");
-    let noNewLinesAfterJSONTags = noInitialWhitespace.replace(/}[\n\r]/g, "}");
-    let noNewLinesBeforeJSONTags = noNewLinesAfterJSONTags.replace(/[\n\r]{/g, "{");
-    let replaceNewlineBySpaces = noNewLinesBeforeJSONTags.replace(/[\n\r]/g, " ");
-    return replaceNewlineBySpaces;
-};
+export class JSONformatter {
+    constructor() {
+        this.BaseFormatter = new BaseFormatter();
+    }
 
-const removeBlankLines = (text) => {
-    if (!text) {
-        return text;
-    }
-    return text.replace(/^\s*\n/gm, "");
-};
+    removeWhitespaceFormattingFromJSON = (originalData) => {
+        let noInitialWhitespace = originalData.replace(/^ */gm, "");
+        let noNewLinesAfterJSONTags = noInitialWhitespace.replace(/}[\n\r]/g, "}");
+        let noNewLinesBeforeJSONTags = noNewLinesAfterJSONTags.replace(/[\n\r]{/g, "{");
+        let replaceNewlineBySpaces = noNewLinesBeforeJSONTags.replace(/[\n\r]/g, " ");
+        return replaceNewlineBySpaces;
+    };
 
-export function createFormattedJSONobject(originalText) {
-    let formattedObj = { formatType: "JSON" };
-    try {
-        let deformattedOriginalText = removeWhitespaceFormattingFromJSON(originalText);
-        formattedObj.formattedText = removeBlankLines(formatJSon(JSON.parse(deformattedOriginalText)));
+    mightBeJSON = (originalText) => {
+        return this.BaseFormatter.startsAndEndsWith(originalText, '{', '}') || this.BaseFormatter.startsAndEndsWith(originalText, '[', ']');
     }
-    catch (error) {
-        formattedObj.errorMessage = error.toString();
+
+    formatJSONtext = (originalText) => {
+        let deformattedOriginalText = this.removeWhitespaceFormattingFromJSON(originalText);
+        return this.BaseFormatter.removeBlankLines(JSON.stringify(JSON.parse(deformattedOriginalText), null, 4));
     }
-    return formattedObj;
+
+    getFormatResult = (originalText) => {
+        let formattedObj = this.BaseFormatter.formatResult(originalText, 'JSON', this.formatJSONtext, this.mightBeJSON(originalText));
+        return formattedObj;
+    }
 }
