@@ -49,6 +49,8 @@ export class MessageDestination extends Component {
 
         let isCurrentDestinationSelected = this.props.isDestinationQueue === this.props.recipientIsQueue;
 
+        let destinationType = this.props.isDestinationQueue ? "Queue" : "Topic";
+
         return (
             <div className={fullWidth}>
                 <div
@@ -56,20 +58,20 @@ export class MessageDestination extends Component {
                 >
                     <input
                         type="radio"
-                        id={(this.props.isDestinationQueue ? "queue" : "topic") + "-selection-radio"}
+                        id={destinationType.toLowerCase() + "-selection-radio"}
                         className={radioStyle}
                         checked={isCurrentDestinationSelected}
                         onChange={() => this.props.handleRecipientTypeChange(this.props.isDestinationQueue)}
                     />
                     <div className={classNames(leftAlign, selectionStyle, headingStyle, verticalAlign)}>
-                        <p>{this.props.isDestinationQueue ? "Queue" : "Topic"}</p>
+                        <p>{destinationType}</p>
                     </div>
                 </div>
                 <Select
                     isDisabled={!isCurrentDestinationSelected}
                     className={dropdownStyle}
-                    title={this.props.isDestinationQueue ? "Queue" : "Topic"}
-                    id={(this.props.isDestinationQueue ? "queue" : "topic") + "-dropdown"}
+                    title={destinationType}
+                    id={destinationType.toLowerCase() + "-dropdown"}
                     options={this.props.availableDestinations}
                     value={this.props.selectedDestination ? this.convertToValueLabel(this.props.selectedDestination) : undefined}
                     onChange={(event) => this.props.handleQueueOrTopicChange(event.value)}
