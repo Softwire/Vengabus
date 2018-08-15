@@ -5,9 +5,6 @@ import { MessageProperties } from './MessageProperties';
 import { MessageDestinationForm } from './MessageDestinationForm';
 import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
-import {
-    Button
-} from "react-bootstrap";
 import _ from 'lodash';
 
 /** 
@@ -48,6 +45,7 @@ export class MessageInput extends Component {
             this.setState({
                 permittedValues: result[0],
                 reservedPropertyNames: result[1],
+                arePredefinedPropsLoaded: true,
                 preDefinedProperties: this.props.message ? this.getPreDefinedProperties(this.props.message, result[0], result[1]) : [] //[{name: something, value: something}]
             });
         });
