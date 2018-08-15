@@ -181,10 +181,11 @@ export class EditQueuesPage extends Component {
                         onChange={(bool) => this.handlePropertyChange(bool, 'enablePartitioning')}
                     />
                     <hr className={hrStlye} />
-
-                    <p className={leftAlign}>AutoDeleteOnIdle</p>
-                    <TimeSpanInput time={autoDeleteOnIdle} handleTimeChange={(duration) => this.handlePropertyChange(duration, 'autoDeleteOnIdle')} />
-
+                    <TimeSpanInput
+                        text='AutoDeleteOnIdle'
+                        data={autoDeleteOnIdle}
+                        onChange={(duration) => this.handlePropertyChange(duration, 'autoDeleteOnIdle')}
+                    />
                     <hr className={hrStlye} />
 
                     {/*Buttons*/}

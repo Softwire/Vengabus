@@ -4,9 +4,9 @@ import { Checkbox, Glyphicon, OverlayTrigger } from 'react-bootstrap';
 
 /**
  * @prop {bool} data The data that is set by the checkbox.
+ * @prop {string} text The name of the property that is being set by the checkbox.
  * @prop {node} tooltip The tooltip element that is displayed when hovering over the info glyphicon. If undefined then no info tooltip.
  * @prop {function} onChange The function that is called when the value of the checkbox is changed.
- * @prop {string} text The name of the property that is being set by the checkbox.
  */
 export class CheckboxInput extends Component {
 
