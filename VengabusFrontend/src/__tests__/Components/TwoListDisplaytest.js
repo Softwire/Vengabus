@@ -187,33 +187,32 @@ it('clicking topics then Subscriptions retrieves messages', () => {
 it('Home breadCrumb resets state', () => {
     let wrapper = mount(<TwoListDisplay />);
 
-    return QueueRowClick(wrapper).then(() => {
-        wrapper.update();
-
-        const homeBreadCrumb = wrapper.find('#Home').hostNodes();
-        homeBreadCrumb.simulate("click");
-
-        return testHelper.afterReactHasUpdated().then(() => {
-            return testExpectDefaultState(wrapper);
-        });
-    });
+    return QueueRowClick(wrapper).then(
+        () => {
+            wrapper.update();
+            const homeBreadCrumb = wrapper.find('#Home').hostNodes();
+            homeBreadCrumb.simulate("click");
+            return testHelper.afterReactHasUpdated();
+        }).then(
+            () => {
+                return testExpectDefaultState(wrapper);
+            });
 });
 
 it('Can go back to Topic from Subscription using BreadCrumbs', () => {
     let wrapper = mount(<TwoListDisplay />);
 
-    return TopicRowClick(wrapper).then(() => {
-        return SubscriptionRowClick(wrapper).then(() => {
-            wrapper.update();
-
-            const topicBreadCrumb = wrapper.find('#testTopic1').hostNodes();
-            topicBreadCrumb.simulate("click");
-
-            return testHelper.afterReactHasUpdated().then(() => {
-                return testExpectSubscriptionsAndTopics(wrapper);
-            });
-        });
-    });
+    return TopicRowClick(wrapper).then(
+        () => { return SubscriptionRowClick(wrapper); }).then(
+            () => {
+                wrapper.update();
+                const topicBreadCrumb = wrapper.find('#testTopic1').hostNodes();
+                topicBreadCrumb.simulate("click");
+                return testHelper.afterReactHasUpdated();
+            }).then(
+                () => {
+                    return testExpectSubscriptionsAndTopics(wrapper);
+                });
 });
 
 
