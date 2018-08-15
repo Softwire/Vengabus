@@ -1,17 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`QueueList renders correctly with given props 1`] = `
-.emotion-0:hover {
-  border: 1px solid #99ccff;
-  background-color: #ecf2ff !important;
-}
-
-.emotion-1 {
+.emotion-5 {
   cursor: pointer;
 }
 
+.emotion-0 {
+  min-height: 92px;
+  height: 92px;
+}
+
+.emotion-10 table.table :not(thead) tr:hover {
+  border: 1px solid #99ccff;
+  background-color: #ecf2ff;
+}
+
 <div
-  className="react-bootstrap-table"
+  className="react-bootstrap-table emotion-10"
 >
   <table
     className="table table-striped table-bordered"
@@ -22,9 +27,9 @@ exports[`QueueList renders correctly with given props 1`] = `
         className={undefined}
       >
         <th
+          className="emotion-0"
           style={
             Object {
-              "height": "92px",
               "width": "25%",
             }
           }
@@ -32,9 +37,9 @@ exports[`QueueList renders correctly with given props 1`] = `
           Name
         </th>
         <th
+          className="emotion-0"
           style={
             Object {
-              "height": "92px",
               "width": "25%",
             }
           }
@@ -42,9 +47,9 @@ exports[`QueueList renders correctly with given props 1`] = `
           Active Message Count
         </th>
         <th
+          className="emotion-0"
           style={
             Object {
-              "height": "92px",
               "width": "25%",
             }
           }
@@ -52,9 +57,9 @@ exports[`QueueList renders correctly with given props 1`] = `
           Deadletter Message Count
         </th>
         <th
+          className="emotion-0"
           style={
             Object {
-              "height": "92px",
               "width": "25%",
             }
           }
@@ -65,7 +70,7 @@ exports[`QueueList renders correctly with given props 1`] = `
     </thead>
     <tbody>
       <tr
-        className="emotion-0 emotion-1"
+        className="emotion-4 emotion-5"
         onClick={[Function]}
         style={Object {}}
       >
@@ -87,7 +92,7 @@ exports[`QueueList renders correctly with given props 1`] = `
         />
       </tr>
       <tr
-        className="emotion-0 emotion-1"
+        className="emotion-4 emotion-5"
         onClick={[Function]}
         style={Object {}}
       >
@@ -109,7 +114,7 @@ exports[`QueueList renders correctly with given props 1`] = `
         />
       </tr>
       <tr
-        className="emotion-0 emotion-1"
+        className="emotion-4 emotion-5"
         onClick={[Function]}
         style={Object {}}
       >
