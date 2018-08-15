@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly before data is added 1`] = `
-.emotion-2 {
-  width: 40%;
+.emotion-3 {
+  width: 45%;
   margin-left: 10px;
   margin-right: 10px;
   display: inline-block;
 }
 
-.emotion-4 {
+.emotion-7 {
   display: block;
 }
 
@@ -18,13 +18,30 @@ exports[`renders correctly before data is added 1`] = `
   margin: 2px;
 }
 
+.emotion-8 {
+  min-width: 1000px;
+}
+
+.emotion-4 {
+  border-left: 1px solid black;
+  display: inline-block;
+  height: 100%;
+  position: absolute;
+}
+
 .emotion-0 {
   float: left;
   height: 35px;
   margin-bottom: 1px !important;
 }
 
-<div>
+.emotion-2 {
+  text-align: center;
+}
+
+<div
+  className="emotion-8"
+>
   <div
     className="emotion-1"
   >
@@ -46,10 +63,10 @@ exports[`renders correctly before data is added 1`] = `
     </ol>
   </div>
   <div
-    className="emotion-4"
+    className="emotion-7"
   >
     <div
-      className="emotion-2"
+      className="emotion-3"
       id="left"
     >
       <div>
@@ -60,13 +77,16 @@ exports[`renders correctly before data is added 1`] = `
         </h2>
       </div>
       <p
-        id="warning"
+        className="emotion-2"
       >
         No data has been retrieved yet.
       </p>
     </div>
     <div
-      className="emotion-2"
+      className="emotion-4"
+    />
+    <div
+      className="emotion-3"
       id="right"
     >
       <div>
@@ -77,7 +97,7 @@ exports[`renders correctly before data is added 1`] = `
         </h2>
       </div>
       <p
-        id="warning"
+        className="emotion-2"
       >
         No data has been retrieved yet.
       </p>

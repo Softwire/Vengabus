@@ -76,7 +76,7 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
         }
 
         listSubscriptions = (topicName) => {
-            return (topicName === "testTopic1") ? Promise.resolve([
+            return Promise.resolve([
                 {
                     name: "testSubscriptions1",
                     activeMessageCount: 12,
@@ -92,12 +92,12 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
                     activeMessageCount: 13,
                     deadletterMessageCount: 18
                 }
-            ]
-            ) : undefined;
+            ])
+
         }
 
-        listSubscriptionMessages = (subscriptionName, test) => {
-            return (subscriptionName === "testSubscriptions1" ? Promise.resolve(
+        listSubscriptionMessages = (subscriptionName) => {
+            return Promise.resolve(
                 [
                     {
                         predefinedProperties: { messageId: "test1" },
@@ -115,8 +115,7 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
                         uniqueId: "8ab56d4c-0204-4aa2-a888-2cc305cd0275",
                         messageBody: "carrot"
                     }
-                ]
-            ) : undefined);
+                ])
         }
     }
 }));
@@ -165,9 +164,7 @@ it('clicking Topics retrieves subscriptions', () => {
 it('clicking topics then Subscriptions retrieves messages', () => {
     let wrapper = mount(<TwoListDisplay />);
 
-    testTopicRowClick(wrapper);
-
-    return testHelper.afterReactHasUpdated().then(() => {
+    testTopicRowClick(wrapper).then(() => {
         wrapper.update();
         return testSubscriptionRowClick(wrapper);
     });
@@ -176,9 +173,7 @@ it('clicking topics then Subscriptions retrieves messages', () => {
 it('Home breadCrumb resets state', () => {
     let wrapper = mount(<TwoListDisplay />);
 
-    testQueueRowClick(wrapper);
-
-    return testHelper.afterReactHasUpdated().then(() => {
+    testQueueRowClick(wrapper).then(() => {
         wrapper.update();
 
         const homeBreadCrumb = wrapper.find('#Home').hostNodes();
@@ -206,17 +201,12 @@ it('Home breadCrumb resets state', () => {
 it('Can go back to Topic from Subscription using BreadCrumbs', () => {
     let wrapper = mount(<TwoListDisplay />);
 
-    testTopicRowClick(wrapper);
-
-    return testHelper.afterReactHasUpdated().then(() => {
+    testTopicRowClick(wrapper).then(() => {
         wrapper.update();
-
-        testSubscriptionRowClick(wrapper);
-
-        return testHelper.afterReactHasUpdated().then(() => {
+        testSubscriptionRowClick(wrapper).then(() => {
             wrapper.update();
 
-            const topicBreadCrumb = wrapper.find('#test1').hostNodes();
+            const topicBreadCrumb = wrapper.find('#testTopic1').hostNodes();
             topicBreadCrumb.simulate("click");
 
             return testHelper.afterReactHasUpdated().then(() => {
@@ -264,7 +254,7 @@ const testQueueRowClick = (wrapper) => {
 
     return testHelper.afterReactHasUpdated().then(() => {
         wrapper.update();
-        const messageList = wrapper.find('#MessageTable');
+        const messageList = wrapper.find('#MessageTable').find("#Data");
         const rightTitle = wrapper.find('#right').find('#title').text();
 
         expect(rightTitle).toBe("Messages");
