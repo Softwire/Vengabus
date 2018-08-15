@@ -50,7 +50,7 @@ export class MessageDestination extends Component {
         return (
             <div className={fullWidth}>
                 <div
-                    onClick={this.props.switchSelectedDestinationType}
+                    onClick={() => this.props.handleDestinationChange(null)}
                 >
                     <input
                         type="radio"
