@@ -9,7 +9,7 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
     </div>
     <div class=\\"css-1m1gf12\\">
         <div>
-            <input id=\\"queue-selection-radio\\" class=\\"css-85g23i\\" type=\\"radio\\" value=\\"queue\\">
+            <input type=\\"radio\\" id=\\"queue-selection-radio\\" class=\\"css-85g23i\\">
                 <div class=\\"css-mxbhzi css-5g10zq css-wni10w css-1nkn65\\">
                     <p>
                         Queue
@@ -45,7 +45,7 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
             </div>
             <div class=\\"css-1m1gf12\\">
                 <div>
-                    <input id=\\"topic-selection-radio\\" class=\\"css-85g23i\\" type=\\"radio\\" value=\\"topic\\">
+                    <input type=\\"radio\\" id=\\"topic-selection-radio\\" class=\\"css-85g23i\\">
                         <div class=\\"css-mxbhzi css-5g10zq css-wni10w css-1nkn65\\">
                             <p>
                                 Topic
@@ -160,7 +160,7 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                                                             </button>
                                                         </div>
                                                     </form>
-                                                    <hr>
+                                                    <hr class=\\"css-1m1gf12\\">
                                                         <form>
                                                             <div class=\\"css-mxbhzi form-group\\">
                                                                 <label for=\\"formControlsMessageBodyText\\" class=\\"css-wni10w control-label\\">
@@ -195,12 +195,32 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
 `;
 
 exports[`renders correctly after data has loaded 1`] = `
-.emotion-46 {
+.emotion-47 {
   margin-left: 5px;
   margin-right: 5px;
   padding-top: 1%;
   width: calc(100% - 10px);
   float: left;
+}
+
+.emotion-17 {
+  float: left;
+  width: 100%;
+}
+
+.emotion-0 {
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.emotion-1 {
+  text-align: left;
+}
+
+.emotion-16 {
+  float: left;
+  width: 275px;
+  text-align: left;
 }
 
 .emotion-2 {
@@ -215,38 +235,8 @@ exports[`renders correctly after data has loaded 1`] = `
   width: 75px;
 }
 
-.emotion-16 {
-  float: left;
-  width: 275px;
-  text-align: left;
-}
-
-.emotion-37 {
-  width: 270px;
-  margin-left: 5px;
-}
-
-.emotion-0 {
-  font-weight: bold;
-  margin-left: 5px;
-}
-
-.emotion-1 {
-  text-align: left;
-}
-
-.emotion-44 {
-  min-height: 350px;
-  padding-left: 5px;
-}
-
 .emotion-6 {
   line-height: 38px;
-}
-
-.emotion-17 {
-  float: left;
-  width: 100%;
 }
 
 .emotion-15 {
@@ -434,8 +424,18 @@ exports[`renders correctly after data has loaded 1`] = `
   box-sizing: border-box;
 }
 
+.emotion-37 {
+  width: 270px;
+  margin-left: 5px;
+}
+
+.emotion-45 {
+  min-height: 350px;
+  padding-left: 5px;
+}
+
 <div
-  className="emotion-46"
+  className="emotion-47"
 >
   <div
     className="emotion-1"
@@ -458,7 +458,6 @@ exports[`renders correctly after data has loaded 1`] = `
         id="queue-selection-radio"
         onChange={[Function]}
         type="radio"
-        value="queue"
       />
       <div
         className="emotion-1 emotion-4 emotion-0 emotion-6"
@@ -587,7 +586,6 @@ exports[`renders correctly after data has loaded 1`] = `
         id="topic-selection-radio"
         onChange={[Function]}
         type="radio"
-        value="topic"
       />
       <div
         className="emotion-1 emotion-4 emotion-0 emotion-6"
@@ -756,7 +754,9 @@ exports[`renders correctly after data has loaded 1`] = `
       </button>
     </div>
   </form>
-  <hr />
+  <hr
+    className="emotion-17"
+  />
   <form>
     <div
       className="emotion-1 form-group"
@@ -768,7 +768,7 @@ exports[`renders correctly after data has loaded 1`] = `
         Body
       </label>
       <textarea
-        className="emotion-44 form-control"
+        className="emotion-45 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
@@ -799,12 +799,32 @@ exports[`renders correctly after data has loaded 1`] = `
 `;
 
 exports[`renders correctly before data has loaded 1`] = `
-.emotion-47 {
+.emotion-48 {
   margin-left: 5px;
   margin-right: 5px;
   padding-top: 1%;
   width: calc(100% - 10px);
   float: left;
+}
+
+.emotion-17 {
+  float: left;
+  width: 100%;
+}
+
+.emotion-0 {
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.emotion-1 {
+  text-align: left;
+}
+
+.emotion-16 {
+  float: left;
+  width: 275px;
+  text-align: left;
 }
 
 .emotion-2 {
@@ -819,46 +839,8 @@ exports[`renders correctly before data has loaded 1`] = `
   width: 75px;
 }
 
-.emotion-16 {
-  float: left;
-  width: 275px;
-  text-align: left;
-}
-
-.emotion-37 {
-  width: 270px;
-  margin-left: 5px;
-}
-
-.emotion-0 {
-  font-weight: bold;
-  margin-left: 5px;
-}
-
-.emotion-1 {
-  text-align: left;
-}
-
-.emotion-45 {
-  min-height: 350px;
-  padding-left: 5px;
-}
-
 .emotion-6 {
   line-height: 38px;
-}
-
-.emotion-17 {
-  float: left;
-  width: 100%;
-}
-
-.emotion-38 {
-  opacity: 0.5;
-}
-
-.emotion-38:hover {
-  cursor: progress;
 }
 
 .emotion-15 {
@@ -1046,8 +1028,26 @@ exports[`renders correctly before data has loaded 1`] = `
   box-sizing: border-box;
 }
 
+.emotion-37 {
+  width: 270px;
+  margin-left: 5px;
+}
+
+.emotion-38 {
+  opacity: 0.5;
+}
+
+.emotion-38:hover {
+  cursor: progress;
+}
+
+.emotion-46 {
+  min-height: 350px;
+  padding-left: 5px;
+}
+
 <div
-  className="emotion-47"
+  className="emotion-48"
 >
   <div
     className="emotion-1"
@@ -1070,7 +1070,6 @@ exports[`renders correctly before data has loaded 1`] = `
         id="queue-selection-radio"
         onChange={[Function]}
         type="radio"
-        value="queue"
       />
       <div
         className="emotion-1 emotion-4 emotion-0 emotion-6"
@@ -1199,7 +1198,6 @@ exports[`renders correctly before data has loaded 1`] = `
         id="topic-selection-radio"
         onChange={[Function]}
         type="radio"
-        value="topic"
       />
       <div
         className="emotion-1 emotion-4 emotion-0 emotion-6"
@@ -1368,7 +1366,9 @@ exports[`renders correctly before data has loaded 1`] = `
       </button>
     </div>
   </form>
-  <hr />
+  <hr
+    className="emotion-17"
+  />
   <form>
     <div
       className="emotion-1 form-group"
@@ -1380,7 +1380,7 @@ exports[`renders correctly before data has loaded 1`] = `
         Body
       </label>
       <textarea
-        className="emotion-45 form-control"
+        className="emotion-46 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
@@ -1411,12 +1411,32 @@ exports[`renders correctly before data has loaded 1`] = `
 `;
 
 exports[`renders correctly from a predefined message 1`] = `
-.emotion-59 {
+.emotion-60 {
   margin-left: 5px;
   margin-right: 5px;
   padding-top: 1%;
   width: calc(100% - 10px);
   float: left;
+}
+
+.emotion-17 {
+  float: left;
+  width: 100%;
+}
+
+.emotion-0 {
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.emotion-1 {
+  text-align: left;
+}
+
+.emotion-16 {
+  float: left;
+  width: 275px;
+  text-align: left;
 }
 
 .emotion-2 {
@@ -1431,46 +1451,8 @@ exports[`renders correctly from a predefined message 1`] = `
   width: 75px;
 }
 
-.emotion-16 {
-  float: left;
-  width: 275px;
-  text-align: left;
-}
-
-.emotion-37 {
-  width: 270px;
-  margin-left: 5px;
-}
-
-.emotion-0 {
-  font-weight: bold;
-  margin-left: 5px;
-}
-
-.emotion-1 {
-  text-align: left;
-}
-
-.emotion-57 {
-  min-height: 350px;
-  padding-left: 5px;
-}
-
 .emotion-6 {
   line-height: 38px;
-}
-
-.emotion-17 {
-  float: left;
-  width: 100%;
-}
-
-.emotion-38 {
-  opacity: 0.5;
-}
-
-.emotion-38:hover {
-  cursor: progress;
 }
 
 .emotion-15 {
@@ -1658,6 +1640,24 @@ exports[`renders correctly from a predefined message 1`] = `
   box-sizing: border-box;
 }
 
+.emotion-37 {
+  width: 270px;
+  margin-left: 5px;
+}
+
+.emotion-38 {
+  opacity: 0.5;
+}
+
+.emotion-38:hover {
+  cursor: progress;
+}
+
+.emotion-58 {
+  min-height: 350px;
+  padding-left: 5px;
+}
+
 .emotion-7 {
   color: #222;
   margin-left: 2px;
@@ -1697,7 +1697,7 @@ exports[`renders correctly from a predefined message 1`] = `
 }
 
 <div
-  className="emotion-59"
+  className="emotion-60"
 >
   <div
     className="emotion-1"
@@ -1720,7 +1720,6 @@ exports[`renders correctly from a predefined message 1`] = `
         id="queue-selection-radio"
         onChange={[Function]}
         type="radio"
-        value="queue"
       />
       <div
         className="emotion-1 emotion-4 emotion-0 emotion-6"
@@ -1849,7 +1848,6 @@ exports[`renders correctly from a predefined message 1`] = `
         id="topic-selection-radio"
         onChange={[Function]}
         type="radio"
-        value="topic"
       />
       <div
         className="emotion-1 emotion-4 emotion-0 emotion-6"
@@ -2115,7 +2113,9 @@ exports[`renders correctly from a predefined message 1`] = `
       </button>
     </div>
   </form>
-  <hr />
+  <hr
+    className="emotion-17"
+  />
   <form>
     <div
       className="emotion-1 form-group"
@@ -2127,7 +2127,7 @@ exports[`renders correctly from a predefined message 1`] = `
         Body
       </label>
       <textarea
-        className="emotion-57 form-control"
+        className="emotion-58 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
