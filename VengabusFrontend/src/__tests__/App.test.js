@@ -214,7 +214,6 @@ it('passes smoke tests without crashing', () => {
 
     /* TestPath:
      * Go to Demo Page
-     * Click ReplayMessage button
      * Go to Home Page
      * Go to Send Message Page
      * Click and new property button
@@ -224,17 +223,17 @@ it('passes smoke tests without crashing', () => {
         .then(() => { //Go to Demo Page
             navbarDemoPageButton.simulate("click");
             return testHelper.afterReactHasUpdated();
-        }).then(() => { //Click ReplayMessage button
-            const replayMessageButton = wrapper.find("#demoPageReplayMessageButton").first();
-            expect(replayMessageButton).toExistOnPage();
-            replayMessageButton.simulate("click");
-            return testHelper.afterReactHasUpdated();
+            /*    }).then(() => { //Click ReplayMessage button -- this no longer exists. QQ remove when every's added smoke test
+                    const replayMessageButton = wrapper.find("#demoPageReplayMessageButton").first();
+                    expect(replayMessageButton).toExistOnPage();
+                    replayMessageButton.simulate("click");
+                    return testHelper.afterReactHasUpdated();*/
         }).then(() => {//Go to Home Page
-            const buttonFromPreviousPage = wrapper.find("#demoPageReplayMessageButton").first();
+            const buttonFromPreviousPage = wrapper.find("#demoPageReplayMessageButton").first();//this still works, as that button no longer exists
             expect(buttonFromPreviousPage).notToExistOnPage();
 
-            const buttonsOnReplayMessagePage = wrapper.find(Button);
-            expect(buttonsOnReplayMessagePage.length).toBeGreaterThan(4);
+        /*    const buttonsOnReplayMessagePage = wrapper.find(Button); -- this is no longer valid. QQ remove as above
+            expect(buttonsOnReplayMessagePage.length).toBeGreaterThan(4);*/
 
             navbarHomePageButton.simulate("click");
             return testHelper.afterReactHasUpdated();
