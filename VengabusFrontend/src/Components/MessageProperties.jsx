@@ -10,11 +10,11 @@ export class MessageProperties extends Component {
 
     /**
      * Updates a collection of properties by applying the given updateOperation to it.
-     * @param {boolean} isUserDefined Should be true if the property is user-defined, false if it is a pre-defined property.
-     * @param {funciton} updateOperation The operation to be applied to the properties collection.
+     * @param {boolean} isPreDefined Should be true if the property is pre-defined, false if it is a user-defined property.
+     * @param {function} updateOperation The operation to be applied to the properties collection.
      */
-    updatePropertiesCollection = (isUserDefined, updateOperation) => {
-        const propertyType = isUserDefined ? "userDefinedProperties" : "preDefinedProperties";
+    updatePropertiesCollection = (isPreDefined, updateOperation) => {
+        const propertyType = isPreDefined ? "preDefinedProperties" : "userDefinedProperties";
         const newProperties = [...this.props[propertyType]];
         updateOperation(newProperties);
         this.props.handlePropertiesChange(propertyType, newProperties);
@@ -22,10 +22,10 @@ export class MessageProperties extends Component {
 
     /**
      * Adds a new property to the list of user-defined properties.
-     * @param {boolean} isUserDefined Should be true if the property is user-defined, false if it is a pre-defined property.
+     * @param {boolean} isPreDefined Should be true if the property is pre-defined, false if it is a user-defined property.
      */
-    addNewProperty = (isUserDefined) => {
-        this.updatePropertiesCollection(isUserDefined, (propertyCollectionToMutate) => {
+    addNewProperty = (isPreDefined) => {
+        this.updatePropertiesCollection(isPreDefined, (propertyCollectionToMutate) => {
             propertyCollectionToMutate.push({ name: "", value: "" });
         });
     }
@@ -35,17 +35,16 @@ export class MessageProperties extends Component {
      * @param {integer} index The index of the row to delete.
      * @param {boolean} isUserDefined Should be true if the property is user-defined, false if it is a pre-defined property.
      */
-    deleteRow = (index, isUserDefined) => {
-        this.updatePropertiesCollection(isUserDefined, (propertyCollectionToMutate) => {
+    deleteRow = (index, isPreDefined) => {
+        this.updatePropertiesCollection(isPreDefined, (propertyCollectionToMutate) => {
             propertyCollectionToMutate.splice(index, 1);
         });
     };
 
     handlePropertiesEdit = (isPreDefined, position, attribute, newValue) => {
-        const propertyType = isPreDefined ? "preDefinedProperties" : "userDefinedProperties";
-        const newProperties = [...this.props[propertyType]];
-        newProperties[position][attribute] = newValue;
-        this.props.handlePropertiesChange(propertyType, newProperties);
+        this.updatePropertiesCollection(isPreDefined, (propertyCollectionToMutate) => {
+            propertyCollectionToMutate[position][attribute] = newValue;
+        });
     }
 
     renderMessagePropertyInput = (isPredefined) => {
@@ -77,7 +76,7 @@ export class MessageProperties extends Component {
                     properties={isPredefined ? this.props.preDefinedProperties : this.props.userDefinedProperties}
                     handlePropertyNameChange={(newName, index) => this.handlePropertiesEdit(isPredefined, index, 'name', newName)}
                     handlePropertyValueChange={(newValue, index) => this.handlePropertiesEdit(isPredefined, index, 'value', newValue)}
-                    deleteRow={(index) => this.deleteRow(index, !isPredefined)}
+                    deleteRow={(index) => this.deleteRow(index, isPredefined)}
                     permittedValues={isPredefined ? this.props.permittedValues : undefined}
                     reservedPropertyNames={isPredefined ? undefined : this.props.reservedPropertyNames}
                 />
@@ -86,7 +85,7 @@ export class MessageProperties extends Component {
                         <Button
                             className={isPredefined ? preDefinedPropsButtonClassNames : buttonStyle}
                             disabled={!arePropertiesLoaded}
-                            onClick={() => this.addNewProperty(!isPredefined)}
+                            onClick={() => this.addNewProperty(isPredefined)}
                         >
                             {arePropertiesLoaded ? addPropertyText : 'Loading pre-defined properties...'}
                         </Button>

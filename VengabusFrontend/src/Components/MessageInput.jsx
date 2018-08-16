@@ -142,27 +142,6 @@ export class MessageInput extends Component {
     };
 
     /**
-     * Adds a new property to the list of user-defined properties.
-     * @param {boolean} isUserDefined Should be true if the property is user-defined, false if it is a pre-defined property.
-     */
-    addNewProperty = (isUserDefined) => {
-        this.updatePropertiesCollection(isUserDefined, (propertyCollectionToMutate) => {
-            propertyCollectionToMutate.push({ name: "", value: "" });
-        });
-    }
-
-    /**
-     * Deletes a row from the list of user defined properties.
-     * @param {integer} index The index of the row to delete.
-     * @param {boolean} isUserDefined Should be true if the property is user-defined, false if it is a pre-defined property.
-     */
-    deleteRow = (index, isUserDefined) => {
-        this.updatePropertiesCollection(isUserDefined, (propertyCollectionToMutate) => {
-            propertyCollectionToMutate.splice(index, 1);
-        });
-    };
-
-    /**
      * Updates the message body in the state with a new value.
      * @param {string} newBody The new value of the body.
      */
