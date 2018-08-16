@@ -56,6 +56,7 @@ export class SubscriptionList extends Component {
                 defaultHover
                 onRowClick={this.props.clickFunction}
                 selectRow={selectRow}
+                searchable={true}
             />
         );
     }

@@ -55,6 +55,7 @@ export class QueueList extends Component {
                 onRowClick={this.props.clickFunction}
                 selectRow={selectRow}
                 uniqueKeyColumn='name'
+                searchable={true}
             />
         );
     }
