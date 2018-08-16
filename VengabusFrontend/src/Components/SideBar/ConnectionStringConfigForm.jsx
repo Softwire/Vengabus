@@ -89,10 +89,17 @@ export class ConnectionStringConfigForm extends Component {
         this.setState({ APIroot: newApiRoot });
     }
 
+    updateConnectionStringLocalStorage = (connectionStrings) => {
+        localStorageAccessor.setItem(
+            LOCAL_STORAGE_STRINGS.ConnectionStrings,
+            JSON.stringify(connectionStrings)
+        );
+    }
+
     /** Updates the value of the connection string in the state, in serviceBusConnection, and in the localstorage.  
      * @param {object} newConnection The updated value of the connection.  
      */
-    updateConnectionStringStorage = (connectionString) => {
+    updateConnectionStringList = (connectionString) => {
 
         //put the most recently used string to the top
         let connectionStringList = this.state.connectionStringList;
@@ -108,14 +115,8 @@ export class ConnectionStringConfigForm extends Component {
             connectionStringList: connectionStringList
         });
 
-        //set servicebus to use new connection string
-        serviceBusConnection.setConnectionString(connectionString.value);
-
         //local storage only supports strings, so stringify our list and save in local storage
-        localStorageAccessor.setItem(
-            LOCAL_STORAGE_STRINGS.ConnectionStrings,
-            JSON.stringify(connectionStringList)
-        );
+        this.updateConnectionStringLocalStorage(connectionStringList);
     };
 
     /** Updates the value of the API root location in the state, in serviceBusConnection, and in the localstorage.  
@@ -131,6 +132,7 @@ export class ConnectionStringConfigForm extends Component {
     }
 
     deleteConnection = () => {
+        //nothing to delete
         if (!this.state.connectionStringList || !this.state.connectionStringList.length) {
             return;
         }
@@ -138,12 +140,14 @@ export class ConnectionStringConfigForm extends Component {
             return;
         }
         let newConnectionStringList = this.state.connectionStringList;
-        let index = newConnectionStringList.indexOf(this.state.activeConnectionString);
-        if (index === -1) {
+        let index = newConnectionStringList.find((element) => { return this.state.activeConnectionString.label === element.label });
+        if (index === -1) {//this should never happen. But if it does occur, we don't want the page to crash
             return;
         }
         newConnectionStringList.splice(index, 1);
         let activeConnectionString;
+
+        //use the most commonly used string, if we still have strings left. But don't connect to it -- that's for users to decide
         if (newConnectionStringList.length) {
             activeConnectionString = newConnectionStringList[0];
         } else {
@@ -151,13 +155,16 @@ export class ConnectionStringConfigForm extends Component {
         }
         this.setState({
             connectionStringList: newConnectionStringList,
-            activeConnectionString: activeConnectionString
+            activeConnectionString: activeConnectionString,
+            info: "",
+            connectedTo: { value: "", label: "" }
         });
+
+        //clear it from servicebusConnection. Or shall we rather keep it?
         serviceBusConnection.setConnectionString("");
-        localStorageAccessor.setItem(
-            LOCAL_STORAGE_STRINGS.ConnectionStrings,
-            JSON.stringify(newConnectionStringList)
-        );
+
+        //update local storage
+        this.updateConnectionStringLocalStorage(newConnectionStringList);
     }
 
     // Called whenever the value of the connection string input box changes.
@@ -171,9 +178,13 @@ export class ConnectionStringConfigForm extends Component {
     handleConnectionStringLabelChange = event => {
         //react-select has a different onChange event structure.
         //The new value is directly in event, instead of event.target.*
+        if (!event.label || !event.value) {
+            return;
+        }
 
-        //a new connection string. The oncreate event doesn't seem to work as expected
         let newConnectionStringList = this.state.connectionStringList;
+        //The onCreate event doesn't seem to work as expected, but when a new entry is created, the value and label are identical.
+        //So we can use that to identify when the user creates a new string.
         if (event.value === event.label) {
             event.value = '';
             newConnectionStringList.splice(0, 0, event);
@@ -196,9 +207,14 @@ export class ConnectionStringConfigForm extends Component {
      */
     submitConnectionStringClick = () => {
 
-        //only save new strings when they are used
+        //only save new strings when they are actually used.
         let activeConnectionString = this.state.activeConnectionString;
-        this.updateConnectionStringStorage(activeConnectionString);
+
+        //set servicebus to use new connection string
+        serviceBusConnection.setConnectionString(activeConnectionString.value);
+
+        //update string list by most recently used, and then update local storage
+        this.updateConnectionStringList(activeConnectionString);
         this.updateAPIrootStorage(this.state.APIroot);
 
         serviceBusConnection.promptUpdate();
@@ -207,6 +223,7 @@ export class ConnectionStringConfigForm extends Component {
             .then(response => {
                 this.setState({
                     info: response,
+                    //only update this when we actually connect to something.
                     connectedTo: activeConnectionString
                 });
 
@@ -236,7 +253,7 @@ export class ConnectionStringConfigForm extends Component {
         return (
             <form className={formStyle}>
                 <FormGroup controlId="connectionStringLabel">
-                    <ControlLabel>Select or Create New String</ControlLabel>
+                    <ControlLabel>Select Existing/Create New String</ControlLabel>
                     <CreatableSelect className={selectStyle}
                         value={this.state.activeConnectionString}
                         placeholder="Select a connection string"
