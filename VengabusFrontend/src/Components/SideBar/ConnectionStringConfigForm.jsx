@@ -29,7 +29,9 @@ export class ConnectionStringConfigForm extends Component {
         this.state = {
             connectionStringList: [],
             activeConnectionString: { label: "", value: "" },
-            APIroot: ""
+            connectedTo: { label: "", value: "" },
+            APIroot: "",
+            info: ""
         };
     }
 
@@ -73,6 +75,10 @@ export class ConnectionStringConfigForm extends Component {
      */
     populateConnectionStringList = newConnectionStringList => {
         this.setState({ connectionStringList: newConnectionStringList });
+        if (newConnectionStringList.length) {
+            //if we have some in local storage, use the most recently used one
+            this.setState({ activeConnectionString: newConnectionStringList[0] });
+        }
     }
 
     /** Populates the apiRoot on page.
@@ -137,9 +143,15 @@ export class ConnectionStringConfigForm extends Component {
             return;
         }
         newConnectionStringList.splice(index, 1);
+        let activeConnectionString;
+        if (newConnectionStringList.length) {
+            activeConnectionString = newConnectionStringList[0];
+        } else {
+            activeConnectionString = { value: "", label: "" };
+        }
         this.setState({
             connectionStringList: newConnectionStringList,
-            activeConnectionString: { value: "", label: "" }
+            activeConnectionString: activeConnectionString
         });
         serviceBusConnection.setConnectionString("");
         localStorageAccessor.setItem(
@@ -185,7 +197,8 @@ export class ConnectionStringConfigForm extends Component {
     submitConnectionStringClick = () => {
 
         //only save new strings when they are used
-        this.updateConnectionStringStorage(this.state.activeConnectionString);
+        let activeConnectionString = this.state.activeConnectionString;
+        this.updateConnectionStringStorage(activeConnectionString);
         this.updateAPIrootStorage(this.state.APIroot);
 
         serviceBusConnection.promptUpdate();
@@ -193,7 +206,8 @@ export class ConnectionStringConfigForm extends Component {
         infoPromise
             .then(response => {
                 this.setState({
-                    info: response
+                    info: response,
+                    connectedTo: activeConnectionString
                 });
 
             })
@@ -222,7 +236,7 @@ export class ConnectionStringConfigForm extends Component {
         return (
             <form className={formStyle}>
                 <FormGroup controlId="connectionStringLabel">
-                    <ControlLabel>Select or Create New</ControlLabel>
+                    <ControlLabel>Select or Create New String</ControlLabel>
                     <CreatableSelect className={selectStyle}
                         value={this.state.activeConnectionString}
                         placeholder="Select a connection string"
@@ -272,7 +286,7 @@ export class ConnectionStringConfigForm extends Component {
                     <br />
                 </div>
                 <ServiceBusInfoBox
-                    connectionStringValue={this.state.activeConnectionString.value}
+                    connectionString={this.state.connectedTo}
                 />
             </form>
         );
