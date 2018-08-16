@@ -1,4 +1,4 @@
-import { DeleteMessagesButton } from '../../Components/DeleteMessagesButton';
+import { PurgeMessagesButton } from '../../Components/PurgeMessagesButton';
 import renderer from 'react-test-renderer';
 import React from 'react';
 import { mount } from 'enzyme';
@@ -6,9 +6,9 @@ import { Modal } from 'react-bootstrap';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
 import { testHelper } from '../../TestHelpers/TestHelper';
 
-let mockDeleteSubscrionMessage = jest.fn();
-let mockDeleteQueueMessages = jest.fn();
-let mockDeleteTopicMessages = jest.fn();
+let mockPurgeSubscrionMessage = jest.fn();
+let mockPurgeQueueMessages = jest.fn();
+let mockPurgeTopicMessages = jest.fn();
 jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
     VengaServiceBusService: class {
         constructor() {
@@ -33,14 +33,14 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
             }]
         });
 
-        deleteQueueMessages = (queueName) => { mockDeleteQueueMessages(queueName); }
-        deleteTopicMessages = (topicName) => { mockDeleteTopicMessages(topicName); }
-        deleteSubscriptionMessages = (topicName, subscriptionName) => { mockDeleteSubscrionMessage(subscriptionName); }
+        purgeQueueMessages = (queueName) => { mockPurgeQueueMessages(queueName); }
+        purgeTopicMessages = (topicName) => { mockPurgeTopicMessages(topicName); }
+        purgeSubscriptionMessages = (topicName, subscriptionName) => { mockPurgeSubscrionMessage(subscriptionName); }
     }
 }));
 
-function afterModalDeleteButtonIsClicked(wrapper, mockFunction, endpointName) {
-    testHelper.clickElementWithId(wrapper, "#alertDelete");
+function afterModalPurgeButtonIsClicked(wrapper, mockFunction, endpointName) {
+    testHelper.clickElementWithId(wrapper, "#alertPurge");
 
 
     return testHelper.afterReactHasUpdated().then(() => {
@@ -55,22 +55,22 @@ function afterModalDeleteButtonIsClicked(wrapper, mockFunction, endpointName) {
     });
 }
 
-describe('DeleteMessagesButton', () => {
+describe('PurgeMessagesButton', () => {
     let subscriptionName = "subscriptionName";
     let topicName = "topicName";
     let queueName = "queueName";
 
     it('renders correctly with given props', () => {
         let deleteMessagesButton = renderer.create(
-            <DeleteMessagesButton type={EndpointTypes.SUBSCRIPTION} endpointName={subscriptionName} parentName={topicName} />);
+            <PurgeMessagesButton type={EndpointTypes.SUBSCRIPTION} endpointName={subscriptionName} parentName={topicName} />);
         expect(deleteMessagesButton.toJSON()).toMatchSnapshot();
     });
 
-    it('Modal popup has Delete and Cancel buttons', () => {
-        let wrapper = mount(<DeleteMessagesButton type={EndpointTypes.QUEUE} endpointName={queueName} />);
+    it('Modal popup has Purge and Cancel buttons', () => {
+        let wrapper = mount(<PurgeMessagesButton type={EndpointTypes.QUEUE} endpointName={queueName} />);
         expect(wrapper.find("#cancel").hostNodes()).toHaveLength(0);
         expect(wrapper.find("#confirm").hostNodes()).toHaveLength(0);
-        testHelper.clickElementWithId(wrapper, "#alertDelete");
+        testHelper.clickElementWithId(wrapper, "#alertPurge");
 
         return testHelper.afterReactHasUpdated().then(() => {
             wrapper.update();
@@ -79,9 +79,9 @@ describe('DeleteMessagesButton', () => {
         });
     });
 
-    it('clicking cancel button does not send delete request to endpoint and closes the Modal', () => {
-        let wrapper = mount(<DeleteMessagesButton type={EndpointTypes.QUEUE} endpointName={queueName} />);
-        testHelper.clickElementWithId(wrapper, "#alertDelete");
+    it('clicking cancel button does not send purge request to endpoint and closes the Modal', () => {
+        let wrapper = mount(<PurgeMessagesButton type={EndpointTypes.QUEUE} endpointName={queueName} />);
+        testHelper.clickElementWithId(wrapper, "#alertPurge");
 
         return testHelper.afterReactHasUpdated().then(() => {
             wrapper.update();
@@ -89,23 +89,23 @@ describe('DeleteMessagesButton', () => {
 
             return testHelper.afterReactHasUpdated();
         }).then(() => {
-            expect(mockDeleteQueueMessages).not.toHaveBeenCalled();
+            expect(mockPurgeQueueMessages).not.toHaveBeenCalled();
             expect(wrapper.find(Modal).at(0).prop("show")).toBeFalsy();
         });
     });
 
-    it('call VengaBusService delete subscription messages method once', () => {
-        let wrapper = mount(<DeleteMessagesButton type={EndpointTypes.SUBSCRIPTION} endpointName={subscriptionName} parentName={topicName} />);
-        return afterModalDeleteButtonIsClicked(wrapper, mockDeleteSubscrionMessage, subscriptionName);
+    it('call VengaBusService purge subscription messages method once', () => {
+        let wrapper = mount(<PurgeMessagesButton type={EndpointTypes.SUBSCRIPTION} endpointName={subscriptionName} parentName={topicName} />);
+        return afterModalPurgeButtonIsClicked(wrapper, mockPurgeSubscrionMessage, subscriptionName);
     });
 
-    it('call VengaBusService delete queue messages method once', () => {
-        let wrapper = mount(<DeleteMessagesButton type={EndpointTypes.QUEUE} endpointName={queueName} />);
-        return afterModalDeleteButtonIsClicked(wrapper, mockDeleteQueueMessages, queueName);
+    it('call VengaBusService purge queue messages method once', () => {
+        let wrapper = mount(<PurgeMessagesButton type={EndpointTypes.QUEUE} endpointName={queueName} />);
+        return afterModalPurgeButtonIsClicked(wrapper, mockPurgeQueueMessages, queueName);
     });
 
-    it('call VengaBusService delete topic messages method once', () => {
-        let wrapper = mount(<DeleteMessagesButton type={EndpointTypes.TOPIC} endpointName={topicName} />);
-        return afterModalDeleteButtonIsClicked(wrapper, mockDeleteTopicMessages, topicName);
+    it('call VengaBusService purge topic messages method once', () => {
+        let wrapper = mount(<PurgeMessagesButton type={EndpointTypes.TOPIC} endpointName={topicName} />);
+        return afterModalPurgeButtonIsClicked(wrapper, mockPurgeTopicMessages, topicName);
     });
 });

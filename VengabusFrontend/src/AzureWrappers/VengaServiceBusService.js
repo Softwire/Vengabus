@@ -111,17 +111,17 @@ export class VengaServiceBusService {
         this.axiosWithSAS.post(url, message, config);
     }
 
-    deleteQueueMessages = (queueName) => {
+    purgeQueueMessages = (queueName) => {
         const url = this.apiRoot + `queues/${queueName}/messages`;
         return this.axiosWithSAS.delete(url);
     }
 
-    deleteTopicMessages = (topicName) => {
+    purgeTopicMessages = (topicName) => {
         const url = this.apiRoot + `topics/${topicName}/messages`;
         return this.axiosWithSAS.delete(url);
     }
 
-    deleteSubscriptionMessages = (topicName, subscriptionName) => {
+    purgeSubscriptionMessages = (topicName, subscriptionName) => {
         const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/messages`;
         return this.axiosWithSAS.delete(url);
     }

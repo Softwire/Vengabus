@@ -5,26 +5,26 @@ import { EndpointTypes } from '../Helpers/EndpointTypes';
 import Lodash from 'lodash';
 import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
 
-class DeleteMessagesButton extends React.Component {
+class PurgeMessagesButton extends React.Component {
     constructor(props) {
         super(props);
 
         const vengaServiceBusService = serviceBusConnection.getServiceBusService();
 
         this.initialState = {
-            onDeletionConfirmed: () => { },
+            onPurgeConfirmed: () => { },
             modalBody: ""
         };
 
         switch (this.props.type) {
             case EndpointTypes.TOPIC:
-                this.initialState.onDeletionConfirmed = () => vengaServiceBusService.deleteTopicMessages(this.props.endpointName);
+                this.initialState.onPurgeConfirmed = () => vengaServiceBusService.purgeTopicMessages(this.props.endpointName);
                 break;
             case EndpointTypes.QUEUE:
-                this.initialState.onDeletionConfirmed = () => vengaServiceBusService.deleteQueueMessages(this.props.endpointName);
+                this.initialState.onPurgeConfirmed = () => vengaServiceBusService.purgeQueueMessages(this.props.endpointName);
                 break;
             case EndpointTypes.SUBSCRIPTION:
-                this.initialState.onDeletionConfirmed = () => vengaServiceBusService.deleteSubscriptionMessages(this.props.parentName, this.props.endpointName);
+                this.initialState.onPurgeConfirmed = () => vengaServiceBusService.purgeSubscriptionMessages(this.props.parentName, this.props.endpointName);
                 break;
             default: break;
         }
@@ -66,11 +66,11 @@ class DeleteMessagesButton extends React.Component {
 
         return (
             <React.Fragment>
-                <p>Are you sure you want to delete all the messages from {this.props.type} "{this.props.endpointName}" ?</p>
+                <p>Are you sure you want to purge the messages from {this.props.type} "{this.props.endpointName}" ?</p>
 
                 {this.props.type === EndpointTypes.TOPIC ? this.generateTopicModalBody(topicSubList) : ""}
 
-                <p>{numMessages} messages will be deleted <b>irreversibly</b>!</p >
+                <p>{numMessages} messages will be purged <b>irreversibly</b>!</p >
             </React.Fragment>
         );
     }
@@ -82,7 +82,7 @@ class DeleteMessagesButton extends React.Component {
 
         return (
             <React.Fragment>
-                <p> This action will delete all the messages from the following subscriptions: </p>
+                <p> This action will purge the messages from the following subscriptions: </p>
                 <ul>
                     {liArray}
                 </ul>
@@ -95,18 +95,18 @@ class DeleteMessagesButton extends React.Component {
     }
 
     render() {
-        let buttonText = <span>Delete All Messages <Glyphicon glyph="trash" /></span>;
+        let buttonText = <span>Purge Messages <Glyphicon glyph="trash" /></span>;
         return (<ButtonWithConfirmationModal
-            id={"alertDelete"}
+            id={"alertPurge"}
             buttonText={buttonText}
-            modalTitle={"Delete all messages from " + this.props.type}
+            modalTitle={"Purge messages from " + this.props.type}
             modalBody={this.state.modalBody}
-            confirmButtonText={"Delete"}
+            confirmButtonText={"Purge"}
             afterShowModalAction={this.showModalAction}
-            confirmAction={this.state.onDeletionConfirmed}
+            confirmAction={this.state.onPurgeConfirmed}
             afterCloseModalAction={this.resetState}
         />);
     }
 }
 
-export { DeleteMessagesButton };
+export { PurgeMessagesButton };

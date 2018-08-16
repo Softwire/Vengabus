@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DeleteMessagesButton renders correctly with given props 1`] = `
+exports[`PurgeMessagesButton renders correctly with given props 1`] = `
 <button
   className="btn btn-danger"
   disabled={false}
@@ -8,7 +8,7 @@ exports[`DeleteMessagesButton renders correctly with given props 1`] = `
   type="button"
 >
   <span>
-    Delete All Messages 
+    Purge Messages 
     <span
       className="glyphicon glyphicon-trash"
     />
