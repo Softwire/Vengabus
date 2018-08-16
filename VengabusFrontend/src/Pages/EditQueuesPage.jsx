@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Checkbox, Tooltip } from 'react-bootstrap';
+import { Tooltip } from 'react-bootstrap';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import { css } from 'emotion';
 import classNames from 'classnames';
 import { DataTable } from '../Components/DataTable';
 import moment from 'moment';
+import { PropertyInput } from '../Components/PropertyInput';
 import { TimeSpanInput } from '../Components/TimeSpanInput';
-import { CheckboxInput } from '../Components/CheckboxInput';
 import { ButtonWithConfirmationModal } from '../Components/ButtonWithConfirmationModal';
 
 export class EditQueuesPage extends Component {
@@ -39,17 +39,21 @@ export class EditQueuesPage extends Component {
         return result;
     }
 
-    getStyles = () => {
-        const leftAlign = css`
-            text-align: left;
-            padding-left: 15px;
-        `;
-        const hrStlye = css`
+    getHrStyle = () => {
+        return css`
             color: black;
             background-color: black;
             height: 1px;
             width: 98%;
         `;
+    }
+
+    getStyles = () => {
+        const leftAlign = css`
+            text-align: left;
+            padding-left: 15px;
+        `;
+        const hrStlye = this.getHrStyle();
         const headerStyle = css`
             font-weight: bold;
             font-size: 1.6em;
@@ -69,11 +73,29 @@ export class EditQueuesPage extends Component {
     }
 
     getTooltips = () => {
-        const requiresSessionTooltip = <Tooltip id="tooltip">
-            True if the receiver application can only receive from the queue through a MessageSession; false if a queue cannot receive using MessageSession.
-        </Tooltip>;
+        return {
+            requiresSession: <Tooltip id="tooltip">
+                True if the receiver application can only receive from the queue through a MessageSession; false if a queue cannot receive using MessageSession.
+            </Tooltip>
+        };
+    }
 
-        return [requiresSessionTooltip];
+    getEditableAndReadOnlyProperties = () => {
+        const { name, activeMessageCount, deadletterMessageCount, mostRecentDeadLetter } = this.state.newQueueData;
+        const readOnlyProperties = this.assembleReadOnlyProperties({
+            // text in the left column: key to value in the right column
+            "Name": name,
+            "Active Message Count": activeMessageCount,
+            "Dead Letter Message Count": deadletterMessageCount,
+            "Most Recent Dead Letter": mostRecentDeadLetter
+        });
+        const editableProperties = [
+            'supportOrdering',
+            'requiresSession',
+            'enablePartitioning',
+            'autoDeleteOnIdle'
+        ];
+        return [editableProperties, readOnlyProperties];
     }
 
     assembleReadOnlyProperties = (properties) => {
@@ -94,6 +116,29 @@ export class EditQueuesPage extends Component {
         this.setState({
             newQueueData: updatedNewQueueData
         });
+    }
+
+    getEditablePropertyInputs = (editableProperties) => {
+        const tooltips = this.getTooltips();
+        const objectPropertyToComponent = {
+            'autoDeleteOnIdle': TimeSpanInput
+        };
+        let editablePropertyInputs = [];
+        editablePropertyInputs.push(<hr className={this.getHrStyle()} />);
+        for (let i = 0; i < editableProperties.length; i++) {
+            const property = editableProperties[i];
+            editablePropertyInputs.push(
+                <PropertyInput
+                    text={property.charAt(0).toUpperCase() + property.substr(1)}
+                    data={this.state.newQueueData[property]}
+                    tooltip={tooltips[property]}
+                    onChange={(data) => this.handlePropertyChange(data, property)}
+                    componentType={objectPropertyToComponent[property]}
+                />
+            );
+            editablePropertyInputs.push(<hr className={this.getHrStyle()} />);
+        }
+        return editablePropertyInputs;
     }
 
     //Does not support arrays as properties
@@ -128,18 +173,19 @@ export class EditQueuesPage extends Component {
     }
 
     render() {
-        const newQueueData = this.state.newQueueData;
-        const { name, autoDeleteOnIdle, activeMessageCount, deadletterMessageCount, mostRecentDeadLetter, enablePartitioning, requiresSession, supportOrdering } = newQueueData;
-        const readOnlyProperties = this.assembleReadOnlyProperties(
-            {   // text in the left column: key to value in the right column
-                "Name": name,
-                "Active Message Count": activeMessageCount,
-                "Dead Letter Message Count": deadletterMessageCount,
-                "Most Recent Dead Letter": mostRecentDeadLetter
-            });
+        const [editableProperties, readOnlyProperties] = this.getEditableAndReadOnlyProperties();
         const colProps = [{ dataField: 'name', text: 'Property Name', headerStyle: { textAlign: 'left' } }, { dataField: 'value', headerStyle: { textAlign: 'left' } }];
         const [leftAlign, hrStlye, headerStyle, tableStyle, rowStyle, buttonFormStyle] = this.getStyles();
-        const [requiresSessionTooltip] = this.getTooltips();
+        const editablePropertyInputs = this.getEditablePropertyInputs(editableProperties);
+
+        // const TimeSpanClass = TimeSpanInput;
+        // const timespanJsx2 = (<TimeSpanClass
+        //     text='AutoDeleteOnIdle'
+        //     data={autoDeleteOnIdle}
+        //     onChange={(duration) => this.handlePropertyChange(duration, 'autoDeleteOnIdle')}
+        // />);
+        // console.log(TimeSpanInput);
+        // console.log(typeof TimeSpanInput);
 
         return (
             this.state.receivedData ? (
@@ -161,32 +207,13 @@ export class EditQueuesPage extends Component {
 
                     {/*Editable properties*/}
                     <p className={classNames(leftAlign, headerStyle)}>Editable Properties</p>
-                    <hr className={hrStlye} />
-                    <CheckboxInput
-                        text='SupportOrdering'
-                        data={supportOrdering}
-                        onChange={(bool) => this.handlePropertyChange(bool, 'supportOrdering')}
-                    />
-                    <hr className={hrStlye} />
-                    <CheckboxInput
-                        text='RequiresSession'
-                        data={requiresSession}
-                        tooltip={requiresSessionTooltip}
-                        onChange={(bool) => this.handlePropertyChange(bool, 'requiresSession')}
-                    />
-                    <hr className={hrStlye} />
-                    <CheckboxInput
-                        text='EnablePartitioning'
-                        data={enablePartitioning}
-                        onChange={(bool) => this.handlePropertyChange(bool, 'enablePartitioning')}
-                    />
-                    <hr className={hrStlye} />
-                    <TimeSpanInput
-                        text='AutoDeleteOnIdle'
-                        data={autoDeleteOnIdle}
-                        onChange={(duration) => this.handlePropertyChange(duration, 'autoDeleteOnIdle')}
-                    />
-                    <hr className={hrStlye} />
+                    {editablePropertyInputs}
+                    {/*
+                            if typeof === 'boolean' CheckboxInput
+                            if typeof === 'string' StringInput
+                            if typeof === 'number' NumericInput (currently StringInput)
+                            if typeof === 'object' Require input type, e.g. TimespanInput (currently StringInput)
+                    */}
 
                     {/*Buttons*/}
                     <form className={buttonFormStyle}>
@@ -194,7 +221,7 @@ export class EditQueuesPage extends Component {
                             id="submitButton"
                             buttonText={"Update"}
                             buttonStyle="default"
-                            buttonDisabled={this.checkObjectEquality(this.state.queueData, newQueueData)}
+                            buttonDisabled={this.checkObjectEquality(this.state.queueData, this.state.newQueueData)}
                             modalTitle={"Update Queue"}
                             modalBody={
                                 <React.Fragment>
@@ -208,7 +235,7 @@ export class EditQueuesPage extends Component {
                         <ButtonWithConfirmationModal
                             id="resetButton"
                             buttonText={"Reset Fields"}
-                            buttonDisabled={this.checkObjectEquality(this.state.queueData, newQueueData)}
+                            buttonDisabled={this.checkObjectEquality(this.state.queueData, this.state.newQueueData)}
                             modalTitle={"Reset all fields"}
                             modalBody={
                                 <React.Fragment>
