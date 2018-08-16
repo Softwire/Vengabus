@@ -80,6 +80,10 @@ export class EditQueuesPage extends Component {
         };
     }
 
+    /**
+     * @returns {string[]} Property names for editable properties.
+     * @returns {object} Display name and display value pairs for read-only properties.
+     */
     getEditableAndReadOnlyProperties = () => {
         const { name, activeMessageCount, deadletterMessageCount, mostRecentDeadLetter } = this.state.newQueueData;
         const readOnlyProperties = this.assembleReadOnlyProperties({
@@ -98,6 +102,10 @@ export class EditQueuesPage extends Component {
         return [editableProperties, readOnlyProperties];
     }
 
+    /**
+     * @param {object} properties Display name and display value pairs for read-only properties.
+     * @returns {object[]} Read-only properties in a format that can be displayed by the DataTable.
+     */
     assembleReadOnlyProperties = (properties) => {
         let readOnlyProperties = [];
         const keys = Object.keys(properties);
@@ -110,23 +118,19 @@ export class EditQueuesPage extends Component {
         return readOnlyProperties;
     }
 
-    handlePropertyChange(value, property) {
-        const updatedNewQueueData = { ...this.state.newQueueData };
-        updatedNewQueueData[property] = value;
-        this.setState({
-            newQueueData: updatedNewQueueData
-        });
-    }
-
+    /**
+     * @param {string[]} editableProperties Property names for editable properties.
+     * @returns {node[]} Array of jsx elements for property inputs.
+     */
     getEditablePropertyInputs = (editableProperties) => {
         const tooltips = this.getTooltips();
         const objectPropertyToComponent = {
             'autoDeleteOnIdle': TimeSpanInput
         };
         let editablePropertyInputs = [];
-        editablePropertyInputs.push(<hr className={this.getHrStyle()} />);
         for (let i = 0; i < editableProperties.length; i++) {
             const property = editableProperties[i];
+            editablePropertyInputs.push(<hr className={this.getHrStyle()} key={i} />);
             editablePropertyInputs.push(
                 <PropertyInput
                     text={property.charAt(0).toUpperCase() + property.substr(1)}
@@ -134,11 +138,20 @@ export class EditQueuesPage extends Component {
                     tooltip={tooltips[property]}
                     onChange={(data) => this.handlePropertyChange(data, property)}
                     componentType={objectPropertyToComponent[property]}
+                    key={`propertyInput${i}`}
                 />
             );
-            editablePropertyInputs.push(<hr className={this.getHrStyle()} />);
         }
+        editablePropertyInputs.push(<hr className={this.getHrStyle()} key={editableProperties.length} />);
         return editablePropertyInputs;
+    }
+
+    handlePropertyChange(value, property) {
+        const updatedNewQueueData = { ...this.state.newQueueData };
+        updatedNewQueueData[property] = value;
+        this.setState({
+            newQueueData: updatedNewQueueData
+        });
     }
 
     //Does not support arrays as properties
@@ -173,19 +186,10 @@ export class EditQueuesPage extends Component {
     }
 
     render() {
-        const [editableProperties, readOnlyProperties] = this.getEditableAndReadOnlyProperties();
         const colProps = [{ dataField: 'name', text: 'Property Name', headerStyle: { textAlign: 'left' } }, { dataField: 'value', headerStyle: { textAlign: 'left' } }];
         const [leftAlign, hrStlye, headerStyle, tableStyle, rowStyle, buttonFormStyle] = this.getStyles();
+        const [editableProperties, readOnlyProperties] = this.getEditableAndReadOnlyProperties();
         const editablePropertyInputs = this.getEditablePropertyInputs(editableProperties);
-
-        // const TimeSpanClass = TimeSpanInput;
-        // const timespanJsx2 = (<TimeSpanClass
-        //     text='AutoDeleteOnIdle'
-        //     data={autoDeleteOnIdle}
-        //     onChange={(duration) => this.handlePropertyChange(duration, 'autoDeleteOnIdle')}
-        // />);
-        // console.log(TimeSpanInput);
-        // console.log(typeof TimeSpanInput);
 
         return (
             this.state.receivedData ? (
@@ -208,12 +212,6 @@ export class EditQueuesPage extends Component {
                     {/*Editable properties*/}
                     <p className={classNames(leftAlign, headerStyle)}>Editable Properties</p>
                     {editablePropertyInputs}
-                    {/*
-                            if typeof === 'boolean' CheckboxInput
-                            if typeof === 'string' StringInput
-                            if typeof === 'number' NumericInput (currently StringInput)
-                            if typeof === 'object' Require input type, e.g. TimespanInput (currently StringInput)
-                    */}
 
                     {/*Buttons*/}
                     <form className={buttonFormStyle}>

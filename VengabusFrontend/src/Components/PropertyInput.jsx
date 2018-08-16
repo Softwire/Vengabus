@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import { CheckboxInput } from './CheckboxInput';
 
+/**
+ * @prop {string} text Text to be displayed for the input.
+ * @prop {unknown} data Data modified by the input. Types boolean and object are supported.
+ * @prop {node} tooltip JSX element to be displayed when hovering over the info glyphicon. If undefined then no glyphicon.
+ * @prop {function} onChange Function called when the value is changed.
+ * @prop {class} componentType If type of data is object then type of input component will be determined by this.
+ */
 export class PropertyInput extends Component {
 
     render() {
