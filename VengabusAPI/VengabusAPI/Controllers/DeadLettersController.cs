@@ -18,38 +18,34 @@ namespace VengabusAPI.Controllers
         [Route("queues/{queueName}/deadletters")]
         public IEnumerable<VengaMessage> ListDeadLetterMessagesInQueue(string queueName)
         {
-            var endpoint = EndpointIdentifier.ForQueue(queueName).GetDeadLetterEndpoint(); 
-            return GetMessageFromEndpoint(endpoint);
+            return GetMessageFromEndpoint(new QueueDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName));
         }
 
         [HttpGet]
         [Route("subscriptions/{topicName}/{subscriptionName}/deadletters")]
         public IEnumerable<VengaMessage> ListDeadLetterMessagesInSubscription(string topicName, string subscriptionName)
         {
-            var endpoint = EndpointIdentifier.ForSubscription(topicName, subscriptionName).GetDeadLetterEndpoint();
-            return GetMessageFromEndpoint(endpoint);
+ 
+            return GetMessageFromEndpoint(new SubscriptionDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(),subscriptionName, topicName));
         }
 
         [HttpDelete]
         [Route("queues/{queueName}/deadletters/{uniqueId}")]
         public void DeleteSingleDeadLetterMessageInQueue(string queueName, string uniqueId, [FromUri]string messageId)
         {
-            var endpoint = EndpointIdentifier.ForQueue(queueName);
-            DeleteSingleMessageFromEndpoint(endpoint, EndpointType.DeadLetter, messageId, uniqueId);
+            DeleteSingleMessageFromEndpoint(new QueueDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName), messageId, uniqueId);
         }
 
         [HttpDelete]
         [Route("subscriptions/{topicName}/{subscriptionName}/deadletters/{uniqueId}")]
         public void DeleteSingleDeadLetterMessageInSubscription(string topicName, string subscriptionName, string uniqueId, [FromUri]string messageId)
         {
-            var endpoint = EndpointIdentifier.ForSubscription(topicName, subscriptionName);
-            DeleteSingleMessageFromEndpoint(endpoint, EndpointType.DeadLetter, messageId, uniqueId);
+            DeleteSingleMessageFromEndpoint(new SubscriptionDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(),subscriptionName, topicName), messageId, uniqueId);
         }
 
-        private IEnumerable<VengaMessage> GetMessageFromEndpoint(EndpointIdentifier endpoint)
+        private IEnumerable<VengaMessage> GetMessageFromEndpoint(Endpoint endpoint)
         {
-            MessagingFactory factory = CreateEndpointFactory();
-            var brokeredMessagesList = MessageServices.GetMessagesFromEndpoint(endpoint, factory);
+            var brokeredMessagesList = MessageServices.GetMessagesFromEndpoint(endpoint);
             var messagesToReturn = new List<VengaMessage>();
             foreach (var message in brokeredMessagesList)
             {

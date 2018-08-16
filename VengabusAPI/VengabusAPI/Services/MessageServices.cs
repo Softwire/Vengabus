@@ -14,27 +14,8 @@ namespace VengabusAPI.Services
     
     public class MessageServices
     {
-        public static IEnumerable<BrokeredMessage> GetMessagesFromEndpoint(EndpointIdentifier endpoint, MessagingFactory clientFactory)
+        public static IEnumerable<BrokeredMessage> GetMessagesFromEndpoint(Endpoint endpoint)
         {
-            //call the PeekBatch method of corresponding client with the provided parameters.
-            Func<long, int, IEnumerable<BrokeredMessage>> peekNextBatch;
-
-            switch (endpoint.Type)
-            {
-                case EndpointType.Queue:
-                    QueueClient queueClient = clientFactory.CreateQueueClient(endpoint.Name);
-                    peekNextBatch = (peekStartingPoint, number) => { return queueClient.PeekBatch(peekStartingPoint, number); };
-                    break;
-                case EndpointType.Subscription:
-                    SubscriptionClient subscriptionClient =
-                        clientFactory.CreateSubscriptionClient(endpoint.ParentTopic, endpoint.Name);
-                    peekNextBatch = (peekStartingPoint, number) => { return subscriptionClient.PeekBatch(peekStartingPoint, number); };
-                    break;
-                default:
-                    peekNextBatch = (peekStartingPoint, number) => { return Enumerable.Empty<BrokeredMessage>(); };
-                    break;
-            }
-
             var messagesToReturn = new List<BrokeredMessage>();
 
             /*
@@ -52,7 +33,7 @@ namespace VengabusAPI.Services
             while (true)
             {
                 //one after the last message we've looked at
-                var messages = peekNextBatch(lastSequenceNumber + 1, maxMessagesInPeekBatch).ToList();
+                var messages = endpoint.PeekNextBatch(lastSequenceNumber + 1, maxMessagesInPeekBatch).ToList();
                 if (!messages.Any())
                 {
                     break;
@@ -68,73 +49,24 @@ namespace VengabusAPI.Services
             return messagesToReturn.OrderBy(item => item.EnqueuedTimeUtc);
         }
 
-        public static void SendMessageToEndpoint(EndpointIdentifier endpoint, MessagingFactory clientFactory, BrokeredMessage message)
+        public static void SendMessageToEndpoint(Endpoint endpoint, BrokeredMessage message)
         {
-            switch (endpoint.Type)
-            {
-                case EndpointType.Queue:
-                    QueueClient queueClient = clientFactory.CreateQueueClient(endpoint.Name);
-                    queueClient.Send(message);
-                    return;
-
-                case EndpointType.Topic:
-                    TopicClient topicClient = clientFactory.CreateTopicClient(endpoint.Name);
-                    topicClient.Send(message);
-                    return;
-
-                case EndpointType.Subscription:
-                    throw new NotImplementedException("Feature deprecated due to issues with implementation.");
-            }
+            endpoint.SendMessage(message);
         }
 
-        public static void DeleteMessagesFromEndpoint(MessagingFactory clientFactory, NamespaceManager namespaceManager, EndpointIdentifier endpoint, EndpointType type, Predicate<BrokeredMessage> predicate)
+        public static void DeleteMessagesFromEndpoint(Endpoint endpoint, Predicate<BrokeredMessage> predicate)
         {
 
             long remainingMessagesToDelete = 0;
-            Func<long, BrokeredMessage> receiveNextMessage;
-            Func<long> getMessageCount;
             long defaultTimeout = 200;
-            string endpointName = endpoint.Name;
-            EndpointIdentifier endpointIdentifier =
-                type == EndpointType.DeadLetter ? endpoint.GetDeadLetterEndpoint() : endpoint;
-
-            switch (endpointIdentifier.Type)
-            {
-                case EndpointType.Queue:
-                    QueueClient queueClient = clientFactory.CreateQueueClient(endpointIdentifier.Name);
-                    receiveNextMessage = (timeout) => queueClient.Receive(TimeSpan.FromMilliseconds(timeout));
-                    getMessageCount = () =>
-                    {
-                        var queue =
-                            namespaceManager.GetQueue( endpointName);
-                        return type == EndpointType.DeadLetter ? queue.MessageCountDetails.DeadLetterMessageCount : queue.MessageCountDetails.ActiveMessageCount;
-                    };
-                    break;
-                case EndpointType.Subscription:
-                    SubscriptionClient subscriptionClient =
-                        clientFactory.CreateSubscriptionClient(endpointIdentifier.ParentTopic, endpointIdentifier.Name);
-                    receiveNextMessage = (timeout) => subscriptionClient.Receive(TimeSpan.FromMilliseconds(timeout));
-                    getMessageCount = () =>
-                    {
-                        var subscription =
-                            namespaceManager.GetSubscription(endpointIdentifier.ParentTopic, endpointName);
-                        return type == EndpointType.DeadLetter ? subscription.MessageCountDetails.DeadLetterMessageCount : subscription.MessageCountDetails.ActiveMessageCount;
-                    };
-                    break;
-                default:
-                    receiveNextMessage = (timeout) => null;
-                    getMessageCount = () => 0;
-                    break;
-            }
-
-            remainingMessagesToDelete = getMessageCount();
+            remainingMessagesToDelete = endpoint.GetNumberOfMessages();
 
             Func<BrokeredMessage> getNextMessageWithRetries = () => {
                 long multiplier = 1;
                 while (multiplier * defaultTimeout <= 60 * 1000)
                 {
-                    BrokeredMessage message = receiveNextMessage(defaultTimeout * multiplier);
-                    if (message != null || getMessageCount() == 0)
+                    BrokeredMessage message = endpoint.ReceiveNextBrokeredMessage(defaultTimeout * multiplier);
+                    if (message != null || endpoint.GetNumberOfMessages() == 0)
                     {
                         return message;
                     }
