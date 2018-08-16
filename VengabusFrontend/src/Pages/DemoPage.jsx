@@ -3,7 +3,7 @@ import { MessageList } from '../Components/MessageList';
 import { css } from 'react-emotion';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import { Button } from 'react-bootstrap';
-import { DeleteMessagesButton } from '../Components/DeleteMessagesButton';
+import { PurgeMessagesButton } from '../Components/PurgeMessagesButton';
 import { EndpointTypes } from '../Helpers/EndpointTypes';
 
 export class DemoPage extends Component {
@@ -82,9 +82,9 @@ sit amet \nthat was a newline`
                 <div className={queueDivStyle}>
                     <MessageList messageData={this.state.messageData} />
                     {/*qq delete the text in Button once implemented properly*/}
-                    <DeleteMessagesButton type={EndpointTypes.QUEUE} endpointName={queueName} />
-                    <DeleteMessagesButton type={EndpointTypes.TOPIC} endpointName={topicName} />
-                    <DeleteMessagesButton type={EndpointTypes.SUBSCRIPTION} endpointName={subscriptionName} parentName={topicName} />
+                    <PurgeMessagesButton type={EndpointTypes.QUEUE} endpointName={queueName} />
+                    <PurgeMessagesButton type={EndpointTypes.TOPIC} endpointName={topicName} />
+                    <PurgeMessagesButton type={EndpointTypes.SUBSCRIPTION} endpointName={subscriptionName} parentName={topicName} />
 
                 </div>
 
