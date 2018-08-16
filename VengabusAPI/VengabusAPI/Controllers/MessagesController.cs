@@ -15,7 +15,7 @@ namespace VengabusAPI.Controllers
     public class MessagesController : VengabusController
     {
 
-        protected void DeleteMessageFromEndpoint(Endpoint endpoint)
+        protected void PurgeMessagesFromEndpoint(Endpoint endpoint)
         {
             Predicate<BrokeredMessage> deleteMessageChecker = (brokeredMessage) => true;
             MessageServices.DeleteMessagesFromEndpoint(endpoint, deleteMessageChecker);

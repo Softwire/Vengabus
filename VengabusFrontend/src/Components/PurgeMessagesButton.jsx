@@ -13,14 +13,14 @@ class PurgeMessagesButton extends React.Component {
         };
     }
 
-    getOnDeletionConfirmedHandler = () => {
+    getOnPurgeConfirmedHandler = () => {
         switch (this.props.type) {
             case EndpointTypes.TOPIC:
-                return () => this.vengaServiceBusService.deleteTopicMessages(this.props.endpointName);
+                return () => this.vengaServiceBusService.purgeTopicMessages(this.props.endpointName);
             case EndpointTypes.QUEUE:
-                return () => this.vengaServiceBusService.deleteQueueMessages(this.props.endpointName);
+                return () => this.vengaServiceBusService.purgeQueueMessages(this.props.endpointName);
             case EndpointTypes.SUBSCRIPTION:
-                return () => this.vengaServiceBusService.deleteSubscriptionMessages(this.props.parentName, this.props.endpointName);
+                return () => this.vengaServiceBusService.purgeSubscriptionMessages(this.props.parentName, this.props.endpointName);
             default: break;
         }
     }
@@ -97,7 +97,7 @@ class PurgeMessagesButton extends React.Component {
             modalBody={this.state.modalBody}
             confirmButtonText={"Purge"}
             afterShowModalAction={this.showModalAction}
-            confirmAction={this.getOnDeletionConfirmedHandler()}
+            confirmAction={this.getOnPurgeConfirmedHandler()}
             afterCloseModalAction={this.resetState}
         />);
     }

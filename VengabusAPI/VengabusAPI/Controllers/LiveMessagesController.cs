@@ -68,7 +68,7 @@ namespace VengabusAPI.Controllers
         [Route("queues/{queueName}/messages")]
         public void DeleteAllMessagesInQueue(string queueName)
         {
-            DeleteMessageFromEndpoint(new QueueEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName));
+            PurgeMessagesFromEndpoint(new QueueEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName));
         }
 
         [HttpDelete]
@@ -83,7 +83,7 @@ namespace VengabusAPI.Controllers
         //delete all messages in a given subscription
         public void DeleteAllMessagesInSubscription(string topicName, string subscriptionName)
         {
-            DeleteMessageFromEndpoint(new SubscriptionEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), subscriptionName, topicName));
+            PurgeMessagesFromEndpoint(new SubscriptionEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), subscriptionName, topicName));
         }
 
         [HttpDelete]
@@ -103,7 +103,7 @@ namespace VengabusAPI.Controllers
             var topicDescription = namespaceManager.GetSubscriptions(topicName);
             foreach (var subscriptionDescription in topicDescription)
             {
-                DeleteMessageFromEndpoint(new SubscriptionEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), subscriptionDescription.Name, topicName));
+                PurgeMessagesFromEndpoint(new SubscriptionEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), subscriptionDescription.Name, topicName));
             }
         }
 
