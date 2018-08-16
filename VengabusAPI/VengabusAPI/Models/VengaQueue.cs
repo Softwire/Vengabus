@@ -16,6 +16,11 @@ namespace VengabusAPI.Models
             enablePartitioning = queueFromAzure.EnablePartitioning;
             requiresSession = queueFromAzure.RequiresSession;
             supportOrdering = queueFromAzure.SupportOrdering;
+            enableDeadLetteringOnMessageExpiration = queueFromAzure.EnableDeadLetteringOnMessageExpiration;
+            maxDeliveryCount = queueFromAzure.MaxDeliveryCount;
+            maxSizeInMegabytes = queueFromAzure.MaxSizeInMegabytes;
+            requiresDuplicateDetection = queueFromAzure.RequiresDuplicateDetection;
+            status = queueFromAzure.Status;
         }
 
         public string name { get; set; }
@@ -25,31 +30,27 @@ namespace VengabusAPI.Models
         public bool enablePartitioning { get; set; }
         public bool requiresSession { get; set; }
         public bool supportOrdering { get; set; }
-    }
-
-    public class TimeSpanFromFrontEnd
-    {
-        public string milliseconds { get; set; }
-        public string seconds { get; set; }
-        public string minutes { get; set; }
-        public string hours { get; set; }
-        public string days { get; set; }
-
-        public TimeSpan AsTimeSpan()
-        {
-            return new TimeSpan(int.Parse(days), int.Parse(hours), int.Parse(minutes), int.Parse(seconds), int.Parse(milliseconds));
-        }
+        public bool enableDeadLetteringOnMessageExpiration { get; set; }
+        public int maxDeliveryCount { get; set; }
+        public long maxSizeInMegabytes { get; set; }
+        public bool requiresDuplicateDetection { get; set; }
+        public EntityStatus status { get; set; }
     }
 
     public class VengaQueueUpload
     {
         public string name { get; set; }
-        public TimeSpanFromFrontEnd autoDeleteOnIdle { get; set; }
+        public TimeSpanFromFrontend autoDeleteOnIdle { get; set; }
         public long activeMessageCount { get; }
         public long deadletterMessageCount { get; }
         public bool enablePartitioning { get; set; }
         public bool requiresSession { get; set; }
         public bool supportOrdering { get; set; }
         public DateTime? mostRecentDeadLetter { get; }
+        public bool enableDeadLetteringOnMessageExpiration { get; set; }
+        public int maxDeliveryCount { get; set; }
+        public long maxSizeInMegabytes { get; set; }
+        public bool requiresDuplicateDetection { get; set; }
+        public EntityStatus status { get; set; }
     }
 }

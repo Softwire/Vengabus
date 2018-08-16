@@ -32,6 +32,27 @@ namespace VengabusAPI.Controllers
             return new VengaTopic(namespaceManager.GetTopic(topicName));
         }
 
+        [HttpPost]
+        [Route("topics/update")]
+        public void UpdateQueue([FromBody]VengaTopicUpload topicData)
+        {
+            NamespaceManager namespaceManager = CreateNamespaceManager();
+
+            TopicDescription description = namespaceManager.GetTopic(topicData.name);
+            description = UpdateDescription(description, topicData);
+
+            namespaceManager.UpdateTopic(description);
+        }
+
+        public TopicDescription UpdateDescription(TopicDescription description, VengaTopicUpload topicData)
+        {
+            description.SupportOrdering = topicData.supportOrdering;
+            description.EnablePartitioning = topicData.enablePartitioning;
+            description.AutoDeleteOnIdle = topicData.autoDeleteOnIdle.AsTimeSpan();
+
+            return description;
+        }
+
     }
 }
  
