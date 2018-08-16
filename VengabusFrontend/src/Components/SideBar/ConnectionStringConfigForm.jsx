@@ -8,7 +8,7 @@ import {
     Button
 } from "react-bootstrap";
 import { css } from "react-emotion";
-import Select from "react-select";
+import CreatableSelect from "react-select/lib/Creatable";
 
 export const LOCAL_STORAGE_STRINGS = Object.freeze({
     ConnectionStrings: "connectionStrings",
@@ -37,7 +37,7 @@ export class ConnectionStringConfigForm extends Component {
         //local storage only supports strings. So we have to get the string first, then use JSON.parse
         //to recover the original list (array).
         let connectionStringListStringified =
-            localStorageAccessor.getItem(LOCAL_STORAGE_STRINGS.ConnectionStringList) ||
+            localStorageAccessor.getItem(LOCAL_STORAGE_STRINGS.ConnectionStrings) ||
             "";
         let connectionStringList;
         try {
@@ -56,6 +56,8 @@ export class ConnectionStringConfigForm extends Component {
             let connectionString = localStorageAccessor.getItem("connectionString");
             if (connectionString) {
                 connectionStringList = [{ value: connectionString, label: "Old Connection String" }];
+                localStorageAccessor.setItem(LOCAL_STORAGE_STRINGS.ConnectionStrings, JSON.stringify(connectionStringList));
+                localStorageAccessor.setItem("connectionString", "");
             }
         }
         this.populateConnectionStringList(connectionStringList);
@@ -71,13 +73,6 @@ export class ConnectionStringConfigForm extends Component {
      */
     populateConnectionStringList = newConnectionStringList => {
         this.setState({ connectionStringList: newConnectionStringList });
-        if (newConnectionStringList.length > 0) {
-            //if we have some strings, use the first one by default
-            serviceBusConnection.setConnectionString(newConnectionStringList[0].value);
-            this.setState({
-                activeConnectionString: newConnectionStringList[0]
-            });
-        }
     }
 
     /** Populates the apiRoot on page.
@@ -112,7 +107,7 @@ export class ConnectionStringConfigForm extends Component {
 
         //local storage only supports strings, so stringify our list and save in local storage
         localStorageAccessor.setItem(
-            LOCAL_STORAGE_STRINGS.ConnectionStringList,
+            LOCAL_STORAGE_STRINGS.ConnectionStrings,
             JSON.stringify(connectionStringList)
         );
     };
@@ -129,24 +124,35 @@ export class ConnectionStringConfigForm extends Component {
         );
     }
 
-    createNewConnectionString = () => {
-        let emptyConnectionString = { value: "", label: "" };
-        let newConnectionStringList = this.state.connectionStringList.splice(0, 0, emptyConnectionString);
+    deleteConnection = () => {
+        if (!this.state.connectionStringList || !this.state.connectionStringList.length) {
+            return;
+        }
+        if (!this.state.activeConnectionString || this.state.activeConnectionString.label === "") {
+            return;
+        }
+        let newConnectionStringList = this.state.connectionStringList;
+        let index = newConnectionStringList.indexOf(this.state.activeConnectionString);
+        if (index === -1) {
+            return;
+        }
+        newConnectionStringList.splice(index, 1);
         this.setState({
             connectionStringList: newConnectionStringList,
-            activeConnectionString: emptyConnectionString
+            activeConnectionString: { value: "", label: "" }
         });
-    }
-
-    deleteConnection = () => {
-
+        serviceBusConnection.setConnectionString("");
+        localStorageAccessor.setItem(
+            LOCAL_STORAGE_STRINGS.ConnectionStrings,
+            JSON.stringify(newConnectionStringList)
+        );
     }
 
     // Called whenever the value of the connection string input box changes.
     handleConnectionChange = event => {
-        let newConnectionString = this.state.connectionString;
+        let newConnectionString = { ...this.state.activeConnectionString };
         newConnectionString.value = event.target.value;
-        this.setState({ connectionString: newConnectionString });
+        this.setState({ activeConnectionString: newConnectionString });
     };
 
     // Called whenever the value of the connection string label select box changes (or when a new one is created).
@@ -154,14 +160,14 @@ export class ConnectionStringConfigForm extends Component {
         //react-select has a different onChange event structure.
         //The new value is directly in event, instead of event.target.*
 
-        //a new connection string
+        //a new connection string. The oncreate event doesn't seem to work as expected
         let newConnectionStringList = this.state.connectionStringList;
         if (event.value === event.label) {
             event.value = '';
             newConnectionStringList.splice(0, 0, event);
         }
         this.setState({
-            connectionString: event,
+            activeConnectionString: event,
             connectionStringList: newConnectionStringList
         });
     }
@@ -179,7 +185,7 @@ export class ConnectionStringConfigForm extends Component {
     submitConnectionStringClick = () => {
 
         //only save new strings when they are used
-        this.updateConnectionStringStorage(this.state.connectionString);
+        this.updateConnectionStringStorage(this.state.activeConnectionString);
         this.updateAPIrootStorage(this.state.APIroot);
 
         serviceBusConnection.promptUpdate();
@@ -216,9 +222,9 @@ export class ConnectionStringConfigForm extends Component {
         return (
             <form className={formStyle}>
                 <FormGroup controlId="connectionStringLabel">
-                    <ControlLabel>Connection String Label</ControlLabel>
-                    <Select className={selectStyle}
-                        value={this.state.connectionString}
+                    <ControlLabel>Select or Create New</ControlLabel>
+                    <CreatableSelect className={selectStyle}
+                        value={this.state.activeConnectionString}
                         placeholder="Select a connection string"
                         onChange={this.handleConnectionStringLabelChange}
                         options={this.state.connectionStringList}
@@ -246,12 +252,6 @@ export class ConnectionStringConfigForm extends Component {
                 </FormGroup>
                 <Button
                     className={buttonStyle}
-                    onClick={this.createNewConnectionString}
-                    id="newConnectionStringButton">
-                    New Connection
-                </Button>
-                <Button
-                    className={buttonStyle}
                     onClick={this.submitConnectionStringClick}
                     id="connectButton"
                 >
@@ -272,7 +272,7 @@ export class ConnectionStringConfigForm extends Component {
                     <br />
                 </div>
                 <ServiceBusInfoBox
-                    connectionStringValue={this.state.connectionStringValue}
+                    connectionStringValue={this.state.activeConnectionString.value}
                 />
             </form>
         );
