@@ -8,43 +8,35 @@ class DeleteSingleMessageButton extends React.Component {
     constructor(props) {
         super(props);
 
-        const vengaServiceBusService = serviceBusConnection.getServiceBusService();
-
-        this.initialState = {
-            onDeletionConfirmed: () => { },
-            modalBody: ""
-        };
-
-        let onDeletionConfirmed;
+        let deleteMessage;
 
         if (this.props.messageType === EndpointTypes.MESSAGE) {
-            switch (this.props.type) {
+            switch (this.props.endpointType) {
                 case EndpointTypes.TOPIC:
-                    onDeletionConfirmed = () => vengaServiceBusService.deleteTopicSingleMessage(this.props.endpointName, this.props.messageId, this.props.uniqueId);
+                    deleteMessage = () => this.vengaServiceBusService.deleteTopicSingleMessage(this.props.endpointName, this.props.messageId, this.props.uniqueId);
                     break;
                 case EndpointTypes.QUEUE:
-                    onDeletionConfirmed = () => vengaServiceBusService.deleteQueueSingleMessage(this.props.endpointName, this.props.messageId, this.props.uniqueId);
+                    deleteMessage = () => this.vengaServiceBusService.deleteQueueSingleMessage(this.props.endpointName, this.props.messageId, this.props.uniqueId);
                     break;
                 case EndpointTypes.SUBSCRIPTION:
-                    onDeletionConfirmed = () => vengaServiceBusService.deleteSubscriptionSingleMessage(this.props.parentName, this.props.endpointName, this.props.messageId, this.props.uniqueId);
+                    deleteMessage = () => this.vengaServiceBusService.deleteSubscriptionSingleMessage(this.props.parentName, this.props.endpointName, this.props.messageId, this.props.uniqueId);
                     break;
-                default: break;
+                default: throw Error("Invalid endpoint type!");
             }
         } else {
-            switch (this.props.type) {
+            switch (this.props.endpointType) {
                 case EndpointTypes.QUEUE:
-                    onDeletionConfirmed = () => vengaServiceBusService.deleteQueueSingleDeadLetterMessage(this.props.endpointName, this.props.messageId, this.props.uniqueId);
+                    deleteMessage = () => this.vengaServiceBusService.deleteQueueSingleDeadLetterMessage(this.props.endpointName, this.props.messageId, this.props.uniqueId);
                     break;
                 case EndpointTypes.SUBSCRIPTION:
-                    onDeletionConfirmed = () => vengaServiceBusService.deleteSubscriptionSingleDeadLetterMessage(this.props.parentName, this.props.endpointName, this.props.messageId, this.props.uniqueId);
+                    deleteMessage = () => this.vengaServiceBusService.deleteSubscriptionSingleDeadLetterMessage(this.props.parentName, this.props.endpointName, this.props.messageId, this.props.uniqueId);
                     break;
-                default: break;
+                default: throw Error("Invalid endpoint type!");
             }
         }
 
-        this.initialState.onDeletionConfirmed = () => {
-            onDeletionConfirmed().then(() => {
-                console.log("Yes");
+        const onDeletionConfirmed = () => {
+            deleteMessage().then(() => {
                 if (this.props.afterConfirmationAction) {
                     this.props.afterConfirmationAction();
                 }
@@ -52,19 +44,23 @@ class DeleteSingleMessageButton extends React.Component {
 
         };
 
-        this.state = this.initialState;
+        this.state = {
+            onDeletionConfirmed: onDeletionConfirmed,
+            modalBody: ""
+        };
     }
 
     showModalAction = () => {
-        this.generateModalWarningBody().then(bodyResult => this.setState({ modalBody: bodyResult }));
+        this.vengaServiceBusService = serviceBusConnection.getServiceBusService();
+        this.setState({ modalBody: this.generateModalWarningBody() });
     }
 
-    generateModalWarningBody = async () => {
+    generateModalWarningBody = () => {
         return (
             <React.Fragment>
                 <p>Are you sure you want to delete this message ?</p>
 
-                <p>"{this.props.messageId}" message will be deleted <b>irreversibly</b>!</p >
+                <p>Message '{this.props.messageId}' from {this.props.type} '{this.props.endpointName}' will be deleted <b>irreversibly!</b></p>
             </React.Fragment>
         );
     }

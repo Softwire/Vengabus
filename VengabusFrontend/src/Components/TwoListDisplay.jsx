@@ -21,11 +21,7 @@ export class TwoListDisplay extends Component {
             topicData: undefined,
             subscriptionData: undefined,
             messageData: undefined,
-            rightTableType: EndpointTypes.TOPIC,
-            rightTableEndpointType: undefined,
-            rightTableEndpointName: undefined,
-            rightTableParentName: undefined
-
+            rightTableType: EndpointTypes.TOPIC
         };
     }
 
@@ -43,9 +39,7 @@ export class TwoListDisplay extends Component {
         this.messageButtonDisabled = true;
         this.setState({
             messageData: undefined,
-            rightTableType: EndpointTypes.MESSAGE,
-            rightTableEndpointType: EndpointTypes.QUEUE,
-            rightTableEndpointName: row.name
+            rightTableType: EndpointTypes.MESSAGE
         }, this.updateEndpointMessageData);
     }
 
@@ -53,22 +47,16 @@ export class TwoListDisplay extends Component {
         this.breadCrumbHistory = [{ name: "Home", type: undefined }, { name: row.name, type: EndpointTypes.TOPIC }];
         this.setState({
             subscriptionData: undefined,
-            rightTableType: EndpointTypes.SUBSCRIPTION,
-            rightTableEndpointName: row.name,
-            rightTableParentName: row.name
+            rightTableType: EndpointTypes.SUBSCRIPTION
         }, this.updateTopicSubscriptionData);
     }
 
     handleSubscriptionRowClick = (e, row, rowIndex) => {
         this.breadCrumbHistory[2] = { name: row.name, type: EndpointTypes.SUBSCRIPTION };
         this.messageButtonDisabled = true;
-        let parentName = this.state.rightTableEndpointType === EndpointTypes.SUBSCRIPTION ? this.state.rightTableParentName : this.state.rightTableEndpointName;
         this.setState({
             messageData: undefined,
-            rightTableType: EndpointTypes.MESSAGE,
-            rightTableEndpointType: EndpointTypes.SUBSCRIPTION,
-            rightTableParentName: parentName,
-            rightTableEndpointName: row.name
+            rightTableType: EndpointTypes.MESSAGE
         }, () => this.updateEndpointMessageData(false));
     }
 
@@ -149,6 +137,10 @@ export class TwoListDisplay extends Component {
         });
     };
 
+    getDeadLetterToggleButtonText = (isDeadLetterMessage) => {
+        return isDeadLetterMessage ? "Deadletters" : "Live Messages";
+    }
+
     getList = (isForRightHandList) => {
         let typeOfData;
         const currentLeftTable = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
@@ -215,47 +207,27 @@ export class TwoListDisplay extends Component {
                     </React.Fragment>
                 );
             case EndpointTypes.MESSAGE:
-
+            case EndpointTypes.DEADLETTER:
+                let isDeadLetterMessage = typeOfData === EndpointTypes.DEADLETTER;
                 return (
                     <React.Fragment>
                         <div >
-                            <h2 className={displayStyle} >{typeToTitle(EndpointTypes.MESSAGE)}</h2>
-                            <Button className={deadLetterToggleButtonStyle} onClick={() => this.handleMessageToggle(true)} disabled={this.messageButtonDisabled} > Deadletters </Button>
+                            <h2 className={displayStyle} >{typeToTitle(typeOfData)}</h2>
+                            <Button className={deadLetterToggleButtonStyle} onClick={() => this.handleMessageToggle(!isDeadLetterMessage)} disabled={this.messageButtonDisabled} >
+                                {this.getDeadLetterToggleButtonText(isDeadLetterMessage)}
+                            </Button>
                         </div>
                         <MessageList
                             messageData={this.state.messageData}
-                            messageType={EndpointTypes.MESSAGE}
-                            endpointType={this.state.rightTableEndpointType}
-                            endpointName={this.state.rightTableEndpointName}
-                            endpointParent={this.state.rightTableParentName}
+                            messageType={typeOfData}
+                            endpointType={this.breadCrumbHistory[this.breadCrumbHistory.length - 1].type}
+                            endpointName={this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name}
+                            endpointParent={this.breadCrumbHistory[this.breadCrumbHistory.length - 2].name}
                             refreshMessageTableHandler={() => {
                                 this.setState({
                                     messageData: undefined
                                 });
-                                this.updateEndpointMessageData(false);
-                            }}
-                        />
-                    </React.Fragment>
-
-                );
-            case EndpointTypes.DEADLETTER:
-                return (
-                    <React.Fragment>
-                        <div>
-                            <h2 className={displayStyle} >{typeToTitle(EndpointTypes.DEADLETTER)}</h2>
-                            <Button className={deadLetterToggleButtonStyle} onClick={() => this.handleMessageToggle(false)} disabled={this.messageButtonDisabled} > Live Messages </Button>
-                        </div>
-                        <MessageList
-                            messageData={this.state.messageData}
-                            messageType={EndpointTypes.DEADLETTER}
-                            endpointType={this.state.rightTableEndpointType}
-                            endpointName={this.state.rightTableEndpointName}
-                            endpointParent={this.state.rightTableParentName}
-                            refreshMessageTableHandler={() => {
-                                this.setState({
-                                    messageData: undefined
-                                });
-                                this.updateEndpointMessageData(true);
+                                this.updateEndpointMessageData(isDeadLetterMessage);
                             }}
                         />
                     </React.Fragment>

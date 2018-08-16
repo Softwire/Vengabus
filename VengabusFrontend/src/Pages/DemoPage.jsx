@@ -76,9 +76,9 @@ sit amet \nthat was a newline`
         `;
 
         //qq remove hardcoded endpoint names later
-        const queueName = 'demoqueue1';
-        const topicName = 'demotopic1';
-        const subscriptionName = 'demosubscription1';
+        const queueName = 'ibdemoqueue';
+        const topicName = 'ibdemotopic';
+        const subscriptionName = 'sbu1';
 
         return (
             < div >

@@ -91,7 +91,7 @@ export class MessageBox extends Component {
                             <DeleteSingleMessageButton
                                 uniqueId={message.uniqueId}
                                 messageId={message.predefinedProperties.messageId}
-                                type={this.props.endpointType}
+                                endpointType={this.props.endpointType}
                                 messageType={this.props.messageType}
                                 parentName={this.props.endpointParent}
                                 endpointName={this.props.endpointName}
