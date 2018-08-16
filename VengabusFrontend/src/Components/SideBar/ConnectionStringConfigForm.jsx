@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { ServiceBusInfoBox } from "./ServiceBusInfoBox";
 import { serviceBusConnection } from "../../AzureWrappers/ServiceBusConnection";
+import { ButtonWithConfirmationModal } from "./ButtonWithConfirmationModal";
 import {
     FormGroup,
     FormControl,
@@ -252,6 +253,10 @@ export class ConnectionStringConfigForm extends Component {
             color: black;
         `;
 
+        const connectionStringStyle = css`
+            word-wrap: break-word;
+        `;
+
         return (
             <form className={formStyle}>
                 <FormGroup controlId="connectionStringLabel">
@@ -289,14 +294,20 @@ export class ConnectionStringConfigForm extends Component {
                 >
                     Connect
                 </Button>
-                <Button
-                    className={buttonStyle}
-                    onClick={this.deleteConnection}
+                <ButtonWithConfirmationModal
                     id="deleteConnectionButton"
-                    bsStyle="danger"
+                    buttonText={"Delete Connection"}
+                    modalTitle={"Delete Connection String"}
+                    modalBody={
+                        <React.Fragment>
+                            <p>{"Are you sure to delete connection string: " + this.state.activeConnectionString.label}</p>
+                            <p className={connectionStringStyle}>{"Connection string value: " + this.state.activeConnectionString.value}</p>
+                        </React.Fragment>
+                    }
+                    confirmButtonText={"Delete"}
+                    confirmAction={this.deleteConnection}
                 >
-                    Delete Connection
-                </Button>
+                </ButtonWithConfirmationModal>
                 {
                     //buttons want to grip on to the top of things not pretty so add a break to separate
                 }
