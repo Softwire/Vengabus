@@ -6,7 +6,7 @@ import { Modal } from 'react-bootstrap';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
 import { testHelper } from '../../TestHelpers/TestHelper';
 
-let mockPurgeSubscrionMessage = jest.fn();
+let mockPurgeSubscrptionMessage = jest.fn();
 let mockPurgeQueueMessages = jest.fn();
 let mockPurgeTopicMessages = jest.fn();
 jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
@@ -15,27 +15,23 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
         }
 
         getQueueDetails = () => Promise.resolve({
-            data: { //qqMDM data!?
-                activeMessageCount: 10
-            }
+            activeMessageCount: 10
         });
 
         getSubscriptionDetails = () => Promise.resolve({
-            data: { //qqMDM data!?
-                activeMessageCount: 10
-            }
+            activeMessageCount: 10
         });
 
-        listSubscriptions = () => Promise.resolve({
-            data: [{ //qqMDM data!?
+        listSubscriptions = () => Promise.resolve(
+            [{
                 name: "subscription1",
                 activeMessageCount: 10
             }]
-        });
+        );
 
         purgeQueueMessages = (queueName) => { mockPurgeQueueMessages(queueName); }
         purgeTopicMessages = (topicName) => { mockPurgeTopicMessages(topicName); }
-        purgeSubscriptionMessages = (topicName, subscriptionName) => { mockPurgeSubscrionMessage(subscriptionName); }
+        purgeSubscriptionMessages = (topicName, subscriptionName) => { mockPurgeSubscrptionMessage(subscriptionName); }
     }
 }));
 
@@ -96,7 +92,7 @@ describe('PurgeMessagesButton', () => {
 
     it('call VengaBusService purge subscription messages method once', () => {
         let wrapper = mount(<PurgeMessagesButton type={EndpointTypes.SUBSCRIPTION} endpointName={subscriptionName} parentName={topicName} />);
-        return afterModalPurgeButtonIsClicked(wrapper, mockPurgeSubscrionMessage, subscriptionName);
+        return afterModalPurgeButtonIsClicked(wrapper, mockPurgeSubscrptionMessage, subscriptionName);
     });
 
     it('call VengaBusService purge queue messages method once', () => {

@@ -70,7 +70,7 @@ class PurgeMessagesButton extends React.Component {
 
                 {this.props.type === EndpointTypes.TOPIC ? this.generateTopicModalBody(topicSubList) : ""}
 
-                <p>{numMessages} messages will be purged <b>irreversibly</b>!</p >
+                <p>{numMessages} messages will be deleted <b>irreversibly</b>!</p >
             </React.Fragment>
         );
     }
