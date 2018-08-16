@@ -14,19 +14,30 @@ export class EditQueuesPage extends Component {
         super(props);
 
         this.state = {
-            selectedQueue: "mkdemoqueue",
-            queueData: {},
-            newQueueData: {},
+            endpointType: 'queue',
+            selectedEndpoint: "mkdemoqueue",
+            endpointData: {},
+            newEndpointData: {},
             receivedData: false
         };
     }
 
     componentDidMount = () => {
-        serviceBusConnection.getServiceBusService().getQueueDetails(this.state.selectedQueue)
-            .then((result) => {
-                result.autoDeleteOnIdle = this.parseTimeSpanFromBackend(result.autoDeleteOnIdle);
-                this.setState({ queueData: result, newQueueData: result, receivedData: true });
-            });
+        let promise;
+        switch (this.state.endpointType) {
+            case 'queue':
+                promise = serviceBusConnection.getServiceBusService().getQueueDetails(this.state.selectedEndpoint);
+                break;
+            case 'topic':
+                promise = serviceBusConnection.getServiceBusService().getTopicDetails(this.state.selectedEndpoint);
+                break;
+            default:
+                throw new Error('unexpected endpoint type: ' + this.state.endpointType);
+        }
+        promise.then((result) => {
+            result.autoDeleteOnIdle = this.parseTimeSpanFromBackend(result.autoDeleteOnIdle);
+            this.setState({ endpointData: result, newEndpointData: result, receivedData: true });
+        });
     }
 
     parseTimeSpanFromBackend = (timespan) => {
@@ -76,7 +87,16 @@ export class EditQueuesPage extends Component {
         return {
             requiresSession: <Tooltip id="tooltip">
                 True if the receiver application can only receive from the queue through a MessageSession; false if a queue cannot receive using MessageSession.
-            </Tooltip>
+            </Tooltip>,
+            autoDeleteOnIdle: <Tooltip id="tooltip">
+                The idle time span after which the queue is automatically deleted. The minimum duration is 5 minutes.
+            </Tooltip>,
+            maxDeliveryCount: <Tooltip id="tooltip">
+                A message is automatically deadlettered after this number of deliveries.
+            </Tooltip>,
+            enableDeadLetteringOnMessageExpiration: <Tooltip id="tooltip">
+                Sets whether this queue has dead letter support when a message expires.
+             </Tooltip>
         };
     }
 
@@ -85,17 +105,49 @@ export class EditQueuesPage extends Component {
      * @returns {object} Display name and display value pairs for read-only properties.
      */
     getEditableAndReadOnlyProperties = () => {
-        const { name, activeMessageCount, deadletterMessageCount, mostRecentDeadLetter } = this.state.newQueueData;
+        switch (this.state.endpointType) {
+            case 'queue':
+                return this.getEditableAndReadOnlyPropertiesForQueue();
+            case 'topic':
+                return this.getEditableAndReadOnlyPropertiesForTopic();
+            default:
+                throw new Error('unexpected endpoint type: ' + this.state.endpointType);
+        }
+    }
+
+    getEditableAndReadOnlyPropertiesForQueue = () => {
+        const { name, activeMessageCount, deadletterMessageCount, mostRecentDeadLetter, status } = this.state.newEndpointData;
         const readOnlyProperties = this.assembleReadOnlyProperties({
-            // text in the left column: key to value in the right column
+            // text in the left column: value in the right column
             "Name": name,
             "Active Message Count": activeMessageCount,
             "Dead Letter Message Count": deadletterMessageCount,
-            "Most Recent Dead Letter": mostRecentDeadLetter
+            "Most Recent Dead Letter": mostRecentDeadLetter,
+            "Status": status    //QQ move this to editable
         });
         const editableProperties = [
             'supportOrdering',
             'requiresSession',
+            'enablePartitioning',
+            'autoDeleteOnIdle',
+            'enableDeadLetteringOnMessageExpiration',
+            'requiresDuplicateDetection',
+            'maxDeliveryCount',
+            'maxSizeInMegabytes'
+        ];
+        return [editableProperties, readOnlyProperties];
+    }
+
+    getEditableAndReadOnlyPropertiesForTopic = () => {
+        const { name, subscriptionCount, topicStatus } = this.state.newEndpointData;
+        const readOnlyProperties = this.assembleReadOnlyProperties({
+            // text in the left column: value in the right column
+            "Name": name,
+            "Subscription Count": subscriptionCount,
+            "Status": topicStatus
+        });
+        const editableProperties = [
+            'supportOrdering',
             'enablePartitioning',
             'autoDeleteOnIdle'
         ];
@@ -134,7 +186,7 @@ export class EditQueuesPage extends Component {
             editablePropertyInputs.push(
                 <PropertyInput
                     text={property.charAt(0).toUpperCase() + property.substr(1)}
-                    data={this.state.newQueueData[property]}
+                    data={this.state.newEndpointData[property]}
                     tooltip={tooltips[property]}
                     onChange={(data) => this.handlePropertyChange(data, property)}
                     componentType={objectPropertyToComponent[property]}
@@ -147,10 +199,10 @@ export class EditQueuesPage extends Component {
     }
 
     handlePropertyChange(value, property) {
-        const updatedNewQueueData = { ...this.state.newQueueData };
-        updatedNewQueueData[property] = value;
+        const updatedNewEndpointData = { ...this.state.newEndpointData };
+        updatedNewEndpointData[property] = value;
         this.setState({
-            newQueueData: updatedNewQueueData
+            newEndpointData: updatedNewEndpointData
         });
     }
 
@@ -173,15 +225,24 @@ export class EditQueuesPage extends Component {
         return true;
     }
 
-    updateQueue = () => {
-        const queueToSend = { ...this.state.newQueueData };
-        console.log(queueToSend);
-        serviceBusConnection.getServiceBusService().updateQueue(this.state.newQueueData);
+    updateEndpoint = () => {
+        const dataToSend = { ...this.state.newEndpointData };
+        console.log(dataToSend);
+        switch (this.state.endpointType) {
+            case 'queue':
+                serviceBusConnection.getServiceBusService().updateQueue(this.state.newEndpointData);
+                break;
+            case 'topic':
+                serviceBusConnection.getServiceBusService().updateTopic(this.state.newEndpointData);
+                break;
+            default:
+                throw new Error('unexpected endpoint type: ' + this.state.endpointType);
+        }
     }
 
     resetFields = () => {
         this.setState({
-            newQueueData: this.state.queueData
+            newEndpointData: this.state.endpointData
         });
     }
 
@@ -219,21 +280,21 @@ export class EditQueuesPage extends Component {
                             id="submitButton"
                             buttonText={"Update"}
                             buttonStyle="default"
-                            buttonDisabled={this.checkObjectEquality(this.state.queueData, this.state.newQueueData)}
+                            buttonDisabled={this.checkObjectEquality(this.state.endpointData, this.state.newEndpointData)}
                             modalTitle={"Update Queue"}
                             modalBody={
                                 <React.Fragment>
-                                    <p>{"Following queue will be updated: " + this.state.selectedQueue}</p>
+                                    <p>{"Following queue will be updated: " + this.state.selectedEndpoint}</p>
                                     <p>{"Confirm action?"}</p>
                                 </React.Fragment>
                             }
                             confirmButtonText={"Update"}
-                            confirmAction={this.updateQueue}
+                            confirmAction={this.updateEndpoint}
                         />
                         <ButtonWithConfirmationModal
                             id="resetButton"
                             buttonText={"Reset Fields"}
-                            buttonDisabled={this.checkObjectEquality(this.state.queueData, this.state.newQueueData)}
+                            buttonDisabled={this.checkObjectEquality(this.state.endpointData, this.state.newEndpointData)}
                             modalTitle={"Reset all fields"}
                             modalBody={
                                 <React.Fragment>

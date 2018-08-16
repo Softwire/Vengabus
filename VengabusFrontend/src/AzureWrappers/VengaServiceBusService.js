@@ -67,6 +67,17 @@ export class VengaServiceBusService {
     }
 
     /**
+     * Updates the properties of a queue
+     * @param {object} topicDescription Object containing the new properties of the topic. It is specified in this which topic we are updating.
+     * For more information on the form of this object see https://docs.microsoft.com/en-us/dotnet/api/microsoft.servicebus.messaging.topicdescription?view=azure-dotnet
+     */
+    updateTopic = (topicDescription) => {
+        const url = this.apiRoot + 'topics/update';
+        const config = this.jsonConfig;
+        this.axiosWithSAS.post(url, topicDescription, config);
+    }
+
+    /**
      * Gets the details of all subscriptions in a given topic from the server.
      * @param {string} topicName The name of the topic to get subscriptions from.
      * @return {object} The subsctiptions returned by the server.

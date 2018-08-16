@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { CheckboxInput } from './CheckboxInput';
+import { NumberInput } from './NumberInput';
+
 
 /**
  * @prop {string} text Text to be displayed for the input.
@@ -11,15 +13,20 @@ import { CheckboxInput } from './CheckboxInput';
 export class PropertyInput extends Component {
 
     render() {
-        const data = this.props.data;
-        switch (typeof data) {
+        const dataType = typeof this.props.data;
+        const propsToPass = { ...this.props };
+        delete propsToPass.componentType;
+        switch (dataType) {
             case 'boolean':
                 return (
                     <CheckboxInput
-                        text={this.props.text}
-                        data={this.props.data}
-                        tooltip={this.props.tooltip}
-                        onChange={this.props.onChange}
+                        {...propsToPass}
+                    />
+                );
+            case 'number':
+                return (
+                    <NumberInput
+                        {...propsToPass}
                     />
                 );
             case 'object':
@@ -27,14 +34,11 @@ export class PropertyInput extends Component {
                 if (!ComponentType) { throw new Error(`for data types of object component type must be defined (in ${this.props.text})`); }
                 return (
                     <ComponentType
-                        text={this.props.text}
-                        data={this.props.data}
-                        tooltip={this.props.tooltip}
-                        onChange={this.props.onChange}
+                        {...propsToPass}
                     />
                 );
             default:
-                throw new Error('unexpected data type');
+                throw new Error('unexpected data type : ' + dataType);
         }
     }
 }

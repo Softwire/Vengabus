@@ -58,24 +58,6 @@ export class TimeSpanInput extends Component {
                         )
                 }
                 <form className={formStyle}>
-                    {/* <FormGroup className={inputStyle}>
-                    <ControlLabel className={labelStyle}>Years</ControlLabel>
-                    <FormControl
-                        type="number"
-                        value={this.props.time.years}
-                        placeholder="Enter Years"
-                        onChange={(event) => this.props.handleTimeChange({ ...this.props.time, years: parseInt(event.target.value, 10) })}
-                    />
-                </FormGroup>
-                <FormGroup className={inputStyle}>
-                    <ControlLabel className={labelStyle}>Months</ControlLabel>
-                    <FormControl
-                        type="number"
-                        value={this.props.time.months}
-                        placeholder="Enter Months"
-                        onChange={(event) => this.props.handleTimeChange({ ...this.props.time, months: parseInt(event.target.value, 10) })}
-                    />
-                </FormGroup> */}
                     <FormGroup className={inputStyle}>
                         <ControlLabel className={labelStyle}>Days</ControlLabel>
                         <FormControl
