@@ -215,6 +215,7 @@ it('Discard Message button works', async () => {
         preDefinedProperties: [{ name: 'MessageID', value: 'id' }],
         messageBody: 'Hello World!'
     });
+    expect(wrapper.find(MessagePropertyInputRow).length).toEqual(4);
     let discardButton = wrapper.find(Button).last();
     discardButton.simulate('click');
     await testHelper.afterReactHasUpdated().then(() => {

@@ -9,14 +9,14 @@ function expectFormattingOutput(input, expectedOutput, outputBoxId, expectedBoxI
             data={input/* qqMDM data*/}
         />);
     expectedBoxIds.forEach((value) => {
-        expect(formattingBox.find(value).exists()).toBe(true);
+        expect(formattingBox.find(value)).toExistOnPage();
     });
 
     unexpectedBoxIds.forEach((value) => {
-        expect(formattingBox.find(value).exists()).toBe(false);
+        expect(formattingBox.find(value)).notToExistOnPage();
     });
 
-    expect(formattingBox.find(outputBoxId).exists()).toBe(true);
+    expect(formattingBox.find(outputBoxId)).toExistOnPage();
 
     const formattedText = formattingBox.find(outputBoxId);
     expect(formattedText.text()).toBe(expectedOutput);
