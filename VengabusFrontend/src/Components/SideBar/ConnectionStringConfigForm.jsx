@@ -27,7 +27,7 @@ export class ConnectionStringConfigForm extends Component {
         super(props);
 
         this.state = {
-            connectionStringList: [],
+            connectionStrings: [],
             activeConnectionString: { label: "", value: "" },
             connectedTo: { label: "", value: "" },
             APIroot: "",
@@ -38,31 +38,32 @@ export class ConnectionStringConfigForm extends Component {
     componentDidMount() {
         //local storage only supports strings. So we have to get the string first, then use JSON.parse
         //to recover the original list (array).
-        let connectionStringListStringified =
+        let connectionStringsStringified =
             localStorageAccessor.getItem(LOCAL_STORAGE_STRINGS.ConnectionStrings) ||
             "";
-        let connectionStringList;
+        let connectionStrings;
         try {
-            connectionStringList = JSON.parse(connectionStringListStringified);
+            connectionStrings = JSON.parse(connectionStringsStringified);
         } catch (e) {
-            connectionStringList = [];
+            connectionStrings = [];
         }
 
-        //maybe for some reason it's not an array, we'll fix it here so that the code doesn't crash later
-        if (!Array.isArray(connectionStringList)) {
-            connectionStringList = [];
+        //maybe for some reason it's not an array, we'll fix it here so that the page doesn't crash later
+        if (!Array.isArray(connectionStrings)) {
+            connectionStrings = [];
         }
 
         //for backward compatibility -- to be removed in the future
-        if (connectionStringList.length === 0) {
+        if (connectionStrings.length === 0) {
             let connectionString = localStorageAccessor.getItem("connectionString");
             if (connectionString) {
-                connectionStringList = [{ value: connectionString, label: "Old Connection String" }];
-                localStorageAccessor.setItem(LOCAL_STORAGE_STRINGS.ConnectionStrings, JSON.stringify(connectionStringList));
+                connectionStrings = [{ value: connectionString, label: "Old Connection String" }];
+                //update to the new version of local storage
+                this.updateConnectionStringLocalStorage(connectionStrings);
                 localStorageAccessor.setItem("connectionString", "");
             }
         }
-        this.populateConnectionStringList(connectionStringList);
+        this.populateConnectionStrings(connectionStrings);
 
         const localStorageApiRoot =
             localStorageAccessor.getItem(LOCAL_STORAGE_STRINGS.APIroot) ||
@@ -71,13 +72,13 @@ export class ConnectionStringConfigForm extends Component {
     }
 
     /** Populates the connection string list on page.
-     * @param {string[]} newConnectionStringList The list to be populated.
+     * @param {string[]} newConnectionStrings The list to be populated.
      */
-    populateConnectionStringList = newConnectionStringList => {
-        this.setState({ connectionStringList: newConnectionStringList });
-        if (newConnectionStringList.length) {
-            //if we have some in local storage, use the most recently used one
-            this.setState({ activeConnectionString: newConnectionStringList[0] });
+    populateConnectionStrings = newConnectionStrings => {
+        this.setState({ connectionStrings: newConnectionStrings });
+        if (newConnectionStrings.length) {
+            //if we have some strings in local storage, use the most recently used one
+            this.setState({ activeConnectionString: newConnectionStrings[0] });
         }
     }
 
@@ -89,34 +90,34 @@ export class ConnectionStringConfigForm extends Component {
         this.setState({ APIroot: newApiRoot });
     }
 
+    //Update the connection string list in local storage.
     updateConnectionStringLocalStorage = (connectionStrings) => {
+        //local storage only supports strings, so stringify our list and save in local storage
         localStorageAccessor.setItem(
             LOCAL_STORAGE_STRINGS.ConnectionStrings,
             JSON.stringify(connectionStrings)
         );
     }
 
-    /** Updates the value of the connection string in the state, in serviceBusConnection, and in the localstorage.  
-     * @param {object} newConnection The updated value of the connection.  
-     */
-    updateConnectionStringList = (connectionString) => {
+    //Called when the Connect button is clicked, and update the connection string list according to the newly used string.
+    updateConnectionStringList = (newConnectionString) => {
 
-        //put the most recently used string to the top
-        let connectionStringList = this.state.connectionStringList;
-        for (let i = 0; i < connectionStringList.length; i++) {
-            if (connectionStringList[i].label === connectionString.label) {
-                connectionStringList.splice(i, 1);
+        //put the string used just now to the top
+        let connectionStrings = this.state.connectionStrings;
+        for (let i = 0; i < connectionStrings.length; i++) {
+            if (connectionStrings[i].label === newConnectionString.label) {
+                connectionStrings.splice(i, 1);
             }
         }
-        connectionStringList.splice(0, 0, connectionString);
+        connectionStrings.splice(0, 0, newConnectionString);
 
         this.setState({
-            activeConnectionString: connectionString,
-            connectionStringList: connectionStringList
+            activeConnectionString: newConnectionString,
+            connectionStrings: connectionStrings
         });
 
-        //local storage only supports strings, so stringify our list and save in local storage
-        this.updateConnectionStringLocalStorage(connectionStringList);
+        //update local storage
+        this.updateConnectionStringLocalStorage(connectionStrings);
     };
 
     /** Updates the value of the API root location in the state, in serviceBusConnection, and in the localstorage.  
@@ -131,44 +132,49 @@ export class ConnectionStringConfigForm extends Component {
         );
     }
 
+    //called when the delete connection button is clicked.
     deleteConnection = () => {
         //nothing to delete
-        if (!this.state.connectionStringList || !this.state.connectionStringList.length) {
+        if (!this.state.connectionStrings || !this.state.connectionStrings.length) {
             return;
         }
         if (!this.state.activeConnectionString || this.state.activeConnectionString.label === "") {
             return;
         }
-        let newConnectionStringList = this.state.connectionStringList;
-        let index = newConnectionStringList.find((element) => { return this.state.activeConnectionString.label === element.label });
+
+        let newConnectionStrings = this.state.connectionStrings;
+        let index = newConnectionStrings.find((element) => { return this.state.activeConnectionString.label === element.label });
         if (index === -1) {//this should never happen. But if it does occur, we don't want the page to crash
             return;
         }
-        newConnectionStringList.splice(index, 1);
-        let activeConnectionString;
+
+        //remove it from our list
+        newConnectionStrings.splice(index, 1);
 
         //use the most commonly used string, if we still have strings left. But don't connect to it -- that's for users to decide
-        if (newConnectionStringList.length) {
-            activeConnectionString = newConnectionStringList[0];
+        let activeConnectionString;
+
+        if (newConnectionStrings.length) {
+            activeConnectionString = newConnectionStrings[0];
         } else {
             activeConnectionString = { value: "", label: "" };
         }
+
+        //update state, clear the old string from servicebusConnection and our current record. Or shall we rather keep it?
         this.setState({
-            connectionStringList: newConnectionStringList,
+            connectionStrings: newConnectionStrings,
             activeConnectionString: activeConnectionString,
             info: "",
             connectedTo: { value: "", label: "" }
         });
-
-        //clear it from servicebusConnection. Or shall we rather keep it?
         serviceBusConnection.setConnectionString("");
 
         //update local storage
-        this.updateConnectionStringLocalStorage(newConnectionStringList);
+        this.updateConnectionStringLocalStorage(newConnectionStrings);
     }
 
     // Called whenever the value of the connection string input box changes.
-    handleConnectionChange = event => {
+    handleConnectionStringValueChange = event => {
         let newConnectionString = { ...this.state.activeConnectionString };
         newConnectionString.value = event.target.value;
         this.setState({ activeConnectionString: newConnectionString });
@@ -182,16 +188,16 @@ export class ConnectionStringConfigForm extends Component {
             return;
         }
 
-        let newConnectionStringList = this.state.connectionStringList;
+        let newConnectionStrings = this.state.connectionStrings;
         //The onCreate event doesn't seem to work as expected, but when a new entry is created, the value and label are identical.
         //So we can use that to identify when the user creates a new string.
         if (event.value === event.label) {
             event.value = '';
-            newConnectionStringList.splice(0, 0, event);
+            newConnectionStrings.splice(0, 0, event);
         }
         this.setState({
             activeConnectionString: event,
-            connectionStringList: newConnectionStringList
+            connectionStrings: newConnectionStrings
         });
     }
 
@@ -219,19 +225,15 @@ export class ConnectionStringConfigForm extends Component {
 
         serviceBusConnection.promptUpdate();
 
-        infoPromise
-            .then(response => {
-                this.setState({
-                    info: response,
-                    //only update this when we actually connect to something.
-                    connectedTo: activeConnectionString
-                });
-
-            })
-            .catch(error => {
-                console.log(error);
+        infoPromise.then(response => {
+            this.setState({
+                info: response,
+                //only update this when we actually connect to something.
+                connectedTo: activeConnectionString
             });
-
+        }).catch(error => {
+            console.log(error);
+        });
     };
 
     render() {
@@ -256,9 +258,8 @@ export class ConnectionStringConfigForm extends Component {
                     <ControlLabel>Select Existing/Create New String</ControlLabel>
                     <CreatableSelect className={selectStyle}
                         value={this.state.activeConnectionString}
-                        placeholder="Select a connection string"
                         onChange={this.handleConnectionStringLabelChange}
-                        options={this.state.connectionStringList}
+                        options={this.state.connectionStrings}
                     />
                 </FormGroup>
 
@@ -268,7 +269,7 @@ export class ConnectionStringConfigForm extends Component {
                         type="text"
                         value={this.state.activeConnectionString.value}
                         placeholder="Connection String"
-                        onChange={this.handleConnectionChange}
+                        onChange={this.handleConnectionStringValueChange}
                     />
                 </FormGroup>
 
