@@ -61,8 +61,7 @@ export class MessageProperties extends Component {
             text-align:left;
         `;
         const buttonLoading = css`
-            opacity: 0.5;
-            :hover {
+            &.btn:hover {
                 cursor: progress;
             }
         `;
@@ -86,6 +85,7 @@ export class MessageProperties extends Component {
                     <div className={leftAlign}>
                         <Button
                             className={isPredefined ? preDefinedPropsButtonClassNames : buttonStyle}
+                            disabled={!arePropertiesLoaded}
                             onClick={() => this.addNewProperty(!isPredefined)}
                         >
                             {arePropertiesLoaded ? addPropertyText : 'Loading pre-defined properties...'}

@@ -1033,11 +1033,7 @@ exports[`renders correctly before data has loaded 1`] = `
   margin-left: 5px;
 }
 
-.emotion-38 {
-  opacity: 0.5;
-}
-
-.emotion-38:hover {
+.emotion-38.btn:hover {
   cursor: progress;
 }
 
@@ -1333,7 +1329,7 @@ exports[`renders correctly before data has loaded 1`] = `
     >
       <button
         className="emotion-37 emotion-38 btn btn-default"
-        disabled={false}
+        disabled={true}
         onClick={[Function]}
         type="button"
       >
@@ -1645,11 +1641,7 @@ exports[`renders correctly from a predefined message 1`] = `
   margin-left: 5px;
 }
 
-.emotion-38 {
-  opacity: 0.5;
-}
-
-.emotion-38:hover {
+.emotion-38.btn:hover {
   cursor: progress;
 }
 
@@ -1983,7 +1975,7 @@ exports[`renders correctly from a predefined message 1`] = `
     >
       <button
         className="emotion-37 emotion-38 btn btn-default"
-        disabled={false}
+        disabled={true}
         onClick={[Function]}
         type="button"
       >
