@@ -13,20 +13,18 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
         }
 
         listQueues = () => {
-            return new Promise(function (resolve, reject) {
-                resolve([
-                    {
-                        "name": "1dduplicatedetectionqueue",
-                        "activeMessageCount": 501,
-                        "deadletterMessageCount": 10
-                    },
-                    {
-                        "name": "30sduplicatedetectionqueue",
-                        "activeMessageCount": 1,
-                        "deadletterMessageCount": 0
-                    }
-                ]);
-            });
+            return Promise.resolve([
+                {
+                    "name": "1dduplicatedetectionqueue",
+                    "activeMessageCount": 501,
+                    "deadletterMessageCount": 10
+                },
+                {
+                    "name": "30sduplicatedetectionqueue",
+                    "activeMessageCount": 1,
+                    "deadletterMessageCount": 0
+                }
+            ]);
         }
 
         getQueueDetails = (queueName) => {
@@ -216,38 +214,37 @@ it('passes smoke tests without crashing', () => {
      * Go to Demo Page
      * Go to Home Page
      * Go to Send Message Page
-     * Click and new property button
+     * Click add new property button
      */
     connectButton.prop("onClick")();
-    return testHelper.afterReactHasUpdated()
-        .then(() => { //Go to Demo Page
-            navbarDemoPageButton.simulate("click");
-            return testHelper.afterReactHasUpdated();
-            /*    }).then(() => { //Click ReplayMessage button -- this no longer exists. QQ remove when every's added smoke test
-                    const replayMessageButton = wrapper.find("#demoPageReplayMessageButton").first();
-                    expect(replayMessageButton).toExistOnPage();
-                    replayMessageButton.simulate("click");
-                    return testHelper.afterReactHasUpdated();*/
-        }).then(() => {//Go to Home Page
-            const buttonFromPreviousPage = wrapper.find("#demoPageReplayMessageButton").first();//this still works, as that button no longer exists
-            expect(buttonFromPreviousPage).notToExistOnPage();
+    return testHelper.afterReactHasUpdated().then(() => { //Go to Demo Page
+        navbarDemoPageButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+        /*    }).then(() => { //Click ReplayMessage button -- this no longer exists. QQ remove when every's added smoke test
+                const replayMessageButton = wrapper.find("#demoPageReplayMessageButton").first();
+                expect(replayMessageButton).toExistOnPage();
+                replayMessageButton.simulate("click");
+                return testHelper.afterReactHasUpdated();*/
+    }).then(() => {//Go to Home Page
+        const buttonFromPreviousPage = wrapper.find("#demoPageReplayMessageButton").first();//this still works, as that button no longer exists
+        expect(buttonFromPreviousPage).not.toExistOnPage();
 
         /*    const buttonsOnReplayMessagePage = wrapper.find(Button); -- this is no longer valid. QQ remove as above
             expect(buttonsOnReplayMessagePage.length).toBeGreaterThan(4);*/
 
-            navbarHomePageButton.simulate("click");
-            return testHelper.afterReactHasUpdated();
-        }).then(() => {//Go to Send Message Page
-            navbarSendMessagePageButton.simulate("click");
-            return testHelper.afterReactHasUpdated();
-        }).then(() => {//Click add new property button
-            const buttonsOnSendMessagePage = wrapper.find(Button);
-            const addNewPropertyButton = buttonsOnSendMessagePage.at(2);
-            addNewPropertyButton.simulate("click");
-            return testHelper.afterReactHasUpdated();
-        }).catch((e) => {
-            //if there's an expect failing in any of the above thens, it throws and enters catch,
-            //but will not report an error in test. So we need to expect it not to be defined here.
-            expect(e).toBeUndefined();
-        });
+        navbarHomePageButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Go to Send Message Page
+        navbarSendMessagePageButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click add new property button
+        const buttonsOnSendMessagePage = wrapper.find(Button);
+        const addNewPropertyButton = buttonsOnSendMessagePage.at(2);
+        addNewPropertyButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).catch((e) => {
+        //if there's an expect failing in any of the above, then it throws and enters catch,
+        //but will not report an error in test. So we need to expect it not to be defined here.
+        expect(e).toBeUndefined();
+    });
 });

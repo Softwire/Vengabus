@@ -13,7 +13,7 @@ function expectFormattingOutput(input, expectedOutput, outputBoxId, expectedBoxI
     });
 
     unexpectedBoxIds.forEach((value) => {
-        expect(formattingBox.find(value)).notToExistOnPage();
+        expect(formattingBox.find(value)).not.toExistOnPage();
     });
 
     expect(formattingBox.find(outputBoxId)).toExistOnPage();
