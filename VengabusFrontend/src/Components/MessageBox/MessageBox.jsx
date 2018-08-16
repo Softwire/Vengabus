@@ -63,9 +63,16 @@ export class MessageBox extends Component {
         if (!message) {
             return null;
         }
+        const modalStyle = css`
+            .modal-content {
+                overflow: auto;
+                max-height: 93vh;
+            }
+        `;
         const preDefinedPropsJSX = this.convertMessagePropertiesToJSXArray(message.predefinedProperties) || <p>There are no pre-defined properties to display</p>;
         const customPropsJSX = this.convertMessagePropertiesToJSXArray(message.customProperties) || <p>There are no user-defined properties to display</p>;
         return (
+            
             <div className="static-modal" >
                 <Modal show={this.props.show} onHide={this.props.handleClose} id="messageBoxModal" >
                     <Modal.Header>
@@ -80,7 +87,7 @@ export class MessageBox extends Component {
                         <CollapsiblePanel panelTitle={"User-defined Properties"}>
                             <pre>{customPropsJSX}</pre>
                         </CollapsiblePanel>
-                        <FormattingBox message={this.props.message.messageBody} />
+                    <FormattingBox data={message.messageBody} /* qqMDM data */ />
                     </Modal.Body>
 
                     <Modal.Footer>
