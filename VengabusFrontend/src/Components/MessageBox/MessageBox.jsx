@@ -30,7 +30,7 @@ export class MessageBox extends Component {
         );
     }
 
-    handleAfterConfirmationDeletion = () => {
+    closeMessageModalAndReloadMessageTable = () => {
         this.props.handleClose();
         if (this.props.refreshMessageTableHandler) {
             this.props.refreshMessageTableHandler();
@@ -95,7 +95,7 @@ export class MessageBox extends Component {
                                 messageType={this.props.messageType}
                                 parentName={this.props.endpointParent}
                                 endpointName={this.props.endpointName}
-                                afterConfirmationAction={this.handleAfterConfirmationDeletion}
+                                closeParentModal={this.closeMessageModalAndReloadMessageTable}
                             />
                             <Button onClick={() => this.handleReplayMessage(message)} >Replay Message to demoqueue1</ Button>
                         </ButtonToolbar>

@@ -208,26 +208,28 @@ export class TwoListDisplay extends Component {
                 );
             case EndpointTypes.MESSAGE:
             case EndpointTypes.DEADLETTER:
-                let isDeadLetterMessage = typeOfData === EndpointTypes.DEADLETTER;
+                const isDeadLetterMessage = typeOfData === EndpointTypes.DEADLETTER;
+                const lastBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
+                const penultimeBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 2];
                 return (
                     <React.Fragment>
                         <div >
                             <h2 className={displayStyle} >{typeToTitle(typeOfData)}</h2>
                             <Button className={deadLetterToggleButtonStyle} onClick={() => this.handleMessageToggle(!isDeadLetterMessage)} disabled={this.messageButtonDisabled} >
-                                {this.getDeadLetterToggleButtonText(isDeadLetterMessage)}
+                                {this.getDeadLetterToggleButtonText(!isDeadLetterMessage)}
                             </Button>
                         </div>
                         <MessageList
                             messageData={this.state.messageData}
                             messageType={typeOfData}
-                            endpointType={this.breadCrumbHistory[this.breadCrumbHistory.length - 1].type}
-                            endpointName={this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name}
-                            endpointParent={this.breadCrumbHistory[this.breadCrumbHistory.length - 2].name}
+                            endpointType={lastBreadCrumb.type}
+                            endpointName={lastBreadCrumb.name}
+                            endpointParent={penultimeBreadCrumb.name}
                             refreshMessageTableHandler={() => {
                                 this.setState({
                                     messageData: undefined
-                                });
-                                this.updateEndpointMessageData(isDeadLetterMessage);
+                                }, this.updateEndpointMessageData(isDeadLetterMessage));
+
                             }}
                         />
                     </React.Fragment>

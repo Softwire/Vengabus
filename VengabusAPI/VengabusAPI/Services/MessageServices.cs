@@ -54,7 +54,7 @@ namespace VengabusAPI.Services
             endpoint.SendMessage(message);
         }
 
-        public static void DeleteMessagesFromEndpoint(Endpoint endpoint, Predicate<BrokeredMessage> predicate)
+        public static void DeleteMessagesFromEndpoint(Endpoint endpoint, Predicate<BrokeredMessage> shouldDeleteThisMessage)
         {
 
             long remainingMessagesToDelete = 0;
@@ -88,7 +88,7 @@ namespace VengabusAPI.Services
                     break;
                 }
 
-                if (predicate(message))
+                if (shouldDeleteThisMessage(message))
                 {
                     message.Complete();
                 }

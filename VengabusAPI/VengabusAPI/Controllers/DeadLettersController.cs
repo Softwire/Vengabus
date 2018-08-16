@@ -11,14 +11,14 @@ using VengabusAPI.Services;
 
 namespace VengabusAPI.Controllers
 {
-    public class DeadLettersController : VengabusController
+    public class DeadLettersController : MessagesController
     {
      
         [HttpGet]
         [Route("queues/{queueName}/deadletters")]
         public IEnumerable<VengaMessage> ListDeadLetterMessagesInQueue(string queueName)
         {
-            return GetMessageFromEndpoint(new QueueDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName));
+            return GetMessagesFromEndpoint(new QueueDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName));
         }
 
         [HttpGet]
@@ -26,7 +26,7 @@ namespace VengabusAPI.Controllers
         public IEnumerable<VengaMessage> ListDeadLetterMessagesInSubscription(string topicName, string subscriptionName)
         {
  
-            return GetMessageFromEndpoint(new SubscriptionDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(),subscriptionName, topicName));
+            return GetMessagesFromEndpoint(new SubscriptionDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(),subscriptionName, topicName));
         }
 
         [HttpDelete]
@@ -41,17 +41,6 @@ namespace VengabusAPI.Controllers
         public void DeleteSingleDeadLetterMessageInSubscription(string topicName, string subscriptionName, string uniqueId, [FromUri]string messageId)
         {
             DeleteSingleMessageFromEndpoint(new SubscriptionDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(),subscriptionName, topicName), messageId, uniqueId);
-        }
-
-        private IEnumerable<VengaMessage> GetMessageFromEndpoint(Endpoint endpoint)
-        {
-            var brokeredMessagesList = MessageServices.GetMessagesFromEndpoint(endpoint);
-            var messagesToReturn = new List<VengaMessage>();
-            foreach (var message in brokeredMessagesList)
-            {
-                messagesToReturn.Add(VengaMessage.FromBrokeredMessage(message));
-            }
-            return messagesToReturn;
         }
     }
 }

@@ -8,31 +8,25 @@ import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
 class PurgeMessagesButton extends React.Component {
     constructor(props) {
         super(props);
-
-        const vengaServiceBusService = serviceBusConnection.getServiceBusService();
-
-        this.initialState = {
-            onPurgeConfirmed: () => { },
+        this.state = {
             modalBody: ""
         };
+    }
 
+    getOnDeletionConfirmedHandler = () => {
         switch (this.props.type) {
             case EndpointTypes.TOPIC:
-                this.initialState.onPurgeConfirmed = () => vengaServiceBusService.purgeTopicMessages(this.props.endpointName);
-                break;
+                return () => this.vengaServiceBusService.deleteTopicMessages(this.props.endpointName);
             case EndpointTypes.QUEUE:
-                this.initialState.onPurgeConfirmed = () => vengaServiceBusService.purgeQueueMessages(this.props.endpointName);
-                break;
+                return () => this.vengaServiceBusService.deleteQueueMessages(this.props.endpointName);
             case EndpointTypes.SUBSCRIPTION:
-                this.initialState.onPurgeConfirmed = () => vengaServiceBusService.purgeSubscriptionMessages(this.props.parentName, this.props.endpointName);
-                break;
+                return () => this.vengaServiceBusService.deleteSubscriptionMessages(this.props.parentName, this.props.endpointName);
             default: break;
         }
-
-        this.state = this.initialState;
     }
 
     showModalAction = () => {
+        this.vengaServiceBusService = serviceBusConnection.getServiceBusService();
         this.generateModalWarningBody().then(bodyResult => this.setState({ modalBody: bodyResult }));
     }
 
@@ -103,7 +97,7 @@ class PurgeMessagesButton extends React.Component {
             modalBody={this.state.modalBody}
             confirmButtonText={"Purge"}
             afterShowModalAction={this.showModalAction}
-            confirmAction={this.state.onPurgeConfirmed}
+            confirmAction={this.getOnDeletionConfirmedHandler()}
             afterCloseModalAction={this.resetState}
         />);
     }

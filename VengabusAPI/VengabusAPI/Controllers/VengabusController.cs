@@ -85,29 +85,5 @@ namespace VengabusAPI.Controllers
             var factory = MessagingFactory.Create(serviceBusUri, sasToken);
             return factory;
         }
-
-        protected void DeleteMessageFromEndpoint(Endpoint endpoint)
-        {
-            Predicate<BrokeredMessage> deleteMessageChecker = (brokeredMessage) => true;
-            MessageServices.DeleteMessagesFromEndpoint(endpoint, deleteMessageChecker);
-        }
-
-        protected void DeleteSingleMessageFromEndpoint(Endpoint endpoint, string messageId, string uniqueId)
-        {
-            Predicate<BrokeredMessage> deleteMessageChecker = (brokeredMessage) =>
-            {
-                if (messageId == brokeredMessage.MessageId)
-                {
-                    BodyAndHash bodyAndHash = brokeredMessage.GetBodyAndHash();
-
-                    return bodyAndHash.Hash.ToString() == uniqueId;
-                }
-                else
-                {
-                    return false;
-                }
-            };
-            MessageServices.DeleteMessagesFromEndpoint(endpoint, deleteMessageChecker);
-        }
     }
 }

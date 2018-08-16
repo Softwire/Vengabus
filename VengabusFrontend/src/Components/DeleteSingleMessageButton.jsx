@@ -5,9 +5,7 @@ import { EndpointTypes } from '../Helpers/EndpointTypes';
 import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
 
 class DeleteSingleMessageButton extends React.Component {
-    constructor(props) {
-        super(props);
-
+    getOnDeletionConfirmedHandler = () => {
         let deleteMessage;
 
         if (this.props.messageType === EndpointTypes.MESSAGE) {
@@ -37,22 +35,17 @@ class DeleteSingleMessageButton extends React.Component {
 
         const onDeletionConfirmed = () => {
             deleteMessage().then(() => {
-                if (this.props.afterConfirmationAction) {
-                    this.props.afterConfirmationAction();
+                if (this.props.closeParentModal) {
+                    this.props.closeParentModal();
                 }
             });
-
         };
 
-        this.state = {
-            onDeletionConfirmed: onDeletionConfirmed,
-            modalBody: ""
-        };
+        return onDeletionConfirmed;
     }
 
     showModalAction = () => {
         this.vengaServiceBusService = serviceBusConnection.getServiceBusService();
-        this.setState({ modalBody: this.generateModalWarningBody() });
     }
 
     generateModalWarningBody = () => {
@@ -66,7 +59,6 @@ class DeleteSingleMessageButton extends React.Component {
     }
 
     resetState = () => {
-        this.setState({ modalBody: "" });
     }
 
     render() {
@@ -75,10 +67,10 @@ class DeleteSingleMessageButton extends React.Component {
             id={"alertDeleteSingleMessage"}
             buttonText={buttonText}
             modalTitle="Delete message"
-            modalBody={this.state.modalBody}
+            modalBody={this.generateModalWarningBody()}
             confirmButtonText={"Delete"}
             afterShowModalAction={this.showModalAction}
-            confirmAction={this.state.onDeletionConfirmed}
+            confirmAction={this.getOnDeletionConfirmedHandler()}
             afterCloseModalAction={this.resetState}
         />;
     }
