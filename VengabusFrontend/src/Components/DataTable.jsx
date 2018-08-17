@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from 'react-bootstrap-table2-paginator';
 import { css } from 'react-emotion';
 import { palerBlue, paleGreyBlue } from '../colourScheme';
 import classNames from 'classnames';
@@ -49,6 +50,7 @@ Props:
                 bgColor: {string} Sets background color of selected row, will throw an error if style or classes is defined.
                 onSelect: {function(row, isSelect, rowIndex, e)} Called when row is selected (clicked).
     rowClasses: (OPTIONAL) {string} CSS class that applies to the rows.
+    paginated: (OPTIONAL) {boolean} If true then list will be paginated. Default is false.
     bordered: (OPTIONAL) {boolean} If false then no vertical borders. Default is true.
     condensed: (OPTIONAL) {boolean} If true then reduces padding in the table. Default is false.
     defaultHover: (OPTIONAL) {boolean} If true then default on hover styling will be applied.
@@ -246,7 +248,7 @@ export class DataTable extends Component {
     }
 
     render() {
-        let { dataToDisplay, name, uniqueKeyColumn, colProps, rowEvents, onRowClick, selectRow, rowClasses, defaultHover, ...otherProps } = this.props;
+        let { dataToDisplay, name, uniqueKeyColumn, colProps, rowEvents, onRowClick, selectRow, rowClasses, defaultHover, paginated, ...otherProps } = this.props;
         let keyColumnIndex;
         let finalRowEvents;
         let finalSelectRow;
@@ -288,6 +290,7 @@ export class DataTable extends Component {
 		          }`}
                 {...otherProps}
                 id="Data"
+                pagination={paginated ? paginationFactory() : null}
             />
         ) : (
                 <p className={textAlign}>No data has been retrieved yet.</p>
