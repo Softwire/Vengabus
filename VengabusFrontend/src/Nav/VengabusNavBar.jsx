@@ -23,11 +23,10 @@ export class VengabusNavBar extends Component {
                                 Send Message
                             </NavItem>
                             <NavItem id="navbarDemoPageButton" eventKey={PAGES.DemoPage} >
-                            <NavItem eventKey={PAGES.EditQueuesPage} >
-                                Edit Queues
-                            </NavItem>
-                            <NavItem eventKey={PAGES.DemoPage} >
                                 DemoPage
+                            </NavItem>
+                            <NavItem id="navbarEditWueuesPageButton" eventKey={PAGES.EditQueuesPage} >
+                                Edit Queues
                             </NavItem>
                             <NavDropdown eventKey={'UnknownPage'} title="Dropdown" id="basic-nav-dropdown">
                                 <MenuItem eventKey={'UnknownPage1'} >
