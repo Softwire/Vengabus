@@ -15,8 +15,8 @@ export class EditQueuesPage extends Component {
         super(props);
 
         this.state = {
-            endpointType: 'queue',
-            selectedEndpoint: "mkdemoqueue",
+            endpointType: 'topic',
+            selectedEndpoint: "demotopic1",
             endpointData: {},
             newEndpointData: {},
             receivedData: false
@@ -108,7 +108,7 @@ export class EditQueuesPage extends Component {
                 True if the receiver application can only receive from the queue through a MessageSession; false if a queue cannot receive using MessageSession.
             </Tooltip>,
             autoDeleteOnIdle: <Tooltip id="tooltip">
-                The idle time span after which the queue is automatically deleted. The minimum duration is 5 minutes.
+                The idle time span after which the {this.state.endpointType} is automatically deleted. The minimum duration is 5 minutes.
             </Tooltip>,
             maxDeliveryCount: <Tooltip id="tooltip">
                 A message is automatically deadlettered after this number of deliveries.
@@ -124,7 +124,8 @@ export class EditQueuesPage extends Component {
      */
     getDropdownOptions = () => {
         return {
-            status: [{ label: 'Active', value: 'Active' }, { label: 'Disabled', value: 'Disabled' }]
+            status: [{ label: 'Active', value: 'Active' }, { label: 'Disabled', value: 'Disabled' }],
+            topicStatus: [{ label: 'Active', value: 'Active' }, { label: 'Disabled', value: 'Disabled' }]
         };
     }
 
@@ -134,7 +135,8 @@ export class EditQueuesPage extends Component {
     getObjectPropertyToComponent = () => {
         return {
             autoDeleteOnIdle: TimeSpanInput,
-            status: DropdownInput
+            status: DropdownInput,
+            topicStatus: DropdownInput
         };
     }
 
@@ -184,17 +186,18 @@ export class EditQueuesPage extends Component {
      * @returns {object} Display name and display value pairs for read-only properties.
      */
     getEditableAndReadOnlyPropertiesForTopic = () => {
-        const { name, subscriptionCount, topicStatus } = this.state.newEndpointData;
+        const { subscriptionCount } = this.state.newEndpointData;
         const readOnlyProperties = this.assembleReadOnlyProperties({
             // text in the left column: value in the right column
-            "Name": name,
-            "Subscription Count": subscriptionCount,
-            "Status": topicStatus
+            "Subscription Count": subscriptionCount
         });
         const editableProperties = [
             'supportOrdering',
             'enablePartitioning',
-            'autoDeleteOnIdle'
+            'autoDeleteOnIdle',
+            'requiresDuplicateDetection',
+            'maxSizeInMegabytes',
+            'topicStatus'
         ];
         return [editableProperties, readOnlyProperties];
     }
