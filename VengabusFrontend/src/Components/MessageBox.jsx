@@ -59,13 +59,13 @@ export class MessageBox extends Component {
         const customPropsJSX = this.convertMessagePropertiesToJSXArray(message.customProperties) || <p>There are no user-defined properties to display</p>;
         return (
             <div className="static-modal" >
-                <Modal show={this.props.show} onHide={this.props.handleClose} >
+                <Modal show={this.props.show} onHide={this.props.handleClose} id="messageBoxModal" >
                     <Modal.Header>
                         <Modal.Title className={headerStyle}>Message Id:&nbsp;</Modal.Title>
                         <Modal.Title className={messageIdStyle}>{message.predefinedProperties.messageId}</Modal.Title>
                     </Modal.Header>
 
-                    <Modal.Body className={panelStyle}>
+                    <Modal.Body className={panelStyle} id="messageBoxModalBody">
                         <CollapsiblePanel panelTitle={"Pre-defined Properties"}>
                             <pre>{preDefinedPropsJSX}</pre>
                         </CollapsiblePanel>
@@ -80,9 +80,9 @@ export class MessageBox extends Component {
                     <Modal.Footer>
                         <ButtonToolbar className={buttonToolbarStyle}>
                             { /*Note that these buttons are rendered in order, Right-to-Left*/}
-                            <Button onClick={this.props.handleClose}>Close</Button>
-                            <CopyTextButton text={message.messageBody} />
-                            <Button onClick={() => this.handleReplayMessage(message)} >Replay Message to demoqueue1</ Button>
+                            <Button onClick={this.props.handleClose} id="messageBoxClose">Close</Button>
+                            <CopyTextButton text={message.messageBody} id="messageBoxCopy" />
+                            <Button onClick={() => this.handleReplayMessage(message)} id="messageBoxReplayMessage">Replay Message to demoqueue1</ Button>
                         </ButtonToolbar>
                     </Modal.Footer>
                 </Modal>
