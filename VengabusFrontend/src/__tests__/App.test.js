@@ -212,6 +212,7 @@ it('passes smoke tests without crashing', () => {
 
     /* TestPath:
      * Go to Demo Page
+     * Test Purge Button
      * Go to Home Page
      * Go to Send Message Page
      * Click add new property button
@@ -225,6 +226,14 @@ it('passes smoke tests without crashing', () => {
                 expect(replayMessageButton).toExistOnPage();
                 replayMessageButton.simulate("click");
                 return testHelper.afterReactHasUpdated();*/
+    }).then(() => {
+        const purgeQueueMessagesButton = wrapper.find("#purgeQueueMessage").last();
+        purgeQueueMessagesButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        const purgeQueueMessagesConfirmationButton = wrapper.find("#alertPurge").last();
+        purgeQueueMessagesConfirmationButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
     }).then(() => {//Go to Home Page
         const buttonFromPreviousPage = wrapper.find("#demoPageReplayMessageButton").first();//this still works, as that button no longer exists
         expect(buttonFromPreviousPage).not.toExistOnPage();
