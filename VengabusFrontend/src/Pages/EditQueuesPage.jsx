@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Tooltip } from 'react-bootstrap';
+import { Tooltip, FormControl, FormGroup } from 'react-bootstrap';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import { css } from 'emotion';
 import classNames from 'classnames';
@@ -33,12 +33,16 @@ export class EditQueuesPage extends Component {
                 promise = serviceBusConnection.getServiceBusService().getTopicDetails(this.state.selectedEndpoint);
                 break;
             default:
-                throw new Error('unexpected endpoint type: ' + this.state.endpointType);
+                this.throwUnexpectedEndpointTypeError();
         }
         promise.then((result) => {
             result.autoDeleteOnIdle = this.parseTimeSpanFromBackend(result.autoDeleteOnIdle);
             this.setState({ endpointData: result, newEndpointData: result, receivedData: true });
         });
+    }
+
+    throwUnexpectedEndpointTypeError = () => {
+        throw new Error('unexpected endpoint type: ' + this.state.endpointType);
     }
 
     /**
@@ -71,6 +75,7 @@ export class EditQueuesPage extends Component {
         `;
         const hrStlye = this.getHrStyle();
         const headerStyle = css`
+            padding-top: 10px;
             font-weight: bold;
             font-size: 1.6em;
         `;
@@ -85,7 +90,13 @@ export class EditQueuesPage extends Component {
             text-align: center;
             padding-bottom: 15px;
         `;
-        return [leftAlign, hrStlye, headerStyle, tableStyle, rowStyle, buttonFormStyle];
+        const titleStyle = css`
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+        `;
+
+        return [titleStyle, leftAlign, hrStlye, headerStyle, tableStyle, rowStyle, buttonFormStyle];
     }
 
     /**
@@ -138,7 +149,7 @@ export class EditQueuesPage extends Component {
             case 'topic':
                 return this.getEditableAndReadOnlyPropertiesForTopic();
             default:
-                throw new Error('unexpected endpoint type: ' + this.state.endpointType);
+                this.throwUnexpectedEndpointTypeError();
         }
     }
 
@@ -147,10 +158,9 @@ export class EditQueuesPage extends Component {
      * @returns {object} Display name and display value pairs for read-only properties.
      */
     getEditableAndReadOnlyPropertiesForQueue = () => {
-        const { name, activeMessageCount, deadletterMessageCount, mostRecentDeadLetter } = this.state.newEndpointData;
+        const { activeMessageCount, deadletterMessageCount, mostRecentDeadLetter } = this.state.newEndpointData;
         const readOnlyProperties = this.assembleReadOnlyProperties({
             // text in the left column: value in the right column
-            "Name": name,
             "Active Message Count": activeMessageCount,
             "Dead Letter Message Count": deadletterMessageCount,
             "Most Recent Dead Letter": mostRecentDeadLetter
@@ -257,6 +267,26 @@ export class EditQueuesPage extends Component {
         return true;
     }
 
+    renameEndpoint = () => {
+        const oldName = this.state.endpointData.name;
+        const newName = this.newName;
+        switch (this.state.endpointType) {
+            case 'queue':
+                serviceBusConnection.getServiceBusService().renameQueue(oldName, newName);
+                break;
+            case 'topic':
+                serviceBusConnection.getServiceBusService().renameTopic(oldName, newName);
+                break;
+            default:
+                this.throwUnexpectedEndpointTypeError();
+        }
+        this.setState({
+            endpointData: { ...this.state.endpointData, name: newName },
+            newEndpointData: { ...this.state.newEndpointData, name: newName }
+        });
+        delete this.newName;
+    }
+
     updateEndpoint = () => {
         const dataToSend = { ...this.state.newEndpointData };
         console.log(dataToSend);
@@ -268,7 +298,7 @@ export class EditQueuesPage extends Component {
                 serviceBusConnection.getServiceBusService().updateTopic(this.state.newEndpointData);
                 break;
             default:
-                throw new Error('unexpected endpoint type: ' + this.state.endpointType);
+                this.throwUnexpectedEndpointTypeError();
         }
     }
 
@@ -280,14 +310,38 @@ export class EditQueuesPage extends Component {
 
     render() {
         const colProps = [{ dataField: 'name', text: 'Property Name', headerStyle: { textAlign: 'left' } }, { dataField: 'value', headerStyle: { textAlign: 'left' } }];
-        const [leftAlign, hrStlye, headerStyle, tableStyle, rowStyle, buttonFormStyle] = this.getStyles();
+        const [titleStyle, leftAlign, hrStlye, headerStyle, tableStyle, rowStyle, buttonFormStyle] = this.getStyles();
         const [editableProperties, readOnlyProperties] = this.getEditableAndReadOnlyProperties();
         const editablePropertyInputs = this.getEditablePropertyInputs(editableProperties);
+        const titleText = `Editing ${this.state.endpointType}: ${this.state.selectedEndpoint}`;
 
         return (
             this.state.receivedData ? (
                 <div>
                     <br />
+                    <p className={titleStyle}>{titleText + '  '}
+                        <ButtonWithConfirmationModal
+                            id="renameButton"
+                            buttonText={"Rename"}
+                            buttonStyle="primary"
+                            modalTitle={"Rename " + this.state.selectedEndpoint}
+                            modalBody={
+                                <React.Fragment>
+                                    <p>New Name</p>
+                                    <FormGroup>
+                                        <FormControl
+                                            type="string"
+                                            placeholder="Enter New Name"
+                                            onChange={(event) => this.newName = event.target.value}
+                                        />
+                                    </FormGroup>
+                                </React.Fragment>
+                            }
+                            confirmButtonText={"Rename"}
+                            confirmAction={this.renameEndpoint}
+                        />
+                    </p>
+                    <hr className={hrStlye} />
                     {/*Read-only properties*/}
                     <p className={classNames(leftAlign, headerStyle)}>Read-Only Properties</p>
                     <hr className={hrStlye} />
@@ -301,6 +355,7 @@ export class EditQueuesPage extends Component {
                             hover
                         />
                     </div>
+                    <hr className={hrStlye} />
 
                     {/*Editable properties*/}
                     <p className={classNames(leftAlign, headerStyle)}>Editable Properties</p>

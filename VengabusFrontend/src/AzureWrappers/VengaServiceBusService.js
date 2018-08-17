@@ -48,6 +48,17 @@ export class VengaServiceBusService {
     }
 
     /**
+     * Renames a queue
+     * @param {string} oldName The original name of the queue.
+     * @param {string} newName The new name of the queue.
+     */
+    renameQueue = (oldName, newName) => {
+        const url = this.apiRoot + 'queues/rename/' + oldName;
+        const config = this.jsonConfig;
+        this.axiosWithSAS.post(url, newName, config);
+    }
+
+    /**
      * Gets the details of all topics in the current namespace from the server.
      * @return {object} The queue returned by the server.
      */
@@ -75,6 +86,17 @@ export class VengaServiceBusService {
         const url = this.apiRoot + 'topics/update';
         const config = this.jsonConfig;
         this.axiosWithSAS.post(url, topicDescription, config);
+    }
+
+    /**
+     * Renames a topic
+     * @param {string} oldName The original name of the topic.
+     * @param {string} newName The new name of the topic.
+     */
+    renameTopic = (oldName, newName) => {
+        const url = this.apiRoot + 'topics/rename/' + oldName;
+        const config = this.jsonConfig;
+        this.axiosWithSAS.post(url, newName, config);
     }
 
     /**
