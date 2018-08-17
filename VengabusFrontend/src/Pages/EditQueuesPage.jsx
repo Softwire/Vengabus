@@ -111,7 +111,7 @@ export class EditQueuesPage extends Component {
     getTooltips = () => {
         return {
             requiresSession: <Tooltip id="tooltip">
-                True if the receiver application can only receive from the queue through a MessageSession; false if a queue cannot receive using MessageSession.
+                True if the receiver application can only receive from the {this.state.endpointType} through a MessageSession; false if a {this.state.endpointType} cannot receive using MessageSession.
             </Tooltip>,
             autoDeleteOnIdle: <Tooltip id="tooltip">
                 The idle time span after which the {this.state.endpointType} is automatically deleted. The minimum duration is 5 minutes.
@@ -120,7 +120,7 @@ export class EditQueuesPage extends Component {
                 A message is automatically deadlettered after this number of deliveries.
             </Tooltip>,
             enableDeadLetteringOnMessageExpiration: <Tooltip id="tooltip">
-                Sets whether this queue has dead letter support when a message expires.
+                Sets whether this {this.state.endpointType} has dead letter support when a message expires.
              </Tooltip>
         };
     }
@@ -213,20 +213,17 @@ export class EditQueuesPage extends Component {
         const { activeMessageCount, deadletterMessageCount, mostRecentDeadLetter, topicName } = this.state.newEndpointData;
         const readOnlyProperties = this.assembleReadOnlyProperties({
             // text in the left column: value in the right column
+            "Parent Topic": topicName,
             "Active Message Count": activeMessageCount,
             "Dead Letter Message Count": deadletterMessageCount,
-            "Most Recent Dead Letter": mostRecentDeadLetter,
-            "Parent Topic": topicName
+            "Most Recent Dead Letter": mostRecentDeadLetter
+            
         });
         const editableProperties = [
-            //'supportOrdering',
-            //'requiresSession',
-            //'enablePartitioning',
-            //'autoDeleteOnIdle',
-            //'enableDeadLetteringOnMessageExpiration',
-            //'requiresDuplicateDetection',
-            //'maxDeliveryCount',
-            //'maxSizeInMegabytes',
+            'requiresSession',
+            'autoDeleteOnIdle',
+            'enableDeadLetteringOnMessageExpiration',
+            'maxDeliveryCount',
             'subscriptionStatus'
         ];
         return [editableProperties, readOnlyProperties];

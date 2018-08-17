@@ -51,6 +51,10 @@ namespace VengabusAPI.Controllers
         public SubscriptionDescription UpdateDescription(SubscriptionDescription description, VengaSubscriptionUpload subData)
         {
             description.Status = subData.subscriptionStatus;
+            description.AutoDeleteOnIdle = subData.autoDeleteOnIdle.AsTimeSpan();
+            description.EnableDeadLetteringOnMessageExpiration = subData.enableDeadLetteringOnMessageExpiration;
+            description.MaxDeliveryCount = subData.maxDeliveryCount;
+            description.RequiresSession = subData.requiresSession;
 
             return description;
         }
