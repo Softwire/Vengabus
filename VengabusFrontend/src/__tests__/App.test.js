@@ -123,19 +123,19 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
             });
         }
 
-        deleteQueueMessages = (queueName) => {
+        purgeQueueMessages = (queueName) => {
             return new Promise(function (resolve, reject) {
                 resolve(200);
             });
         }
 
-        deleteTopicMessages = (topicName) => {
+        purgeTopicMessages = (topicName) => {
             return new Promise(function (resolve, reject) {
                 resolve(200);
             });
         }
 
-        deleteSubscriptionMessages = (topicName, subscriptionName) => {
+        purgeSubscriptionMessages = (topicName, subscriptionName) => {
             return new Promise(function (resolve, reject) {
                 resolve(200);
             });
