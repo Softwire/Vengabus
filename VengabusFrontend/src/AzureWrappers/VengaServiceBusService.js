@@ -191,6 +191,11 @@ export class VengaServiceBusService {
         return this.axiosWithSAS.get(url);
     }
 
+    getMostRecentDeadletter = (queueName) => {
+        const url = this.apiRoot + `queues/${queueName}/mostRecentDeadletter`;
+        return this.axiosWithSAS.get(url);
+    }
+
 
 
     /**

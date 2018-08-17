@@ -78,9 +78,19 @@ export class TwoListDisplay extends Component {
         const fetchedQueueData = this.promiseCollection.addNewPromise(serviceBusService.listQueues(), EndpointTypes.QUEUE);
         fetchedQueueData.then((result) => {
             this.setState({
-                queueData: result
+                queueData: result.map((item) => { return { ...item, mostRecentDeadLetter: null }; })
             });
-        }).catch((e) => { if (!e.isCanceled) { console.log(e); } });
+            let currentQueueData = result;
+            for (let i = 0; i < result.length; i++) {
+                serviceBusService.getMostRecentDeadletter(result[i].name).then((result) => {
+                    const mostRecentDeadLetter = result;
+                    currentQueueData[i].mostRecentDeadLetter = mostRecentDeadLetter;
+                    this.setState({
+                        queueData: currentQueueData
+                    });
+                });
+            }
+        });
     }
 
     updateAllTopicData = () => {
