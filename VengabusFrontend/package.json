@@ -35,6 +35,7 @@
         "react-notifications": "^1.4.3",
         "react-scripts": "1.1.4",
         "react-select": "^2.0.0",
+        "react-spinners": "^0.4.4",
         "util.promisify": "^1.0.0",
         "xml-formatter": "^1.0.1"
     },

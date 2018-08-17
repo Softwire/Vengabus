@@ -52,6 +52,7 @@ export class TwoListDisplay extends Component {
         this.breadCrumbHistory = [{ name: "Home", type: undefined }, { name: row.name, type: EndpointTypes.TOPIC }];
         this.setState({
             subscriptionData: undefined,
+            subscriptionDataLoading: true,
             rightTableType: EndpointTypes.SUBSCRIPTION
         }, this.updateTopicSubscriptionData);
     }
@@ -75,6 +76,10 @@ export class TwoListDisplay extends Component {
     }
 
     updateAllQueueData = () => {
+        this.setState({
+            queueData: undefined,
+            queueDataLoading: true
+        });
         const serviceBusService = serviceBusConnection.getServiceBusService();
         this.promiseCollection.cancelAllPromises(EndpointTypes.QUEUE);
         const fetchedQueueData = this.promiseCollection.addNewPromise(serviceBusService.listQueues(), EndpointTypes.QUEUE);
@@ -101,24 +106,34 @@ export class TwoListDisplay extends Component {
     }
 
     updateAllTopicData = () => {
+        this.setState({
+            topicData: undefined,
+            topicDataLoading: true
+        });
         const serviceBusService = serviceBusConnection.getServiceBusService();
         this.promiseCollection.cancelAllPromises(EndpointTypes.TOPIC);
         const fetchedTopicData = this.promiseCollection.addNewPromise(serviceBusService.listTopics(), EndpointTypes.TOPIC);
         fetchedTopicData.then(result => {
             this.setState({
-                topicData: result
+                topicData: result,
+                topicDataLoading: false
             });
         }).catch(e => { if (!e.isCanceled) { console.log(e); } });
     }
 
     updateTopicSubscriptionData = () => {
+        this.setState({
+            subscrptionData: undefined,
+            subscriptionDataLoading: true
+        });
         const topicName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
         const serviceBusService = serviceBusConnection.getServiceBusService();
         this.promiseCollection.cancelAllPromises(EndpointTypes.SUBSCRIPTION);
         const fetchedSubscriptionData = this.promiseCollection.addNewPromise(serviceBusService.listSubscriptions(topicName), EndpointTypes.SUBSCRIPTION);
         fetchedSubscriptionData.then(result => {
             this.setState({
-                subscriptionData: result
+                subscriptionData: result,
+                subscriptionDataLoading: false
             });
             for (let i = 0; i < result.length; i++) {
                 const getMostRecentDLPromise = this.promiseCollection.addNewPromise(serviceBusService.getSubscriptionMostRecentDeadletter(topicName, result[i].name), topicName + '/' + result[i].name);
@@ -165,7 +180,8 @@ export class TwoListDisplay extends Component {
         wrappedFetchedMessageData.then((result) => {
             this.messageButtonDisabled = false;
             this.setState({
-                messageData: result
+                messageData: result,
+                messageDataLoding: false
             });
         }).catch(e => { if (!e.isCanceled) { console.log(e); } });
     }
@@ -218,6 +234,7 @@ export class TwoListDisplay extends Component {
                             currentlySelectedName={currentSelection}
                             id='QueueTable'
                             headerStyle={minHeightOfHeader}
+                            dataLoading={this.state.queueDataLoading}
                         />
                     </React.Fragment>
                 );
@@ -233,6 +250,7 @@ export class TwoListDisplay extends Component {
                             currentlySelectedName={currentSelection}
                             id='TopicTable'
                             headerStyle={minHeightOfHeader}
+                            dataLoading={this.state.topicDataLoading}
                         />
                     </React.Fragment>
                 );
@@ -249,6 +267,7 @@ export class TwoListDisplay extends Component {
                             currentlySelectedName={currentSelection}
                             id='SubscriptionTable'
                             headerStyle={minHeightOfHeader}
+                            dataLoading={this.state.subscriptionDataLoading}
                         />
                     </React.Fragment>
                 );

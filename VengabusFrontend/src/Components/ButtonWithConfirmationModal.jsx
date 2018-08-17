@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal, Alert, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { Spinner } from './Spinner';
 
 const defaultState = {
     show: false
@@ -72,7 +73,7 @@ class ButtonWithConfirmationModal extends React.Component {
                         {this.props.modalBody ?
                             <Alert bsStyle={internalAlertDialogStyle}>
                                 {this.props.modalBody}
-                            </Alert > : null
+                            </Alert > : <Spinner size={25} />
                         }
                         {this.props.children}
                     </Modal.Body>

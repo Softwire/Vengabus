@@ -45,7 +45,7 @@ export class MessageList extends Component {
             }
         }
 
-             
+
         const colProps = [
             {
                 dataField: 'uniqueId',
@@ -55,7 +55,7 @@ export class MessageList extends Component {
                 dataField: 'predefinedProperties.messageId',
                 text: 'Message Id',
                 width: 33,
-                headerStyle : this.props.headerStyle
+                headerStyle: this.props.headerStyle
             },
             {
                 dataField: 'messageBodyPreview',
@@ -67,7 +67,7 @@ export class MessageList extends Component {
                 dataField: 'timestamp',
                 width: 34,
                 headerStyle: this.props.headerStyle
-    
+
             }
         ];
 
@@ -82,6 +82,7 @@ export class MessageList extends Component {
                     onRowClick={this.handleMessageClick}
                     paginated
                     searchable
+                    dataLoading={this.props.dataLoading}
                 />
 
                 <MessageBox

@@ -3,6 +3,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import { css } from 'react-emotion';
 import { palerBlue, paleGreyBlue } from '../colourScheme';
+import { Spinner } from './Spinner';
 import classNames from 'classnames';
 import _ from 'lodash';
 
@@ -349,7 +350,8 @@ export class DataTable extends Component {
             return (
                 <React.Fragment>
                     {searchBar}
-                    <p className={textAlign}>No data has been retrieved yet.</p>
+                    {this.props.dataLoading ?
+                        <Spinner size={50} /> : <p className={textAlign}> No data to show.</p>}
                 </React.Fragment>
             );
         }

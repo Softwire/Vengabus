@@ -59,6 +59,7 @@ export class TopicList extends Component {
                 onRowClick={this.props.clickFunction}
                 selectRow={selectRow}
                 searchable
+                dataLoading={this.props.dataLoading}
             />
         );
     }
