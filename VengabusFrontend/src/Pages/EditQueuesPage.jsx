@@ -9,13 +9,14 @@ import { PropertyInput } from '../Components/PropertyInput';
 import { TimeSpanInput } from '../Components/TimeSpanInput';
 import { DropdownInput } from '../Components/DropdownInput';
 import { ButtonWithConfirmationModal } from '../Components/ButtonWithConfirmationModal';
+import { EndpointTypes, typeToTitle } from '../Helpers/EndpointTypes';
 
 export class EditQueuesPage extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            endpointType: 'topic',
+            endpointType: EndpointTypes.TOPIC,
             selectedEndpoint: "demotopic1",
             endpointData: {},
             newEndpointData: {},
@@ -26,10 +27,10 @@ export class EditQueuesPage extends Component {
     componentDidMount = () => {
         let promise;
         switch (this.state.endpointType) {
-            case 'queue':
+            case EndpointTypes.QUEUE:
                 promise = serviceBusConnection.getServiceBusService().getQueueDetails(this.state.selectedEndpoint);
                 break;
-            case 'topic':
+            case EndpointTypes.TOPIC:
                 promise = serviceBusConnection.getServiceBusService().getTopicDetails(this.state.selectedEndpoint);
                 break;
             default:
@@ -42,7 +43,7 @@ export class EditQueuesPage extends Component {
     }
 
     throwUnexpectedEndpointTypeError = () => {
-        throw new Error('unexpected endpoint type: ' + this.state.endpointType);
+        throw new Error('unexpected endpoint type: ' + typeToTitle(this.state.endpointType));
     }
 
     /**
@@ -108,7 +109,7 @@ export class EditQueuesPage extends Component {
                 True if the receiver application can only receive from the queue through a MessageSession; false if a queue cannot receive using MessageSession.
             </Tooltip>,
             autoDeleteOnIdle: <Tooltip id="tooltip">
-                The idle time span after which the {this.state.endpointType} is automatically deleted. The minimum duration is 5 minutes.
+                The idle time span after which the {typeToTitle(this.state.endpointType)} is automatically deleted. The minimum duration is 5 minutes.
             </Tooltip>,
             maxDeliveryCount: <Tooltip id="tooltip">
                 A message is automatically deadlettered after this number of deliveries.
@@ -146,9 +147,9 @@ export class EditQueuesPage extends Component {
      */
     getEditableAndReadOnlyProperties = () => {
         switch (this.state.endpointType) {
-            case 'queue':
+            case EndpointTypes.QUEUE:
                 return this.getEditableAndReadOnlyPropertiesForQueue();
-            case 'topic':
+            case EndpointTypes.TOPIC:
                 return this.getEditableAndReadOnlyPropertiesForTopic();
             default:
                 this.throwUnexpectedEndpointTypeError();
@@ -274,10 +275,10 @@ export class EditQueuesPage extends Component {
         const oldName = this.state.endpointData.name;
         const newName = this.newName;
         switch (this.state.endpointType) {
-            case 'queue':
+            case EndpointTypes.QUEUE:
                 serviceBusConnection.getServiceBusService().renameQueue(oldName, newName);
                 break;
-            case 'topic':
+            case EndpointTypes.TOPIC:
                 serviceBusConnection.getServiceBusService().renameTopic(oldName, newName);
                 break;
             default:
@@ -294,10 +295,10 @@ export class EditQueuesPage extends Component {
         const dataToSend = { ...this.state.newEndpointData };
         console.log(dataToSend);
         switch (this.state.endpointType) {
-            case 'queue':
+            case EndpointTypes.QUEUE:
                 serviceBusConnection.getServiceBusService().updateQueue(this.state.newEndpointData);
                 break;
-            case 'topic':
+            case EndpointTypes.TOPIC:
                 serviceBusConnection.getServiceBusService().updateTopic(this.state.newEndpointData);
                 break;
             default:
@@ -316,7 +317,7 @@ export class EditQueuesPage extends Component {
         const [titleStyle, leftAlign, hrStlye, headerStyle, tableStyle, rowStyle, buttonFormStyle] = this.getStyles();
         const [editableProperties, readOnlyProperties] = this.getEditableAndReadOnlyProperties();
         const editablePropertyInputs = this.getEditablePropertyInputs(editableProperties);
-        const titleText = `Editing ${this.state.endpointType}: ${this.state.selectedEndpoint}`;
+        const titleText = `Editing ${typeToTitle(this.state.endpointType)}: ${this.state.selectedEndpoint}`;
 
         return (
             this.state.receivedData ? (
