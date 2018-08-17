@@ -13,8 +13,6 @@ import {
  * @prop {node} tooltip The tooltip to be displayed when hovering over the info glyphicon. If undefined then no glyphicon.
  * @prop {function} onChange This will be called with the new time object when changes are made.
  * @prop {object} data Contains the specified timespan.
- * @property {number} time.years
- * @property {number} time.months
  * @property {number} time.days
  * @property {number} time.hours
  * @property {number} time.minutes

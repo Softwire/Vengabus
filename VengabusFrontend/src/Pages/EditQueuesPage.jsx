@@ -7,6 +7,7 @@ import { DataTable } from '../Components/DataTable';
 import moment from 'moment';
 import { PropertyInput } from '../Components/PropertyInput';
 import { TimeSpanInput } from '../Components/TimeSpanInput';
+import { DropdownInput } from '../Components/DropdownInput';
 import { ButtonWithConfirmationModal } from '../Components/ButtonWithConfirmationModal';
 
 export class EditQueuesPage extends Component {
@@ -40,6 +41,10 @@ export class EditQueuesPage extends Component {
         });
     }
 
+    /**
+     * @param {string} timespan As received from the backend.
+     * @returns {object} Timespan object in that has properties: days, hours, minutes, seconds, milliseconds.
+     */
     parseTimeSpanFromBackend = (timespan) => {
         const momentDuration = moment.duration(timespan);
         const days = Math.floor(momentDuration.asDays());
@@ -83,6 +88,9 @@ export class EditQueuesPage extends Component {
         return [leftAlign, hrStlye, headerStyle, tableStyle, rowStyle, buttonFormStyle];
     }
 
+    /**
+     * @returns {Object <string, node>} Maps from property name to Tooltip component to be displayed on info hover over.
+     */
     getTooltips = () => {
         return {
             requiresSession: <Tooltip id="tooltip">
@@ -101,6 +109,25 @@ export class EditQueuesPage extends Component {
     }
 
     /**
+     * @returns {Object <string, {label: string, value: any}>[]} Maps from property name to permitted dropdown options where required.
+     */
+    getDropdownOptions = () => {
+        return {
+            status: [{ label: 'Active', value: 'Active' }, { label: 'Disabled', value: 'Disabled' }]
+        };
+    }
+
+    /**
+     * @returns {Object <string, class>} Maps property name to component type for the cases where this is required.
+     */
+    getObjectPropertyToComponent = () => {
+        return {
+            autoDeleteOnIdle: TimeSpanInput,
+            status: DropdownInput
+        };
+    }
+
+    /**
      * @returns {string[]} Property names for editable properties.
      * @returns {object} Display name and display value pairs for read-only properties.
      */
@@ -115,15 +142,18 @@ export class EditQueuesPage extends Component {
         }
     }
 
+    /**
+     * @returns {string[]} Property names for editable properties.
+     * @returns {object} Display name and display value pairs for read-only properties.
+     */
     getEditableAndReadOnlyPropertiesForQueue = () => {
-        const { name, activeMessageCount, deadletterMessageCount, mostRecentDeadLetter, status } = this.state.newEndpointData;
+        const { name, activeMessageCount, deadletterMessageCount, mostRecentDeadLetter } = this.state.newEndpointData;
         const readOnlyProperties = this.assembleReadOnlyProperties({
             // text in the left column: value in the right column
             "Name": name,
             "Active Message Count": activeMessageCount,
             "Dead Letter Message Count": deadletterMessageCount,
-            "Most Recent Dead Letter": mostRecentDeadLetter,
-            "Status": status    //QQ move this to editable
+            "Most Recent Dead Letter": mostRecentDeadLetter
         });
         const editableProperties = [
             'supportOrdering',
@@ -133,11 +163,16 @@ export class EditQueuesPage extends Component {
             'enableDeadLetteringOnMessageExpiration',
             'requiresDuplicateDetection',
             'maxDeliveryCount',
-            'maxSizeInMegabytes'
+            'maxSizeInMegabytes',
+            'status'
         ];
         return [editableProperties, readOnlyProperties];
     }
 
+    /**
+     * @returns {string[]} Property names for editable properties.
+     * @returns {object} Display name and display value pairs for read-only properties.
+     */
     getEditableAndReadOnlyPropertiesForTopic = () => {
         const { name, subscriptionCount, topicStatus } = this.state.newEndpointData;
         const readOnlyProperties = this.assembleReadOnlyProperties({
@@ -175,10 +210,6 @@ export class EditQueuesPage extends Component {
      * @returns {node[]} Array of jsx elements for property inputs.
      */
     getEditablePropertyInputs = (editableProperties) => {
-        const tooltips = this.getTooltips();
-        const objectPropertyToComponent = {
-            'autoDeleteOnIdle': TimeSpanInput
-        };
         let editablePropertyInputs = [];
         for (let i = 0; i < editableProperties.length; i++) {
             const property = editableProperties[i];
@@ -187,9 +218,10 @@ export class EditQueuesPage extends Component {
                 <PropertyInput
                     text={property.charAt(0).toUpperCase() + property.substr(1)}
                     data={this.state.newEndpointData[property]}
-                    tooltip={tooltips[property]}
+                    tooltip={this.getTooltips()[property]}
                     onChange={(data) => this.handlePropertyChange(data, property)}
-                    componentType={objectPropertyToComponent[property]}
+                    componentType={this.getObjectPropertyToComponent()[property]}
+                    options={this.getDropdownOptions()[property]}
                     key={`propertyInput${i}`}
                 />
             );
