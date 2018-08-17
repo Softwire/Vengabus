@@ -40,7 +40,8 @@ export class MessageInput extends Component {
             reservedPropertyNames: [], //a list of name of possible readable properties of a message
             selectedQueue: this.props.selectedQueue,
             selectedTopic: this.props.selectedTopic,
-            arePreDefinedPropsLoaded: false
+            arePreDefinedPropsLoaded: false,
+            sendMessageModalWarnings: null
         };
     }
 
@@ -169,6 +170,24 @@ export class MessageInput extends Component {
         });
     };
 
+    setWarnings = (warnings) => {
+        this.propertyWarnings = warnings;
+    }
+
+    //generate warnings JSX.
+    constructPropertyWarnings = () => {
+        if (!this.propertyWarnings || !this.propertyWarnings.length) {
+            this.setState({ sendMessageModalWarnings: null });
+        }
+        else {
+            this.setState({
+                sendMessageModalWarnings: <React.Fragment>
+                    {this.propertyWarnings.map((value) => <p key={"Warning " + value}>{value}</p>)}
+                </React.Fragment>
+            });
+        }
+    }
+
     /**
      * Updates the message body in the state with a new value.
      * @param {string} newBody The new value of the body.
@@ -284,50 +303,65 @@ export class MessageInput extends Component {
             margin-right:20px;
         `;
 
-        //generate warnings of certain property names.
-        let customPropertyNames = this.state.userDefinedProperties.map((item) => item.name);
-        let reservedPropertyNames = this.state.reservedPropertyNames;
-        let repetitivePropertyList = [];
-        let seenProperties = [];
-
-        for (let i = 0; i < customPropertyNames.length; i++) {
-            let propertyName = customPropertyNames[i];
-            if (!repetitivePropertyList.includes(propertyName) && seenProperties.includes(propertyName)) {
-                repetitivePropertyList.push(propertyName);
-            }
-            else if (!seenProperties.includes(propertyName)) {
-                seenProperties.push(propertyName);
-            }
-        }
-
-        let repetitivePropWarningList = repetitivePropertyList.map((value) =>
-            "Warning: repetitive property name: '" + value + "'"
-        );
-
-        let reservedPropWarningList = reservedPropertyNames.map((value) => {
-            return seenProperties.includes(value) ?
-                "Warning: custom property '" + value + "' is potentially a predefined property"
-                : '';
-        });
-
-        reservedPropWarningList = reservedPropWarningList.filter((value) => value !== '');
-
-        let warningCount = reservedPropWarningList.length + repetitivePropWarningList.length;
-
-        let warnings;
-
-        if (!warningCount) {
-            warnings = null;
-        }
-        else {
-            warnings =
-                <React.Fragment>
-                    {repetitivePropWarningList.map((value) => <p key={"repetitiveWarning " + value}>{value}</p>)}
-                    {reservedPropWarningList.map((value) => <p key={"reservedWarning " + value}>{value}</p>)}
-                </React.Fragment>;
-        }
-
         let selectedEndpoint = this.state.recipientIsQueue ? this.state.selectedQueue : this.state.selectedTopic;
+
+        //construct child components
+        let messageDestinationForm = <MessageDestinationForm
+            recipientIsQueue={this.state.recipientIsQueue}
+            availableQueues={this.state.availableQueues}
+            availableTopics={this.state.availableTopics}
+            selectedQueue={this.state.selectedQueue}
+            selectedTopic={this.state.selectedTopic}
+            handleDestinationChange={this.handleDestinationChange}
+        />;
+
+        let messageProperties = <MessageProperties
+            arePreDefinedPropsLoaded={this.state.arePreDefinedPropsLoaded}
+            preDefinedProperties={this.state.preDefinedProperties}
+            userDefinedProperties={this.state.userDefinedProperties}
+            permittedValues={this.state.permittedValues}
+            reservedPropertyNames={this.state.reservedPropertyNames}
+            handlePropertiesChange={this.handlePropertiesChange}
+            reportWarnings={this.setWarnings}
+        />;
+
+        let messageBodyInput = <MessageBodyInput
+            messageBody={this.state.messageBody}
+            handleMessageBodyChange={this.handleMessageBodyChange}
+        />;
+
+        let buttonPanel = <form>
+            <ButtonWithConfirmationModal
+                id="submitButton"
+                buttonText={"Send Message"}
+                buttonStyle="default"
+                buttonDisabled={selectedEndpoint ? false : true}
+                afterShowModalAction={this.constructPropertyWarnings}
+                modalTitle={"Send Message to " + selectedEndpoint}
+                modalBody={
+                    <React.Fragment>
+                        <p>{"Message will be sent to: " + selectedEndpoint}</p>
+                        {this.state.sendMessageModalWarnings}
+                        <p>{"Confirm sending message?"}</p>
+                    </React.Fragment>
+                }
+                confirmButtonText={"Send"}
+                confirmAction={this.submit}
+            />
+            <ButtonWithConfirmationModal
+                id="cancelButton"
+                buttonText={"Reset Fields"}
+                modalTitle={"Reset all fields"}
+                modalBody={
+                    <React.Fragment>
+                        <p>Are you sure you want to reset ALL fields of the current message?</p>
+                        <p>Note: if you are replaying an existing message, resetting the fields here will have NO effect on the orignal message.</p>
+                    </React.Fragment>
+                }
+                confirmButtonText={"Reset"}
+                confirmAction={this.discardMessage}
+            />
+        </form>;
 
         return (
             <div className={formStyle} >
@@ -364,14 +398,7 @@ export class MessageInput extends Component {
                 </ControlLabel>
 
                 <hr className={fullWidth} />
-                <MessageProperties
-                    arePreDefinedPropsLoaded={this.state.arePreDefinedPropsLoaded}
-                    preDefinedProperties={this.state.preDefinedProperties}
-                    userDefinedProperties={this.state.userDefinedProperties}
-                    permittedValues={this.state.permittedValues}
-                    reservedPropertyNames={this.state.reservedPropertyNames}
-                    handlePropertiesChange={this.handlePropertiesChange}
-                />
+                {messageProperties}
                 <hr className={fullWidth} />
                 <MessageBodyInput
                     messageBody={this.state.messageBody}
