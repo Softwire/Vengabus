@@ -25,9 +25,6 @@ export class VengabusNavBar extends Component {
                             <NavItem id="navbarDemoPageButton" eventKey={PAGES.DemoPage} >
                                 DemoPage
                             </NavItem>
-                            <NavItem id="navbarEditWueuesPageButton" eventKey={PAGES.EditQueuesPage} >
-                                Edit Queues
-                            </NavItem>
                             <NavDropdown eventKey={'UnknownPage'} title="Dropdown" id="basic-nav-dropdown">
                                 <MenuItem eventKey={'UnknownPage1'} >
                                     Action

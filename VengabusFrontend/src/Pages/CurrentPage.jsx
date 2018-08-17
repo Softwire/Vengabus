@@ -4,7 +4,7 @@ import { PAGES, pageSwitcher } from './PageSwitcherService';
 import { DemoPage } from './DemoPage';
 import { HomePage } from './HomePage';
 import { SendMessagePage } from './SendMessagePage';
-import { EditQueuesPage } from './EditQueuesPage';
+import { CrudPage } from './CrudPage';
 
 export class CurrentPage extends Component {
     constructor(props) {
@@ -52,8 +52,16 @@ export class CurrentPage extends Component {
                         {...this.state.pageData}
                     />;
                 break;
-            case PAGES.EditQueuesPage:
-                returnValue = <EditQueuesPage />;
+            case PAGES.CrudPage:
+                const endpointType = this.state.pageData.endpointType;
+                const selectedEndpoint = this.state.pageData.selectedEndpoint;
+                const parentTopic = this.state.pageData.parentTopic;
+                returnValue =
+                    <CrudPage
+                        endpointType={endpointType}
+                        selectedEndpoint={selectedEndpoint}
+                        parentTopic={parentTopic}
+                    />;
                 break;
 
             default:

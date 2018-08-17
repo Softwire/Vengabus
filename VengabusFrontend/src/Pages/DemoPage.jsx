@@ -5,6 +5,7 @@ import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import { Button } from 'react-bootstrap';
 import { PurgeMessagesButton } from '../Components/PurgeMessagesButton';
 import { EndpointTypes } from '../Helpers/EndpointTypes';
+import { pageSwitcher, PAGES } from './PageSwitcherService';
 
 export class DemoPage extends Component {
     constructor(props) {
@@ -88,6 +89,27 @@ sit amet \nthat was a newline`
 
         return (
             < div >
+                <div>
+                    <p>Displays other Page</p>
+                    <Button onClick={() => this.handleListQueueMessages(queueName)}>
+                        Display {queueName} messages
+                    </Button>
+                    <Button onClick={() => this.handleListSubscriptionMessages(topicName, subscriptionName)}>
+                        Display {subscriptionName} messages in topic {topicName}
+                    </Button>
+                    <br />
+
+                    <Button onClick={() => pageSwitcher.switchToPage(PAGES.CrudPage, { endpointType: EndpointTypes.QUEUE, selectedEndpoint: 'mkdemoqueue' })}>
+                        Edit mkdemoqueue
+                    </Button>
+                    <Button onClick={() => pageSwitcher.switchToPage(PAGES.CrudPage, { endpointType: EndpointTypes.TOPIC, selectedEndpoint: 'demotopic1' })}>
+                        Edit demotopic1
+                    </Button>
+                    <Button onClick={() => pageSwitcher.switchToPage(PAGES.CrudPage, { endpointType: EndpointTypes.SUBSCRIPTION, selectedEndpoint: 'demosubscription1', parentTopic: 'demotopic1' })}>
+                        Edit demosubscription1
+                    </Button>
+                </div>
+
                 <div className={queueDivStyle}>
                     <div id="demoMessageList">
                         <MessageList messageData={this.state.messageData}
@@ -103,16 +125,6 @@ sit amet \nthat was a newline`
                     <PurgeMessagesButton id="purgeTopicMessage" type={EndpointTypes.TOPIC} endpointName={topicName} />
                     <PurgeMessagesButton id="purgeSubscriptionMessage" type={EndpointTypes.SUBSCRIPTION} endpointName={subscriptionName} parentName={topicName} />
 
-                </div>
-
-                <div>
-                    <p>Displays other Page</p>
-                    <Button onClick={() => this.handleListQueueMessages(queueName)}>
-                        Display {queueName} messages
-                </Button>
-                    <Button onClick={() => this.handleListSubscriptionMessages(topicName, subscriptionName)}>
-                        Display {subscriptionName} messages in topic {topicName}
-                    </Button>
                 </div>
             </div >
         );

@@ -11,14 +11,14 @@ import { TimeSpanInput } from '../Components/TimeSpanInput';
 import { ButtonWithConfirmationModal } from '../Components/ButtonWithConfirmationModal';
 import { EndpointTypes } from '../Helpers/EndpointTypes';
 
-export class EditQueuesPage extends Component {
+export class CrudPage extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            endpointType: EndpointTypes.SUBSCRIPTION,
-            selectedEndpoint: "demosubscription1",
-            parentTopic: "demotopic1", //necessary for subscriptions
+            endpointType: this.props.endpointType,
+            selectedEndpoint: this.props.selectedEndpoint,
+            parentTopic: this.props.parentTopic, //necessary for subscriptions
             endpointData: {},
             newEndpointData: {},
             receivedData: false
