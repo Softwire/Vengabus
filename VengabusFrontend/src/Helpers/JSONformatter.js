@@ -19,7 +19,9 @@ export class JSONformatter {
 
     formatJSONtext = (originalText) => {
         let deformattedOriginalText = this.removeWhitespaceFormattingFromJSON(originalText);
-        return this.BaseFormatter.removeBlankLines(JSON.stringify(JSON.parse(deformattedOriginalText), null, 4));
+        const propertyFilter = null; //include all properties of the JSON string in the output
+        const indentSize = 4;
+        return this.BaseFormatter.removeBlankLines(JSON.stringify(JSON.parse(deformattedOriginalText), propertyFilter, indentSize));
     }
 
     getFormatResult = (originalText) => {

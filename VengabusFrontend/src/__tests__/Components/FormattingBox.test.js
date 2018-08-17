@@ -1,33 +1,26 @@
 import { FormattingBox } from '../../Components/FormattingBox';
 import renderer from 'react-test-renderer';
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
+import toJson from 'enzyme-to-json';
 
-function expectFormattingOutput(input, expectedOutput, outputBoxId, expectedBoxIds, unexpectedBoxIds) {
-    let formattingBox = mount(
-        <FormattingBox
-            data={input/* qqMDM data*/}
-        />);
-    expectedBoxIds.forEach((value) => {
-        expect(formattingBox.find(value)).toExistOnPage();
-    });
-
-    unexpectedBoxIds.forEach((value) => {
-        expect(formattingBox.find(value)).not.toExistOnPage();
-    });
-
-    expect(formattingBox.find(outputBoxId)).toExistOnPage();
-
-    const formattedText = formattingBox.find(outputBoxId);
+function expectFormattedResult(inputMessage, expectedOutput, formatId) {
+    const formattingBox = shallow(<FormattingBox message={inputMessage} />);
+    expect(formattingBox.find(formatId)).toExistOnPage();
+    const formattedText = formattingBox.find(formatId);
     expect(formattedText.text()).toBe(expectedOutput);
 }
 
-function expectFormattedResult(input, expectedOutput) {
-    expectFormattingOutput(input, expectedOutput, "#formattedText", ["#formatted", "#formattedText"], []);
+function expectOriginalOutput(inputMessage) {
+    expectFormattedResult(inputMessage, inputMessage, '#Original');
 }
 
-function expectNoFormattedResult(input) {
-    expectFormattingOutput(input, input, "#originalText", ["#original", "#originalText"], ["#formatted", "#formattedText"]);
+function expectXMLoutput(inputMessage, expectedOutput) {
+    expectFormattedResult(inputMessage, expectedOutput, '#XML');
+}
+
+function expectJSONoutput(inputMessage, expectedOutput) {
+    expectFormattedResult(inputMessage, expectedOutput, '#JSON');
 }
 
 describe('FormattingBox', () => {
@@ -36,46 +29,46 @@ describe('FormattingBox', () => {
         it('props', () => {
             let formattingBox = renderer.create(
                 <FormattingBox
-                    data="test"
+                    message="test"
                 />);
-            expect(formattingBox.toJSON()).toMatchSnapshot();/* qqMDM data 2 lines above*/
+            expect(formattingBox.toJSON()).toMatchSnapshot();
         });
 
         it('xml', () => {
             let formattingBox = renderer.create(
                 <FormattingBox
-                    data="<a>This is a sample xml message</a>"
+                    message="<a>This is a sample xml message</a>"
                 />);
-            expect(formattingBox.toJSON()).toMatchSnapshot();/* qqMDM data 2 lines above*/
+            expect(formattingBox.toJSON()).toMatchSnapshot();
         });
 
         it('json', () => {
             let formattingBox = renderer.create(
                 <FormattingBox
-                    data='{"a":"apple","b":42, "c":false}'
+                    message='{"a":"apple","b":42, "c":false}'
                 />);
-            expect(formattingBox.toJSON()).toMatchSnapshot();/* qqMDM data 2 lines above*/
+            expect(formattingBox.toJSON()).toMatchSnapshot();
         });
 
         it('plain text', () => {
             let formattingBox = renderer.create(
                 <FormattingBox
-                    data='"a":"apple","b":42, "c":false'
+                    message='"a":"apple","b":42, "c":false'
                 />);
-            expect(formattingBox.toJSON()).toMatchSnapshot();/* qqMDM data 2 lines above*/
+            expect(formattingBox.toJSON()).toMatchSnapshot();
         });
     });
 
     it('does not change plain text', () => {
         const plainText = 'one kilogram of fish is worth 42';
-        expectNoFormattedResult(plainText);
+        expectOriginalOutput(plainText);
     });
 
     it('does not change plain text with line breaks', () => {
         const plainText = `one kilogram
 of fish
 is worth 42`;
-        expectNoFormattedResult(plainText);
+        expectOriginalOutput(plainText);
     });
 
     it('formats general XML', () => {
@@ -88,7 +81,7 @@ is worth 42`;
         dsagsd{}
     </c>
 </apple>`;
-        expectFormattedResult(xmlInput, expectedOutput);
+        expectXMLoutput(xmlInput, expectedOutput);
     });
 
     it('it Formatted XML with real spaces in', () => {
@@ -99,7 +92,7 @@ is worth 42`;
         Some random sentence
     </b>
 </apple>`;
-        expectFormattedResult(xmlInput, expectedOutput);
+        expectXMLoutput(xmlInput, expectedOutput);
     });
 
     it('formats XML with linebreaks in sentences', () => {
@@ -111,7 +104,7 @@ with linebreaks</b></apple>`;
         Some random sentence with linebreaks
     </b>
 </apple>`;
-        expectFormattedResult(xmlInput, expectedOutput);
+        expectXMLoutput(xmlInput, expectedOutput);
     });
 
     it('formats XML with tabs in text', () => {
@@ -122,7 +115,7 @@ with linebreaks</b></apple>`;
         Some random sentence with \t tabs in text
     </b>
 </apple>`;
-        expectFormattedResult(xmlInput, expectedOutput);
+        expectXMLoutput(xmlInput, expectedOutput);
     });
 
     it('formats XML with tabs between tags', () => {
@@ -133,7 +126,7 @@ with linebreaks</b></apple>`;
         Some indented tag
     </b>
 </apple>`;
-        expectFormattingOutput(xmlInput, expectedOutput, "#formattedText", ["#formatted", "#formattedText"], []);
+        expectXMLoutput(xmlInput, expectedOutput);
     });
 
     it('formats XML that had extra spaces between tags', () => {
@@ -146,7 +139,7 @@ with linebreaks</b></apple>`;
         #        dsagsd{}    #
     </c>
 </apple>`;
-        expectFormattedResult(xmlInput, expectedOutput);
+        expectXMLoutput(xmlInput, expectedOutput);
     });
 
     it('formats XML that was already correctly formatted', () => {
@@ -157,7 +150,7 @@ with linebreaks</b></apple>`;
         dsa gsd
     </c>
 </apple>`;
-        expectFormattedResult(xmlInput, xmlInput);
+        expectXMLoutput(xmlInput, xmlInput);
     });
 
     it('formats simple JSON object', () => {
@@ -168,7 +161,7 @@ with linebreaks</b></apple>`;
     "price": 42,
     "unit": "kilogram"
 }`;
-        expectFormattedResult(jsonInput, expectedOutput);
+        expectJSONoutput(jsonInput, expectedOutput);
     });
 
     it('formats simple JSON object with complex keys', () => {
@@ -179,7 +172,7 @@ with linebreaks</b></apple>`;
     "price test": 42,
     "unit.test": "kilogram"
 }`;
-        expectFormattedResult(jsonInput, expectedOutput);
+        expectJSONoutput(jsonInput, expectedOutput);
     });
 
     it('formats simple JSON array', () => {
@@ -190,7 +183,7 @@ with linebreaks</b></apple>`;
     42,
     "kilogram"
 ]`;
-        expectFormattedResult(jsonInput, expectedOutput);
+        expectJSONoutput(jsonInput, expectedOutput);
     });
 
     it('formats nested JSON object', () => {
@@ -204,7 +197,7 @@ with linebreaks</b></apple>`;
     },
     "unit": "kilogram"
 }`;
-        expectFormattedResult(jsonInput, expectedOutput);
+        expectJSONoutput(jsonInput, expectedOutput);
     });
 
     it('formats mixed JSON array', () => {
@@ -219,7 +212,7 @@ with linebreaks</b></apple>`;
     "kilogram",
     false
 ]`;
-        expectFormattedResult(jsonInput, expectedOutput);
+        expectJSONoutput(jsonInput, expectedOutput);
     });
 
     it('formats JSON that is already formatted', () => {
@@ -240,17 +233,23 @@ with linebreaks</b></apple>`;
     },
     "unit": "kilogram"
 }`;
-        expectFormattedResult(jsonInput, expectedOutput);
+        expectJSONoutput(jsonInput, expectedOutput);
     });
 
-    it('should fail to format mal-formatted JSON', () => {
+    it('should fail to format mal-formatted JSON', () => { //qq JF make this test nicer
         const jsonInput = '{"fish",42,"kilogram"}';
-        expectNoFormattedResult(jsonInput);
+        const formattingBox = shallow(<FormattingBox message={jsonInput} />);
+        expect(formattingBox.find('#JSONerror')).toExistOnPage();
+        const JSONerror = formattingBox.find('#JSONerror');
+        expect(toJson(JSONerror)).toMatchSnapshot();
     });
 
-    it('should fail to format mal-formatted xml', () => {
+    it('should fail to format mal-formatted xml', () => { //qq JF make this test nicer
         const xmlInput = '<a>fish</a><b>42</b>';
-        expectNoFormattedResult(xmlInput);
+        const formattingBox = shallow(<FormattingBox message={xmlInput} />);
+        expect(formattingBox.find('#XMLerror')).toExistOnPage();
+        const XMLerror = formattingBox.find('#XMLerror');
+        expect(toJson(XMLerror)).toMatchSnapshot();
     });
 
     it('heals xml with minor format errors', () => {
@@ -261,8 +260,7 @@ with linebreaks</b></apple>`;
         fish=42
     </d>
 </c>`;
-        expectFormattedResult(xmlInput, expectedOutput);
-        expectFormattingOutput(xmlInput, xmlInput, "#originalText", ["#original", "#originalText"], []);
+        expectXMLoutput(xmlInput, expectedOutput);
     });
 
 });
