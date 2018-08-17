@@ -21,10 +21,11 @@ export class AxiosWithSAS {
      */
 
     errorHandler = (error) => {
+        console.log(error.response);
         if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
-            this.errorNotificationPopup(error.response.status + " " + error.response.data);
+            this.errorNotificationPopup(error.response.status + " " + error.response.statusText + ": " + error.response.data.exceptionMessage);
         } else if (error.request) {
             // The request was made but no response was received
             // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
@@ -32,7 +33,7 @@ export class AxiosWithSAS {
             if (error.request.status === 0) {
                 this.errorNotificationPopup("Backend is offline!");
             } else {
-                this.errorNotificationPopup("Status code:" + error.request.status + " " + error.request.statusText);
+                this.errorNotificationPopup(error.request.status + " " + error.request.statusText);
             }
         } else {
             // Something happened in setting up the request that triggered an Error
@@ -101,7 +102,7 @@ export class AxiosWithSAS {
             const KeyNameLabel = 'SharedAccessKeyName=';
             const KeyLabel = 'SharedAccessKey=';
             const currentSection = connectionArray[i];
-            
+
             if (currentSection.startsWith(EndpointLabel)) {
                 endPoint = 'https://' + currentSection.slice(EndpointLabel.length);
             }
