@@ -11,12 +11,24 @@ namespace VengabusAPI.Models
             activeMessageCount = subscriptionFromAzure.MessageCountDetails.ActiveMessageCount;
             deadletterMessageCount = subscriptionFromAzure.MessageCountDetails.DeadLetterMessageCount;
             subscriptionStatus = subscriptionFromAzure.Status;
+            topicName = subscriptionFromAzure.TopicPath;
         }
 
-        public string name { get; set; }
-        public long activeMessageCount { get; set; }
-        public long deadletterMessageCount { get; set; }
-        public Microsoft.ServiceBus.Messaging.EntityStatus subscriptionStatus { get; set; }
+        public string name { get; }
+        public long activeMessageCount { get; }
+        public long deadletterMessageCount { get; }
+        public EntityStatus subscriptionStatus { get; set; }
+        public string topicName { get; }
+    }
+
+    public class VengaSubscriptionUpload
+    {
+        public string name { get; }
+        public long activeMessageCount { get; }
+        public long deadletterMessageCount { get; }
+        public DateTime? mostRecentDeadLetter { get; }
+        public EntityStatus subscriptionStatus { get; set; }
+        public string topicName { get; }
     }
 
 }

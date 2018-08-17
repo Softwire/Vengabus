@@ -57,6 +57,9 @@ namespace VengabusAPI.Controllers
             description.SupportOrdering = topicData.supportOrdering;
             description.EnablePartitioning = topicData.enablePartitioning;
             description.AutoDeleteOnIdle = topicData.autoDeleteOnIdle.AsTimeSpan();
+            description.Status = topicData.topicStatus;
+            description.RequiresDuplicateDetection = topicData.requiresDuplicateDetection;
+            description.MaxSizeInMegabytes = topicData.maxSizeInMegabytes;
 
             return description;
         }

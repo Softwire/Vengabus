@@ -5,6 +5,7 @@ import { css } from 'emotion';
 import classNames from 'classnames';
 import { DataTable } from '../Components/DataTable';
 import moment from 'moment';
+import { formatTimeStamp } from '../Helpers/FormattingHelpers';
 import { PropertyInput } from '../Components/PropertyInput';
 import { TimeSpanInput } from '../Components/TimeSpanInput';
 import { ButtonWithConfirmationModal } from '../Components/ButtonWithConfirmationModal';
@@ -15,8 +16,9 @@ export class EditQueuesPage extends Component {
         super(props);
 
         this.state = {
-            endpointType: EndpointTypes.TOPIC,
-            selectedEndpoint: "demotopic1",
+            endpointType: EndpointTypes.SUBSCRIPTION,
+            selectedEndpoint: "demosubscription1",
+            parentTopic: "demotopic1", //necessary for subscriptions
             endpointData: {},
             newEndpointData: {},
             receivedData: false
@@ -32,11 +34,15 @@ export class EditQueuesPage extends Component {
             case EndpointTypes.TOPIC:
                 promise = serviceBusConnection.getServiceBusService().getTopicDetails(this.state.selectedEndpoint);
                 break;
+            case EndpointTypes.SUBSCRIPTION:
+                promise = serviceBusConnection.getServiceBusService().getSubscriptionDetails(this.state.parentTopic, this.state.selectedEndpoint);
+                break;
             default:
                 this.throwUnexpectedEndpointTypeError();
         }
         promise.then((result) => {
             result.autoDeleteOnIdle = this.parseTimeSpanFromBackend(result.autoDeleteOnIdle);
+            if (result.mostRecentDeadLetter) { result.mostRecentDeadLetter = formatTimeStamp(result.mostRecentDeadLetter); }
             this.setState({ endpointData: result, newEndpointData: result, receivedData: true });
         });
     }
@@ -125,7 +131,8 @@ export class EditQueuesPage extends Component {
     getDropdownOptions = () => {
         return {
             status: [{ label: 'Active', value: 'Active' }, { label: 'Disabled', value: 'Disabled' }],
-            topicStatus: [{ label: 'Active', value: 'Active' }, { label: 'Disabled', value: 'Disabled' }]
+            topicStatus: [{ label: 'Active', value: 'Active' }, { label: 'Disabled', value: 'Disabled' }],
+            subscriptionStatus: [{ label: 'Active', value: 'Active' }, { label: 'Disabled', value: 'Disabled' }]
         };
     }
 
@@ -148,6 +155,8 @@ export class EditQueuesPage extends Component {
                 return this.getEditableAndReadOnlyPropertiesForQueue();
             case EndpointTypes.TOPIC:
                 return this.getEditableAndReadOnlyPropertiesForTopic();
+            case EndpointTypes.SUBSCRIPTION:
+                return this.getEditableAndReadOnlyPropertiesForSubscription();
             default:
                 this.throwUnexpectedEndpointTypeError();
         }
@@ -196,6 +205,29 @@ export class EditQueuesPage extends Component {
             'requiresDuplicateDetection',
             'maxSizeInMegabytes',
             'topicStatus'
+        ];
+        return [editableProperties, readOnlyProperties];
+    }
+
+    getEditableAndReadOnlyPropertiesForSubscription = () => {
+        const { activeMessageCount, deadletterMessageCount, mostRecentDeadLetter, topicName } = this.state.newEndpointData;
+        const readOnlyProperties = this.assembleReadOnlyProperties({
+            // text in the left column: value in the right column
+            "Active Message Count": activeMessageCount,
+            "Dead Letter Message Count": deadletterMessageCount,
+            "Most Recent Dead Letter": mostRecentDeadLetter,
+            "Parent Topic": topicName
+        });
+        const editableProperties = [
+            //'supportOrdering',
+            //'requiresSession',
+            //'enablePartitioning',
+            //'autoDeleteOnIdle',
+            //'enableDeadLetteringOnMessageExpiration',
+            //'requiresDuplicateDetection',
+            //'maxDeliveryCount',
+            //'maxSizeInMegabytes',
+            'subscriptionStatus'
         ];
         return [editableProperties, readOnlyProperties];
     }
@@ -278,6 +310,9 @@ export class EditQueuesPage extends Component {
             case EndpointTypes.TOPIC:
                 serviceBusConnection.getServiceBusService().renameTopic(oldName, newName);
                 break;
+            case EndpointTypes.SUBSCRIPTION:
+                console.log('cannot rename subscriptions because #Microsoft');
+                break;
             default:
                 this.throwUnexpectedEndpointTypeError();
         }
@@ -297,6 +332,9 @@ export class EditQueuesPage extends Component {
                 break;
             case EndpointTypes.TOPIC:
                 serviceBusConnection.getServiceBusService().updateTopic(this.state.newEndpointData);
+                break;
+            case EndpointTypes.SUBSCRIPTION:
+                serviceBusConnection.getServiceBusService().updateSubscription(this.state.newEndpointData);
                 break;
             default:
                 this.throwUnexpectedEndpointTypeError();
@@ -320,6 +358,7 @@ export class EditQueuesPage extends Component {
             this.state.receivedData ? (
                 <div>
                     <br />
+                    {/*Title*/}
                     <p className={titleStyle}>{titleText + '  '}
                         <ButtonWithConfirmationModal
                             id="renameButton"
@@ -343,6 +382,7 @@ export class EditQueuesPage extends Component {
                         />
                     </p>
                     <hr className={hrStlye} />
+
                     {/*Read-only properties*/}
                     <p className={classNames(leftAlign, headerStyle)}>Read-Only Properties</p>
                     <hr className={hrStlye} />

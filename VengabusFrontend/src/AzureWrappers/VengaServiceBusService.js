@@ -122,6 +122,17 @@ export class VengaServiceBusService {
     }
 
     /**
+     * Updates the properties of a subscription
+     * @param {object} subDescription Object containing the new properties of the subscription. It is specified in this which subscription we are updating.
+     * For more information on the form of this object see https://docs.microsoft.com/en-us/dotnet/api/microsoft.servicebus.messaging.subscriptiondescription?view=azure-dotnet
+     */
+    updateSubscription = (subDescription) => {
+        const url = this.apiRoot + 'subscriptions/update';
+        const config = this.jsonConfig;
+        this.axiosWithSAS.post(url, subDescription, config);
+    }
+
+    /**
      * Sends a message to the given queue on the server.
      * @param {string} queueName The name of the queue to send the message to.
      * @param {object} message The message to send to the queue, in the format:

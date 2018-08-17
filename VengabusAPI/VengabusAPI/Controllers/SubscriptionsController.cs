@@ -36,6 +36,26 @@ namespace VengabusAPI.Controllers
         [HttpGet]
         [Route("subscriptions/{parentTopicName}/{subscriptionName}/mostRecentDeadletter")]
         public DateTime? GetTimeStampOfMostRecentDeadletter(string parentTopicName, string subscriptionName)
+        [HttpPost]
+        [Route("subscriptions/update")]
+        public void UpdateQueue([FromBody]VengaSubscriptionUpload subData)
+        {
+            NamespaceManager namespaceManager = CreateNamespaceManager();
+
+            SubscriptionDescription description = namespaceManager.GetSubscription(subData.topicName, subData.name);
+            description = UpdateDescription(description, subData);
+
+            namespaceManager.UpdateSubscription(description);
+        }
+
+        public SubscriptionDescription UpdateDescription(SubscriptionDescription description, VengaSubscriptionUpload subData)
+        {
+            description.Status = subData.subscriptionStatus;
+
+            return description;
+        }
+
+        private DateTime? GetTimeStampOfMostRecentDeadletter(string topicName, string subscriptionName)
         {
             var endpoint = new SubscriptionDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), subscriptionName, parentTopicName);
             var deadLetterList = MessageServices.GetMessagesFromEndpoint(endpoint);
