@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { CheckboxInput } from './CheckboxInput';
 import { NumberInput } from './NumberInput';
+import { DropdownInput } from './DropdownInput';
+
 
 
 /**
@@ -32,9 +34,9 @@ export class PropertyInput extends Component {
                     />
                 );
             case 'string':
-                if (!ComponentType) { throw new Error(`for data types of string component type must be defined (in ${this.props.text})`); }
+                if (!this.props.options) { throw new Error(`for data types of string options prop for the permitted values of the dropdown is required (in ${this.props.text})`); }
                 return (
-                    <ComponentType
+                    <DropdownInput
                         {...propsToPass}
                     />
                 );

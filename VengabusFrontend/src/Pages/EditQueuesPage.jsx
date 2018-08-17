@@ -7,9 +7,8 @@ import { DataTable } from '../Components/DataTable';
 import moment from 'moment';
 import { PropertyInput } from '../Components/PropertyInput';
 import { TimeSpanInput } from '../Components/TimeSpanInput';
-import { DropdownInput } from '../Components/DropdownInput';
 import { ButtonWithConfirmationModal } from '../Components/ButtonWithConfirmationModal';
-import { EndpointTypes, typeToTitle } from '../Helpers/EndpointTypes';
+import { EndpointTypes } from '../Helpers/EndpointTypes';
 
 export class EditQueuesPage extends Component {
     constructor(props) {
@@ -43,7 +42,7 @@ export class EditQueuesPage extends Component {
     }
 
     throwUnexpectedEndpointTypeError = () => {
-        throw new Error('unexpected endpoint type: ' + typeToTitle(this.state.endpointType));
+        throw new Error('unexpected endpoint type: ' + this.state.endpointType);
     }
 
     /**
@@ -109,7 +108,7 @@ export class EditQueuesPage extends Component {
                 True if the receiver application can only receive from the queue through a MessageSession; false if a queue cannot receive using MessageSession.
             </Tooltip>,
             autoDeleteOnIdle: <Tooltip id="tooltip">
-                The idle time span after which the {typeToTitle(this.state.endpointType)} is automatically deleted. The minimum duration is 5 minutes.
+                The idle time span after which the {this.state.endpointType} is automatically deleted. The minimum duration is 5 minutes.
             </Tooltip>,
             maxDeliveryCount: <Tooltip id="tooltip">
                 A message is automatically deadlettered after this number of deliveries.
@@ -135,9 +134,7 @@ export class EditQueuesPage extends Component {
      */
     getObjectPropertyToComponent = () => {
         return {
-            autoDeleteOnIdle: TimeSpanInput,
-            status: DropdownInput,
-            topicStatus: DropdownInput
+            autoDeleteOnIdle: TimeSpanInput
         };
     }
 
@@ -317,7 +314,7 @@ export class EditQueuesPage extends Component {
         const [titleStyle, leftAlign, hrStlye, headerStyle, tableStyle, rowStyle, buttonFormStyle] = this.getStyles();
         const [editableProperties, readOnlyProperties] = this.getEditableAndReadOnlyProperties();
         const editablePropertyInputs = this.getEditablePropertyInputs(editableProperties);
-        const titleText = `Editing ${typeToTitle(this.state.endpointType)}: ${this.state.selectedEndpoint}`;
+        const titleText = `Editing ${this.state.endpointType}: ${this.state.selectedEndpoint}`;
 
         return (
             this.state.receivedData ? (
