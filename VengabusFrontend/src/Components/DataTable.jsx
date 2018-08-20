@@ -165,16 +165,7 @@ export class DataTable extends Component {
     }
 
 
-    addDepthToColProps = (colProps) => {
-        //92 for height of 3 lines of text
-        const minHeight = css`
-                min-height:92px;
-                height:92px;
-            `;
-        for (let col of colProps) {
-            col.headerClasses = minHeight;
-        }
-    }
+ 
 
     determineIfWidthShouldExist = (colProps) => {
         let columnIndex = 0;
@@ -336,7 +327,7 @@ export class DataTable extends Component {
             finalSelectRow = this.validateAndConfigureSelectRow(selectRow, keyColumnIndex);
             finalRowClasses = this.configureRowClasses(defaultHover, rowClasses, finalRowEvents, finalSelectRow);
         }
-        this.addDepthToColProps(colProps);
+   
         const textAlign = css`
             text-align:center;
             float:left;

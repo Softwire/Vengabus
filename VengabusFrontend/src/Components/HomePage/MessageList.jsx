@@ -3,6 +3,7 @@ import { DataTable } from '../DataTable';
 import { MessageBox } from '../MessageBox/MessageBox';
 import { truncate } from 'lodash';
 import { formatTimeStamp } from '../../Helpers/FormattingHelpers';
+import { css } from 'react-emotion';
 
 
 export class MessageList extends Component {
@@ -44,6 +45,14 @@ export class MessageList extends Component {
                 currentMessageArray.timestamp = '##-##-#### ##:##:##';
             }
         }
+
+        //92 for height of 3 lines of text
+        const minHeight = css`
+                min-height:92px;
+                height:92px;
+            `;
+
+        
         const colProps = [
             {
                 dataField: 'uniqueId',
@@ -53,16 +62,19 @@ export class MessageList extends Component {
                 dataField: 'predefinedProperties.messageId',
                 text: 'Message Id',
                 width: 33,
+                headerClasses: minHeight
             },
             {
                 dataField: 'messageBodyPreview',
                 text: 'Message Body',
                 width: 33,
+                headerClasses: minHeight
             },
             {
                 dataField: 'timestamp',
                 width: 34,
-                headerStyle: { textAlign: 'center' }
+                headerClasses: minHeight
+    
             }
         ];
 

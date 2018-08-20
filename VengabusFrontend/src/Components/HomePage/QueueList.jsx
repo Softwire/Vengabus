@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { DataTable } from '../DataTable';
 import { formatTimeStamp } from '../../Helpers/FormattingHelpers';
 import { palerBlue } from '../../colourScheme';
+import { css } from 'react-emotion';
 
 export class QueueList extends Component {
 
@@ -20,24 +21,37 @@ export class QueueList extends Component {
             }
         }
 
+
+
+        //92 for height of 3 lines of text
+        const minHeight = css`
+                min-height:92px;
+                height:92px;
+            `;
+
+
         const colProps = [
             {
                 dataField: 'name',
                 width: 25,
+                headerClasses: minHeight
             },
             {
                 dataField: 'activeMessageCount',
                 width: 25,
+                headerClasses: minHeight
                 align: 'right'
             },
             {
                 dataField: 'deadletterMessageCount',
                 width: 25,
+                headerClasses: minHeight
                 align: 'right'
             },
             {
                 dataField: 'mostRecentDeadLetter',
                 width: 25,
+                headerClasses: minHeight
             }
         ];
 
