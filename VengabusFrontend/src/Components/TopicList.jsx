@@ -16,6 +16,7 @@ export class TopicList extends Component {
             {
                 dataField: 'subscriptionCount',
                 width: 33,
+                align: 'right'
             },
             {
                 dataField: 'topicStatus',
