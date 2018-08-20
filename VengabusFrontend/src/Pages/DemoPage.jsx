@@ -84,7 +84,7 @@ sit amet \nthat was a newline`
                     {/*qq delete the text in Button once implemented properly*/}
                     <PurgeMessagesButton id="purgeQueueMessage" type={EndpointTypes.QUEUE} endpointName={queueName} />
                     <PurgeMessagesButton id="purgeTopicMessage" type={EndpointTypes.TOPIC} endpointName={topicName} />
-                    <PurgeMessagesButton id="purgesubscriptionMessage" type={EndpointTypes.SUBSCRIPTION} endpointName={subscriptionName} parentName={topicName} />
+                    <PurgeMessagesButton id="purgeSubscriptionMessage" type={EndpointTypes.SUBSCRIPTION} endpointName={subscriptionName} parentName={topicName} />
 
                 </div>
 

@@ -226,7 +226,7 @@ it('passes smoke tests without crashing', () => {
                 expect(replayMessageButton).toExistOnPage();
                 replayMessageButton.simulate("click");
                 return testHelper.afterReactHasUpdated();*/
-    }).then(() => {
+    }).then(() => {//test queue purge button
         const purgeQueueMessagesButton = wrapper.find("#purgeQueueMessage").last();
         purgeQueueMessagesButton.simulate("click");
         return testHelper.afterReactHasUpdated();
@@ -234,15 +234,31 @@ it('passes smoke tests without crashing', () => {
         const purgeQueueMessagesConfirmationButton = wrapper.find("#alertPurge").last();
         purgeQueueMessagesConfirmationButton.simulate("click");
         return testHelper.afterReactHasUpdated();
-    }).then(() => {//Go to Home Page
-        const buttonFromPreviousPage = wrapper.find("#demoPageReplayMessageButton").first();//this still works, as that button no longer exists
-        expect(buttonFromPreviousPage).not.toExistOnPage();
-
-        /*    const buttonsOnReplayMessagePage = wrapper.find(Button); -- this is no longer valid. QQ remove as above
-            expect(buttonsOnReplayMessagePage.length).toBeGreaterThan(4);*/
-
-        navbarHomePageButton.simulate("click");
+        }).then(() => {//test topic purge button
+        const purgeQueueMessagesButton = wrapper.find("#purgeTopicMessage").last();
+        purgeQueueMessagesButton.simulate("click");
         return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        const purgeQueueMessagesConfirmationButton = wrapper.find("#alertPurge").last();
+        purgeQueueMessagesConfirmationButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//test subscription purge button
+        const purgeQueueMessagesButton = wrapper.find("#purgeSubscriptionMessage").last();
+        purgeQueueMessagesButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        const purgeQueueMessagesConfirmationButton = wrapper.find("#alertPurge").last();
+        purgeQueueMessagesConfirmationButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Go to Home Page
+    const buttonFromPreviousPage = wrapper.find("#demoPageReplayMessageButton").first();//this still works, as that button no longer exists
+    expect(buttonFromPreviousPage).not.toExistOnPage();
+
+    /*    const buttonsOnReplayMessagePage = wrapper.find(Button); -- this is no longer valid. QQ remove as above
+        expect(buttonsOnReplayMessagePage.length).toBeGreaterThan(4);*/
+
+    navbarHomePageButton.simulate("click");
+    return testHelper.afterReactHasUpdated();
     }).then(() => {//Go to Send Message Page
         navbarSendMessagePageButton.simulate("click");
         return testHelper.afterReactHasUpdated();
