@@ -45,11 +45,11 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpPost]
-        [Route("topics/rename/{oldName}")]
-        public void RenameQueue(string oldName, [FromBody] string newName)
+        [Route("topics/rename")]
+        public void RenameQueue([FromBody]Rename names)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
-            namespaceManager.RenameTopic(oldName, newName);
+            namespaceManager.RenameTopic(names.oldName, names.newName);
         }
 
         public TopicDescription UpdateDescription(TopicDescription description, VengaTopicUpload topicData)

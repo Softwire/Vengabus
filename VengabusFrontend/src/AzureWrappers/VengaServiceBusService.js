@@ -53,9 +53,13 @@ export class VengaServiceBusService {
      * @param {string} newName The new name of the queue.
      */
     renameQueue = (oldName, newName) => {
-        const url = this.apiRoot + 'queues/rename/' + oldName;
+        const url = this.apiRoot + 'queues/rename';
         const config = this.jsonConfig;
-        this.axiosWithSAS.post(url, newName, config);
+        const names = {
+            oldName: oldName,
+            newName: newName
+        };
+        this.axiosWithSAS.post(url, names, config);
     }
 
     /**
@@ -94,9 +98,13 @@ export class VengaServiceBusService {
      * @param {string} newName The new name of the topic.
      */
     renameTopic = (oldName, newName) => {
-        const url = this.apiRoot + 'topics/rename/' + oldName;
+        const url = this.apiRoot + 'topics/rename';
         const config = this.jsonConfig;
-        this.axiosWithSAS.post(url, newName, config);
+        const names = {
+            oldName: oldName,
+            newName: newName
+        };
+        this.axiosWithSAS.post(url, names, config);
     }
 
     /**

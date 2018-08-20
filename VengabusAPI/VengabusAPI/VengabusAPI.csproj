@@ -125,6 +125,7 @@
     <Compile Include="Helpers\VengaBrokeredMessageConverter.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Models\APIExceptions.cs" />
+    <Compile Include="Models\Rename.cs" />
     <Compile Include="Models\TimeSpanFromFrontend.cs" />
     <Compile Include="Models\EndpointIdentifier.cs" />
     <Compile Include="Models\SASKey.cs" />

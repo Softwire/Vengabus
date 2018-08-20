@@ -52,11 +52,11 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpPost]
-        [Route("queues/rename/{oldName}")]
-        public void RenameQueue(string oldName, [FromBody] string newName)
+        [Route("queues/rename")]
+        public void RenameQueue([FromBody]Rename names)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
-            namespaceManager.RenameQueue(oldName, newName);
+            namespaceManager.RenameQueue(names.oldName, names.newName);
         }
 
         public QueueDescription UpdateDescription(QueueDescription description, VengaQueueUpload queueData)
