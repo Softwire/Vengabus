@@ -17,9 +17,9 @@ export class ServiceBusInfoBox extends Component {
         `;
         return (
             <Panel>
-                <Panel.Heading className={headerColour}>ServiceBus Details</Panel.Heading>
+                <Panel.Heading className={headerColour}>Connection String</Panel.Heading>
                 <Panel.Body className={infoBoxStyle}>
-                    <div>{`Your Connection string: ${this.props.connStringVal || ' '}`}</div>
+                    <div>{`${this.props.connStringVal || ' '}`}</div>
                 </Panel.Body>
             </Panel>
         );
