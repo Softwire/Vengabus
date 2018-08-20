@@ -200,13 +200,16 @@ it('renders without crashing', () => {
 
 const messageBoxTest = (messageRow, wrapper) => {
     messageRow.simulate("click"); //open the messageBox modal 
+    wrapper.update();
     expect(wrapper.find("#messageBoxModal")).toExistOnPage();
 
     //test the Pre-defined Properties and User-defined Properties panels
     let glyphicons = wrapper.find("#messageBoxModalBody .panel .glyphicon");
     //click the glyphicons twice to toggle the panels open and shut
     glyphicons.forEach((glyph) => glyph.simulate("click"));
+    wrapper.update();
     glyphicons.forEach((glyph) => glyph.simulate("click"));
+    wrapper.update();
 
     //check that the expected buttons in the footer are all there
     const closeButton = wrapper.find("#messageBoxClose").last();
@@ -217,11 +220,14 @@ const messageBoxTest = (messageRow, wrapper) => {
     expect(replayButton).toExistOnPage();
 
     closeButton.simulate("click"); //test the close button
+    wrapper.update();
     //test the copy button
     //copyButton.simulate("click"); //qq JF the library throws an error "reselectPrevious is not a function" if you try to click the copy button within any mount test it seems
     replayButton.simulate("click"); //test the replay message button
+    wrapper.update();
 
     wrapper.find("#navbarDemoPageButton").last().simulate("click"); //get back to the demo page
+    wrapper.update();
 };
 
 it('passes smoke tests without crashing', () => {
