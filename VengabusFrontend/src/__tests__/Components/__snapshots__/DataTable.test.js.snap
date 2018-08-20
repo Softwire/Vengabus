@@ -1,8 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DataTable renders correctly if an empty array is input as data 1`] = `
+.emotion-0 {
+  min-height: 92px;
+  height: 92px;
+}
+
+.emotion-3 table.table :not(thead) tr:hover {
+  border: 1px solid #99ccff;
+  background-color: #ecf2ff;
+}
+
 <div
-  className="react-bootstrap-table"
+  className="react-bootstrap-table emotion-3"
 >
   <table
     className="table table-striped table-bordered"
@@ -13,29 +23,17 @@ exports[`DataTable renders correctly if an empty array is input as data 1`] = `
         className={undefined}
       >
         <th
-          style={
-            Object {
-              "height": "92px",
-            }
-          }
+          className="emotion-0"
         >
           Number With Complex Label
         </th>
         <th
-          style={
-            Object {
-              "height": "92px",
-            }
-          }
+          className="emotion-0"
         >
           Name
         </th>
         <th
-          style={
-            Object {
-              "height": "92px",
-            }
-          }
+          className="emotion-0"
         >
           Not the same as the dataField
         </th>
@@ -47,16 +45,21 @@ exports[`DataTable renders correctly if an empty array is input as data 1`] = `
 
 exports[`DataTable renders correctly when defaultHover=true with an additional rowClasses prop 1`] = `
 .emotion-0 {
+  min-height: 92px;
+  height: 92px;
+}
+
+.emotion-9 table.table :not(thead) tr:hover {
+  border: 1px solid #99ccff;
+  background-color: #ecf2ff;
+}
+
+.emotion-3 {
   background-color: grey;
 }
 
-.emotion-1:hover {
-  border: 1px solid #99ccff;
-  background-color: #ecf2ff !important;
-}
-
 <div
-  className="react-bootstrap-table"
+  className="react-bootstrap-table emotion-9"
 >
   <table
     className="table table-striped table-bordered"
@@ -67,29 +70,17 @@ exports[`DataTable renders correctly when defaultHover=true with an additional r
         className={undefined}
       >
         <th
-          style={
-            Object {
-              "height": "92px",
-            }
-          }
+          className="emotion-0"
         >
           Number With Complex Label
         </th>
         <th
-          style={
-            Object {
-              "height": "92px",
-            }
-          }
+          className="emotion-0"
         >
           Name
         </th>
         <th
-          style={
-            Object {
-              "height": "92px",
-            }
-          }
+          className="emotion-0"
         >
           Not the same as the dataField
         </th>
@@ -97,7 +88,7 @@ exports[`DataTable renders correctly when defaultHover=true with an additional r
     </thead>
     <tbody>
       <tr
-        className="emotion-0 emotion-1"
+        className="emotion-3 emotion-4"
         style={Object {}}
       >
         <td
@@ -115,7 +106,7 @@ exports[`DataTable renders correctly when defaultHover=true with an additional r
         </td>
       </tr>
       <tr
-        className="emotion-0 emotion-1"
+        className="emotion-3 emotion-4"
         style={Object {}}
       >
         <td
@@ -133,7 +124,7 @@ exports[`DataTable renders correctly when defaultHover=true with an additional r
         </td>
       </tr>
       <tr
-        className="emotion-0 emotion-1"
+        className="emotion-3 emotion-4"
         style={Object {}}
       >
         <td
@@ -157,11 +148,21 @@ exports[`DataTable renders correctly when defaultHover=true with an additional r
 
 exports[`DataTable renders correctly with the selectRow prop 1`] = `
 .emotion-0 {
+  min-height: 92px;
+  height: 92px;
+}
+
+.emotion-6 table.table :not(thead) tr:hover {
+  border: 1px solid #99ccff;
+  background-color: #ecf2ff;
+}
+
+.emotion-3 {
   cursor: pointer;
 }
 
 <div
-  className="react-bootstrap-table"
+  className="react-bootstrap-table emotion-6"
 >
   <table
     className="table table-striped table-bordered"
@@ -172,29 +173,17 @@ exports[`DataTable renders correctly with the selectRow prop 1`] = `
         className={undefined}
       >
         <th
-          style={
-            Object {
-              "height": "92px",
-            }
-          }
+          className="emotion-0"
         >
           Number With Complex Label
         </th>
         <th
-          style={
-            Object {
-              "height": "92px",
-            }
-          }
+          className="emotion-0"
         >
           Name
         </th>
         <th
-          style={
-            Object {
-              "height": "92px",
-            }
-          }
+          className="emotion-0"
         >
           Not the same as the dataField
         </th>
@@ -202,7 +191,7 @@ exports[`DataTable renders correctly with the selectRow prop 1`] = `
     </thead>
     <tbody>
       <tr
-        className="emotion-0"
+        className="emotion-3"
         onClick={[Function]}
         style={
           Object {
@@ -225,7 +214,7 @@ exports[`DataTable renders correctly with the selectRow prop 1`] = `
         </td>
       </tr>
       <tr
-        className="emotion-0"
+        className="emotion-3"
         onClick={[Function]}
         style={Object {}}
       >
@@ -244,7 +233,7 @@ exports[`DataTable renders correctly with the selectRow prop 1`] = `
         </td>
       </tr>
       <tr
-        className="emotion-0"
+        className="emotion-3"
         onClick={[Function]}
         style={Object {}}
       >

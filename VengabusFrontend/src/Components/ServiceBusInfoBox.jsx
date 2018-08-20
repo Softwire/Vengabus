@@ -7,10 +7,9 @@ export class ServiceBusInfoBox extends Component {
 
     render() {
         const infoBoxStyle = css`
-            --header-height: ${sharedSizesAndDimensions.DEFAULTHEADERHEIGHT};
             color: black;
             overflow-wrap: break-word;
-            max-height: calc(100vh - 275px - var(--header-height)); /* 275 is roughly the height of the other components in the sidebar */
+            max-height: calc(100vh - 275px - ${sharedSizesAndDimensions.DEFAULT_HEADER_HEIGHT}px); /* 275 is roughly the height of the other components in the sidebar */
             overflow-y: auto;
         `;
         const headerColour = css`

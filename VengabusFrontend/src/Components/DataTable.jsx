@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
-import { css } from 'emotion';
+import { css } from 'react-emotion';
 import { palerBlue, paleGreyBlue } from '../colourScheme';
 import classNames from 'classnames';
 import _ from 'lodash';
+
 /*
 Returns a table created from an input object
 Props:
@@ -151,8 +152,13 @@ export class DataTable extends Component {
 
 
     addDepthToColProps = (colProps) => {
+        //92 for height of 3 lines of text
+        const minHeight = css`
+                min-height:92px;
+                height:92px;
+            `;
         for (let col of colProps) {
-            col.headerStyle = { ...col.headerStyle, "height": "92px" };
+            col.headerClasses = minHeight;
         }
     }
 
@@ -215,8 +221,6 @@ export class DataTable extends Component {
         if (defaultHover) {
             const hoverClass = css`
 		          :hover {
-		              border: 1px solid ${palerBlue};
-		              background-color: ${paleGreyBlue} !important ;
 		          }
               `;
 
@@ -276,8 +280,13 @@ export class DataTable extends Component {
                 rowEvents={finalRowEvents}
                 selectRow={finalSelectRow}
                 rowClasses={finalRowClasses}
-                {...otherProps}
                 striped
+                wrapperClasses={css`
+		          table.table :not(thead) tr:hover {
+		              border: 1px solid ${palerBlue};
+		              background-color: ${paleGreyBlue};
+		          }`}
+                {...otherProps}
             />
         ) : (
                 <p className={textAlign}>No data has been retrieved yet.</p>

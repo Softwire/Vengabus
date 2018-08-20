@@ -1,17 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TopicList renders correctly with given props 1`] = `
-.emotion-0:hover {
-  border: 1px solid #99ccff;
-  background-color: #ecf2ff !important;
-}
-
-.emotion-1 {
+.emotion-4 {
   cursor: pointer;
 }
 
+.emotion-0 {
+  min-height: 92px;
+  height: 92px;
+}
+
+.emotion-7 table.table :not(thead) tr:hover {
+  border: 1px solid #99ccff;
+  background-color: #ecf2ff;
+}
+
 <div
-  className="react-bootstrap-table"
+  className="react-bootstrap-table emotion-7"
 >
   <table
     className="table table-striped table-bordered"
@@ -22,9 +27,9 @@ exports[`TopicList renders correctly with given props 1`] = `
         className={undefined}
       >
         <th
+          className="emotion-0"
           style={
             Object {
-              "height": "92px",
               "width": "34%",
             }
           }
@@ -32,9 +37,9 @@ exports[`TopicList renders correctly with given props 1`] = `
           Name
         </th>
         <th
+          className="emotion-0"
           style={
             Object {
-              "height": "92px",
               "width": "33%",
             }
           }
@@ -42,9 +47,9 @@ exports[`TopicList renders correctly with given props 1`] = `
           Subscription Count
         </th>
         <th
+          className="emotion-0"
           style={
             Object {
-              "height": "92px",
               "width": "33%",
             }
           }
@@ -55,7 +60,7 @@ exports[`TopicList renders correctly with given props 1`] = `
     </thead>
     <tbody>
       <tr
-        className="emotion-0 emotion-1"
+        className="emotion-3 emotion-4"
         onClick={[Function]}
         style={Object {}}
       >
@@ -74,7 +79,7 @@ exports[`TopicList renders correctly with given props 1`] = `
         </td>
       </tr>
       <tr
-        className="emotion-0 emotion-1"
+        className="emotion-3 emotion-4"
         onClick={[Function]}
         style={Object {}}
       >

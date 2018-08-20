@@ -11,10 +11,9 @@ exports[`ConnectionStringConfigForm renders correctly 1`] = `
 }
 
 .emotion-2 {
-  --header-height: 50px;
   color: black;
   overflow-wrap: break-word;
-  max-height: calc(100vh - 275px - var(--header-height));
+  max-height: calc(100vh - 275px - 50px);
   overflow-y: auto;
 }
 
