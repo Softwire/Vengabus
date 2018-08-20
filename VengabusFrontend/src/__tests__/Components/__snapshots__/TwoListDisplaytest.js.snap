@@ -105,11 +105,13 @@ exports[`renders correctly after data is added 1`] = `
                   "width": 25,
                 },
                 Object {
+                  "align": "right",
                   "dataField": "activeMessageCount",
                   "headerClasses": "css-1lvmfbt",
                   "width": 25,
                 },
                 Object {
+                  "align": "right",
                   "dataField": "deadletterMessageCount",
                   "headerClasses": "css-1lvmfbt",
                   "width": 25,
@@ -167,6 +169,7 @@ exports[`renders correctly after data is added 1`] = `
                   "width": 34,
                 },
                 Object {
+                  "align": "right",
                   "dataField": "subscriptionCount",
                   "headerClasses": "css-1lvmfbt",
                   "width": 33,
