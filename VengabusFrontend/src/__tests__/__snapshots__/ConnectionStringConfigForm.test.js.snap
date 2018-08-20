@@ -86,18 +86,6 @@ exports[`ConnectionStringConfigForm renders correctly 1`] = `
       <div>
         Your Connection string: connStringInLocalStorage
       </div>
-      <div>
-        Name:  
-      </div>
-      <div>
-        Location:  
-      </div>
-      <div>
-        Status:  
-      </div>
-      <div>
-        Permissions:  
-      </div>
     </div>
   </div>
 </form>

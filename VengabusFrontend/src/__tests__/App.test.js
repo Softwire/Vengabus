@@ -177,17 +177,6 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
             });
         }
 
-        getServiceBusProperties() {
-            return new Promise(function (resolve, reject) {
-                resolve({
-                    name: 'name ex',
-                    status: 'true',
-                    location: 'uk?',
-                    permission: 'all'
-                });
-            });
-        }
-
 
     }
 }));

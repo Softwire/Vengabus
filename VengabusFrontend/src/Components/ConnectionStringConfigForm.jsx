@@ -27,8 +27,7 @@ export class ConnectionStringConfigForm extends Component {
 
         this.state = {
             connStringVal: "",
-            APIroot: "",
-            info: ""
+            APIroot: ""
         };
     }
 
@@ -78,24 +77,12 @@ export class ConnectionStringConfigForm extends Component {
     }
 
     /**
-     * Updates the info in the sidebar based on the current status of VengaServiceBusService.
-     * Called whenver the connect button is pressed.
+     * Updates the current connection string to be sent to the API.
+     * Called whenever the connect button is pressed.
      */
     submitConnectionStringClick = () => {
         
-        const infoPromise = serviceBusConnection.getServiceBusService().getServiceBusProperties();
         serviceBusConnection.promptUpdate();
-        
-        infoPromise
-            .then(response => {
-                this.setState({
-                    info: response
-                });
-                
-            })
-            .catch(error => {
-                console.log(error);
-            });
         
     };
 
@@ -146,8 +133,6 @@ export class ConnectionStringConfigForm extends Component {
                 </div>
                 <ServiceBusInfoBox
                     connStringVal={this.state.connStringVal}
-                    info={this.state.info}
-
                 />
             </form>
         );
