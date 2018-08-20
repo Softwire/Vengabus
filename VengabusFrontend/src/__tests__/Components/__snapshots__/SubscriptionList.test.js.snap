@@ -1,0 +1,141 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Subscription List renders correctly with given props 1`] = `
+.emotion-0 {
+  min-height: 92px;
+  height: 92px;
+}
+
+.emotion-5 {
+  cursor: pointer;
+}
+
+.emotion-10 table.table :not(thead) tr:hover {
+  border: 1px solid #99ccff;
+  background-color: #ecf2ff;
+}
+
+<div
+  className="react-bootstrap-table emotion-10"
+>
+  <table
+    className="table table-striped table-bordered"
+    id={undefined}
+  >
+    <thead>
+      <tr
+        className={undefined}
+      >
+        <th
+          className="emotion-0"
+          style={
+            Object {
+              "width": "25%",
+            }
+          }
+        >
+          Name
+        </th>
+        <th
+          className="emotion-0"
+          style={
+            Object {
+              "width": "25%",
+            }
+          }
+        >
+          Active Message Count
+        </th>
+        <th
+          className="emotion-0"
+          style={
+            Object {
+              "width": "25%",
+            }
+          }
+        >
+          Deadletter Message Count
+        </th>
+        <th
+          className="emotion-0"
+          style={
+            Object {
+              "width": "25%",
+            }
+          }
+        >
+          Most Recent Dead Letter
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className="emotion-4 emotion-5"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td>
+          s1
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          12
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          14
+        </td>
+        <td
+          onClick={[Function]}
+        />
+      </tr>
+      <tr
+        className="emotion-4 emotion-5"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td>
+          s2
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          11
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          15
+        </td>
+        <td
+          onClick={[Function]}
+        />
+      </tr>
+      <tr
+        className="emotion-4 emotion-5"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td>
+          s3
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          14
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          16
+        </td>
+        <td
+          onClick={[Function]}
+        />
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
