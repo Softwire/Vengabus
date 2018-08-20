@@ -313,9 +313,9 @@ export class TwoListDisplay extends Component {
     render() {
 
         const displayStyle = css`
-            width: 45%;
-            margin-left: 10px;
-            margin-right:10px;
+            width: ${(100 - 4*sharedSizesAndDimensions.TABLE_PERCENTAGE_MARGIN)/2}%;
+            margin-left:${sharedSizesAndDimensions.TABLE_PERCENTAGE_MARGIN}%;
+            margin-right:${sharedSizesAndDimensions.TABLE_PERCENTAGE_MARGIN}%;
             display: inline-block; /*to allow tables to be displayed side by side*/
         `;
 
