@@ -7,14 +7,12 @@ namespace VengabusAPI.Services
 {
     public abstract class Endpoint
     {
-        protected Endpoint(NamespaceManager namespaceManager, string name, string parentTopic = null)
+        protected Endpoint(NamespaceManager namespaceManager, string name)
         {
             NamespaceManager = namespaceManager;
             Name = name;
-            ParentTopic = parentTopic;
         }
         public string Name { get; set; }
-        public string ParentTopic { get; set; }
         protected NamespaceManager NamespaceManager;
         public abstract long GetNumberOfMessages();
         public abstract BrokeredMessage ReceiveNextBrokeredMessage(long timeout);
@@ -24,10 +22,10 @@ namespace VengabusAPI.Services
 
     public class QueueEndpoint : Endpoint
     {
-        private readonly QueueClient _client;
+        protected QueueClient Client;
         public QueueEndpoint(NamespaceManager namespaceManager, MessagingFactory clientFactory, string name) : base(namespaceManager, name)
         {
-            _client = clientFactory.CreateQueueClient(name);
+            Client = clientFactory.CreateQueueClient(name);
         }
         public override long GetNumberOfMessages()
         {
@@ -36,45 +34,29 @@ namespace VengabusAPI.Services
 
         public override BrokeredMessage ReceiveNextBrokeredMessage(long timeout)
         {
-            return _client.Receive(TimeSpan.FromMilliseconds(timeout));
+            return Client.Receive(TimeSpan.FromMilliseconds(timeout));
         }
 
         public override void SendMessage(BrokeredMessage brokeredMessage)
         {
-            _client.Send(brokeredMessage);
+            Client.Send(brokeredMessage);
         }
 
         public override IEnumerable<BrokeredMessage> PeekNextBatch(long peekStartingPoint, int number)
         {
-            return _client.PeekBatch(peekStartingPoint, number);
+            return Client.PeekBatch(peekStartingPoint, number);
         }
     }
 
-    public class QueueDeadLetterEndpoint : Endpoint
+    public class QueueDeadLetterEndpoint : QueueEndpoint
     {
-        private readonly QueueClient _client;
-        public QueueDeadLetterEndpoint(NamespaceManager namespaceManager, MessagingFactory clientFactory, string name) : base(namespaceManager, name)
+        public QueueDeadLetterEndpoint(NamespaceManager namespaceManager, MessagingFactory clientFactory, string name) : base(namespaceManager, clientFactory, name)
         {
-            _client = clientFactory.CreateQueueClient(name + "/$DeadLetterQueue");
+            Client = clientFactory.CreateQueueClient(name + "/$DeadLetterQueue");
         }
         public override long GetNumberOfMessages()
         {
             return NamespaceManager.GetQueue(Name).MessageCountDetails.DeadLetterMessageCount;
-        }
-
-        public override BrokeredMessage ReceiveNextBrokeredMessage(long timeout)
-        {
-            return _client.Receive(TimeSpan.FromMilliseconds(timeout));
-        }
-
-        public override void SendMessage(BrokeredMessage brokeredMessage)
-        {
-            _client.Send(brokeredMessage);
-        }
-
-        public override IEnumerable<BrokeredMessage> PeekNextBatch(long peekStartingPoint, int number)
-        {
-            return _client.PeekBatch(peekStartingPoint, number);
         }
     }
 
@@ -108,10 +90,12 @@ namespace VengabusAPI.Services
 
     public class SubscriptionEndpoint : Endpoint
     {
-        private readonly SubscriptionClient _client;
-        public SubscriptionEndpoint(NamespaceManager namespaceManager, MessagingFactory clientFactory, string name, string parentTopic) : base(namespaceManager, name, parentTopic)
+        public string ParentTopic { get; set; }
+        protected SubscriptionClient Client;
+        public SubscriptionEndpoint(NamespaceManager namespaceManager, MessagingFactory clientFactory, string name, string parentTopic) : base(namespaceManager, name)
         {
-            _client = clientFactory.CreateSubscriptionClient(parentTopic, name);
+            ParentTopic = parentTopic;
+            Client = clientFactory.CreateSubscriptionClient(parentTopic, name);
         }
         public override long GetNumberOfMessages()
         {
@@ -120,7 +104,7 @@ namespace VengabusAPI.Services
 
         public override BrokeredMessage ReceiveNextBrokeredMessage(long timeout)
         {
-            return _client.Receive(TimeSpan.FromMilliseconds(timeout));
+            return Client.Receive(TimeSpan.FromMilliseconds(timeout));
         }
 
         public override void SendMessage(BrokeredMessage brokeredMessage)
@@ -130,35 +114,19 @@ namespace VengabusAPI.Services
 
         public override IEnumerable<BrokeredMessage> PeekNextBatch(long peekStartingPoint, int number)
         {
-            return _client.PeekBatch(peekStartingPoint, number);
+            return Client.PeekBatch(peekStartingPoint, number);
         }
     }
 
-    public class SubscriptionDeadLetterEndpoint : Endpoint
+    public class SubscriptionDeadLetterEndpoint : SubscriptionEndpoint
     {
-        private readonly SubscriptionClient _client;
-        public SubscriptionDeadLetterEndpoint(NamespaceManager namespaceManager, MessagingFactory clientFactory, string name, string parentTopic) : base(namespaceManager, name, parentTopic)
+        public SubscriptionDeadLetterEndpoint(NamespaceManager namespaceManager, MessagingFactory clientFactory, string name, string parentTopic) : base(namespaceManager, clientFactory, name, parentTopic)
         {
-            _client = clientFactory.CreateSubscriptionClient(parentTopic, name + "/$DeadLetterQueue");
+            Client = clientFactory.CreateSubscriptionClient(parentTopic, name + "/$DeadLetterQueue");
         }
         public override long GetNumberOfMessages()
         {
             return NamespaceManager.GetSubscription(ParentTopic, Name).MessageCountDetails.DeadLetterMessageCount;
-        }
-
-        public override BrokeredMessage ReceiveNextBrokeredMessage(long timeout)
-        {
-            return _client.Receive(TimeSpan.FromMilliseconds(timeout));
-        }
-
-        public override void SendMessage(BrokeredMessage brokeredMessage)
-        {
-            throw new NotSupportedException();
-        }
-
-        public override IEnumerable<BrokeredMessage> PeekNextBatch(long peekStartingPoint, int number)
-        {
-            return _client.PeekBatch(peekStartingPoint, number);
         }
     }
 
