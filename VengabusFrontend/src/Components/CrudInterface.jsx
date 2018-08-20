@@ -165,7 +165,6 @@ export class CrudInterface extends Component {
                         colProps={colProps}
                         rowClasses={rowStyle}
                         bordered={false}
-                        hover
                     />
                 </div>
                 <hr className={this.getHrStyle()} />
@@ -331,6 +330,19 @@ export class CrudInterface extends Component {
                         confirmButtonText={"Rename"}
                         confirmAction={this.renameEndpoint}
                     />
+                    <ButtonWithConfirmationModal
+                        id="deleteButton"
+                        buttonText={"Delete " + this.state.endpointType}
+                        buttonStyle="danger"
+                        modalTitle={"Delete " + this.state.selectedEndpoint}
+                        modalBody={
+                            <React.Fragment>
+                                <p>This will irreversibly delete this {this.state.endpointType}</p>
+                            </React.Fragment>
+                        }
+                        confirmButtonText={"Delete"}
+                        confirmAction={this.deleteEndpoint}
+                    />
                 </p>
                 <hr className={this.getHrStyle()} />
             </div>
@@ -440,6 +452,22 @@ export class CrudInterface extends Component {
                 break;
             case EndpointTypes.SUBSCRIPTION:
                 serviceBusConnection.getServiceBusService().updateSubscription(this.state.newEndpointData);
+                break;
+            default:
+                this.throwUnexpectedEndpointTypeError();
+        }
+    }
+
+    deleteEndpoint = () => {
+        switch (this.state.endpointType) {
+            case EndpointTypes.QUEUE:
+                serviceBusConnection.getServiceBusService().deleteQueue(this.state.selectedEndpoint);
+                break;
+            case EndpointTypes.TOPIC:
+                serviceBusConnection.getServiceBusService().deleteTopic(this.state.selectedEndpoint);
+                break;
+            case EndpointTypes.SUBSCRIPTION:
+                serviceBusConnection.getServiceBusService().deleteSubscription(this.state.selectedEndpoint, this.state.parentTopic);
                 break;
             default:
                 this.throwUnexpectedEndpointTypeError();
