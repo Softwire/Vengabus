@@ -58,6 +58,11 @@ namespace VengabusAPI.Services
         {
             return NamespaceManager.GetQueue(Name).MessageCountDetails.DeadLetterMessageCount;
         }
+
+        public override void SendMessage(BrokeredMessage brokeredMessage)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class TopicEndpoint : Endpoint

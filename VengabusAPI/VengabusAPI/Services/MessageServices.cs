@@ -56,10 +56,9 @@ namespace VengabusAPI.Services
 
         public static void DeleteMessagesFromEndpoint(Endpoint endpoint, Predicate<BrokeredMessage> shouldDeleteThisMessage)
         {
-
-            long remainingMessagesToDelete = 0;
+            
             long defaultTimeout = 200;
-            remainingMessagesToDelete = endpoint.GetNumberOfMessages();
+            long remainingMessagesToDelete = endpoint.GetNumberOfMessages();
 
             Func<BrokeredMessage> getNextMessageWithRetries = () => {
                 long multiplier = 1;
