@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TopicList renders correctly with given props 1`] = `
+.emotion-5 {
+  cursor: pointer;
+}
+
+.emotion-0 {
+  min-height: 92px;
+  height: 92px;
+}
+
+.emotion-8 table.table :not(thead) tr:hover {
+  border: 1px solid #99ccff;
+  background-color: #ecf2ff;
+}
+
+<div
+  className="react-bootstrap-table emotion-8"
+>
+  <table
+    className="table table-striped table-bordered"
+    id={undefined}
+  >
+    <thead>
+      <tr
+        className={undefined}
+      >
+        <th
+          className="emotion-0"
+          style={
+            Object {
+              "width": "31%",
+            }
+          }
+        >
+          Name
+        </th>
+        <th
+          className="emotion-0"
+          style={
+            Object {
+              "width": "30%",
+            }
+          }
+        >
+          Subscription Count
+        </th>
+        <th
+          className="emotion-0"
+          style={
+            Object {
+              "width": "30%",
+            }
+          }
+        >
+          Status
+        </th>
+        <th
+          className="emotion-0"
+          style={
+            Object {
+              "width": "9%",
+            }
+          }
+        >
+           
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className="emotion-4 emotion-5"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td>
+          topic 1
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          10
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          okay
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          <button
+            className="btn btn-xs btn-default"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            edit
+          </button>
+        </td>
+      </tr>
+      <tr
+        className="emotion-4 emotion-5"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <td>
+          topic 2
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          12
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          okay
+        </td>
+        <td
+          onClick={[Function]}
+        >
+          <button
+            className="btn btn-xs btn-default"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            edit
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
