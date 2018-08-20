@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { DataTable } from '../DataTable';
 import { formatTimeStamp } from '../../Helpers/FormattingHelpers';
 import { palerBlue } from '../../colourScheme';
+import { Button } from 'react-bootstrap';
+import { pageSwitcher, PAGES } from '../Pages/PageSwitcherService';
+import { EndpointTypes } from '../Helpers/EndpointTypes';
 
 export class QueueList extends Component {
 
@@ -17,6 +20,7 @@ export class QueueList extends Component {
                 if (currentMessageArray.mostRecentDeadLetter && currentMessageArray.mostRecentDeadLetterLoaded) {
                     currentMessageArray.mostRecentDeadLetter = formatTimeStamp(currentMessageArray.mostRecentDeadLetter);
                 }
+                queueArray[i].formatterId = i;
             }
         }
 
@@ -25,24 +29,36 @@ export class QueueList extends Component {
         const colProps = [
             {
                 dataField: 'name',
-                width: 25,
+                width: 23
                 headerStyle: this.props.headerStyle,
             },
             {
                 dataField: 'activeMessageCount',
-                width: 25,
+                width: 23
                 headerStyle: this.props.headerStyle,
                 align: 'right',
             },
             {
                 dataField: 'deadletterMessageCount',
-                width: 25,
+                width: 23
                 headerStyle: this.props.headerStyle,
                 align: 'right',
             },
             {
                 dataField: 'mostRecentDeadLetter',
-                width: 25,
+                width: 23
+            },
+            {
+                dataField: 'formatterId',
+                text: ' ',
+                width: 8,
+                formatter: (cell, row, rowIndex) => {
+                    return (
+                        <Button bsSize='xsmall' onClick={() => pageSwitcher.switchToPage(PAGES.CrudPage, { endpointType: EndpointTypes.QUEUE, selectedEndpoint: row.name })} >
+                            edit
+                        </Button>
+                    );
+                }
                 headerStyle: this.props.headerStyle,
             }
         ];

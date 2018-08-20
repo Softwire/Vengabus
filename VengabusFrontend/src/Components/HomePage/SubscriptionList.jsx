@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { DataTable } from '../DataTable';
 import { formatTimeStamp } from '../../Helpers/FormattingHelpers';
 import { palerBlue } from '../../colourScheme';
+import { Button } from 'react-bootstrap';
+import { pageSwitcher, PAGES } from '../Pages/PageSwitcherService';
+import { EndpointTypes } from '../Helpers/EndpointTypes';
 
 export class SubscriptionList extends Component {
 
@@ -18,6 +21,7 @@ export class SubscriptionList extends Component {
                 if (currentMessageArray.mostRecentDeadLetter && currentMessageArray.mostRecentDeadLetterLoaded) {
                     currentMessageArray.mostRecentDeadLetter = formatTimeStamp(currentMessageArray.mostRecentDeadLetter);
                 }
+                subscriptionArray[i].formatterId = i;
             }
         }
 
@@ -25,23 +29,35 @@ export class SubscriptionList extends Component {
         const colProps = [
             {
                 dataField: 'name',
-                width: 25,
+                width: 23
                 headerStyle: this.props.headerStyle
             },
             {
                 dataField: 'activeMessageCount',
-                width: 25,
+                width: 23
                 align: 'right',
                 headerStyle: this.props.headerStyle,
             },
             {
                 dataField: 'deadletterMessageCount',
-                width: 25,
+                width: 23
                 headerStyle: this.props.headerStyle,
                 align: 'right',
             }, {
                 dataField: 'mostRecentDeadLetter',
-                width: 25,
+                width: 23
+            },
+            {
+                dataField: 'formatterId',
+                text: ' ',
+                width: 8,
+                formatter: (cell, row, rowIndex) => {
+                    return (
+                        <Button bsSize='xsmall' onClick={() => pageSwitcher.switchToPage(PAGES.CrudPage, { endpointType: EndpointTypes.SUBSCRIPTION, selectedEndpoint: row.name, parentTopic: row.topicName })} >
+                            edit
+                        </Button>
+                    );
+                }
                 headerStyle: this.props.headerStyle,
             }
         ];
