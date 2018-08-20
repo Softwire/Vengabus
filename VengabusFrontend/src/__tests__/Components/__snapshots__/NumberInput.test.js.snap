@@ -24,7 +24,7 @@ exports[`renders correctly with given props 1`] = `
   <p
     className="emotion-1"
   >
-    bool data
+    numeric data
     <span
       className="emotion-0 glyphicon glyphicon-info-sign"
       onBlur={[Function]}

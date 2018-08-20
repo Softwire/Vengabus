@@ -4,7 +4,6 @@ import renderer from 'react-test-renderer';
 import { Tooltip } from 'react-bootstrap';
 
 it('renders correctly with given props', () => {
-    const data = { label: 'Active', value: 'Active' };
     const options = [{ label: 'Active', value: 'Active' }, { label: 'Disabled', value: 'Disabled' }];
     const tooltip =
         <Tooltip id="tooltip">
@@ -12,7 +11,7 @@ it('renders correctly with given props', () => {
         </Tooltip>;
     let checkboxInput = renderer.create(
         <DropdownInput
-            data={data}
+            data="Active"
             text="dropdown data"
             onChange={() => { }}
             tooltip={tooltip}

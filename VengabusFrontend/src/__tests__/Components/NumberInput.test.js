@@ -11,7 +11,7 @@ it('renders correctly with given props', () => {
     let checkboxInput = renderer.create(
         <NumberInput
             data={42}
-            text="bool data"
+            text="numeric data"
             onChange={() => { }}
             tooltip={tooltip}
         />

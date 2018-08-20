@@ -182,7 +182,7 @@ exports[`renders correctly with given props 1`] = `
         <div
           className="emotion-2"
         >
-          [object Object]
+          Active
         </div>
         <div
           className="emotion-3"
