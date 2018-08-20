@@ -3,65 +3,63 @@ import { CrudInterface } from '../../Components/CrudInterface';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
+import { testHelper } from '../../TestHelpers/TestHelper';
 
 //let spy = jest.fn();
 jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
     VengaServiceBusService: class {
         constructor() {
-            this.queueData = {
-                activeMessageCount: 4,
-                deadletterMessageCount: 0,
-                autoDeleteOnIdle: "110.02:48:05.4780000",
-                enableDeadLetteringOnMessageExpiration: false,
-                enablePartitioning: true,
-                maxDeliveryCount: 10,
-                maxSizeInMegabytes: 16384,
-                mostRecentDeadLetter: null,
-                name: 'test',
-                requiresDuplicateDetection: false,
-                requiresSession: false,
-                supportOrdering: false,
-                status: 'Active'
-            };
-            this.topicData = {
-                autoDeleteOnIdle: "110.02:48:05.4780000",
-                enablePartitioning: true,
-                maxSizeInMegabytes: 16384,
-                name: 'test',
-                requiresDuplicateDetection: false,
-                supportOrdering: false,
-                topicStatus: 'Active',
-                subscriptionCount: 3
-            };
-            this.subData = {
-                activeMessageCount: 4,
-                deadletterMessageCount: 5,
-                autoDeleteOnIdle: "110.02:48:05.4780000",
-                enableDeadLetteringOnMessageExpiration: false,
-                enablePartitioning: true,
-                maxDeliveryCount: 10,
-                mostRecentDeadLetter: "2018-07-27T11:03:57.6569871Z",
-                name: 'test',
-                requiresSession: false,
-                subscriptionStatus: 'Active'
-            };
         }
 
         getQueueDetails = () => {
             return new Promise(function (resolve, reject) {
-                resolve(this.queueData);
+                resolve({
+                    activeMessageCount: 4,
+                    deadletterMessageCount: 0,
+                    autoDeleteOnIdle: "110.02:48:05.4780000",
+                    enableDeadLetteringOnMessageExpiration: false,
+                    enablePartitioning: true,
+                    maxDeliveryCount: 10,
+                    maxSizeInMegabytes: 16384,
+                    mostRecentDeadLetter: null,
+                    name: 'test',
+                    requiresDuplicateDetection: false,
+                    requiresSession: false,
+                    supportOrdering: false,
+                    status: 'Active'
+                });
             });
         }
 
         getTopicDetails = () => {
             return new Promise(function (resolve, reject) {
-                resolve(this.topicData);
+                resolve({
+                    autoDeleteOnIdle: "110.02:48:05.4780000",
+                    enablePartitioning: true,
+                    maxSizeInMegabytes: 16384,
+                    name: 'test',
+                    requiresDuplicateDetection: false,
+                    supportOrdering: false,
+                    topicStatus: 'Active',
+                    subscriptionCount: 3
+                });
             });
         }
 
         getSubscriptionDetails = () => {
             return new Promise(function (resolve, reject) {
-                resolve(this.subData);
+                resolve({
+                    activeMessageCount: 4,
+                    deadletterMessageCount: 5,
+                    autoDeleteOnIdle: "110.02:48:05.4780000",
+                    enableDeadLetteringOnMessageExpiration: false,
+                    enablePartitioning: true,
+                    maxDeliveryCount: 10,
+                    mostRecentDeadLetter: "2018-07-27T11:03:57.6569871Z",
+                    name: 'test',
+                    requiresSession: false,
+                    subscriptionStatus: 'Active'
+                });
             });
         }
 
@@ -100,7 +98,9 @@ it('renders with the correct for queue with given props', () => {
             selectedEndpoint="test"
         />
     );
-    expect(crudInterface.toJSON()).toMatchSnapshot();
+    return testHelper.afterReactHasUpdated().then(() => {
+        expect(crudInterface.toJSON()).toMatchSnapshot();
+    });
 });
 
 it('renders with the correct for topic with given props', () => {
@@ -110,7 +110,9 @@ it('renders with the correct for topic with given props', () => {
             selectedEndpoint="test"
         />
     );
-    expect(crudInterface.toJSON()).toMatchSnapshot();
+    return testHelper.afterReactHasUpdated().then(() => {
+        expect(crudInterface.toJSON()).toMatchSnapshot();
+    });
 });
 
 it('renders with the correct for subscription with given props', () => {
@@ -121,7 +123,9 @@ it('renders with the correct for subscription with given props', () => {
             parentTopic="test"
         />
     );
-    expect(crudInterface.toJSON()).toMatchSnapshot();
+    return testHelper.afterReactHasUpdated().then(() => {
+        expect(crudInterface.toJSON()).toMatchSnapshot();
+    });
 });
 
 it('throws a descriptive error if selectedEndpoint prop is missing', () => {

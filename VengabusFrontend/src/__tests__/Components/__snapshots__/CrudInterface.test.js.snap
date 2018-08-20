@@ -1,19 +1,2129 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders with the correct for queue with given props 1`] = `
-<p>
-  Fetching data
-</p>
+.emotion-2 {
+  text-align: left;
+  padding-left: 15px;
+}
+
+.emotion-3 {
+  padding-top: 10px;
+  font-weight: bold;
+  font-size: 1.6em;
+}
+
+.emotion-11 {
+  width: 98%;
+  padding-left: 20px;
+}
+
+.emotion-7 {
+  text-align: left;
+}
+
+.emotion-1 {
+  color: black;
+  background-color: black;
+  height: 1px;
+  width: 98%;
+}
+
+.emotion-0 {
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.emotion-69 {
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.emotion-5 {
+  min-height: 92px;
+  height: 92px;
+}
+
+.emotion-10 table.table :not(thead) tr:hover {
+  border: 1px solid #99ccff;
+  background-color: #ecf2ff;
+}
+
+.emotion-19 {
+  padding-left: 5px;
+}
+
+.emotion-29 {
+  width: 14%;
+  float: left;
+  padding-left: 5px;
+}
+
+.emotion-38 {
+  padding-left: 10px;
+}
+
+.emotion-28 {
+  font-weight: normal;
+}
+
+.emotion-67 {
+  width: 20%;
+}
+
+.emotion-65 {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.emotion-64 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: hsl(0,0%,98%);
+  border-color: hsl(0,0%,80%);
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  cursor: default;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  min-height: 38px;
+  outline: 0 !important;
+  position: relative;
+  -webkit-transition: all 100ms;
+  transition: all 100ms;
+  box-sizing: border-box;
+}
+
+.emotion-64:hover {
+  border-color: hsl(0,0%,70%);
+}
+
+.emotion-59 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 2px 8px;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.emotion-57 {
+  color: #222;
+  margin-left: 2px;
+  margin-right: 2px;
+  max-width: calc(100% - 8px);
+  overflow: hidden;
+  position: absolute;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  box-sizing: border-box;
+}
+
+.emotion-58 {
+  margin: 2px;
+  padding-bottom: 2px;
+  padding-top: 2px;
+  visibility: visible;
+  color: #222;
+  box-sizing: border-box;
+}
+
+.emotion-63 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.emotion-60 {
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  background-color: hsl(0,0%,80%);
+  margin-bottom: 8px;
+  margin-top: 8px;
+  width: 1px;
+  box-sizing: border-box;
+}
+
+.emotion-62 {
+  color: hsl(0,0%,80%);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 8px;
+  -webkit-transition: color 150ms;
+  transition: color 150ms;
+  box-sizing: border-box;
+}
+
+.emotion-62:hover {
+  color: hsl(0,0%,60%);
+}
+
+.emotion-61 {
+  display: inline-block;
+  fill: currentColor;
+  line-height: 1;
+  stroke: currentColor;
+  stroke-width: 0;
+}
+
+<div>
+  <br />
+  <div>
+    <p
+      className="emotion-0"
+    >
+      Editing queue: test  
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Rename
+      </button>
+    </p>
+    <hr
+      className="emotion-1"
+    />
+  </div>
+  <p
+    className="emotion-2 emotion-3"
+  >
+    Read-Only Properties
+  </p>
+  <div>
+    <hr
+      className="emotion-1"
+    />
+    <div
+      className="emotion-11"
+    >
+      <div
+        className="react-bootstrap-table emotion-10"
+      >
+        <table
+          className="table table-striped table-hover"
+          id={undefined}
+        >
+          <thead>
+            <tr
+              className={undefined}
+            >
+              <th
+                className="emotion-5"
+                style={
+                  Object {
+                    "textAlign": "left",
+                  }
+                }
+              >
+                Property Name
+              </th>
+              <th
+                className="emotion-5"
+                style={
+                  Object {
+                    "textAlign": "left",
+                  }
+                }
+              >
+                Value
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              className="emotion-7"
+              style={Object {}}
+            >
+              <td>
+                Active Message Count
+              </td>
+              <td
+                onClick={[Function]}
+              >
+                4
+              </td>
+            </tr>
+            <tr
+              className="emotion-7"
+              style={Object {}}
+            >
+              <td>
+                Dead Letter Message Count
+              </td>
+              <td
+                onClick={[Function]}
+              >
+                0
+              </td>
+            </tr>
+            <tr
+              className="emotion-7"
+              style={Object {}}
+            >
+              <td>
+                Most Recent Dead Letter
+              </td>
+              <td
+                onClick={[Function]}
+              />
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <hr
+      className="emotion-1"
+    />
+  </div>
+  <p
+    className="emotion-2 emotion-3"
+  >
+    Editable Properties
+  </p>
+  <hr
+    className="emotion-1"
+  />
+  <div>
+    <p
+      className="emotion-2"
+    >
+      SupportOrdering
+    </p>
+    <div
+      className="emotion-2 checkbox"
+      style={undefined}
+    >
+      <label
+        title=""
+      >
+        <input
+          checked={false}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </label>
+    </div>
+  </div>
+  <hr
+    className="emotion-1"
+  />
+  <div>
+    <p
+      className="emotion-2"
+    >
+      RequiresSession
+      <span
+        className="emotion-19 glyphicon glyphicon-info-sign"
+        onBlur={[Function]}
+        onClick={null}
+        onFocus={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+      />
+    </p>
+    <div
+      className="emotion-2 checkbox"
+      style={undefined}
+    >
+      <label
+        title=""
+      >
+        <input
+          checked={false}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </label>
+    </div>
+  </div>
+  <hr
+    className="emotion-1"
+  />
+  <div>
+    <p
+      className="emotion-2"
+    >
+      EnablePartitioning
+    </p>
+    <div
+      className="emotion-2 checkbox"
+      style={undefined}
+    >
+      <label
+        title=""
+      >
+        <input
+          checked={true}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </label>
+    </div>
+  </div>
+  <hr
+    className="emotion-1"
+  />
+  <div>
+    <p
+      className="emotion-2"
+    >
+      AutoDeleteOnIdle
+      <span
+        className="emotion-19 glyphicon glyphicon-info-sign"
+        onBlur={[Function]}
+        onClick={null}
+        onFocus={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+      />
+    </p>
+    <form
+      className="emotion-38"
+    >
+      <div
+        className="emotion-29 form-group"
+      >
+        <label
+          className="emotion-28 control-label"
+          htmlFor={undefined}
+        >
+          Days
+        </label>
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          placeholder="Enter Days"
+          type="number"
+          value={110}
+        />
+      </div>
+      <div
+        className="emotion-29 form-group"
+      >
+        <label
+          className="emotion-28 control-label"
+          htmlFor={undefined}
+        >
+          Hours
+        </label>
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          placeholder="Enter Hours"
+          type="number"
+          value={2}
+        />
+      </div>
+      <div
+        className="emotion-29 form-group"
+      >
+        <label
+          className="emotion-28 control-label"
+          htmlFor={undefined}
+        >
+          Minutes
+        </label>
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          placeholder="Enter Minutes"
+          type="number"
+          value={48}
+        />
+      </div>
+      <div
+        className="emotion-29 form-group"
+      >
+        <label
+          className="emotion-28 control-label"
+          htmlFor={undefined}
+        >
+          Seconds
+        </label>
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          placeholder="Enter Seconds"
+          type="number"
+          value={5}
+        />
+      </div>
+      <div
+        className="emotion-29 form-group"
+      >
+        <label
+          className="emotion-28 control-label"
+          htmlFor={undefined}
+        >
+          Milliseconds
+        </label>
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          placeholder="Enter Milliseconds"
+          type="number"
+          value={478}
+        />
+      </div>
+    </form>
+  </div>
+  <hr
+    className="emotion-1"
+  />
+  <div>
+    <p
+      className="emotion-2"
+    >
+      EnableDeadLetteringOnMessageExpiration
+      <span
+        className="emotion-19 glyphicon glyphicon-info-sign"
+        onBlur={[Function]}
+        onClick={null}
+        onFocus={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+      />
+    </p>
+    <div
+      className="emotion-2 checkbox"
+      style={undefined}
+    >
+      <label
+        title=""
+      >
+        <input
+          checked={false}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </label>
+    </div>
+  </div>
+  <hr
+    className="emotion-1"
+  />
+  <div>
+    <p
+      className="emotion-2"
+    >
+      RequiresDuplicateDetection
+    </p>
+    <div
+      className="emotion-2 checkbox"
+      style={undefined}
+    >
+      <label
+        title=""
+      >
+        <input
+          checked={false}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </label>
+    </div>
+  </div>
+  <hr
+    className="emotion-1"
+  />
+  <div>
+    <p
+      className="emotion-2"
+    >
+      MaxDeliveryCount
+      <span
+        className="emotion-19 glyphicon glyphicon-info-sign"
+        onBlur={[Function]}
+        onClick={null}
+        onFocus={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+      />
+    </p>
+    <form
+      className="emotion-38"
+    >
+      <div
+        className="emotion-29 form-group"
+      >
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          placeholder="Enter Number"
+          type="number"
+          value={10}
+        />
+      </div>
+    </form>
+  </div>
+  <hr
+    className="emotion-1"
+  />
+  <div>
+    <p
+      className="emotion-2"
+    >
+      MaxSizeInMegabytes
+    </p>
+    <form
+      className="emotion-38"
+    >
+      <div
+        className="emotion-29 form-group"
+      >
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          placeholder="Enter Number"
+          type="number"
+          value={16384}
+        />
+      </div>
+    </form>
+  </div>
+  <hr
+    className="emotion-1"
+  />
+  <div>
+    <p
+      className="emotion-2"
+    >
+      Status
+    </p>
+    <div
+      className="emotion-65 emotion-2 emotion-67"
+      id={undefined}
+      onKeyDown={[Function]}
+    >
+      <div
+        className="emotion-64"
+        onMouseDown={[Function]}
+        onTouchEnd={[Function]}
+      >
+        <div
+          className="emotion-59"
+        >
+          <div
+            className="emotion-57"
+          >
+            Active
+          </div>
+          <div
+            className="emotion-58"
+          >
+            <div
+              className=""
+              style={
+                Object {
+                  "display": "inline-block",
+                }
+              }
+            >
+              <input
+                aria-autocomplete="list"
+                aria-label={undefined}
+                aria-labelledby={undefined}
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
+                className={undefined}
+                disabled={false}
+                id="react-select-2-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                spellCheck="false"
+                style={
+                  Object {
+                    "background": 0,
+                    "border": 0,
+                    "boxSizing": "content-box",
+                    "color": "inherit",
+                    "fontSize": "inherit",
+                    "opacity": 1,
+                    "outline": 0,
+                    "padding": 0,
+                    "width": "1px",
+                  }
+                }
+                tabIndex="0"
+                type="text"
+                value=""
+              />
+              <div
+                style={
+                  Object {
+                    "height": 0,
+                    "left": 0,
+                    "overflow": "scroll",
+                    "position": "absolute",
+                    "top": 0,
+                    "visibility": "hidden",
+                    "whiteSpace": "pre",
+                  }
+                }
+              >
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="emotion-63"
+        >
+          <span
+            className="emotion-60"
+          />
+          <div
+            aria-hidden="true"
+            className="emotion-62"
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+          >
+            <svg
+              aria-hidden="true"
+              className="emotion-61"
+              focusable="false"
+              height={20}
+              viewBox="0 0 20 20"
+              width={20}
+            >
+              <path
+                d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr
+    className="emotion-1"
+  />
+  <form
+    className="emotion-69"
+  >
+    <button
+      className="btn btn-default"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      Update
+    </button>
+    <button
+      className="btn btn-danger"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      Reset Fields
+    </button>
+  </form>
+</div>
 `;
 
 exports[`renders with the correct for subscription with given props 1`] = `
-<p>
-  Fetching data
-</p>
+.emotion-2 {
+  text-align: left;
+  padding-left: 15px;
+}
+
+.emotion-3 {
+  padding-top: 10px;
+  font-weight: bold;
+  font-size: 1.6em;
+}
+
+.emotion-12 {
+  width: 98%;
+  padding-left: 20px;
+}
+
+.emotion-7 {
+  text-align: left;
+}
+
+.emotion-1 {
+  color: black;
+  background-color: black;
+  height: 1px;
+  width: 98%;
+}
+
+.emotion-0 {
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.emotion-57 {
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.emotion-5 {
+  min-height: 92px;
+  height: 92px;
+}
+
+.emotion-11 table.table :not(thead) tr:hover {
+  border: 1px solid #99ccff;
+  background-color: #ecf2ff;
+}
+
+.emotion-17 {
+  padding-left: 5px;
+}
+
+.emotion-24 {
+  width: 14%;
+  float: left;
+  padding-left: 5px;
+}
+
+.emotion-33 {
+  padding-left: 10px;
+}
+
+.emotion-23 {
+  font-weight: normal;
+}
+
+.emotion-55 {
+  width: 20%;
+}
+
+.emotion-53 {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.emotion-52 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: hsl(0,0%,98%);
+  border-color: hsl(0,0%,80%);
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  cursor: default;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  min-height: 38px;
+  outline: 0 !important;
+  position: relative;
+  -webkit-transition: all 100ms;
+  transition: all 100ms;
+  box-sizing: border-box;
+}
+
+.emotion-52:hover {
+  border-color: hsl(0,0%,70%);
+}
+
+.emotion-47 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 2px 8px;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.emotion-45 {
+  color: #222;
+  margin-left: 2px;
+  margin-right: 2px;
+  max-width: calc(100% - 8px);
+  overflow: hidden;
+  position: absolute;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  box-sizing: border-box;
+}
+
+.emotion-46 {
+  margin: 2px;
+  padding-bottom: 2px;
+  padding-top: 2px;
+  visibility: visible;
+  color: #222;
+  box-sizing: border-box;
+}
+
+.emotion-51 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.emotion-48 {
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  background-color: hsl(0,0%,80%);
+  margin-bottom: 8px;
+  margin-top: 8px;
+  width: 1px;
+  box-sizing: border-box;
+}
+
+.emotion-50 {
+  color: hsl(0,0%,80%);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 8px;
+  -webkit-transition: color 150ms;
+  transition: color 150ms;
+  box-sizing: border-box;
+}
+
+.emotion-50:hover {
+  color: hsl(0,0%,60%);
+}
+
+.emotion-49 {
+  display: inline-block;
+  fill: currentColor;
+  line-height: 1;
+  stroke: currentColor;
+  stroke-width: 0;
+}
+
+<div>
+  <br />
+  <div>
+    <p
+      className="emotion-0"
+    >
+      Editing subscription: test  
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Rename
+      </button>
+    </p>
+    <hr
+      className="emotion-1"
+    />
+  </div>
+  <p
+    className="emotion-2 emotion-3"
+  >
+    Read-Only Properties
+  </p>
+  <div>
+    <hr
+      className="emotion-1"
+    />
+    <div
+      className="emotion-12"
+    >
+      <div
+        className="react-bootstrap-table emotion-11"
+      >
+        <table
+          className="table table-striped table-hover"
+          id={undefined}
+        >
+          <thead>
+            <tr
+              className={undefined}
+            >
+              <th
+                className="emotion-5"
+                style={
+                  Object {
+                    "textAlign": "left",
+                  }
+                }
+              >
+                Property Name
+              </th>
+              <th
+                className="emotion-5"
+                style={
+                  Object {
+                    "textAlign": "left",
+                  }
+                }
+              >
+                Value
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              className="emotion-7"
+              style={Object {}}
+            >
+              <td>
+                Parent Topic
+              </td>
+              <td
+                onClick={[Function]}
+              />
+            </tr>
+            <tr
+              className="emotion-7"
+              style={Object {}}
+            >
+              <td>
+                Active Message Count
+              </td>
+              <td
+                onClick={[Function]}
+              >
+                4
+              </td>
+            </tr>
+            <tr
+              className="emotion-7"
+              style={Object {}}
+            >
+              <td>
+                Dead Letter Message Count
+              </td>
+              <td
+                onClick={[Function]}
+              >
+                5
+              </td>
+            </tr>
+            <tr
+              className="emotion-7"
+              style={Object {}}
+            >
+              <td>
+                Most Recent Dead Letter
+              </td>
+              <td
+                onClick={[Function]}
+              >
+                27-07-2018 12:03:57
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <hr
+      className="emotion-1"
+    />
+  </div>
+  <p
+    className="emotion-2 emotion-3"
+  >
+    Editable Properties
+  </p>
+  <hr
+    className="emotion-1"
+  />
+  <div>
+    <p
+      className="emotion-2"
+    >
+      RequiresSession
+      <span
+        className="emotion-17 glyphicon glyphicon-info-sign"
+        onBlur={[Function]}
+        onClick={null}
+        onFocus={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+      />
+    </p>
+    <div
+      className="emotion-2 checkbox"
+      style={undefined}
+    >
+      <label
+        title=""
+      >
+        <input
+          checked={false}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </label>
+    </div>
+  </div>
+  <hr
+    className="emotion-1"
+  />
+  <div>
+    <p
+      className="emotion-2"
+    >
+      AutoDeleteOnIdle
+      <span
+        className="emotion-17 glyphicon glyphicon-info-sign"
+        onBlur={[Function]}
+        onClick={null}
+        onFocus={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+      />
+    </p>
+    <form
+      className="emotion-33"
+    >
+      <div
+        className="emotion-24 form-group"
+      >
+        <label
+          className="emotion-23 control-label"
+          htmlFor={undefined}
+        >
+          Days
+        </label>
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          placeholder="Enter Days"
+          type="number"
+          value={110}
+        />
+      </div>
+      <div
+        className="emotion-24 form-group"
+      >
+        <label
+          className="emotion-23 control-label"
+          htmlFor={undefined}
+        >
+          Hours
+        </label>
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          placeholder="Enter Hours"
+          type="number"
+          value={2}
+        />
+      </div>
+      <div
+        className="emotion-24 form-group"
+      >
+        <label
+          className="emotion-23 control-label"
+          htmlFor={undefined}
+        >
+          Minutes
+        </label>
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          placeholder="Enter Minutes"
+          type="number"
+          value={48}
+        />
+      </div>
+      <div
+        className="emotion-24 form-group"
+      >
+        <label
+          className="emotion-23 control-label"
+          htmlFor={undefined}
+        >
+          Seconds
+        </label>
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          placeholder="Enter Seconds"
+          type="number"
+          value={5}
+        />
+      </div>
+      <div
+        className="emotion-24 form-group"
+      >
+        <label
+          className="emotion-23 control-label"
+          htmlFor={undefined}
+        >
+          Milliseconds
+        </label>
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          placeholder="Enter Milliseconds"
+          type="number"
+          value={478}
+        />
+      </div>
+    </form>
+  </div>
+  <hr
+    className="emotion-1"
+  />
+  <div>
+    <p
+      className="emotion-2"
+    >
+      EnableDeadLetteringOnMessageExpiration
+      <span
+        className="emotion-17 glyphicon glyphicon-info-sign"
+        onBlur={[Function]}
+        onClick={null}
+        onFocus={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+      />
+    </p>
+    <div
+      className="emotion-2 checkbox"
+      style={undefined}
+    >
+      <label
+        title=""
+      >
+        <input
+          checked={false}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </label>
+    </div>
+  </div>
+  <hr
+    className="emotion-1"
+  />
+  <div>
+    <p
+      className="emotion-2"
+    >
+      MaxDeliveryCount
+      <span
+        className="emotion-17 glyphicon glyphicon-info-sign"
+        onBlur={[Function]}
+        onClick={null}
+        onFocus={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+      />
+    </p>
+    <form
+      className="emotion-33"
+    >
+      <div
+        className="emotion-24 form-group"
+      >
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          placeholder="Enter Number"
+          type="number"
+          value={10}
+        />
+      </div>
+    </form>
+  </div>
+  <hr
+    className="emotion-1"
+  />
+  <div>
+    <p
+      className="emotion-2"
+    >
+      SubscriptionStatus
+    </p>
+    <div
+      className="emotion-53 emotion-2 emotion-55"
+      id={undefined}
+      onKeyDown={[Function]}
+    >
+      <div
+        className="emotion-52"
+        onMouseDown={[Function]}
+        onTouchEnd={[Function]}
+      >
+        <div
+          className="emotion-47"
+        >
+          <div
+            className="emotion-45"
+          >
+            Active
+          </div>
+          <div
+            className="emotion-46"
+          >
+            <div
+              className=""
+              style={
+                Object {
+                  "display": "inline-block",
+                }
+              }
+            >
+              <input
+                aria-autocomplete="list"
+                aria-label={undefined}
+                aria-labelledby={undefined}
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
+                className={undefined}
+                disabled={false}
+                id="react-select-4-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                spellCheck="false"
+                style={
+                  Object {
+                    "background": 0,
+                    "border": 0,
+                    "boxSizing": "content-box",
+                    "color": "inherit",
+                    "fontSize": "inherit",
+                    "opacity": 1,
+                    "outline": 0,
+                    "padding": 0,
+                    "width": "1px",
+                  }
+                }
+                tabIndex="0"
+                type="text"
+                value=""
+              />
+              <div
+                style={
+                  Object {
+                    "height": 0,
+                    "left": 0,
+                    "overflow": "scroll",
+                    "position": "absolute",
+                    "top": 0,
+                    "visibility": "hidden",
+                    "whiteSpace": "pre",
+                  }
+                }
+              >
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="emotion-51"
+        >
+          <span
+            className="emotion-48"
+          />
+          <div
+            aria-hidden="true"
+            className="emotion-50"
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+          >
+            <svg
+              aria-hidden="true"
+              className="emotion-49"
+              focusable="false"
+              height={20}
+              viewBox="0 0 20 20"
+              width={20}
+            >
+              <path
+                d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr
+    className="emotion-1"
+  />
+  <form
+    className="emotion-57"
+  >
+    <button
+      className="btn btn-default"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      Update
+    </button>
+    <button
+      className="btn btn-danger"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      Reset Fields
+    </button>
+  </form>
+</div>
 `;
 
 exports[`renders with the correct for topic with given props 1`] = `
-<p>
-  Fetching data
-</p>
+.emotion-2 {
+  text-align: left;
+  padding-left: 15px;
+}
+
+.emotion-3 {
+  padding-top: 10px;
+  font-weight: bold;
+  font-size: 1.6em;
+}
+
+.emotion-9 {
+  width: 98%;
+  padding-left: 20px;
+}
+
+.emotion-7 {
+  text-align: left;
+}
+
+.emotion-1 {
+  color: black;
+  background-color: black;
+  height: 1px;
+  width: 98%;
+}
+
+.emotion-0 {
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.emotion-54 {
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.emotion-5 {
+  min-height: 92px;
+  height: 92px;
+}
+
+.emotion-8 table.table :not(thead) tr:hover {
+  border: 1px solid #99ccff;
+  background-color: #ecf2ff;
+}
+
+.emotion-20 {
+  padding-left: 5px;
+}
+
+.emotion-23 {
+  width: 14%;
+  float: left;
+  padding-left: 5px;
+}
+
+.emotion-32 {
+  padding-left: 10px;
+}
+
+.emotion-22 {
+  font-weight: normal;
+}
+
+.emotion-52 {
+  width: 20%;
+}
+
+.emotion-50 {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.emotion-49 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: hsl(0,0%,98%);
+  border-color: hsl(0,0%,80%);
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  cursor: default;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  min-height: 38px;
+  outline: 0 !important;
+  position: relative;
+  -webkit-transition: all 100ms;
+  transition: all 100ms;
+  box-sizing: border-box;
+}
+
+.emotion-49:hover {
+  border-color: hsl(0,0%,70%);
+}
+
+.emotion-44 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 2px 8px;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.emotion-42 {
+  color: #222;
+  margin-left: 2px;
+  margin-right: 2px;
+  max-width: calc(100% - 8px);
+  overflow: hidden;
+  position: absolute;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  box-sizing: border-box;
+}
+
+.emotion-43 {
+  margin: 2px;
+  padding-bottom: 2px;
+  padding-top: 2px;
+  visibility: visible;
+  color: #222;
+  box-sizing: border-box;
+}
+
+.emotion-48 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.emotion-45 {
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  background-color: hsl(0,0%,80%);
+  margin-bottom: 8px;
+  margin-top: 8px;
+  width: 1px;
+  box-sizing: border-box;
+}
+
+.emotion-47 {
+  color: hsl(0,0%,80%);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 8px;
+  -webkit-transition: color 150ms;
+  transition: color 150ms;
+  box-sizing: border-box;
+}
+
+.emotion-47:hover {
+  color: hsl(0,0%,60%);
+}
+
+.emotion-46 {
+  display: inline-block;
+  fill: currentColor;
+  line-height: 1;
+  stroke: currentColor;
+  stroke-width: 0;
+}
+
+<div>
+  <br />
+  <div>
+    <p
+      className="emotion-0"
+    >
+      Editing topic: test  
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Rename
+      </button>
+    </p>
+    <hr
+      className="emotion-1"
+    />
+  </div>
+  <p
+    className="emotion-2 emotion-3"
+  >
+    Read-Only Properties
+  </p>
+  <div>
+    <hr
+      className="emotion-1"
+    />
+    <div
+      className="emotion-9"
+    >
+      <div
+        className="react-bootstrap-table emotion-8"
+      >
+        <table
+          className="table table-striped table-hover"
+          id={undefined}
+        >
+          <thead>
+            <tr
+              className={undefined}
+            >
+              <th
+                className="emotion-5"
+                style={
+                  Object {
+                    "textAlign": "left",
+                  }
+                }
+              >
+                Property Name
+              </th>
+              <th
+                className="emotion-5"
+                style={
+                  Object {
+                    "textAlign": "left",
+                  }
+                }
+              >
+                Value
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              className="emotion-7"
+              style={Object {}}
+            >
+              <td>
+                Subscription Count
+              </td>
+              <td
+                onClick={[Function]}
+              >
+                3
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <hr
+      className="emotion-1"
+    />
+  </div>
+  <p
+    className="emotion-2 emotion-3"
+  >
+    Editable Properties
+  </p>
+  <hr
+    className="emotion-1"
+  />
+  <div>
+    <p
+      className="emotion-2"
+    >
+      SupportOrdering
+    </p>
+    <div
+      className="emotion-2 checkbox"
+      style={undefined}
+    >
+      <label
+        title=""
+      >
+        <input
+          checked={false}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </label>
+    </div>
+  </div>
+  <hr
+    className="emotion-1"
+  />
+  <div>
+    <p
+      className="emotion-2"
+    >
+      EnablePartitioning
+    </p>
+    <div
+      className="emotion-2 checkbox"
+      style={undefined}
+    >
+      <label
+        title=""
+      >
+        <input
+          checked={true}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </label>
+    </div>
+  </div>
+  <hr
+    className="emotion-1"
+  />
+  <div>
+    <p
+      className="emotion-2"
+    >
+      AutoDeleteOnIdle
+      <span
+        className="emotion-20 glyphicon glyphicon-info-sign"
+        onBlur={[Function]}
+        onClick={null}
+        onFocus={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+      />
+    </p>
+    <form
+      className="emotion-32"
+    >
+      <div
+        className="emotion-23 form-group"
+      >
+        <label
+          className="emotion-22 control-label"
+          htmlFor={undefined}
+        >
+          Days
+        </label>
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          placeholder="Enter Days"
+          type="number"
+          value={110}
+        />
+      </div>
+      <div
+        className="emotion-23 form-group"
+      >
+        <label
+          className="emotion-22 control-label"
+          htmlFor={undefined}
+        >
+          Hours
+        </label>
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          placeholder="Enter Hours"
+          type="number"
+          value={2}
+        />
+      </div>
+      <div
+        className="emotion-23 form-group"
+      >
+        <label
+          className="emotion-22 control-label"
+          htmlFor={undefined}
+        >
+          Minutes
+        </label>
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          placeholder="Enter Minutes"
+          type="number"
+          value={48}
+        />
+      </div>
+      <div
+        className="emotion-23 form-group"
+      >
+        <label
+          className="emotion-22 control-label"
+          htmlFor={undefined}
+        >
+          Seconds
+        </label>
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          placeholder="Enter Seconds"
+          type="number"
+          value={5}
+        />
+      </div>
+      <div
+        className="emotion-23 form-group"
+      >
+        <label
+          className="emotion-22 control-label"
+          htmlFor={undefined}
+        >
+          Milliseconds
+        </label>
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          placeholder="Enter Milliseconds"
+          type="number"
+          value={478}
+        />
+      </div>
+    </form>
+  </div>
+  <hr
+    className="emotion-1"
+  />
+  <div>
+    <p
+      className="emotion-2"
+    >
+      RequiresDuplicateDetection
+    </p>
+    <div
+      className="emotion-2 checkbox"
+      style={undefined}
+    >
+      <label
+        title=""
+      >
+        <input
+          checked={false}
+          disabled={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </label>
+    </div>
+  </div>
+  <hr
+    className="emotion-1"
+  />
+  <div>
+    <p
+      className="emotion-2"
+    >
+      MaxSizeInMegabytes
+    </p>
+    <form
+      className="emotion-32"
+    >
+      <div
+        className="emotion-23 form-group"
+      >
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          placeholder="Enter Number"
+          type="number"
+          value={16384}
+        />
+      </div>
+    </form>
+  </div>
+  <hr
+    className="emotion-1"
+  />
+  <div>
+    <p
+      className="emotion-2"
+    >
+      TopicStatus
+    </p>
+    <div
+      className="emotion-50 emotion-2 emotion-52"
+      id={undefined}
+      onKeyDown={[Function]}
+    >
+      <div
+        className="emotion-49"
+        onMouseDown={[Function]}
+        onTouchEnd={[Function]}
+      >
+        <div
+          className="emotion-44"
+        >
+          <div
+            className="emotion-42"
+          >
+            Active
+          </div>
+          <div
+            className="emotion-43"
+          >
+            <div
+              className=""
+              style={
+                Object {
+                  "display": "inline-block",
+                }
+              }
+            >
+              <input
+                aria-autocomplete="list"
+                aria-label={undefined}
+                aria-labelledby={undefined}
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
+                className={undefined}
+                disabled={false}
+                id="react-select-3-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                spellCheck="false"
+                style={
+                  Object {
+                    "background": 0,
+                    "border": 0,
+                    "boxSizing": "content-box",
+                    "color": "inherit",
+                    "fontSize": "inherit",
+                    "opacity": 1,
+                    "outline": 0,
+                    "padding": 0,
+                    "width": "1px",
+                  }
+                }
+                tabIndex="0"
+                type="text"
+                value=""
+              />
+              <div
+                style={
+                  Object {
+                    "height": 0,
+                    "left": 0,
+                    "overflow": "scroll",
+                    "position": "absolute",
+                    "top": 0,
+                    "visibility": "hidden",
+                    "whiteSpace": "pre",
+                  }
+                }
+              >
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="emotion-48"
+        >
+          <span
+            className="emotion-45"
+          />
+          <div
+            aria-hidden="true"
+            className="emotion-47"
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+          >
+            <svg
+              aria-hidden="true"
+              className="emotion-46"
+              focusable="false"
+              height={20}
+              viewBox="0 0 20 20"
+              width={20}
+            >
+              <path
+                d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr
+    className="emotion-1"
+  />
+  <form
+    className="emotion-54"
+  >
+    <button
+      className="btn btn-default"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      Update
+    </button>
+    <button
+      className="btn btn-danger"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      Reset Fields
+    </button>
+  </form>
+</div>
 `;
