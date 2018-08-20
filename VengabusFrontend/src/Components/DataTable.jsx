@@ -38,6 +38,7 @@ Props:
                         ....
                     }
                 }
+    dataLoading (OPTIONAL) {boolean} If true and the dataToDisplay is null, shows spinner
     onRowClick: (OPTIONAL) {function} Called when a row is clicked. Arguments are the same as above.
                 Note that this is merely a more convenience wrapper for a common usages of rowEvents. It must not be defined in both.
     selectRow: (OPTIONAL) {object} Defines settings relating to selecting a row by clicking on it.
