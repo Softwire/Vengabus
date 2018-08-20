@@ -37,4 +37,4 @@ export class MessageDestinationForm extends Component {
         );
     }
 
-};
+}

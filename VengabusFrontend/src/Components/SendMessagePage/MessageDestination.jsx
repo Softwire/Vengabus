@@ -76,4 +76,4 @@ export class MessageDestination extends Component {
         );
     }
 
-};
+}
