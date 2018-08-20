@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders with the correct for queue with given props 1`] = `
+<p>
+  Fetching data
+</p>
+`;
+
+exports[`renders with the correct for subscription with given props 1`] = `
+<p>
+  Fetching data
+</p>
+`;
+
+exports[`renders with the correct for topic with given props 1`] = `
+<p>
+  Fetching data
+</p>
+`;
