@@ -76,37 +76,6 @@ export class CrudInterface extends Component {
         `;
     }
 
-    getStyles = () => {
-        const leftAlign = css`
-            text-align: left;
-            padding-left: 15px;
-        `;
-        const hrStlye = this.getHrStyle();
-        const headerStyle = css`
-            padding-top: 10px;
-            font-weight: bold;
-            font-size: 1.6em;
-        `;
-        const tableStyle = css`
-            width: 98%;
-            padding-left: 20px;
-        `;
-        const rowStyle = css`
-            text-align: left;
-        `;
-        const buttonFormStyle = css`
-            text-align: center;
-            padding-bottom: 15px;
-        `;
-        const titleStyle = css`
-            font-size: 2em;
-            font-weight: bold;
-            text-align: center;
-        `;
-
-        return [titleStyle, leftAlign, hrStlye, headerStyle, tableStyle, rowStyle, buttonFormStyle];
-    }
-
     /**
      * @returns {Object <string, node>} Maps from property name to Tooltip component to be displayed on info hover over.
      */
@@ -149,20 +118,49 @@ export class CrudInterface extends Component {
     }
 
     /**
-     * @returns {string[]} Property names for editable properties.
-     * @returns {object} Display name and display value pairs for read-only properties.
+     * @returns {node[]} Input components for editable properties.
+     * @returns {node} Data table for read-only properties.
      */
-    getEditableAndReadOnlyProperties = () => {
+    getEditableAndReadOnlyPropertyComponents = () => {
+        let readOnlyProperties, editableProperties;
         switch (this.state.endpointType) {
             case EndpointTypes.QUEUE:
-                return this.getEditableAndReadOnlyPropertiesForQueue();
+                [editableProperties, readOnlyProperties] = this.getEditableAndReadOnlyPropertiesForQueue();
+                break;
             case EndpointTypes.TOPIC:
-                return this.getEditableAndReadOnlyPropertiesForTopic();
+                [editableProperties, readOnlyProperties] = this.getEditableAndReadOnlyPropertiesForTopic();
+                break;
             case EndpointTypes.SUBSCRIPTION:
-                return this.getEditableAndReadOnlyPropertiesForSubscription();
+                [editableProperties, readOnlyProperties] = this.getEditableAndReadOnlyPropertiesForSubscription();
+                break;
             default:
                 this.throwUnexpectedEndpointTypeError();
         }
+        const tableStyle = css`
+            width: 98%;
+            padding-left: 20px;
+        `;
+        const rowStyle = css`
+            text-align: left;
+        `;
+        const colProps = [{ dataField: 'name', text: 'Property Name', headerStyle: { textAlign: 'left' } }, { dataField: 'value', headerStyle: { textAlign: 'left' } }];
+        const editablePropertyInputs = this.getEditablePropertyInputs(editableProperties);
+        const readOnlyPropertyTable =
+            <div>
+                <hr className={this.getHrStyle()} />
+                <div className={tableStyle} >
+                    <DataTable
+                        dataToDisplay={readOnlyProperties}
+                        uniqueKeyColumn='name'
+                        colProps={colProps}
+                        rowClasses={rowStyle}
+                        bordered={false}
+                        hover
+                    />
+                </div>
+                <hr className={this.getHrStyle()} />
+            </div>;
+        return [editablePropertyInputs, readOnlyPropertyTable];
     }
 
     /**
@@ -285,7 +283,96 @@ export class CrudInterface extends Component {
         });
     }
 
-    //Does not support arrays as properties
+    /**
+     * @returns {node} Title component.
+     */
+    getTitle = () => {
+        const titleText = `Editing ${this.state.endpointType}: ${this.state.selectedEndpoint}`;
+        const titleStyle = css`
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+        `;
+        return (
+            <div>
+                <p className={titleStyle}>
+                    {titleText + '  '}
+                    <ButtonWithConfirmationModal
+                        id="renameButton"
+                        buttonText={"Rename"}
+                        buttonStyle="primary"
+                        modalTitle={"Rename " + this.state.selectedEndpoint}
+                        modalBody={
+                            <React.Fragment>
+                                <p>New Name</p>
+                                <FormGroup>
+                                    <FormControl
+                                        type="string"
+                                        placeholder="Enter New Name"
+                                        onChange={(event) => this.newName = event.target.value}
+                                    />
+                                </FormGroup>
+                            </React.Fragment>
+                        }
+                        confirmButtonText={"Rename"}
+                        confirmAction={this.renameEndpoint}
+                    />
+                </p>
+                <hr className={this.getHrStyle()} />
+            </div>
+        );
+    }
+
+    /**
+     * @returns {node} Buttons at the bottom of the page.
+     */
+    getFormButtons = () => {
+        const buttonFormStyle = css`
+            text-align: center;
+            padding-bottom: 15px;
+        `;
+
+        return (
+            <form className={buttonFormStyle}>
+                <ButtonWithConfirmationModal
+                    id="submitButton"
+                    buttonText={"Update"}
+                    buttonStyle="default"
+                    buttonDisabled={this.checkObjectEquality(this.state.endpointData, this.state.newEndpointData)}
+                    modalTitle={"Update Queue"}
+                    modalBody={
+                        <React.Fragment>
+                            <p>{"Following queue will be updated: " + this.state.selectedEndpoint}</p>
+                            <p>{"Confirm action?"}</p>
+                        </React.Fragment>
+                    }
+                    confirmButtonText={"Update"}
+                    confirmAction={this.updateEndpoint}
+                />
+                <ButtonWithConfirmationModal
+                    id="resetButton"
+                    buttonText={"Reset Fields"}
+                    buttonDisabled={this.checkObjectEquality(this.state.endpointData, this.state.newEndpointData)}
+                    modalTitle={"Reset all fields"}
+                    modalBody={
+                        <React.Fragment>
+                            <p>Are you sure you want to reset ALL fields of the current queue?</p>
+                            <p>Note: if you are updating an existing queue, resetting the fields here will have NO effect on the orignal queue.</p>
+                        </React.Fragment>
+                    }
+                    confirmButtonText={"Reset"}
+                    confirmAction={this.resetFields}
+                />
+            </form>
+        );
+    }
+
+    /**
+     * @param {object} obj1 First object to be compared.
+     * @param {object} obj2 Second object to be compared.
+     * @returns {boolean} True if the objects are identical, false otherwise.
+     * Does not support arrays as properties
+     */
     checkObjectEquality = (obj1, obj2) => {
         const keys1 = Object.keys(obj1);
         const keys2 = Object.keys(obj2);
@@ -351,92 +438,30 @@ export class CrudInterface extends Component {
     }
 
     render() {
-        const colProps = [{ dataField: 'name', text: 'Property Name', headerStyle: { textAlign: 'left' } }, { dataField: 'value', headerStyle: { textAlign: 'left' } }];
-        const [titleStyle, leftAlign, hrStlye, headerStyle, tableStyle, rowStyle, buttonFormStyle] = this.getStyles();
-        const [editableProperties, readOnlyProperties] = this.getEditableAndReadOnlyProperties();
-        const editablePropertyInputs = this.getEditablePropertyInputs(editableProperties);
-        const titleText = `Editing ${this.state.endpointType}: ${this.state.selectedEndpoint}`;
+        const leftAlign = css`
+            text-align: left;
+            padding-left: 15px;
+        `;
+        const headerStyle = css`
+            padding-top: 10px;
+            font-weight: bold;
+            font-size: 1.6em;
+        `;
+        const [editablePropertyInputs, readOnlyPropertyTable] = this.getEditableAndReadOnlyPropertyComponents();
 
         return (
             this.state.receivedData ? (
                 <div>
                     <br />
-                    {/*Title*/}
-                    <p className={titleStyle}>{titleText + '  '}
-                        <ButtonWithConfirmationModal
-                            id="renameButton"
-                            buttonText={"Rename"}
-                            buttonStyle="primary"
-                            modalTitle={"Rename " + this.state.selectedEndpoint}
-                            modalBody={
-                                <React.Fragment>
-                                    <p>New Name</p>
-                                    <FormGroup>
-                                        <FormControl
-                                            type="string"
-                                            placeholder="Enter New Name"
-                                            onChange={(event) => this.newName = event.target.value}
-                                        />
-                                    </FormGroup>
-                                </React.Fragment>
-                            }
-                            confirmButtonText={"Rename"}
-                            confirmAction={this.renameEndpoint}
-                        />
-                    </p>
-                    <hr className={hrStlye} />
+                    {this.getTitle()}
 
-                    {/*Read-only properties*/}
                     <p className={classNames(leftAlign, headerStyle)}>Read-Only Properties</p>
-                    <hr className={hrStlye} />
-                    <div className={tableStyle} >
-                        <DataTable
-                            dataToDisplay={readOnlyProperties}
-                            uniqueKeyColumn='name'
-                            colProps={colProps}
-                            rowClasses={rowStyle}
-                            bordered={false}
-                            hover
-                        />
-                    </div>
-                    <hr className={hrStlye} />
+                    {readOnlyPropertyTable}
 
-                    {/*Editable properties*/}
                     <p className={classNames(leftAlign, headerStyle)}>Editable Properties</p>
                     {editablePropertyInputs}
 
-                    {/*Buttons*/}
-                    <form className={buttonFormStyle}>
-                        <ButtonWithConfirmationModal
-                            id="submitButton"
-                            buttonText={"Update"}
-                            buttonStyle="default"
-                            buttonDisabled={this.checkObjectEquality(this.state.endpointData, this.state.newEndpointData)}
-                            modalTitle={"Update Queue"}
-                            modalBody={
-                                <React.Fragment>
-                                    <p>{"Following queue will be updated: " + this.state.selectedEndpoint}</p>
-                                    <p>{"Confirm action?"}</p>
-                                </React.Fragment>
-                            }
-                            confirmButtonText={"Update"}
-                            confirmAction={this.updateEndpoint}
-                        />
-                        <ButtonWithConfirmationModal
-                            id="resetButton"
-                            buttonText={"Reset Fields"}
-                            buttonDisabled={this.checkObjectEquality(this.state.endpointData, this.state.newEndpointData)}
-                            modalTitle={"Reset all fields"}
-                            modalBody={
-                                <React.Fragment>
-                                    <p>Are you sure you want to reset ALL fields of the current queue?</p>
-                                    <p>Note: if you are updating an existing queue, resetting the fields here will have NO effect on the orignal queue.</p>
-                                </React.Fragment>
-                            }
-                            confirmButtonText={"Reset"}
-                            confirmAction={this.resetFields}
-                        />
-                    </form>
+                    {this.getFormButtons()}
                 </div>
             ) : (
                     <p>Fetching data</p>
