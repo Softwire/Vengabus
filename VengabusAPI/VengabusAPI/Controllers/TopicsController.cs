@@ -52,6 +52,14 @@ namespace VengabusAPI.Controllers
             namespaceManager.RenameTopic(names.oldName, names.newName);
         }
 
+        [HttpPost]
+        [Route("topics/delete/{topicName}")]
+        public void DeleteQueue(string topicName)
+        {
+            NamespaceManager namespaceManager = CreateNamespaceManager();
+            namespaceManager.DeleteTopic(topicName);
+        }
+
         public TopicDescription UpdateDescription(TopicDescription description, VengaTopicUpload topicData)
         {
             description.SupportOrdering = topicData.supportOrdering;

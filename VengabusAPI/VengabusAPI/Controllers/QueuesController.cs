@@ -59,6 +59,14 @@ namespace VengabusAPI.Controllers
             namespaceManager.RenameQueue(names.oldName, names.newName);
         }
 
+        [HttpPost]
+        [Route("queues/delete/{queueName}")]
+        public void DeleteQueue(string queueName)
+        {
+            NamespaceManager namespaceManager = CreateNamespaceManager();
+            namespaceManager.DeleteQueue(queueName);
+        }
+
         public QueueDescription UpdateDescription(QueueDescription description, VengaQueueUpload queueData)
         {
             description.SupportOrdering = queueData.supportOrdering;

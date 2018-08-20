@@ -63,6 +63,16 @@ export class VengaServiceBusService {
     }
 
     /**
+     * Deletes a queue
+     * @param {string} name Name of the queue to be deleted.
+     */
+    deleteQueue = (name) => {
+        const url = this.apiRoot + 'queues/delete/' + name;
+        const config = this.jsonConfig;
+        this.axiosWithSAS.post(url, null, config);
+    }
+
+    /**
      * Gets the details of all topics in the current namespace from the server.
      * @return {object} The queue returned by the server.
      */
@@ -108,6 +118,16 @@ export class VengaServiceBusService {
     }
 
     /**
+     * Deletes a topic
+     * @param {string} name Name of the topic to be deleted.
+     */
+    deleteTopic = (name) => {
+        const url = this.apiRoot + 'topics/delete/' + name;
+        const config = this.jsonConfig;
+        this.axiosWithSAS.post(url, null, config);
+    }
+
+    /**
      * Gets the details of all subscriptions in a given topic from the server.
      * @param {string} topicName The name of the topic to get subscriptions from.
      * @return {object} The subsctiptions returned by the server.
@@ -138,6 +158,17 @@ export class VengaServiceBusService {
         const url = this.apiRoot + 'subscriptions/update';
         const config = this.jsonConfig;
         this.axiosWithSAS.post(url, subDescription, config);
+    }
+
+    /**
+     * Deletes a subscription
+     * @param {string} name Name of the subscription to be deleted.
+     * @param {string} parentTopic Name of the paretn topic of the subscription.
+     */
+    deleteSubscription = (name, parentTopic) => {
+        const url = this.apiRoot + 'subscriptions/delete/' + name;
+        const config = this.jsonConfig;
+        this.axiosWithSAS.post(url, parentTopic, config);
     }
 
     /**
