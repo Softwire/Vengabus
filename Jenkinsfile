@@ -28,6 +28,11 @@ pipeline {
                 }
             }
         }
+        stage('Build and Deploy Backend') {
+            steps {
+                build '_Vengabus-Test-Deploy_Backend'
+            }
+        }
     }
     
     post {
