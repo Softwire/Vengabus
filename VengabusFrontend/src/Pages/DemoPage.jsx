@@ -82,9 +82,9 @@ sit amet \nthat was a newline`
                 <div className={queueDivStyle}>
                     <MessageList messageData={this.state.messageData} />
                     {/*qq delete the text in Button once implemented properly*/}
-                    <PurgeMessagesButton type={EndpointTypes.QUEUE} endpointName={queueName} />
-                    <PurgeMessagesButton type={EndpointTypes.TOPIC} endpointName={topicName} />
-                    <PurgeMessagesButton type={EndpointTypes.SUBSCRIPTION} endpointName={subscriptionName} parentName={topicName} />
+                    <PurgeMessagesButton id="purgeQueueMessage" type={EndpointTypes.QUEUE} endpointName={queueName} />
+                    <PurgeMessagesButton id="purgeTopicMessage" type={EndpointTypes.TOPIC} endpointName={topicName} />
+                    <PurgeMessagesButton id="purgeSubscriptionMessage" type={EndpointTypes.SUBSCRIPTION} endpointName={subscriptionName} parentName={topicName} />
 
                 </div>
 
