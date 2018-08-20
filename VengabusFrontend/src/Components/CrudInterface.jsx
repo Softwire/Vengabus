@@ -11,6 +11,11 @@ import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import { formatTimeStamp } from '../Helpers/FormattingHelpers';
 import { EndpointTypes } from '../Helpers/EndpointTypes';
 
+/**
+ * @prop {string} endpointType The type of endpoint we are editing. Use EndpointTypes in helpers.
+ * @prop {string} selectedEndpoint The name of the endpoint being edited.
+ * @prop {string} parentTopic The parent topic of the subscription being edited. Only required for subscriptions.
+ */
 export class CrudInterface extends Component {
     constructor(props) {
         super(props);
@@ -49,6 +54,7 @@ export class CrudInterface extends Component {
         });
     }
 
+
     throwUnexpectedEndpointTypeError = () => {
         throw new Error('unexpected endpoint type: ' + this.state.endpointType);
     }
@@ -67,6 +73,9 @@ export class CrudInterface extends Component {
         return result;
     }
 
+    /**
+     * @returns {string} Class name for standard hr component style used in this interface.
+     */
     getHrStyle = () => {
         return css`
             color: black;
@@ -275,6 +284,10 @@ export class CrudInterface extends Component {
         return editablePropertyInputs;
     }
 
+    /**
+     * @param {any} value New value that was input by the user.
+     * @param {string} property The property of newEndpointData that was changed.
+     */
     handlePropertyChange(value, property) {
         const updatedNewEndpointData = { ...this.state.newEndpointData };
         updatedNewEndpointData[property] = value;
@@ -447,7 +460,10 @@ export class CrudInterface extends Component {
             font-weight: bold;
             font-size: 1.6em;
         `;
-        const [editablePropertyInputs, readOnlyPropertyTable] = this.getEditableAndReadOnlyPropertyComponents();
+        let editablePropertyInputs, readOnlyPropertyTable;
+        if (this.state.receivedData) {
+            [editablePropertyInputs, readOnlyPropertyTable] = this.getEditableAndReadOnlyPropertyComponents();
+        }
 
         return (
             this.state.receivedData ? (
