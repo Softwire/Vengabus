@@ -26,6 +26,7 @@ export class CrudPage extends Component {
     }
 
     componentDidMount = () => {
+        if (!this.state.selectedEndpoint) { throw new Error('page requires selectedEndpoint prop'); }
         let promise;
         switch (this.state.endpointType) {
             case EndpointTypes.QUEUE:
@@ -35,6 +36,7 @@ export class CrudPage extends Component {
                 promise = serviceBusConnection.getServiceBusService().getTopicDetails(this.state.selectedEndpoint);
                 break;
             case EndpointTypes.SUBSCRIPTION:
+                if (!this.state.parentTopic) { throw new Error('for subscriptions parent topic must be defined'); }
                 promise = serviceBusConnection.getServiceBusService().getSubscriptionDetails(this.state.parentTopic, this.state.selectedEndpoint);
                 break;
             default:
@@ -129,10 +131,11 @@ export class CrudPage extends Component {
      * @returns {Object <string, {label: string, value: any}>[]} Maps from property name to permitted dropdown options where required.
      */
     getDropdownOptions = () => {
+        const statusOptions = [{ label: 'Active', value: 'Active' }, { label: 'Disabled', value: 'Disabled' }];
         return {
-            status: [{ label: 'Active', value: 'Active' }, { label: 'Disabled', value: 'Disabled' }],
-            topicStatus: [{ label: 'Active', value: 'Active' }, { label: 'Disabled', value: 'Disabled' }],
-            subscriptionStatus: [{ label: 'Active', value: 'Active' }, { label: 'Disabled', value: 'Disabled' }]
+            status: statusOptions,
+            topicStatus: statusOptions,
+            subscriptionStatus: statusOptions
         };
     }
 
@@ -209,6 +212,10 @@ export class CrudPage extends Component {
         return [editableProperties, readOnlyProperties];
     }
 
+    /**
+     * @returns {string[]} Property names for editable properties.
+     * @returns {object} Display name and display value pairs for read-only properties.
+     */
     getEditableAndReadOnlyPropertiesForSubscription = () => {
         const { activeMessageCount, deadletterMessageCount, mostRecentDeadLetter, topicName } = this.state.newEndpointData;
         const readOnlyProperties = this.assembleReadOnlyProperties({
@@ -217,7 +224,7 @@ export class CrudPage extends Component {
             "Active Message Count": activeMessageCount,
             "Dead Letter Message Count": deadletterMessageCount,
             "Most Recent Dead Letter": mostRecentDeadLetter
-            
+
         });
         const editableProperties = [
             'requiresSession',
@@ -302,10 +309,10 @@ export class CrudPage extends Component {
         const newName = this.newName;
         switch (this.state.endpointType) {
             case EndpointTypes.QUEUE:
-                serviceBusConnection.getServiceBusService().renameQueue(oldName, newName);
+                serviceBusConnection.getServiceBusService().renameQueue(oldName, newName);  //doesn't work (error 500 Internal server error)
                 break;
             case EndpointTypes.TOPIC:
-                serviceBusConnection.getServiceBusService().renameTopic(oldName, newName);
+                serviceBusConnection.getServiceBusService().renameTopic(oldName, newName);  //doesn't work (error 500 Internal server error)
                 break;
             case EndpointTypes.SUBSCRIPTION:
                 console.log('cannot rename subscriptions because #Microsoft');
@@ -315,14 +322,13 @@ export class CrudPage extends Component {
         }
         this.setState({
             endpointData: { ...this.state.endpointData, name: newName },
-            newEndpointData: { ...this.state.newEndpointData, name: newName }
+            newEndpointData: { ...this.state.newEndpointData, name: newName },
+            selectedEndpoint: newName
         });
         delete this.newName;
     }
 
     updateEndpoint = () => {
-        const dataToSend = { ...this.state.newEndpointData };
-        console.log(dataToSend);
         switch (this.state.endpointType) {
             case EndpointTypes.QUEUE:
                 serviceBusConnection.getServiceBusService().updateQueue(this.state.newEndpointData);
