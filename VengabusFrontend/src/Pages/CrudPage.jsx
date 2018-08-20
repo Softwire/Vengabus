@@ -18,7 +18,7 @@ export class CrudPage extends Component {
         this.state = {
             endpointType: this.props.endpointType,
             selectedEndpoint: this.props.selectedEndpoint,
-            parentTopic: this.props.parentTopic, //necessary for subscriptions
+            parentTopic: this.props.parentTopic, //necessary for subscriptions only
             endpointData: {},
             newEndpointData: {},
             receivedData: false

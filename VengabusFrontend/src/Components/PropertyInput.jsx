@@ -3,8 +3,6 @@ import { CheckboxInput } from './CheckboxInput';
 import { NumberInput } from './NumberInput';
 import { DropdownInput } from './DropdownInput';
 
-
-
 /**
  * @prop {string} text Text to be displayed for the input.
  * @prop {unknown} data Data modified by the input. Types boolean and object are supported.
@@ -18,8 +16,8 @@ export class PropertyInput extends Component {
     render() {
         const dataType = typeof this.props.data;
         const propsToPass = { ...this.props };
-        const ComponentType = this.props.componentType;
         delete propsToPass.componentType;
+        const ComponentType = this.props.componentType;
         switch (dataType) {
             case 'boolean':
                 return (
