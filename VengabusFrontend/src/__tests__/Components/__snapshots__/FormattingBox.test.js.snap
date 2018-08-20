@@ -1,147 +1,584 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FormattingBox renders a snapshot correctly when given json 1`] = `
-.emotion-1 {
-  text-align: left;
+.emotion-0 {
+  white-space: pre-wrap;
 }
 
-.emotion-0 {
-  font-weight: bold;
-  display: inline-block;
-  margin-top: 0;
+.emotion-1 .nav-tabs {
+  margin-bottom: 20px;
 }
 
 <div>
-  
-  
   <div
-    id="formatted"
+    className="emotion-1"
+    id="message-formatting-tabs"
+    style={undefined}
   >
-    <h4
-      className="emotion-0"
+    <ul
+      className="nav nav-tabs"
+      role="tablist"
     >
-      Formatted Data:
-    </h4>
-    <pre
-      className="emotion-1"
-      id="formattedText"
+      <li
+        className=""
+        role="presentation"
+        style={undefined}
+      >
+        <a
+          aria-controls="message-formatting-tabs-pane-0"
+          aria-selected={false}
+          href="#"
+          id="message-formatting-tabs-tab-0"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="tab"
+          tabIndex={-1}
+        >
+          Original
+        </a>
+      </li>
+      <li
+        className=""
+        role="presentation"
+        style={undefined}
+      >
+        <a
+          aria-controls="message-formatting-tabs-pane-1"
+          aria-selected={false}
+          href="#"
+          id="message-formatting-tabs-tab-1"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="tab"
+          tabIndex={-1}
+        >
+          XML
+        </a>
+      </li>
+      <li
+        className="active"
+        role="presentation"
+        style={undefined}
+      >
+        <a
+          aria-controls="message-formatting-tabs-pane-2"
+          aria-selected={true}
+          href="#"
+          id="message-formatting-tabs-tab-2"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="tab"
+          tabIndex={undefined}
+        >
+          JSON
+        </a>
+      </li>
+    </ul>
+    <div
+      className="tab-content"
     >
-      {
-          "a": "apple",
-          "b": 42,
-          "c": false
-      }
-    </pre>
+      <div
+        aria-hidden={true}
+        aria-labelledby="message-formatting-tabs-tab-0"
+        className="tab-pane"
+        id="message-formatting-tabs-pane-0"
+        role="tabpanel"
+      >
+         
+        <pre
+          className="emotion-0"
+          id="Original"
+        >
+          {"a":"apple","b":42, "c":false}
+        </pre>
+      </div>
+      <div
+        aria-hidden={true}
+        aria-labelledby="message-formatting-tabs-tab-1"
+        className="tab-pane"
+        id="message-formatting-tabs-pane-1"
+        role="tabpanel"
+      >
+         
+        <div
+          className="alert alert-danger"
+          id="XMLwarning"
+          role="alert"
+        >
+          <p>
+            The formatter didn't return any text to display.
+          </p>
+        </div>
+      </div>
+      <div
+        aria-hidden={false}
+        aria-labelledby="message-formatting-tabs-tab-2"
+        className="tab-pane active"
+        id="message-formatting-tabs-pane-2"
+        role="tabpanel"
+      >
+         
+        <pre
+          className=""
+          id="JSON"
+        >
+          {
+              "a": "apple",
+              "b": 42,
+              "c": false
+          }
+        </pre>
+      </div>
+    </div>
   </div>
-  
 </div>
 `;
 
 exports[`FormattingBox renders a snapshot correctly when given plain text 1`] = `
-.emotion-1 {
-  text-align: left;
-}
-
-.emotion-2 {
+.emotion-0 {
   white-space: pre-wrap;
 }
 
-.emotion-0 {
-  font-weight: bold;
-  display: inline-block;
-  margin-top: 0;
+.emotion-1 .nav-tabs {
+  margin-bottom: 20px;
 }
 
 <div>
-  
-  
-  
   <div
-    id="original"
+    className="emotion-1"
+    id="message-formatting-tabs"
+    style={undefined}
   >
-    <h4
-      className="emotion-0"
+    <ul
+      className="nav nav-tabs"
+      role="tablist"
     >
-      Original Data:
-    </h4>
-    <pre
-      className="emotion-1 emotion-2"
-      id="originalText"
+      <li
+        className="active"
+        role="presentation"
+        style={undefined}
+      >
+        <a
+          aria-controls="message-formatting-tabs-pane-0"
+          aria-selected={true}
+          href="#"
+          id="message-formatting-tabs-tab-0"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="tab"
+          tabIndex={undefined}
+        >
+          Original
+        </a>
+      </li>
+      <li
+        className=""
+        role="presentation"
+        style={undefined}
+      >
+        <a
+          aria-controls="message-formatting-tabs-pane-1"
+          aria-selected={false}
+          href="#"
+          id="message-formatting-tabs-tab-1"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="tab"
+          tabIndex={-1}
+        >
+          XML
+        </a>
+      </li>
+      <li
+        className=""
+        role="presentation"
+        style={undefined}
+      >
+        <a
+          aria-controls="message-formatting-tabs-pane-2"
+          aria-selected={false}
+          href="#"
+          id="message-formatting-tabs-tab-2"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="tab"
+          tabIndex={-1}
+        >
+          JSON
+        </a>
+      </li>
+    </ul>
+    <div
+      className="tab-content"
     >
-      "a":"apple","b":42, "c":false
-    </pre>
+      <div
+        aria-hidden={false}
+        aria-labelledby="message-formatting-tabs-tab-0"
+        className="tab-pane active"
+        id="message-formatting-tabs-pane-0"
+        role="tabpanel"
+      >
+         
+        <pre
+          className="emotion-0"
+          id="Original"
+        >
+          "a":"apple","b":42, "c":false
+        </pre>
+      </div>
+      <div
+        aria-hidden={true}
+        aria-labelledby="message-formatting-tabs-tab-1"
+        className="tab-pane"
+        id="message-formatting-tabs-pane-1"
+        role="tabpanel"
+      >
+         
+        <div
+          className="alert alert-danger"
+          id="XMLwarning"
+          role="alert"
+        >
+          <p>
+            The formatter didn't return any text to display.
+          </p>
+        </div>
+      </div>
+      <div
+        aria-hidden={true}
+        aria-labelledby="message-formatting-tabs-tab-2"
+        className="tab-pane"
+        id="message-formatting-tabs-pane-2"
+        role="tabpanel"
+      >
+         
+        <div
+          className="alert alert-danger"
+          id="JSONerror"
+          role="alert"
+        >
+          <p>
+            The formatter threw an error whilst trying to format the text of this data:
+          </p>
+          <p>
+            SyntaxError: Unexpected token : in JSON at position 3
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
 
 exports[`FormattingBox renders a snapshot correctly when given props 1`] = `
-.emotion-1 {
-  text-align: left;
-}
-
-.emotion-2 {
+.emotion-0 {
   white-space: pre-wrap;
 }
 
-.emotion-0 {
-  font-weight: bold;
-  display: inline-block;
-  margin-top: 0;
+.emotion-1 .nav-tabs {
+  margin-bottom: 20px;
 }
 
 <div>
-  
-  
-  
   <div
-    id="original"
+    className="emotion-1"
+    id="message-formatting-tabs"
+    style={undefined}
   >
-    <h4
-      className="emotion-0"
+    <ul
+      className="nav nav-tabs"
+      role="tablist"
     >
-      Original Data:
-    </h4>
-    <pre
-      className="emotion-1 emotion-2"
-      id="originalText"
+      <li
+        className="active"
+        role="presentation"
+        style={undefined}
+      >
+        <a
+          aria-controls="message-formatting-tabs-pane-0"
+          aria-selected={true}
+          href="#"
+          id="message-formatting-tabs-tab-0"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="tab"
+          tabIndex={undefined}
+        >
+          Original
+        </a>
+      </li>
+      <li
+        className=""
+        role="presentation"
+        style={undefined}
+      >
+        <a
+          aria-controls="message-formatting-tabs-pane-1"
+          aria-selected={false}
+          href="#"
+          id="message-formatting-tabs-tab-1"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="tab"
+          tabIndex={-1}
+        >
+          XML
+        </a>
+      </li>
+      <li
+        className=""
+        role="presentation"
+        style={undefined}
+      >
+        <a
+          aria-controls="message-formatting-tabs-pane-2"
+          aria-selected={false}
+          href="#"
+          id="message-formatting-tabs-tab-2"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="tab"
+          tabIndex={-1}
+        >
+          JSON
+        </a>
+      </li>
+    </ul>
+    <div
+      className="tab-content"
     >
-      test
-    </pre>
+      <div
+        aria-hidden={false}
+        aria-labelledby="message-formatting-tabs-tab-0"
+        className="tab-pane active"
+        id="message-formatting-tabs-pane-0"
+        role="tabpanel"
+      >
+         
+        <pre
+          className="emotion-0"
+          id="Original"
+        >
+          test
+        </pre>
+      </div>
+      <div
+        aria-hidden={true}
+        aria-labelledby="message-formatting-tabs-tab-1"
+        className="tab-pane"
+        id="message-formatting-tabs-pane-1"
+        role="tabpanel"
+      >
+         
+        <div
+          className="alert alert-danger"
+          id="XMLwarning"
+          role="alert"
+        >
+          <p>
+            The formatter didn't return any text to display.
+          </p>
+        </div>
+      </div>
+      <div
+        aria-hidden={true}
+        aria-labelledby="message-formatting-tabs-tab-2"
+        className="tab-pane"
+        id="message-formatting-tabs-pane-2"
+        role="tabpanel"
+      >
+         
+        <div
+          className="alert alert-danger"
+          id="JSONerror"
+          role="alert"
+        >
+          <p>
+            The formatter threw an error whilst trying to format the text of this data:
+          </p>
+          <p>
+            SyntaxError: Unexpected token e in JSON at position 1
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
 
 exports[`FormattingBox renders a snapshot correctly when given xml 1`] = `
-.emotion-1 {
-  text-align: left;
+.emotion-0 {
+  white-space: pre-wrap;
 }
 
-.emotion-0 {
-  font-weight: bold;
-  display: inline-block;
-  margin-top: 0;
+.emotion-1 .nav-tabs {
+  margin-bottom: 20px;
 }
 
 <div>
-  
-  
   <div
-    id="formatted"
+    className="emotion-1"
+    id="message-formatting-tabs"
+    style={undefined}
   >
-    <h4
-      className="emotion-0"
+    <ul
+      className="nav nav-tabs"
+      role="tablist"
     >
-      Formatted Data:
-    </h4>
-    <pre
-      className="emotion-1"
-      id="formattedText"
+      <li
+        className=""
+        role="presentation"
+        style={undefined}
+      >
+        <a
+          aria-controls="message-formatting-tabs-pane-0"
+          aria-selected={false}
+          href="#"
+          id="message-formatting-tabs-tab-0"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="tab"
+          tabIndex={-1}
+        >
+          Original
+        </a>
+      </li>
+      <li
+        className="active"
+        role="presentation"
+        style={undefined}
+      >
+        <a
+          aria-controls="message-formatting-tabs-pane-1"
+          aria-selected={true}
+          href="#"
+          id="message-formatting-tabs-tab-1"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="tab"
+          tabIndex={undefined}
+        >
+          XML
+        </a>
+      </li>
+      <li
+        className=""
+        role="presentation"
+        style={undefined}
+      >
+        <a
+          aria-controls="message-formatting-tabs-pane-2"
+          aria-selected={false}
+          href="#"
+          id="message-formatting-tabs-tab-2"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="tab"
+          tabIndex={-1}
+        >
+          JSON
+        </a>
+      </li>
+    </ul>
+    <div
+      className="tab-content"
     >
-      &lt;a&gt;
-          This is a sample xml message
-      &lt;/a&gt;
-    </pre>
+      <div
+        aria-hidden={true}
+        aria-labelledby="message-formatting-tabs-tab-0"
+        className="tab-pane"
+        id="message-formatting-tabs-pane-0"
+        role="tabpanel"
+      >
+         
+        <pre
+          className="emotion-0"
+          id="Original"
+        >
+          &lt;a&gt;This is a sample xml message&lt;/a&gt;
+        </pre>
+      </div>
+      <div
+        aria-hidden={false}
+        aria-labelledby="message-formatting-tabs-tab-1"
+        className="tab-pane active"
+        id="message-formatting-tabs-pane-1"
+        role="tabpanel"
+      >
+         
+        <pre
+          className=""
+          id="XML"
+        >
+          &lt;a&gt;
+              This is a sample xml message
+          &lt;/a&gt;
+        </pre>
+      </div>
+      <div
+        aria-hidden={true}
+        aria-labelledby="message-formatting-tabs-tab-2"
+        className="tab-pane"
+        id="message-formatting-tabs-pane-2"
+        role="tabpanel"
+      >
+         
+        <div
+          className="alert alert-danger"
+          id="JSONerror"
+          role="alert"
+        >
+          <p>
+            The formatter threw an error whilst trying to format the text of this data:
+          </p>
+          <p>
+            SyntaxError: Unexpected token &lt; in JSON at position 0
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
-  
 </div>
+`;
+
+exports[`FormattingBox should fail to format mal-formatted JSON 1`] = `
+<Alert
+  bsClass="alert"
+  bsStyle="danger"
+  closeLabel="Close alert"
+  id="JSONerror"
+  key="JSONerror"
+>
+  <p
+    key="0"
+  >
+    The formatter threw an error whilst trying to format the text of this data:
+  </p>
+  <p
+    key="1"
+  >
+    SyntaxError: Unexpected token , in JSON at position 7
+  </p>
+</Alert>
+`;
+
+exports[`FormattingBox should fail to format mal-formatted xml 1`] = `
+<Alert
+  bsClass="alert"
+  bsStyle="danger"
+  closeLabel="Close alert"
+  id="XMLerror"
+  key="XMLerror"
+>
+  <p
+    key="0"
+  >
+    The formatter threw an error whilst trying to format the text of this data:
+  </p>
+  <p
+    key="1"
+  >
+    Error: Found multiple root nodes
+  </p>
+</Alert>
 `;

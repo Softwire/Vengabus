@@ -41,8 +41,11 @@ sit amet \nthat was a newline`
                     messageBody: "hello world!jf",
                     predefinedProperties: { forcePersistence: false, messageId: "testingJF1", scheduledEnqueueTimeUtc: "0001-01-01T00:00:00Z", sequenceNumber: 45317471370415620, size: 173, state: "Active", timeToLive: "10675199.02:48:05.4775807" }
                 },
-                { uniqueId: "16", customProperties: { customProp: "testVal" }, messageBody: "", predefinedProperties: { messageId: "No body" } }
-
+                { uniqueId: "16", customProperties: { customProp: "testVal" }, messageBody: "", predefinedProperties: { messageId: "No body" } },
+                { uniqueId: "17", predefinedProperties: { messageId: "XML with spaces" }, messageBody: "<a>      <b>                 sd  fds    </b><c>         sdgsdg    </c> </a>" },
+                { uniqueId: "18", predefinedProperties: { messageId: "XML with newlines" }, messageBody: "<a>  \n    <b>      sd\nfds    </b>\n<c>    sdgsdg\n    </c> </a>" },
+                { uniqueId: "19", predefinedProperties: { messageId: "JSON with spaces" }, messageBody: `{"          res  \t\tult        "      :     true           ,      "count":   "     te n       "  }` },
+                { uniqueId: "20", predefinedProperties: { messageId: "JSON with newlines" }, messageBody: `\n{"\nresu\nlt":\ttrue \n , \n\n"count":\n42}\n\r` }
             ]
         };
     }
