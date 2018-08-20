@@ -24,7 +24,7 @@ export class CrudInterface extends Component {
         this.state = {
             endpointType: this.props.endpointType,
             selectedEndpoint: this.props.selectedEndpoint,
-            parentTopic: this.props.parentTopic, //necessary for subscriptions only
+            parentTopic: this.props.parentTopic,
             endpointData: {},
             newEndpointData: {},
             receivedData: false
@@ -434,6 +434,7 @@ export class CrudInterface extends Component {
             default:
                 this.throwUnexpectedEndpointTypeError();
         }
+        //QQ some confirmation from backend upon task completion would be nice
         this.setState({
             endpointData: { ...this.state.endpointData, name: newName },
             newEndpointData: { ...this.state.newEndpointData, name: newName },
@@ -510,6 +511,7 @@ export class CrudInterface extends Component {
                     {this.getFormButtons()}
                 </div>
             ) : (
+                    //QQ change to spinner
                     <p>Fetching data</p>
                 )
         );
