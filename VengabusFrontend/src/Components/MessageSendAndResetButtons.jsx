@@ -16,6 +16,9 @@ export class MessageSendAndResetButtons extends Component {
         const floatRight = css`
             float: right;
         `;
+        const spacer = css`
+            margin-left:5px;
+        `;
 
         return (
 
@@ -36,6 +39,7 @@ export class MessageSendAndResetButtons extends Component {
                     confirmButtonText={"Send"}
                     confirmAction={this.props.submit}
                 />
+                <span className={spacer} />
                 <ButtonWithConfirmationModal
                     id="cancelButton"
                     buttonText={"Reset Fields"}

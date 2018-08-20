@@ -242,7 +242,7 @@ export class MessageInput extends Component {
             position: fixed;
             width: calc(100% - ${sharedSizesAndDimensions.SIDEBAR_WIDTH}px);
             height: ${stickyHeight};
-            background-color: white;
+            background-color: #ECEFF1;
             border-bottom: 2px solid black;
             padding-top: 10px;
             margin-left: -5px; /* Form margin undesirable for sticky section */
@@ -255,6 +255,11 @@ export class MessageInput extends Component {
         const destinationFormStyle = css`
             width: 450px;
             float: left;
+        `;
+        const vertAlignBottom = css`
+            position: relative;
+            top: 100%;
+            transform: translateY(-50px);
         `;
 
         //generate warnings of certain property names.
@@ -317,12 +322,14 @@ export class MessageInput extends Component {
                             handleDestinationChange={this.handleDestinationChange}
                         />
                     </div>
-                    <MessageSendAndResetButtons
-                        selectedEndpoint={selectedEndpoint}
-                        warnings={warnings}
-                        submit={this.submit}
-                        discardMessage={this.discardMessage}
-                    />
+                    <div className={vertAlignBottom}>
+                        <MessageSendAndResetButtons
+                            selectedEndpoint={selectedEndpoint}
+                            warnings={warnings}
+                            submit={this.submit}
+                            discardMessage={this.discardMessage}
+                        />
+                    </div>
                 </div>
                 <div className={stickySpacer} />
                 <MessageProperties
