@@ -80,7 +80,9 @@ sit amet \nthat was a newline`
         return (
             < div >
                 <div className={queueDivStyle}>
-                    <MessageList messageData={this.state.messageData} />
+                    <div id="demoMessageList">
+                        <MessageList messageData={this.state.messageData} />
+                    </div>
                     {/*qq delete the text in Button once implemented properly*/}
                     <PurgeMessagesButton id="purgeQueueMessage" type={EndpointTypes.QUEUE} endpointName={queueName} />
                     <PurgeMessagesButton id="purgeTopicMessage" type={EndpointTypes.TOPIC} endpointName={topicName} />

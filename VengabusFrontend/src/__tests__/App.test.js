@@ -145,7 +145,7 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
             return new Promise(function (resolve, reject) {
                 resolve([
                     {
-                        "predefinedProperties": { "MessageId": "sadas" },
+                        "predefinedProperties": { "messageId": "sadas" },
                         "customProperties": { "fjaklsdjf": "alskdjlks" },
                         "messageBody": "alskdjlaskdklj"
                     }
@@ -157,7 +157,7 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
             return new Promise(function (resolve, reject) {
                 resolve([
                     {
-                        "predefinedProperties": { "MessageId": "sadas" },
+                        "predefinedProperties": { "messageId": "sadas" },
                         "customProperties": { "fjaklsdjf": "alskdjlks" },
                         "messageBody": "alskdjlaskdklj"
                     }
@@ -167,13 +167,13 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
 
         getWriteableMessageProperties = () => {
             return new Promise(function (resolve, reject) {
-                resolve(['MessageId', 'ContentType']);
+                resolve(['messageId', 'ContentType']);
             });
         }
 
         getReadableMessageProperties = () => {
             return new Promise(function (resolve, reject) {
-                resolve(['MessageId', 'ContentType']);
+                resolve(['messageId', 'ContentType']);
             });
         }
 
@@ -198,6 +198,38 @@ it('renders without crashing', () => {
     ReactDOM.unmountComponentAtNode(div);
 });
 
+const messageBoxTest = (messageRow, wrapper) => {
+    messageRow.simulate("click"); //open the messageBox modal 
+    wrapper.update();
+    expect(wrapper.find("#messageBoxModal")).toExistOnPage();
+
+    //test the Pre-defined Properties and User-defined Properties panels
+    let glyphicons = wrapper.find("#messageBoxModalBody .panel .glyphicon");
+    //click the glyphicons twice to toggle the panels open and shut
+    glyphicons.forEach((glyph) => glyph.simulate("click"));
+    wrapper.update();
+    glyphicons.forEach((glyph) => glyph.simulate("click"));
+    wrapper.update();
+
+    //check that the expected buttons in the footer are all there
+    const closeButton = wrapper.find("#messageBoxClose").last();
+    const copyButton = wrapper.find("#messageBoxCopy").last();
+    const replayButton = wrapper.find("#messageBoxReplayMessage").last();
+    expect(closeButton).toExistOnPage();
+    expect(copyButton).toExistOnPage();
+    expect(replayButton).toExistOnPage();
+
+    closeButton.simulate("click"); //test the close button
+    wrapper.update();
+    //test the copy button
+    //copyButton.simulate("click"); //qq JF the library throws an error "reselectPrevious is not a function" if you try to click the copy button within any mount test it seems
+    replayButton.simulate("click"); //test the replay message button
+    wrapper.update();
+
+    wrapper.find("#navbarDemoPageButton").last().simulate("click"); //get back to the demo page
+    wrapper.update();
+};
+
 it('passes smoke tests without crashing', () => {
     let wrapper = mount(<App />);
 
@@ -213,6 +245,8 @@ it('passes smoke tests without crashing', () => {
     /* TestPath:
      * Go to Demo Page
      * Test Purge Button
+     * Go to messageBox
+     * [Go to replay message page at some point qq MK LW JF]
      * Go to Home Page
      * Go to Send Message Page
      * Click add new property button
@@ -220,6 +254,8 @@ it('passes smoke tests without crashing', () => {
     connectButton.prop("onClick")();
     return testHelper.afterReactHasUpdated().then(() => { //Go to Demo Page
         navbarDemoPageButton.simulate("click");
+        const demoMessageTableRows = wrapper.find("#demoMessageList .table tbody tr").last(); //the rows of the messageList table
+        messageBoxTest(demoMessageTableRows.childAt(0), wrapper); //test messageBox for the first message on the demo page
         return testHelper.afterReactHasUpdated();
         /*    }).then(() => { //Click ReplayMessage button -- this no longer exists. QQ remove when every's added smoke test
                 const replayMessageButton = wrapper.find("#demoPageReplayMessageButton").first();
@@ -234,7 +270,7 @@ it('passes smoke tests without crashing', () => {
         const purgeQueueMessagesConfirmationButton = wrapper.find("#alertPurge").last();
         purgeQueueMessagesConfirmationButton.simulate("click");
         return testHelper.afterReactHasUpdated();
-        }).then(() => {//test topic purge button
+    }).then(() => {//test topic purge button
         const purgeQueueMessagesButton = wrapper.find("#purgeTopicMessage").last();
         purgeQueueMessagesButton.simulate("click");
         return testHelper.afterReactHasUpdated();
@@ -251,14 +287,14 @@ it('passes smoke tests without crashing', () => {
         purgeQueueMessagesConfirmationButton.simulate("click");
         return testHelper.afterReactHasUpdated();
     }).then(() => {//Go to Home Page
-    const buttonFromPreviousPage = wrapper.find("#demoPageReplayMessageButton").first();//this still works, as that button no longer exists
-    expect(buttonFromPreviousPage).not.toExistOnPage();
+        const buttonFromPreviousPage = wrapper.find("#demoPageReplayMessageButton").first();//this still works, as that button no longer exists
+        expect(buttonFromPreviousPage).not.toExistOnPage();
 
-    /*    const buttonsOnReplayMessagePage = wrapper.find(Button); -- this is no longer valid. QQ remove as above
-        expect(buttonsOnReplayMessagePage.length).toBeGreaterThan(4);*/
+        /*    const buttonsOnReplayMessagePage = wrapper.find(Button); -- this is no longer valid. QQ remove as above
+            expect(buttonsOnReplayMessagePage.length).toBeGreaterThan(4);*/
 
-    navbarHomePageButton.simulate("click");
-    return testHelper.afterReactHasUpdated();
+        navbarHomePageButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
     }).then(() => {//Go to Send Message Page
         navbarSendMessagePageButton.simulate("click");
         return testHelper.afterReactHasUpdated();
