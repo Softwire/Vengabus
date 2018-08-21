@@ -22,7 +22,16 @@ export class DropdownInput extends Component {
             padding-left: 5px;
         `;
         const selectStyle = css`
-            width: 20%;
+            width: 150px;
+        `;
+        const leftDivStyle = css`
+            display: inline-block;
+            vertical-align: middle;
+        `;
+        const rightDivStyle = css`
+            display: inline-block;
+            vertical-align: middle;
+            padding-top: 2px;
         `;
         const value = {
             value: this.props.data,
@@ -31,24 +40,28 @@ export class DropdownInput extends Component {
 
         return (
             <div>
-                {
-                    this.props.tooltip ? (
-                        <p className={leftAlign}>
-                            {this.props.text}
-                            <OverlayTrigger placement="right" overlay={this.props.tooltip}>
-                                <Glyphicon glyph="info-sign" className={glyphStyle} />
-                            </OverlayTrigger>
-                        </p>
-                    ) : (
-                            <p className={leftAlign}>{this.props.text}</p>
-                        )
-                }
-                <Select
-                    className={classNames(leftAlign, selectStyle)}
-                    options={this.props.options}
-                    value={value}
-                    onChange={(event) => this.props.onChange(event.value)}
-                />
+                <div className={leftDivStyle} >
+                    {
+                        this.props.tooltip ? (
+                            <span className={leftAlign}>
+                                {this.props.text}
+                                <OverlayTrigger placement="right" overlay={this.props.tooltip}>
+                                    <Glyphicon glyph="info-sign" className={glyphStyle} />
+                                </OverlayTrigger>
+                            </span>
+                        ) : (
+                                <span className={leftAlign}>{this.props.text}</span>
+                            )
+                    }
+                </div>
+                <div className={rightDivStyle} >
+                    <Select
+                        className={classNames(leftAlign, selectStyle)}
+                        options={this.props.options}
+                        value={value}
+                        onChange={(event) => this.props.onChange(event.value)}
+                    />
+                </div>
             </div>
         );
     }

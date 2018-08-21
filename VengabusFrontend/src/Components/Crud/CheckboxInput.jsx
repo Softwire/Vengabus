@@ -18,28 +18,42 @@ export class CheckboxInput extends Component {
         const glyphStyle = css`
             padding-left: 5px;
         `;
+        const leftDivStyle = css`
+            display: inline-block;
+            vertical-align: middle;
+            min-width: 150px;
+        `;
+        const rightDivStyle = css`
+            display: inline-block;
+            vertical-align: middle;
+            padding-top: 2px;
+        `;
 
         return (
             <div>
-                {
-                    this.props.tooltip ? (
-                        <p className={leftAlign}>
-                            {this.props.text}
-                            <OverlayTrigger placement="right" overlay={this.props.tooltip}>
-                                <Glyphicon glyph="info-sign" className={glyphStyle} />
-                            </OverlayTrigger>
-                        </p>
-                    ) : (
-                            <p className={leftAlign}>{this.props.text}</p>
-                        )
-                }
-                <Checkbox
-                    className={leftAlign}
-                    checked={this.props.data}
-                    onChange={(event) => {
-                        this.props.onChange(event.target.checked);
-                    }}
-                />
+                <div className={leftDivStyle} >
+                    {
+                        this.props.tooltip ? (
+                            <span className={leftAlign}>
+                                {this.props.text}
+                                <OverlayTrigger placement="right" overlay={this.props.tooltip}>
+                                    <Glyphicon glyph="info-sign" className={glyphStyle} />
+                                </OverlayTrigger>
+                            </span>
+                        ) : (
+                                <span className={leftAlign}>{this.props.text}</span>
+                            )
+                    }
+                </div>
+                <div className={rightDivStyle} >
+                    <Checkbox
+                        className={leftAlign}
+                        checked={this.props.data}
+                        onChange={(event) => {
+                            this.props.onChange(event.target.checked);
+                        }}
+                    />
+                </div>
             </div>
         );
     }

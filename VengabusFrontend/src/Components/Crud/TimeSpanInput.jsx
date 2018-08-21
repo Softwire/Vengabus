@@ -23,7 +23,7 @@ export class TimeSpanInput extends Component {
 
     render() {
         const inputStyle = css`
-            width: 14%;
+            width: 100px;
             float: left;
             padding-left: 5px;
         `;
@@ -40,68 +40,81 @@ export class TimeSpanInput extends Component {
         const glyphStyle = css`
             padding-left: 5px;
         `;
+        const leftDivStyle = css`
+            display: inline-block;
+            vertical-align: middle;
+        `;
+        const rightDivStyle = css`
+            display: inline-block;
+            vertical-align: middle;
+            padding-bottom: 10px;
+        `;
 
         return (
             <div>
-                {
-                    this.props.tooltip ? (
-                        <p className={leftAlign}>
-                            {this.props.text}
-                            <OverlayTrigger placement="right" overlay={this.props.tooltip}>
-                                <Glyphicon glyph="info-sign" className={glyphStyle} />
-                            </OverlayTrigger>
-                        </p>
-                    ) : (
-                            <p className={leftAlign}>{this.props.text}</p>
-                        )
-                }
-                <form className={formStyle}>
-                    <FormGroup className={inputStyle}>
-                        <ControlLabel className={labelStyle}>Days</ControlLabel>
-                        <FormControl
-                            type="number"
-                            value={this.props.data.days}
-                            placeholder="Enter Days"
-                            onChange={(event) => this.props.onChange({ ...this.props.data, days: parseInt(event.target.value, 10) })}
-                        />
-                    </FormGroup>
-                    <FormGroup className={inputStyle}>
-                        <ControlLabel className={labelStyle}>Hours</ControlLabel>
-                        <FormControl
-                            type="number"
-                            value={this.props.data.hours}
-                            placeholder="Enter Hours"
-                            onChange={(event) => this.props.onChange({ ...this.props.data, hours: parseInt(event.target.value, 10) })}
-                        />
-                    </FormGroup>
-                    <FormGroup className={inputStyle}>
-                        <ControlLabel className={labelStyle}>Minutes</ControlLabel>
-                        <FormControl
-                            type="number"
-                            value={this.props.data.minutes}
-                            placeholder="Enter Minutes"
-                            onChange={(event) => this.props.onChange({ ...this.props.data, minutes: parseInt(event.target.value, 10) })}
-                        />
-                    </FormGroup>
-                    <FormGroup className={inputStyle}>
-                        <ControlLabel className={labelStyle}>Seconds</ControlLabel>
-                        <FormControl
-                            type="number"
-                            value={this.props.data.seconds}
-                            placeholder="Enter Seconds"
-                            onChange={(event) => this.props.onChange({ ...this.props.data, seconds: parseInt(event.target.value, 10) })}
-                        />
-                    </FormGroup>
-                    <FormGroup className={inputStyle}>
-                        <ControlLabel className={labelStyle}>Milliseconds</ControlLabel>
-                        <FormControl
-                            type="number"
-                            value={this.props.data.milliseconds}
-                            placeholder="Enter Milliseconds"
-                            onChange={(event) => this.props.onChange({ ...this.props.data, milliseconds: parseInt(event.target.value, 10) })}
-                        />
-                    </FormGroup>
-                </form>
+                <div className={leftDivStyle} >
+                    {
+                        this.props.tooltip ? (
+                            <span className={leftAlign}>
+                                {this.props.text}
+                                <OverlayTrigger placement="right" overlay={this.props.tooltip}>
+                                    <Glyphicon glyph="info-sign" className={glyphStyle} />
+                                </OverlayTrigger>
+                            </span>
+                        ) : (
+                                <span className={leftAlign}>{this.props.text}</span>
+                            )
+                    }
+                </div>
+                <div className={rightDivStyle} >
+                    <form className={formStyle}>
+                        <FormGroup className={inputStyle}>
+                            <ControlLabel className={labelStyle}>Days</ControlLabel>
+                            <FormControl
+                                type="number"
+                                value={this.props.data.days}
+                                placeholder="Enter Days"
+                                onChange={(event) => this.props.onChange({ ...this.props.data, days: parseInt(event.target.value, 10) })}
+                            />
+                        </FormGroup>
+                        <FormGroup className={inputStyle}>
+                            <ControlLabel className={labelStyle}>Hours</ControlLabel>
+                            <FormControl
+                                type="number"
+                                value={this.props.data.hours}
+                                placeholder="Enter Hours"
+                                onChange={(event) => this.props.onChange({ ...this.props.data, hours: parseInt(event.target.value, 10) })}
+                            />
+                        </FormGroup>
+                        <FormGroup className={inputStyle}>
+                            <ControlLabel className={labelStyle}>Minutes</ControlLabel>
+                            <FormControl
+                                type="number"
+                                value={this.props.data.minutes}
+                                placeholder="Enter Minutes"
+                                onChange={(event) => this.props.onChange({ ...this.props.data, minutes: parseInt(event.target.value, 10) })}
+                            />
+                        </FormGroup>
+                        <FormGroup className={inputStyle}>
+                            <ControlLabel className={labelStyle}>Seconds</ControlLabel>
+                            <FormControl
+                                type="number"
+                                value={this.props.data.seconds}
+                                placeholder="Enter Seconds"
+                                onChange={(event) => this.props.onChange({ ...this.props.data, seconds: parseInt(event.target.value, 10) })}
+                            />
+                        </FormGroup>
+                        <FormGroup className={inputStyle}>
+                            <ControlLabel className={labelStyle}>Milliseconds</ControlLabel>
+                            <FormControl
+                                type="number"
+                                value={this.props.data.milliseconds}
+                                placeholder="Enter Milliseconds"
+                                onChange={(event) => this.props.onChange({ ...this.props.data, milliseconds: parseInt(event.target.value, 10) })}
+                            />
+                        </FormGroup>
+                    </form>
+                </div>
             </div>
         );
     }

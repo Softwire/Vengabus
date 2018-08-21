@@ -1,11 +1,10 @@
 import React from 'react';
-import { CrudInterface } from '../../../Components/Crud/CrudInterface';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
+import { CrudInterface } from '../../../Components/Crud/CrudInterface';
 import { EndpointTypes } from '../../../Helpers/EndpointTypes';
 import { testHelper } from '../../../TestHelpers/TestHelper';
 
-//let spy = jest.fn();
 jest.mock('../../../AzureWrappers/VengaServiceBusService', () => ({
     VengaServiceBusService: class {
         constructor() {
@@ -62,16 +61,8 @@ jest.mock('../../../AzureWrappers/VengaServiceBusService', () => ({
                 });
             });
         }
-
-        // updateQueue = (...args) => { spy(...args); }
-        // updateTopic = (...args) => { spy(...args); }
-        // updateSubscription = (...args) => { spy(...args); }
     }
 }));
-
-// beforeEach(() => {
-//     spy.mockReset();
-// });
 
 const rawConsoleError = console.error;
 function suppressSpecificDataTableErrors() {
@@ -160,3 +151,4 @@ it('throws a descriptive error if endpoint type is invalid', () => {
     }
     expect(func).toThrowError('unexpected endpoint type: invalid');
 });
+

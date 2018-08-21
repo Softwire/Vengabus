@@ -17,7 +17,7 @@ export class NumberInput extends Component {
 
     render() {
         const inputStyle = css`
-            width: 14%;
+            width: 100px;
             float: left;
             padding-left: 5px;
         `;
@@ -31,31 +31,44 @@ export class NumberInput extends Component {
         const glyphStyle = css`
             padding-left: 5px;
         `;
+        const leftDivStyle = css`
+            display: inline-block;
+            vertical-align: middle;
+        `;
+        const rightDivStyle = css`
+            display: inline-block;
+            vertical-align: middle;
+            padding-top: 15px;
+        `;
 
         return (
             <div>
-                {
-                    this.props.tooltip ? (
-                        <p className={leftAlign}>
-                            {this.props.text}
-                            <OverlayTrigger placement="right" overlay={this.props.tooltip}>
-                                <Glyphicon glyph="info-sign" className={glyphStyle} />
-                            </OverlayTrigger>
-                        </p>
-                    ) : (
-                            <p className={leftAlign}>{this.props.text}</p>
-                        )
-                }
-                <form className={formStyle}>
-                    <FormGroup className={inputStyle}>
-                        <FormControl
-                            type="number"
-                            value={this.props.data}
-                            placeholder="Enter Number"
-                            onChange={(event) => this.props.onChange(parseInt(event.target.value, 10))}
-                        />
-                    </FormGroup>
-                </form>
+                <div className={leftDivStyle} >
+                    {
+                        this.props.tooltip ? (
+                            <span className={leftAlign}>
+                                {this.props.text}
+                                <OverlayTrigger placement="right" overlay={this.props.tooltip}>
+                                    <Glyphicon glyph="info-sign" className={glyphStyle} />
+                                </OverlayTrigger>
+                            </span>
+                        ) : (
+                                <span className={leftAlign}>{this.props.text}</span>
+                            )
+                    }
+                </div>
+                <div className={rightDivStyle} >
+                    <form className={formStyle}>
+                        <FormGroup className={inputStyle}>
+                            <FormControl
+                                type="number"
+                                value={this.props.data}
+                                placeholder="Enter Number"
+                                onChange={(event) => this.props.onChange(parseInt(event.target.value, 10))}
+                            />
+                        </FormGroup>
+                    </form>
+                </div>
             </div>
         );
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { css } from 'emotion';
 import classNames from 'classnames';
-import { Tooltip, FormControl, FormGroup } from 'react-bootstrap';
+import { Tooltip, FormControl, FormGroup, ButtonGroup } from 'react-bootstrap';
 import { DataTable } from '../DataTable';
 import { PropertyInput } from './PropertyInput';
 import { TimeSpanInput } from './TimeSpanInput';
@@ -251,9 +251,9 @@ export class CrudInterface extends Component {
      */
     getEditablePropertyInputs = (editableProperties) => {
         let editablePropertyInputs = [];
+        editablePropertyInputs.push(<hr className={this.getHrStyle()} key={0} />);
         for (let i = 0; i < editableProperties.length; i++) {
             const property = editableProperties[i];
-            editablePropertyInputs.push(<hr className={this.getHrStyle()} key={i} />);
             editablePropertyInputs.push(
                 <PropertyInput
                     text={property.charAt(0).toUpperCase() + property.substr(1)}
@@ -266,7 +266,7 @@ export class CrudInterface extends Component {
                 />
             );
         }
-        editablePropertyInputs.push(<hr className={this.getHrStyle()} key={editableProperties.length} />);
+        editablePropertyInputs.push(<hr className={this.getHrStyle()} key={1} />);
         return editablePropertyInputs;
     }
 
@@ -293,9 +293,9 @@ export class CrudInterface extends Component {
             text-align: center;
         `;
         return (
-            <div>
-                <p className={titleStyle}>
-                    {titleText + '  '}
+            <div className={titleStyle}>
+                <span>{titleText + '  '}</span>
+                <ButtonGroup>
                     <ButtonWithConfirmationModal
                         id="renameButton"
                         buttonText={"Rename"}
@@ -329,7 +329,8 @@ export class CrudInterface extends Component {
                         confirmButtonText={"Delete"}
                         confirmAction={this.deleteEndpoint}
                     />
-                </p>
+                    <PurgeMessagesButton id="purgeMessage" type={this.state.endpointType} endpointName={this.state.selectedEndpoint} parentName={this.state.parentTopic} />
+                </ButtonGroup>
                 <hr className={this.getHrStyle()} />
             </div>
         );
@@ -346,36 +347,37 @@ export class CrudInterface extends Component {
 
         return (
             <form className={buttonFormStyle}>
-                <ButtonWithConfirmationModal
-                    id="submitButton"
-                    buttonText={"Update"}
-                    buttonStyle="default"
-                    buttonDisabled={this.checkObjectEquality(this.state.endpointData, this.state.newEndpointData)}
-                    modalTitle={"Update Queue"}
-                    modalBody={
-                        <React.Fragment>
-                            <p>{"Following queue will be updated: " + this.state.selectedEndpoint}</p>
-                            <p>{"Confirm action?"}</p>
-                        </React.Fragment>
-                    }
-                    confirmButtonText={"Update"}
-                    confirmAction={this.updateEndpoint}
-                />
-                <ButtonWithConfirmationModal
-                    id="resetButton"
-                    buttonText={"Reset Fields"}
-                    buttonDisabled={this.checkObjectEquality(this.state.endpointData, this.state.newEndpointData)}
-                    modalTitle={"Reset all fields"}
-                    modalBody={
-                        <React.Fragment>
-                            <p>Are you sure you want to reset ALL fields of the current queue?</p>
-                            <p>Note: if you are updating an existing queue, resetting the fields here will have NO effect on the orignal queue.</p>
-                        </React.Fragment>
-                    }
-                    confirmButtonText={"Reset"}
-                    confirmAction={this.resetFields}
-                />
-                <PurgeMessagesButton id="purgeMessage" type={this.state.endpointType} endpointName={this.state.selectedEndpoint} parentName={this.state.parentTopic} />
+                <ButtonGroup>
+                    <ButtonWithConfirmationModal
+                        id="updateButton"
+                        buttonText={"Update"}
+                        buttonStyle="default"
+                        buttonDisabled={this.checkObjectEquality(this.state.endpointData, this.state.newEndpointData)}
+                        modalTitle={"Update Queue"}
+                        modalBody={
+                            <React.Fragment>
+                                <p>{"Following queue will be updated: " + this.state.selectedEndpoint}</p>
+                                <p>{"Confirm action?"}</p>
+                            </React.Fragment>
+                        }
+                        confirmButtonText={"Update"}
+                        confirmAction={this.updateEndpoint}
+                    />
+                    <ButtonWithConfirmationModal
+                        id="resetButton"
+                        buttonText={"Reset Fields"}
+                        buttonDisabled={this.checkObjectEquality(this.state.endpointData, this.state.newEndpointData)}
+                        modalTitle={"Reset all fields"}
+                        modalBody={
+                            <React.Fragment>
+                                <p>Are you sure you want to reset ALL fields of the current queue?</p>
+                                <p>Note: if you are updating an existing queue, resetting the fields here will have NO effect on the orignal queue.</p>
+                            </React.Fragment>
+                        }
+                        confirmButtonText={"Reset"}
+                        confirmAction={this.resetFields}
+                    />
+                </ButtonGroup>
             </form>
         );
     }
