@@ -28,10 +28,12 @@ export class QueueList extends Component {
             {
                 dataField: 'activeMessageCount',
                 width: 25,
+                align: 'right'
             },
             {
                 dataField: 'deadletterMessageCount',
                 width: 25,
+                align: 'right'
             },
             {
                 dataField: 'mostRecentDeadLetter',

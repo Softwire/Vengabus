@@ -79,11 +79,21 @@ exports[`QueueList renders correctly with given props 1`] = `
         </td>
         <td
           onClick={[Function]}
+          style={
+            Object {
+              "textAlign": "right",
+            }
+          }
         >
           12
         </td>
         <td
           onClick={[Function]}
+          style={
+            Object {
+              "textAlign": "right",
+            }
+          }
         >
           14
         </td>
@@ -101,11 +111,21 @@ exports[`QueueList renders correctly with given props 1`] = `
         </td>
         <td
           onClick={[Function]}
+          style={
+            Object {
+              "textAlign": "right",
+            }
+          }
         >
           11
         </td>
         <td
           onClick={[Function]}
+          style={
+            Object {
+              "textAlign": "right",
+            }
+          }
         >
           15
         </td>
@@ -123,11 +143,21 @@ exports[`QueueList renders correctly with given props 1`] = `
         </td>
         <td
           onClick={[Function]}
+          style={
+            Object {
+              "textAlign": "right",
+            }
+          }
         >
           14
         </td>
         <td
           onClick={[Function]}
+          style={
+            Object {
+              "textAlign": "right",
+            }
+          }
         >
           16
         </td>
