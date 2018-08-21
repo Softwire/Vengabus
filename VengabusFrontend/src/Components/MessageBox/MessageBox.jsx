@@ -40,7 +40,7 @@ export class MessageBox extends Component {
         }
     }
     handleDownloadClick = (message) => {
-        download(message.messageBody, "messageDownload.txt", "text / plain");
+        download(JSON.stringify(message), "messageDownload.txt", "text / plain");
     }
     closeMessageModalAndReloadMessageTable = () => {
         this.props.handleClose();
@@ -163,7 +163,8 @@ export class MessageBox extends Component {
                                 closeParentModal={this.closeMessageModalAndReloadMessageTable}
                             />
                             <Button onClick={() => this.handleReplayMessage(message)} id="messageBoxReplayMessage" >{"Replay Message to " + replayDestination}</ Button>
-                            <Button onClick={() => this.handleDownloadClick(message)}>Download Text</Button>
+                            <Button onClick={() => this.handleDownloadClick(message)} id="messageBoxDownloadMessageButton">Download Text</Button>
+
                         </ButtonToolbar>
                     </Modal.Footer>
                 </Modal>
