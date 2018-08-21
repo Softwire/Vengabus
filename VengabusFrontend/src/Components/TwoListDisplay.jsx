@@ -311,11 +311,12 @@ export class TwoListDisplay extends Component {
     }
 
     render() {
+        const tableMarginPixels = 15;
 
         const displayStyle = css`
-            width: 45%;
-            margin-left: 10px;
-            margin-right:10px;
+            width: calc(50% - ${tableMarginPixels * 2}px);
+            margin-left:${tableMarginPixels}px;
+            margin-right:${tableMarginPixels}px;
             display: inline-block; /*to allow tables to be displayed side by side*/
         `;
 

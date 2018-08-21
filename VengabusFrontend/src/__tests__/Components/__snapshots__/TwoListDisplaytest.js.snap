@@ -2,9 +2,9 @@
 
 exports[`renders correctly after data is added 1`] = `
 .emotion-4 {
-  width: 45%;
-  margin-left: 10px;
-  margin-right: 10px;
+  width: calc(50% - 30px);
+  margin-left: 15px;
+  margin-right: 15px;
   display: inline-block;
 }
 
@@ -208,9 +208,9 @@ exports[`renders correctly after data is added 1`] = `
 
 exports[`renders correctly before data is added 1`] = `
 .emotion-3 {
-  width: 45%;
-  margin-left: 10px;
-  margin-right: 10px;
+  width: calc(50% - 30px);
+  margin-left: 15px;
+  margin-right: 15px;
   display: inline-block;
 }
 
