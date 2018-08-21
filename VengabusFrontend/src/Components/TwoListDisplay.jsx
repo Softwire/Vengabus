@@ -170,12 +170,13 @@ export class TwoListDisplay extends Component {
                 return (
                     <React.Fragment>
                         <div>
-                            <h2>{typeToTitle(EndpointTypes.QUEUE)}</h2>
+                            <h2 id='title'>{typeToTitle(EndpointTypes.QUEUE)}</h2>
                         </div>
                         <QueueList
                             queueData={this.state.queueData}
                             clickFunction={this.handleQueueRowClick}
                             currentlySelectedName={currentSelection}
+                            id='QueueTable'
                         />
                     </React.Fragment>
                 );
@@ -183,12 +184,13 @@ export class TwoListDisplay extends Component {
                 return (
                     <React.Fragment>
                         <div>
-                            <h2>{typeToTitle(EndpointTypes.TOPIC)}</h2>
+                            <h2 id='title'>{typeToTitle(EndpointTypes.TOPIC)}</h2>
                         </div>
                         <TopicList
                             topicData={this.state.topicData}
                             clickFunction={this.handleTopicRowClick}
                             currentlySelectedName={currentSelection}
+                            id='TopicTable'
                         />
                     </React.Fragment>
                 );
@@ -197,12 +199,13 @@ export class TwoListDisplay extends Component {
                 return (
                     <React.Fragment>
                         <div>
-                            <h2>{typeToTitle(EndpointTypes.SUBSCRIPTION)}</h2>
+                            <h2 id='title' >{typeToTitle(EndpointTypes.SUBSCRIPTION)}</h2>
                         </div>
                         <SubscriptionList
                             subscriptionData={this.state.subscriptionData}
                             clickFunction={this.handleSubscriptionRowClick}
                             currentlySelectedName={currentSelection}
+                            id='SubscriptionTable'
                         />
                     </React.Fragment>
                 );
@@ -214,12 +217,13 @@ export class TwoListDisplay extends Component {
                 return (
                     <React.Fragment>
                         <div >
-                            <h2 className={displayStyle} >{typeToTitle(typeOfData)}</h2>
+                            <h2 className={displayStyle} id='title'>{typeToTitle(typeOfData)}</h2>
                             <Button className={deadLetterToggleButtonStyle} onClick={() => this.handleMessageToggle(!isDeadLetterMessage)} disabled={this.messageButtonDisabled} >
                                 {this.getDeadLetterToggleButtonText(!isDeadLetterMessage)}
                             </Button>
                         </div>
                         <MessageList
+                            id='MessageTable'
                             messageData={this.state.messageData}
                             messageType={typeOfData}
                             endpointType={lastBreadCrumb.type}
@@ -283,9 +287,9 @@ export class TwoListDisplay extends Component {
             margin-bottom: 1px;
         }
         `;
-        
+
         const breadcrumbItems = this.breadCrumbHistory.map((breadCrumb, i) => {
-            return (<Breadcrumb.Item onClick={() => this.HandleBreadCrumbClick(breadCrumb.type, i)} active={(i === this.breadCrumbHistory.length - 1)} key={i}>
+            return (<Breadcrumb.Item id={this.breadCrumbHistory[i].name} onClick={() => this.HandleBreadCrumbClick(breadCrumb.type, i)} active={(i === this.breadCrumbHistory.length - 1)} key={i}>
                 {this.breadCrumbHistory[i].name}
             </Breadcrumb.Item>);
         });
@@ -348,11 +352,12 @@ export class TwoListDisplay extends Component {
                     {this.getBreadcrumbElement()}
                 </div>
                 <div className={outerDivDisplay}>
-                    <div className={displayStyle}>
+                    <div className={displayStyle} id="left">
                         {leftBox}
                     </div>
                     <div className={line} />
-                    <div className={displayStyle}>
+                    <div className={displayStyle} id="right"
+                    >
                         {rightBox}
                     </div>
                 </div>
