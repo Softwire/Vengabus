@@ -146,6 +146,8 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Compile Include="Services\Endpoint.cs" />
+    <None Include="Properties\PublishProfiles\VengabusAPIDev - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\VengabusAPIWebDeploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
