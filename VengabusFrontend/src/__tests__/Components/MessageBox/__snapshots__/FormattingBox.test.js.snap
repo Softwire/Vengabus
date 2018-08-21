@@ -1,5 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`FormattingBox fails to format JSON with tabs inside keys 1`] = `
+<Alert
+  bsClass="alert"
+  bsStyle="danger"
+  closeLabel="Close alert"
+  id="JSONerror"
+  key="JSONerror"
+>
+  <p
+    key="0"
+  >
+    The formatter threw an error whilst trying to format the text of this data:
+  </p>
+  <p
+    key="1"
+  >
+    SyntaxError: Unexpected token 	 in JSON at position 5
+  </p>
+</Alert>
+`;
+
+exports[`FormattingBox fails to format JSON with tabs inside values 1`] = `
+<Alert
+  bsClass="alert"
+  bsStyle="danger"
+  closeLabel="Close alert"
+  id="JSONerror"
+  key="JSONerror"
+>
+  <p
+    key="0"
+  >
+    The formatter threw an error whilst trying to format the text of this data:
+  </p>
+  <p
+    key="1"
+  >
+    SyntaxError: Unexpected token 	 in JSON at position 66
+  </p>
+</Alert>
+`;
+
 exports[`FormattingBox guesses the correct format by default brace json 1`] = `
 ShallowWrapper {
   "length": 0,

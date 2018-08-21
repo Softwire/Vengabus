@@ -23,6 +23,13 @@ function expectJSONoutput(inputMessage, expectedOutput) {
     expectFormattedResult(inputMessage, expectedOutput, '#JSON');
 }
 
+function expectError(inputMessage, errorId) {
+    const formattingBox = shallow(<FormattingBox message={inputMessage} />);
+    const errorMessage = formattingBox.find(errorId);
+    expect(errorMessage).toExistOnPage();
+    return errorMessage;
+}
+
 describe('FormattingBox', () => {
 
     describe('renders a snapshot correctly when given', () => {
@@ -299,27 +306,6 @@ with linebreaks</b></apple>`;
         expectJSONoutput(jsonInput, expectedOutput);
     });
 
-    it('formats JSON with tabs', () => {
-        const jsonInput = `\t{\t
-    "food"\t: "fish",
-    "price": {
-        "GB\tP": 42,
-        "USD": 54
-    }\t,\t
-    "unit":\t "kilogram"
-}\t`;
-        const expectedOutput =
-            `{
-    "food": "fish",
-    "price": {
-        "GBP": 42,
-        "USD": 54
-    },
-    "unit": "kilogram"
-}`;
-        expectJSONoutput(jsonInput, expectedOutput);
-    });
-
     it('formats JSON that had extra spaces between tags', () => {
         const jsonInput =
             `     {
@@ -342,19 +328,66 @@ with linebreaks</b></apple>`;
         expectJSONoutput(jsonInput, expectedOutput);
     });
 
+    it('formats JSON with tabs not inside strings', () => {
+        const jsonInput = `\t{\t
+    "food"\t: "fish",
+    "price": {
+        \t"GBP":\t 42\t,\t
+        "USD"\t: 54\t
+    }\t,\t
+    "unit":\t "kilogram"
+}\t`;
+        const expectedOutput =
+            `{
+    "food": "fish",
+    "price": {
+        "GBP": 42,
+        "USD": 54
+    },
+    "unit": "kilogram"
+}`;
+        expectJSONoutput(jsonInput, expectedOutput);
+    });
+
+    it('fails to format JSON with tabs inside keys', () => {
+        //qq because having tabs in keys is not valid JSON. See https://stackoverflow.com/questions/19799006/unable-to-parse-tab-in-json-files
+        const jsonInput =
+            `{
+    "fo\tod": "fish",
+    "price": {
+        "GBP": 42,
+        "USD": 54
+    },
+    "unit": "kilogram"
+}`;
+        const JSONerror = expectError(jsonInput, '#JSONerror');
+        expect(toJson(JSONerror)).toMatchSnapshot();
+    });
+
+    it('fails to format JSON with tabs inside values', () => {
+        //qq because having tabs inside values not valid JSON. See above.
+        const jsonInput =
+            `{
+    "food": "fish",
+    "price": {
+        "GBP": 42,
+        "USD": 54
+    },
+    "unit": "kilo\tgram"
+}`;
+        const JSONerror = expectError(jsonInput, '#JSONerror');
+        expect(toJson(JSONerror)).toMatchSnapshot();
+    });
+
     it('should fail to format mal-formatted JSON', () => {
         const jsonInput = '{"fish",42,"kilogram"}';
-        const formattingBox = shallow(<FormattingBox message={jsonInput} />);
-        expect(formattingBox.find('#JSONerror')).toExistOnPage();
-        const JSONerror = formattingBox.find('#JSONerror');
+        const JSONerror = expectError(jsonInput, '#JSONerror');
         expect(toJson(JSONerror)).toMatchSnapshot();
     });
 
     it('should fail to format mal-formatted xml', () => {
         const xmlInput = '<a>fish</a><b>42</b>';
-        const formattingBox = shallow(<FormattingBox message={xmlInput} />);
-        expect(formattingBox.find('#XMLerror')).toExistOnPage();
-        const XMLerror = formattingBox.find('#XMLerror');
+        const XMLerror = expectError(xmlInput, '#XMLerror');
         expect(toJson(XMLerror)).toMatchSnapshot();
     });
 
