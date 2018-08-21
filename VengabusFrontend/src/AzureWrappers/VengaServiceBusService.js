@@ -116,13 +116,43 @@ export class VengaServiceBusService {
         return this.axiosWithSAS.delete(url);
     }
 
+    deleteQueueSingleMessage = (queueName, messageId, uniqueId) => {
+        const messageIdEncoded = encodeURIComponent(messageId);
+        const url = this.apiRoot + `queues/${queueName}/messages/${uniqueId}?messageId=${messageIdEncoded}`;
+        return this.axiosWithSAS.delete(url);
+    }
+
+    deleteQueueSingleDeadLetterMessage = (queueName, messageId, uniqueId) => {
+        const messageIdEncoded = encodeURIComponent(messageId);
+        const url = this.apiRoot + `queues/${queueName}/deadletters/${uniqueId}?messageId=${messageIdEncoded}`;
+        return this.axiosWithSAS.delete(url);
+    }
+
     purgeTopicMessages = (topicName) => {
         const url = this.apiRoot + `topics/${topicName}/messages`;
         return this.axiosWithSAS.delete(url);
     }
 
+    deleteTopicSingleMessage = (topicName, messageId, uniqueId) => {
+        const messageIdEncoded = encodeURIComponent(messageId);
+        const url = this.apiRoot + `topics/${topicName}/messages/${uniqueId}?messageId=${messageIdEncoded}`;
+        return this.axiosWithSAS.delete(url);
+    }
+
     purgeSubscriptionMessages = (topicName, subscriptionName) => {
         const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/messages`;
+        return this.axiosWithSAS.delete(url);
+    }
+
+    deleteSubscriptionSingleMessage = (topicName, subscriptionName, messageId, uniqueId) => {
+        const messageIdEncoded = encodeURIComponent(messageId);
+        const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/messages/${uniqueId}?messageId=${messageIdEncoded}`;
+        return this.axiosWithSAS.delete(url);
+    }
+
+    deleteSubscriptionSingleDeadLetterMessage = (topicName, subscriptionName, messageId, uniqueId) => {
+        const messageIdEncoded = encodeURIComponent(messageId);
+        const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/deadletters/${uniqueId}?messageId=${messageIdEncoded}`;
         return this.axiosWithSAS.delete(url);
     }
 

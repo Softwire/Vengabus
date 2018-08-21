@@ -7,6 +7,7 @@ using System.Web.Http;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
 using VengabusAPI.Models;
+using VengabusAPI.Services;
 
 namespace VengabusAPI.Controllers
 {
@@ -82,6 +83,31 @@ namespace VengabusAPI.Controllers
             var sasToken = GetSASToken();
             var factory = MessagingFactory.Create(serviceBusUri, sasToken);
             return factory;
+        }
+
+        protected QueueEndpoint GetQueue(string queueName)
+        {
+            return new QueueEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName);
+        }
+
+        protected QueueDeadLetterEndpoint GetDeadLetterQueue(string queueName)
+        {
+            return new QueueDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName);
+        }
+
+        protected TopicEndpoint GetTopic(string topicName)
+        {
+            return new TopicEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), topicName);
+        }
+
+        protected SubscriptionEndpoint GetSubscription(string subscriptionName, string topicParent)
+        {
+            return new SubscriptionEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), subscriptionName, topicParent);
+        }
+
+        protected SubscriptionDeadLetterEndpoint GetDeadLetterSubscription(string subscriptionName, string topicParent)
+        {
+            return new SubscriptionDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), subscriptionName, topicParent);
         }
     }
 }

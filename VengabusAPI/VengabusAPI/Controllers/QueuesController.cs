@@ -33,9 +33,8 @@ namespace VengabusAPI.Controllers
 
         private DateTime? GetTimeStampOfMostRecentDeadletter(string queueName)
         {
-            MessagingFactory factory = CreateEndpointFactory();
-            var endpoint = EndpointIdentifier.ForQueue(queueName).GetDeadLetterEndpoint();
-            var deadLetterList = MessageServices.GetMessagesFromEndpoint(endpoint, factory);
+            var endpoint = new QueueDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName);
+            var deadLetterList = MessageServices.GetMessagesFromEndpoint(endpoint);
             var mostRecent = deadLetterList.OrderByDescending(x => x.EnqueuedTimeUtc).FirstOrDefault();
             if (mostRecent != null)
             {

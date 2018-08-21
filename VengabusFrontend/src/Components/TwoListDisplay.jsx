@@ -137,6 +137,10 @@ export class TwoListDisplay extends Component {
         });
     };
 
+    getDeadLetterToggleButtonText = (isDeadLetterMessage) => {
+        return isDeadLetterMessage ? "Deadletters" : "Live Messages";
+    }
+
     getList = (isForRightHandList) => {
         let typeOfData;
         const currentLeftTable = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
@@ -203,28 +207,30 @@ export class TwoListDisplay extends Component {
                     </React.Fragment>
                 );
             case EndpointTypes.MESSAGE:
-
+            case EndpointTypes.DEADLETTER:
+                const isDeadLetterMessage = typeOfData === EndpointTypes.DEADLETTER;
+                const lastBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
+                const penultimateBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 2];
                 return (
                     <React.Fragment>
                         <div >
-                            <h2 className={displayStyle} >{typeToTitle(EndpointTypes.MESSAGE)}</h2>
-                            <Button className={deadLetterToggleButtonStyle} onClick={() => this.handleMessageToggle(true)} disabled={this.messageButtonDisabled} > Deadletters </Button>
+                            <h2 className={displayStyle} >{typeToTitle(typeOfData)}</h2>
+                            <Button className={deadLetterToggleButtonStyle} onClick={() => this.handleMessageToggle(!isDeadLetterMessage)} disabled={this.messageButtonDisabled} >
+                                {this.getDeadLetterToggleButtonText(!isDeadLetterMessage)}
+                            </Button>
                         </div>
                         <MessageList
                             messageData={this.state.messageData}
-                        />
-                    </React.Fragment>
+                            messageType={typeOfData}
+                            endpointType={lastBreadCrumb.type}
+                            endpointName={lastBreadCrumb.name}
+                            endpointParent={penultimateBreadCrumb.name}
+                            refreshMessageTableHandler={() => {
+                                this.setState({
+                                    messageData: undefined
+                                }, () => this.updateEndpointMessageData(isDeadLetterMessage));
 
-                );
-            case EndpointTypes.DEADLETTER:
-                return (
-                    <React.Fragment>
-                        <div>
-                            <h2 className={displayStyle} >{typeToTitle(EndpointTypes.DEADLETTER)}</h2>
-                            <Button className={deadLetterToggleButtonStyle} onClick={() => this.handleMessageToggle(false)} disabled={this.messageButtonDisabled} > Live Messages </Button>
-                        </div>
-                        <MessageList
-                            messageData={this.state.messageData}
+                            }}
                         />
                     </React.Fragment>
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web.Http;
 using Microsoft.ServiceBus.Messaging;
 using VengabusAPI.Helpers;
 using VengabusAPI.Models;
@@ -11,107 +10,33 @@ namespace VengabusAPI.Controllers
     public class MessagesController : VengabusController
     {
 
-        [HttpGet]
-        [Route("messages/properties/readable")]
-        public IEnumerable<string> GetReadableProperties()
+        protected void PurgeMessagesFromEndpoint(Endpoint endpoint)
         {
-            return MessageProperties.SupportedGetProperties;
+            Predicate<BrokeredMessage> deleteMessageChecker = (brokeredMessage) => true;
+            MessageServices.DeleteSelectedMessagesFromEndpoint(endpoint, deleteMessageChecker);
         }
 
-        [HttpGet]
-        [Route("messages/properties/writeable")]
-        public IEnumerable<string> GetWriteableProperties()
+        protected void DeleteSingleMessageFromEndpoint(Endpoint endpoint, string messageId, string uniqueId)
         {
-            return MessageProperties.SupportedSetProperties;
-        }
-
-        [HttpPost]
-        [Route("queues/{queueName}/messages")]
-        public void SendMessageToQueue(string queueName, [FromBody]VengaMessage message)
-        {
-            SendMessageToEndpoint(EndpointIdentifier.ForQueue(queueName), message);
-        }
-
-        [HttpPost]
-        [Route("topics/{topicName}/messages")]
-        public void SendMessageToTopic(string topicName, [FromBody]VengaMessage message)
-        {
-            SendMessageToEndpoint(EndpointIdentifier.ForTopic(topicName), message);
-        }
-
-        [HttpPost]
-        [Route("subscriptions/{topicName}/{subscriptionName}/messages")]
-        public void SendMessageToSubscription(string topicName, string subscriptionName, [FromBody]VengaMessage message)
-        {
-            SendMessageToEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionName), message);
-        }
-
-        [HttpGet]
-        [Route("queues/{queueName}/messages")]
-        //list the messages in a given queue
-        public IEnumerable<VengaMessage> ListMessagesInQueue(string queueName)
-        {
-            return GetMessagesFromEndpoint(EndpointIdentifier.ForQueue(queueName));
-        }
-
-        [HttpGet]
-        [Route("subscriptions/{topicName}/{subscriptionName}/messages")]
-        //list the messages in a given subscription
-        public IEnumerable<VengaMessage> ListMessagesInSubscription(string topicName, string subscriptionName)
-        {
-            return GetMessagesFromEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionName));
-        }
-
-        //delete all messages in a given queue
-        [HttpDelete]
-        [Route("queues/{queueName}/messages")]
-        public void PurgeQueueMessages(string queueName)
-        {
-            DeleteMessageFromEndpoint(EndpointIdentifier.ForQueue(queueName));
-        }
-
-        [HttpDelete]
-        [Route("subscriptions/{topicName}/{subscriptionName}/messages")]
-        //delete all messages in a given subscription
-        public void PurgeSubscriptionMessages(string topicName, string subscriptionName)
-        {
-            DeleteMessageFromEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionName));
-        }
-
-        [HttpDelete]
-        [Route("topics/{topicName}/messages")]
-        //delete all messages in all the subscriptions for a given topic
-        public void PurgeTopicMessages(string topicName)
-        {
-            //get all subscriptions, and delete for each of them.
-            var namespaceManager = CreateNamespaceManager();
-            var topicDescription = namespaceManager.GetSubscriptions(topicName);
-            foreach (var subscriptionDescription in topicDescription)
+            Predicate<BrokeredMessage> deleteMessageChecker = (brokeredMessage) =>
             {
-                DeleteMessageFromEndpoint(EndpointIdentifier.ForSubscription(topicName, subscriptionDescription.Name));
-            }
+                if (messageId == brokeredMessage.MessageId)
+                {
+                    BodyAndHash bodyAndHash = brokeredMessage.GetBodyAndHash();
+
+                    return bodyAndHash.Hash.ToString() == uniqueId;
+                }
+                else
+                {
+                    return false;
+                }
+            };
+            MessageServices.DeleteSelectedMessagesFromEndpoint(endpoint, deleteMessageChecker);
         }
 
-        private void DeleteMessageFromEndpoint(EndpointIdentifier endpoint)
+        protected IEnumerable<VengaMessage> GetMessagesFromEndpoint(Endpoint endpoint)
         {
-            var factory = CreateEndpointFactory();
-            var namespaceManager = CreateNamespaceManager();
-            MessageServices.DeleteMessageFromEndpoint(factory, namespaceManager, endpoint);
-        }
-        
-
-        private void SendMessageToEndpoint(EndpointIdentifier endpoint, VengaMessage message)
-        {
-            //Sending message to queue. 
-            var brokeredMessage = message.ToBrokeredMessage();
-            var factory = CreateEndpointFactory();
-            MessageServices.SendMessageToEndpoint(endpoint, factory, brokeredMessage);
-        }
-
-        private IEnumerable<VengaMessage> GetMessagesFromEndpoint(EndpointIdentifier endpoint)
-        {
-            MessagingFactory factory = CreateEndpointFactory();
-            var brokeredMessagesList = MessageServices.GetMessagesFromEndpoint(endpoint, factory);
+            var brokeredMessagesList = MessageServices.GetMessagesFromEndpoint(endpoint);
             var messagesToReturn = new List<VengaMessage>();
             foreach (var message in brokeredMessagesList)
             {
@@ -120,5 +45,10 @@ namespace VengabusAPI.Controllers
             return messagesToReturn;
         }
 
+        protected void SendMessageToEndpoint(Endpoint endpoint, VengaMessage message)
+        {
+            var brokeredMessage = message.ToBrokeredMessage();
+            MessageServices.SendMessageToEndpoint(endpoint, brokeredMessage);
+        }
     }
 }
