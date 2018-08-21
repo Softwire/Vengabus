@@ -166,18 +166,4 @@ export class VengaServiceBusService {
         const url = this.apiRoot + 'messages/properties/writeable';
         return this.axiosWithSAS.get(url);
     }
-
-    // QQ
-    // Update this when the API is working
-    getServiceBusProperties() {
-        return new Promise(function (resolve, reject) {
-            resolve({
-                name: 'name ex',
-                status: 'true',
-                location: 'uk?',
-                permission: 'all'
-            });
-            // reject('err');
-        });
-    }
 }

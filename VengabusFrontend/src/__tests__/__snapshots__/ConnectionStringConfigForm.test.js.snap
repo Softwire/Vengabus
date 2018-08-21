@@ -78,25 +78,13 @@ exports[`ConnectionStringConfigForm renders correctly 1`] = `
     <div
       className="emotion-1 panel-heading"
     >
-      ServiceBus Details
+      Connection String
     </div>
     <div
       className="emotion-2 panel-body"
     >
       <div>
-        Your Connection string: connStringInLocalStorage
-      </div>
-      <div>
-        Name:  
-      </div>
-      <div>
-        Location:  
-      </div>
-      <div>
-        Status:  
-      </div>
-      <div>
-        Permissions:  
+        connStringInLocalStorage
       </div>
     </div>
   </div>
