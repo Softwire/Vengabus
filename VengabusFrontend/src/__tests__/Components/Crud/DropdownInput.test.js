@@ -1,26 +1,21 @@
 import React from 'react';
-import { TimeSpanInput } from '../../Components/TimeSpanInput';
+import { DropdownInput } from '../../../Components/Crud/DropdownInput';
 import renderer from 'react-test-renderer';
 import { Tooltip } from 'react-bootstrap';
 
 it('renders correctly with given props', () => {
-    const data = {
-        days: 30,
-        hours: 12,
-        minutes: 45,
-        seconds: 5,
-        milliseconds: 0
-    };
+    const options = [{ label: 'Active', value: 'Active' }, { label: 'Disabled', value: 'Disabled' }];
     const tooltip =
         <Tooltip id="tooltip">
             Test tooltip.
         </Tooltip>;
     let checkboxInput = renderer.create(
-        <TimeSpanInput
-            data={data}
-            text="time span data"
+        <DropdownInput
+            data="Active"
+            text="dropdown data"
             onChange={() => { }}
             tooltip={tooltip}
+            options={options}
         />
     );
     expect(checkboxInput.toJSON()).toMatchSnapshot();

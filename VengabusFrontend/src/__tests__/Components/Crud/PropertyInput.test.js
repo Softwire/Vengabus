@@ -1,9 +1,9 @@
 import React from 'react';
-import { CheckboxInput } from '../../Components/CheckboxInput';
-import { DropdownInput } from '../../Components/DropdownInput';
-import { NumberInput } from '../../Components/NumberInput';
-import { TimeSpanInput } from '../../Components/TimeSpanInput';
-import { PropertyInput } from '../../Components/PropertyInput';
+import { CheckboxInput } from '../../../Components/Crud/CheckboxInput';
+import { DropdownInput } from '../../../Components/Crud/DropdownInput';
+import { NumberInput } from '../../../Components/Crud/NumberInput';
+import { TimeSpanInput } from '../../../Components/Crud/TimeSpanInput';
+import { PropertyInput } from '../../../Components/Crud/PropertyInput';
 import { mount } from 'enzyme';
 
 const rawConsoleError = console.error;

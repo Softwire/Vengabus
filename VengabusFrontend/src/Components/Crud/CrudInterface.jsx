@@ -3,14 +3,14 @@ import { css } from 'emotion';
 import classNames from 'classnames';
 import moment from 'moment';
 import { Tooltip, FormControl, FormGroup } from 'react-bootstrap';
-import { DataTable } from './DataTable';
+import { DataTable } from '../DataTable';
 import { PropertyInput } from './PropertyInput';
 import { TimeSpanInput } from './TimeSpanInput';
-import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
-import { PurgeMessagesButton } from './PurgeMessagesButton';
-import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
-import { formatTimeStamp } from '../Helpers/FormattingHelpers';
-import { EndpointTypes } from '../Helpers/EndpointTypes';
+import { ButtonWithConfirmationModal } from '../ButtonWithConfirmationModal';
+import { PurgeMessagesButton } from '../PurgeMessagesButton';
+import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
+import { formatTimeStamp } from '../../Helpers/FormattingHelpers';
+import { EndpointTypes } from '../../Helpers/EndpointTypes';
 
 /**
  * @prop {string} endpointType The type of endpoint we are editing. Use EndpointTypes in helpers.

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckboxInput } from '../../Components/CheckboxInput';
+import { NumberInput } from '../../../Components/Crud/NumberInput';
 import renderer from 'react-test-renderer';
 import { Tooltip } from 'react-bootstrap';
 
@@ -9,9 +9,9 @@ it('renders correctly with given props', () => {
             Test tooltip.
         </Tooltip>;
     let checkboxInput = renderer.create(
-        <CheckboxInput
-            data
-            text="bool data"
+        <NumberInput
+            data={42}
+            text="numeric data"
             onChange={() => { }}
             tooltip={tooltip}
         />

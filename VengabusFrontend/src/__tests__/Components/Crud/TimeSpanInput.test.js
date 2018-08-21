@@ -1,17 +1,24 @@
 import React from 'react';
-import { NumberInput } from '../../Components/NumberInput';
+import { TimeSpanInput } from '../../../Components/Crud/TimeSpanInput';
 import renderer from 'react-test-renderer';
 import { Tooltip } from 'react-bootstrap';
 
 it('renders correctly with given props', () => {
+    const data = {
+        days: 30,
+        hours: 12,
+        minutes: 45,
+        seconds: 5,
+        milliseconds: 0
+    };
     const tooltip =
         <Tooltip id="tooltip">
             Test tooltip.
         </Tooltip>;
     let checkboxInput = renderer.create(
-        <NumberInput
-            data={42}
-            text="numeric data"
+        <TimeSpanInput
+            data={data}
+            text="time span data"
             onChange={() => { }}
             tooltip={tooltip}
         />

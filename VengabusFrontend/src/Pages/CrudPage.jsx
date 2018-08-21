@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CrudInterface } from '../Components/CrudInterface';
+import { CrudInterface } from '../Components/Crud/CrudInterface';
 
 export class CrudPage extends Component {
 

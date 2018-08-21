@@ -1,9 +1,9 @@
 import React from 'react';
-import { CrudInterface } from '../../Components/CrudInterface';
+import { CrudInterface } from '../../../Components/Crud/CrudInterface';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
-import { EndpointTypes } from '../../Helpers/EndpointTypes';
-import { testHelper } from '../../TestHelpers/TestHelper';
+import { EndpointTypes } from '../../../Helpers/EndpointTypes';
+import { testHelper } from '../../../TestHelpers/TestHelper';
 
 //let spy = jest.fn();
 jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
@@ -91,7 +91,7 @@ function resetConsoleError() {
 beforeAll(suppressSpecificDataTableErrors);
 afterAll(resetConsoleError);
 
-it('renders with the correct for queue with given props', () => {
+it('renders correctly for queue with given props', () => {
     let crudInterface = renderer.create(
         <CrudInterface
             endpointType={EndpointTypes.QUEUE}
@@ -103,7 +103,7 @@ it('renders with the correct for queue with given props', () => {
     });
 });
 
-it('renders with the correct for topic with given props', () => {
+it('renders correctly for topic with given props', () => {
     let crudInterface = renderer.create(
         <CrudInterface
             endpointType={EndpointTypes.TOPIC}
@@ -115,7 +115,7 @@ it('renders with the correct for topic with given props', () => {
     });
 });
 
-it('renders with the correct for subscription with given props', () => {
+it('renders correctly for subscription with given props', () => {
     let crudInterface = renderer.create(
         <CrudInterface
             endpointType={EndpointTypes.SUBSCRIPTION}
