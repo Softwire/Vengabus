@@ -5,7 +5,9 @@ export class cancelablePromiseCollection {
 
 
     newPromise = (promise) => {
-        this.collection.add(this.makeCancelable(promise));
+        const prom = this.makeCancelable(promise);
+        this.collection.push(prom);
+        return prom;
     }
 
     cancelPromise = (promise) => {
