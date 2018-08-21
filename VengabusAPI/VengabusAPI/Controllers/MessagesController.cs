@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
 using VengabusAPI.Helpers;
 using VengabusAPI.Models;
@@ -18,7 +13,7 @@ namespace VengabusAPI.Controllers
         protected void PurgeMessagesFromEndpoint(Endpoint endpoint)
         {
             Predicate<BrokeredMessage> deleteMessageChecker = (brokeredMessage) => true;
-            MessageServices.DeleteMessagesFromEndpoint(endpoint, deleteMessageChecker);
+            MessageServices.DeleteSelectedMessagesFromEndpoint(endpoint, deleteMessageChecker);
         }
 
         protected void DeleteSingleMessageFromEndpoint(Endpoint endpoint, string messageId, string uniqueId)
@@ -36,7 +31,7 @@ namespace VengabusAPI.Controllers
                     return false;
                 }
             };
-            MessageServices.DeleteMessagesFromEndpoint(endpoint, deleteMessageChecker);
+            MessageServices.DeleteSelectedMessagesFromEndpoint(endpoint, deleteMessageChecker);
         }
 
         protected IEnumerable<VengaMessage> GetMessagesFromEndpoint(Endpoint endpoint)
@@ -48,6 +43,12 @@ namespace VengabusAPI.Controllers
                 messagesToReturn.Add(VengaMessage.FromBrokeredMessage(message));
             }
             return messagesToReturn;
+        }
+
+        protected void SendMessageToEndpoint(Endpoint endpoint, VengaMessage message)
+        {
+            var brokeredMessage = message.ToBrokeredMessage();
+            MessageServices.SendMessageToEndpoint(endpoint, brokeredMessage);
         }
     }
 }

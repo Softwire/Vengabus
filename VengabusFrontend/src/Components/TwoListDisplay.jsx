@@ -210,7 +210,7 @@ export class TwoListDisplay extends Component {
             case EndpointTypes.DEADLETTER:
                 const isDeadLetterMessage = typeOfData === EndpointTypes.DEADLETTER;
                 const lastBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
-                const penultimeBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 2];
+                const penultimateBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 2];
                 return (
                     <React.Fragment>
                         <div >
@@ -224,11 +224,11 @@ export class TwoListDisplay extends Component {
                             messageType={typeOfData}
                             endpointType={lastBreadCrumb.type}
                             endpointName={lastBreadCrumb.name}
-                            endpointParent={penultimeBreadCrumb.name}
+                            endpointParent={penultimateBreadCrumb.name}
                             refreshMessageTableHandler={() => {
                                 this.setState({
                                     messageData: undefined
-                                }, this.updateEndpointMessageData(isDeadLetterMessage));
+                                }, () => this.updateEndpointMessageData(isDeadLetterMessage));
 
                             }}
                         />

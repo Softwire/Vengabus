@@ -7,7 +7,6 @@ import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
 class DeleteSingleMessageButton extends React.Component {
     getOnDeletionConfirmedHandler = () => {
         let deleteMessage;
-
         if (this.props.messageType === EndpointTypes.MESSAGE) {
             switch (this.props.endpointType) {
                 case EndpointTypes.TOPIC:
@@ -58,9 +57,6 @@ class DeleteSingleMessageButton extends React.Component {
         );
     }
 
-    resetState = () => {
-    }
-
     render() {
         let buttonText = <span>Delete Message <Glyphicon glyph="trash" /></span>;
         return <ButtonWithConfirmationModal
@@ -71,7 +67,7 @@ class DeleteSingleMessageButton extends React.Component {
             confirmButtonText={"Delete"}
             afterShowModalAction={this.showModalAction}
             confirmAction={this.getOnDeletionConfirmedHandler()}
-            afterCloseModalAction={this.resetState}
+            afterCloseModalAction={() => {}}
         />;
     }
 }

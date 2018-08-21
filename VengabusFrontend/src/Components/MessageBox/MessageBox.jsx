@@ -86,8 +86,8 @@ export class MessageBox extends Component {
                     <Modal.Footer>
                         <ButtonToolbar className={buttonToolbarStyle}>
                             { /*Note that these buttons are rendered in order, Right-to-Left*/}
-                            <Button onClick={this.props.handleClose}>Close</Button>
-                            <CopyTextButton text={message.messageBody} />
+                            <Button onClick={this.props.handleClose} id="messageBoxClose">Close</Button>
+                            <CopyTextButton text={message.messageBody} id="messageBoxCopy" />
                             <DeleteSingleMessageButton
                                 uniqueId={message.uniqueId}
                                 messageId={message.predefinedProperties.messageId}
@@ -97,7 +97,7 @@ export class MessageBox extends Component {
                                 endpointName={this.props.endpointName}
                                 closeParentModal={this.closeMessageModalAndReloadMessageTable}
                             />
-                            <Button onClick={() => this.handleReplayMessage(message)} >Replay Message to demoqueue1</ Button>
+                            <Button onClick={() => this.handleReplayMessage(message)} id="messageBoxReplayMessage" >Replay Message to demoqueue1</ Button>
                         </ButtonToolbar>
                     </Modal.Footer>
                 </Modal>

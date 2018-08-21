@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Http;
-using Microsoft.ServiceBus.Messaging;
 using VengabusAPI.Helpers;
 using VengabusAPI.Models;
-using VengabusAPI.Services;
 
 namespace VengabusAPI.Controllers
 {
@@ -30,21 +27,21 @@ namespace VengabusAPI.Controllers
         public void SendMessageToQueue(string queueName, [FromBody]VengaMessage message)
         {
 
-            SendMessageToEndpoint(new QueueEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName), message);
+            SendMessageToEndpoint(GetQueue(queueName), message);
         }
 
         [HttpPost]
         [Route("topics/{topicName}/messages")]
         public void SendMessageToTopic(string topicName, [FromBody]VengaMessage message)
         {
-            SendMessageToEndpoint(new TopicEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), topicName), message);
+            SendMessageToEndpoint(GetTopic(topicName), message);
         }
 
         [HttpPost]
         [Route("subscriptions/{topicName}/{subscriptionName}/messages")]
         public void SendMessageToSubscription(string topicName, string subscriptionName, [FromBody]VengaMessage message)
         {
-            SendMessageToEndpoint(new TopicEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), topicName), message);
+            SendMessageToEndpoint(GetTopic(topicName), message);
         }
 
         [HttpGet]
@@ -52,7 +49,7 @@ namespace VengabusAPI.Controllers
         //list the messages in a given queue
         public IEnumerable<VengaMessage> ListMessagesInQueue(string queueName)
         {
-            return GetMessagesFromEndpoint(new QueueEndpoint(CreateNamespaceManager(),CreateEndpointFactory(), queueName));
+            return GetMessagesFromEndpoint(GetQueue(queueName));
         }
 
         [HttpGet]
@@ -60,50 +57,50 @@ namespace VengabusAPI.Controllers
         //list the messages in a given subscription
         public IEnumerable<VengaMessage> ListMessagesInSubscription(string topicName, string subscriptionName)
         {
-            return GetMessagesFromEndpoint(new SubscriptionEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), subscriptionName, topicName));
+            return GetMessagesFromEndpoint(GetSubscription(subscriptionName, topicName));
         }
 
         //delete all messages in a given queue
         [HttpDelete]
         [Route("queues/{queueName}/messages")]
-        public void DeleteAllMessagesInQueue(string queueName)
+        public void PurgeMessagesInQueue(string queueName)
         {
-            PurgeMessagesFromEndpoint(new QueueEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName));
+            PurgeMessagesFromEndpoint(GetQueue(queueName));
         }
 
         [HttpDelete]
         [Route("queues/{queueName}/messages/{uniqueId}")]
         public void DeleteSingleMessageInQueue(string queueName, string uniqueId, [FromUri]string messageId)
         {
-            DeleteSingleMessageFromEndpoint(new QueueEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName), messageId, uniqueId);
+            DeleteSingleMessageFromEndpoint(GetQueue(queueName), messageId, uniqueId);
         }
 
         [HttpDelete]
         [Route("subscriptions/{topicName}/{subscriptionName}/messages")]
         //delete all messages in a given subscription
-        public void DeleteAllMessagesInSubscription(string topicName, string subscriptionName)
+        public void PurgeMessagesInSubscription(string topicName, string subscriptionName)
         {
-            PurgeMessagesFromEndpoint(new SubscriptionEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), subscriptionName, topicName));
+            PurgeMessagesFromEndpoint(GetSubscription(subscriptionName, topicName));
         }
 
         [HttpDelete]
         [Route("subscriptions/{topicName}/{subscriptionName}/messages/{uniqueId}")]
         public void DeleteSingleMessageInSubscription(string topicName, string subscriptionName, string uniqueId, [FromUri]string messageId)
         {
-            DeleteSingleMessageFromEndpoint(new SubscriptionEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), subscriptionName, topicName), messageId, uniqueId);
+            DeleteSingleMessageFromEndpoint(GetSubscription(subscriptionName, topicName), messageId, uniqueId);
         }
 
         [HttpDelete]
         [Route("topics/{topicName}/messages")]
         //delete all messages in all the subscriptions for a given topic
-        public void DeleteAllMessagesInTopic(string topicName)
+        public void PurgeMessagesInTopic(string topicName)
         {
             //get all subscriptions, and delete for each of them.
             var namespaceManager = CreateNamespaceManager();
             var topicDescription = namespaceManager.GetSubscriptions(topicName);
             foreach (var subscriptionDescription in topicDescription)
             {
-                PurgeMessagesFromEndpoint(new SubscriptionEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), subscriptionDescription.Name, topicName));
+                PurgeMessagesInSubscription(subscriptionDescription.Name, topicName);
             }
         }
 
@@ -116,14 +113,8 @@ namespace VengabusAPI.Controllers
             var topicDescription = namespaceManager.GetSubscriptions(topicName);
             foreach (var subscriptionDescription in topicDescription)
             {
-                DeleteSingleMessageFromEndpoint(new SubscriptionEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), subscriptionDescription.Name, topicName), messageId, uniqueId);
+                DeleteSingleMessageInSubscription(subscriptionDescription.Name, topicName, messageId, uniqueId);
             }
-        }
-
-        private void SendMessageToEndpoint(Endpoint endpoint, VengaMessage message)
-        {
-            var brokeredMessage = message.ToBrokeredMessage();
-            MessageServices.SendMessageToEndpoint(endpoint, brokeredMessage);
         }
     }
 }

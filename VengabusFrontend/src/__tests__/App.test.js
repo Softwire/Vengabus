@@ -240,6 +240,7 @@ it('passes smoke tests without crashing', () => {
      * Go to Send Message Page
      * Click add new property button
      */
+
     connectButton.prop("onClick")();
     return testHelper.afterReactHasUpdated().then(() => { //Go to Demo Page
         navbarDemoPageButton.simulate("click");
@@ -275,7 +276,7 @@ it('passes smoke tests without crashing', () => {
         const purgeQueueMessagesConfirmationButton = wrapper.find("#alertPurge").last();
         purgeQueueMessagesConfirmationButton.simulate("click");
         return testHelper.afterReactHasUpdated();
-    }).then(() => {//Go to Home Page
+        }).then(() => {//Go to Home Page
         const buttonFromPreviousPage = wrapper.find("#demoPageReplayMessageButton").first();//this still works, as that button no longer exists
         expect(buttonFromPreviousPage).not.toExistOnPage();
 

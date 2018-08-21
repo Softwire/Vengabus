@@ -84,7 +84,13 @@ sit amet \nthat was a newline`
             < div >
                 <div className={queueDivStyle}>
                     <div id="demoMessageList">
-                        <MessageList messageData={this.state.messageData} />
+                        <MessageList messageData={this.state.messageData}
+                            showMessage={false}
+                            endpointType={EndpointTypes.QUEUE}
+                            messageType={EndpointTypes.MESSAGE}
+                            endpointName={queueName}
+                            handleClose={() => { }}
+                            refreshMessageTableHandler={() => { }} />
                     </div>
                     {/*qq delete the text in Button once implemented properly*/}
                     <PurgeMessagesButton id="purgeQueueMessage" type={EndpointTypes.QUEUE} endpointName={queueName} />

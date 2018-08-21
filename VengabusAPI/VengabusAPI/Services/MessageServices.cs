@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Net.Sockets;
-using System.Web.Http;
-using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
-using VengabusAPI.Models;
-using VengabusAPI.Controllers;
-using VengabusAPI.Helpers;
 
 namespace VengabusAPI.Services
 {
@@ -54,7 +48,7 @@ namespace VengabusAPI.Services
             endpoint.SendMessage(message);
         }
 
-        public static void DeleteMessagesFromEndpoint(Endpoint endpoint, Predicate<BrokeredMessage> shouldDeleteThisMessage)
+        public static void DeleteSelectedMessagesFromEndpoint(Endpoint endpoint, Predicate<BrokeredMessage> shouldDeleteThisMessage)
         {
             
             long defaultTimeout = 200;
