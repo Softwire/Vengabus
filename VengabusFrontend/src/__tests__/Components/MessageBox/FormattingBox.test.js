@@ -59,6 +59,41 @@ describe('FormattingBox', () => {
         });
     });
 
+    describe('guesses the correct format by default', () => {
+        it('plain text', () => {
+            let formattingBox = shallow(
+                <FormattingBox
+                    message='"a":"apple","b":42, "c":false'
+                />);
+            expect(formattingBox.find('[aria-selected=true]')).toMatchSnapshot();
+        });
+
+        it('xml', () => {
+            let formattingBox = shallow(
+                <FormattingBox
+                    message="<a>This is a sample xml message</a>"
+                />);
+            expect(formattingBox.find('[aria-selected=true]')).toMatchSnapshot();
+        });
+
+        it('brace json', () => {
+            let formattingBox = shallow(
+                <FormattingBox
+                    message='{"a":"apple","b":42, "c":false}'
+                />);
+            expect(formattingBox.find('[aria-selected=true]')).toMatchSnapshot();
+        });
+
+        it('bracket json', () => {
+            let formattingBox = shallow(
+                <FormattingBox
+                    message='["a":"apple","b":42, "c":false]'
+                />);
+            expect(formattingBox.find('[aria-selected=true]')).toMatchSnapshot();
+        });
+
+    });
+
     it('does not change plain text', () => {
         const plainText = 'one kilogram of fish is worth 42';
         expectOriginalOutput(plainText);
@@ -236,7 +271,78 @@ with linebreaks</b></apple>`;
         expectJSONoutput(jsonInput, expectedOutput);
     });
 
-    it('should fail to format mal-formatted JSON', () => { //qq JF make this test nicer
+    it('formats JSON with linebreaks in sentences', () => {
+        const jsonInput = `{
+    "fo
+    od": "fis
+    h",
+    "pr\nice": {
+        "GBP": 42,
+
+        "USD": 54
+    }
+    ,
+
+    "unit"
+    :
+     "kilogram"
+}`;
+        const expectedOutput =
+            `{
+    "fo od": "fis h",
+    "pr ice": {
+        "GBP": 42,
+        "USD": 54
+    },
+    "unit": "kilogram"
+}`;
+        expectJSONoutput(jsonInput, expectedOutput);
+    });
+
+    it('formats JSON with tabs', () => {
+        const jsonInput = `\t{\t
+    "food"\t: "fish",
+    "price": {
+        "GB\tP": 42,
+        "USD": 54
+    }\t,\t
+    "unit":\t "kilogram"
+}\t`;
+        const expectedOutput =
+            `{
+    "food": "fish",
+    "price": {
+        "GBP": 42,
+        "USD": 54
+    },
+    "unit": "kilogram"
+}`;
+        expectJSONoutput(jsonInput, expectedOutput);
+    });
+
+    it('formats JSON that had extra spaces between tags', () => {
+        const jsonInput =
+            `     {
+           "food"    :     "fi  sh",
+    "pr  ice": {
+        "GBP": 42,
+        "USD": 54
+    }     ,   
+    "unit": "kilogram"    
+       }    `;
+        const expectedOutput =
+            `{
+    "food": "fi  sh",
+    "pr  ice": {
+        "GBP": 42,
+        "USD": 54
+    },
+    "unit": "kilogram"
+}`;
+        expectJSONoutput(jsonInput, expectedOutput);
+    });
+
+    it('should fail to format mal-formatted JSON', () => {
         const jsonInput = '{"fish",42,"kilogram"}';
         const formattingBox = shallow(<FormattingBox message={jsonInput} />);
         expect(formattingBox.find('#JSONerror')).toExistOnPage();
@@ -244,7 +350,7 @@ with linebreaks</b></apple>`;
         expect(toJson(JSONerror)).toMatchSnapshot();
     });
 
-    it('should fail to format mal-formatted xml', () => { //qq JF make this test nicer
+    it('should fail to format mal-formatted xml', () => {
         const xmlInput = '<a>fish</a><b>42</b>';
         const formattingBox = shallow(<FormattingBox message={xmlInput} />);
         expect(formattingBox.find('#XMLerror')).toExistOnPage();
