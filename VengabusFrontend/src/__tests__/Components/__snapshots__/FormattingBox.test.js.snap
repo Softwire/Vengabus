@@ -6,7 +6,16 @@ exports[`FormattingBox renders a snapshot correctly when given json 1`] = `
 }
 
 .emotion-1 .nav-tabs {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+}
+
+.emotion-1 .tab-content {
+  overflow: auto;
+  max-height: calc(92vh - 326px);
+}
+
+.emotion-1 .tab-content pre {
+  margin-bottom: 0;
 }
 
 <div>
@@ -140,7 +149,16 @@ exports[`FormattingBox renders a snapshot correctly when given plain text 1`] = 
 }
 
 .emotion-1 .nav-tabs {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+}
+
+.emotion-1 .tab-content {
+  overflow: auto;
+  max-height: calc(92vh - 326px);
+}
+
+.emotion-1 .tab-content pre {
+  margin-bottom: 0;
 }
 
 <div>
@@ -276,7 +294,16 @@ exports[`FormattingBox renders a snapshot correctly when given props 1`] = `
 }
 
 .emotion-1 .nav-tabs {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+}
+
+.emotion-1 .tab-content {
+  overflow: auto;
+  max-height: calc(92vh - 326px);
+}
+
+.emotion-1 .tab-content pre {
+  margin-bottom: 0;
 }
 
 <div>
@@ -412,7 +439,16 @@ exports[`FormattingBox renders a snapshot correctly when given xml 1`] = `
 }
 
 .emotion-1 .nav-tabs {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+}
+
+.emotion-1 .tab-content {
+  overflow: auto;
+  max-height: calc(92vh - 326px);
+}
+
+.emotion-1 .tab-content pre {
+  margin-bottom: 0;
 }
 
 <div>

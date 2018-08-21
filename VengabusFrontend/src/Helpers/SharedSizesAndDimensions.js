@@ -3,6 +3,7 @@ var sharedSizesAndDimensions = Object.freeze({
     DEFAULT_HEADER_HEIGHT: 50,
     BREADCRUMBS_HEIGHT: 35,
     BOTTOM_GUTTERING: 15,
+    MESSAGEBOX_MODAL_HEIGHT: 92
 });
 
 export { sharedSizesAndDimensions };

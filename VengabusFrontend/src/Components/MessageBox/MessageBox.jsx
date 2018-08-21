@@ -6,6 +6,7 @@ import { CollapsiblePanel } from '../CollapsiblePanel';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { FormattingBox } from './FormattingBox';
 import { DeleteSingleMessageButton } from '../../Components/DeleteSingleMessageButton';
+import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
 
 export class MessageBox extends Component {
 
@@ -63,18 +64,33 @@ export class MessageBox extends Component {
         if (!message) {
             return null;
         }
+        const messageBoxWidth = 750;
         const modalStyle = css`
+            @media only screen and (min-width: ${messageBoxWidth}px) {
+                .modal-dialog {
+                    max-width: ${messageBoxWidth}px;
+                    width: 100%;
+                }
+            }
+            @media only screen and (max-width: ${messageBoxWidth}px) {
+                .modal-dialog {
+                    width: auto;                
+                }
+            }
+            .modal-dialog {
+                margin: 30px auto
+            }
             .modal-content {
                 overflow: auto;
-                max-height: 93vh;
-            }
+                max-height: ${sharedSizesAndDimensions.MESSAGEBOX_MODAL_HEIGHT}vh; 
+            } 
         `;
         const preDefinedPropsJSX = this.convertMessagePropertiesToJSXArray(message.predefinedProperties) || <p>There are no pre-defined properties to display</p>;
         const customPropsJSX = this.convertMessagePropertiesToJSXArray(message.customProperties) || <p>There are no user-defined properties to display</p>;
         return (
-            
+
             <div className="static-modal" >
-                <Modal show={this.props.show} onHide={this.props.handleClose} id="messageBoxModal" >
+                <Modal show={this.props.show} onHide={this.props.handleClose} className={modalStyle} id="messageBoxModal" >
                     <Modal.Header>
                         <Modal.Title className={headerStyle}>Message Id:&nbsp;</Modal.Title>
                         <Modal.Title className={messageIdStyle}>{message.predefinedProperties.messageId}</Modal.Title>
@@ -87,7 +103,7 @@ export class MessageBox extends Component {
                         <CollapsiblePanel panelTitle={"User-defined Properties"}>
                             <pre>{customPropsJSX}</pre>
                         </CollapsiblePanel>
-                    <FormattingBox data={message.messageBody} /* qqMDM data */ />
+                        <FormattingBox message={message.messageBody} />
                     </Modal.Body>
 
                     <Modal.Footer>
