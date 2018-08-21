@@ -36,15 +36,15 @@ namespace VengabusAPI.Services
                 foreach (var message in messages)
                 {
                     messagesToReturn.Add(message);
-                    if (messagesToReturn.Count() >= messageCount)
-                    {
-                        break;
-                    }
                     lastSequenceNumber = message.SequenceNumber;
+                }
+                if (messagesToReturn.Count() >= messageCount)
+                {
+                    break;
                 }
             }
             
-            return messagesToReturn.OrderBy(item => item.EnqueuedTimeUtc);
+            return messagesToReturn.OrderBy(item => item.EnqueuedTimeUtc).Take(messageCount);
         }
 
         public static void SendMessageToEndpoint(Endpoint endpoint, BrokeredMessage message)

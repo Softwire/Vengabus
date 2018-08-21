@@ -9,6 +9,7 @@ import { SubscriptionList } from './SubscriptionList';
 import { EndpointTypes, typeToTitle } from '../Helpers/EndpointTypes';
 import { sharedSizesAndDimensions } from '../Helpers/SharedSizesAndDimensions';
 
+const messageCount = 500;
 
 export class TwoListDisplay extends Component {
     constructor(props) {
@@ -107,17 +108,17 @@ export class TwoListDisplay extends Component {
         if (leftTableType === EndpointTypes.QUEUE || typeof leftTableType === 'undefined') {
             const queueName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
             if (isMessageDeadletters) {
-                fetchedMessageData = serviceBusService.listQueueDeadLetterMessages(queueName);
+                fetchedMessageData = serviceBusService.listQueueDeadLetterMessages(queueName, messageCount);
             } else {
-                fetchedMessageData = serviceBusService.listQueueMessages(queueName);
+                fetchedMessageData = serviceBusService.listQueueMessages(queueName, messageCount);
             }
         } else {
             const topicName = this.breadCrumbHistory[this.breadCrumbHistory.length - 2].name;
             const subscriptionName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
             if (isMessageDeadletters) {
-                fetchedMessageData = serviceBusService.listSubscriptionDeadLetterMessages(topicName, subscriptionName);
+                fetchedMessageData = serviceBusService.listSubscriptionDeadLetterMessages(topicName, subscriptionName, messageCount);
             } else {
-                fetchedMessageData = serviceBusService.listSubscriptionMessages(topicName, subscriptionName);
+                fetchedMessageData = serviceBusService.listSubscriptionMessages(topicName, subscriptionName, messageCount);
             }
         }
         fetchedMessageData.then((result) => {
