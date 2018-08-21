@@ -168,7 +168,7 @@ export class VengaServiceBusService {
     deleteSubscription = (name, parentTopic) => {
         const url = this.apiRoot + 'subscriptions/delete/' + name;
         const config = this.jsonConfig;
-        this.axiosWithSAS.post(url, parentTopic, config);
+        this.axiosWithSAS.post(url, { uploadedString: parentTopic }, config);
     }
 
     /**

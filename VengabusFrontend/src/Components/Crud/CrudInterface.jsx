@@ -10,6 +10,7 @@ import { PurgeMessagesButton } from '../PurgeMessagesButton';
 import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { formatTimeStamp, parseTimeSpanFromBackend } from '../../Helpers/FormattingHelpers';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
+import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 
 /**
  * @prop {string} endpointType The type of endpoint we are editing. Use EndpointTypes in helpers.
@@ -458,6 +459,7 @@ export class CrudInterface extends Component {
             default:
                 this.throwUnexpectedEndpointTypeError();
         }
+        pageSwitcher.switchToPage(PAGES.HomePage);
     }
 
     resetFields = () => {
