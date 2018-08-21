@@ -1,5 +1,208 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`renders correctly after data is added 1`] = `
+.emotion-4 {
+  width: 45%;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.emotion-8 {
+  display: block;
+}
+
+.emotion-2 {
+  display: block;
+  height: 35px;
+  margin: 2px;
+}
+
+.emotion-9 {
+  min-width: 1000px;
+}
+
+.emotion-5 {
+  border-left: 1px solid black;
+  display: inline-block;
+  height: calc(100vh - 100px);
+  position: absolute;
+}
+
+.emotion-0.breadcrumb {
+  float: left;
+  height: 35px;
+  margin-bottom: 1px;
+}
+
+.emotion-3 {
+  text-align: center;
+  float: left;
+  width: 100%;
+}
+
+<TwoListDisplay>
+  <div
+    className="emotion-9"
+  >
+    <div
+      className="emotion-2"
+    >
+      <Breadcrumb
+        bsClass="breadcrumb"
+        className="emotion-0"
+      >
+        <ol
+          aria-label="breadcrumbs"
+          className="emotion-0 breadcrumb"
+          role="navigation"
+        >
+          <BreadcrumbItem
+            active={true}
+            id="Home"
+            key="0"
+            onClick={[Function]}
+          >
+            <li
+              className="active"
+            >
+              <span
+                id="Home"
+                onClick={[Function]}
+              >
+                Home
+              </span>
+            </li>
+          </BreadcrumbItem>
+        </ol>
+      </Breadcrumb>
+    </div>
+    <div
+      className="emotion-8"
+    >
+      <div
+        className="emotion-4"
+        id="left"
+      >
+        <div>
+          <h2
+            id="title"
+          >
+            Queues
+          </h2>
+        </div>
+        <QueueList
+          clickFunction={[Function]}
+          currentlySelectedName="Home"
+          id="QueueTable"
+        >
+          <DataTable
+            colProps={
+              Array [
+                Object {
+                  "dataField": "name",
+                  "headerClasses": "css-1lvmfbt",
+                  "width": 25,
+                },
+                Object {
+                  "dataField": "activeMessageCount",
+                  "headerClasses": "css-1lvmfbt",
+                  "width": 25,
+                },
+                Object {
+                  "dataField": "deadletterMessageCount",
+                  "headerClasses": "css-1lvmfbt",
+                  "width": 25,
+                },
+                Object {
+                  "dataField": "mostRecentDeadLetter",
+                  "headerClasses": "css-1lvmfbt",
+                  "width": 25,
+                },
+              ]
+            }
+            defaultHover={true}
+            name="QueueList"
+            onRowClick={[Function]}
+            selectRow={
+              Object {
+                "bgColor": "#99ccff",
+                "selected": "Home",
+              }
+            }
+            uniqueKeyColumn="name"
+          >
+            <p
+              className="emotion-3"
+            >
+              No data has been retrieved yet.
+            </p>
+          </DataTable>
+        </QueueList>
+      </div>
+      <div
+        className="emotion-5"
+      />
+      <div
+        className="emotion-4"
+        id="right"
+      >
+        <div>
+          <h2
+            id="title"
+          >
+            Topics
+          </h2>
+        </div>
+        <TopicList
+          clickFunction={[Function]}
+          id="TopicTable"
+        >
+          <DataTable
+            colProps={
+              Array [
+                Object {
+                  "dataField": "name",
+                  "headerClasses": "css-1lvmfbt",
+                  "width": 34,
+                },
+                Object {
+                  "dataField": "subscriptionCount",
+                  "headerClasses": "css-1lvmfbt",
+                  "width": 33,
+                },
+                Object {
+                  "dataField": "topicStatus",
+                  "headerClasses": "css-1lvmfbt",
+                  "text": "Status",
+                  "width": 33,
+                },
+              ]
+            }
+            defaultHover={true}
+            name="TopicList"
+            onRowClick={[Function]}
+            selectRow={
+              Object {
+                "bgColor": "#99ccff",
+                "selected": undefined,
+              }
+            }
+            uniqueKeyColumn="name"
+          >
+            <p
+              className="emotion-3"
+            >
+              No data has been retrieved yet.
+            </p>
+          </DataTable>
+        </TopicList>
+      </div>
+    </div>
+  </div>
+</TwoListDisplay>
+`;
+
 exports[`renders correctly before data is added 1`] = `
 .emotion-3 {
   width: 45%;
@@ -25,18 +228,20 @@ exports[`renders correctly before data is added 1`] = `
 .emotion-4 {
   border-left: 1px solid black;
   display: inline-block;
-  height: 100%;
+  height: calc(100vh - 100px);
   position: absolute;
 }
 
-.emotion-0 {
+.emotion-0.breadcrumb {
   float: left;
   height: 35px;
-  margin-bottom: 1px !important;
+  margin-bottom: 1px;
 }
 
 .emotion-2 {
   text-align: center;
+  float: left;
+  width: 100%;
 }
 
 <div
