@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders with the correct for queue with given props 1`] = `
+exports[`renders correctly for queue with given props 1`] = `
 .emotion-2 {
   text-align: left;
   padding-left: 15px;
@@ -224,6 +224,14 @@ exports[`renders with the correct for queue with given props 1`] = `
       >
         Rename
       </button>
+      <button
+        className="btn btn-danger"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Delete queue
+      </button>
     </p>
     <hr
       className="emotion-1"
@@ -245,7 +253,7 @@ exports[`renders with the correct for queue with given props 1`] = `
         className="react-bootstrap-table emotion-10"
       >
         <table
-          className="table table-striped table-hover"
+          className="table table-striped"
           id={undefined}
         >
           <thead>
@@ -776,11 +784,24 @@ exports[`renders with the correct for queue with given props 1`] = `
     >
       Reset Fields
     </button>
+    <button
+      className="btn btn-danger"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Purge Messages 
+        <span
+          className="glyphicon glyphicon-trash"
+        />
+      </span>
+    </button>
   </form>
 </div>
 `;
 
-exports[`renders with the correct for subscription with given props 1`] = `
+exports[`renders correctly for subscription with given props 1`] = `
 .emotion-2 {
   text-align: left;
   padding-left: 15px;
@@ -1004,6 +1025,14 @@ exports[`renders with the correct for subscription with given props 1`] = `
       >
         Rename
       </button>
+      <button
+        className="btn btn-danger"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Delete subscription
+      </button>
     </p>
     <hr
       className="emotion-1"
@@ -1025,7 +1054,7 @@ exports[`renders with the correct for subscription with given props 1`] = `
         className="react-bootstrap-table emotion-11"
       >
         <table
-          className="table table-striped table-hover"
+          className="table table-striped"
           id={undefined}
         >
           <thead>
@@ -1468,11 +1497,24 @@ exports[`renders with the correct for subscription with given props 1`] = `
     >
       Reset Fields
     </button>
+    <button
+      className="btn btn-danger"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Purge Messages 
+        <span
+          className="glyphicon glyphicon-trash"
+        />
+      </span>
+    </button>
   </form>
 </div>
 `;
 
-exports[`renders with the correct for topic with given props 1`] = `
+exports[`renders correctly for topic with given props 1`] = `
 .emotion-2 {
   text-align: left;
   padding-left: 15px;
@@ -1696,6 +1738,14 @@ exports[`renders with the correct for topic with given props 1`] = `
       >
         Rename
       </button>
+      <button
+        className="btn btn-danger"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Delete topic
+      </button>
     </p>
     <hr
       className="emotion-1"
@@ -1717,7 +1767,7 @@ exports[`renders with the correct for topic with given props 1`] = `
         className="react-bootstrap-table emotion-8"
       >
         <table
-          className="table table-striped table-hover"
+          className="table table-striped"
           id={undefined}
         >
           <thead>
@@ -2123,6 +2173,19 @@ exports[`renders with the correct for topic with given props 1`] = `
       type="button"
     >
       Reset Fields
+    </button>
+    <button
+      className="btn btn-danger"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Purge Messages 
+        <span
+          className="glyphicon glyphicon-trash"
+        />
+      </span>
     </button>
   </form>
 </div>

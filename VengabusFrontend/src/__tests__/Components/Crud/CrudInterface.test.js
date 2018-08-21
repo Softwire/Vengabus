@@ -6,7 +6,7 @@ import { EndpointTypes } from '../../../Helpers/EndpointTypes';
 import { testHelper } from '../../../TestHelpers/TestHelper';
 
 //let spy = jest.fn();
-jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
+jest.mock('../../../AzureWrappers/VengaServiceBusService', () => ({
     VengaServiceBusService: class {
         constructor() {
         }
