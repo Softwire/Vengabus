@@ -5,6 +5,7 @@ import { JSONformatter } from './JSONformatter';
 import { XMLformatter } from './XMLformatter';
 import { OriginalFormatter } from './OriginalFormatter';
 import _ from 'lodash';
+import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
 
 export class FormattingBox extends Component {
     constructor(props) {
@@ -84,7 +85,15 @@ export class FormattingBox extends Component {
 
         const tabStyle = css`
             .nav-tabs {
-                margin-bottom: 20px;
+                margin-bottom: 15px;
+            }
+            .tab-content {
+                overflow: auto;
+                max-height: calc(${sharedSizesAndDimensions.MESSAGEBOX_MODAL_HEIGHT}vh - 326px); /*326px is approximately the height of the MessageBox modal without FormattingBox*/
+
+                pre {
+                    margin-bottom: 0;
+                }
             }
         `;
 

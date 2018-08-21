@@ -45,7 +45,13 @@ sit amet \nthat was a newline`
                 { uniqueId: "17", predefinedProperties: { messageId: "XML with spaces" }, messageBody: "<a>      <b>                 sd  fds    </b><c>         sdgsdg    </c> </a>" },
                 { uniqueId: "18", predefinedProperties: { messageId: "XML with newlines" }, messageBody: "<a>  \n    <b>      sd\nfds    </b>\n<c>    sdgsdg\n    </c> </a>" },
                 { uniqueId: "19", predefinedProperties: { messageId: "JSON with spaces" }, messageBody: `{"          res  \t\tult        "      :     true           ,      "count":   "     te n       "  }` },
-                { uniqueId: "20", predefinedProperties: { messageId: "JSON with newlines" }, messageBody: `\n{"\nresu\nlt":\ttrue \n , \n\n"count":\n42}\n\r` }
+                { uniqueId: "20", predefinedProperties: { messageId: "JSON with newlines" }, messageBody: `\n{"\nresu\nlt":\ttrue \n , \n\n"count":\n42}\n\r` },
+                {
+                    uniqueId: "21",
+                    customProperties: { customProp0: "value 0", customProp1: "value 1", customProp2: "value 2", customProp3: "value 3", customProp4: "value 4", customProp5: "value 5", customProp6: "value 6", customProp7: "value 7", customProp8: "value 8" },
+                    messageBody: 'a'.repeat(2500),
+                    predefinedProperties: { messageId: "messageBox scroll test" }
+                },
             ]
         };
     }
