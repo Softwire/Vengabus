@@ -145,9 +145,20 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
             return new Promise(function (resolve, reject) {
                 resolve([
                     {
-                        "predefinedProperties": { "messageId": "sadas" },
-                        "customProperties": { "fjaklsdjf": "alskdjlks" },
-                        "messageBody": "alskdjlaskdklj"
+                        predefinedProperties: { messageId: "test1" },
+                        uniqueId: "59298c2b-d58f-4ad0-bde9-f8a9d00a3070",
+                        messageBody: "apple"
+
+                    },
+                    {
+                        predefinedProperties: { messageId: "test2" },
+                        uniqueId: "c9f547bf-72e1-439e-bd1f-0b590422a6f8",
+                        messageBody: "banana"
+                    },
+                    {
+                        predefinedProperties: { messageId: "test3" },
+                        uniqueId: "5034e2f8-9bf0-436a-b8f4-914b43594ee1",
+                        messageBody: "carrot"
                     }
                 ]);
             });
@@ -157,9 +168,20 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
             return new Promise(function (resolve, reject) {
                 resolve([
                     {
-                        "predefinedProperties": { "messageId": "sadas" },
-                        "customProperties": { "fjaklsdjf": "alskdjlks" },
-                        "messageBody": "alskdjlaskdklj"
+                        predefinedProperties: { messageId: "test1" },
+                        uniqueId: "59298c2b-d58f-4ad0-bde9-f8a9d00a3070",
+                        messageBody: "apple"
+
+                    },
+                    {
+                        predefinedProperties: { messageId: "test2" },
+                        uniqueId: "c9f547bf-72e1-439e-bd1f-0b590422a6f8",
+                        messageBody: "banana"
+                    },
+                    {
+                        predefinedProperties: { messageId: "test3" },
+                        uniqueId: "5034e2f8-9bf0-436a-b8f4-914b43594ee1",
+                        messageBody: "carrot"
                     }
                 ]);
             });
@@ -237,6 +259,10 @@ it('passes smoke tests without crashing', () => {
      * Go to messageBox
      * [Go to replay message page at some point qq MK LW JF]
      * Go to Home Page
+     * click Queue row
+     * click home breadcrumb
+     * click topic row
+     * click Subscription row
      * Go to Send Message Page
      * Click add new property button
      */
@@ -284,6 +310,28 @@ it('passes smoke tests without crashing', () => {
             expect(buttonsOnReplayMessagePage.length).toBeGreaterThan(4);*/
 
         navbarHomePageButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        //Queue row
+        wrapper.update();
+        const queueList = wrapper.find('#QueueTable');
+        queueList.props().clickFunction("e", { name: "name" });
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        //home breadcrumb Click
+        const homeBreadCrumb = wrapper.find('#Home').hostNodes();
+        homeBreadCrumb.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        //topic click
+        const topic = wrapper.find('#TopicTable');
+        topic.props().clickFunction("e", { name: "name" });
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        //sub click
+        wrapper.update();
+        const subscriptionTable = wrapper.find('#SubscriptionTable');
+        subscriptionTable.props().clickFunction("e", { name: "name" });
         return testHelper.afterReactHasUpdated();
     }).then(() => {//Go to Send Message Page
         navbarSendMessagePageButton.simulate("click");
