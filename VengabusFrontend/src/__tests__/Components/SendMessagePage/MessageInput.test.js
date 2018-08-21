@@ -243,7 +243,7 @@ it('Discard Message button works', async () => {
         messageBody: 'Hello World!'
     });
     expect(wrapper.find(MessagePropertyInputRow).length).toEqual(4);
-    let discardButton = wrapper.find(Button).last();
+    let discardButton = wrapper.find('#cancelButton').last();
     discardButton.simulate('click');
     await testHelper.afterReactHasUpdated().then(() => {
         wrapper.update();
