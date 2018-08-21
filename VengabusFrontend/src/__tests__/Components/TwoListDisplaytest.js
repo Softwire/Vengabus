@@ -160,7 +160,7 @@ it('clicking Queues retrieves messages', () => {
     let wrapper = mount(<TwoListDisplay />);
 
     return resetToDefaultState(wrapper).then(
-        () => { return QueueRowClick(wrapper, "testQueue1"); }).then(
+        () => { return clickAndResolveQueueRowClick(wrapper, "testQueue1"); }).then(
             () => { return expectsQueueAndMessage(wrapper); }
         );
 });
@@ -169,7 +169,7 @@ it('clicking Queues to retrieved message data then returning to home screen', ()
     let wrapper = mount(<TwoListDisplay />);
 
     return resetToDefaultState(wrapper).then(
-        () => { return QueueRowClick(wrapper, "testQueue1"); }).then(
+        () => { return clickAndResolveQueueRowClick(wrapper, "testQueue1"); }).then(
             () => { return resetToDefaultState(wrapper); }).then(
                 () => { return expectDefaultState(wrapper); }
             );
@@ -178,7 +178,7 @@ it('clicking Queues to retrieved message data then returning to home screen', ()
 it('clicking Topics retrieves subscriptions', () => {
     let wrapper = mount(<TwoListDisplay />);
     return resetToDefaultState(wrapper).then(
-        () => { return TopicRowClick(wrapper, "testTopic1"); }).then(
+        () => { return clickAndResolveTopicRowClick(wrapper, "testTopic1"); }).then(
             () => { return expectSubscriptionsAndTopics(wrapper); }
         );
 });
@@ -187,8 +187,8 @@ it('clicking topics then Subscriptions retrieves messages', () => {
     let wrapper = mount(<TwoListDisplay />);
 
     return resetToDefaultState(wrapper).then(
-        () => { return TopicRowClick(wrapper, "testTopic1"); }).then(
-            () => { return SubscriptionRowClick(wrapper, "testSubscriptions1"); }).then(
+        () => { return clickAndResolveTopicRowClick(wrapper, "testTopic1"); }).then(
+            () => { return clickAndResolveSubscriptionRowClick(wrapper, "testSubscriptions1"); }).then(
                 () => { return expectSubscriptionAndMessage(wrapper); }
             );
 });
@@ -212,7 +212,7 @@ const resetToDefaultState = (wrapper) => {
     return testHelper.afterReactHasUpdated();
 };
 
-const QueueRowClick = (wrapper, queueName) => {
+const clickAndResolveQueueRowClick = (wrapper, queueName) => {
     wrapper.update();
     const queueList = wrapper.find('#QueueTable');
     queueList.props().clickFunction(eventObj, { name: queueName });
@@ -220,14 +220,14 @@ const QueueRowClick = (wrapper, queueName) => {
     return testHelper.afterReactHasUpdated();
 };
 
-const TopicRowClick = (wrapper, topicName) => {
+const clickAndResolveTopicRowClick = (wrapper, topicName) => {
     wrapper.update();
     const topic = wrapper.find('#TopicTable');
     topic.props().clickFunction(eventObj, { name: topicName });
     return testHelper.afterReactHasUpdated();
 };
 
-const SubscriptionRowClick = (wrapper, subscriptionName) => {
+const clickAndResolveSubscriptionRowClick = (wrapper, subscriptionName) => {
     wrapper.update();
     const subscriptionTable = wrapper.find('#SubscriptionTable');
     subscriptionTable.props().clickFunction(eventObj, { name: subscriptionName });
@@ -236,12 +236,11 @@ const SubscriptionRowClick = (wrapper, subscriptionName) => {
 };
 
 
-
 const afterBreadCrumbClick = (breadcrumb, wrapper) => {
     switch (breadcrumb) {
         case (EndpointTypes.TOPIC):
-            return TopicRowClick(wrapper, "testTopic1").then(
-                () => { return SubscriptionRowClick(wrapper, "testSubscriptions1"); }).then(
+            return clickAndResolveTopicRowClick(wrapper, "testTopic1").then(
+                () => { return clickAndResolveSubscriptionRowClick(wrapper, "testSubscriptions1"); }).then(
                     () => {
                         wrapper.update();
                         const topicBreadCrumb = wrapper.find('#testTopic1').hostNodes();
@@ -252,7 +251,7 @@ const afterBreadCrumbClick = (breadcrumb, wrapper) => {
                             return expectSubscriptionsAndTopics(wrapper);
                         });
         default:
-            return QueueRowClick(wrapper, "testQueue1").then(
+            return clickAndResolveQueueRowClick(wrapper, "testQueue1").then(
                 () => {
                     wrapper.update();
                     const homeBreadCrumb = wrapper.find('#Home').hostNodes();
