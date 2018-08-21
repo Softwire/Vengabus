@@ -75,7 +75,7 @@ export class TwoListDisplay extends Component {
     updateAllQueueData = () => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
         const fetchedQueueData = serviceBusService.listQueues();
-        const wrappedFetchedQueueData= this.promiseCollection.newPromise(fetchedQueueData);
+        const wrappedFetchedQueueData = this.promiseCollection.newPromise(fetchedQueueData);
         wrappedFetchedQueueData.promise.then((result) => {
             this.setState({
                 queueData: result
@@ -98,11 +98,12 @@ export class TwoListDisplay extends Component {
         const topicName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
         const serviceBusService = serviceBusConnection.getServiceBusService();
         const fetchedSubscriptionData = serviceBusService.listSubscriptions(topicName);
-        fetchedSubscriptionData.then(result => {
+        const wrappedFetchedSubscriptionData = this.promiseCollection.newPromise(fetchedSubscriptionData);
+        wrappedFetchedSubscriptionData.promise.then(result => {
             this.setState({
                 subscriptionData: result
             });
-        });
+        }).catch(e => { console.log(e); });
     }
 
 
@@ -126,12 +127,14 @@ export class TwoListDisplay extends Component {
                 fetchedMessageData = serviceBusService.listSubscriptionMessages(topicName, subscriptionName, messageCount);
             }
         }
-        fetchedMessageData.then((result) => {
+        const wrappedFetchedMessageData = this.promiseCollection.newPromise(fetchedMessageData);
+
+        wrappedFetchedMessageData.promise.then((result) => {
             this.messageButtonDisabled = false;
             this.setState({
                 messageData: result
             });
-        });
+        }).catch(e=>console.log(e));
     }
 
     resetInitialStateData = () => {
