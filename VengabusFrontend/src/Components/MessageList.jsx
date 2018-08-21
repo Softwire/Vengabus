@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DataTable } from './DataTable';
-import { MessageBox } from './MessageBox';
+import { MessageBox } from './MessageBox/MessageBox';
 import { truncate } from 'lodash';
 import { formatTimeStamp } from '../Helpers/FormattingHelpers';
 

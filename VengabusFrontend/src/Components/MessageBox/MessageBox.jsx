@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Modal, Button, ButtonToolbar } from 'react-bootstrap';
-import { CopyTextButton } from './CopyTextButton';
+import { CopyTextButton } from '../CopyTextButton';
 import { css } from 'emotion';
-import { CollapsiblePanel } from './CollapsiblePanel';
-import { PAGES, pageSwitcher } from '../Pages/PageSwitcherService';
+import { CollapsiblePanel } from '../CollapsiblePanel';
+import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { FormattingBox } from './FormattingBox';
 
 export class MessageBox extends Component {

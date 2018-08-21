@@ -1,4 +1,4 @@
-import { MessageBox } from '../../Components/MessageBox';
+import { MessageBox } from '../../Components/MessageBox/MessageBox';
 import React from 'react';
 import { mount } from 'enzyme';
 

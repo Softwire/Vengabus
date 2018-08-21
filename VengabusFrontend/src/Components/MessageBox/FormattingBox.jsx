@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { css } from 'react-emotion';
 import { Alert, Tabs, Tab } from 'react-bootstrap';
-import { JSONformatter } from '../Helpers/JSONformatter';
-import { XMLformatter } from '../Helpers/XMLformatter';
-import { OriginalFormatter } from '../Helpers/OriginalFormatter';
+import { JSONformatter } from './JSONformatter';
+import { XMLformatter } from './XMLformatter';
+import { OriginalFormatter } from './OriginalFormatter';
 import _ from 'lodash';
 
 export class FormattingBox extends Component {
