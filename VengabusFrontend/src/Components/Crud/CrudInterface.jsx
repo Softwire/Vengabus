@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { css } from 'emotion';
 import classNames from 'classnames';
-import moment from 'moment';
 import { Tooltip, FormControl, FormGroup } from 'react-bootstrap';
 import { DataTable } from '../DataTable';
 import { PropertyInput } from './PropertyInput';
@@ -9,7 +8,7 @@ import { TimeSpanInput } from './TimeSpanInput';
 import { ButtonWithConfirmationModal } from '../ButtonWithConfirmationModal';
 import { PurgeMessagesButton } from '../PurgeMessagesButton';
 import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
-import { formatTimeStamp } from '../../Helpers/FormattingHelpers';
+import { formatTimeStamp, parseTimeSpanFromBackend } from '../../Helpers/FormattingHelpers';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
 
 /**
@@ -49,7 +48,7 @@ export class CrudInterface extends Component {
                 this.throwUnexpectedEndpointTypeError();
         }
         promise.then((result) => {
-            result.autoDeleteOnIdle = this.parseTimeSpanFromBackend(result.autoDeleteOnIdle);
+            result.autoDeleteOnIdle = parseTimeSpanFromBackend(result.autoDeleteOnIdle);
             if (result.mostRecentDeadLetter) { result.mostRecentDeadLetter = formatTimeStamp(result.mostRecentDeadLetter); }
             this.setState({ endpointData: result, newEndpointData: result, receivedData: true });
         });
@@ -58,20 +57,6 @@ export class CrudInterface extends Component {
 
     throwUnexpectedEndpointTypeError = () => {
         throw new Error('unexpected endpoint type: ' + this.state.endpointType);
-    }
-
-    /**
-     * @param {string} timespan As received from the backend.
-     * @returns {object} Timespan object in that has properties: days, hours, minutes, seconds, milliseconds.
-     */
-    parseTimeSpanFromBackend = (timespan) => {
-        const momentDuration = moment.duration(timespan);
-        const days = Math.floor(momentDuration.asDays());
-        let result = momentDuration._data;
-        delete result.years;
-        delete result.months;
-        result.days = days;
-        return result;
     }
 
     /**
@@ -389,7 +374,7 @@ export class CrudInterface extends Component {
                     confirmButtonText={"Reset"}
                     confirmAction={this.resetFields}
                 />
-                <PurgeMessagesButton id="purgeMessage" type={this.state.endpointType} endpointName={this.state.selectedEndpoint} />
+                <PurgeMessagesButton id="purgeMessage" type={this.state.endpointType} endpointName={this.state.selectedEndpoint} parentName={this.state.parentTopic} />
             </form>
         );
     }
