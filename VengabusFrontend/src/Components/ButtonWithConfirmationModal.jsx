@@ -65,7 +65,7 @@ class ButtonWithConfirmationModal extends React.Component {
                     </Modal.Header>
                     <Modal.Body>
                         {this.props.modalBody ?
-                            <Alert bsStyle="danger">
+                            <Alert bsStyle={this.props.buttonStyle ? this.props.buttonStyle : "danger"}>
                                 {this.props.modalBody}
                             </Alert > : null
                         }
