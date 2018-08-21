@@ -44,17 +44,17 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpGet]
-        [Route("queues/{queueName}/messages/{messageCount}")]
+        [Route("queues/{queueName}/messages")]
         //list the messages in a given queue
-        public IEnumerable<VengaMessage> ListMessagesInQueue(string queueName, int messageCount)
+        public IEnumerable<VengaMessage> ListMessagesInQueue(string queueName, [FromUri] int messageCount = int.MaxValue)
         {
             return GetMessagesFromEndpoint(GetQueue(queueName), messageCount);
         }
 
         [HttpGet]
-        [Route("subscriptions/{topicName}/{subscriptionName}/messages/{messageCount}")]
+        [Route("subscriptions/{topicName}/{subscriptionName}/messages")]
         //list the messages in a given subscription
-        public IEnumerable<VengaMessage> ListMessagesInSubscription(string topicName, string subscriptionName, int messageCount)
+        public IEnumerable<VengaMessage> ListMessagesInSubscription(string topicName, string subscriptionName, int messageCount = int.MaxValue)
         {
             return GetMessagesFromEndpoint(GetSubscription(subscriptionName, topicName), messageCount);
         }

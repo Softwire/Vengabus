@@ -34,9 +34,9 @@ namespace VengabusAPI.Controllers
             MessageServices.DeleteSelectedMessagesFromEndpoint(endpoint, deleteMessageChecker);
         }
 
-        protected IEnumerable<VengaMessage> GetMessagesFromEndpoint(Endpoint endpoint)
+        protected IEnumerable<VengaMessage> GetMessagesFromEndpoint(Endpoint endpoint, int messageCount)
         {
-            var brokeredMessagesList = MessageServices.GetMessagesFromEndpoint(endpoint);
+            var brokeredMessagesList = MessageServices.GetMessagesFromEndpoint(endpoint, messageCount);
             var messagesToReturn = new List<VengaMessage>();
             foreach (var message in brokeredMessagesList)
             {

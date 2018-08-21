@@ -8,15 +8,15 @@ namespace VengabusAPI.Controllers
     {
      
         [HttpGet]
-        [Route("queues/{queueName}/deadletters/{messageCount}")]
-        public IEnumerable<VengaMessage> ListDeadLetterMessagesInQueue(string queueName, int messageCount)
+        [Route("queues/{queueName}/deadletters")]
+        public IEnumerable<VengaMessage> ListDeadLetterMessagesInQueue(string queueName, int messageCount = int.MaxValue)
         {
             return GetMessagesFromEndpoint(GetDeadLetterQueue(queueName), messageCount);
         }
 
         [HttpGet]
-        [Route("subscriptions/{topicName}/{subscriptionName}/deadletters/{messageCount}")]
-        public IEnumerable<VengaMessage> ListDeadLetterMessagesInSubscription(string topicName, string subscriptionName, int messageCount)
+        [Route("subscriptions/{topicName}/{subscriptionName}/deadletters")]
+        public IEnumerable<VengaMessage> ListDeadLetterMessagesInSubscription(string topicName, string subscriptionName, int messageCount = int.MaxValue)
         {
             return GetMessagesFromEndpoint(GetDeadLetterSubscription(subscriptionName, topicName), messageCount);
         }

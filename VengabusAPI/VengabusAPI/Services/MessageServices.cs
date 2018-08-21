@@ -8,7 +8,7 @@ namespace VengabusAPI.Services
     
     public class MessageServices
     {
-        public static IEnumerable<BrokeredMessage> GetMessagesFromEndpoint(Endpoint endpoint, int messageCount)
+        public static IEnumerable<BrokeredMessage> GetMessagesFromEndpoint(Endpoint endpoint, int messageCount = int.MaxValue)
         {
             var messagesToReturn = new List<BrokeredMessage>();
 
@@ -23,11 +23,6 @@ namespace VengabusAPI.Services
 
             //we are not realistically getting that many matches in one PeekBatch anyway -- this should be enough for this project
             int maxMessagesInPeekBatch = 100;
-            
-            if (messageCount == 0)//0 means get all the messages.
-            {
-                messageCount = int.MaxValue;
-            }
 
             while (true)
             {
