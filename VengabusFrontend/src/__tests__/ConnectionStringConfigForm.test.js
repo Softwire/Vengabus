@@ -2,7 +2,6 @@ import 'jest-localstorage-mock';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import { testHelper } from '../TestHelpers/TestHelper';
-import { ServiceBusInfoBox } from "../Components/ServiceBusInfoBox";
 
 import React from 'react';
 import {
@@ -10,13 +9,6 @@ import {
     LOCAL_STORAGE_STRINGS
 } from "../Components/ConnectionStringConfigForm";
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
-
-jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
-    VengaServiceBusService: {
-        
-    }
-}));
-
 
 it('component renders fine when connection string localStorage is not present', () => {
     localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionString, undefined);
