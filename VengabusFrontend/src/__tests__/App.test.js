@@ -304,6 +304,46 @@ const messageBoxTest = (messageRow, wrapper) => {
     wrapper.update();
 };
 
+const sendMessagePageTest = (wrapper) => {
+    return testHelper.afterReactHasUpdated().then(() => {//Click add new Azure property button
+        const addNewPropertyButton = wrapper.find('#addPreDefinedPropertyButton').last();
+        addNewPropertyButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click add new User defined property button
+        const addNewPropertyButton = wrapper.find('#addUserDefinedPropertyButton').last();
+        addNewPropertyButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click message body
+        const addNewPropertyButton = wrapper.find('#formControlsMessageBodyText').last();
+        addNewPropertyButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click queue selection dropdown
+        const addNewPropertyButton = wrapper.find('#queue-dropdown').last();
+        addNewPropertyButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click topic selection radio
+        const addNewPropertyButton = wrapper.find('#topic-selection-radio').last();
+        addNewPropertyButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click topic selection dropdown
+        const addNewPropertyButton = wrapper.find('#topic-dropdown').last();
+        addNewPropertyButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click queue selection radio
+        const addNewPropertyButton = wrapper.find('#queue-selection-radio').last();
+        addNewPropertyButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click Reset Fields button
+        const addNewPropertyButton = wrapper.find('#cancelButton').last();
+        addNewPropertyButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click Reset
+        const addNewPropertyButton = wrapper.find('#confirm').last();
+        addNewPropertyButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    });
+};
+
 it('passes smoke tests without crashing', () => {
     let wrapper = mount(<App />);
 
@@ -419,12 +459,7 @@ it('passes smoke tests without crashing', () => {
 
     }).then(() => {//Go to Send Message Page
         navbarSendMessagePageButton.simulate("click");
-        return testHelper.afterReactHasUpdated();
-    }).then(() => {//Click add new property button
-        const buttonsOnSendMessagePage = wrapper.find(Button);
-        const addNewPropertyButton = buttonsOnSendMessagePage.at(2);
-        addNewPropertyButton.simulate("click");
-        return testHelper.afterReactHasUpdated();
+        return sendMessagePageTest(wrapper);
     }).catch((e) => {
         //if there's an expect failing in any of the above, then it throws and enters catch,
         //but will not report an error in test. So we need to expect it not to be defined here.
