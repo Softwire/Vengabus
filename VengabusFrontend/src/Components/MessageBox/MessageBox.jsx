@@ -5,7 +5,7 @@ import { css } from 'emotion';
 import { CollapsiblePanel } from '../CollapsiblePanel';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { FormattingBox } from './FormattingBox';
-import { DeleteSingleMessageButton } from '../Components/DeleteSingleMessageButton';
+import { DeleteSingleMessageButton } from '../../Components/DeleteSingleMessageButton';
 
 export class MessageBox extends Component {
 
