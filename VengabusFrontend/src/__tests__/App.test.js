@@ -304,7 +304,7 @@ const messageBoxTest = (messageRow, wrapper) => {
     wrapper.update();
 };
 
-const sendMessagePageTest = (wrapper) => {
+const sendMessagePageTest = (wrapper) => { //Starts from SendMessagePage
     return testHelper.afterReactHasUpdated().then(() => {//Click add new Azure property button
         const addNewPropertyButton = wrapper.find('#addPreDefinedPropertyButton').last();
         addNewPropertyButton.simulate("click");
@@ -344,6 +344,10 @@ const sendMessagePageTest = (wrapper) => {
     });
 };
 
+const replayMessageTest = (wrapper) => { //Starts from HomePage
+
+};
+
 it('passes smoke tests without crashing', () => {
     let wrapper = mount(<App />);
 
@@ -360,7 +364,6 @@ it('passes smoke tests without crashing', () => {
      * Go to Demo Page
      * Test Purge Button
      * Go to messageBox
-     * [Go to replay message page at some point qq MK LW JF]
      * Go to Home Page
      * click Queue row
      * click message row
@@ -369,7 +372,15 @@ it('passes smoke tests without crashing', () => {
      * click Subscription row
      * click topic breadcrumb
      * Go to Send Message Page
-     * Click add new property button
+     * ┠ Click add new User defined property button
+     * ┠ Click message body
+     * ┠ Click queue selection dropdown
+     * ┠ Click topic selection radio
+     * ┠ Click topic selection dropdown
+     * ┠ Click queue selection radio
+     * ┠ Click Reset Fields button
+     * ┖ Click Reset
+     * Replay a message
      */
 
     connectButton.prop("onClick")();
@@ -460,6 +471,9 @@ it('passes smoke tests without crashing', () => {
     }).then(() => {//Go to Send Message Page
         navbarSendMessagePageButton.simulate("click");
         return sendMessagePageTest(wrapper);
+    }).then(() => {//Replay a message
+        navbarHomePageButton.simulate("click");
+        return replayMessageTest(wrapper);
     }).catch((e) => {
         //if there's an expect failing in any of the above, then it throws and enters catch,
         //but will not report an error in test. So we need to expect it not to be defined here.
