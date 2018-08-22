@@ -25,8 +25,9 @@ exports[`renders correctly after data is added 1`] = `
 .emotion-5 {
   border-left: 1px solid black;
   display: inline-block;
-  height: calc(100vh - 100px);
-  position: absolute;
+  height: calc(100% - 100px);
+  position: fixed;
+  z-index: -1;
 }
 
 .emotion-0.breadcrumb {
@@ -231,8 +232,9 @@ exports[`renders correctly before data is added 1`] = `
 .emotion-4 {
   border-left: 1px solid black;
   display: inline-block;
-  height: calc(100vh - 100px);
-  position: absolute;
+  height: calc(100% - 100px);
+  position: fixed;
+  z-index: -1;
 }
 
 .emotion-0.breadcrumb {
