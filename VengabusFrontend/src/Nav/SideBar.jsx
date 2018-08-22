@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-
-import { ConnectionStringConfigForm } from '../Components/ConnectionStringConfigForm';
-
+import { ConnectionStringConfigForm } from '../Components/SideBar/ConnectionStringConfigForm';
 import { css } from 'react-emotion';
 import { grey } from '../colourScheme';
 import { sharedSizesAndDimensions } from '../Helpers/SharedSizesAndDimensions';
-
-
 
 export class SideBar extends Component {
     render() {

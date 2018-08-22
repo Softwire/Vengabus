@@ -1,4 +1,4 @@
-import { QueueList } from "../../Components/QueueList";
+import { QueueList } from "../../../Components/HomePage/QueueList";
 import renderer from 'react-test-renderer';
 import React from 'react';
 

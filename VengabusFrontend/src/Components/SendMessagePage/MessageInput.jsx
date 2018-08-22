@@ -3,8 +3,9 @@ import { css } from 'react-emotion';
 import { MessageBodyInput } from './MessageBodyInput';
 import { MessageProperties } from './MessageProperties';
 import { MessageDestinationForm } from './MessageDestinationForm';
-import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
-import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
+import { ButtonWithConfirmationModal } from '../ButtonWithConfirmationModal';
+import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
+import { ButtonGroup } from 'react-bootstrap';
 import _ from 'lodash';
 
 /** 
@@ -298,35 +299,37 @@ export class MessageInput extends Component {
                     handleMessageBodyChange={this.handleMessageBodyChange}
                 />
                 <form>
-                    <ButtonWithConfirmationModal
-                        id="submitButton"
-                        buttonText={"Send Message"}
-                        buttonStyle="default"
-                        buttonDisabled={selectedEndpoint ? false : true}
-                        modalTitle={"Send Message to " + selectedEndpoint}
-                        modalBody={
-                            <React.Fragment>
-                                <p>{"Message will be sent to: " + selectedEndpoint}</p>
-                                {warnings}
-                                <p>{"Confirm sending message?"}</p>
-                            </React.Fragment>
-                        }
-                        confirmButtonText={"Send"}
-                        confirmAction={this.submit}
-                    />
-                    <ButtonWithConfirmationModal
-                        id="cancelButton"
-                        buttonText={"Reset Fields"}
-                        modalTitle={"Reset all fields"}
-                        modalBody={
-                            <React.Fragment>
-                                <p>Are you sure you want to reset ALL fields of the current message?</p>
-                                <p>Note: if you are replaying an existing message, resetting the fields here will have NO effect on the orignal message.</p>
-                            </React.Fragment>
-                        }
-                        confirmButtonText={"Reset"}
-                        confirmAction={this.discardMessage}
-                    />
+                    <ButtonGroup>
+                        <ButtonWithConfirmationModal
+                            id="submitButton"
+                            buttonText={"Send Message"}
+                            buttonStyle="default"
+                            buttonDisabled={selectedEndpoint ? false : true}
+                            modalTitle={"Send Message to " + selectedEndpoint}
+                            modalBody={
+                                <React.Fragment>
+                                    <p>{"Message will be sent to: " + selectedEndpoint}</p>
+                                    {warnings}
+                                    <p>{"Confirm sending message?"}</p>
+                                </React.Fragment>
+                            }
+                            confirmButtonText={"Send"}
+                            confirmAction={this.submit}
+                        />
+                        <ButtonWithConfirmationModal
+                            id="cancelButton"
+                            buttonText={"Reset Fields"}
+                            modalTitle={"Reset all fields"}
+                            modalBody={
+                                <React.Fragment>
+                                    <p>Are you sure you want to reset ALL fields of the current message?</p>
+                                    <p>Note: if you are replaying an existing message, resetting the fields here will have NO effect on the orignal message.</p>
+                                </React.Fragment>
+                            }
+                            confirmButtonText={"Reset"}
+                            confirmAction={this.discardMessage}
+                        />
+                    </ButtonGroup>
                 </form>
             </div >
         );

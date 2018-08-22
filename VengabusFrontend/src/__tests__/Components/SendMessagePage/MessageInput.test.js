@@ -2,14 +2,14 @@ import { mount, shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 import React from 'react';
 import { FormControl, Button } from "react-bootstrap";
-import { MessageInput } from '../../Components/MessageInput';
-import { MessagePropertyInputRow } from '../../Components/MessagePropertyInputRow';
-import { testHelper } from '../../TestHelpers/TestHelper';
+import { MessageInput } from '../../../Components/SendMessagePage/MessageInput';
+import { MessagePropertyInputRow } from '../../../Components/SendMessagePage/MessagePropertyInputRow';
+import { testHelper } from '../../../TestHelpers/TestHelper';
 import { wrap } from 'module';
 import formatXML from 'xml-formatter';
 
 let mockedFunction = jest.fn();
-jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
+jest.mock('../../../AzureWrappers/VengaServiceBusService', () => ({
     VengaServiceBusService: class {
         constructor() {
         }

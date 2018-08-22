@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { DataTable } from './DataTable';
-import { MessageBox } from './MessageBox/MessageBox';
+import { DataTable } from '../DataTable';
+import { MessageBox } from '../MessageBox/MessageBox';
 import { truncate } from 'lodash';
-import { formatTimeStamp } from '../Helpers/FormattingHelpers';
+import { formatTimeStamp } from '../../Helpers/FormattingHelpers';
 
 
 export class MessageList extends Component {

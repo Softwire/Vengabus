@@ -1,7 +1,7 @@
 import 'jest-localstorage-mock';
 import renderer from 'react-test-renderer';
 import React from 'react';
-import { MessagePropertyInput } from '../../Components/MessagePropertyInput';
+import { MessagePropertyInput } from '../../../Components/SendMessagePage/MessagePropertyInput';
 
 it('renders correctly', () => {
     let messagePropertyInput = renderer.create(

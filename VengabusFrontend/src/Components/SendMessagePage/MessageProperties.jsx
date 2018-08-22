@@ -33,7 +33,7 @@ export class MessageProperties extends Component {
     /**
      * Deletes a row from the list of user defined properties.
      * @param {integer} index The index of the row to delete.
-     * @param {boolean} isUserDefined Should be true if the property is user-defined, false if it is a pre-defined property.
+     * @param {boolean} isPreDefined Should be true if the property is user-defined, false if it is a pre-defined property.
      */
     deleteRow = (index, isPreDefined) => {
         this.updatePropertiesCollection(isPreDefined, (propertyCollectionToMutate) => {

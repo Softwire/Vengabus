@@ -1,15 +1,15 @@
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import React from 'react';
-import { TwoListDisplay } from "../../Components/TwoListDisplay";
-import { testHelper } from '../../TestHelpers/TestHelper';
+import { TwoListDisplay } from "../../../Components/HomePage/TwoListDisplay";
+import { testHelper } from '../../../TestHelpers/TestHelper';
 import toJson from 'enzyme-to-json';
-import { EndpointTypes } from '../../Helpers/EndpointTypes';
+import { EndpointTypes } from '../../../Helpers/EndpointTypes';
 
 //event object to hand to click functions
 const eventObj = {};
 
-jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
+jest.mock('../../../AzureWrappers/VengaServiceBusService', () => ({
     VengaServiceBusService: class {
         constructor() {
         }

@@ -1,4 +1,4 @@
-import { SubscriptionList } from '../../Components/SubscriptionList';
+import { SubscriptionList } from '../../../Components/HomePage/SubscriptionList';
 import renderer from 'react-test-renderer';
 import React from 'react';
 

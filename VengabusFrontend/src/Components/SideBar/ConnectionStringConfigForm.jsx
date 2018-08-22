@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ServiceBusInfoBox } from "./ServiceBusInfoBox";
-import { serviceBusConnection } from "../AzureWrappers/ServiceBusConnection";
+import { serviceBusConnection } from "../../AzureWrappers/ServiceBusConnection";
 import {
     FormGroup,
     FormControl,

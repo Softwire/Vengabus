@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { css } from 'react-emotion';
 import { Panel } from 'react-bootstrap';
-import { blue } from '../colourScheme';
-import { sharedSizesAndDimensions } from '../Helpers/SharedSizesAndDimensions';
+import { blue } from '../../colourScheme';
+import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
 export class ServiceBusInfoBox extends Component {
 
     render() {

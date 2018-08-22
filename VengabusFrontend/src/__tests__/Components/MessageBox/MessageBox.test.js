@@ -1,4 +1,4 @@
-import { MessageBox } from '../../Components/MessageBox/MessageBox';
+import { MessageBox } from '../../../Components/MessageBox/MessageBox';
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
