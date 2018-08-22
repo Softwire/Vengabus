@@ -40,8 +40,25 @@ export class MessageBox extends Component {
         }
     }
 
+    /**
+     * Downloads a message as a formatted JSON file. Does NOT download any null properties.
+     * @param {object} message The message to be downloaded.
+     */
     handleDownloadClick = (message) => {
-        download(JSON.stringify(message, 0, 4), "messageDownload.json", "text / json");
+        let messageDownload = { ...message, ...message.predefinedProperties };
+        delete messageDownload.predefinedProperties;
+
+        messageDownload.properties = { ...message.customProperties };
+        delete messageDownload.customProperties;
+
+        messageDownload.body = messageDownload.messageBody;
+        delete messageDownload.messageBody;
+        delete messageDownload.messageBodyPreview;
+
+        delete messageDownload.timestamp;
+        delete messageDownload.uniqueId;
+
+        download(JSON.stringify(messageDownload, 0, 4), "message_download.json", "text / json");
     }
 
     closeMessageModalAndReloadMessageTable = () => {
