@@ -127,6 +127,7 @@ exports[`renders correctly after data is added 1`] = `
             defaultHover={true}
             name="QueueList"
             onRowClick={[Function]}
+            searchable={true}
             selectRow={
               Object {
                 "bgColor": "#99ccff",
@@ -186,6 +187,7 @@ exports[`renders correctly after data is added 1`] = `
             defaultHover={true}
             name="TopicList"
             onRowClick={[Function]}
+            searchable={true}
             selectRow={
               Object {
                 "bgColor": "#99ccff",
