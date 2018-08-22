@@ -290,11 +290,11 @@ export class DataTable extends Component {
             if (!value) {
                 continue;
             }
-            let str = typeof value === "string" ? value : value.toString();
-            if (typeof str !== "string") {//if we still can't convert value to a string, then give up on it
+            let stringifiedValue = typeof value === "string" ? value : value.toString();
+            if (typeof stringifiedValue !== "string") {//if we still can't convert value to a string, then give up on it
                 continue;
             }
-            if (str.includes(this.state.searchValue)) {
+            if (stringifiedValue.includes(this.state.searchValue)) {
                 return true;
             }
         }
