@@ -39,7 +39,7 @@ export class TopicList extends Component {
                 defaultHover
                 onRowClick={this.props.clickFunction}
                 selectRow={selectRow}
-                searchable={true}
+                searchable
             />
         );
     }
