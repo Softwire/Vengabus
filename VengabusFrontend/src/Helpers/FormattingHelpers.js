@@ -4,6 +4,20 @@ export function formatTimeStamp(date) {
     return moment(date).format("DD-MM-YYYY HH:mm:ss");
 }
 
+export function parseUploadedMessage(message) {
+    let messageCopy = { ...message, properties: { ...message.properties } };
+    let parsedMessage = {};
+
+    parsedMessage.messageBody = messageCopy.body;
+    delete messageCopy.body;
+
+    parsedMessage.customProperties = messageCopy.properties;
+    delete messageCopy.properties;
+
+    parsedMessage.predefinedProperties = messageCopy;
+
+    return parsedMessage;
+}
 export function formatMessageForDownload(message) {
     let messageDownload = { ...message, ...message.predefinedProperties };
     delete messageDownload.predefinedProperties;

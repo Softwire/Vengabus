@@ -7,6 +7,8 @@ import { MessageDestinationForm } from './MessageDestinationForm';
 import { MessageSendAndResetButtons } from './MessageSendAndResetButtons';
 import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { cancellablePromiseCollection } from '../../Helpers/CancellablePromiseCollection';
+import { parseUploadedMessage } from '../Helpers/FormattingHelpers';
+import { PAGES, pageSwitcher } from '../Pages/PageSwitcherService';
 import { sharedSizesAndDimensions, zIndices } from '../../Helpers/SharedSizesAndDimensions';
 import _ from 'lodash';
 import { FormControl } from 'react-bootstrap';
@@ -71,15 +73,17 @@ export class MessageInput extends Component {
     componentWillUnmount() {
         this.promiseCollection.cancelAllPromises();
     }
+    /**
+     * @param {object} file The uploaded file that should be loaded into the page.
+     */
     replayUploadedFile = (file) => {
-        console.log(file);
-        
         const fr = new FileReader();
 
         fr.onload = (event) => {
-            console.log(event);
-            let result = JSON.parse(event.target.result);
-            console.log(result);
+            const message = JSON.parse(event.target.result);
+            const parsedMessage = parseUploadedMessage(message);
+            pageSwitcher.switchToPage(PAGES.HomePage);  //QQ necessary becasue otherwise the page is not refreshed, change once solution has been found
+            pageSwitcher.switchToPage(PAGES.SendMessagePage, { message: parsedMessage });
         };
 
         fr.readAsText(file.item(0));
@@ -348,6 +352,7 @@ export class MessageInput extends Component {
                     </div>
                 </div>
                 <div className={stickySpacer} />
+                <p>Upload a message</p>
                 <FormControl
                     id="uploadFile"
                     type="file"
