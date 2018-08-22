@@ -56,6 +56,10 @@ class ButtonWithConfirmationModal extends React.Component {
             </OverlayTrigger>;
 
 
+
+        let buttonStyle = this.props.buttonStyle ? this.props.buttonStyle : "danger";
+        let alertStyle = this.props.alertStyle ? this.props.alertStyle : buttonStyle;
+        let modalButtonStyle = this.props.modalButtonStyle ? this.props.modalButtonStyle : alertStyle;
         return (
             <React.Fragment>
                 {this.props.tooltipMessage ? buttonWithToolTip : button}
@@ -65,7 +69,7 @@ class ButtonWithConfirmationModal extends React.Component {
                     </Modal.Header>
                     <Modal.Body>
                         {this.props.modalBody ?
-                            <Alert bsStyle={this.props.buttonStyle ? this.props.buttonStyle : "danger"}>
+                            <Alert bsStyle={alertStyle}>
                                 {this.props.modalBody}
                             </Alert > : null
                         }
