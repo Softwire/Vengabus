@@ -31,8 +31,7 @@ export class ConnectionStringConfigForm extends Component {
             connectionStrings: [],
             activeConnectionString: { label: "", value: "" },
             connectedTo: { label: "", value: "" },
-            APIroot: "",
-            info: ""
+            APIroot: ""
         };
     }
 
@@ -228,7 +227,6 @@ export class ConnectionStringConfigForm extends Component {
 
         infoPromise.then(response => {
             this.setState({
-                info: response,
                 //only update this when we actually connect to something.
                 connectedTo: activeConnectionString
             });
@@ -307,8 +305,7 @@ export class ConnectionStringConfigForm extends Component {
                     }
                     confirmButtonText={"Delete"}
                     confirmAction={this.deleteConnection}
-                >
-                </ButtonWithConfirmationModal>
+                />
                 {
                     //buttons want to grip on to the top of things not pretty so add a break to separate
                 }
