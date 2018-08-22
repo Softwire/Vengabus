@@ -80,7 +80,7 @@ export class TwoListDisplay extends Component {
             this.setState({
                 queueData: result
             });
-        }).catch((e) => { console.log(e); });
+        }).catch((e) => { if (!e.isCanceled) { console.log(e); } });
     }
 
     updateAllTopicData = () => {
@@ -91,7 +91,7 @@ export class TwoListDisplay extends Component {
             this.setState({
                 topicData: result
             });
-        }).catch(e => { console.log(e); });
+        }).catch(e => {if (!e.isCanceled) { console.log(e); }  });
     }
 
     updateTopicSubscriptionData = () => {
@@ -103,7 +103,7 @@ export class TwoListDisplay extends Component {
             this.setState({
                 subscriptionData: result
             });
-        }).catch(e => { console.log(e); });
+        }).catch(e => { if (!e.isCanceled) { console.log(e); } });
     }
 
 
@@ -134,7 +134,7 @@ export class TwoListDisplay extends Component {
             this.setState({
                 messageData: result
             });
-        }).catch(e=>console.log(e));
+        }).catch(e => { if (!e.isCanceled) { console.log(e); }} );
     }
 
     resetInitialStateData = () => {

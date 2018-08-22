@@ -20,8 +20,9 @@ export class cancelablePromiseCollection {
 
     cancelAllPromises = () => {
         this.collection.forEach(promise =>
-            this.cancelPromise(promise)
+            promise.cancel()
         );
+        this.collection = [];
     }
 
     makeCancelable = (promise) => {
