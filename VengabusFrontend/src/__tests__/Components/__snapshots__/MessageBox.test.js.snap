@@ -1,1156 +1,171 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MessageBox renders correctly with given props 1`] = `
-ReactWrapper {
-  "length": 1,
-  Symbol(enzyme.__unrendered__): <MessageBox
-    messageBody="ID"
-    messageId="BODY"
-/>,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__node__): Object {
-    "instance": MessageBox {
-      "_reactInternalFiber": FiberNode {
-        "_debugID": 5,
-        "_debugIsCurrentlyTiming": false,
-        "_debugOwner": FiberNode {
-          "_debugID": 4,
-          "_debugIsCurrentlyTiming": false,
-          "_debugOwner": null,
-          "_debugSource": null,
-          "actualDuration": 0,
-          "actualStartTime": 0,
-          "alternate": null,
-          "child": [Circular],
-          "effectTag": 1,
-          "expirationTime": 0,
-          "firstEffect": null,
-          "index": 0,
-          "key": null,
-          "lastEffect": null,
-          "memoizedProps": Object {
-            "Component": [Function],
-            "context": null,
-            "props": Object {
-              "messageBody": "ID",
-              "messageId": "BODY",
-            },
-          },
-          "memoizedState": Object {
-            "context": null,
-            "mount": true,
-            "props": Object {
-              "messageBody": "ID",
-              "messageId": "BODY",
-            },
-          },
-          "mode": 0,
-          "nextEffect": null,
-          "pendingProps": Object {
-            "Component": [Function],
-            "context": null,
-            "props": Object {
-              "messageBody": "ID",
-              "messageId": "BODY",
-            },
-          },
-          "ref": null,
-          "return": FiberNode {
-            "_debugID": 1,
-            "_debugIsCurrentlyTiming": false,
-            "_debugOwner": null,
-            "_debugSource": null,
-            "actualDuration": 0,
-            "actualStartTime": 0,
-            "alternate": FiberNode {
-              "_debugID": 1,
-              "_debugIsCurrentlyTiming": false,
-              "_debugOwner": null,
-              "_debugSource": null,
-              "actualDuration": 0,
-              "actualStartTime": 0,
-              "alternate": [Circular],
-              "child": null,
-              "effectTag": 0,
-              "expirationTime": 1,
-              "firstEffect": null,
-              "index": 0,
-              "key": null,
-              "lastEffect": null,
-              "memoizedProps": null,
-              "memoizedState": null,
-              "mode": 0,
-              "nextEffect": null,
-              "pendingProps": null,
-              "ref": null,
-              "return": null,
-              "selfBaseTime": 0,
-              "sibling": null,
-              "stateNode": Object {
-                "containerInfo": <div />,
-                "context": Object {},
-                "current": [Circular],
-                "earliestPendingTime": 0,
-                "earliestSuspendedTime": 0,
-                "finishedWork": null,
-                "firstBatch": null,
-                "hydrate": false,
-                "latestPendingTime": 0,
-                "latestPingedTime": 0,
-                "latestSuspendedTime": 0,
-                "nextScheduledRoot": null,
-                "pendingChildren": null,
-                "pendingCommitExpirationTime": 0,
-                "pendingContext": null,
-                "remainingExpirationTime": 0,
-              },
-              "tag": 3,
-              "treeBaseTime": 0,
-              "type": null,
-              "updateQueue": Object {
-                "baseState": null,
-                "expirationTime": 1,
-                "firstCapturedEffect": null,
-                "firstCapturedUpdate": null,
-                "firstEffect": null,
-                "firstUpdate": Object {
-                  "callback": null,
-                  "expirationTime": 1,
-                  "next": null,
-                  "nextEffect": null,
-                  "payload": Object {
-                    "element": <WrapperComponent
-                      Component={[Function]}
-                      context={null}
-                      props={
-                                            Object {
-                                                                  "messageBody": "ID",
-                                                                  "messageId": "BODY",
-                                                                }
-                      }
-/>,
-                  },
-                  "tag": 0,
-                },
-                "lastCapturedEffect": null,
-                "lastCapturedUpdate": null,
-                "lastEffect": null,
-                "lastUpdate": Object {
-                  "callback": null,
-                  "expirationTime": 1,
-                  "next": null,
-                  "nextEffect": null,
-                  "payload": Object {
-                    "element": <WrapperComponent
-                      Component={[Function]}
-                      context={null}
-                      props={
-                                            Object {
-                                                                  "messageBody": "ID",
-                                                                  "messageId": "BODY",
-                                                                }
-                      }
-/>,
-                  },
-                  "tag": 0,
-                },
-              },
-            },
-            "child": [Circular],
-            "effectTag": 32,
-            "expirationTime": 0,
-            "firstEffect": [Circular],
-            "index": 0,
-            "key": null,
-            "lastEffect": [Circular],
-            "memoizedProps": null,
-            "memoizedState": Object {
-              "element": <WrapperComponent
-                Component={[Function]}
-                context={null}
-                props={
-                                Object {
-                                                "messageBody": "ID",
-                                                "messageId": "BODY",
-                                              }
-                }
-/>,
-            },
-            "mode": 0,
-            "nextEffect": null,
-            "pendingProps": null,
-            "ref": null,
-            "return": null,
-            "selfBaseTime": 0,
-            "sibling": null,
-            "stateNode": Object {
-              "containerInfo": <div />,
-              "context": Object {},
-              "current": [Circular],
-              "earliestPendingTime": 0,
-              "earliestSuspendedTime": 0,
-              "finishedWork": null,
-              "firstBatch": null,
-              "hydrate": false,
-              "latestPendingTime": 0,
-              "latestPingedTime": 0,
-              "latestSuspendedTime": 0,
-              "nextScheduledRoot": null,
-              "pendingChildren": null,
-              "pendingCommitExpirationTime": 0,
-              "pendingContext": null,
-              "remainingExpirationTime": 0,
-            },
-            "tag": 3,
-            "treeBaseTime": 0,
-            "type": null,
-            "updateQueue": Object {
-              "baseState": Object {
-                "element": <WrapperComponent
-                  Component={[Function]}
-                  context={null}
-                  props={
-                                    Object {
-                                                      "messageBody": "ID",
-                                                      "messageId": "BODY",
-                                                    }
-                  }
-/>,
-              },
-              "expirationTime": 0,
-              "firstCapturedEffect": null,
-              "firstCapturedUpdate": null,
-              "firstEffect": null,
-              "firstUpdate": null,
-              "lastCapturedEffect": null,
-              "lastCapturedUpdate": null,
-              "lastEffect": null,
-              "lastUpdate": null,
-            },
-          },
-          "selfBaseTime": 0,
-          "sibling": null,
-          "stateNode": WrapperComponent {
-            "_reactInternalFiber": [Circular],
-            "_reactInternalInstance": Object {},
-            "context": Object {},
-            "props": Object {
-              "Component": [Function],
-              "context": null,
-              "props": Object {
-                "messageBody": "ID",
-                "messageId": "BODY",
-              },
-            },
-            "refs": Object {},
-            "state": Object {
-              "context": null,
-              "mount": true,
-              "props": Object {
-                "messageBody": "ID",
-                "messageId": "BODY",
-              },
-            },
-            "updater": Object {
-              "enqueueForceUpdate": [Function],
-              "enqueueReplaceState": [Function],
-              "enqueueSetState": [Function],
-              "isMounted": [Function],
-            },
-          },
-          "tag": 2,
-          "treeBaseTime": 0,
-          "type": [Function],
-          "updateQueue": null,
-        },
-        "_debugSource": null,
-        "actualDuration": 0,
-        "actualStartTime": 0,
-        "alternate": null,
-        "child": null,
-        "effectTag": 1,
-        "expirationTime": 0,
-        "firstEffect": null,
-        "index": 0,
-        "key": null,
-        "lastEffect": null,
-        "memoizedProps": Object {
-          "messageBody": "ID",
-          "messageId": "BODY",
-        },
-        "memoizedState": null,
-        "mode": 0,
-        "nextEffect": null,
-        "pendingProps": Object {
-          "messageBody": "ID",
-          "messageId": "BODY",
-        },
-        "ref": null,
-        "return": FiberNode {
-          "_debugID": 4,
-          "_debugIsCurrentlyTiming": false,
-          "_debugOwner": null,
-          "_debugSource": null,
-          "actualDuration": 0,
-          "actualStartTime": 0,
-          "alternate": null,
-          "child": [Circular],
-          "effectTag": 1,
-          "expirationTime": 0,
-          "firstEffect": null,
-          "index": 0,
-          "key": null,
-          "lastEffect": null,
-          "memoizedProps": Object {
-            "Component": [Function],
-            "context": null,
-            "props": Object {
-              "messageBody": "ID",
-              "messageId": "BODY",
-            },
-          },
-          "memoizedState": Object {
-            "context": null,
-            "mount": true,
-            "props": Object {
-              "messageBody": "ID",
-              "messageId": "BODY",
-            },
-          },
-          "mode": 0,
-          "nextEffect": null,
-          "pendingProps": Object {
-            "Component": [Function],
-            "context": null,
-            "props": Object {
-              "messageBody": "ID",
-              "messageId": "BODY",
-            },
-          },
-          "ref": null,
-          "return": FiberNode {
-            "_debugID": 1,
-            "_debugIsCurrentlyTiming": false,
-            "_debugOwner": null,
-            "_debugSource": null,
-            "actualDuration": 0,
-            "actualStartTime": 0,
-            "alternate": FiberNode {
-              "_debugID": 1,
-              "_debugIsCurrentlyTiming": false,
-              "_debugOwner": null,
-              "_debugSource": null,
-              "actualDuration": 0,
-              "actualStartTime": 0,
-              "alternate": [Circular],
-              "child": null,
-              "effectTag": 0,
-              "expirationTime": 1,
-              "firstEffect": null,
-              "index": 0,
-              "key": null,
-              "lastEffect": null,
-              "memoizedProps": null,
-              "memoizedState": null,
-              "mode": 0,
-              "nextEffect": null,
-              "pendingProps": null,
-              "ref": null,
-              "return": null,
-              "selfBaseTime": 0,
-              "sibling": null,
-              "stateNode": Object {
-                "containerInfo": <div />,
-                "context": Object {},
-                "current": [Circular],
-                "earliestPendingTime": 0,
-                "earliestSuspendedTime": 0,
-                "finishedWork": null,
-                "firstBatch": null,
-                "hydrate": false,
-                "latestPendingTime": 0,
-                "latestPingedTime": 0,
-                "latestSuspendedTime": 0,
-                "nextScheduledRoot": null,
-                "pendingChildren": null,
-                "pendingCommitExpirationTime": 0,
-                "pendingContext": null,
-                "remainingExpirationTime": 0,
-              },
-              "tag": 3,
-              "treeBaseTime": 0,
-              "type": null,
-              "updateQueue": Object {
-                "baseState": null,
-                "expirationTime": 1,
-                "firstCapturedEffect": null,
-                "firstCapturedUpdate": null,
-                "firstEffect": null,
-                "firstUpdate": Object {
-                  "callback": null,
-                  "expirationTime": 1,
-                  "next": null,
-                  "nextEffect": null,
-                  "payload": Object {
-                    "element": <WrapperComponent
-                      Component={[Function]}
-                      context={null}
-                      props={
-                                            Object {
-                                                                  "messageBody": "ID",
-                                                                  "messageId": "BODY",
-                                                                }
-                      }
-/>,
-                  },
-                  "tag": 0,
-                },
-                "lastCapturedEffect": null,
-                "lastCapturedUpdate": null,
-                "lastEffect": null,
-                "lastUpdate": Object {
-                  "callback": null,
-                  "expirationTime": 1,
-                  "next": null,
-                  "nextEffect": null,
-                  "payload": Object {
-                    "element": <WrapperComponent
-                      Component={[Function]}
-                      context={null}
-                      props={
-                                            Object {
-                                                                  "messageBody": "ID",
-                                                                  "messageId": "BODY",
-                                                                }
-                      }
-/>,
-                  },
-                  "tag": 0,
-                },
-              },
-            },
-            "child": [Circular],
-            "effectTag": 32,
-            "expirationTime": 0,
-            "firstEffect": [Circular],
-            "index": 0,
-            "key": null,
-            "lastEffect": [Circular],
-            "memoizedProps": null,
-            "memoizedState": Object {
-              "element": <WrapperComponent
-                Component={[Function]}
-                context={null}
-                props={
-                                Object {
-                                                "messageBody": "ID",
-                                                "messageId": "BODY",
-                                              }
-                }
-/>,
-            },
-            "mode": 0,
-            "nextEffect": null,
-            "pendingProps": null,
-            "ref": null,
-            "return": null,
-            "selfBaseTime": 0,
-            "sibling": null,
-            "stateNode": Object {
-              "containerInfo": <div />,
-              "context": Object {},
-              "current": [Circular],
-              "earliestPendingTime": 0,
-              "earliestSuspendedTime": 0,
-              "finishedWork": null,
-              "firstBatch": null,
-              "hydrate": false,
-              "latestPendingTime": 0,
-              "latestPingedTime": 0,
-              "latestSuspendedTime": 0,
-              "nextScheduledRoot": null,
-              "pendingChildren": null,
-              "pendingCommitExpirationTime": 0,
-              "pendingContext": null,
-              "remainingExpirationTime": 0,
-            },
-            "tag": 3,
-            "treeBaseTime": 0,
-            "type": null,
-            "updateQueue": Object {
-              "baseState": Object {
-                "element": <WrapperComponent
-                  Component={[Function]}
-                  context={null}
-                  props={
-                                    Object {
-                                                      "messageBody": "ID",
-                                                      "messageId": "BODY",
-                                                    }
-                  }
-/>,
-              },
-              "expirationTime": 0,
-              "firstCapturedEffect": null,
-              "firstCapturedUpdate": null,
-              "firstEffect": null,
-              "firstUpdate": null,
-              "lastCapturedEffect": null,
-              "lastCapturedUpdate": null,
-              "lastEffect": null,
-              "lastUpdate": null,
-            },
-          },
-          "selfBaseTime": 0,
-          "sibling": null,
-          "stateNode": WrapperComponent {
-            "_reactInternalFiber": [Circular],
-            "_reactInternalInstance": Object {},
-            "context": Object {},
-            "props": Object {
-              "Component": [Function],
-              "context": null,
-              "props": Object {
-                "messageBody": "ID",
-                "messageId": "BODY",
-              },
-            },
-            "refs": Object {},
-            "state": Object {
-              "context": null,
-              "mount": true,
-              "props": Object {
-                "messageBody": "ID",
-                "messageId": "BODY",
-              },
-            },
-            "updater": Object {
-              "enqueueForceUpdate": [Function],
-              "enqueueReplaceState": [Function],
-              "enqueueSetState": [Function],
-              "isMounted": [Function],
-            },
-          },
-          "tag": 2,
-          "treeBaseTime": 0,
-          "type": [Function],
-          "updateQueue": null,
-        },
-        "selfBaseTime": 0,
-        "sibling": null,
-        "stateNode": [Circular],
-        "tag": 2,
-        "treeBaseTime": 0,
-        "type": [Function],
-        "updateQueue": null,
-      },
-      "_reactInternalInstance": Object {},
-      "closeMessageModalAndReloadMessageTable": [Function],
-      "context": Object {},
-      "convertMessagePropertiesToJSXArray": [Function],
-      "handleReplayMessage": [Function],
-      "props": Object {
-        "messageBody": "ID",
-        "messageId": "BODY",
-      },
-      "refs": Object {},
-      "state": null,
-      "updater": Object {
-        "enqueueForceUpdate": [Function],
-        "enqueueReplaceState": [Function],
-        "enqueueSetState": [Function],
-        "isMounted": [Function],
-      },
-    },
-    "key": undefined,
-    "nodeType": "class",
-    "props": Object {
-      "messageBody": "ID",
-      "messageId": "BODY",
-    },
-    "ref": null,
-    "rendered": null,
-    "type": [Function],
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": MessageBox {
-        "_reactInternalFiber": FiberNode {
-          "_debugID": 5,
-          "_debugIsCurrentlyTiming": false,
-          "_debugOwner": FiberNode {
-            "_debugID": 4,
-            "_debugIsCurrentlyTiming": false,
-            "_debugOwner": null,
-            "_debugSource": null,
-            "actualDuration": 0,
-            "actualStartTime": 0,
-            "alternate": null,
-            "child": [Circular],
-            "effectTag": 1,
-            "expirationTime": 0,
-            "firstEffect": null,
-            "index": 0,
-            "key": null,
-            "lastEffect": null,
-            "memoizedProps": Object {
-              "Component": [Function],
-              "context": null,
-              "props": Object {
-                "messageBody": "ID",
-                "messageId": "BODY",
-              },
-            },
-            "memoizedState": Object {
-              "context": null,
-              "mount": true,
-              "props": Object {
-                "messageBody": "ID",
-                "messageId": "BODY",
-              },
-            },
-            "mode": 0,
-            "nextEffect": null,
-            "pendingProps": Object {
-              "Component": [Function],
-              "context": null,
-              "props": Object {
-                "messageBody": "ID",
-                "messageId": "BODY",
-              },
-            },
-            "ref": null,
-            "return": FiberNode {
-              "_debugID": 1,
-              "_debugIsCurrentlyTiming": false,
-              "_debugOwner": null,
-              "_debugSource": null,
-              "actualDuration": 0,
-              "actualStartTime": 0,
-              "alternate": FiberNode {
-                "_debugID": 1,
-                "_debugIsCurrentlyTiming": false,
-                "_debugOwner": null,
-                "_debugSource": null,
-                "actualDuration": 0,
-                "actualStartTime": 0,
-                "alternate": [Circular],
-                "child": null,
-                "effectTag": 0,
-                "expirationTime": 1,
-                "firstEffect": null,
-                "index": 0,
-                "key": null,
-                "lastEffect": null,
-                "memoizedProps": null,
-                "memoizedState": null,
-                "mode": 0,
-                "nextEffect": null,
-                "pendingProps": null,
-                "ref": null,
-                "return": null,
-                "selfBaseTime": 0,
-                "sibling": null,
-                "stateNode": Object {
-                  "containerInfo": <div />,
-                  "context": Object {},
-                  "current": [Circular],
-                  "earliestPendingTime": 0,
-                  "earliestSuspendedTime": 0,
-                  "finishedWork": null,
-                  "firstBatch": null,
-                  "hydrate": false,
-                  "latestPendingTime": 0,
-                  "latestPingedTime": 0,
-                  "latestSuspendedTime": 0,
-                  "nextScheduledRoot": null,
-                  "pendingChildren": null,
-                  "pendingCommitExpirationTime": 0,
-                  "pendingContext": null,
-                  "remainingExpirationTime": 0,
-                },
-                "tag": 3,
-                "treeBaseTime": 0,
-                "type": null,
-                "updateQueue": Object {
-                  "baseState": null,
-                  "expirationTime": 1,
-                  "firstCapturedEffect": null,
-                  "firstCapturedUpdate": null,
-                  "firstEffect": null,
-                  "firstUpdate": Object {
-                    "callback": null,
-                    "expirationTime": 1,
-                    "next": null,
-                    "nextEffect": null,
-                    "payload": Object {
-                      "element": <WrapperComponent
-                        Component={[Function]}
-                        context={null}
-                        props={
-                                                Object {
-                                                                        "messageBody": "ID",
-                                                                        "messageId": "BODY",
-                                                                      }
-                        }
-/>,
-                    },
-                    "tag": 0,
-                  },
-                  "lastCapturedEffect": null,
-                  "lastCapturedUpdate": null,
-                  "lastEffect": null,
-                  "lastUpdate": Object {
-                    "callback": null,
-                    "expirationTime": 1,
-                    "next": null,
-                    "nextEffect": null,
-                    "payload": Object {
-                      "element": <WrapperComponent
-                        Component={[Function]}
-                        context={null}
-                        props={
-                                                Object {
-                                                                        "messageBody": "ID",
-                                                                        "messageId": "BODY",
-                                                                      }
-                        }
-/>,
-                    },
-                    "tag": 0,
-                  },
-                },
-              },
-              "child": [Circular],
-              "effectTag": 32,
-              "expirationTime": 0,
-              "firstEffect": [Circular],
-              "index": 0,
-              "key": null,
-              "lastEffect": [Circular],
-              "memoizedProps": null,
-              "memoizedState": Object {
-                "element": <WrapperComponent
-                  Component={[Function]}
-                  context={null}
-                  props={
-                                    Object {
-                                                      "messageBody": "ID",
-                                                      "messageId": "BODY",
-                                                    }
-                  }
-/>,
-              },
-              "mode": 0,
-              "nextEffect": null,
-              "pendingProps": null,
-              "ref": null,
-              "return": null,
-              "selfBaseTime": 0,
-              "sibling": null,
-              "stateNode": Object {
-                "containerInfo": <div />,
-                "context": Object {},
-                "current": [Circular],
-                "earliestPendingTime": 0,
-                "earliestSuspendedTime": 0,
-                "finishedWork": null,
-                "firstBatch": null,
-                "hydrate": false,
-                "latestPendingTime": 0,
-                "latestPingedTime": 0,
-                "latestSuspendedTime": 0,
-                "nextScheduledRoot": null,
-                "pendingChildren": null,
-                "pendingCommitExpirationTime": 0,
-                "pendingContext": null,
-                "remainingExpirationTime": 0,
-              },
-              "tag": 3,
-              "treeBaseTime": 0,
-              "type": null,
-              "updateQueue": Object {
-                "baseState": Object {
-                  "element": <WrapperComponent
-                    Component={[Function]}
-                    context={null}
-                    props={
-                                        Object {
-                                                            "messageBody": "ID",
-                                                            "messageId": "BODY",
-                                                          }
-                    }
-/>,
-                },
-                "expirationTime": 0,
-                "firstCapturedEffect": null,
-                "firstCapturedUpdate": null,
-                "firstEffect": null,
-                "firstUpdate": null,
-                "lastCapturedEffect": null,
-                "lastCapturedUpdate": null,
-                "lastEffect": null,
-                "lastUpdate": null,
-              },
-            },
-            "selfBaseTime": 0,
-            "sibling": null,
-            "stateNode": WrapperComponent {
-              "_reactInternalFiber": [Circular],
-              "_reactInternalInstance": Object {},
-              "context": Object {},
-              "props": Object {
-                "Component": [Function],
-                "context": null,
-                "props": Object {
-                  "messageBody": "ID",
-                  "messageId": "BODY",
-                },
-              },
-              "refs": Object {},
-              "state": Object {
-                "context": null,
-                "mount": true,
-                "props": Object {
-                  "messageBody": "ID",
-                  "messageId": "BODY",
-                },
-              },
-              "updater": Object {
-                "enqueueForceUpdate": [Function],
-                "enqueueReplaceState": [Function],
-                "enqueueSetState": [Function],
-                "isMounted": [Function],
-              },
-            },
-            "tag": 2,
-            "treeBaseTime": 0,
-            "type": [Function],
-            "updateQueue": null,
-          },
-          "_debugSource": null,
-          "actualDuration": 0,
-          "actualStartTime": 0,
-          "alternate": null,
-          "child": null,
-          "effectTag": 1,
-          "expirationTime": 0,
-          "firstEffect": null,
-          "index": 0,
-          "key": null,
-          "lastEffect": null,
-          "memoizedProps": Object {
-            "messageBody": "ID",
-            "messageId": "BODY",
-          },
-          "memoizedState": null,
-          "mode": 0,
-          "nextEffect": null,
-          "pendingProps": Object {
-            "messageBody": "ID",
-            "messageId": "BODY",
-          },
-          "ref": null,
-          "return": FiberNode {
-            "_debugID": 4,
-            "_debugIsCurrentlyTiming": false,
-            "_debugOwner": null,
-            "_debugSource": null,
-            "actualDuration": 0,
-            "actualStartTime": 0,
-            "alternate": null,
-            "child": [Circular],
-            "effectTag": 1,
-            "expirationTime": 0,
-            "firstEffect": null,
-            "index": 0,
-            "key": null,
-            "lastEffect": null,
-            "memoizedProps": Object {
-              "Component": [Function],
-              "context": null,
-              "props": Object {
-                "messageBody": "ID",
-                "messageId": "BODY",
-              },
-            },
-            "memoizedState": Object {
-              "context": null,
-              "mount": true,
-              "props": Object {
-                "messageBody": "ID",
-                "messageId": "BODY",
-              },
-            },
-            "mode": 0,
-            "nextEffect": null,
-            "pendingProps": Object {
-              "Component": [Function],
-              "context": null,
-              "props": Object {
-                "messageBody": "ID",
-                "messageId": "BODY",
-              },
-            },
-            "ref": null,
-            "return": FiberNode {
-              "_debugID": 1,
-              "_debugIsCurrentlyTiming": false,
-              "_debugOwner": null,
-              "_debugSource": null,
-              "actualDuration": 0,
-              "actualStartTime": 0,
-              "alternate": FiberNode {
-                "_debugID": 1,
-                "_debugIsCurrentlyTiming": false,
-                "_debugOwner": null,
-                "_debugSource": null,
-                "actualDuration": 0,
-                "actualStartTime": 0,
-                "alternate": [Circular],
-                "child": null,
-                "effectTag": 0,
-                "expirationTime": 1,
-                "firstEffect": null,
-                "index": 0,
-                "key": null,
-                "lastEffect": null,
-                "memoizedProps": null,
-                "memoizedState": null,
-                "mode": 0,
-                "nextEffect": null,
-                "pendingProps": null,
-                "ref": null,
-                "return": null,
-                "selfBaseTime": 0,
-                "sibling": null,
-                "stateNode": Object {
-                  "containerInfo": <div />,
-                  "context": Object {},
-                  "current": [Circular],
-                  "earliestPendingTime": 0,
-                  "earliestSuspendedTime": 0,
-                  "finishedWork": null,
-                  "firstBatch": null,
-                  "hydrate": false,
-                  "latestPendingTime": 0,
-                  "latestPingedTime": 0,
-                  "latestSuspendedTime": 0,
-                  "nextScheduledRoot": null,
-                  "pendingChildren": null,
-                  "pendingCommitExpirationTime": 0,
-                  "pendingContext": null,
-                  "remainingExpirationTime": 0,
-                },
-                "tag": 3,
-                "treeBaseTime": 0,
-                "type": null,
-                "updateQueue": Object {
-                  "baseState": null,
-                  "expirationTime": 1,
-                  "firstCapturedEffect": null,
-                  "firstCapturedUpdate": null,
-                  "firstEffect": null,
-                  "firstUpdate": Object {
-                    "callback": null,
-                    "expirationTime": 1,
-                    "next": null,
-                    "nextEffect": null,
-                    "payload": Object {
-                      "element": <WrapperComponent
-                        Component={[Function]}
-                        context={null}
-                        props={
-                                                Object {
-                                                                        "messageBody": "ID",
-                                                                        "messageId": "BODY",
-                                                                      }
-                        }
-/>,
-                    },
-                    "tag": 0,
-                  },
-                  "lastCapturedEffect": null,
-                  "lastCapturedUpdate": null,
-                  "lastEffect": null,
-                  "lastUpdate": Object {
-                    "callback": null,
-                    "expirationTime": 1,
-                    "next": null,
-                    "nextEffect": null,
-                    "payload": Object {
-                      "element": <WrapperComponent
-                        Component={[Function]}
-                        context={null}
-                        props={
-                                                Object {
-                                                                        "messageBody": "ID",
-                                                                        "messageId": "BODY",
-                                                                      }
-                        }
-/>,
-                    },
-                    "tag": 0,
-                  },
-                },
-              },
-              "child": [Circular],
-              "effectTag": 32,
-              "expirationTime": 0,
-              "firstEffect": [Circular],
-              "index": 0,
-              "key": null,
-              "lastEffect": [Circular],
-              "memoizedProps": null,
-              "memoizedState": Object {
-                "element": <WrapperComponent
-                  Component={[Function]}
-                  context={null}
-                  props={
-                                    Object {
-                                                      "messageBody": "ID",
-                                                      "messageId": "BODY",
-                                                    }
-                  }
-/>,
-              },
-              "mode": 0,
-              "nextEffect": null,
-              "pendingProps": null,
-              "ref": null,
-              "return": null,
-              "selfBaseTime": 0,
-              "sibling": null,
-              "stateNode": Object {
-                "containerInfo": <div />,
-                "context": Object {},
-                "current": [Circular],
-                "earliestPendingTime": 0,
-                "earliestSuspendedTime": 0,
-                "finishedWork": null,
-                "firstBatch": null,
-                "hydrate": false,
-                "latestPendingTime": 0,
-                "latestPingedTime": 0,
-                "latestSuspendedTime": 0,
-                "nextScheduledRoot": null,
-                "pendingChildren": null,
-                "pendingCommitExpirationTime": 0,
-                "pendingContext": null,
-                "remainingExpirationTime": 0,
-              },
-              "tag": 3,
-              "treeBaseTime": 0,
-              "type": null,
-              "updateQueue": Object {
-                "baseState": Object {
-                  "element": <WrapperComponent
-                    Component={[Function]}
-                    context={null}
-                    props={
-                                        Object {
-                                                            "messageBody": "ID",
-                                                            "messageId": "BODY",
-                                                          }
-                    }
-/>,
-                },
-                "expirationTime": 0,
-                "firstCapturedEffect": null,
-                "firstCapturedUpdate": null,
-                "firstEffect": null,
-                "firstUpdate": null,
-                "lastCapturedEffect": null,
-                "lastCapturedUpdate": null,
-                "lastEffect": null,
-                "lastUpdate": null,
-              },
-            },
-            "selfBaseTime": 0,
-            "sibling": null,
-            "stateNode": WrapperComponent {
-              "_reactInternalFiber": [Circular],
-              "_reactInternalInstance": Object {},
-              "context": Object {},
-              "props": Object {
-                "Component": [Function],
-                "context": null,
-                "props": Object {
-                  "messageBody": "ID",
-                  "messageId": "BODY",
-                },
-              },
-              "refs": Object {},
-              "state": Object {
-                "context": null,
-                "mount": true,
-                "props": Object {
-                  "messageBody": "ID",
-                  "messageId": "BODY",
-                },
-              },
-              "updater": Object {
-                "enqueueForceUpdate": [Function],
-                "enqueueReplaceState": [Function],
-                "enqueueSetState": [Function],
-                "isMounted": [Function],
-              },
-            },
-            "tag": 2,
-            "treeBaseTime": 0,
-            "type": [Function],
-            "updateQueue": null,
-          },
-          "selfBaseTime": 0,
-          "sibling": null,
-          "stateNode": [Circular],
-          "tag": 2,
-          "treeBaseTime": 0,
-          "type": [Function],
-          "updateQueue": null,
-        },
-        "_reactInternalInstance": Object {},
-        "closeMessageModalAndReloadMessageTable": [Function],
-        "context": Object {},
-        "convertMessagePropertiesToJSXArray": [Function],
-        "handleReplayMessage": [Function],
-        "props": Object {
-          "messageBody": "ID",
-          "messageId": "BODY",
-        },
-        "refs": Object {},
-        "state": null,
-        "updater": Object {
-          "enqueueForceUpdate": [Function],
-          "enqueueReplaceState": [Function],
-          "enqueueSetState": [Function],
-          "isMounted": [Function],
-        },
-      },
-      "key": undefined,
-      "nodeType": "class",
-      "props": Object {
-        "messageBody": "ID",
-        "messageId": "BODY",
-      },
-      "ref": null,
-      "rendered": null,
-      "type": [Function],
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-      },
-    },
-  },
+.emotion-3 {
+  margin-right: -8px;
 }
+
+.emotion-3.btn-toolbar .btn {
+  margin-right: 8px;
+  margin-left: 0px;
+  float: right;
+}
+
+.emotion-0 {
+  font-weight: bold;
+  display: inline-block;
+}
+
+.emotion-1 {
+  display: inline-block;
+}
+
+.emotion-2 .panel {
+  margin-bottom: 15px;
+}
+
+@media only screen and (min-width:750px) {
+  .emotion-4 .modal-dialog {
+    max-width: 750px;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width:750px) {
+  .emotion-4 .modal-dialog {
+    width: auto;
+  }
+}
+
+.emotion-4 .modal-dialog {
+  margin: 30px auto;
+}
+
+.emotion-4 .modal-content {
+  overflow: auto;
+  max-height: 92vh;
+}
+
+<div
+  className="static-modal"
+>
+  <Modal
+    animation={true}
+    autoFocus={true}
+    backdrop={true}
+    bsClass="modal"
+    className="emotion-4"
+    dialogComponentClass={[Function]}
+    enforceFocus={true}
+    id="messageBoxModal"
+    keyboard={true}
+    manager={
+      ModalManager {
+        "add": [Function],
+        "containers": Array [],
+        "data": Array [],
+        "handleContainerOverflow": true,
+        "hideSiblingNodes": true,
+        "isTopModal": [Function],
+        "modals": Array [],
+        "remove": [Function],
+      }
+    }
+    onHide={[Function]}
+    renderBackdrop={[Function]}
+    restoreFocus={true}
+    show={true}
+  >
+    <ModalHeader
+      bsClass="modal-header"
+      closeButton={false}
+      closeLabel="Close"
+    >
+      <ModalTitle
+        bsClass="modal-title"
+        className="emotion-0"
+        componentClass="h4"
+      >
+        Message Id: 
+      </ModalTitle>
+      <ModalTitle
+        bsClass="modal-title"
+        className="emotion-1"
+        componentClass="h4"
+      >
+        ID
+      </ModalTitle>
+    </ModalHeader>
+    <ModalBody
+      bsClass="modal-body"
+      className="emotion-2"
+      componentClass="div"
+      id="messageBoxModalBody"
+    >
+      <CollapsiblePanel
+        panelTitle="Pre-defined Properties"
+      >
+        <pre>
+          <p>
+            There are no pre-defined properties to display
+          </p>
+        </pre>
+      </CollapsiblePanel>
+      <CollapsiblePanel
+        panelTitle="User-defined Properties"
+      >
+        <pre>
+          <p>
+            There are no user-defined properties to display
+          </p>
+        </pre>
+      </CollapsiblePanel>
+      <FormattingBox
+        message="BODY"
+      />
+    </ModalBody>
+    <ModalFooter
+      bsClass="modal-footer"
+      componentClass="div"
+    >
+      <ButtonToolbar
+        bsClass="btn-toolbar"
+        className="emotion-3"
+      >
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="default"
+          disabled={false}
+          id="messageBoxClose"
+        >
+          Close
+        </Button>
+        <CopyTextButton
+          id="messageBoxCopy"
+          text="BODY"
+        />
+        <DeleteSingleMessageButton
+          closeParentModal={[Function]}
+          endpointName="demoqueue1"
+          endpointType="queue"
+          messageId="ID"
+          uniqueId="asdasasd"
+        />
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="default"
+          disabled={false}
+          id="messageBoxReplayMessage"
+          onClick={[Function]}
+        >
+          Replay Message to demoqueue1
+        </Button>
+      </ButtonToolbar>
+    </ModalFooter>
+  </Modal>
+</div>
 `;
