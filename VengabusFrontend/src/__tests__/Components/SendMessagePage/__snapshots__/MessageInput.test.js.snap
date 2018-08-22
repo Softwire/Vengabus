@@ -171,12 +171,14 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                                                             </div>
                                                         </form>
                                                         <form>
-                                                            <button disabled=\\"\\" type=\\"button\\" class=\\"btn btn-default\\">
-                                                                Send Message
-                                                            </button>
-                                                            <button type=\\"button\\" class=\\"btn btn-danger\\">
-                                                                Reset Fields
-                                                            </button>
+                                                            <div class=\\"btn-group\\">
+                                                                <button disabled=\\"\\" type=\\"button\\" class=\\"btn btn-default\\">
+                                                                    Send Message
+                                                                </button>
+                                                                <button type=\\"button\\" class=\\"btn btn-danger\\">
+                                                                    Reset Fields
+                                                                </button>
+                                                            </div>
                                                         </form>
                                                     </hr>
                                                 </div>
@@ -778,22 +780,26 @@ exports[`renders correctly after data has loaded 1`] = `
     </div>
   </form>
   <form>
-    <button
-      className="btn btn-default"
-      disabled={true}
-      onClick={[Function]}
-      type="button"
+    <div
+      className="btn-group"
     >
-      Send Message
-    </button>
-    <button
-      className="btn btn-danger"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
-    >
-      Reset Fields
-    </button>
+      <button
+        className="btn btn-default"
+        disabled={true}
+        onClick={[Function]}
+        type="button"
+      >
+        Send Message
+      </button>
+      <button
+        className="btn btn-danger"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Reset Fields
+      </button>
+    </div>
   </form>
 </div>
 `;
@@ -1386,22 +1392,26 @@ exports[`renders correctly before data has loaded 1`] = `
     </div>
   </form>
   <form>
-    <button
-      className="btn btn-default"
-      disabled={true}
-      onClick={[Function]}
-      type="button"
+    <div
+      className="btn-group"
     >
-      Send Message
-    </button>
-    <button
-      className="btn btn-danger"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
-    >
-      Reset Fields
-    </button>
+      <button
+        className="btn btn-default"
+        disabled={true}
+        onClick={[Function]}
+        type="button"
+      >
+        Send Message
+      </button>
+      <button
+        className="btn btn-danger"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Reset Fields
+      </button>
+    </div>
   </form>
 </div>
 `;
@@ -2129,22 +2139,26 @@ exports[`renders correctly from a predefined message 1`] = `
     </div>
   </form>
   <form>
-    <button
-      className="btn btn-default"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
+    <div
+      className="btn-group"
     >
-      Send Message
-    </button>
-    <button
-      className="btn btn-danger"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
-    >
-      Reset Fields
-    </button>
+      <button
+        className="btn btn-default"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Send Message
+      </button>
+      <button
+        className="btn btn-danger"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Reset Fields
+      </button>
+    </div>
   </form>
 </div>
 `;

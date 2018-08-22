@@ -6,7 +6,7 @@ import {
     Button
 } from "react-bootstrap";
 import Select from 'react-select';
-import { preventFormDefaultHandler } from '../Helpers/FormPreventDefaultHandler';
+import { preventFormDefaultHandler } from '../../Helpers/FormPreventDefaultHandler';
 
 /** Required props:
  * @prop {string} propertyName Name of the property.
@@ -66,7 +66,7 @@ export class MessagePropertyInputRow extends Component {
             permittedValueMenuItems = permittedValues.map((permittedValue) => { return { value: permittedValue, label: permittedValue }; });
         }
 
-        const preDefinedPropertyNameSelect = 
+        const preDefinedPropertyNameSelect =
             <Select
                 className={leftAlign}
                 title="Choose a property"

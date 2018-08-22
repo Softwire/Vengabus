@@ -82,10 +82,9 @@ export class VengaServiceBusService {
      * @param {string} queueName The name of the queue to send the message to.
      * @param {object} message The message to send to the queue, in the format:
      * {
-     *   "messageProperties": {},
-     *   "messageBody": "string",
-     *   "messageId": "string",
-     *   "contentType": "string"
+     *      "customProperties": {},
+     *      "predefinedProperties": {},
+     *      "messageBody": "string"
      * }
      */
     sendMessageToQueue = (queueName, message) => {
@@ -99,10 +98,9 @@ export class VengaServiceBusService {
      * @param {string} topicName The name of the topic to send the message to.
      * @param {object} message The message to send to the queue, in the format:
      * {
-     *   "messageProperties": {},
-     *   "messageBody": "string",
-     *   "messageId": "string",
-     *   "contentType": "string"
+     *      "customProperties": {},
+     *      "predefinedProperties": {},
+     *      "messageBody": "string"
      * }
      */
     sendMessageToTopic = (topicName, message) => {
