@@ -75,6 +75,7 @@ export class MessageList extends Component {
                     dataToDisplay={messageArray}
                     defaultHover
                     onRowClick={this.handleMessageClick}
+                    paginated
                 />
 
                 <MessageBox
