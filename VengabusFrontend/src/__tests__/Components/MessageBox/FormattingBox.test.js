@@ -1,4 +1,4 @@
-import { FormattingBox } from '../../Components/MessageBox/FormattingBox';
+import { FormattingBox } from '../../../Components/MessageBox/FormattingBox';
 import renderer from 'react-test-renderer';
 import React from 'react';
 import { shallow } from 'enzyme';
