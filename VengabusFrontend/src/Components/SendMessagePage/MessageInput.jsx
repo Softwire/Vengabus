@@ -9,6 +9,7 @@ import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { cancellablePromiseCollection } from '../../Helpers/CancellablePromiseCollection';
 import { sharedSizesAndDimensions, zIndices } from '../../Helpers/SharedSizesAndDimensions';
 import _ from 'lodash';
+import { FormControl } from 'react-bootstrap';
 
 /** 
  * @property {Object} message Can take a message as a prop to replay message.
@@ -70,6 +71,20 @@ export class MessageInput extends Component {
     componentWillUnmount() {
         this.promiseCollection.cancelAllPromises();
     }
+    replayUploadedFile = (file) => {
+        console.log(file);
+        
+        const fr = new FileReader();
+
+        fr.onload = (event) => {
+            console.log(event);
+            let result = JSON.parse(event.target.result);
+            console.log(result);
+        };
+
+        fr.readAsText(file.item(0));
+    }
+
     /**
      * Converts a string to an object of the form:
      * `{value: "string", label: "string"}`
@@ -333,6 +348,12 @@ export class MessageInput extends Component {
                     </div>
                 </div>
                 <div className={stickySpacer} />
+                <FormControl
+                    id="uploadFile"
+                    type="file"
+                    onChange={(event) => this.replayUploadedFile(event.target.files)}
+                />
+                <hr className={fullWidth} />
                 <MessageProperties
                     arePreDefinedPropsLoaded={this.state.arePreDefinedPropsLoaded}
                     preDefinedProperties={this.state.preDefinedProperties}
