@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Panel, Glyphicon } from 'react-bootstrap';
 import { css } from 'emotion';
-import { panelDarkGrey, panelLightGrey, panelWhiteGrey } from '../colourScheme';
+import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
 
 export class CollapsiblePanel extends Component {
     constructor(props, context) {
@@ -18,23 +18,10 @@ export class CollapsiblePanel extends Component {
     }
 
     render() {
-        const panelStyle = css`
-            .panel {
-                margin-bottom: 10px;
-            }
-            .panel-heading {
-                padding: 0 15px;
-                color: ${panelDarkGrey};
-                background-color: ${panelWhiteGrey};
-                border-color: ${panelLightGrey};
-            }
-            .panel-body { 
-                padding: 0;
-            }
+        const collapsiblePanelStyle = css`
             pre {
                 background-color: white;
-                border: none;
-                margin: 0;
+              
             }
             pre p {
                 margin: 0;
@@ -45,17 +32,17 @@ export class CollapsiblePanel extends Component {
             font-weight: bold;
             display: inline-block;
         `;
-        const glyphiconStyle = css`
+        const glyphiconStyle = css` /*we need the margins below to align the plus and minus glyphicons*/
             &.glyphicon-plus {
                 margin-left: 1px;
-                margin-right: 10px;
+                margin-right: calc(${sharedSizesAndDimensions.GLYPHICON_HORIZONTAL_MARGINS}px - 1px);
             }
             &.glyphicon-minus {
-                margin-right: 11px;
+                margin-right: ${sharedSizesAndDimensions.GLYPHICON_HORIZONTAL_MARGINS}px;
             }
         `;
         return (
-            <Panel defaultExpanded={this.props.isDefaultExpanded} className={panelStyle} onToggle={() => this.togglePanel()} >
+            <Panel defaultExpanded={this.props.isDefaultExpanded} className={collapsiblePanelStyle} onToggle={() => this.togglePanel()} >
                 <Panel.Toggle>
                     <Panel.Heading>
                         <Panel.Title>
