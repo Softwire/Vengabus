@@ -7,6 +7,8 @@ import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { FormattingBox } from './FormattingBox';
 import { DeleteSingleMessageButton } from '../../Components/DeleteSingleMessageButton';
 import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
+import { formatMessageForDownload } from '../../Helpers/FormattingHelpers';
+const download = require("downloadjs");
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
 import { NoPropertiesPanel } from './NoPropertiesPanel';
 import { panelDarkGrey, panelLightGrey } from '../../colourScheme';
@@ -45,19 +47,7 @@ export class MessageBox extends Component {
      * @param {object} message The message to be downloaded.
      */
     handleDownloadClick = (message) => {
-        let messageDownload = { ...message, ...message.predefinedProperties };
-        delete messageDownload.predefinedProperties;
-
-        messageDownload.properties = { ...message.customProperties };
-        delete messageDownload.customProperties;
-
-        messageDownload.body = messageDownload.messageBody;
-        delete messageDownload.messageBody;
-        delete messageDownload.messageBodyPreview;
-
-        delete messageDownload.timestamp;
-        delete messageDownload.uniqueId;
-
+        const messageDownload = formatMessageForDownload(message);
         download(JSON.stringify(messageDownload, 0, 4), "message_download.json", "text / json");
     }
 

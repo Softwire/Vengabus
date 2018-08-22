@@ -4,6 +4,7 @@ import { css } from 'react-emotion';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import { Button } from 'react-bootstrap';
 import { EndpointTypes } from '../Helpers/EndpointTypes';
+import { DownloadEndpointButton } from '../Components/DownloadEndpointButton';
 
 export class DemoPage extends Component {
     constructor(props) {
@@ -71,7 +72,6 @@ sit amet \nthat was a newline`
         const messagePromise = serviceBusService.listSubscriptionMessages(topicName, subscriptionName);
         messagePromise.then((result) => console.log(result));
     }
-
 
     render() {
         const queueDivStyle = css`
