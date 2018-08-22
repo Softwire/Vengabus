@@ -3,8 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "devDependencies": {
-        "enzyme": "^3.3.0",
-        "enzyme-adapter-react-16": "^1.1.1",
+        "enzyme": "^3.4.4",
+        "enzyme-adapter-react-16": "^1.2.0",
         "eslint-config-defaults": "^9.0.0",
         "eslint-plugin-react": "^7.10.0",
         "jest-emotion": "^9.2.7",
