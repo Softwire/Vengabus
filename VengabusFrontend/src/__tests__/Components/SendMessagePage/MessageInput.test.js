@@ -105,6 +105,24 @@ it('Shows a red border around invalid property names', () => {
     });
 });
 
+it('Correctly set selection to topic', async () => {
+    let wrapper = mount(<MessageInput />);
+    wrapper.setState({
+        selectedQueue: "testTopic",
+        recipientIsQueue: false
+    });
+    let submitButton = wrapper.find("#submitButton").at(0);
+    submitButton.simulate('click');
+    await testHelper.afterReactHasUpdated().then(() => {
+        wrapper.update();
+        let confirmButton = wrapper.find("#confirm").last();
+        confirmButton.simulate('click');
+    });
+    expect(mockedFunction).toBeCalledWith(
+        "testTopic"
+    );
+});
+
 it('Correctly creates the properties of a message', async () => {
     let wrapper = mount(<MessageInput />);
     await testHelper.afterReactHasUpdated();
