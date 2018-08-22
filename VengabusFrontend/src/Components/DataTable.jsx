@@ -6,6 +6,8 @@ import { palerBlue, paleGreyBlue } from '../colourScheme';
 import classNames from 'classnames';
 import _ from 'lodash';
 
+import { FormGroup, FormControl } from 'react-bootstrap';
+
 /*
 Returns a table created from an input object
 Props:
@@ -49,6 +51,7 @@ Props:
                 classes: {string} Allows passing in css classes for styling (not an array).
                 bgColor: {string} Sets background color of selected row, will throw an error if style or classes is defined.
                 onSelect: {function(row, isSelect, rowIndex, e)} Called when row is selected (clicked).
+    searchable: (OPTIONAL) {boolean} If true, create a searchable table with a searchbar on top. Default is false.
     rowClasses: (OPTIONAL) {string} CSS class that applies to the rows.
     paginated: (OPTIONAL) {boolean} If true then list will be paginated. Default is false.
     bordered: (OPTIONAL) {boolean} If false then no vertical borders. Default is true.
@@ -67,6 +70,15 @@ For more info see:
 https://react-bootstrap-table.github.io/react-bootstrap-table2/
 */
 export class DataTable extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            searchValue: ""
+        };
+        this.propsSnapshot = undefined;
+    }
 
     throwIfOnlyHiddenColumns = () => {
         const onlyHiddenColumns = _(this.props.colProps).every(col => col.hidden);
@@ -247,8 +259,65 @@ export class DataTable extends Component {
         return this.configureCursor(partiallyProcessedRowClasses, rowEvents, selectRow);
     }
 
+    handleSearchBarChange = (e) => {
+        this.setState({
+            searchValue: e.target.value
+        });
+    }
+
+    //get the property 'key' from element. We would like to write element[key], but element might be nested.
+    getProperty(element, key) {
+        if (!key) {
+            return;
+        }
+
+        //check if it's a nested request
+        var index = key.indexOf('.');
+        if (index > -1) {
+            return this.getProperty(element[key.substring(0, index)], key.slice(index + 1));
+        }
+
+        return element[key];
+    }
+
+    //Decide which rows are displayed.
+    filterData(element, colProps) {
+        for (let i = 0; i < colProps.length; i++) {
+            if (colProps[i].hidden) {//don't search on hidden properties
+                continue;
+            }
+            let value = this.getProperty(element, colProps[i].dataField);
+            if (!value) {
+                continue;
+            }
+            let stringifiedValue = typeof value === "string" ? value : value.toString();
+            if (typeof stringifiedValue !== "string") {//if we still can't convert value to a string, then give up on it
+                continue;
+            }
+            if (stringifiedValue.includes(this.state.searchValue)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     render() {
-        let { dataToDisplay, name, uniqueKeyColumn, colProps, rowEvents, onRowClick, selectRow, rowClasses, defaultHover, paginated, ...otherProps } = this.props;
+        //Originally, we are actually changing props in rendering. This doesn't matter without the search function,
+        //as the dataTable will only be rendered once anyway. However, with searching now, we'll try to re-render
+        //as we type the search string. It's then really important to use the original props instead of 
+        //the mutated props when we re-render.
+        //
+        //However, the following code doesn't work as I desired. I guess that's because this.props is not entirely serializable?
+        //
+        //let { dataToDisplay, name, uniqueKeyColumn, colProps, rowEvents, onRowClick, selectRow, rowClasses, defaultHover, searchable, ...otherProps } = this.propsSnapshot ? JSON.parse(this.propsSnapshot) : this.props;
+        //this.propsSnapshot = JSON.stringify(this.props);
+
+        let { dataToDisplay, name, uniqueKeyColumn, colProps, rowEvents, onRowClick, selectRow, rowClasses, defaultHover, searchable, paginated, ...otherProps } = this.props;
+        if (this.colPropsSnapshot) {
+            colProps = JSON.parse(this.colPropsSnapshot);
+        }
+        this.colPropsSnapshot = JSON.stringify(colProps);
+
         let keyColumnIndex;
         let finalRowEvents;
         let finalSelectRow;
@@ -274,26 +343,46 @@ export class DataTable extends Component {
             width:100%;
         `;
 
-        return dataToDisplay ? (
-            <BootstrapTable
-                data={dataToDisplay}
-                keyField={colProps[keyColumnIndex].dataField}
-                columns={colProps}
-                rowEvents={finalRowEvents}
-                selectRow={finalSelectRow}
-                rowClasses={finalRowClasses}
-                striped
-                wrapperClasses={css`
-		          table.table :not(thead) tr:hover {
-		              border: 1px solid ${palerBlue};
-		              background-color: ${paleGreyBlue};
-		          }`}
-                {...otherProps}
-                id="Data"
-                pagination={paginated ? paginationFactory() : null}
-            />
-        ) : (
+        if (!dataToDisplay) {
+            return (
                 <p className={textAlign}>No data has been retrieved yet.</p>
             );
+        }
+
+        let searchBar = searchable ? (
+            <FormGroup
+                controlId="searchBar"
+            >
+                <FormControl
+                    type="input"
+                    value={this.state.searchValue}
+                    placeholder="Search"
+                    onChange={this.handleSearchBarChange}
+                />
+            </FormGroup>
+        ) : null;
+
+        return (
+            <React.Fragment>
+                {searchBar}
+                < BootstrapTable
+                    data={searchable ? dataToDisplay.filter((element) => this.filterData(element, colProps)) : dataToDisplay}
+                    keyField={colProps[keyColumnIndex].dataField}
+                    columns={colProps}
+                    rowEvents={finalRowEvents}
+                    selectRow={finalSelectRow}
+                    rowClasses={finalRowClasses}
+                    wrapperClasses={css`
+			          table.table :not(thead) tr:hover {
+			              border: 1px solid ${palerBlue};
+			              background-color: ${paleGreyBlue};
+			          }`}
+                    {...otherProps}
+                    striped
+                    id="Data"
+                    pagination={paginated ? paginationFactory() : null}
+                />
+            </React.Fragment>
+        );
     }
 }

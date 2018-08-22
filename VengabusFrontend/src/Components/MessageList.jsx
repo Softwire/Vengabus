@@ -76,6 +76,7 @@ export class MessageList extends Component {
                     defaultHover
                     onRowClick={this.handleMessageClick}
                     paginated
+                    searchable
                 />
 
                 <MessageBox

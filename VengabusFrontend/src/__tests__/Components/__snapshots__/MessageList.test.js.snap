@@ -17,6 +17,18 @@ exports[`MessageList renders correctly with given props 1`] = `
 
 <div>
   <div
+    className="form-group"
+  >
+    <input
+      className="form-control"
+      id="searchBar"
+      onChange={[Function]}
+      placeholder="Search"
+      type="input"
+      value=""
+    />
+  </div>
+  <div
     className="react-bootstrap-table emotion-7"
   >
     <table
