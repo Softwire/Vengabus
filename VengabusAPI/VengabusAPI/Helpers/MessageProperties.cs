@@ -35,13 +35,13 @@ namespace VengabusAPI.Helpers
          {
             {"ContentType", (message, value) => message.ContentType = (string) value },
             {"CorrelationId", (message, value) => message.CorrelationId = (string) value },
-            {"ForcePersistence", (message, value) => message.ForcePersistence = (bool) value },
+            {"ForcePersistence", (message, value) => message.ForcePersistence = (bool) bool.Parse(value.ToString()) },
             {"Label", (message, value) => message.Label = (string) value },
             {"MessageId", (message, value) => message.MessageId = (string) value },
             {"PartitionKey", (message, value) => message.PartitionKey = (string) value },
             {"ReplyTo", (message, value) => message.ReplyTo = (string) value },
             {"ReplyToSessionId", (message, value) => message.ReplyToSessionId = (string) value },
-            {"ScheduledEnqueueTimeUtc", (message, value) => message.ScheduledEnqueueTimeUtc = (DateTime) value },
+            {"ScheduledEnqueueTimeUtc", (message, value) => message.ScheduledEnqueueTimeUtc = (DateTime) value },   // DateTime gets parsed automatically by WebApi, apparently.
             {"SessionId", (message, value) => message.SessionId = (string) value },
             {"TimeToLive", (message, value) => message.TimeToLive = TimeSpan.Parse((string) value) },
             {"To", (message, value) => message.To = (string) value },
