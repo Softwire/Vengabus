@@ -7,6 +7,7 @@ import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { FormattingBox } from './FormattingBox';
 import { DeleteSingleMessageButton } from '../../Components/DeleteSingleMessageButton';
 import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
+import { EndpointTypes } from '../../Helpers/EndpointTypes';
 
 export class MessageBox extends Component {
 
@@ -24,11 +25,17 @@ export class MessageBox extends Component {
     }
 
     handleReplayMessage = (message) => {
-        //qq change hardcoded recipientIsQueue and selectedQueue later
-        pageSwitcher.switchToPage(
-            PAGES.SendMessagePage,
-            { message: message, recipientIsQueue: true, selectedQueue: 'demoqueue1' }
-        );
+        if (this.props.endpointType === EndpointTypes.QUEUE) {
+            pageSwitcher.switchToPage(
+                PAGES.SendMessagePage,
+                { message: message, recipientIsQueue: true, selectedQueue: this.props.endpointName }
+            );
+        } else {
+            pageSwitcher.switchToPage(
+                PAGES.SendMessagePage,
+                { message: message, recipientIsQueue: false, selectedTopic: this.props.endpointParent }
+            );
+        }
     }
 
     closeMessageModalAndReloadMessageTable = () => {
