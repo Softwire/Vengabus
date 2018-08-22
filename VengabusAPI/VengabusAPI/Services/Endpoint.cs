@@ -18,6 +18,7 @@ namespace VengabusAPI.Services
         public abstract BrokeredMessage ReceiveNextBrokeredMessage(long timeout);
         public abstract void SendMessage(BrokeredMessage brokeredMessage);
         public abstract IEnumerable<BrokeredMessage> PeekNextBatch(long peekStartingPoint, int number);
+        public abstract bool SupportsSingleMessageDeletion();
     }
 
     public class QueueEndpoint : Endpoint
@@ -46,6 +47,11 @@ namespace VengabusAPI.Services
         {
             return Client.PeekBatch(peekStartingPoint, number);
         }
+
+        public override bool SupportsSingleMessageDeletion()
+        {
+            return false;
+        }
     }
 
     public class QueueDeadLetterEndpoint : QueueEndpoint
@@ -62,6 +68,11 @@ namespace VengabusAPI.Services
         public override void SendMessage(BrokeredMessage brokeredMessage)
         {
             throw new NotImplementedException();
+        }
+
+        public override bool SupportsSingleMessageDeletion()
+        {
+            return true;
         }
     }
 
@@ -90,6 +101,11 @@ namespace VengabusAPI.Services
         public override IEnumerable<BrokeredMessage> PeekNextBatch(long peekStartingPoint, int number)
         {
             throw new NotSupportedException();
+        }
+
+        public override bool SupportsSingleMessageDeletion()
+        {
+            return false;
         }
     }
 
@@ -121,6 +137,11 @@ namespace VengabusAPI.Services
         {
             return Client.PeekBatch(peekStartingPoint, number);
         }
+
+        public override bool SupportsSingleMessageDeletion()
+        {
+            return false;
+        }
     }
 
     public class SubscriptionDeadLetterEndpoint : SubscriptionEndpoint
@@ -132,6 +153,11 @@ namespace VengabusAPI.Services
         public override long GetNumberOfMessages()
         {
             return NamespaceManager.GetSubscription(ParentTopic, Name).MessageCountDetails.DeadLetterMessageCount;
+        }
+
+        public override bool SupportsSingleMessageDeletion()
+        {
+            return true;
         }
     }
 

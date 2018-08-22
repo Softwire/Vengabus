@@ -18,6 +18,11 @@ namespace VengabusAPI.Controllers
 
         protected void DeleteSingleMessageFromEndpoint(Endpoint endpoint, string messageId, string uniqueId)
         {
+            if (!endpoint.SupportsSingleMessageDeletion())
+            {
+                throw new NotSupportedException();
+            }
+
             Predicate<BrokeredMessage> deleteMessageChecker = (brokeredMessage) =>
             {
                 if (messageId == brokeredMessage.MessageId)

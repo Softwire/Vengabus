@@ -32,12 +32,17 @@ class ButtonWithConfirmationModal extends React.Component {
     }
 
     render() {
+        let style = this.props.buttonDisabled ? {
+            pointerEvents: 'none'
+        } : {};
         return (
             <React.Fragment>
                 <Button
                     onClick={this.handleOpening}
                     bsStyle={this.props.buttonStyle ? this.props.buttonStyle : "danger"}
-                    disabled={this.props.buttonDisabled ? true : false} >
+                    disabled={this.props.buttonDisabled}
+                    style={style}
+                >
                     {this.props.buttonText}
                 </Button>
                 <Modal show={this.state.show} onHide={this.handleClose} >
@@ -58,7 +63,7 @@ class ButtonWithConfirmationModal extends React.Component {
                         <Button id="cancel" onClick={this.handleClose}>{this.props.cancelButtonText ? this.props.cancelButtonText : "Cancel"}</Button>
                     </Modal.Footer>
                 </Modal>
-            </React.Fragment>
+            </React.Fragment >
         );
     }
 }
