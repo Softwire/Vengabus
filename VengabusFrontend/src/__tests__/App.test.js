@@ -145,9 +145,23 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
             return new Promise(function (resolve, reject) {
                 resolve([
                     {
-                        "predefinedProperties": { "messageId": "sadas" },
-                        "customProperties": { "fjaklsdjf": "alskdjlks" },
-                        "messageBody": "alskdjlaskdklj"
+                        predefinedProperties: { messageId: "test1" },
+                        customProperties: { "skjdfhksdjf": "skdjhds" },
+                        uniqueId: "59298c2b-d58f-4ad0-bde9-f8a9d00a3070",
+                        messageBody: "apple"
+
+                    },
+                    {
+                        predefinedProperties: { messageId: "test2" },
+                        customProperties: { "skjdfhksdjf": "skdjhds" },
+                        uniqueId: "c9f547bf-72e1-439e-bd1f-0b590422a6f8",
+                        messageBody: "banana"
+                    },
+                    {
+                        predefinedProperties: { messageId: "test3" },
+                        customProperties: { "skjdfhksdjf": "skdjhds" },
+                        uniqueId: "5034e2f8-9bf0-436a-b8f4-914b43594ee1",
+                        messageBody: "carrot"
                     }
                 ]);
             });
@@ -157,9 +171,23 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
             return new Promise(function (resolve, reject) {
                 resolve([
                     {
-                        "predefinedProperties": { "messageId": "sadas" },
-                        "customProperties": { "fjaklsdjf": "alskdjlks" },
-                        "messageBody": "alskdjlaskdklj"
+                        predefinedProperties: { messageId: "test1" },
+                        customProperties: { "skjdfhksdjf": "skdjhds" },
+                        uniqueId: "59298c2b-d58f-4ad0-bde9-f8a9d00a3070",
+                        messageBody: "apple"
+
+                    },
+                    {
+                        predefinedProperties: { messageId: "test2" },
+                        customProperties: { "skjdfhksdjf": "skdjhds" },
+                        uniqueId: "c9f547bf-72e1-439e-bd1f-0b590422a6f8",
+                        messageBody: "banana"
+                    },
+                    {
+                        predefinedProperties: { messageId: "test3" },
+                        customProperties: { "skjdfhksdjf": "skdjhds" },
+                        uniqueId: "5034e2f8-9bf0-436a-b8f4-914b43594ee1",
+                        messageBody: "carrot"
                     }
                 ]);
             });
@@ -180,6 +208,9 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
 
     }
 }));
+
+//event object to hand to click functions
+const blankEventObj = {};
 
 it('renders without crashing', () => {
     const div = document.createElement('div');
@@ -237,6 +268,12 @@ it('passes smoke tests without crashing', () => {
      * Go to messageBox
      * [Go to replay message page at some point qq MK LW JF]
      * Go to Home Page
+     * click Queue row
+     * click message row
+     * click home breadcrumb
+     * click topic row
+     * click Subscription row
+     * click topic breadcrumb
      * Go to Send Message Page
      * Click add new property button
      */
@@ -276,7 +313,7 @@ it('passes smoke tests without crashing', () => {
         const purgeQueueMessagesConfirmationButton = wrapper.find("#alertPurge").last();
         purgeQueueMessagesConfirmationButton.simulate("click");
         return testHelper.afterReactHasUpdated();
-        }).then(() => {//Go to Home Page
+    }).then(() => {//Go to Home Page
         const buttonFromPreviousPage = wrapper.find("#demoPageReplayMessageButton").first();//this still works, as that button no longer exists
         expect(buttonFromPreviousPage).not.toExistOnPage();
 
@@ -285,6 +322,47 @@ it('passes smoke tests without crashing', () => {
 
         navbarHomePageButton.simulate("click");
         return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        //Queue row
+        wrapper.update();
+        const queueList = wrapper.find('#QueueTable');
+        queueList.props().clickFunction(blankEventObj, { name: "name" });
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        //message row
+        wrapper.update();
+        const messageList = wrapper.find('#MessageTable');
+        messageList.instance().handleMessageClick(blankEventObj, {
+            predefinedProperties: { messageId: "test1" },
+            customProperties: { "skjdfhksdjf": "skdjhds" },
+            uniqueId: "59298c2b-d58f-4ad0-bde9-f8a9d00a3070",
+            messageBody: "apple"
+
+        });
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        //home breadcrumb Click
+        const homeBreadCrumb = wrapper.find('#Home').hostNodes();
+        homeBreadCrumb.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        //topic click
+        const topic = wrapper.find('#TopicTable');
+        topic.props().clickFunction(blankEventObj, { name: "topicName" });
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        //sub click
+        wrapper.update();
+        const subscriptionTable = wrapper.find('#SubscriptionTable');
+        subscriptionTable.props().clickFunction(blankEventObj, { name: "subName" });
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        //topicBreadCumb click
+        wrapper.update();
+        const topicBreadCrumb = wrapper.find('#topicName').hostNodes();
+        topicBreadCrumb.simulate("click");
+        return testHelper.afterReactHasUpdated();
+
     }).then(() => {//Go to Send Message Page
         navbarSendMessagePageButton.simulate("click");
         return testHelper.afterReactHasUpdated();
