@@ -1,26 +1,24 @@
 import React, { Component } from 'react';
-import { DataTable } from './DataTable';
-import { formatTimeStamp } from '../Helpers/FormattingHelpers';
-import { palerBlue } from '../colourScheme';
+import { DataTable } from '../DataTable';
+import { formatTimeStamp } from '../../Helpers/FormattingHelpers';
+import { palerBlue } from '../../colourScheme';
 
-export class SubscriptionList extends Component {
+export class QueueList extends Component {
 
     render() {
+        let queueArray = undefined;
+        if (this.props.queueData) {
+            queueArray = [...this.props.queueData];
 
-        let subscriptionArray = undefined;
-        if (this.props.subscriptionData) {
-            subscriptionArray = [...this.props.subscriptionData];
-
-            for (let i = 0; i < subscriptionArray.length; i++) {
+            for (let i = 0; i < queueArray.length; i++) {
                 //needs to be cloned
-                subscriptionArray[i] = { ...subscriptionArray[i] };
-                const currentMessageArray = subscriptionArray[i];
+                queueArray[i] = { ...queueArray[i] };
+                const currentMessageArray = queueArray[i];
                 if (currentMessageArray.mostRecentDeadLetter) {
                     currentMessageArray.mostRecentDeadLetter = formatTimeStamp(currentMessageArray.mostRecentDeadLetter);
                 }
             }
         }
-
 
         const colProps = [
             {
@@ -36,26 +34,27 @@ export class SubscriptionList extends Component {
                 dataField: 'deadletterMessageCount',
                 width: 25,
                 align: 'right'
-            }, {
+            },
+            {
                 dataField: 'mostRecentDeadLetter',
                 width: 25,
             }
         ];
 
-        let selectRow = {
+        const selectRow = {
             bgColor: palerBlue,
             selected: this.props.currentlySelectedName
         };
 
         return (
             <DataTable
-                name='subscriptionList'
+                name='QueueList'
                 colProps={colProps}
-                dataToDisplay={subscriptionArray}
-                uniqueKeyColumn='name'
+                dataToDisplay={queueArray}
                 defaultHover
                 onRowClick={this.props.clickFunction}
                 selectRow={selectRow}
+                uniqueKeyColumn='name'
                 searchable
             />
         );

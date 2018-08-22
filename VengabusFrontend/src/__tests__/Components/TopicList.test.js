@@ -1,4 +1,4 @@
-import { TopicList } from "../../Components/TopicList";
+import { TopicList } from "../../Components/HomePage/TopicList";
 import renderer from 'react-test-renderer';
 import React from 'react';
 

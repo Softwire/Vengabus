@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
+import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { QueueList } from './QueueList';
 import { TopicList } from './TopicList';
 import { MessageList } from './MessageList';
 import { css } from 'react-emotion';
 import { Breadcrumb, Button } from 'react-bootstrap';
 import { SubscriptionList } from './SubscriptionList';
-import { EndpointTypes, typeToTitle } from '../Helpers/EndpointTypes';
-import { sharedSizesAndDimensions } from '../Helpers/SharedSizesAndDimensions';
+import { EndpointTypes, typeToTitle } from '../../Helpers/EndpointTypes';
+import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
 
 const messageCount = 500;
 

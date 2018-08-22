@@ -1,4 +1,4 @@
-import { MessageList } from "../../Components/MessageList";
+import { MessageList } from "../../Components/HomePage/MessageList";
 import renderer from 'react-test-renderer';
 import React from 'react';
 

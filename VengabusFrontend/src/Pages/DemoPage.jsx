@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MessageList } from '../Components/MessageList';
+import { MessageList } from '../Components/HomePage/MessageList';
 import { css } from 'react-emotion';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import { Button } from 'react-bootstrap';

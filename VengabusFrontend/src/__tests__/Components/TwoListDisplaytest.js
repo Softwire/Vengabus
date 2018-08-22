@@ -1,7 +1,7 @@
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import React from 'react';
-import { TwoListDisplay } from "../../Components/TwoListDisplay";
+import { TwoListDisplay } from "../../Components/HomePage/TwoListDisplay";
 import { testHelper } from '../../TestHelpers/TestHelper';
 import toJson from 'enzyme-to-json';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';

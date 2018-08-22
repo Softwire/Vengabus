@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { DataTable } from './DataTable';
-import { palerBlue } from '../colourScheme';
+import { DataTable } from '../DataTable';
+import { palerBlue } from '../../colourScheme';
 
 export class TopicList extends Component {
 
