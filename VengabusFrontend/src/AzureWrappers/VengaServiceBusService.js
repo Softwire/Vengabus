@@ -156,24 +156,40 @@ export class VengaServiceBusService {
         return this.axiosWithSAS.delete(url);
     }
 
-    listQueueMessages = (queueName) => {
-        const url = this.apiRoot + `queues/${queueName}/messages`;
+    listQueueMessages = (queueName, messageCount) => {
+        let queryString = "";
+        if (messageCount) {
+            queryString = "/?messageCount=" + messageCount;
+        }
+        const url = this.apiRoot + `queues/${queueName}/messages` + queryString;
         return this.axiosWithSAS.get(url);
     }
 
-    listSubscriptionMessages = (topicName, subscriptionName) => {
-        const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/messages`;
+    listSubscriptionMessages = (topicName, subscriptionName, messageCount) => {
+        let queryString = "";
+        if (messageCount) {
+            queryString = "/?messageCount=" + messageCount;
+        }
+        const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/messages` + queryString;
         return this.axiosWithSAS.get(url);
     }
 
 
-    listQueueDeadLetterMessages = (queueName) => {
-        const url = this.apiRoot + `queues/${queueName}/deadletters`;
+    listQueueDeadLetterMessages = (queueName, messageCount) => {
+        let queryString = "";
+        if (messageCount) {
+            queryString = "/?messageCount=" + messageCount;
+        }
+        const url = this.apiRoot + `queues/${queueName}/deadletters` + queryString;
         return this.axiosWithSAS.get(url);
     }
 
-    listSubscriptionDeadLetterMessages = (topicName, subscriptionName) => {
-        const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/deadletters`;
+    listSubscriptionDeadLetterMessages = (topicName, subscriptionName, messageCount) => {
+        let queryString = "";
+        if (messageCount) {
+            queryString = "/?messageCount=" + messageCount;
+        }
+        const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/deadletters` + queryString;
         return this.axiosWithSAS.get(url);
     }
 

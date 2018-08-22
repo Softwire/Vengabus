@@ -8,7 +8,7 @@ namespace VengabusAPI.Services
     
     public class MessageServices
     {
-        public static IEnumerable<BrokeredMessage> GetMessagesFromEndpoint(Endpoint endpoint)
+        public static IEnumerable<BrokeredMessage> GetMessagesFromEndpoint(Endpoint endpoint, int messageCount = int.MaxValue)
         {
             var messagesToReturn = new List<BrokeredMessage>();
 
@@ -38,9 +38,13 @@ namespace VengabusAPI.Services
                     messagesToReturn.Add(message);
                     lastSequenceNumber = message.SequenceNumber;
                 }
+                if (messagesToReturn.Count() >= messageCount)
+                {
+                    break;
+                }
             }
             
-            return messagesToReturn.OrderBy(item => item.EnqueuedTimeUtc);
+            return messagesToReturn.OrderBy(item => item.EnqueuedTimeUtc).Take(messageCount);
         }
 
         public static void SendMessageToEndpoint(Endpoint endpoint, BrokeredMessage message)

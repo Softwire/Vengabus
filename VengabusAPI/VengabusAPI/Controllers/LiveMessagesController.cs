@@ -26,7 +26,6 @@ namespace VengabusAPI.Controllers
         [Route("queues/{queueName}/messages")]
         public void SendMessageToQueue(string queueName, [FromBody]VengaMessage message)
         {
-
             SendMessageToEndpoint(GetQueue(queueName), message);
         }
 
@@ -47,17 +46,17 @@ namespace VengabusAPI.Controllers
         [HttpGet]
         [Route("queues/{queueName}/messages")]
         //list the messages in a given queue
-        public IEnumerable<VengaMessage> ListMessagesInQueue(string queueName)
+        public IEnumerable<VengaMessage> ListMessagesInQueue(string queueName, [FromUri]int messageCount = int.MaxValue)
         {
-            return GetMessagesFromEndpoint(GetQueue(queueName));
+            return GetMessagesFromEndpoint(GetQueue(queueName), messageCount);
         }
 
         [HttpGet]
         [Route("subscriptions/{topicName}/{subscriptionName}/messages")]
         //list the messages in a given subscription
-        public IEnumerable<VengaMessage> ListMessagesInSubscription(string topicName, string subscriptionName)
+        public IEnumerable<VengaMessage> ListMessagesInSubscription(string topicName, string subscriptionName, [FromUri]int messageCount = int.MaxValue)
         {
-            return GetMessagesFromEndpoint(GetSubscription(subscriptionName, topicName));
+            return GetMessagesFromEndpoint(GetSubscription(subscriptionName, topicName), messageCount);
         }
 
         //delete all messages in a given queue
