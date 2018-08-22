@@ -306,46 +306,52 @@ const messageBoxTest = (messageRow, wrapper) => {
 
 const sendMessagePageTest = (wrapper) => { //Starts from SendMessagePage
     return testHelper.afterReactHasUpdated().then(() => {//Click add new Azure property button
-        const addNewPropertyButton = wrapper.find('#addPreDefinedPropertyButton').last();
-        addNewPropertyButton.simulate("click");
+        const addNewAzurePropertyButton = wrapper.find('#addPreDefinedPropertyButton').last();
+        addNewAzurePropertyButton.simulate("click");
         return testHelper.afterReactHasUpdated();
     }).then(() => {//Click add new User defined property button
-        const addNewPropertyButton = wrapper.find('#addUserDefinedPropertyButton').last();
-        addNewPropertyButton.simulate("click");
+        const addNewUserPropertyButton = wrapper.find('#addUserDefinedPropertyButton').last();
+        addNewUserPropertyButton.simulate("click");
         return testHelper.afterReactHasUpdated();
     }).then(() => {//Click message body
-        const addNewPropertyButton = wrapper.find('#formControlsMessageBodyText').last();
-        addNewPropertyButton.simulate("click");
+        const messageButton = wrapper.find('#formControlsMessageBodyText').last();
+        messageButton.simulate("click");
         return testHelper.afterReactHasUpdated();
     }).then(() => {//Click queue selection dropdown
-        const addNewPropertyButton = wrapper.find('#queue-dropdown').last();
-        addNewPropertyButton.simulate("click");
+        const queueSelectionDropdown = wrapper.find('#queue-dropdown').last();
+        queueSelectionDropdown.simulate("click");
         return testHelper.afterReactHasUpdated();
     }).then(() => {//Click topic selection radio
-        const addNewPropertyButton = wrapper.find('#topic-selection-radio').last();
-        addNewPropertyButton.simulate("click");
+        const topicSelectionRadio = wrapper.find('#topic-selection-radio').last();
+        topicSelectionRadio.simulate("click");
         return testHelper.afterReactHasUpdated();
     }).then(() => {//Click topic selection dropdown
-        const addNewPropertyButton = wrapper.find('#topic-dropdown').last();
-        addNewPropertyButton.simulate("click");
+        const topicSelectionDropdown = wrapper.find('#topic-dropdown').last();
+        topicSelectionDropdown.simulate("click");
         return testHelper.afterReactHasUpdated();
     }).then(() => {//Click queue selection radio
-        const addNewPropertyButton = wrapper.find('#queue-selection-radio').last();
-        addNewPropertyButton.simulate("click");
+        const queueSelectionRadio = wrapper.find('#queue-selection-radio').last();
+        queueSelectionRadio.simulate("click");
         return testHelper.afterReactHasUpdated();
     }).then(() => {//Click Reset Fields button
-        const addNewPropertyButton = wrapper.find('#cancelButton').last();
-        addNewPropertyButton.simulate("click");
+        const resetFieldsButton = wrapper.find('#cancelButton').last();
+        resetFieldsButton.simulate("click");
         return testHelper.afterReactHasUpdated();
     }).then(() => {//Click Reset
-        const addNewPropertyButton = wrapper.find('#confirm').last();
-        addNewPropertyButton.simulate("click");
+        const ResetButton = wrapper.find('#confirm').last();
+        ResetButton.simulate("click");
         return testHelper.afterReactHasUpdated();
     });
 };
 
 const replayMessageTest = (wrapper) => { //Starts from HomePage
 
+    return testHelper.afterReactHasUpdated().then(() => {//Click Connect
+        const connectButton = wrapper.find('#connectButton').last();
+        connectButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    });
+    //QQ complete
 };
 
 it('passes smoke tests without crashing', () => {
@@ -381,6 +387,11 @@ it('passes smoke tests without crashing', () => {
      * ┠ Click Reset Fields button
      * ┖ Click Reset
      * Replay a message
+     * ┠ Click Connect
+     * ┠ Click queue '1dduplicatedetectionqueue'
+     * ┠ Click message 'sadas'
+     * ┠ Click Replay Message
+     * ┖ Click Reset Fields button
      */
 
     connectButton.prop("onClick")();
