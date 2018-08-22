@@ -46,14 +46,9 @@ export class CurrentPage extends Component {
                 returnValue = <DemoPage />;
                 break;
             case PAGES.SendMessagePage:
-                const messageTemplate = this.state.pageData ? this.state.pageData.message : undefined;
-                const recipientIsQueue = this.state.pageData ? this.state.pageData.recipientIsQueue : undefined;
-                const selectedQueue = this.state.pageData ? this.state.pageData.selectedQueue : undefined;
                 returnValue =
                     <SendMessagePage
-                        message={messageTemplate}
-                        recipientIsQueue={recipientIsQueue}
-                        selectedQueue={selectedQueue}
+                        {...this.state.pageData}
                     />;
                 break;
 
