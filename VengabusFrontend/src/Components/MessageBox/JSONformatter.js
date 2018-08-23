@@ -10,7 +10,8 @@ export class JSONformatter {
         let noNewLinesAfterJSONTags = noInitialWhitespace.replace(/}[\n\r]/g, "}");
         let noNewLinesBeforeJSONTags = noNewLinesAfterJSONTags.replace(/[\n\r]{/g, "{");
         let replaceNewlineBySpaces = noNewLinesBeforeJSONTags.replace(/[\n\r]/g, " ");
-        return replaceNewlineBySpaces;
+        let noFinalWhitespace = replaceNewlineBySpaces.replace(/ *$/gm, "");
+        return noFinalWhitespace;
     };
 
     mightBeJSON = (originalText) => {
@@ -19,6 +20,7 @@ export class JSONformatter {
 
     formatJSONtext = (originalText) => {
         let deformattedOriginalText = this.removeWhitespaceFormattingFromJSON(originalText);
+        console.log(deformattedOriginalText);
         const propertyFilter = null; //include all properties of the JSON string in the output
         const indentSize = 4;
         return this.BaseFormatter.removeBlankLines(JSON.stringify(JSON.parse(deformattedOriginalText), propertyFilter, indentSize));

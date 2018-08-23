@@ -1,26 +1,27 @@
 import { FormattingBox } from '../../../Components/MessageBox/FormattingBox';
 import renderer from 'react-test-renderer';
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
-function expectFormattedResult(inputMessage, expectedOutput, formatId) {
+function expectFormattedResult(inputMessage, expectedOutput, formatId, expectedDefaultActiveTab) {
     const formattingBox = shallow(<FormattingBox message={inputMessage} />);
     expect(formattingBox.find(formatId)).toExistOnPage();
     const formattedText = formattingBox.find(formatId);
     expect(formattedText.text()).toBe(expectedOutput);
+    expect(formattingBox.children().prop('defaultActiveKey')).toBe(expectedDefaultActiveTab);
 }
 
 function expectOriginalOutput(inputMessage) {
-    expectFormattedResult(inputMessage, inputMessage, '#Original');
+    expectFormattedResult(inputMessage, inputMessage, '#Original', 0);
 }
 
 function expectXMLoutput(inputMessage, expectedOutput) {
-    expectFormattedResult(inputMessage, expectedOutput, '#XML');
+    expectFormattedResult(inputMessage, expectedOutput, '#XML', 1);
 }
 
 function expectJSONoutput(inputMessage, expectedOutput) {
-    expectFormattedResult(inputMessage, expectedOutput, '#JSON');
+    expectFormattedResult(inputMessage, expectedOutput, '#JSON', 2);
 }
 
 function expectError(inputMessage, errorId) {

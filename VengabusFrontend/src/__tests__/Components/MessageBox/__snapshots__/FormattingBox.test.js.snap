@@ -44,9 +44,7 @@ exports[`FormattingBox fails to format JSON with tabs inside values 1`] = `
 
 exports[`FormattingBox guesses the correct format by default brace json 1`] = `
 ShallowWrapper {
-  "length": 0,
   Symbol(enzyme.__root__): ShallowWrapper {
-    "length": 1,
     Symbol(enzyme.__root__): [Circular],
     Symbol(enzyme.__unrendered__): <FormattingBox
       message="{\\"a\\":\\"apple\\",\\"b\\":42, \\"c\\":false}"
@@ -65,15 +63,19 @@ ShallowWrapper {
       "props": Object {
         "children": <Uncontrolled(Tabs)
           animation={false}
-          className="css-853bgu"
+          className="css-1t9idka"
           defaultActiveKey={2}
           id="message-formatting-tabs"
 >
           <Tab
                     eventKey={0}
-                    title="Original"
+                    tabClassName={undefined}
+                    title={
+                              Array [
+                                        "Original",
+                                      ]
+                    }
           >
-                     
                     <pre
                               className="css-141jdb2"
                               id="Original"
@@ -83,9 +85,18 @@ ShallowWrapper {
           </Tab>
           <Tab
                     eventKey={1}
-                    title="XML"
+                    tabClassName="formatterError"
+                    title={
+                              Array [
+                                        "XML",
+                                        <Glyphicon
+                                          bsClass="glyphicon"
+                                          className="css-1rlphhe"
+                                          glyph="exclamation-sign"
+                              />,
+                                      ]
+                    }
           >
-                     
                     <Alert
                               bsClass="alert"
                               bsStyle="danger"
@@ -99,9 +110,13 @@ ShallowWrapper {
           </Tab>
           <Tab
                     eventKey={2}
-                    title="JSON"
+                    tabClassName={undefined}
+                    title={
+                              Array [
+                                        "JSON",
+                                      ]
+                    }
           >
-                     
                     <pre
                               className=""
                               id="JSON"
@@ -125,9 +140,13 @@ ShallowWrapper {
           "children": Array [
             <Tab
               eventKey={0}
-              title="Original"
+              tabClassName={undefined}
+              title={
+                            Array [
+                                          "Original",
+                                        ]
+              }
 >
-               
               <pre
                             className="css-141jdb2"
                             id="Original"
@@ -137,9 +156,18 @@ ShallowWrapper {
 </Tab>,
             <Tab
               eventKey={1}
-              title="XML"
+              tabClassName="formatterError"
+              title={
+                            Array [
+                                          "XML",
+                                          <Glyphicon
+                                            bsClass="glyphicon"
+                                            className="css-1rlphhe"
+                                            glyph="exclamation-sign"
+                            />,
+                                        ]
+              }
 >
-               
               <Alert
                             bsClass="alert"
                             bsStyle="danger"
@@ -153,9 +181,13 @@ ShallowWrapper {
 </Tab>,
             <Tab
               eventKey={2}
-              title="JSON"
+              tabClassName={undefined}
+              title={
+                            Array [
+                                          "JSON",
+                                        ]
+              }
 >
-               
               <pre
                             className=""
                             id="JSON"
@@ -168,7 +200,7 @@ ShallowWrapper {
               </pre>
 </Tab>,
           ],
-          "className": "css-853bgu",
+          "className": "css-1t9idka",
           "defaultActiveKey": 2,
           "id": "message-formatting-tabs",
         },
@@ -180,22 +212,21 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": Array [
-                " ",
-                Array [
-                  <pre
-                    className="css-141jdb2"
-                    id="Original"
+                <pre
+                  className="css-141jdb2"
+                  id="Original"
 >
-                    {"a":"apple","b":42, "c":false}
+                  {"a":"apple","b":42, "c":false}
 </pre>,
-                ],
               ],
               "eventKey": 0,
-              "title": "Original",
+              "tabClassName": undefined,
+              "title": Array [
+                "Original",
+              ],
             },
             "ref": null,
             "rendered": Array [
-              " ",
               Object {
                 "instance": null,
                 "key": "Original",
@@ -218,26 +249,30 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": Array [
-                " ",
-                Array [
-                  <Alert
-                    bsClass="alert"
-                    bsStyle="danger"
-                    closeLabel="Close alert"
-                    id="XMLwarning"
+                <Alert
+                  bsClass="alert"
+                  bsStyle="danger"
+                  closeLabel="Close alert"
+                  id="XMLwarning"
 >
-                    <p>
-                                        The formatter didn't return any text to display.
-                    </p>
+                  <p>
+                                    The formatter didn't return any text to display.
+                  </p>
 </Alert>,
-                ],
               ],
               "eventKey": 1,
-              "title": "XML",
+              "tabClassName": "formatterError",
+              "title": Array [
+                "XML",
+                <Glyphicon
+                  bsClass="glyphicon"
+                  className="css-1rlphhe"
+                  glyph="exclamation-sign"
+/>,
+              ],
             },
             "ref": null,
             "rendered": Array [
-              " ",
               Object {
                 "instance": null,
                 "key": "XMLwarning",
@@ -278,26 +313,25 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": Array [
-                " ",
-                Array [
-                  <pre
-                    className=""
-                    id="JSON"
+                <pre
+                  className=""
+                  id="JSON"
 >
-                    {
-                        "a": "apple",
-                        "b": 42,
-                        "c": false
-                    }
+                  {
+                      "a": "apple",
+                      "b": 42,
+                      "c": false
+                  }
 </pre>,
-                ],
               ],
               "eventKey": 2,
-              "title": "JSON",
+              "tabClassName": undefined,
+              "title": Array [
+                "JSON",
+              ],
             },
             "ref": null,
             "rendered": Array [
-              " ",
               Object {
                 "instance": null,
                 "key": "JSON",
@@ -335,15 +369,19 @@ ShallowWrapper {
         "props": Object {
           "children": <Uncontrolled(Tabs)
             animation={false}
-            className="css-853bgu"
+            className="css-1t9idka"
             defaultActiveKey={2}
             id="message-formatting-tabs"
 >
             <Tab
                         eventKey={0}
-                        title="Original"
+                        tabClassName={undefined}
+                        title={
+                                    Array [
+                                                "Original",
+                                              ]
+                        }
             >
-                         
                         <pre
                                     className="css-141jdb2"
                                     id="Original"
@@ -353,9 +391,18 @@ ShallowWrapper {
             </Tab>
             <Tab
                         eventKey={1}
-                        title="XML"
+                        tabClassName="formatterError"
+                        title={
+                                    Array [
+                                                "XML",
+                                                <Glyphicon
+                                                  bsClass="glyphicon"
+                                                  className="css-1rlphhe"
+                                                  glyph="exclamation-sign"
+                                    />,
+                                              ]
+                        }
             >
-                         
                         <Alert
                                     bsClass="alert"
                                     bsStyle="danger"
@@ -369,9 +416,13 @@ ShallowWrapper {
             </Tab>
             <Tab
                         eventKey={2}
-                        title="JSON"
+                        tabClassName={undefined}
+                        title={
+                                    Array [
+                                                "JSON",
+                                              ]
+                        }
             >
-                         
                         <pre
                                     className=""
                                     id="JSON"
@@ -395,9 +446,13 @@ ShallowWrapper {
             "children": Array [
               <Tab
                 eventKey={0}
-                title="Original"
+                tabClassName={undefined}
+                title={
+                                Array [
+                                                "Original",
+                                              ]
+                }
 >
-                 
                 <pre
                                 className="css-141jdb2"
                                 id="Original"
@@ -407,9 +462,18 @@ ShallowWrapper {
 </Tab>,
               <Tab
                 eventKey={1}
-                title="XML"
+                tabClassName="formatterError"
+                title={
+                                Array [
+                                                "XML",
+                                                <Glyphicon
+                                                  bsClass="glyphicon"
+                                                  className="css-1rlphhe"
+                                                  glyph="exclamation-sign"
+                                />,
+                                              ]
+                }
 >
-                 
                 <Alert
                                 bsClass="alert"
                                 bsStyle="danger"
@@ -423,9 +487,13 @@ ShallowWrapper {
 </Tab>,
               <Tab
                 eventKey={2}
-                title="JSON"
+                tabClassName={undefined}
+                title={
+                                Array [
+                                                "JSON",
+                                              ]
+                }
 >
-                 
                 <pre
                                 className=""
                                 id="JSON"
@@ -438,7 +506,7 @@ ShallowWrapper {
                 </pre>
 </Tab>,
             ],
-            "className": "css-853bgu",
+            "className": "css-1t9idka",
             "defaultActiveKey": 2,
             "id": "message-formatting-tabs",
           },
@@ -450,22 +518,21 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  " ",
-                  Array [
-                    <pre
-                      className="css-141jdb2"
-                      id="Original"
+                  <pre
+                    className="css-141jdb2"
+                    id="Original"
 >
-                      {"a":"apple","b":42, "c":false}
+                    {"a":"apple","b":42, "c":false}
 </pre>,
-                  ],
                 ],
                 "eventKey": 0,
-                "title": "Original",
+                "tabClassName": undefined,
+                "title": Array [
+                  "Original",
+                ],
               },
               "ref": null,
               "rendered": Array [
-                " ",
                 Object {
                   "instance": null,
                   "key": "Original",
@@ -488,26 +555,30 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  " ",
-                  Array [
-                    <Alert
-                      bsClass="alert"
-                      bsStyle="danger"
-                      closeLabel="Close alert"
-                      id="XMLwarning"
+                  <Alert
+                    bsClass="alert"
+                    bsStyle="danger"
+                    closeLabel="Close alert"
+                    id="XMLwarning"
 >
-                      <p>
-                                            The formatter didn't return any text to display.
-                      </p>
+                    <p>
+                                        The formatter didn't return any text to display.
+                    </p>
 </Alert>,
-                  ],
                 ],
                 "eventKey": 1,
-                "title": "XML",
+                "tabClassName": "formatterError",
+                "title": Array [
+                  "XML",
+                  <Glyphicon
+                    bsClass="glyphicon"
+                    className="css-1rlphhe"
+                    glyph="exclamation-sign"
+/>,
+                ],
               },
               "ref": null,
               "rendered": Array [
-                " ",
                 Object {
                   "instance": null,
                   "key": "XMLwarning",
@@ -548,26 +619,25 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  " ",
-                  Array [
-                    <pre
-                      className=""
-                      id="JSON"
+                  <pre
+                    className=""
+                    id="JSON"
 >
-                      {
-                          "a": "apple",
-                          "b": 42,
-                          "c": false
-                      }
+                    {
+                        "a": "apple",
+                        "b": 42,
+                        "c": false
+                    }
 </pre>,
-                  ],
                 ],
                 "eventKey": 2,
-                "title": "JSON",
+                "tabClassName": undefined,
+                "title": Array [
+                  "JSON",
+                ],
               },
               "ref": null,
               "rendered": Array [
-                " ",
                 Object {
                   "instance": null,
                   "key": "JSON",
@@ -602,8 +672,16 @@ ShallowWrapper {
       "adapter": ReactSixteenAdapter {
         "options": Object {
           "enableComponentDidUpdateOnSetState": true,
+          "lifecycles": Object {
+            "componentDidUpdate": Object {
+              "onSetState": true,
+            },
+            "getSnapshotBeforeUpdate": true,
+          },
         },
       },
+      "attachTo": undefined,
+      "hydrateIn": undefined,
     },
   },
   Symbol(enzyme.__unrendered__): null,
@@ -620,17 +698,23 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getSnapshotBeforeUpdate": true,
+        },
       },
     },
+    "attachTo": undefined,
+    "hydrateIn": undefined,
   },
 }
 `;
 
 exports[`FormattingBox guesses the correct format by default bracket json 1`] = `
 ShallowWrapper {
-  "length": 0,
   Symbol(enzyme.__root__): ShallowWrapper {
-    "length": 1,
     Symbol(enzyme.__root__): [Circular],
     Symbol(enzyme.__unrendered__): <FormattingBox
       message="[\\"a\\":\\"apple\\",\\"b\\":42, \\"c\\":false]"
@@ -649,15 +733,19 @@ ShallowWrapper {
       "props": Object {
         "children": <Uncontrolled(Tabs)
           animation={false}
-          className="css-853bgu"
+          className="css-1t9idka"
           defaultActiveKey={0}
           id="message-formatting-tabs"
 >
           <Tab
                     eventKey={0}
-                    title="Original"
+                    tabClassName={undefined}
+                    title={
+                              Array [
+                                        "Original",
+                                      ]
+                    }
           >
-                     
                     <pre
                               className="css-141jdb2"
                               id="Original"
@@ -667,9 +755,18 @@ ShallowWrapper {
           </Tab>
           <Tab
                     eventKey={1}
-                    title="XML"
+                    tabClassName="formatterError"
+                    title={
+                              Array [
+                                        "XML",
+                                        <Glyphicon
+                                          bsClass="glyphicon"
+                                          className="css-1rlphhe"
+                                          glyph="exclamation-sign"
+                              />,
+                                      ]
+                    }
           >
-                     
                     <Alert
                               bsClass="alert"
                               bsStyle="danger"
@@ -683,9 +780,18 @@ ShallowWrapper {
           </Tab>
           <Tab
                     eventKey={2}
-                    title="JSON"
+                    tabClassName="formatterError"
+                    title={
+                              Array [
+                                        "JSON",
+                                        <Glyphicon
+                                          bsClass="glyphicon"
+                                          className="css-1rlphhe"
+                                          glyph="exclamation-sign"
+                              />,
+                                      ]
+                    }
           >
-                     
                     <Alert
                               bsClass="alert"
                               bsStyle="danger"
@@ -712,9 +818,13 @@ ShallowWrapper {
           "children": Array [
             <Tab
               eventKey={0}
-              title="Original"
+              tabClassName={undefined}
+              title={
+                            Array [
+                                          "Original",
+                                        ]
+              }
 >
-               
               <pre
                             className="css-141jdb2"
                             id="Original"
@@ -724,9 +834,18 @@ ShallowWrapper {
 </Tab>,
             <Tab
               eventKey={1}
-              title="XML"
+              tabClassName="formatterError"
+              title={
+                            Array [
+                                          "XML",
+                                          <Glyphicon
+                                            bsClass="glyphicon"
+                                            className="css-1rlphhe"
+                                            glyph="exclamation-sign"
+                            />,
+                                        ]
+              }
 >
-               
               <Alert
                             bsClass="alert"
                             bsStyle="danger"
@@ -740,9 +859,18 @@ ShallowWrapper {
 </Tab>,
             <Tab
               eventKey={2}
-              title="JSON"
+              tabClassName="formatterError"
+              title={
+                            Array [
+                                          "JSON",
+                                          <Glyphicon
+                                            bsClass="glyphicon"
+                                            className="css-1rlphhe"
+                                            glyph="exclamation-sign"
+                            />,
+                                        ]
+              }
 >
-               
               <Alert
                             bsClass="alert"
                             bsStyle="danger"
@@ -758,7 +886,7 @@ ShallowWrapper {
               </Alert>
 </Tab>,
           ],
-          "className": "css-853bgu",
+          "className": "css-1t9idka",
           "defaultActiveKey": 0,
           "id": "message-formatting-tabs",
         },
@@ -770,22 +898,21 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": Array [
-                " ",
-                Array [
-                  <pre
-                    className="css-141jdb2"
-                    id="Original"
+                <pre
+                  className="css-141jdb2"
+                  id="Original"
 >
-                    ["a":"apple","b":42, "c":false]
+                  ["a":"apple","b":42, "c":false]
 </pre>,
-                ],
               ],
               "eventKey": 0,
-              "title": "Original",
+              "tabClassName": undefined,
+              "title": Array [
+                "Original",
+              ],
             },
             "ref": null,
             "rendered": Array [
-              " ",
               Object {
                 "instance": null,
                 "key": "Original",
@@ -808,26 +935,30 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": Array [
-                " ",
-                Array [
-                  <Alert
-                    bsClass="alert"
-                    bsStyle="danger"
-                    closeLabel="Close alert"
-                    id="XMLwarning"
+                <Alert
+                  bsClass="alert"
+                  bsStyle="danger"
+                  closeLabel="Close alert"
+                  id="XMLwarning"
 >
-                    <p>
-                                        The formatter didn't return any text to display.
-                    </p>
+                  <p>
+                                    The formatter didn't return any text to display.
+                  </p>
 </Alert>,
-                ],
               ],
               "eventKey": 1,
-              "title": "XML",
+              "tabClassName": "formatterError",
+              "title": Array [
+                "XML",
+                <Glyphicon
+                  bsClass="glyphicon"
+                  className="css-1rlphhe"
+                  glyph="exclamation-sign"
+/>,
+              ],
             },
             "ref": null,
             "rendered": Array [
-              " ",
               Object {
                 "instance": null,
                 "key": "XMLwarning",
@@ -868,29 +999,33 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": Array [
-                " ",
-                Array [
-                  <Alert
-                    bsClass="alert"
-                    bsStyle="danger"
-                    closeLabel="Close alert"
-                    id="JSONerror"
+                <Alert
+                  bsClass="alert"
+                  bsStyle="danger"
+                  closeLabel="Close alert"
+                  id="JSONerror"
 >
-                    <p>
-                                        The formatter threw an error whilst trying to format the text of this data:
-                    </p>
-                    <p>
-                                        SyntaxError: Unexpected token : in JSON at position 4
-                    </p>
+                  <p>
+                                    The formatter threw an error whilst trying to format the text of this data:
+                  </p>
+                  <p>
+                                    SyntaxError: Unexpected token : in JSON at position 4
+                  </p>
 </Alert>,
-                ],
               ],
               "eventKey": 2,
-              "title": "JSON",
+              "tabClassName": "formatterError",
+              "title": Array [
+                "JSON",
+                <Glyphicon
+                  bsClass="glyphicon"
+                  className="css-1rlphhe"
+                  glyph="exclamation-sign"
+/>,
+              ],
             },
             "ref": null,
             "rendered": Array [
-              " ",
               Object {
                 "instance": null,
                 "key": "JSONerror",
@@ -952,15 +1087,19 @@ ShallowWrapper {
         "props": Object {
           "children": <Uncontrolled(Tabs)
             animation={false}
-            className="css-853bgu"
+            className="css-1t9idka"
             defaultActiveKey={0}
             id="message-formatting-tabs"
 >
             <Tab
                         eventKey={0}
-                        title="Original"
+                        tabClassName={undefined}
+                        title={
+                                    Array [
+                                                "Original",
+                                              ]
+                        }
             >
-                         
                         <pre
                                     className="css-141jdb2"
                                     id="Original"
@@ -970,9 +1109,18 @@ ShallowWrapper {
             </Tab>
             <Tab
                         eventKey={1}
-                        title="XML"
+                        tabClassName="formatterError"
+                        title={
+                                    Array [
+                                                "XML",
+                                                <Glyphicon
+                                                  bsClass="glyphicon"
+                                                  className="css-1rlphhe"
+                                                  glyph="exclamation-sign"
+                                    />,
+                                              ]
+                        }
             >
-                         
                         <Alert
                                     bsClass="alert"
                                     bsStyle="danger"
@@ -986,9 +1134,18 @@ ShallowWrapper {
             </Tab>
             <Tab
                         eventKey={2}
-                        title="JSON"
+                        tabClassName="formatterError"
+                        title={
+                                    Array [
+                                                "JSON",
+                                                <Glyphicon
+                                                  bsClass="glyphicon"
+                                                  className="css-1rlphhe"
+                                                  glyph="exclamation-sign"
+                                    />,
+                                              ]
+                        }
             >
-                         
                         <Alert
                                     bsClass="alert"
                                     bsStyle="danger"
@@ -1015,9 +1172,13 @@ ShallowWrapper {
             "children": Array [
               <Tab
                 eventKey={0}
-                title="Original"
+                tabClassName={undefined}
+                title={
+                                Array [
+                                                "Original",
+                                              ]
+                }
 >
-                 
                 <pre
                                 className="css-141jdb2"
                                 id="Original"
@@ -1027,9 +1188,18 @@ ShallowWrapper {
 </Tab>,
               <Tab
                 eventKey={1}
-                title="XML"
+                tabClassName="formatterError"
+                title={
+                                Array [
+                                                "XML",
+                                                <Glyphicon
+                                                  bsClass="glyphicon"
+                                                  className="css-1rlphhe"
+                                                  glyph="exclamation-sign"
+                                />,
+                                              ]
+                }
 >
-                 
                 <Alert
                                 bsClass="alert"
                                 bsStyle="danger"
@@ -1043,9 +1213,18 @@ ShallowWrapper {
 </Tab>,
               <Tab
                 eventKey={2}
-                title="JSON"
+                tabClassName="formatterError"
+                title={
+                                Array [
+                                                "JSON",
+                                                <Glyphicon
+                                                  bsClass="glyphicon"
+                                                  className="css-1rlphhe"
+                                                  glyph="exclamation-sign"
+                                />,
+                                              ]
+                }
 >
-                 
                 <Alert
                                 bsClass="alert"
                                 bsStyle="danger"
@@ -1061,7 +1240,7 @@ ShallowWrapper {
                 </Alert>
 </Tab>,
             ],
-            "className": "css-853bgu",
+            "className": "css-1t9idka",
             "defaultActiveKey": 0,
             "id": "message-formatting-tabs",
           },
@@ -1073,22 +1252,21 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  " ",
-                  Array [
-                    <pre
-                      className="css-141jdb2"
-                      id="Original"
+                  <pre
+                    className="css-141jdb2"
+                    id="Original"
 >
-                      ["a":"apple","b":42, "c":false]
+                    ["a":"apple","b":42, "c":false]
 </pre>,
-                  ],
                 ],
                 "eventKey": 0,
-                "title": "Original",
+                "tabClassName": undefined,
+                "title": Array [
+                  "Original",
+                ],
               },
               "ref": null,
               "rendered": Array [
-                " ",
                 Object {
                   "instance": null,
                   "key": "Original",
@@ -1111,26 +1289,30 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  " ",
-                  Array [
-                    <Alert
-                      bsClass="alert"
-                      bsStyle="danger"
-                      closeLabel="Close alert"
-                      id="XMLwarning"
+                  <Alert
+                    bsClass="alert"
+                    bsStyle="danger"
+                    closeLabel="Close alert"
+                    id="XMLwarning"
 >
-                      <p>
-                                            The formatter didn't return any text to display.
-                      </p>
+                    <p>
+                                        The formatter didn't return any text to display.
+                    </p>
 </Alert>,
-                  ],
                 ],
                 "eventKey": 1,
-                "title": "XML",
+                "tabClassName": "formatterError",
+                "title": Array [
+                  "XML",
+                  <Glyphicon
+                    bsClass="glyphicon"
+                    className="css-1rlphhe"
+                    glyph="exclamation-sign"
+/>,
+                ],
               },
               "ref": null,
               "rendered": Array [
-                " ",
                 Object {
                   "instance": null,
                   "key": "XMLwarning",
@@ -1171,29 +1353,33 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  " ",
-                  Array [
-                    <Alert
-                      bsClass="alert"
-                      bsStyle="danger"
-                      closeLabel="Close alert"
-                      id="JSONerror"
+                  <Alert
+                    bsClass="alert"
+                    bsStyle="danger"
+                    closeLabel="Close alert"
+                    id="JSONerror"
 >
-                      <p>
-                                            The formatter threw an error whilst trying to format the text of this data:
-                      </p>
-                      <p>
-                                            SyntaxError: Unexpected token : in JSON at position 4
-                      </p>
+                    <p>
+                                        The formatter threw an error whilst trying to format the text of this data:
+                    </p>
+                    <p>
+                                        SyntaxError: Unexpected token : in JSON at position 4
+                    </p>
 </Alert>,
-                  ],
                 ],
                 "eventKey": 2,
-                "title": "JSON",
+                "tabClassName": "formatterError",
+                "title": Array [
+                  "JSON",
+                  <Glyphicon
+                    bsClass="glyphicon"
+                    className="css-1rlphhe"
+                    glyph="exclamation-sign"
+/>,
+                ],
               },
               "ref": null,
               "rendered": Array [
-                " ",
                 Object {
                   "instance": null,
                   "key": "JSONerror",
@@ -1252,8 +1438,16 @@ ShallowWrapper {
       "adapter": ReactSixteenAdapter {
         "options": Object {
           "enableComponentDidUpdateOnSetState": true,
+          "lifecycles": Object {
+            "componentDidUpdate": Object {
+              "onSetState": true,
+            },
+            "getSnapshotBeforeUpdate": true,
+          },
         },
       },
+      "attachTo": undefined,
+      "hydrateIn": undefined,
     },
   },
   Symbol(enzyme.__unrendered__): null,
@@ -1270,17 +1464,23 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getSnapshotBeforeUpdate": true,
+        },
       },
     },
+    "attachTo": undefined,
+    "hydrateIn": undefined,
   },
 }
 `;
 
 exports[`FormattingBox guesses the correct format by default plain text 1`] = `
 ShallowWrapper {
-  "length": 0,
   Symbol(enzyme.__root__): ShallowWrapper {
-    "length": 1,
     Symbol(enzyme.__root__): [Circular],
     Symbol(enzyme.__unrendered__): <FormattingBox
       message="\\"a\\":\\"apple\\",\\"b\\":42, \\"c\\":false"
@@ -1299,15 +1499,19 @@ ShallowWrapper {
       "props": Object {
         "children": <Uncontrolled(Tabs)
           animation={false}
-          className="css-853bgu"
+          className="css-1t9idka"
           defaultActiveKey={0}
           id="message-formatting-tabs"
 >
           <Tab
                     eventKey={0}
-                    title="Original"
+                    tabClassName={undefined}
+                    title={
+                              Array [
+                                        "Original",
+                                      ]
+                    }
           >
-                     
                     <pre
                               className="css-141jdb2"
                               id="Original"
@@ -1317,9 +1521,18 @@ ShallowWrapper {
           </Tab>
           <Tab
                     eventKey={1}
-                    title="XML"
+                    tabClassName="formatterError"
+                    title={
+                              Array [
+                                        "XML",
+                                        <Glyphicon
+                                          bsClass="glyphicon"
+                                          className="css-1rlphhe"
+                                          glyph="exclamation-sign"
+                              />,
+                                      ]
+                    }
           >
-                     
                     <Alert
                               bsClass="alert"
                               bsStyle="danger"
@@ -1333,9 +1546,18 @@ ShallowWrapper {
           </Tab>
           <Tab
                     eventKey={2}
-                    title="JSON"
+                    tabClassName="formatterError"
+                    title={
+                              Array [
+                                        "JSON",
+                                        <Glyphicon
+                                          bsClass="glyphicon"
+                                          className="css-1rlphhe"
+                                          glyph="exclamation-sign"
+                              />,
+                                      ]
+                    }
           >
-                     
                     <Alert
                               bsClass="alert"
                               bsStyle="danger"
@@ -1362,9 +1584,13 @@ ShallowWrapper {
           "children": Array [
             <Tab
               eventKey={0}
-              title="Original"
+              tabClassName={undefined}
+              title={
+                            Array [
+                                          "Original",
+                                        ]
+              }
 >
-               
               <pre
                             className="css-141jdb2"
                             id="Original"
@@ -1374,9 +1600,18 @@ ShallowWrapper {
 </Tab>,
             <Tab
               eventKey={1}
-              title="XML"
+              tabClassName="formatterError"
+              title={
+                            Array [
+                                          "XML",
+                                          <Glyphicon
+                                            bsClass="glyphicon"
+                                            className="css-1rlphhe"
+                                            glyph="exclamation-sign"
+                            />,
+                                        ]
+              }
 >
-               
               <Alert
                             bsClass="alert"
                             bsStyle="danger"
@@ -1390,9 +1625,18 @@ ShallowWrapper {
 </Tab>,
             <Tab
               eventKey={2}
-              title="JSON"
+              tabClassName="formatterError"
+              title={
+                            Array [
+                                          "JSON",
+                                          <Glyphicon
+                                            bsClass="glyphicon"
+                                            className="css-1rlphhe"
+                                            glyph="exclamation-sign"
+                            />,
+                                        ]
+              }
 >
-               
               <Alert
                             bsClass="alert"
                             bsStyle="danger"
@@ -1408,7 +1652,7 @@ ShallowWrapper {
               </Alert>
 </Tab>,
           ],
-          "className": "css-853bgu",
+          "className": "css-1t9idka",
           "defaultActiveKey": 0,
           "id": "message-formatting-tabs",
         },
@@ -1420,22 +1664,21 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": Array [
-                " ",
-                Array [
-                  <pre
-                    className="css-141jdb2"
-                    id="Original"
+                <pre
+                  className="css-141jdb2"
+                  id="Original"
 >
-                    "a":"apple","b":42, "c":false
+                  "a":"apple","b":42, "c":false
 </pre>,
-                ],
               ],
               "eventKey": 0,
-              "title": "Original",
+              "tabClassName": undefined,
+              "title": Array [
+                "Original",
+              ],
             },
             "ref": null,
             "rendered": Array [
-              " ",
               Object {
                 "instance": null,
                 "key": "Original",
@@ -1458,26 +1701,30 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": Array [
-                " ",
-                Array [
-                  <Alert
-                    bsClass="alert"
-                    bsStyle="danger"
-                    closeLabel="Close alert"
-                    id="XMLwarning"
+                <Alert
+                  bsClass="alert"
+                  bsStyle="danger"
+                  closeLabel="Close alert"
+                  id="XMLwarning"
 >
-                    <p>
-                                        The formatter didn't return any text to display.
-                    </p>
+                  <p>
+                                    The formatter didn't return any text to display.
+                  </p>
 </Alert>,
-                ],
               ],
               "eventKey": 1,
-              "title": "XML",
+              "tabClassName": "formatterError",
+              "title": Array [
+                "XML",
+                <Glyphicon
+                  bsClass="glyphicon"
+                  className="css-1rlphhe"
+                  glyph="exclamation-sign"
+/>,
+              ],
             },
             "ref": null,
             "rendered": Array [
-              " ",
               Object {
                 "instance": null,
                 "key": "XMLwarning",
@@ -1518,29 +1765,33 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": Array [
-                " ",
-                Array [
-                  <Alert
-                    bsClass="alert"
-                    bsStyle="danger"
-                    closeLabel="Close alert"
-                    id="JSONerror"
+                <Alert
+                  bsClass="alert"
+                  bsStyle="danger"
+                  closeLabel="Close alert"
+                  id="JSONerror"
 >
-                    <p>
-                                        The formatter threw an error whilst trying to format the text of this data:
-                    </p>
-                    <p>
-                                        SyntaxError: Unexpected token : in JSON at position 3
-                    </p>
+                  <p>
+                                    The formatter threw an error whilst trying to format the text of this data:
+                  </p>
+                  <p>
+                                    SyntaxError: Unexpected token : in JSON at position 3
+                  </p>
 </Alert>,
-                ],
               ],
               "eventKey": 2,
-              "title": "JSON",
+              "tabClassName": "formatterError",
+              "title": Array [
+                "JSON",
+                <Glyphicon
+                  bsClass="glyphicon"
+                  className="css-1rlphhe"
+                  glyph="exclamation-sign"
+/>,
+              ],
             },
             "ref": null,
             "rendered": Array [
-              " ",
               Object {
                 "instance": null,
                 "key": "JSONerror",
@@ -1602,15 +1853,19 @@ ShallowWrapper {
         "props": Object {
           "children": <Uncontrolled(Tabs)
             animation={false}
-            className="css-853bgu"
+            className="css-1t9idka"
             defaultActiveKey={0}
             id="message-formatting-tabs"
 >
             <Tab
                         eventKey={0}
-                        title="Original"
+                        tabClassName={undefined}
+                        title={
+                                    Array [
+                                                "Original",
+                                              ]
+                        }
             >
-                         
                         <pre
                                     className="css-141jdb2"
                                     id="Original"
@@ -1620,9 +1875,18 @@ ShallowWrapper {
             </Tab>
             <Tab
                         eventKey={1}
-                        title="XML"
+                        tabClassName="formatterError"
+                        title={
+                                    Array [
+                                                "XML",
+                                                <Glyphicon
+                                                  bsClass="glyphicon"
+                                                  className="css-1rlphhe"
+                                                  glyph="exclamation-sign"
+                                    />,
+                                              ]
+                        }
             >
-                         
                         <Alert
                                     bsClass="alert"
                                     bsStyle="danger"
@@ -1636,9 +1900,18 @@ ShallowWrapper {
             </Tab>
             <Tab
                         eventKey={2}
-                        title="JSON"
+                        tabClassName="formatterError"
+                        title={
+                                    Array [
+                                                "JSON",
+                                                <Glyphicon
+                                                  bsClass="glyphicon"
+                                                  className="css-1rlphhe"
+                                                  glyph="exclamation-sign"
+                                    />,
+                                              ]
+                        }
             >
-                         
                         <Alert
                                     bsClass="alert"
                                     bsStyle="danger"
@@ -1665,9 +1938,13 @@ ShallowWrapper {
             "children": Array [
               <Tab
                 eventKey={0}
-                title="Original"
+                tabClassName={undefined}
+                title={
+                                Array [
+                                                "Original",
+                                              ]
+                }
 >
-                 
                 <pre
                                 className="css-141jdb2"
                                 id="Original"
@@ -1677,9 +1954,18 @@ ShallowWrapper {
 </Tab>,
               <Tab
                 eventKey={1}
-                title="XML"
+                tabClassName="formatterError"
+                title={
+                                Array [
+                                                "XML",
+                                                <Glyphicon
+                                                  bsClass="glyphicon"
+                                                  className="css-1rlphhe"
+                                                  glyph="exclamation-sign"
+                                />,
+                                              ]
+                }
 >
-                 
                 <Alert
                                 bsClass="alert"
                                 bsStyle="danger"
@@ -1693,9 +1979,18 @@ ShallowWrapper {
 </Tab>,
               <Tab
                 eventKey={2}
-                title="JSON"
+                tabClassName="formatterError"
+                title={
+                                Array [
+                                                "JSON",
+                                                <Glyphicon
+                                                  bsClass="glyphicon"
+                                                  className="css-1rlphhe"
+                                                  glyph="exclamation-sign"
+                                />,
+                                              ]
+                }
 >
-                 
                 <Alert
                                 bsClass="alert"
                                 bsStyle="danger"
@@ -1711,7 +2006,7 @@ ShallowWrapper {
                 </Alert>
 </Tab>,
             ],
-            "className": "css-853bgu",
+            "className": "css-1t9idka",
             "defaultActiveKey": 0,
             "id": "message-formatting-tabs",
           },
@@ -1723,22 +2018,21 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  " ",
-                  Array [
-                    <pre
-                      className="css-141jdb2"
-                      id="Original"
+                  <pre
+                    className="css-141jdb2"
+                    id="Original"
 >
-                      "a":"apple","b":42, "c":false
+                    "a":"apple","b":42, "c":false
 </pre>,
-                  ],
                 ],
                 "eventKey": 0,
-                "title": "Original",
+                "tabClassName": undefined,
+                "title": Array [
+                  "Original",
+                ],
               },
               "ref": null,
               "rendered": Array [
-                " ",
                 Object {
                   "instance": null,
                   "key": "Original",
@@ -1761,26 +2055,30 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  " ",
-                  Array [
-                    <Alert
-                      bsClass="alert"
-                      bsStyle="danger"
-                      closeLabel="Close alert"
-                      id="XMLwarning"
+                  <Alert
+                    bsClass="alert"
+                    bsStyle="danger"
+                    closeLabel="Close alert"
+                    id="XMLwarning"
 >
-                      <p>
-                                            The formatter didn't return any text to display.
-                      </p>
+                    <p>
+                                        The formatter didn't return any text to display.
+                    </p>
 </Alert>,
-                  ],
                 ],
                 "eventKey": 1,
-                "title": "XML",
+                "tabClassName": "formatterError",
+                "title": Array [
+                  "XML",
+                  <Glyphicon
+                    bsClass="glyphicon"
+                    className="css-1rlphhe"
+                    glyph="exclamation-sign"
+/>,
+                ],
               },
               "ref": null,
               "rendered": Array [
-                " ",
                 Object {
                   "instance": null,
                   "key": "XMLwarning",
@@ -1821,29 +2119,33 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  " ",
-                  Array [
-                    <Alert
-                      bsClass="alert"
-                      bsStyle="danger"
-                      closeLabel="Close alert"
-                      id="JSONerror"
+                  <Alert
+                    bsClass="alert"
+                    bsStyle="danger"
+                    closeLabel="Close alert"
+                    id="JSONerror"
 >
-                      <p>
-                                            The formatter threw an error whilst trying to format the text of this data:
-                      </p>
-                      <p>
-                                            SyntaxError: Unexpected token : in JSON at position 3
-                      </p>
+                    <p>
+                                        The formatter threw an error whilst trying to format the text of this data:
+                    </p>
+                    <p>
+                                        SyntaxError: Unexpected token : in JSON at position 3
+                    </p>
 </Alert>,
-                  ],
                 ],
                 "eventKey": 2,
-                "title": "JSON",
+                "tabClassName": "formatterError",
+                "title": Array [
+                  "JSON",
+                  <Glyphicon
+                    bsClass="glyphicon"
+                    className="css-1rlphhe"
+                    glyph="exclamation-sign"
+/>,
+                ],
               },
               "ref": null,
               "rendered": Array [
-                " ",
                 Object {
                   "instance": null,
                   "key": "JSONerror",
@@ -1902,8 +2204,16 @@ ShallowWrapper {
       "adapter": ReactSixteenAdapter {
         "options": Object {
           "enableComponentDidUpdateOnSetState": true,
+          "lifecycles": Object {
+            "componentDidUpdate": Object {
+              "onSetState": true,
+            },
+            "getSnapshotBeforeUpdate": true,
+          },
         },
       },
+      "attachTo": undefined,
+      "hydrateIn": undefined,
     },
   },
   Symbol(enzyme.__unrendered__): null,
@@ -1920,17 +2230,23 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getSnapshotBeforeUpdate": true,
+        },
       },
     },
+    "attachTo": undefined,
+    "hydrateIn": undefined,
   },
 }
 `;
 
 exports[`FormattingBox guesses the correct format by default xml 1`] = `
 ShallowWrapper {
-  "length": 0,
   Symbol(enzyme.__root__): ShallowWrapper {
-    "length": 1,
     Symbol(enzyme.__root__): [Circular],
     Symbol(enzyme.__unrendered__): <FormattingBox
       message="<a>This is a sample xml message</a>"
@@ -1949,15 +2265,19 @@ ShallowWrapper {
       "props": Object {
         "children": <Uncontrolled(Tabs)
           animation={false}
-          className="css-853bgu"
+          className="css-1t9idka"
           defaultActiveKey={1}
           id="message-formatting-tabs"
 >
           <Tab
                     eventKey={0}
-                    title="Original"
+                    tabClassName={undefined}
+                    title={
+                              Array [
+                                        "Original",
+                                      ]
+                    }
           >
-                     
                     <pre
                               className="css-141jdb2"
                               id="Original"
@@ -1967,9 +2287,13 @@ ShallowWrapper {
           </Tab>
           <Tab
                     eventKey={1}
-                    title="XML"
+                    tabClassName={undefined}
+                    title={
+                              Array [
+                                        "XML",
+                                      ]
+                    }
           >
-                     
                     <pre
                               className=""
                               id="XML"
@@ -1981,9 +2305,18 @@ ShallowWrapper {
           </Tab>
           <Tab
                     eventKey={2}
-                    title="JSON"
+                    tabClassName="formatterError"
+                    title={
+                              Array [
+                                        "JSON",
+                                        <Glyphicon
+                                          bsClass="glyphicon"
+                                          className="css-1rlphhe"
+                                          glyph="exclamation-sign"
+                              />,
+                                      ]
+                    }
           >
-                     
                     <Alert
                               bsClass="alert"
                               bsStyle="danger"
@@ -2010,9 +2343,13 @@ ShallowWrapper {
           "children": Array [
             <Tab
               eventKey={0}
-              title="Original"
+              tabClassName={undefined}
+              title={
+                            Array [
+                                          "Original",
+                                        ]
+              }
 >
-               
               <pre
                             className="css-141jdb2"
                             id="Original"
@@ -2022,9 +2359,13 @@ ShallowWrapper {
 </Tab>,
             <Tab
               eventKey={1}
-              title="XML"
+              tabClassName={undefined}
+              title={
+                            Array [
+                                          "XML",
+                                        ]
+              }
 >
-               
               <pre
                             className=""
                             id="XML"
@@ -2036,9 +2377,18 @@ ShallowWrapper {
 </Tab>,
             <Tab
               eventKey={2}
-              title="JSON"
+              tabClassName="formatterError"
+              title={
+                            Array [
+                                          "JSON",
+                                          <Glyphicon
+                                            bsClass="glyphicon"
+                                            className="css-1rlphhe"
+                                            glyph="exclamation-sign"
+                            />,
+                                        ]
+              }
 >
-               
               <Alert
                             bsClass="alert"
                             bsStyle="danger"
@@ -2054,7 +2404,7 @@ ShallowWrapper {
               </Alert>
 </Tab>,
           ],
-          "className": "css-853bgu",
+          "className": "css-1t9idka",
           "defaultActiveKey": 1,
           "id": "message-formatting-tabs",
         },
@@ -2066,22 +2416,21 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": Array [
-                " ",
-                Array [
-                  <pre
-                    className="css-141jdb2"
-                    id="Original"
+                <pre
+                  className="css-141jdb2"
+                  id="Original"
 >
-                    &lt;a&gt;This is a sample xml message&lt;/a&gt;
+                  &lt;a&gt;This is a sample xml message&lt;/a&gt;
 </pre>,
-                ],
               ],
               "eventKey": 0,
-              "title": "Original",
+              "tabClassName": undefined,
+              "title": Array [
+                "Original",
+              ],
             },
             "ref": null,
             "rendered": Array [
-              " ",
               Object {
                 "instance": null,
                 "key": "Original",
@@ -2104,24 +2453,23 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": Array [
-                " ",
-                Array [
-                  <pre
-                    className=""
-                    id="XML"
+                <pre
+                  className=""
+                  id="XML"
 >
-                    &lt;a&gt;
-                        This is a sample xml message
-                    &lt;/a&gt;
+                  &lt;a&gt;
+                      This is a sample xml message
+                  &lt;/a&gt;
 </pre>,
-                ],
               ],
               "eventKey": 1,
-              "title": "XML",
+              "tabClassName": undefined,
+              "title": Array [
+                "XML",
+              ],
             },
             "ref": null,
             "rendered": Array [
-              " ",
               Object {
                 "instance": null,
                 "key": "XML",
@@ -2148,29 +2496,33 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": Array [
-                " ",
-                Array [
-                  <Alert
-                    bsClass="alert"
-                    bsStyle="danger"
-                    closeLabel="Close alert"
-                    id="JSONerror"
+                <Alert
+                  bsClass="alert"
+                  bsStyle="danger"
+                  closeLabel="Close alert"
+                  id="JSONerror"
 >
-                    <p>
-                                        The formatter threw an error whilst trying to format the text of this data:
-                    </p>
-                    <p>
-                                        SyntaxError: Unexpected token &lt; in JSON at position 0
-                    </p>
+                  <p>
+                                    The formatter threw an error whilst trying to format the text of this data:
+                  </p>
+                  <p>
+                                    SyntaxError: Unexpected token &lt; in JSON at position 0
+                  </p>
 </Alert>,
-                ],
               ],
               "eventKey": 2,
-              "title": "JSON",
+              "tabClassName": "formatterError",
+              "title": Array [
+                "JSON",
+                <Glyphicon
+                  bsClass="glyphicon"
+                  className="css-1rlphhe"
+                  glyph="exclamation-sign"
+/>,
+              ],
             },
             "ref": null,
             "rendered": Array [
-              " ",
               Object {
                 "instance": null,
                 "key": "JSONerror",
@@ -2232,15 +2584,19 @@ ShallowWrapper {
         "props": Object {
           "children": <Uncontrolled(Tabs)
             animation={false}
-            className="css-853bgu"
+            className="css-1t9idka"
             defaultActiveKey={1}
             id="message-formatting-tabs"
 >
             <Tab
                         eventKey={0}
-                        title="Original"
+                        tabClassName={undefined}
+                        title={
+                                    Array [
+                                                "Original",
+                                              ]
+                        }
             >
-                         
                         <pre
                                     className="css-141jdb2"
                                     id="Original"
@@ -2250,9 +2606,13 @@ ShallowWrapper {
             </Tab>
             <Tab
                         eventKey={1}
-                        title="XML"
+                        tabClassName={undefined}
+                        title={
+                                    Array [
+                                                "XML",
+                                              ]
+                        }
             >
-                         
                         <pre
                                     className=""
                                     id="XML"
@@ -2264,9 +2624,18 @@ ShallowWrapper {
             </Tab>
             <Tab
                         eventKey={2}
-                        title="JSON"
+                        tabClassName="formatterError"
+                        title={
+                                    Array [
+                                                "JSON",
+                                                <Glyphicon
+                                                  bsClass="glyphicon"
+                                                  className="css-1rlphhe"
+                                                  glyph="exclamation-sign"
+                                    />,
+                                              ]
+                        }
             >
-                         
                         <Alert
                                     bsClass="alert"
                                     bsStyle="danger"
@@ -2293,9 +2662,13 @@ ShallowWrapper {
             "children": Array [
               <Tab
                 eventKey={0}
-                title="Original"
+                tabClassName={undefined}
+                title={
+                                Array [
+                                                "Original",
+                                              ]
+                }
 >
-                 
                 <pre
                                 className="css-141jdb2"
                                 id="Original"
@@ -2305,9 +2678,13 @@ ShallowWrapper {
 </Tab>,
               <Tab
                 eventKey={1}
-                title="XML"
+                tabClassName={undefined}
+                title={
+                                Array [
+                                                "XML",
+                                              ]
+                }
 >
-                 
                 <pre
                                 className=""
                                 id="XML"
@@ -2319,9 +2696,18 @@ ShallowWrapper {
 </Tab>,
               <Tab
                 eventKey={2}
-                title="JSON"
+                tabClassName="formatterError"
+                title={
+                                Array [
+                                                "JSON",
+                                                <Glyphicon
+                                                  bsClass="glyphicon"
+                                                  className="css-1rlphhe"
+                                                  glyph="exclamation-sign"
+                                />,
+                                              ]
+                }
 >
-                 
                 <Alert
                                 bsClass="alert"
                                 bsStyle="danger"
@@ -2337,7 +2723,7 @@ ShallowWrapper {
                 </Alert>
 </Tab>,
             ],
-            "className": "css-853bgu",
+            "className": "css-1t9idka",
             "defaultActiveKey": 1,
             "id": "message-formatting-tabs",
           },
@@ -2349,22 +2735,21 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  " ",
-                  Array [
-                    <pre
-                      className="css-141jdb2"
-                      id="Original"
+                  <pre
+                    className="css-141jdb2"
+                    id="Original"
 >
-                      &lt;a&gt;This is a sample xml message&lt;/a&gt;
+                    &lt;a&gt;This is a sample xml message&lt;/a&gt;
 </pre>,
-                  ],
                 ],
                 "eventKey": 0,
-                "title": "Original",
+                "tabClassName": undefined,
+                "title": Array [
+                  "Original",
+                ],
               },
               "ref": null,
               "rendered": Array [
-                " ",
                 Object {
                   "instance": null,
                   "key": "Original",
@@ -2387,24 +2772,23 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  " ",
-                  Array [
-                    <pre
-                      className=""
-                      id="XML"
+                  <pre
+                    className=""
+                    id="XML"
 >
-                      &lt;a&gt;
-                          This is a sample xml message
-                      &lt;/a&gt;
+                    &lt;a&gt;
+                        This is a sample xml message
+                    &lt;/a&gt;
 </pre>,
-                  ],
                 ],
                 "eventKey": 1,
-                "title": "XML",
+                "tabClassName": undefined,
+                "title": Array [
+                  "XML",
+                ],
               },
               "ref": null,
               "rendered": Array [
-                " ",
                 Object {
                   "instance": null,
                   "key": "XML",
@@ -2431,29 +2815,33 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  " ",
-                  Array [
-                    <Alert
-                      bsClass="alert"
-                      bsStyle="danger"
-                      closeLabel="Close alert"
-                      id="JSONerror"
+                  <Alert
+                    bsClass="alert"
+                    bsStyle="danger"
+                    closeLabel="Close alert"
+                    id="JSONerror"
 >
-                      <p>
-                                            The formatter threw an error whilst trying to format the text of this data:
-                      </p>
-                      <p>
-                                            SyntaxError: Unexpected token &lt; in JSON at position 0
-                      </p>
+                    <p>
+                                        The formatter threw an error whilst trying to format the text of this data:
+                    </p>
+                    <p>
+                                        SyntaxError: Unexpected token &lt; in JSON at position 0
+                    </p>
 </Alert>,
-                  ],
                 ],
                 "eventKey": 2,
-                "title": "JSON",
+                "tabClassName": "formatterError",
+                "title": Array [
+                  "JSON",
+                  <Glyphicon
+                    bsClass="glyphicon"
+                    className="css-1rlphhe"
+                    glyph="exclamation-sign"
+/>,
+                ],
               },
               "ref": null,
               "rendered": Array [
-                " ",
                 Object {
                   "instance": null,
                   "key": "JSONerror",
@@ -2512,8 +2900,16 @@ ShallowWrapper {
       "adapter": ReactSixteenAdapter {
         "options": Object {
           "enableComponentDidUpdateOnSetState": true,
+          "lifecycles": Object {
+            "componentDidUpdate": Object {
+              "onSetState": true,
+            },
+            "getSnapshotBeforeUpdate": true,
+          },
         },
       },
+      "attachTo": undefined,
+      "hydrateIn": undefined,
     },
   },
   Symbol(enzyme.__unrendered__): null,
@@ -2530,8 +2926,16 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getSnapshotBeforeUpdate": true,
+        },
       },
     },
+    "attachTo": undefined,
+    "hydrateIn": undefined,
   },
 }
 `;
