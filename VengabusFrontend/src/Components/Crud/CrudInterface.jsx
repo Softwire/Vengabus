@@ -5,6 +5,7 @@ import { Tooltip, FormControl, FormGroup, ButtonGroup } from 'react-bootstrap';
 import { DataTable } from '../DataTable';
 import { PropertyInput } from './PropertyInput';
 import { TimeSpanInput } from './TimeSpanInput';
+import { InputLabel } from './InputLabel';
 import { ButtonWithConfirmationModal } from '../ButtonWithConfirmationModal';
 import { PurgeMessagesButton } from '../PurgeMessagesButton';
 import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
@@ -255,15 +256,18 @@ export class CrudInterface extends Component {
         for (let i = 0; i < editableProperties.length; i++) {
             const property = editableProperties[i];
             editablePropertyInputs.push(
-                <PropertyInput
-                    text={property.charAt(0).toUpperCase() + property.substr(1)}
-                    data={this.state.newEndpointData[property]}
-                    tooltip={this.getTooltips()[property]}
-                    onChange={(data) => this.handlePropertyChange(data, property)}
-                    componentType={this.getObjectPropertyToComponent()[property]}
-                    options={this.getDropdownOptions()[property]}
-                    key={`propertyInput${i}`}
-                />
+                <div key={`input${i}`}>
+                    <InputLabel
+                        text={property.charAt(0).toUpperCase() + property.substr(1)}
+                        tooltip={this.getTooltips()[property]}
+                    />
+                    <PropertyInput
+                        data={this.state.newEndpointData[property]}
+                        onChange={(data) => this.handlePropertyChange(data, property)}
+                        componentType={this.getObjectPropertyToComponent()[property]}
+                        options={this.getDropdownOptions()[property]}
+                    />
+                </div>
             );
         }
         editablePropertyInputs.push(<hr className={this.getHrStyle()} key={1} />);
