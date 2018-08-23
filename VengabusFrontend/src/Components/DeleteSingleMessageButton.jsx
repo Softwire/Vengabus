@@ -1,5 +1,5 @@
 import React from 'react';
-import { Glyphicon, Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { Glyphicon } from 'react-bootstrap';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import { EndpointTypes } from '../Helpers/EndpointTypes';
 import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
@@ -58,16 +58,10 @@ class DeleteSingleMessageButton extends React.Component {
     }
 
     render() {
-        let buttonText = <span>Delete Message <Glyphicon glyph="trash" /></span>;
-        let tooltipMessage = "Deleting single live message is not supported! Check the backend API for more info.";
-        let buttonDisabled = this.props.messageType === EndpointTypes.MESSAGE;
-
-        const tooltip = (
-            <Tooltip id="tooltip">
-                <strong>{tooltipMessage}</strong>
-            </Tooltip>
-        );
-        const button = (
+        const buttonText = <span>Delete Message <Glyphicon glyph="trash" /></span>;
+        const tooltipMessage = "Deleting single live message is not supported! Check the backend API for more info.";
+        const deletionIsSupported = this.props.messageType === EndpointTypes.DEADLETTER;
+        return (
             <ButtonWithConfirmationModal
                 id={"alertDeleteSingleMessage"}
                 buttonText={buttonText}
@@ -77,13 +71,9 @@ class DeleteSingleMessageButton extends React.Component {
                 afterShowModalAction={this.showModalAction}
                 confirmAction={this.getOnDeletionConfirmedHandler()}
                 afterCloseModalAction={() => { }}
-                buttonDisabled={buttonDisabled}
-            />
-        );
-        return (
-            buttonDisabled ? <OverlayTrigger rootClose overlay={tooltip} placement="top">
-                <div style={{ display: 'inline-block', cursor: 'not-allowed', float: 'right' }}>
-                    {button}</div></OverlayTrigger> : button);
+                buttonDisabled={!deletionIsSupported}
+                tooltipMessage={deletionIsSupported ? undefined : tooltipMessage}
+            />);
     }
 }
 
