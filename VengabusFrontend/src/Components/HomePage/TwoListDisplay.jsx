@@ -8,6 +8,7 @@ import { Breadcrumb, Button } from 'react-bootstrap';
 import { SubscriptionList } from './SubscriptionList';
 import { EndpointTypes, typeToTitle } from '../../Helpers/EndpointTypes';
 import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
+import { cancelablePromiseCollection } from '../../Helpers/CancelablePromiseCollection';
 
 const messageCount = 500;
 
@@ -17,6 +18,7 @@ export class TwoListDisplay extends Component {
         this.displayHistory = [];
         this.breadCrumbHistory = [{ name: "Home", type: undefined }];
         this.messageButtonDisabled = false;
+        this.promiseCollection = new cancelablePromiseCollection();
         this.state = {
             queueData: undefined,
             topicData: undefined,
@@ -32,6 +34,7 @@ export class TwoListDisplay extends Component {
     }
     componentWillUnmount() {
         serviceBusConnection.deregisterForUpdatesPrompts(this.resetInitialStateData);
+        this.promiseCollection.cancelAllPromises();
 
     }
 
@@ -71,33 +74,33 @@ export class TwoListDisplay extends Component {
 
     updateAllQueueData = () => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
-        const fetchedQueueData = serviceBusService.listQueues();
-        fetchedQueueData.then(result => {
+        const fetchedQueueData = this.promiseCollection.addNewPromise(serviceBusService.listQueues());
+        fetchedQueueData.then((result) => {
             this.setState({
                 queueData: result
             });
-        });
+        }).catch((e) => { if (!e.isCanceled) { console.log(e); } });
     }
 
     updateAllTopicData = () => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
-        const fetchedTopicData = serviceBusService.listTopics();
+        const fetchedTopicData = this.promiseCollection.addNewPromise(serviceBusService.listTopics());
         fetchedTopicData.then(result => {
             this.setState({
                 topicData: result
             });
-        });
+        }).catch(e => { if (!e.isCanceled) { console.log(e); } });
     }
 
     updateTopicSubscriptionData = () => {
         const topicName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
         const serviceBusService = serviceBusConnection.getServiceBusService();
-        const fetchedSubscriptionData = serviceBusService.listSubscriptions(topicName);
+        const fetchedSubscriptionData = this.promiseCollection.addNewPromise(serviceBusService.listSubscriptions(topicName));
         fetchedSubscriptionData.then(result => {
             this.setState({
                 subscriptionData: result
             });
-        });
+        }).catch(e => { if (!e.isCanceled) { console.log(e); } });
     }
 
 
@@ -121,12 +124,14 @@ export class TwoListDisplay extends Component {
                 fetchedMessageData = serviceBusService.listSubscriptionMessages(topicName, subscriptionName, messageCount);
             }
         }
-        fetchedMessageData.then((result) => {
+        const wrappedFetchedMessageData = this.promiseCollection.addNewPromise(fetchedMessageData);
+
+        wrappedFetchedMessageData.then((result) => {
             this.messageButtonDisabled = false;
             this.setState({
                 messageData: result
             });
-        });
+        }).catch(e => { if (!e.isCanceled) { console.log(e); } });
     }
 
     resetInitialStateData = () => {

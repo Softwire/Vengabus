@@ -6,6 +6,7 @@ import { MessageDestinationForm } from './MessageDestinationForm';
 import { ButtonWithConfirmationModal } from '../ButtonWithConfirmationModal';
 import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { ButtonGroup } from 'react-bootstrap';
+import { cancelablePromiseCollection } from '../../Helpers/CancelablePromiseCollection';
 import _ from 'lodash';
 
 /** 
@@ -23,6 +24,7 @@ export class MessageInput extends Component {
     constructor(props) {
         super(props);
         const message = this.props.message;
+        this.promiseCollection = new cancelablePromiseCollection();
         this.state = {
             permittedValues: [],
             availableTopics: [],
@@ -40,8 +42,10 @@ export class MessageInput extends Component {
 
     componentDidMount() {
         this.serviceBusService = serviceBusConnection.getServiceBusService();
-        let permittedValuesPromise = this.serviceBusService.getWriteableMessageProperties();
-        let reservedPropertyNamesPromise = this.serviceBusService.getReadableMessageProperties();
+        let permittedValuesPromise = this.promiseCollection.addNewPromise(this.serviceBusService.getWriteableMessageProperties());
+        let reservedPropertyNamesPromise = this.promiseCollection.addNewPromise(this.serviceBusService.getReadableMessageProperties());
+        const fetchQueueDataPromise = this.promiseCollection.addNewPromise(this.serviceBusService.listQueues());
+        const fetchTopicDataPromise = this.promiseCollection.addNewPromise(this.serviceBusService.listTopics());
         Promise.all([permittedValuesPromise, reservedPropertyNamesPromise]).then((result) => {
             this.setState({
                 permittedValues: result[0],
@@ -49,19 +53,22 @@ export class MessageInput extends Component {
                 arePreDefinedPropsLoaded: true,
                 preDefinedProperties: this.props.message ? this.getPreDefinedProperties(this.props.message, result[0], result[1]) : [] //[{name: something, value: something}]
             });
-        });
-        this.serviceBusService.listQueues().then((result) => {
+        }).catch((e) => { if (!e.isCanceled) { console.log(e); } });
+        fetchQueueDataPromise.then((result) => {
             this.setState({
                 availableQueues: this.convertArrayOfNamesToValueLabel(result)
             });
-        });
-        this.serviceBusService.listTopics().then((result) => {
+        }).catch((e) => { if (!e.isCanceled) { console.log(e); } });
+        fetchTopicDataPromise.then((result) => {
             this.setState({
                 availableTopics: this.convertArrayOfNamesToValueLabel(result)
             });
-        });
+        }).catch((e) => { if (!e.isCanceled) { console.log(e); }  });
     }
 
+    componentWillUnmount() {
+        this.promiseCollection.cancelAllPromises();
+    }
     /**
      * Converts a string to an object of the form:
      * `{value: "string", label: "string"}`
