@@ -74,7 +74,8 @@ export class TwoListDisplay extends Component {
 
     updateAllQueueData = () => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
-        const fetchedQueueData = this.promiseCollection.addNewPromise(serviceBusService.listQueues());
+        this.promiseCollection.cancelAllPromises(EndpointTypes.QUEUE);
+        const fetchedQueueData = this.promiseCollection.addNewPromise(serviceBusService.listQueues(), EndpointTypes.QUEUE);
         fetchedQueueData.then((result) => {
             this.setState({
                 queueData: result
@@ -84,7 +85,8 @@ export class TwoListDisplay extends Component {
 
     updateAllTopicData = () => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
-        const fetchedTopicData = this.promiseCollection.addNewPromise(serviceBusService.listTopics());
+        this.promiseCollection.cancelAllPromises(EndpointTypes.TOPIC);
+        const fetchedTopicData = this.promiseCollection.addNewPromise(serviceBusService.listTopics(), EndpointTypes.TOPIC);
         fetchedTopicData.then(result => {
             this.setState({
                 topicData: result
@@ -95,7 +97,8 @@ export class TwoListDisplay extends Component {
     updateTopicSubscriptionData = () => {
         const topicName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
         const serviceBusService = serviceBusConnection.getServiceBusService();
-        const fetchedSubscriptionData = this.promiseCollection.addNewPromise(serviceBusService.listSubscriptions(topicName));
+        this.promiseCollection.cancelAllPromises(EndpointTypes.SUBSCRIPTION);
+        const fetchedSubscriptionData = this.promiseCollection.addNewPromise(serviceBusService.listSubscriptions(topicName), EndpointTypes.SUBSCRIPTION);
         fetchedSubscriptionData.then(result => {
             this.setState({
                 subscriptionData: result
@@ -124,8 +127,8 @@ export class TwoListDisplay extends Component {
                 fetchedMessageData = serviceBusService.listSubscriptionMessages(topicName, subscriptionName, messageCount);
             }
         }
-        const wrappedFetchedMessageData = this.promiseCollection.addNewPromise(fetchedMessageData);
-
+        this.promiseCollection.cancelAllPromises(EndpointTypes.MESSAGE);
+        const wrappedFetchedMessageData = this.promiseCollection.addNewPromise(fetchedMessageData, EndpointTypes.MESSAGE);
         wrappedFetchedMessageData.then((result) => {
             this.messageButtonDisabled = false;
             this.setState({

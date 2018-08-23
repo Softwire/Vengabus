@@ -4,8 +4,9 @@ export class cancelablePromiseCollection {
     }
 
 
-    addNewPromise = (originalPromise) => {
+    addNewPromise = (originalPromise,endpointType) => {
         const prom = this.makeCancellable(originalPromise);
+        prom.type = endpointType;
         this.trackedPromises.push(prom);
         return prom;
     }
@@ -18,9 +19,19 @@ export class cancelablePromiseCollection {
         promise.cancel();
     }
 
-    cancelAllPromises = () => {
-        this.trackedPromises.forEach(promise => { promise.cancel();});
-        this.trackedPromises = [];
+    cancelAllPromises = (endpointType) => {
+        if(!endpointType){
+            this.trackedPromises.forEach(promise => { promise.cancel();});
+            this.trackedPromises = [];
+        } else {
+            //remove all of type
+            const trackedPromisesClone = [...this.trackedPromises];
+            trackedPromisesClone.forEach(promise => {
+                if (promise.type === endpointType) {
+                    this.cancelPromise(promise);
+                }
+            });
+        }
     }
 
     makeCancellable = (originalPromise) => {
