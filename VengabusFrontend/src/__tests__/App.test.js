@@ -345,13 +345,36 @@ const sendMessagePageTest = (wrapper) => { //Starts from SendMessagePage
 };
 
 const replayMessageTest = (wrapper) => { //Starts from HomePage
-
     return testHelper.afterReactHasUpdated().then(() => {//Click Connect
         const connectButton = wrapper.find('#connectButton').last();
         connectButton.simulate("click");
         return testHelper.afterReactHasUpdated();
+    }).then(() => { //Click a row in the queue table
+        wrapper.update();
+        const leftList = wrapper.find('#left');
+        const queueListRow = leftList.find('tr').at(1); //Don't click the header
+        queueListRow.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => { //Click a row in the message table
+        wrapper.update();
+        const rightList = wrapper.find('#right');
+        const messageListRow = rightList.find('tr').at(1); //Don't click the header
+        messageListRow.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click Replay Message
+        wrapper.update();
+        const replayMessageButton = wrapper.find('#messageBoxReplayMessage').last();
+        replayMessageButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click Reset Fields button
+        const resetFieldsButton = wrapper.find('#cancelButton').last();
+        resetFieldsButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click Reset
+        const ResetButton = wrapper.find('#confirm').last();
+        ResetButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
     });
-    //QQ complete
 };
 
 it('passes smoke tests without crashing', () => {
@@ -388,10 +411,11 @@ it('passes smoke tests without crashing', () => {
      * ┖ Click Reset
      * Replay a message
      * ┠ Click Connect
-     * ┠ Click queue '1dduplicatedetectionqueue'
-     * ┠ Click message 'sadas'
+     * ┠ Click the first row in the queue table
+     * ┠ Click the first in the message table
      * ┠ Click Replay Message
-     * ┖ Click Reset Fields button
+     * ┠ Click Reset Fields button
+     * ┖ Click Reset
      */
 
     connectButton.prop("onClick")();
