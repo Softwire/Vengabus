@@ -17,13 +17,13 @@ jest.mock('../../../AzureWrappers/VengaServiceBusService', () => ({
 
         getWriteableMessageProperties = () => {
             return new Promise(function (resolve, reject) {
-                resolve(['MessageId', 'ContentType']);
+                resolve(['messageId', 'contentType']);
             });
         }
 
         getReadableMessageProperties = () => {
             return new Promise(function (resolve, reject) {
-                resolve(['MessageId', 'ContentType']);
+                resolve(['messageId', 'contentType']);
             });
         }
 
@@ -77,8 +77,8 @@ it('renders correctly from a predefined message', () => {
                 userDefinedProp2: 'value2'
             },
             predefinedProperties: {
-                MessageId: 'Message1',
-                ContentType: 'null'
+                messageId: 'Message1',
+                contentType: 'null'
             },
             messageBody: 'Hello world!'
         },
@@ -113,7 +113,7 @@ it('Correctly creates the properties of a message', async () => {
         selectedQueue: "testQueue",
         recipientIsQueue: true,
         userDefinedProperties: [{ name: "test1", value: "any value 1" }, { name: "test2", value: "any value 2" }],
-        preDefinedProperties: [{ name: "ContentType", value: "any value 3" }],
+        preDefinedProperties: [{ name: "contentType", value: "any value 3" }],
         messageBody: "body"
     });
     let submitButton = wrapper.find("#submitButton").at(0);
@@ -128,7 +128,7 @@ it('Correctly creates the properties of a message', async () => {
         {
             "messageBody": "body",
             "customProperties": { "test1": "any value 1", "test2": "any value 2" },
-            "predefinedProperties": { "ContentType": "any value 3" }
+            "predefinedProperties": { "contentType": "any value 3" }
         }
     );
 });

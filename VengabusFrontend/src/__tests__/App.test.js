@@ -195,13 +195,13 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
 
         getWriteableMessageProperties = () => {
             return new Promise(function (resolve, reject) {
-                resolve(['messageId', 'ContentType']);
+                resolve(['messageId', 'contentType']);
             });
         }
 
         getReadableMessageProperties = () => {
             return new Promise(function (resolve, reject) {
-                resolve(['messageId', 'ContentType']);
+                resolve(['messageId', 'contentType']);
             });
         }
 
