@@ -53,17 +53,11 @@ export class CurrentPage extends Component {
                     />;
                 break;
             case PAGES.CrudPage:
-                const endpointType = this.state.pageData.endpointType;
-                const selectedEndpoint = this.state.pageData.selectedEndpoint;
-                const parentTopic = this.state.pageData.parentTopic;
                 returnValue =
                     <CrudPage
-                        endpointType={endpointType}
-                        selectedEndpoint={selectedEndpoint}
-                        parentTopic={parentTopic}
+                        {...this.state.pageData}
                     />;
                 break;
-
             default:
                 returnValue =
                     <Alert bsStyle="danger">
