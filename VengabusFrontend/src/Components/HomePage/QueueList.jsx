@@ -23,35 +23,28 @@ export class QueueList extends Component {
 
 
 
-        //92 for height of 3 lines of text
-        const minHeight = css`
-                min-height:92px;
-                height:92px;
-            `;
-
-
         const colProps = [
             {
                 dataField: 'name',
                 width: 25,
-                headerClasses: minHeight
+                headerStyle: this.props.headerStyle,
             },
             {
                 dataField: 'activeMessageCount',
                 width: 25,
-                headerClasses: minHeight
-                align: 'right'
+                headerStyle: this.props.headerStyle,
+                align: 'right',
             },
             {
                 dataField: 'deadletterMessageCount',
                 width: 25,
-                headerClasses: minHeight
-                align: 'right'
+                headerStyle: this.props.headerStyle,
+                align: 'right',
             },
             {
                 dataField: 'mostRecentDeadLetter',
                 width: 25,
-                headerClasses: minHeight
+                headerStyle: this.props.headerStyle,
             }
         ];
 

@@ -165,6 +165,10 @@ export class TwoListDisplay extends Component {
                 margin: 9px;
                 width: 120px ;
         `;
+        const minHeightOfHeader = {
+            "min-height": "92px",
+            "height": "92px"
+        };
 
         switch (typeOfData) {
             case EndpointTypes.QUEUE:
@@ -178,6 +182,7 @@ export class TwoListDisplay extends Component {
                             clickFunction={this.handleQueueRowClick}
                             currentlySelectedName={currentSelection}
                             id='QueueTable'
+                            headerStyle={minHeightOfHeader}
                         />
                     </React.Fragment>
                 );
@@ -192,6 +197,7 @@ export class TwoListDisplay extends Component {
                             clickFunction={this.handleTopicRowClick}
                             currentlySelectedName={currentSelection}
                             id='TopicTable'
+                            headerStyle={minHeightOfHeader}
                         />
                     </React.Fragment>
                 );
@@ -207,6 +213,7 @@ export class TwoListDisplay extends Component {
                             clickFunction={this.handleSubscriptionRowClick}
                             currentlySelectedName={currentSelection}
                             id='SubscriptionTable'
+                            headerStyle={minHeightOfHeader}
                         />
                     </React.Fragment>
                 );
@@ -230,6 +237,7 @@ export class TwoListDisplay extends Component {
                             endpointType={lastBreadCrumb.type}
                             endpointName={lastBreadCrumb.name}
                             endpointParent={penultimateBreadCrumb.name}
+                            headerStyle={minHeightOfHeader}
                             refreshMessageTableHandler={() => {
                                 this.setState({
                                     messageData: undefined
@@ -348,6 +356,8 @@ export class TwoListDisplay extends Component {
 
         const leftBox = this.getList();
         const rightBox = this.getList(true);
+
+
 
         return (
             <div className={minWidth} >

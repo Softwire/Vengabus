@@ -9,30 +9,25 @@ export class TopicList extends Component {
 
         const topics = this.props.topicData;
 
-        //92 for height of 3 lines of text
-        const minHeight = css`
-                min-height:92px;
-                height:92px;
-            `;
-
+     
 
         const colProps = [
             {
                 dataField: 'name',
                 width: 34,
-                headerClasses: minHeight
+                headerStyle: this.props.headerStyle
             },
             {
                 dataField: 'subscriptionCount',
                 width: 33,
-                headerClasses: minHeight
+                headerStyle: this.props.headerStyle,
                 align: 'right'
             },
             {
                 dataField: 'topicStatus',
                 text: 'Status',
                 width: 33,
-                headerClasses: minHeight
+                headerStyle: this.props.headerStyle
             }
         ];
 

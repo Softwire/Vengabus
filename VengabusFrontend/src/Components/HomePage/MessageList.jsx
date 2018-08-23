@@ -46,13 +46,7 @@ export class MessageList extends Component {
             }
         }
 
-        //92 for height of 3 lines of text
-        const minHeight = css`
-                min-height:92px;
-                height:92px;
-            `;
-
-        
+             
         const colProps = [
             {
                 dataField: 'uniqueId',
@@ -62,18 +56,18 @@ export class MessageList extends Component {
                 dataField: 'predefinedProperties.messageId',
                 text: 'Message Id',
                 width: 33,
-                headerClasses: minHeight
+                headerStyle : this.props.headerStyle
             },
             {
                 dataField: 'messageBodyPreview',
                 text: 'Message Body',
                 width: 33,
-                headerClasses: minHeight
+                headerStyle: this.props.headerStyle
             },
             {
                 dataField: 'timestamp',
                 width: 34,
-                headerClasses: minHeight
+                headerStyle: this.props.headerStyle
     
             }
         ];
