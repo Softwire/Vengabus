@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { DataTable } from '../DataTable';
 import { palerBlue } from '../../colourScheme';
 import { Button } from 'react-bootstrap';
-import { pageSwitcher, PAGES } from '../Pages/PageSwitcherService';
-import { EndpointTypes } from '../Helpers/EndpointTypes';
+import { pageSwitcher, PAGES } from '../../Pages/PageSwitcherService';
+import { EndpointTypes } from '../../Helpers/EndpointTypes';
 
 
 export class TopicList extends Component {
@@ -24,12 +24,12 @@ export class TopicList extends Component {
         const colProps = [
             {
                 dataField: 'name',
-                width: 31
+                width: 31,
                 headerStyle: this.props.headerStyle
             },
             {
                 dataField: 'subscriptionCount',
-                width: 30
+                width: 30,
                 headerStyle: this.props.headerStyle,
                 align: 'right'
             },
@@ -48,7 +48,7 @@ export class TopicList extends Component {
                             edit
                         </Button>
                     );
-                }
+                },
                 headerStyle: this.props.headerStyle
             }
         ];

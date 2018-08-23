@@ -3,8 +3,8 @@ import { DataTable } from '../DataTable';
 import { formatTimeStamp } from '../../Helpers/FormattingHelpers';
 import { palerBlue } from '../../colourScheme';
 import { Button } from 'react-bootstrap';
-import { pageSwitcher, PAGES } from '../Pages/PageSwitcherService';
-import { EndpointTypes } from '../Helpers/EndpointTypes';
+import { pageSwitcher, PAGES } from '../../Pages/PageSwitcherService';
+import { EndpointTypes } from '../../Helpers/EndpointTypes';
 
 export class SubscriptionList extends Component {
 
@@ -29,21 +29,22 @@ export class SubscriptionList extends Component {
         const colProps = [
             {
                 dataField: 'name',
-                width: 23
+                width: 23,
                 headerStyle: this.props.headerStyle
             },
             {
                 dataField: 'activeMessageCount',
-                width: 23
+                width: 23,
                 align: 'right',
-                headerStyle: this.props.headerStyle,
+                headerStyle: this.props.headerStyle
             },
             {
                 dataField: 'deadletterMessageCount',
-                width: 23
+                width: 23,
                 headerStyle: this.props.headerStyle,
-                align: 'right',
-            }, {
+                align: 'right'
+            },
+            {
                 dataField: 'mostRecentDeadLetter',
                 width: 23
             },
@@ -57,8 +58,8 @@ export class SubscriptionList extends Component {
                             edit
                         </Button>
                     );
-                }
-                headerStyle: this.props.headerStyle,
+                },
+                headerStyle: this.props.headerStyle
             }
         ];
 
