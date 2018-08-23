@@ -52,7 +52,7 @@ namespace VengabusAPI.Controllers
             namespaceManager.RenameTopic(names.oldName, names.newName);
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("topics/delete/{topicName}")]
         public void DeleteQueue(string topicName)
         {

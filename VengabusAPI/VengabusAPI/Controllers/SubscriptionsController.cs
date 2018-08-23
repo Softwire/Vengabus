@@ -49,16 +49,11 @@ namespace VengabusAPI.Controllers
         }
 
         [HttpPost]
-        [Route("subscriptions/delete/{subscriptionName}")]
-        public void DeleteQueue(string subscriptionName, [FromBody]StringUpload topicName)
+        [Route("subscriptions/delete/{topicName}/{subscriptionName}")]
+        public void DeleteQueue(string topicName, string subscriptionName)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
-            namespaceManager.DeleteSubscription(topicName.uploadedString, subscriptionName);
-        }
-
-        public class StringUpload
-        {
-            public string uploadedString { get; set; }
+            namespaceManager.DeleteSubscription(topicName, subscriptionName);
         }
 
         public SubscriptionDescription UpdateDescription(SubscriptionDescription description, VengaSubscriptionUpload subData)
