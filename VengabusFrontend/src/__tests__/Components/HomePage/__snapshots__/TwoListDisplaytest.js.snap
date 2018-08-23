@@ -95,6 +95,12 @@ exports[`renders correctly after data is added 1`] = `
         <QueueList
           clickFunction={[Function]}
           currentlySelectedName="Home"
+          headerStyle={
+            Object {
+              "height": "92px",
+              "minHeight": "92px",
+            }
+          }
           id="QueueTable"
         >
           <DataTable
@@ -102,24 +108,36 @@ exports[`renders correctly after data is added 1`] = `
               Array [
                 Object {
                   "dataField": "name",
-                  "headerClasses": "css-1lvmfbt",
+                  "headerStyle": Object {
+                    "height": "92px",
+                    "minHeight": "92px",
+                  },
                   "width": 25,
                 },
                 Object {
                   "align": "right",
                   "dataField": "activeMessageCount",
-                  "headerClasses": "css-1lvmfbt",
+                  "headerStyle": Object {
+                    "height": "92px",
+                    "minHeight": "92px",
+                  },
                   "width": 25,
                 },
                 Object {
                   "align": "right",
                   "dataField": "deadletterMessageCount",
-                  "headerClasses": "css-1lvmfbt",
+                  "headerStyle": Object {
+                    "height": "92px",
+                    "minHeight": "92px",
+                  },
                   "width": 25,
                 },
                 Object {
                   "dataField": "mostRecentDeadLetter",
-                  "headerClasses": "css-1lvmfbt",
+                  "headerStyle": Object {
+                    "height": "92px",
+                    "minHeight": "92px",
+                  },
                   "width": 25,
                 },
               ]
@@ -160,6 +178,12 @@ exports[`renders correctly after data is added 1`] = `
         </div>
         <TopicList
           clickFunction={[Function]}
+          headerStyle={
+            Object {
+              "height": "92px",
+              "minHeight": "92px",
+            }
+          }
           id="TopicTable"
         >
           <DataTable
@@ -167,18 +191,27 @@ exports[`renders correctly after data is added 1`] = `
               Array [
                 Object {
                   "dataField": "name",
-                  "headerClasses": "css-1lvmfbt",
+                  "headerStyle": Object {
+                    "height": "92px",
+                    "minHeight": "92px",
+                  },
                   "width": 34,
                 },
                 Object {
                   "align": "right",
                   "dataField": "subscriptionCount",
-                  "headerClasses": "css-1lvmfbt",
+                  "headerStyle": Object {
+                    "height": "92px",
+                    "minHeight": "92px",
+                  },
                   "width": 33,
                 },
                 Object {
                   "dataField": "topicStatus",
-                  "headerClasses": "css-1lvmfbt",
+                  "headerStyle": Object {
+                    "height": "92px",
+                    "minHeight": "92px",
+                  },
                   "text": "Status",
                   "width": 33,
                 },

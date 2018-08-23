@@ -44,6 +44,8 @@ export class MessageList extends Component {
                 currentMessageArray.timestamp = '##-##-#### ##:##:##';
             }
         }
+
+             
         const colProps = [
             {
                 dataField: 'uniqueId',
@@ -53,16 +55,19 @@ export class MessageList extends Component {
                 dataField: 'predefinedProperties.messageId',
                 text: 'Message Id',
                 width: 33,
+                headerStyle : this.props.headerStyle
             },
             {
                 dataField: 'messageBodyPreview',
                 text: 'Message Body',
                 width: 33,
+                headerStyle: this.props.headerStyle
             },
             {
                 dataField: 'timestamp',
                 width: 34,
-                headerStyle: { textAlign: 'center' }
+                headerStyle: this.props.headerStyle
+    
             }
         ];
 

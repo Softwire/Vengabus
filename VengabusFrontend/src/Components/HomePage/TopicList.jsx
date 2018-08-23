@@ -2,26 +2,32 @@ import React, { Component } from 'react';
 import { DataTable } from '../DataTable';
 import { palerBlue } from '../../colourScheme';
 
+
 export class TopicList extends Component {
 
     render() {
 
         const topics = this.props.topicData;
 
+     
+
         const colProps = [
             {
                 dataField: 'name',
                 width: 34,
+                headerStyle: this.props.headerStyle
             },
             {
                 dataField: 'subscriptionCount',
                 width: 33,
+                headerStyle: this.props.headerStyle,
                 align: 'right'
             },
             {
                 dataField: 'topicStatus',
                 text: 'Status',
                 width: 33,
+                headerStyle: this.props.headerStyle
             }
         ];
 

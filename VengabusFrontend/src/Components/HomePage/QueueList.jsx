@@ -20,24 +20,30 @@ export class QueueList extends Component {
             }
         }
 
+
+
         const colProps = [
             {
                 dataField: 'name',
                 width: 25,
+                headerStyle: this.props.headerStyle,
             },
             {
                 dataField: 'activeMessageCount',
                 width: 25,
-                align: 'right'
+                headerStyle: this.props.headerStyle,
+                align: 'right',
             },
             {
                 dataField: 'deadletterMessageCount',
                 width: 25,
-                align: 'right'
+                headerStyle: this.props.headerStyle,
+                align: 'right',
             },
             {
                 dataField: 'mostRecentDeadLetter',
                 width: 25,
+                headerStyle: this.props.headerStyle,
             }
         ];
 
