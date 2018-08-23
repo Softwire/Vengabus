@@ -6,7 +6,7 @@ import { MessageDestinationForm } from './MessageDestinationForm';
 import { ButtonWithConfirmationModal } from '../ButtonWithConfirmationModal';
 import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { ButtonGroup } from 'react-bootstrap';
-import { cancelablePromiseCollection } from '../Helpers/CancelablePromiseCollection';
+import { cancelablePromiseCollection } from '../../Helpers/CancelablePromiseCollection';
 import _ from 'lodash';
 
 /** 
@@ -42,9 +42,11 @@ export class MessageInput extends Component {
 
     componentDidMount() {
         this.serviceBusService = serviceBusConnection.getServiceBusService();
-        let wrappedPermittedValuesPromise = this.promiseCollection.newPromise(this.serviceBusService.getWriteableMessageProperties());
-        let wrappedReservedPropertyNamesPromise = this.promiseCollection.newPromise(this.serviceBusService.getReadableMessageProperties());
-        Promise.all([wrappedPermittedValuesPromise.promise, wrappedReservedPropertyNamesPromise.promise]).then((result) => {
+        let permittedValuesPromise = this.promiseCollection.addNewPromise(this.serviceBusService.getWriteableMessageProperties());
+        let reservedPropertyNamesPromise = this.promiseCollection.addNewPromise(this.serviceBusService.getReadableMessageProperties());
+        const fetchQueueDataPromise = this.promiseCollection.addNewPromise(this.serviceBusService.listQueues());
+        const fetchTopicDataPromise = this.promiseCollection.addNewPromise(this.serviceBusService.listTopics());
+        Promise.all([permittedValuesPromise, reservedPropertyNamesPromise]).then((result) => {
             this.setState({
                 permittedValues: result[0],
                 reservedPropertyNames: result[1],
@@ -52,12 +54,12 @@ export class MessageInput extends Component {
                 preDefinedProperties: this.props.message ? this.getPreDefinedProperties(this.props.message, result[0], result[1]) : [] //[{name: something, value: something}]
             });
         }).catch((e) => { if (!e.isCanceled) { console.log(e); } });
-        this.promiseCollection.newPromise(this.serviceBusService.listQueues()).promise.then((result) => {
+        fetchQueueDataPromise.then((result) => {
             this.setState({
                 availableQueues: this.convertArrayOfNamesToValueLabel(result)
             });
         }).catch((e) => { if (!e.isCanceled) { console.log(e); } });
-        this.promiseCollection.newPromise(this.serviceBusService.listTopics()).promise.then((result) => {
+        fetchTopicDataPromise.then((result) => {
             this.setState({
                 availableTopics: this.convertArrayOfNamesToValueLabel(result)
             });

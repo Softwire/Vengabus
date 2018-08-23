@@ -1,45 +1,39 @@
 export class cancelablePromiseCollection {
     constructor() {
-        this.collection = [];
+        this.trackedPromises = [];
     }
 
 
-    newPromise = (promise) => {
-        const prom = this.makeCancelable(promise);
-        this.collection.push(prom);
+    addNewPromise = (originalPromise) => {
+        const prom = this.makeCancellable(originalPromise);
+        this.trackedPromises.push(prom);
         return prom;
     }
 
     cancelPromise = (promise) => {
-        const index = this.collection.indexOf(promise);
-        if (index) {
-            this.collection.splice(index, 1);
+        const index = this.trackedPromises.indexOf(promise);
+        if (index > 0) {
+            this.trackedPromises.splice(index, 1);
         }
         promise.cancel();
     }
 
     cancelAllPromises = () => {
-        this.collection.forEach(promise =>
-            promise.cancel()
-        );
-        this.collection = [];
+        this.trackedPromises.forEach(promise => { promise.cancel();});
+        this.trackedPromises = [];
     }
 
-    makeCancelable = (promise) => {
-        let hasCanceled_ = false;
+    makeCancellable = (originalPromise) => {
+        let hasCancelled = false;
 
         const wrappedPromise = new Promise((resolve, reject) => {
-            promise.then(
-                val => hasCanceled_ ? reject({ isCanceled: true }) : resolve(val),
-                error => hasCanceled_ ? reject({ isCanceled: true }) : reject(error)
+            originalPromise.then(
+                val => hasCancelled ? reject({ isCanceled: true }) : resolve(val),
+                error => hasCancelled ? reject({ isCanceled: true }) : reject(error)
             );
         });
 
-        return {
-            promise: wrappedPromise,
-            cancel() {
-                hasCanceled_ = true;
-            },
-        };
+        wrappedPromise.cancel = () => { hasCancelled = true; };
+        return wrappedPromise;
     };
 }
