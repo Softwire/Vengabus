@@ -94,6 +94,7 @@ export class MessageBox extends Component {
         `;
         const preDefinedPropsJSX = this.convertMessagePropertiesToJSXArray(message.predefinedProperties) || <p>There are no pre-defined properties to display</p>;
         const customPropsJSX = this.convertMessagePropertiesToJSXArray(message.customProperties) || <p>There are no user-defined properties to display</p>;
+        const replayDestination = this.props.endpointType === EndpointTypes.QUEUE ? this.props.endpointName : this.props.endpointParent;
         return (
 
             <div className="static-modal" >
@@ -127,7 +128,7 @@ export class MessageBox extends Component {
                                 endpointName={this.props.endpointName}
                                 closeParentModal={this.closeMessageModalAndReloadMessageTable}
                             />
-                            <Button onClick={() => this.handleReplayMessage(message)} id="messageBoxReplayMessage" >Replay Message to demoqueue1</ Button>
+                            <Button onClick={() => this.handleReplayMessage(message)} id="messageBoxReplayMessage" >{"Replay Message to " + replayDestination}</ Button>
                         </ButtonToolbar>
                     </Modal.Footer>
                 </Modal>
