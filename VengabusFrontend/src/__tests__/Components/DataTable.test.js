@@ -12,6 +12,13 @@ function suppressSpecificDataTableErrors() {
     console.error = (...args) => {
         const errorString = args[0];
         if (!errorString.startsWith('The above error occurred in the <DataTable> component') &&
+            // This happens when we use mount() and renderer.create() in the same file and using react context nodes.
+            // We suppress this multiple renderer error because it is an unfixed bug from react for having react-renderer as
+            // the primary renderer, while enzyme also tries to declare mount to be the primary renderer as well. This is
+            // going to be fixed in the new version of react, but it is not released yet. Also, this console error doesn't
+            // mean anything in the test is really wrong -- sensible snapshots are still produced. 
+            // As a result, we decide to suppress it for now and wait for the new react release, where this error should
+            // vanish by itself. -- XR, 23 Aug 2018
             !errorString.startsWith('Warning: Detected multiple renderers concurrently rendering the same context provider')) {
             rawConsoleError(...args);
         }
