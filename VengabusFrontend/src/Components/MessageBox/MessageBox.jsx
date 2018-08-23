@@ -7,6 +7,7 @@ import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { FormattingBox } from './FormattingBox';
 import { DeleteSingleMessageButton } from '../../Components/DeleteSingleMessageButton';
 import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
+import { EndpointTypes } from '../../Helpers/EndpointTypes';
 
 export class MessageBox extends Component {
 
@@ -24,11 +25,17 @@ export class MessageBox extends Component {
     }
 
     handleReplayMessage = (message) => {
-        //qq change hardcoded recipientIsQueue and selectedQueue later
-        pageSwitcher.switchToPage(
-            PAGES.SendMessagePage,
-            { message: message, recipientIsQueue: true, selectedQueue: 'demoqueue1' }
-        );
+        if (this.props.endpointType === EndpointTypes.QUEUE) {
+            pageSwitcher.switchToPage(
+                PAGES.SendMessagePage,
+                { message: message, recipientIsQueue: true, selectedQueue: this.props.endpointName }
+            );
+        } else {
+            pageSwitcher.switchToPage(
+                PAGES.SendMessagePage,
+                { message: message, recipientIsQueue: false, selectedTopic: this.props.endpointParent }
+            );
+        }
     }
 
     closeMessageModalAndReloadMessageTable = () => {
@@ -87,6 +94,7 @@ export class MessageBox extends Component {
         `;
         const preDefinedPropsJSX = this.convertMessagePropertiesToJSXArray(message.predefinedProperties) || <p>There are no pre-defined properties to display</p>;
         const customPropsJSX = this.convertMessagePropertiesToJSXArray(message.customProperties) || <p>There are no user-defined properties to display</p>;
+        const replayDestination = this.props.endpointType === EndpointTypes.QUEUE ? this.props.endpointName : this.props.endpointParent;
         return (
 
             <div className="static-modal" >
@@ -120,7 +128,7 @@ export class MessageBox extends Component {
                                 endpointName={this.props.endpointName}
                                 closeParentModal={this.closeMessageModalAndReloadMessageTable}
                             />
-                            <Button onClick={() => this.handleReplayMessage(message)} id="messageBoxReplayMessage" >Replay Message to demoqueue1</ Button>
+                            <Button onClick={() => this.handleReplayMessage(message)} id="messageBoxReplayMessage" >{"Replay Message to " + replayDestination}</ Button>
                         </ButtonToolbar>
                     </Modal.Footer>
                 </Modal>

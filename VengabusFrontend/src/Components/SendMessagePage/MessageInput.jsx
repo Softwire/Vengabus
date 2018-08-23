@@ -27,13 +27,13 @@ export class MessageInput extends Component {
             permittedValues: [],
             availableTopics: [],
             availableQueues: [],
-            recipientIsQueue: this.props.recipientIsQueue ? this.props.recipientIsQueue : true,
+            recipientIsQueue: !!(this.props.recipientIsQueue),
             messageBody: message ? message.messageBody : '',
             userDefinedProperties: message ? this.getUserDefinedProperties(message) : [], //[{name: something, value: something}]
             preDefinedProperties: [], //need to fetch permittedValues and reservedPropertyNames before this can be set
             reservedPropertyNames: [], //a list of name of possible readable properties of a message
-            selectedQueue: this.props.selectedQueue ? this.props.selectedQueue : undefined,
-            selectedTopic: this.props.selectedTopic ? this.props.selectedTopic : undefined,
+            selectedQueue: this.props.selectedQueue,
+            selectedTopic: this.props.selectedTopic,
             arePreDefinedPropsLoaded: false
         };
     }
