@@ -16,3 +16,13 @@ expect.extend({
         };
     }
 });
+
+//Make all errors printed to the console during a test fail the test that they were printed in.
+const rawConsoleError = console.error;
+// We use '...args' to ensure that we are passing all args on to the actual console.error()
+// Can't use 'arguments' because that doesn't exist in ES6 arrow funcs.
+console.error = (...args) => {
+    const errorString = args[0];
+    fail("An error was printed to the console: " + errorString);
+    rawConsoleError(...args);
+};
