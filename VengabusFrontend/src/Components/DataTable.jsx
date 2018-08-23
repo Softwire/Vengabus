@@ -165,7 +165,7 @@ export class DataTable extends Component {
     }
 
 
- 
+
 
     determineIfWidthShouldExist = (colProps) => {
         let columnIndex = 0;
@@ -327,18 +327,12 @@ export class DataTable extends Component {
             finalSelectRow = this.validateAndConfigureSelectRow(selectRow, keyColumnIndex);
             finalRowClasses = this.configureRowClasses(defaultHover, rowClasses, finalRowEvents, finalSelectRow);
         }
-   
+
         const textAlign = css`
             text-align:center;
             float:left;
             width:100%;
         `;
-
-        if (!dataToDisplay) {
-            return (
-                <p className={textAlign}>No data has been retrieved yet.</p>
-            );
-        }
 
         let searchBar = searchable ? (
             <FormGroup
@@ -352,6 +346,15 @@ export class DataTable extends Component {
                 />
             </FormGroup>
         ) : null;
+
+        if (!dataToDisplay) {
+            return (
+                <React.Fragment>
+                    {searchBar}
+                    <p className={textAlign}>No data has been retrieved yet.</p>
+                </React.Fragment>
+            );
+        }
 
         return (
             <React.Fragment>
