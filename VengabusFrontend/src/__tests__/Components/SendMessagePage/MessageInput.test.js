@@ -111,6 +111,7 @@ it('Correctly creates the properties of a message', async () => {
     wrapper.update();
     wrapper.setState({
         selectedQueue: "testQueue",
+        recipientIsQueue: true,
         userDefinedProperties: [{ name: "test1", value: "any value 1" }, { name: "test2", value: "any value 2" }],
         preDefinedProperties: [{ name: "ContentType", value: "any value 3" }],
         messageBody: "body"
@@ -135,7 +136,8 @@ it('Correctly creates the properties of a message', async () => {
 it('Sends the message to the correct queue', async () => {
     let wrapper = mount(<MessageInput />);
     wrapper.setState({
-        selectedQueue: "testQueue"
+        selectedQueue: "testQueue",
+        recipientIsQueue: true
     });
     let submitButton = wrapper.find("#submitButton").at(0);
     submitButton.simulate('click');
@@ -156,6 +158,7 @@ it('Sends the message to the correct queue', async () => {
 it('Correctly filters empty property names', async () => {
     let wrapper = mount(<MessageInput />);
     wrapper.setState({
+        recipientIsQueue: true,
         selectedQueue: "testQueue",
         userDefinedProperties: [{ name: "test1", value: "" }, { name: "test2", value: "any value 2" }]
     });
@@ -178,6 +181,7 @@ it('Correctly filters empty property names', async () => {
 it('Correctly filters duplicate property names', async () => {
     let wrapper = mount(<MessageInput />);
     wrapper.setState({
+        recipientIsQueue: true,
         selectedQueue: "testQueue",
         userDefinedProperties: [{ name: "test1", value: "any value 1" }, { name: "test2", value: "any value 2" }, { name: "test2", value: "any value 3" }]
     });
@@ -234,6 +238,7 @@ it('Switches from sending to a queue to sending to a topic correctly', () => {
     //Click submit -> Empty message should be sent to topic1
     let wrapper = mount(<MessageInput />);
     wrapper.setState({
+        recipientIsQueue: true,
         selectedQueue: "testQueue" //Should not be used
     });
     //Click the topic radio button
@@ -273,6 +278,7 @@ it('Rememembers which queue was selected if the topic radio is pressed', () => {
     //Click submit -> Empty message should be sent to queue1
     let wrapper = mount(<MessageInput />);
     wrapper.setState({
+        recipientIsQueue: true,
         selectedQueue: "testQueue" //Should not be used
     });
     //Click the queue dropdown
