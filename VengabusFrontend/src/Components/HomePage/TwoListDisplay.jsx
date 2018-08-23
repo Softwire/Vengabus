@@ -166,7 +166,7 @@ export class TwoListDisplay extends Component {
                 width: 120px ;
         `;
         const minHeightOfHeader = {
-            "min-height": "92px",
+            "minHeight": "92px",
             "height": "92px"
         };
 

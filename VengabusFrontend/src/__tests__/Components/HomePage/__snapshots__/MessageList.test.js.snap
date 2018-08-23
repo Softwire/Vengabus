@@ -1,16 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MessageList renders correctly with given props 1`] = `
-.emotion-4 {
+.emotion-1 {
   cursor: pointer;
 }
 
-.emotion-0 {
-  min-height: 92px;
-  height: 92px;
-}
-
-.emotion-7 table.table :not(thead) tr:hover {
+.emotion-4 table.table :not(thead) tr:hover {
   border: 1px solid #99ccff;
   background-color: #ecf2ff;
 }
@@ -29,7 +24,7 @@ exports[`MessageList renders correctly with given props 1`] = `
     />
   </div>
   <div
-    className="react-bootstrap-table emotion-7"
+    className="react-bootstrap-table emotion-4"
   >
     <table
       className="table table-striped table-bordered"
@@ -40,7 +35,6 @@ exports[`MessageList renders correctly with given props 1`] = `
           className={undefined}
         >
           <th
-            className="emotion-0"
             style={
               Object {
                 "width": "33%",
@@ -50,7 +44,6 @@ exports[`MessageList renders correctly with given props 1`] = `
             Message Id
           </th>
           <th
-            className="emotion-0"
             style={
               Object {
                 "width": "33%",
@@ -60,10 +53,8 @@ exports[`MessageList renders correctly with given props 1`] = `
             Message Body
           </th>
           <th
-            className="emotion-0"
             style={
               Object {
-                "textAlign": "center",
                 "width": "34%",
               }
             }
@@ -74,7 +65,7 @@ exports[`MessageList renders correctly with given props 1`] = `
       </thead>
       <tbody>
         <tr
-          className="emotion-3 emotion-4"
+          className="emotion-0 emotion-1"
           onClick={[Function]}
           style={Object {}}
         >
@@ -95,7 +86,7 @@ exports[`MessageList renders correctly with given props 1`] = `
           </td>
         </tr>
         <tr
-          className="emotion-3 emotion-4"
+          className="emotion-0 emotion-1"
           onClick={[Function]}
           style={Object {}}
         >

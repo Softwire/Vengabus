@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { DataTable } from '../DataTable';
 import { formatTimeStamp } from '../../Helpers/FormattingHelpers';
 import { palerBlue } from '../../colourScheme';
-import { css } from 'react-emotion';
 
 export class QueueList extends Component {
 

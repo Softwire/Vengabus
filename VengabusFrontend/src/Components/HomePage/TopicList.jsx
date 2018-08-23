@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DataTable } from '../DataTable';
 import { palerBlue } from '../../colourScheme';
-import { css } from 'react-emotion';
+
 
 export class TopicList extends Component {
 

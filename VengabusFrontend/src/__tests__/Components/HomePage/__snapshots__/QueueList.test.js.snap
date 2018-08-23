@@ -14,22 +14,17 @@ Array [
         value=""
     />
 </div>,
-  .emotion-5 {
+  .emotion-1 {
   cursor: pointer;
 }
 
-.emotion-0 {
-  min-height: 92px;
-  height: 92px;
-}
-
-.emotion-10 table.table :not(thead) tr:hover {
+.emotion-6 table.table :not(thead) tr:hover {
   border: 1px solid #99ccff;
   background-color: #ecf2ff;
 }
 
 <div
-    className="react-bootstrap-table emotion-10"
+    className="react-bootstrap-table emotion-6"
 >
     <table
         className="table table-striped table-bordered"
@@ -40,7 +35,6 @@ Array [
                 className={undefined}
             >
                 <th
-                    className="emotion-0"
                     style={
                         Object {
                             "width": "25%",
@@ -50,7 +44,6 @@ Array [
                     Name
                 </th>
                 <th
-                    className="emotion-0"
                     style={
                         Object {
                             "width": "25%",
@@ -60,7 +53,6 @@ Array [
                     Active Message Count
                 </th>
                 <th
-                    className="emotion-0"
                     style={
                         Object {
                             "width": "25%",
@@ -70,7 +62,6 @@ Array [
                     Deadletter Message Count
                 </th>
                 <th
-                    className="emotion-0"
                     style={
                         Object {
                             "width": "25%",
@@ -83,7 +74,7 @@ Array [
         </thead>
         <tbody>
             <tr
-                className="emotion-4 emotion-5"
+                className="emotion-0 emotion-1"
                 onClick={[Function]}
                 style={Object {}}
             >
@@ -115,7 +106,7 @@ Array [
                 />
             </tr>
             <tr
-                className="emotion-4 emotion-5"
+                className="emotion-0 emotion-1"
                 onClick={[Function]}
                 style={Object {}}
             >
@@ -147,7 +138,7 @@ Array [
                 />
             </tr>
             <tr
-                className="emotion-4 emotion-5"
+                className="emotion-0 emotion-1"
                 onClick={[Function]}
                 style={Object {}}
             >

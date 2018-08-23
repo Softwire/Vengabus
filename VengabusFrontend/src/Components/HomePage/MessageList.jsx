@@ -3,7 +3,6 @@ import { DataTable } from '../DataTable';
 import { MessageBox } from '../MessageBox/MessageBox';
 import { truncate } from 'lodash';
 import { formatTimeStamp } from '../../Helpers/FormattingHelpers';
-import { css } from 'react-emotion';
 
 
 export class MessageList extends Component {
