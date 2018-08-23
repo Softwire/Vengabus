@@ -12,6 +12,7 @@ export class VengabusNavBar extends Component {
             <nav>
                 <Navbar inverse collapseOnSelect fixedTop onSelect={this.onNavSelect}>
                     <Navbar.Header>
+                        {/* Needed so that the Navigation items move into a menu when they cannot all fit on a small screen. */}
                         <Navbar.Toggle />
                     </Navbar.Header>
                     <Navbar.Collapse>
