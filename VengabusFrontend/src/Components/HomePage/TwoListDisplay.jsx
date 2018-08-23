@@ -4,7 +4,7 @@ import { QueueList } from './QueueList';
 import { TopicList } from './TopicList';
 import { MessageList } from './MessageList';
 import { css } from 'react-emotion';
-import { Breadcrumb, Button } from 'react-bootstrap';
+import { Breadcrumb, Button, Tabs, Tab } from 'react-bootstrap';
 import { SubscriptionList } from './SubscriptionList';
 import { EndpointTypes, typeToTitle } from '../../Helpers/EndpointTypes';
 import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
@@ -260,13 +260,13 @@ export class TwoListDisplay extends Component {
                 const isDeadLetterMessage = typeOfData === EndpointTypes.DEADLETTER;
                 const lastBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
                 const penultimateBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 2];
-                return (
+                           return (
                     <React.Fragment>
-                        <div >
-                            <h2 className={displayStyle} id='title'>{typeToTitle(typeOfData)}</h2>
-                            <Button className={deadLetterToggleButtonStyle} onClick={() => this.handleMessageToggle(!isDeadLetterMessage)} disabled={this.messageButtonDisabled} >
-                                {this.getDeadLetterToggleButtonText(!isDeadLetterMessage)}
-                            </Button>
+                        <div>
+                            <Tabs defaultActiveKey={false} id="Tabs" onSelect={this.handleMessageToggle}>
+                                <Tab eventKey={false} title="Live Messages"/>                                  
+                                <Tab eventKey={true} title="Deadletter Messages"/>
+                            </Tabs>
                         </div>
                         <MessageList
                             id='MessageTable'
