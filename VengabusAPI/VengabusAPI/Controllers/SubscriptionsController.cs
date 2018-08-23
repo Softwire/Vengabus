@@ -20,7 +20,7 @@ namespace VengabusAPI.Controllers
             var namespaceManager = CreateNamespaceManager();
             var azureSubscriptionsEnum =  namespaceManager.GetSubscriptions(topicName);
 
-            IEnumerable<VengaSubscription> subscriptions = azureSubscriptionsEnum.Select(s => new VengaSubscription(s, GetTimeStampOfMostRecentDeadletter(topicName, s.Name)));
+            var subscriptions = azureSubscriptionsEnum.Select(s => new VengaSubscription(s, GetTimeStampOfMostRecentDeadletter(topicName, s.Name)));
             return subscriptions.OrderBy(s => s.name, StringComparer.CurrentCultureIgnoreCase);
         }
 

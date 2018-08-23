@@ -19,7 +19,7 @@ namespace VengabusAPI.Controllers
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
-            IEnumerable<VengaQueue> queues = namespaceManager.GetQueues().Select(q => new VengaQueue(q, GetTimeStampOfMostRecentDeadletter(q.Path)));
+            var queues = namespaceManager.GetQueues().Select(q => new VengaQueue(q, GetTimeStampOfMostRecentDeadletter(q.Path)));
             return queues.OrderBy(q => q.name, StringComparer.CurrentCultureIgnoreCase);
 
 

@@ -19,7 +19,7 @@ namespace VengabusAPI.Controllers
         public IEnumerable<VengaTopic> ListTopics()
         {
             var namespaceManager = CreateNamespaceManager();
-            IEnumerable<VengaTopic> topics = namespaceManager.GetTopics().Select(t => new VengaTopic(t));
+            var topics = namespaceManager.GetTopics().Select(t => new VengaTopic(t));
             return topics.OrderBy(t => t.name, StringComparer.CurrentCultureIgnoreCase);
         }
 
