@@ -11,7 +11,8 @@ function suppressSpecificDataTableErrors() {
     // Can't use 'arguments' because that doesn't exist in ES6 arrow funcs.
     console.error = (...args) => {
         const errorString = args[0];
-        if (!errorString.startsWith('The above error occurred in the <DataTable> component')) {
+        if (!errorString.startsWith('The above error occurred in the <DataTable> component') &&
+            !errorString.startsWith('Warning: Detected multiple renderers concurrently rendering the same context provider')) {
             rawConsoleError(...args);
         }
     };
@@ -97,7 +98,7 @@ describe('DataTable', () => {
         dataToDisplay[0].button = 0;
         dataToDisplay[1].button = 1;
         dataToDisplay[2].button = 2;
-        let colProps = getColProps(); 
+        let colProps = getColProps();
         const getButton = (cell, row, rowIndex) => {
             return (
                 <Button onClick={() => { return; }}>Button</ Button>
