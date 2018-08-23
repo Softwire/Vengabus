@@ -154,6 +154,32 @@ exports[`renders correctly after data is added 1`] = `
             }
             uniqueKeyColumn="name"
           >
+            <FormGroup
+              bsClass="form-group"
+              controlId="searchBar"
+            >
+              <div
+                className="form-group"
+              >
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="input"
+                  onChange={[Function]}
+                  placeholder="Search"
+                  type="input"
+                  value=""
+                >
+                  <input
+                    className="form-control"
+                    id="searchBar"
+                    onChange={[Function]}
+                    placeholder="Search"
+                    type="input"
+                    value=""
+                  />
+                </FormControl>
+              </div>
+            </FormGroup>
             <p
               className="emotion-3"
             >
@@ -229,6 +255,32 @@ exports[`renders correctly after data is added 1`] = `
             }
             uniqueKeyColumn="name"
           >
+            <FormGroup
+              bsClass="form-group"
+              controlId="searchBar"
+            >
+              <div
+                className="form-group"
+              >
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="input"
+                  onChange={[Function]}
+                  placeholder="Search"
+                  type="input"
+                  value=""
+                >
+                  <input
+                    className="form-control"
+                    id="searchBar"
+                    onChange={[Function]}
+                    placeholder="Search"
+                    type="input"
+                    value=""
+                  />
+                </FormControl>
+              </div>
+            </FormGroup>
             <p
               className="emotion-3"
             >
@@ -321,6 +373,18 @@ exports[`renders correctly before data is added 1`] = `
           Queues
         </h2>
       </div>
+      <div
+        className="form-group"
+      >
+        <input
+          className="form-control"
+          id="searchBar"
+          onChange={[Function]}
+          placeholder="Search"
+          type="input"
+          value=""
+        />
+      </div>
       <p
         className="emotion-2"
       >
@@ -340,6 +404,18 @@ exports[`renders correctly before data is added 1`] = `
         >
           Topics
         </h2>
+      </div>
+      <div
+        className="form-group"
+      >
+        <input
+          className="form-control"
+          id="searchBar"
+          onChange={[Function]}
+          placeholder="Search"
+          type="input"
+          value=""
+        />
       </div>
       <p
         className="emotion-2"
