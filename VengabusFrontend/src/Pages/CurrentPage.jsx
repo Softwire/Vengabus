@@ -42,7 +42,6 @@ export class CurrentPage extends Component {
             case PAGES.HomePage:
                 returnValue = <HomePage />;
                 break;
-
             case PAGES.DemoPage:
                 returnValue = <DemoPage />;
                 break;
