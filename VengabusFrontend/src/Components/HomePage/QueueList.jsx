@@ -2,25 +2,22 @@ import React, { Component } from 'react';
 import { DataTable } from '../DataTable';
 import { formatTimeStamp } from '../../Helpers/FormattingHelpers';
 import { palerBlue } from '../../colourScheme';
-import { Button } from 'react-bootstrap';
-import { pageSwitcher, PAGES } from '../../Pages/PageSwitcherService';
-import { EndpointTypes } from '../../Helpers/EndpointTypes';
+import { EditQueueButton } from '../EditEndpointButton';
+
 
 export class QueueList extends Component {
 
     render() {
-        let queueArray = undefined;
-        if (this.props.queueData) {
-            queueArray = [...this.props.queueData];
-
-            for (let i = 0; i < queueArray.length; i++) {
+        const queueProp = this.props.queueData;
+        let queueArray = queueProp ? [] : undefined;
+        if (queueProp) {
+            for (let i = 0; i < queueProp.length; i++) {
                 //needs to be cloned
-                queueArray[i] = { ...queueArray[i] };
+                queueArray.push({ ...queueProp[i] });
                 const currentMessageArray = queueArray[i];
                 if (currentMessageArray.mostRecentDeadLetter && currentMessageArray.mostRecentDeadLetterLoaded) {
                     currentMessageArray.mostRecentDeadLetter = formatTimeStamp(currentMessageArray.mostRecentDeadLetter);
                 }
-                queueArray[i].formatterId = i;
             }
         }
 
@@ -49,14 +46,12 @@ export class QueueList extends Component {
                 width: 23
             },
             {
-                dataField: 'formatterId',
+                dataField: undefined,
                 text: ' ',
                 width: 8,
                 formatter: (cell, row, rowIndex) => {
                     return (
-                        <Button bsSize='xsmall' onClick={() => pageSwitcher.switchToPage(PAGES.CrudPage, { endpointType: EndpointTypes.QUEUE, selectedEndpoint: row.name })} >
-                            edit
-                        </Button>
+                        <EditQueueButton queueName={row.name} />
                     );
                 },
                 headerStyle: this.props.headerStyle

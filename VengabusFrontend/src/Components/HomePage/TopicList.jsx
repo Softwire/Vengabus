@@ -1,25 +1,18 @@
 import React, { Component } from 'react';
 import { DataTable } from '../DataTable';
 import { palerBlue } from '../../colourScheme';
-import { Button } from 'react-bootstrap';
-import { pageSwitcher, PAGES } from '../../Pages/PageSwitcherService';
-import { EndpointTypes } from '../../Helpers/EndpointTypes';
-
+import { EditTopicButton } from '../EditEndpointButton';
 
 export class TopicList extends Component {
 
     render() {
-
-        let topics = undefined;
-        if (this.props.topicData) {
-            topics = [...this.props.topicData];
-            for (let i = 0; i < topics.length; i++) {
-                topics[i] = { ...topics[i] };
-                topics[i].formatterId = i;
+        const topicProps = this.props.topicData;
+        let topics = topicProps ? [] : undefined;
+        if (topicProps) {
+            for (let i = 0; i < topicProps.length; i++) {
+                topics.push({ ...topicProps[i] });
             }
         }
-
-     
 
         const colProps = [
             {
@@ -39,14 +32,12 @@ export class TopicList extends Component {
                 width: 30
             },
             {
-                dataField: 'formatterId',
+                dataField: undefined,
                 text: ' ',
                 width: 9,
                 formatter: (cell, row, rowIndex) => {
                     return (
-                        <Button bsSize='xsmall' onClick={() => pageSwitcher.switchToPage(PAGES.CrudPage, { endpointType: EndpointTypes.TOPIC, selectedEndpoint: row.name })} >
-                            edit
-                        </Button>
+                        <EditTopicButton topicName={row.name} />
                     );
                 },
                 headerStyle: this.props.headerStyle

@@ -2,26 +2,22 @@ import React, { Component } from 'react';
 import { DataTable } from '../DataTable';
 import { formatTimeStamp } from '../../Helpers/FormattingHelpers';
 import { palerBlue } from '../../colourScheme';
-import { Button } from 'react-bootstrap';
-import { pageSwitcher, PAGES } from '../../Pages/PageSwitcherService';
-import { EndpointTypes } from '../../Helpers/EndpointTypes';
+import { EditSubscriptionButton } from '../EditEndpointButton';
+
 
 export class SubscriptionList extends Component {
 
     render() {
-
-        let subscriptionArray = undefined;
-        if (this.props.subscriptionData) {
-            subscriptionArray = [...this.props.subscriptionData];
-
-            for (let i = 0; i < subscriptionArray.length; i++) {
+        const subscriptionProp = this.props.subscriptionData;
+        let subscriptionArray = subscriptionProp ? [] : undefined;
+        if (subscriptionProp) {
+            for (let i = 0; i < subscriptionProp.length; i++) {
                 //needs to be cloned
-                subscriptionArray[i] = { ...subscriptionArray[i] };
+                subscriptionArray.push({ ...subscriptionProp[i] });
                 const currentMessageArray = subscriptionArray[i];
                 if (currentMessageArray.mostRecentDeadLetter && currentMessageArray.mostRecentDeadLetterLoaded) {
                     currentMessageArray.mostRecentDeadLetter = formatTimeStamp(currentMessageArray.mostRecentDeadLetter);
                 }
-                subscriptionArray[i].formatterId = i;
             }
         }
 
@@ -49,14 +45,12 @@ export class SubscriptionList extends Component {
                 width: 23
             },
             {
-                dataField: 'formatterId',
+                dataField: undefined,
                 text: ' ',
                 width: 8,
                 formatter: (cell, row, rowIndex) => {
                     return (
-                        <Button bsSize='xsmall' onClick={() => pageSwitcher.switchToPage(PAGES.CrudPage, { endpointType: EndpointTypes.SUBSCRIPTION, selectedEndpoint: row.name, parentTopic: row.topicName })} >
-                            edit
-                        </Button>
+                        <EditSubscriptionButton subscriptionName={row.name} parentTopic={row.topicName} />
                     );
                 },
                 headerStyle: this.props.headerStyle
