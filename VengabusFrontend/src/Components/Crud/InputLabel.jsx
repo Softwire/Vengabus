@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { css } from 'emotion';
-import { OverlayTrigger, Glyphicon } from "react-bootstrap";
+import { OverlayTrigger, Glyphicon, Tooltip } from "react-bootstrap";
 
 /**
  * @prop {string} text The name of the property that is being set by the input.
- * @prop {node} tooltip The tooltip element that is displayed when hovering over the info glyphicon. If undefined then no info tooltip.
+ * @prop {string} tooltip The text inside the tooltip element that is displayed when hovering over the info glyphicon. If undefined then no info tooltip.
  */
 export class InputLabel extends Component {
     render() {
@@ -27,7 +27,10 @@ export class InputLabel extends Component {
                         (
                             <span className={spanStyle}>
                                 {this.props.text}:
-                                <OverlayTrigger placement="right" overlay={this.props.tooltip}>
+                                <OverlayTrigger
+                                    placement="right"
+                                    overlay={<Tooltip id={this.props.text + 'Tooltip'}>{this.props.tooltip}</Tooltip>}
+                                >
                                     <Glyphicon glyph="info-sign" className={glyphStyle} />
                                 </OverlayTrigger>
                             </span>

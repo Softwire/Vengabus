@@ -13,17 +13,36 @@ import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
  */
 export class TimeSpanInput extends Component {
 
-    render() {
+    /**
+     * @param {string} text Text to be displayed above the input.
+     * @param {string} propertyName The key of the property belonging to this input.
+     * @returns {node} The input field.
+     */
+    createFormGroupForTimeUnit = (text, propertyName) => {
         const inputStyle = css`
             width: 100px;
             float: left;
             padding-left: 5px;
         `;
-        const formStyle = css`
-            padding-left: 10px;
-        `;
         const labelStyle = css`
             font-weight: normal;
+        `;
+        return (
+            <FormGroup className={inputStyle}>
+                <ControlLabel className={labelStyle}>{text}</ControlLabel>
+                <FormControl
+                    type="number"
+                    value={this.props.data[propertyName]}
+                    placeholder="Enter Days"
+                    onChange={(event) => this.props.onChange({ ...this.props.data, [propertyName]: parseInt(event.target.value, 10) })}
+                />
+            </FormGroup>
+        );
+    }
+
+    render() {
+        const formStyle = css`
+            padding-left: 10px;
         `;
         const divStyle = css`
             display: inline-block;
@@ -34,51 +53,11 @@ export class TimeSpanInput extends Component {
         return (
             <div className={divStyle} >
                 <form className={formStyle}>
-                    <FormGroup className={inputStyle}>
-                        <ControlLabel className={labelStyle}>Days</ControlLabel>
-                        <FormControl
-                            type="number"
-                            value={this.props.data.days}
-                            placeholder="Enter Days"
-                            onChange={(event) => this.props.onChange({ ...this.props.data, days: parseInt(event.target.value, 10) })}
-                        />
-                    </FormGroup>
-                    <FormGroup className={inputStyle}>
-                        <ControlLabel className={labelStyle}>Hours</ControlLabel>
-                        <FormControl
-                            type="number"
-                            value={this.props.data.hours}
-                            placeholder="Enter Hours"
-                            onChange={(event) => this.props.onChange({ ...this.props.data, hours: parseInt(event.target.value, 10) })}
-                        />
-                    </FormGroup>
-                    <FormGroup className={inputStyle}>
-                        <ControlLabel className={labelStyle}>Minutes</ControlLabel>
-                        <FormControl
-                            type="number"
-                            value={this.props.data.minutes}
-                            placeholder="Enter Minutes"
-                            onChange={(event) => this.props.onChange({ ...this.props.data, minutes: parseInt(event.target.value, 10) })}
-                        />
-                    </FormGroup>
-                    <FormGroup className={inputStyle}>
-                        <ControlLabel className={labelStyle}>Seconds</ControlLabel>
-                        <FormControl
-                            type="number"
-                            value={this.props.data.seconds}
-                            placeholder="Enter Seconds"
-                            onChange={(event) => this.props.onChange({ ...this.props.data, seconds: parseInt(event.target.value, 10) })}
-                        />
-                    </FormGroup>
-                    <FormGroup className={inputStyle}>
-                        <ControlLabel className={labelStyle}>Milliseconds</ControlLabel>
-                        <FormControl
-                            type="number"
-                            value={this.props.data.milliseconds}
-                            placeholder="Enter Milliseconds"
-                            onChange={(event) => this.props.onChange({ ...this.props.data, milliseconds: parseInt(event.target.value, 10) })}
-                        />
-                    </FormGroup>
+                    {this.createFormGroupForTimeUnit('Days', 'days')}
+                    {this.createFormGroupForTimeUnit('Hours', 'hours')}
+                    {this.createFormGroupForTimeUnit('Minutes', 'minutes')}
+                    {this.createFormGroupForTimeUnit('Seconds', 'seconds')}
+                    {this.createFormGroupForTimeUnit('Milliseconds', 'milliseconds')}
                 </form>
             </div>
         );

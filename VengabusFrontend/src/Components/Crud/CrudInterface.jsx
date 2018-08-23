@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { css } from 'emotion';
 import classNames from 'classnames';
-import { Tooltip, FormControl, FormGroup, ButtonGroup } from 'react-bootstrap';
+import { FormControl, FormGroup, ButtonGroup } from 'react-bootstrap';
 import { DataTable } from '../DataTable';
 import { PropertyInput } from './PropertyInput';
 import { TimeSpanInput } from './TimeSpanInput';
@@ -12,6 +12,7 @@ import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { formatTimeStamp, parseTimeSpanFromBackend } from '../../Helpers/FormattingHelpers';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
+import _ from 'lodash';
 
 /**
  * @prop {string} endpointType The type of endpoint we are editing. Use EndpointTypes in helpers.
@@ -28,8 +29,8 @@ export class CrudInterface extends Component {
             endpointType: this.props.endpointType,
             selectedEndpoint: this.props.selectedEndpoint,
             parentTopic: this.props.parentTopic,
-            endpointData: {},
-            newEndpointData: {},
+            endpointData: {},   // stores original data
+            newEndpointData: {},    // stores edited data
             receivedData: false
         };
     }
@@ -39,14 +40,14 @@ export class CrudInterface extends Component {
         let promise;
         switch (this.state.endpointType) {
             case EndpointTypes.QUEUE:
-                promise = serviceBusService.getQueueDetails(this.state.selectedEndpoint);
+                promise = this.serviceBusService.getQueueDetails(this.state.selectedEndpoint);
                 break;
             case EndpointTypes.TOPIC:
-                promise = serviceBusService.getTopicDetails(this.state.selectedEndpoint);
+                promise = this.serviceBusService.getTopicDetails(this.state.selectedEndpoint);
                 break;
             case EndpointTypes.SUBSCRIPTION:
                 if (!this.state.parentTopic) { throw new Error('for subscriptions parent topic must be defined'); }
-                promise = serviceBusService.getSubscriptionDetails(this.state.parentTopic, this.state.selectedEndpoint);
+                promise = this.serviceBusService.getSubscriptionDetails(this.state.parentTopic, this.state.selectedEndpoint);
                 break;
             default:
                 this.throwUnexpectedEndpointTypeError();
@@ -76,22 +77,18 @@ export class CrudInterface extends Component {
     }
 
     /**
-     * @returns {Object <string, node>} Maps from property name to Tooltip component to be displayed on info hover over.
+     * @returns {Object <string, string>} Maps from property name to text to be displayed on info hover over.
      */
     getTooltips = () => {
         return {
-            requiresSession: <Tooltip id="requiresSessionTooltip">
-                True if the receiver application can only receive from the {this.state.endpointType} through a MessageSession; false if a {this.state.endpointType} cannot receive using MessageSession.
-            </Tooltip>,
-            autoDeleteOnIdle: <Tooltip id="autoDeleteOnIdleTooltip">
-                The idle time span after which the {this.state.endpointType} is automatically deleted. The minimum duration is 5 minutes.
-            </Tooltip>,
-            maxDeliveryCount: <Tooltip id="maxDeliveryCountTooltip">
-                A message is automatically deadlettered after this number of deliveries.
-            </Tooltip>,
-            enableDeadLetteringOnMessageExpiration: <Tooltip id="enableDeadLetteringOnMessageExpirationTooltip">
-                Sets whether this {this.state.endpointType} has dead letter support when a message expires.
-             </Tooltip>
+            requiresSession:
+                `True if the receiver application can only receive from the ${this.state.endpointType} through a MessageSession; false if a ${this.state.endpointType} cannot receive using MessageSession.`,
+            autoDeleteOnIdle:
+                `The idle time span after which the ${this.state.endpointType} is automatically deleted. The minimum duration is 5 minutes.`,
+            maxDeliveryCount:
+                'A message is automatically deadlettered after this number of deliveries.',
+            enableDeadLetteringOnMessageExpiration:
+                `Sets whether this ${this.state.endpointType} has dead letter support when a message expires.`
         };
     }
 
@@ -170,8 +167,8 @@ export class CrudInterface extends Component {
         const readOnlyProperties = this.assembleReadOnlyProperties({
             // text in the left column: value in the right column
             "Active Message Count": activeMessageCount,
-            "Dead Letter Message Count": deadletterMessageCount,
-            "Most Recent Dead Letter": mostRecentDeadLetter
+            "Deadletter Message Count": deadletterMessageCount,
+            "Most Recent Deadletter": mostRecentDeadLetter
         });
         const editableProperties = [
             'supportOrdering',
@@ -218,8 +215,8 @@ export class CrudInterface extends Component {
             // text in the left column: value in the right column
             "Parent Topic": topicName,
             "Active Message Count": activeMessageCount,
-            "Dead Letter Message Count": deadletterMessageCount,
-            "Most Recent Dead Letter": mostRecentDeadLetter
+            "Deadletter Message Count": deadletterMessageCount,
+            "Most Recent Deadletter": mostRecentDeadLetter
 
         });
         const editableProperties = [
@@ -237,15 +234,7 @@ export class CrudInterface extends Component {
      * @returns {object[]} Read-only properties in a format that can be displayed by the DataTable.
      */
     assembleReadOnlyProperties = (properties) => {
-        let readOnlyProperties = [];
-        const keys = Object.keys(properties);
-        for (let i = 0; i < keys.length; i++) {
-            readOnlyProperties.push({
-                name: keys[i],
-                value: properties[keys[i]]
-            });
-        }
-        return readOnlyProperties;
+        return Object.entries(properties).map(([key, value]) => ({ name: key, value: value }));
     }
 
     /**
@@ -336,7 +325,7 @@ export class CrudInterface extends Component {
                         confirmButtonText={"Delete"}
                         confirmAction={this.deleteEndpoint}
                     />
-                    <PurgeMessagesButton id="purgeMessage" type={this.state.endpointType} endpointName={this.state.selectedEndpoint} parentName={this.state.parentTopic} />
+                    <PurgeMessagesButton id="purgeMessages" type={this.state.endpointType} endpointName={this.state.selectedEndpoint} parentName={this.state.parentTopic} />
                 </ButtonGroup>
                 <hr className={this.getHrStyle()} />
             </div>
@@ -359,11 +348,11 @@ export class CrudInterface extends Component {
                         id="updateButton"
                         buttonText={"Update"}
                         buttonStyle="default"
-                        buttonDisabled={this.checkObjectEquality(this.state.endpointData, this.state.newEndpointData)}
-                        modalTitle={"Update Queue"}
+                        buttonDisabled={_.isEqual(this.state.endpointData, this.state.newEndpointData)}
+                        modalTitle={"Update " + this.state.endpointType}
                         modalBody={
                             <React.Fragment>
-                                <p>{"Following queue will be updated: " + this.state.selectedEndpoint}</p>
+                                <p>{"Following " + this.state.endpointType + " will be updated: " + this.state.selectedEndpoint}</p>
                                 <p>{"Confirm action?"}</p>
                             </React.Fragment>
                         }
@@ -373,12 +362,12 @@ export class CrudInterface extends Component {
                     <ButtonWithConfirmationModal
                         id="resetButton"
                         buttonText={"Reset Fields"}
-                        buttonDisabled={this.checkObjectEquality(this.state.endpointData, this.state.newEndpointData)}
+                        buttonDisabled={_.isEqual(this.state.endpointData, this.state.newEndpointData)}
                         modalTitle={"Reset all fields"}
                         modalBody={
                             <React.Fragment>
-                                <p>Are you sure you want to reset ALL fields of the current queue?</p>
-                                <p>Note: if you are updating an existing queue, resetting the fields here will have NO effect on the orignal queue.</p>
+                                <p>Are you sure you want to reset ALL fields of the current {this.state.endpointType}?</p>
+                                <p>Note: if you are updating an existing {this.state.endpointType}, resetting the fields here will have NO effect on the orignal {this.state.endpointType}.</p>
                             </React.Fragment>
                         }
                         confirmButtonText={"Reset"}
@@ -389,39 +378,15 @@ export class CrudInterface extends Component {
         );
     }
 
-    /**
-     * @param {object} obj1 First object to be compared.
-     * @param {object} obj2 Second object to be compared.
-     * @returns {boolean} True if the objects are identical, false otherwise.
-     * Does not support arrays as properties
-     */
-    checkObjectEquality = (obj1, obj2) => {
-        const keys1 = Object.keys(obj1);
-        const keys2 = Object.keys(obj2);
-
-        if (keys1.length !== keys2.length) { return false; }
-
-        for (let i = 0; i < keys1.length; i++) {
-            const key = keys1[i];
-            if (typeof obj1[key] === 'object' && obj1[key] !== null) {  // because typeof null = 'object'
-                if (typeof obj2[key] !== 'object' || !this.checkObjectEquality(obj1[key], obj2[key])) { return false; }
-            } else if (obj1[key] !== obj2[key]) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     renameEndpoint = () => {
         const oldName = this.state.endpointData.name;
         const newName = this.newName;
         switch (this.state.endpointType) {
             case EndpointTypes.QUEUE:
-                serviceBusService.renameQueue(oldName, newName);  //doesn't work (error 500 Internal server error)
+                this.serviceBusService.renameQueue(oldName, newName);
                 break;
             case EndpointTypes.TOPIC:
-                serviceBusService.renameTopic(oldName, newName);  //doesn't work (error 500 Internal server error)
+                this.serviceBusService.renameTopic(oldName, newName);
                 break;
             case EndpointTypes.SUBSCRIPTION:
                 console.log('cannot rename subscriptions because #Microsoft');
@@ -441,13 +406,13 @@ export class CrudInterface extends Component {
     updateEndpoint = () => {
         switch (this.state.endpointType) {
             case EndpointTypes.QUEUE:
-                serviceBusService.updateQueue(this.state.newEndpointData);
+                this.serviceBusService.updateQueue(this.state.newEndpointData);
                 break;
             case EndpointTypes.TOPIC:
-                serviceBusService.updateTopic(this.state.newEndpointData);
+                this.serviceBusService.updateTopic(this.state.newEndpointData);
                 break;
             case EndpointTypes.SUBSCRIPTION:
-                serviceBusService.updateSubscription(this.state.newEndpointData);
+                this.serviceBusService.updateSubscription(this.state.newEndpointData);
                 break;
             default:
                 this.throwUnexpectedEndpointTypeError();
@@ -457,13 +422,13 @@ export class CrudInterface extends Component {
     deleteEndpoint = () => {
         switch (this.state.endpointType) {
             case EndpointTypes.QUEUE:
-                serviceBusService.deleteQueue(this.state.selectedEndpoint);
+                this.serviceBusService.deleteQueue(this.state.selectedEndpoint);
                 break;
             case EndpointTypes.TOPIC:
-                serviceBusService.deleteTopic(this.state.selectedEndpoint);
+                this.serviceBusService.deleteTopic(this.state.selectedEndpoint);
                 break;
             case EndpointTypes.SUBSCRIPTION:
-                serviceBusService.deleteSubscription(this.state.selectedEndpoint, this.state.parentTopic);
+                this.serviceBusService.deleteSubscription(this.state.selectedEndpoint, this.state.parentTopic);
                 break;
             default:
                 this.throwUnexpectedEndpointTypeError();
