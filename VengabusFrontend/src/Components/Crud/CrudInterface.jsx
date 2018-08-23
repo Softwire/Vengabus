@@ -22,6 +22,8 @@ export class CrudInterface extends Component {
     constructor(props) {
         super(props);
 
+        this.serviceBusService = serviceBusConnection.getServiceBusService();
+
         this.state = {
             endpointType: this.props.endpointType,
             selectedEndpoint: this.props.selectedEndpoint,
@@ -37,14 +39,14 @@ export class CrudInterface extends Component {
         let promise;
         switch (this.state.endpointType) {
             case EndpointTypes.QUEUE:
-                promise = serviceBusConnection.getServiceBusService().getQueueDetails(this.state.selectedEndpoint);
+                promise = serviceBusService.getQueueDetails(this.state.selectedEndpoint);
                 break;
             case EndpointTypes.TOPIC:
-                promise = serviceBusConnection.getServiceBusService().getTopicDetails(this.state.selectedEndpoint);
+                promise = serviceBusService.getTopicDetails(this.state.selectedEndpoint);
                 break;
             case EndpointTypes.SUBSCRIPTION:
                 if (!this.state.parentTopic) { throw new Error('for subscriptions parent topic must be defined'); }
-                promise = serviceBusConnection.getServiceBusService().getSubscriptionDetails(this.state.parentTopic, this.state.selectedEndpoint);
+                promise = serviceBusService.getSubscriptionDetails(this.state.parentTopic, this.state.selectedEndpoint);
                 break;
             default:
                 this.throwUnexpectedEndpointTypeError();
@@ -78,16 +80,16 @@ export class CrudInterface extends Component {
      */
     getTooltips = () => {
         return {
-            requiresSession: <Tooltip id="tooltip">
+            requiresSession: <Tooltip id="requiresSessionTooltip">
                 True if the receiver application can only receive from the {this.state.endpointType} through a MessageSession; false if a {this.state.endpointType} cannot receive using MessageSession.
             </Tooltip>,
-            autoDeleteOnIdle: <Tooltip id="tooltip">
+            autoDeleteOnIdle: <Tooltip id="autoDeleteOnIdleTooltip">
                 The idle time span after which the {this.state.endpointType} is automatically deleted. The minimum duration is 5 minutes.
             </Tooltip>,
-            maxDeliveryCount: <Tooltip id="tooltip">
+            maxDeliveryCount: <Tooltip id="maxDeliveryCountTooltip">
                 A message is automatically deadlettered after this number of deliveries.
             </Tooltip>,
-            enableDeadLetteringOnMessageExpiration: <Tooltip id="tooltip">
+            enableDeadLetteringOnMessageExpiration: <Tooltip id="enableDeadLetteringOnMessageExpirationTooltip">
                 Sets whether this {this.state.endpointType} has dead letter support when a message expires.
              </Tooltip>
         };
@@ -305,6 +307,7 @@ export class CrudInterface extends Component {
                         buttonText={"Rename"}
                         buttonStyle="primary"
                         modalTitle={"Rename " + this.state.selectedEndpoint}
+                        buttonDisabled={this.state.endpointData.enablePartitioning}
                         modalBody={
                             <React.Fragment>
                                 <p>New Name</p>
@@ -415,10 +418,10 @@ export class CrudInterface extends Component {
         const newName = this.newName;
         switch (this.state.endpointType) {
             case EndpointTypes.QUEUE:
-                serviceBusConnection.getServiceBusService().renameQueue(oldName, newName);  //doesn't work (error 500 Internal server error)
+                serviceBusService.renameQueue(oldName, newName);  //doesn't work (error 500 Internal server error)
                 break;
             case EndpointTypes.TOPIC:
-                serviceBusConnection.getServiceBusService().renameTopic(oldName, newName);  //doesn't work (error 500 Internal server error)
+                serviceBusService.renameTopic(oldName, newName);  //doesn't work (error 500 Internal server error)
                 break;
             case EndpointTypes.SUBSCRIPTION:
                 console.log('cannot rename subscriptions because #Microsoft');
@@ -438,13 +441,13 @@ export class CrudInterface extends Component {
     updateEndpoint = () => {
         switch (this.state.endpointType) {
             case EndpointTypes.QUEUE:
-                serviceBusConnection.getServiceBusService().updateQueue(this.state.newEndpointData);
+                serviceBusService.updateQueue(this.state.newEndpointData);
                 break;
             case EndpointTypes.TOPIC:
-                serviceBusConnection.getServiceBusService().updateTopic(this.state.newEndpointData);
+                serviceBusService.updateTopic(this.state.newEndpointData);
                 break;
             case EndpointTypes.SUBSCRIPTION:
-                serviceBusConnection.getServiceBusService().updateSubscription(this.state.newEndpointData);
+                serviceBusService.updateSubscription(this.state.newEndpointData);
                 break;
             default:
                 this.throwUnexpectedEndpointTypeError();
@@ -454,13 +457,13 @@ export class CrudInterface extends Component {
     deleteEndpoint = () => {
         switch (this.state.endpointType) {
             case EndpointTypes.QUEUE:
-                serviceBusConnection.getServiceBusService().deleteQueue(this.state.selectedEndpoint);
+                serviceBusService.deleteQueue(this.state.selectedEndpoint);
                 break;
             case EndpointTypes.TOPIC:
-                serviceBusConnection.getServiceBusService().deleteTopic(this.state.selectedEndpoint);
+                serviceBusService.deleteTopic(this.state.selectedEndpoint);
                 break;
             case EndpointTypes.SUBSCRIPTION:
-                serviceBusConnection.getServiceBusService().deleteSubscription(this.state.selectedEndpoint, this.state.parentTopic);
+                serviceBusService.deleteSubscription(this.state.selectedEndpoint, this.state.parentTopic);
                 break;
             default:
                 this.throwUnexpectedEndpointTypeError();

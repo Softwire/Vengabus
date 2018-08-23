@@ -32,7 +32,7 @@ export class TopicList extends Component {
                 width: 30
             },
             {
-                dataField: undefined,
+                dataField: '',
                 text: ' ',
                 width: 9,
                 formatter: (cell, row, rowIndex) => {

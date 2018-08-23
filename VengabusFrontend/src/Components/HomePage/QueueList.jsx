@@ -46,7 +46,7 @@ export class QueueList extends Component {
                 width: 23
             },
             {
-                dataField: undefined,
+                dataField: '',
                 text: ' ',
                 width: 8,
                 formatter: (cell, row, rowIndex) => {
