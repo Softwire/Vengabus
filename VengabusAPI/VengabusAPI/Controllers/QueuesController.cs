@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using System.Net.Sockets;
@@ -18,7 +19,10 @@ namespace VengabusAPI.Controllers
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
-            return namespaceManager.GetQueues().Select(q => new VengaQueue(q, GetTimeStampOfMostRecentDeadletter(q.Path)));
+            var queues = namespaceManager.GetQueues().Select(q => new VengaQueue(q, GetTimeStampOfMostRecentDeadletter(q.Path)));
+            return queues.OrderBy(q => q.name, StringComparer.CurrentCultureIgnoreCase);
+
+
         }
 
         [HttpGet]
