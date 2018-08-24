@@ -13,7 +13,9 @@ namespace VengabusAPI.Controllers
         protected void PurgeMessagesFromEndpoint(Endpoint endpoint)
         {
             Predicate<BrokeredMessage> deleteMessageChecker = (brokeredMessage) => true;
-            MessageServices.DeleteSelectedMessagesFromEndpoint(endpoint, deleteMessageChecker);
+            var anyDeletions = MessageServices.DeleteSelectedMessagesFromEndpoint(endpoint, deleteMessageChecker);
+
+            throw new APIWarning("No messages were deleted. The endpoint may have been empty, or the messages may have already been consumed by another process.");
         }
 
         protected void DeleteSingleMessageFromEndpoint(Endpoint endpoint, string messageId, string uniqueId)
@@ -21,13 +23,13 @@ namespace VengabusAPI.Controllers
             if (!endpoint.SupportsSingleMessageDeletion())
             {
                 throw new NotSupportedException(
-                    @"Deleting single live message is no longer supported by the backend API.
-                    By design, Service Bus doesn't allow targetted deletion of a single message, 
-                    so in order to achive that, we Receive() messages until we get the one we 
-                    want to delete. We then Complete() the message we want to delete, and 
-                    Abandon() all the others. This is a problem because there is a queue/subscription 
-                    behaviour that sends the message to the deadletters if it is repeatedly Received 
-                    and Abandoned enough times, (limit determined by 'Max Delivery Count' property)"
+@"Deleting single live message is no longer supported by the backend API.
+By design, Service Bus doesn't allow targetted deletion of a single message, 
+so in order to achive that, we Receive() messages until we get the one we 
+want to delete. We then Complete() the message we want to delete, and 
+Abandon() all the others. This is a problem because there is a queue/subscription 
+behaviour that sends the message to the deadletters if it is repeatedly Received 
+and Abandoned enough times, (limit determined by 'Max Delivery Count' property)"
                     );
             }
 
@@ -45,6 +47,11 @@ namespace VengabusAPI.Controllers
                 }
             };
             MessageServices.DeleteSelectedMessagesFromEndpoint(endpoint, deleteMessageChecker);
+
+            throw new APIError(@"No messages were deleted. The intended messages may have already been consumed by another process.
+
+Please reload the message list and try again.");
+
         }
 
         protected IEnumerable<VengaMessage> GetMessagesFromEndpoint(Endpoint endpoint, int messageCount)
