@@ -32,6 +32,39 @@ namespace VengabusAPI.Controllers
             return new VengaTopic(namespaceManager.GetTopic(topicName));
         }
 
+        [HttpPost]
+        [Route("topics/update")]
+        public void UpdateQueue([FromBody]VengaTopicUpload topicData)
+        {
+            NamespaceManager namespaceManager = CreateNamespaceManager();
+
+            TopicDescription description = namespaceManager.GetTopic(topicData.name);
+            topicData.ApplyChangesToDescription(description);
+
+            namespaceManager.UpdateTopic(description);
+        }
+
+        [HttpPost]
+        [Route("topics/rename")]
+        public void RenameQueue([FromBody]Rename names)
+        {
+            NamespaceManager namespaceManager = CreateNamespaceManager();
+            TopicDescription description = namespaceManager.GetTopic(names.oldName);
+            if (description.EnablePartitioning)
+            {
+                throw new Exception("Partitioned topics cannot be renamed.");
+            }
+            namespaceManager.RenameTopic(names.oldName, names.newName);
+        }
+
+        [HttpDelete]
+        [Route("topics/delete/{topicName}")]
+        public void DeleteQueue(string topicName)
+        {
+            NamespaceManager namespaceManager = CreateNamespaceManager();
+            namespaceManager.DeleteTopic(topicName);
+        }
+
     }
 }
  

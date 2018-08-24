@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import { DataTable } from '../DataTable';
 import { formatTimeStamp } from '../../Helpers/FormattingHelpers';
 import { palerBlue } from '../../colourScheme';
+import { EditSubscriptionButton } from '../EditEndpointButton';
+
 
 export class SubscriptionList extends Component {
 
     render() {
-
-        let subscriptionArray = undefined;
-        if (this.props.subscriptionData) {
-            subscriptionArray = [...this.props.subscriptionData];
-
-            for (let i = 0; i < subscriptionArray.length; i++) {
+        const originalSubscriptionProps = this.props.subscriptionData;
+        const subscriptionArray = originalSubscriptionProps ? [] : undefined;
+        if (originalSubscriptionProps) {
+            for (let i = 0; i < originalSubscriptionProps.length; i++) {
                 //needs to be cloned
-                subscriptionArray[i] = { ...subscriptionArray[i] };
+                subscriptionArray.push({ ...originalSubscriptionProps[i] });
                 const currentMessageArray = subscriptionArray[i];
                 if (currentMessageArray.mostRecentDeadLetter && currentMessageArray.mostRecentDeadLetterLoaded) {
                     currentMessageArray.mostRecentDeadLetter = formatTimeStamp(currentMessageArray.mostRecentDeadLetter);
@@ -25,24 +25,35 @@ export class SubscriptionList extends Component {
         const colProps = [
             {
                 dataField: 'name',
-                width: 25,
+                width: 23,
                 headerStyle: this.props.headerStyle
             },
             {
                 dataField: 'activeMessageCount',
-                width: 25,
+                width: 23,
                 align: 'right',
-                headerStyle: this.props.headerStyle,
+                headerStyle: this.props.headerStyle
             },
             {
                 dataField: 'deadletterMessageCount',
-                width: 25,
+                width: 23,
                 headerStyle: this.props.headerStyle,
-                align: 'right',
-            }, {
+                align: 'right'
+            },
+            {
                 dataField: 'mostRecentDeadLetter',
-                width: 25,
-                headerStyle: this.props.headerStyle,
+                width: 23
+            },
+            {
+                dataField: '',
+                text: ' ',
+                width: 8,
+                formatter: (cell, row, rowIndex) => {
+                    return (
+                        <EditSubscriptionButton subscriptionName={row.name} parentTopic={row.topicName} />
+                    );
+                },
+                headerStyle: this.props.headerStyle
             }
         ];
 

@@ -1,32 +1,45 @@
 import React, { Component } from 'react';
 import { DataTable } from '../DataTable';
 import { palerBlue } from '../../colourScheme';
-
+import { EditTopicButton } from '../EditEndpointButton';
 
 export class TopicList extends Component {
 
     render() {
-
-        const topics = this.props.topicData;
-
-     
+        const originalTopicPorps = this.props.topicData;
+        const topics = originalTopicPorps ? [] : undefined;
+        if (originalTopicPorps) {
+            for (let i = 0; i < originalTopicPorps.length; i++) {
+                topics.push({ ...originalTopicPorps[i] });
+            }
+        }
 
         const colProps = [
             {
                 dataField: 'name',
-                width: 34,
+                width: 31,
                 headerStyle: this.props.headerStyle
             },
             {
                 dataField: 'subscriptionCount',
-                width: 33,
+                width: 30,
                 headerStyle: this.props.headerStyle,
                 align: 'right'
             },
             {
                 dataField: 'topicStatus',
                 text: 'Status',
-                width: 33,
+                width: 30
+            },
+            {
+                dataField: '',
+                text: ' ',
+                width: 9,
+                formatter: (cell, row, rowIndex) => {
+                    return (
+                        <EditTopicButton topicName={row.name} />
+                    );
+                },
                 headerStyle: this.props.headerStyle
             }
         ];

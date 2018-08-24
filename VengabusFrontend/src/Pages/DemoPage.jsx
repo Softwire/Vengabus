@@ -3,7 +3,6 @@ import { MessageList } from '../Components/HomePage/MessageList';
 import { css } from 'react-emotion';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import { Button } from 'react-bootstrap';
-import { PurgeMessagesButton } from '../Components/PurgeMessagesButton';
 import { EndpointTypes } from '../Helpers/EndpointTypes';
 
 export class DemoPage extends Component {
@@ -88,6 +87,18 @@ sit amet \nthat was a newline`
 
         return (
             < div >
+                <div>
+                    <p>Displays other Page</p>
+                    <Button onClick={() => this.handleListQueueMessages(queueName)}>
+                        Display {queueName} messages
+                    </Button>
+                    <Button onClick={() => this.handleListSubscriptionMessages(topicName, subscriptionName)}>
+                        Display {subscriptionName} messages in topic {topicName}
+                    </Button>
+                    <br />
+
+                </div>
+
                 <div className={queueDivStyle}>
                     <div id="demoMessageList">
                         <MessageList messageData={this.state.messageData}
@@ -98,21 +109,6 @@ sit amet \nthat was a newline`
                             handleClose={() => { }}
                             refreshMessageTableHandler={() => { }} />
                     </div>
-                    {/*qq delete the text in Button once implemented properly*/}
-                    <PurgeMessagesButton id="purgeQueueMessage" type={EndpointTypes.QUEUE} endpointName={queueName} />
-                    <PurgeMessagesButton id="purgeTopicMessage" type={EndpointTypes.TOPIC} endpointName={topicName} />
-                    <PurgeMessagesButton id="purgeSubscriptionMessage" type={EndpointTypes.SUBSCRIPTION} endpointName={subscriptionName} parentName={topicName} />
-
-                </div>
-
-                <div>
-                    <p>Displays other Page</p>
-                    <Button onClick={() => this.handleListQueueMessages(queueName)}>
-                        Display {queueName} messages
-                </Button>
-                    <Button onClick={() => this.handleListSubscriptionMessages(topicName, subscriptionName)}>
-                        Display {subscriptionName} messages in topic {topicName}
-                    </Button>
                 </div>
             </div >
         );

@@ -1,7 +1,8 @@
 export const PAGES = Object.freeze({
     HomePage: 'Home',
     DemoPage: 'DemoPage',
-    SendMessagePage: 'SendMessage'
+    SendMessagePage: 'SendMessage',
+    CrudPage: 'CRUD'
 });
 
 class PageSwitcher {

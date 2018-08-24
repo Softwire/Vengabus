@@ -43,5 +43,38 @@ namespace VengabusAPI.Controllers
             var mostRecent = deadLetterList.OrderByDescending(x => x.EnqueuedTimeUtc).FirstOrDefault();
             return mostRecent?.EnqueuedTimeUtc;
         }
+
+        [HttpPost]
+        [Route("queues/update")]
+        public void UpdateQueue([FromBody]VengaQueueUpload queueData)
+        {
+            NamespaceManager namespaceManager = CreateNamespaceManager();
+
+            QueueDescription description = namespaceManager.GetQueue(queueData.name);
+            queueData.ApplyChangesToDescription(description);
+
+            namespaceManager.UpdateQueue(description);
+        }
+
+        [HttpPost]
+        [Route("queues/rename")]
+        public void RenameQueue([FromBody]Rename names)
+        {
+            NamespaceManager namespaceManager = CreateNamespaceManager();
+            QueueDescription description = namespaceManager.GetQueue(names.oldName);
+            if (description.EnablePartitioning)
+            {
+                throw new Exception("Partitioned queues cannot be renamed.");
+            }
+            namespaceManager.RenameQueue(names.oldName, names.newName);
+        }
+
+        [HttpDelete]
+        [Route("queues/delete/{queueName}")]
+        public void DeleteQueue(string queueName)
+        {
+            NamespaceManager namespaceManager = CreateNamespaceManager();
+            namespaceManager.DeleteQueue(queueName);
+        }
     }
 }

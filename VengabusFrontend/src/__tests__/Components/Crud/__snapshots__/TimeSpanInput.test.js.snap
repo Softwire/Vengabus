@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly with given props 1`] = `
+.emotion-10 {
+  padding-left: 10px;
+}
+
+.emotion-11 {
+  display: inline-block;
+  vertical-align: middle;
+  padding-bottom: 10px;
+}
+
+.emotion-1 {
+  width: 100px;
+  float: left;
+  padding-left: 5px;
+}
+
+.emotion-0 {
+  font-weight: normal;
+}
+
+<div
+  className="emotion-11"
+>
+  <form
+    className="emotion-10"
+  >
+    <div
+      className="emotion-1 form-group"
+    >
+      <label
+        className="emotion-0 control-label"
+        htmlFor={undefined}
+      >
+        Days
+      </label>
+      <input
+        className="form-control"
+        id={undefined}
+        onChange={[Function]}
+        placeholder="Days"
+        type="number"
+        value={30}
+      />
+    </div>
+    <div
+      className="emotion-1 form-group"
+    >
+      <label
+        className="emotion-0 control-label"
+        htmlFor={undefined}
+      >
+        Hours
+      </label>
+      <input
+        className="form-control"
+        id={undefined}
+        onChange={[Function]}
+        placeholder="Hours"
+        type="number"
+        value={12}
+      />
+    </div>
+    <div
+      className="emotion-1 form-group"
+    >
+      <label
+        className="emotion-0 control-label"
+        htmlFor={undefined}
+      >
+        Minutes
+      </label>
+      <input
+        className="form-control"
+        id={undefined}
+        onChange={[Function]}
+        placeholder="Minutes"
+        type="number"
+        value={45}
+      />
+    </div>
+    <div
+      className="emotion-1 form-group"
+    >
+      <label
+        className="emotion-0 control-label"
+        htmlFor={undefined}
+      >
+        Seconds
+      </label>
+      <input
+        className="form-control"
+        id={undefined}
+        onChange={[Function]}
+        placeholder="Seconds"
+        type="number"
+        value={5}
+      />
+    </div>
+    <div
+      className="emotion-1 form-group"
+    >
+      <label
+        className="emotion-0 control-label"
+        htmlFor={undefined}
+      >
+        Milliseconds
+      </label>
+      <input
+        className="form-control"
+        id={undefined}
+        onChange={[Function]}
+        placeholder="Milliseconds"
+        type="number"
+        value={0}
+      />
+    </div>
+  </form>
+</div>
+`;

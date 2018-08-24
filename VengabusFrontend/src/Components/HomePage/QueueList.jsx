@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import { DataTable } from '../DataTable';
 import { formatTimeStamp } from '../../Helpers/FormattingHelpers';
 import { palerBlue } from '../../colourScheme';
+import { EditQueueButton } from '../EditEndpointButton';
+
 
 export class QueueList extends Component {
 
     render() {
-        let queueArray = undefined;
-        if (this.props.queueData) {
-            queueArray = [...this.props.queueData];
-
-            for (let i = 0; i < queueArray.length; i++) {
+        const originalQueueProps = this.props.queueData;
+        const queueArray = originalQueueProps ? [] : undefined;
+        if (originalQueueProps) {
+            for (let i = 0; i < originalQueueProps.length; i++) {
                 //needs to be cloned
-                queueArray[i] = { ...queueArray[i] };
+                queueArray.push({ ...originalQueueProps[i] });
                 const currentMessageArray = queueArray[i];
                 if (currentMessageArray.mostRecentDeadLetter && currentMessageArray.mostRecentDeadLetterLoaded) {
                     currentMessageArray.mostRecentDeadLetter = formatTimeStamp(currentMessageArray.mostRecentDeadLetter);
@@ -25,25 +26,35 @@ export class QueueList extends Component {
         const colProps = [
             {
                 dataField: 'name',
-                width: 25,
-                headerStyle: this.props.headerStyle,
+                width: 23,
+                headerStyle: this.props.headerStyle
             },
             {
                 dataField: 'activeMessageCount',
-                width: 25,
+                width: 23,
                 headerStyle: this.props.headerStyle,
-                align: 'right',
+                align: 'right'
             },
             {
                 dataField: 'deadletterMessageCount',
-                width: 25,
+                width: 23,
                 headerStyle: this.props.headerStyle,
-                align: 'right',
+                align: 'right'
             },
             {
                 dataField: 'mostRecentDeadLetter',
-                width: 25,
-                headerStyle: this.props.headerStyle,
+                width: 23
+            },
+            {
+                dataField: '',
+                text: ' ',
+                width: 8,
+                formatter: (cell, row, rowIndex) => {
+                    return (
+                        <EditQueueButton queueName={row.name} />
+                    );
+                },
+                headerStyle: this.props.headerStyle
             }
         ];
 

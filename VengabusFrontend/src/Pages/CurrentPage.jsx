@@ -4,6 +4,7 @@ import { PAGES, pageSwitcher } from './PageSwitcherService';
 import { DemoPage } from './DemoPage';
 import { HomePage } from './HomePage';
 import { SendMessagePage } from './SendMessagePage';
+import { CrudPage } from './CrudPage';
 
 export class CurrentPage extends Component {
     constructor(props) {
@@ -51,7 +52,12 @@ export class CurrentPage extends Component {
                         {...this.state.pageData}
                     />;
                 break;
-
+            case PAGES.CrudPage:
+                returnValue =
+                    <CrudPage
+                        {...this.state.pageData}
+                    />;
+                break;
             default:
                 returnValue =
                     <Alert bsStyle="danger">

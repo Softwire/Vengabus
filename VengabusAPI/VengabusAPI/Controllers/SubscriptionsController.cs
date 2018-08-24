@@ -43,6 +43,24 @@ namespace VengabusAPI.Controllers
             return mostRecent?.EnqueuedTimeUtc;
         }
 
+        [HttpPost]
+        [Route("subscriptions/update")]
+        public void UpdateQueue([FromBody]VengaSubscriptionUpload subData)
+        {
+            NamespaceManager namespaceManager = CreateNamespaceManager();
 
+            SubscriptionDescription description = namespaceManager.GetSubscription(subData.topicName, subData.name);
+            subData.ApplyChangesToDescription(description);
+
+            namespaceManager.UpdateSubscription(description);
+        }
+
+        [HttpDelete]
+        [Route("subscriptions/delete/{topicName}/{subscriptionName}")]
+        public void DeleteQueue(string topicName, string subscriptionName)
+        {
+            NamespaceManager namespaceManager = CreateNamespaceManager();
+            namespaceManager.DeleteSubscription(topicName, subscriptionName);
+        }
     }
 }
