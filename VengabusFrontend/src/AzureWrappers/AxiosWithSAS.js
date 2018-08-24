@@ -20,47 +20,6 @@ export class AxiosWithSAS {
      * @param error the error object returned by Axios
      */
 
-    errorHandler = (error) => {
-
-        if (error.response) {
-            console.log(error.response.data);
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            if (error.response.data.exceptionType === "VengabusAPI.Models.APIWarning") {
-                this.warningNotificationPopup(error.response.data.exceptionMessage);
-            } else if (error.response.data.exceptionType === "VengabusAPI.Models.APIInfo") {
-                this.infoNotificationPopup(error.response.data.exceptionMessage);
-            } else {
-                this.errorNotificationPopup(error.response.status + " " + error.response.statusText + ": " + error.response.data.exceptionMessage);
-            }
-        } else if (error.request) {
-            // The request was made but no response was received
-            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-            // http.ClientRequest in node.js
-            if (error.request.status === 0) {
-                this.errorNotificationPopup("Backend is offline!");
-            } else {
-                this.errorNotificationPopup(error.request.status + " " + error.request.statusText);
-            }
-        } else {
-            // Something happened in setting up the request that triggered an Error
-            this.errorNotificationPopup(error.message);
-        }
-        throw error;
-    }
-
-    errorNotificationPopup(message) {
-        NotificationManager.error(message, "Error", 5000);
-    }
-
-    warningNotificationPopup(message) {
-        NotificationManager.warning(message, "Warning", 5000);
-    }
-
-    infoNotificationPopup(message) {
-        NotificationManager.info(message, "Info", 5000);
-    }
-
     /**
      * Performs a GET request after being passed a url, with the appropriate SAS header.
      * @param {string} url The url that the get request should be sent to.
@@ -164,5 +123,50 @@ export class AxiosWithSAS {
         return extendedConfig;
     }
 
+    errorHandler = (error) => {
+        this.displayAppropriatePopup(error);
 
+        // Show a popup, then throw, to continue the .catch chain for real handling by the calling code.
+        throw error;
+    }
+
+    displayAppropriatePopup(error) {
+        const errorNotificationPopup = (message) => {
+            NotificationManager.error(message, "APIError", 99999, undefined, true);
+        };
+
+        const warningNotificationPopup = (message) => {
+            NotificationManager.warning(message, "APIWarning", 5000);
+        };
+
+        const infoNotificationPopup = (message) => {
+            NotificationManager.info(message, "APIInfo", 5000);
+        };
+
+        if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            if (error.response.data.exceptionType === "VengabusAPI.Models.APIWarning") {
+                warningNotificationPopup(error.response.data.exceptionMessage);
+            } else if (error.response.data.exceptionType === "VengabusAPI.Models.APIInfo") {
+                infoNotificationPopup(error.response.data.exceptionMessage);
+            } else {
+                errorNotificationPopup(error.response.status + " " + error.response.statusText + ": " + error.response.data.exceptionMessage);
+            }
+        } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            if (error.request.status === 0) {
+                errorNotificationPopup("Backend is offline!");
+            } else {
+                errorNotificationPopup(error.request.status + " " + error.request.statusText);
+            }
+        } else if (error.message) {
+            // Something happened in setting up the request that triggered an Error
+            errorNotificationPopup(error.message);
+        } else {
+            errorNotificationPopup(JSON.stringify(error));
+        }
+    }
 }

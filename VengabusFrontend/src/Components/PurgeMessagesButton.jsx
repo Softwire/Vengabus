@@ -27,7 +27,7 @@ class PurgeMessagesButton extends React.Component {
 
     showModalAction = () => {
         this.vengaServiceBusService = serviceBusConnection.getServiceBusService();
-        this.generateModalWarningBody().then(bodyResult => this.setState({ modalBody: bodyResult })).catch();
+        this.generateModalWarningBody().then(bodyResult => this.setState({ modalBody: bodyResult }));//qq needs catch, close modal, needs refactor
     }
 
     generateModalWarningBody = async () => {

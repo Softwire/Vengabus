@@ -12,7 +12,7 @@ import 'react-notifications/lib/notifications.css';
 
 class App extends Component {
     componentDidCatch(error, info) {
-        NotificationManager.error(error);
+        NotificationManager.error(error, "Global Page error:", 99999, undefined, true);
     }
 
     render() {
