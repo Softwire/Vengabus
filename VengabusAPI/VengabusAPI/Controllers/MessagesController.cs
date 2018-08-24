@@ -21,12 +21,13 @@ namespace VengabusAPI.Controllers
             if (!endpoint.SupportsSingleMessageDeletion())
             {
                 throw new NotSupportedException(
-                    "Deleting single live message is no longer supported by the backend API." +
-                    "By design, Service Bus doesn't allow deleting a single message, so in order" +
-                    " to achive that, we receive messages until we get the one we want to delete." +
-                    "The message will be then Complete, while the others Abandon. This is a problem" +
-                    " because there is a queue/subscription behaviour that sends the message" +
-                    " to the deadletters if the Delivery Count reaches Max Delivery Count."
+                    @"Deleting single live message is no longer supported by the backend API.
+                    By design, Service Bus doesn't allow targetted deletion of a single message, 
+                    so in order to achive that, we Receive() messages until we get the one we 
+                    want to delete. We then Complete() the message we want to delete, and 
+                    Abandon() all the others. This is a problem because there is a queue/subscription 
+                    behaviour that sends the message to the deadletters if it is repeatedly Received 
+                    and Abandoned enough times, (limit determined by 'Max Delivery Count' property)"
                     );
             }
 
