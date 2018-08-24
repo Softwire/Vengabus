@@ -172,7 +172,7 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                                                         </form>
                                                         <form>
                                                             <div class=\\"btn-group\\">
-                                                                <button disabled=\\"\\" type=\\"button\\" class=\\"btn btn-default\\">
+                                                                <button disabled=\\"\\" style=\\"pointer-events: none;\\" type=\\"button\\" class=\\"btn btn-default\\">
                                                                     Send Message
                                                                 </button>
                                                                 <button type=\\"button\\" class=\\"btn btn-danger\\">
@@ -787,6 +787,11 @@ exports[`renders correctly after data has loaded 1`] = `
         className="btn btn-default"
         disabled={true}
         onClick={[Function]}
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
         type="button"
       >
         Send Message
@@ -795,6 +800,7 @@ exports[`renders correctly after data has loaded 1`] = `
         className="btn btn-danger"
         disabled={false}
         onClick={[Function]}
+        style={Object {}}
         type="button"
       >
         Reset Fields
@@ -1399,6 +1405,11 @@ exports[`renders correctly before data has loaded 1`] = `
         className="btn btn-default"
         disabled={true}
         onClick={[Function]}
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
         type="button"
       >
         Send Message
@@ -1407,6 +1418,7 @@ exports[`renders correctly before data has loaded 1`] = `
         className="btn btn-danger"
         disabled={false}
         onClick={[Function]}
+        style={Object {}}
         type="button"
       >
         Reset Fields
@@ -2146,6 +2158,7 @@ exports[`renders correctly from a predefined message 1`] = `
         className="btn btn-default"
         disabled={false}
         onClick={[Function]}
+        style={Object {}}
         type="button"
       >
         Send Message
@@ -2154,6 +2167,7 @@ exports[`renders correctly from a predefined message 1`] = `
         className="btn btn-danger"
         disabled={false}
         onClick={[Function]}
+        style={Object {}}
         type="button"
       >
         Reset Fields
