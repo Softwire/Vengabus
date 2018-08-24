@@ -12,18 +12,23 @@ public class AddSASHeaderParameter : IOperationFilter
 {
     public void Apply(Operation operation, SchemaRegistry schemaRegistry, ApiDescription apiDescription)
     {
-        if (operation.parameters == null)
-        {
-            operation.parameters = new List<Parameter>();
-        }
+        var controllerType = apiDescription.ActionDescriptor.ControllerDescriptor.ControllerType;
 
-        operation.parameters.Add(new Parameter
+        if (controllerType.IsSubclassOf(typeof(VengabusAPI.Controllers.VengabusController)))
         {
-            name = VengabusAPI.Controllers.VengabusController.SASFieldName,
-            @in = "header",
-            type = "string",
-            required = true
-        });
+            if (operation.parameters == null)
+            {
+                operation.parameters = new List<Parameter>();
+            }
+
+            operation.parameters.Add(new Parameter
+            {
+                name = VengabusAPI.Controllers.VengabusController.SASFieldName,
+                @in = "header",
+                type = "string",
+                required = true
+            });
+        }
     }
 }
 
