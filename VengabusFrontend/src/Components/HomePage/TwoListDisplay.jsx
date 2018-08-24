@@ -143,6 +143,9 @@ export class TwoListDisplay extends Component {
         let fetchedDeadletterMessageData;
 
         const leftTableType = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].type;
+        
+        this.promiseCollection.cancelAllPromises(EndpointTypes.MESSAGE);
+        this.promiseCollection.cancelAllPromises(EndpointTypes.DEADLETTER);
 
 
         if (leftTableType === EndpointTypes.QUEUE || typeof leftTableType === 'undefined') {
@@ -155,8 +158,6 @@ export class TwoListDisplay extends Component {
             fetchedDeadletterMessageData = serviceBusService.listSubscriptionDeadLetterMessages(topicName, subscriptionName, messageCount);
             fetchedMessageData = serviceBusService.listSubscriptionMessages(topicName, subscriptionName, messageCount);
         }
-        this.promiseCollection.cancelAllPromises(EndpointTypes.MESSAGE);
-        this.promiseCollection.cancelAllPromises(EndpointTypes.DEADLETTER);
         const wrappedFetchedMessageData = this.promiseCollection.addNewPromise(fetchedMessageData, EndpointTypes.MESSAGE);
         const wrappedFetchedDeadletterMessageData = this.promiseCollection.addNewPromise(fetchedDeadletterMessageData, EndpointTypes.DEADLETTER);
 
