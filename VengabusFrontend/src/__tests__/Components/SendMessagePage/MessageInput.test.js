@@ -106,12 +106,12 @@ it('Shows a red border around invalid property names', () => {
 });
 
 it('Correctly set selection to topic', async () => {
-    let wrapper = mount(<MessageInput />);
-    wrapper.setState({
-        selectedQueue: "testTopic",
-        recipientIsQueue: false
-    });
-    let submitButton = wrapper.find("#submitButton").at(0);
+    let wrapper = mount(<MessageInput
+        selectedTopic="testTopic"
+        recipientIsQueue={false}
+    />);
+
+    let submitButton = wrapper.find("#submitButton").last();
     submitButton.simulate('click');
     await testHelper.afterReactHasUpdated().then(() => {
         wrapper.update();
@@ -119,7 +119,12 @@ it('Correctly set selection to topic', async () => {
         confirmButton.simulate('click');
     });
     expect(mockedFunction).toBeCalledWith(
-        "testTopic"
+        "testTopic",
+        {
+            "messageBody": "",
+            "customProperties": {},
+            "predefinedProperties": {}
+        }
     );
 });
 
