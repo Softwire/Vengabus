@@ -82,7 +82,6 @@ export class MessageList extends Component {
                     onRowClick={this.handleMessageClick}
                     paginated
                     searchable
-                    dataLoading={this.props.dataLoading}
                 />
 
                 <MessageBox

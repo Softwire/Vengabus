@@ -70,7 +70,6 @@ export class SubscriptionList extends Component {
                 onRowClick={this.props.clickFunction}
                 selectRow={selectRow}
                 searchable
-                dataLoading={this.props.dataLoading}
             />
         );
     }

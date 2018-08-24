@@ -21,10 +21,10 @@ export class TwoListDisplay extends Component {
         this.promiseCollection = new cancellablePromiseCollection();
         this.messageTabType = EndpointTypes.MESSAGE;
         this.state = {
-            queueData: undefined,
-            topicData: undefined,
-            subscriptionData: undefined,
-            messageData: undefined,
+            queueData: null,
+            topicData: null,
+            subscriptionData: [],
+            messageData: [],
             rightTableType: EndpointTypes.TOPIC
         };
     }
@@ -76,10 +76,6 @@ export class TwoListDisplay extends Component {
     }
 
     updateAllQueueData = () => {
-        this.setState({
-            queueData: undefined,
-            queueDataLoading: true
-        });
         const serviceBusService = serviceBusConnection.getServiceBusService();
         this.promiseCollection.cancelAllPromises(EndpointTypes.QUEUE);
         const fetchedQueueData = this.promiseCollection.addNewPromise(serviceBusService.listQueues(), EndpointTypes.QUEUE);
@@ -102,14 +98,16 @@ export class TwoListDisplay extends Component {
                     });
                 }).catch((e) => { });
             }
-        }).catch((e) => { });
+        }).catch((e) => {
+            if (!e.isCanceled) {
+                this.setState({
+                    messageData: []
+                });
+            }
+        });
     }
 
     updateAllTopicData = () => {
-        this.setState({
-            topicData: undefined,
-            topicDataLoading: true
-        });
         const serviceBusService = serviceBusConnection.getServiceBusService();
         this.promiseCollection.cancelAllPromises(EndpointTypes.TOPIC);
         const fetchedTopicData = this.promiseCollection.addNewPromise(serviceBusService.listTopics(), EndpointTypes.TOPIC);
@@ -119,21 +117,15 @@ export class TwoListDisplay extends Component {
                 topicDataLoading: false
             });
         }).catch(e => {
-            this.setState({
-                topicData: undefined,
-                topicDataLoading: false
-            });
             if (!e.isCanceled) {
-                console.log(e);
+                this.setState({
+                    messageData: []
+                });
             }
         });
     }
 
     updateTopicSubscriptionData = () => {
-        this.setState({
-            subscrptionData: undefined,
-            subscriptionDataLoading: true
-        });
         const topicName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
         const serviceBusService = serviceBusConnection.getServiceBusService();
         this.promiseCollection.cancelAllPromises(EndpointTypes.SUBSCRIPTION);
@@ -158,7 +150,13 @@ export class TwoListDisplay extends Component {
                     });
                 }).catch((e) => { });
             }
-        }).catch(e => { });
+        }).catch(e => {
+            if (!e.isCanceled) {
+                this.setState({
+                    messageData: []
+                });
+            }
+        });
     }
 
 
@@ -188,21 +186,22 @@ export class TwoListDisplay extends Component {
         wrappedFetchedMessageData.then((result) => {
             this.messageButtonDisabled = false;
             this.setState({
-                messageData: result,
-                messageDataLoding: false
+                messageData: result
             });
         }).catch(e => {
-            this.setState({
-                messageData: undefined,
-                messageDataLoding: false
-            });
             if (!e.isCanceled) {
-                console.log(e);
+                this.setState({
+                    messageData: []
+                });
             }
         });
     }
 
     resetInitialStateData = () => {
+        this.setState({
+            queueData: undefined,
+            topicData: undefined
+        });
         this.updateAllTopicData();
         this.updateAllQueueData();
         this.breadCrumbHistory = [{ name: "Home", type: undefined }];
@@ -250,7 +249,6 @@ export class TwoListDisplay extends Component {
                             currentlySelectedName={currentSelection}
                             id='QueueTable'
                             headerStyle={minHeightOfHeader}
-                            dataLoading={this.state.queueDataLoading}
                         />
                     </React.Fragment>
                 );
@@ -266,7 +264,6 @@ export class TwoListDisplay extends Component {
                             currentlySelectedName={currentSelection}
                             id='TopicTable'
                             headerStyle={minHeightOfHeader}
-                            dataLoading={this.state.topicDataLoading}
                         />
                     </React.Fragment>
                 );
@@ -283,7 +280,6 @@ export class TwoListDisplay extends Component {
                             currentlySelectedName={currentSelection}
                             id='SubscriptionTable'
                             headerStyle={minHeightOfHeader}
-                            dataLoading={this.state.subscriptionDataLoading}
                         />
                     </React.Fragment>
                 );
@@ -307,7 +303,6 @@ export class TwoListDisplay extends Component {
                             endpointName={lastBreadCrumb.name}
                             endpointParent={penultimateBreadCrumb.name}
                             headerStyle={minHeightOfHeader}
-                            dataLoading={this.state.messageDataLoding}
                             refreshMessageTableHandler={() => {
                                 this.setState({
                                     messageData: undefined

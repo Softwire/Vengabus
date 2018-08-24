@@ -38,7 +38,6 @@ Props:
                         ....
                     }
                 }
-    dataLoading (OPTIONAL) {boolean} If true and the dataToDisplay is null, shows spinner
     onRowClick: (OPTIONAL) {function} Called when a row is clicked. Arguments are the same as above.
                 Note that this is merely a more convenience wrapper for a common usages of rowEvents. It must not be defined in both.
     selectRow: (OPTIONAL) {object} Defines settings relating to selecting a row by clicking on it.
@@ -347,12 +346,29 @@ export class DataTable extends Component {
             </FormGroup>
         ) : null;
 
-        if (!dataToDisplay) {
+        if (dataToDisplay === undefined) {
             return (
                 <React.Fragment>
                     {searchBar}
-                    {dataLoading ?
-                        <Spinner size={50} /> : <p className={textAlign}> No data to show.</p>}
+                    <Spinner size={50} />
+                </React.Fragment>
+            );
+        }
+
+        if (dataToDisplay === null) {
+            return (
+                <React.Fragment>
+                    {searchBar}
+                    <p className={textAlign}>Press "Connect" to load data.</p>
+                </React.Fragment>
+            );
+        }
+
+        if (dataToDisplay.length === 0) {
+            return (
+                <React.Fragment>
+                    {searchBar}
+                    <p className={textAlign}>No data to show.</p>
                 </React.Fragment>
             );
         }

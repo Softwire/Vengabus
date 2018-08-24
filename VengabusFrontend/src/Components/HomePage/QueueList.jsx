@@ -71,7 +71,6 @@ export class QueueList extends Component {
                 selectRow={selectRow}
                 uniqueKeyColumn='name'
                 searchable
-                dataLoading={this.props.dataLoading}
             />
         );
     }
