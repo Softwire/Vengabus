@@ -57,7 +57,7 @@ export class CopyTextButton extends React.Component {
                             this.target = button;
                         }}
                         onClick={this.handleToggle}
-                        disabled={!this.text}
+                        disabled={!this.text || this.props.disabled}
                     >
                         Copy Body
                     </Button>

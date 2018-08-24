@@ -3,7 +3,8 @@ import { Modal, Alert, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { Spinner } from './Spinner';
 
 const defaultState = {
-    show: false
+    show: false,
+    disableButtons: false
 };
 
 class ButtonWithConfirmationModal extends React.Component {
@@ -19,6 +20,10 @@ class ButtonWithConfirmationModal extends React.Component {
     }
 
     handleConfirm = () => {
+        console.log(this.props.spinnerWhileMessageIsDeleted);
+        if (this.props.spinnerWhileMessageIsDeleted) {
+            this.props.spinnerWhileMessageIsDeleted();
+        }
         this.props.confirmAction();
         this.handleClose();
     }
@@ -33,7 +38,7 @@ class ButtonWithConfirmationModal extends React.Component {
         const internalAlertDialogStyle = this.props.modalInternalStyle || "danger";
         const internalConfirmButtonStyle = this.props.modalButtonStyle || internalAlertDialogStyle;
 
-        const style = this.props.buttonDisabled ? {
+        const style = this.props.tooltipMessage ? {
             pointerEvents: 'none'
         } : {};
 

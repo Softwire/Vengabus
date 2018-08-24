@@ -8,8 +8,7 @@ class Spinner extends React.Component {
 
         const centralSpinner = css`
             float: none;
-            margin: 0 auto;
-            padding-bottom: 10px;
+            margin: 0 auto 20px auto;
         `;
 
         return <PacmanLoader

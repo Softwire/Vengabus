@@ -291,6 +291,7 @@ export class TwoListDisplay extends Component {
                             endpointName={lastBreadCrumb.name}
                             endpointParent={penultimateBreadCrumb.name}
                             headerStyle={minHeightOfHeader}
+                            dataLoading={this.state.messageDataLoding}
                             refreshMessageTableHandler={() => {
                                 this.setState({
                                     messageData: undefined

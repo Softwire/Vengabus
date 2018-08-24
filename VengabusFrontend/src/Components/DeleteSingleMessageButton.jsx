@@ -71,7 +71,8 @@ class DeleteSingleMessageButton extends React.Component {
                 afterShowModalAction={this.showModalAction}
                 confirmAction={this.getOnDeletionConfirmedHandler()}
                 afterCloseModalAction={() => { }}
-                buttonDisabled={!deletionIsSupported}
+                spinnerWhileMessageIsDeleted={this.props.spinnerWhileMessageIsDeleted}
+                buttonDisabled={!deletionIsSupported || this.props.disabled}
                 tooltipMessage={deletionIsSupported ? undefined : tooltipMessage}
             />);
     }

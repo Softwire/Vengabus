@@ -13,7 +13,16 @@ import { NoPropertiesPanel } from './NoPropertiesPanel';
 import { panelDarkGrey, panelLightGrey } from '../../colourScheme';
 const downloadToFile = require("downloadjs");
 
+const defaultState = {
+    spinner: false
+};
+
 export class MessageBox extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = defaultState;
+    }
 
     convertMessagePropertiesToJSXArray = (propertiesArray) => {
         const propertiesJSX = [];
@@ -57,6 +66,11 @@ export class MessageBox extends Component {
         if (this.props.refreshMessageTableHandler) {
             this.props.refreshMessageTableHandler();
         }
+        this.setState(defaultState);
+    }
+
+    spinnerWhileMessageIsDeleted = () => {
+        this.setState({ spinner: true });
     }
 
     render() {
@@ -139,6 +153,18 @@ export class MessageBox extends Component {
         }
 
         const replayDestination = this.props.endpointType === EndpointTypes.QUEUE ? this.props.endpointName : this.props.endpointParent;
+        const modalBody = (
+            <React.Fragment>
+                <PreDefinedPanelType panelTitle={"Pre-defined Properties"}>
+                            <pre>{preDefinedPropsJSX}</pre>
+                        </PreDefinedPanelType>
+                        <CustomPanelType panelTitle={"User-defined Properties"}>
+                            <pre>{customPropsJSX}</pre>
+                        </CustomPanelType>
+                        <FormattingBox message={message.messageBody} />
+            </React.Fragment>);
+        const spinner = <Spinner size={25} />;
+        const buttonsDisabled = this.state.spinner;
         return (
 
             <div className="static-modal" >
@@ -149,19 +175,13 @@ export class MessageBox extends Component {
                     </Modal.Header>
 
                     <Modal.Body className={panelStyle} id="messageBoxModalBody">
-                        <PreDefinedPanelType panelTitle={"Pre-defined Properties"}>
-                            <pre>{preDefinedPropsJSX}</pre>
-                        </PreDefinedPanelType>
-                        <CustomPanelType panelTitle={"User-defined Properties"}>
-                            <pre>{customPropsJSX}</pre>
-                        </CustomPanelType>
-                        <FormattingBox message={message.messageBody} />
+                        {this.state.spinner ? spinner : modalBody}
                     </Modal.Body>
 
                     <Modal.Footer>
                         <ButtonToolbar className={buttonToolbarStyle}>
                             { /*Note that these buttons are rendered in order, Right-to-Left*/}
-                            <Button onClick={this.props.handleClose} id="messageBoxClose">Close</Button>
+                            <Button disabled={buttonsDisabled} onClick={this.props.handleClose} id="messageBoxClose">Close</Button>
                             <DeleteSingleMessageButton
                                 uniqueId={message.uniqueId}
                                 messageId={message.predefinedProperties.messageId}
@@ -170,6 +190,8 @@ export class MessageBox extends Component {
                                 parentName={this.props.endpointParent}
                                 endpointName={this.props.endpointName}
                                 closeParentModal={this.closeMessageModalAndReloadMessageTable}
+                                spinnerWhileMessageIsDeleted={this.spinnerWhileMessageIsDeleted}
+                                disabled={buttonsDisabled}
                             />
                             <CopyTextButton text={message.messageBody} id="messageBoxCopy" />
                             <Button onClick={() => this.download(message)} id="messageBoxDownloadMessageButton">Download  <span className="glyphicon glyphicon-save" /> </Button>
