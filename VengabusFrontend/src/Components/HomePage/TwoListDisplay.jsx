@@ -82,9 +82,15 @@ export class TwoListDisplay extends Component {
             });
             for (let i = 0; i < result.length; i++) {
                 const getMostRecentDLPromise = this.promiseCollection.addNewPromise(serviceBusService.getQueueMostRecentDeadletter(result[i].name), result[i].name);
+                this.setState(function (prevState, props) {
+                    prevState.queueData[i].mostRecentDeadLetter = 'Loading';//qq use spinner later
+                    prevState.queueData[i].mostRecentDeadLetterLoaded = false;
+                    return prevState;
+                });
                 getMostRecentDLPromise.then((timeStamp) => {
                     this.setState(function (prevState, props) {
                         prevState.queueData[i].mostRecentDeadLetter = timeStamp;
+                        prevState.queueData[i].mostRecentDeadLetterLoaded = true;
                         return prevState;
                     });
                 }).catch((e) => { });
@@ -114,9 +120,15 @@ export class TwoListDisplay extends Component {
             });
             for (let i = 0; i < result.length; i++) {
                 const getMostRecentDLPromise = this.promiseCollection.addNewPromise(serviceBusService.getSubscriptionMostRecentDeadletter(topicName, result[i].name), topicName + '/' + result[i].name);
+                this.setState(function (prevState, props) {
+                    prevState.subscriptionData[i].mostRecentDeadLetter = 'Loading'; //qq use spinner later
+                    prevState.subscriptionData[i].mostRecentDeadLetterLoaded = false;
+                    return prevState;
+                });
                 getMostRecentDLPromise.then((timeStamp) => {
                     this.setState(function (prevState, props) {
                         prevState.subscriptionData[i].mostRecentDeadLetter = timeStamp;
+                        prevState.subscriptionData[i].mostRecentDeadLetterLoaded = true;
                         return prevState;
                     });
                 }).catch((e) => { });

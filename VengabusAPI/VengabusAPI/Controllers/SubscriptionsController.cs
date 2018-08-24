@@ -35,7 +35,7 @@ namespace VengabusAPI.Controllers
 
         [HttpGet]
         [Route("subscriptions/{parentTopicName}/{subscriptionName}/mostRecentDeadletter")]
-        private DateTime? GetTimeStampOfMostRecentDeadletter(string parentTopicName, string subscriptionName)
+        public DateTime? GetTimeStampOfMostRecentDeadletter(string parentTopicName, string subscriptionName)
         {
             var endpoint = new SubscriptionDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), subscriptionName, parentTopicName);
             var deadLetterList = MessageServices.GetMessagesFromEndpoint(endpoint);
