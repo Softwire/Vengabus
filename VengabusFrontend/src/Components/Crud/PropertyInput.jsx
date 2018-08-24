@@ -4,7 +4,7 @@ import { NumberInput } from './NumberInput';
 import { DropdownInput } from './DropdownInput';
 
 /**
- * @prop {unknown} data Data modified by the input. Types boolean, string, number and object are supported.
+ * @prop {unknown} inputData Data modified by the input. Types boolean, string, number and object are supported.
  * @prop {function} onChange Function called when the value is changed.
  * @prop {Object <string, {label: string, value: any}>[]} options Only relevant if component type is Select. Format of the object is {label: display name, value: associated value}
  * @prop {class} componentType If type of data is object then type of input component will be determined by this.
@@ -12,7 +12,7 @@ import { DropdownInput } from './DropdownInput';
 export class PropertyInput extends Component {
 
     render() {
-        const dataType = typeof this.props.data;
+        const dataType = typeof this.props.inputData;
         const { componentType: ComponentType, ...propsToPass } = this.props;
         switch (dataType) {
             case 'boolean':
@@ -24,6 +24,7 @@ export class PropertyInput extends Component {
                     <NumberInput {...propsToPass} />
                 );
             case 'string':
+                // This is because we don't require a free text input anywhere. When the need arises this should be changed to accomodate that.
                 if (!this.props.options) { throw new Error(`for data types of string options prop for the permitted values of the dropdown is required (in ${this.props.text})`); }
                 return (
                     <DropdownInput {...propsToPass} />

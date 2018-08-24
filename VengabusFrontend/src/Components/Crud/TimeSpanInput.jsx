@@ -4,12 +4,12 @@ import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
 /**
  * @prop {function} onChange This will be called with the new time object when changes are made.
- * @prop {object} data Contains the specified timespan.
- * @property {number} data.days
- * @property {number} data.hours
- * @property {number} data.minutes
- * @property {number} data.seconds
- * @property {number} data.milliseconds
+ * @prop {object} inputData Contains the specified timespan.
+ * @property {number} inputData.days
+ * @property {number} inputData.hours
+ * @property {number} inputData.minutes
+ * @property {number} inputData.seconds
+ * @property {number} inputData.milliseconds
  */
 export class TimeSpanInput extends Component {
 
@@ -32,9 +32,9 @@ export class TimeSpanInput extends Component {
                 <ControlLabel className={labelStyle}>{text}</ControlLabel>
                 <FormControl
                     type="number"
-                    value={this.props.data[propertyName]}
+                    value={this.props.inputData[propertyName]}
                     placeholder="Enter Days"
-                    onChange={(event) => this.props.onChange({ ...this.props.data, [propertyName]: parseInt(event.target.value, 10) })}
+                    onChange={(event) => this.props.onChange({ ...this.props.inputData, [propertyName]: parseInt(event.target.value, 10) })}
                 />
             </FormGroup>
         );

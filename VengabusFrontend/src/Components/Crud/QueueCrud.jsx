@@ -38,6 +38,7 @@ export class QueueCrud extends Component {
             "Deadletter Message Count": deadletterMessageCount,
             "Most Recent Deadletter": mostRecentDeadLetter
         };
+        // Transform into a format that is supported by DataTable
         const readOnlyProperties = Object.entries(readOnlyPropertiesTemplate).map(([key, value]) => ({ name: key, value: value }));
         const editableProperties = [
             'supportOrdering',

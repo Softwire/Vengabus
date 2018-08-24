@@ -37,6 +37,7 @@ export class TopicCrud extends Component {
             // text in the left column: value in the right column
             "Subscription Count": subscriptionCount
         };
+        // Transform into a format that is supported by DataTable
         const readOnlyProperties = Object.entries(readOnlyPropertiesTemplate).map(([key, value]) => ({ name: key, value: value }));
         const editableProperties = [
             'supportOrdering',

@@ -4,7 +4,7 @@ import Select from 'react-select';
 import classNames from 'classnames';
 
 /**
- * @prop {any} data The data that is set by the input, must be convertible to a string.
+ * @prop {any} inputData The data that is set by the input, must be convertible to a string.
  * @prop {function} onChange The function that is called when the value of the input is changed.
  * @prop {Object <string, {label: string, value: any}>[]} options Contains permitted values of the dropdown.
  */
@@ -24,8 +24,8 @@ export class DropdownInput extends Component {
             padding-top: 2px;
         `;
         const value = {
-            value: this.props.data,
-            label: this.props.data.toString()
+            value: this.props.inputData,
+            label: this.props.inputData.toString()
         };
 
         return (

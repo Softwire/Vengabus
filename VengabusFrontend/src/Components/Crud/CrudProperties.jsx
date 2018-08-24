@@ -113,7 +113,7 @@ export class CrudProperties extends Component {
                         tooltip={this.getTooltips()[property]}
                     />
                     <PropertyInput
-                        data={this.props.newEndpointData[property]}
+                        inputData={this.props.newEndpointData[property]}
                         onChange={(data) => this.props.handlePropertyChange(data, property)}
                         componentType={this.getObjectPropertyToComponent()[property]}
                         options={this.getDropdownOptions()[property]}

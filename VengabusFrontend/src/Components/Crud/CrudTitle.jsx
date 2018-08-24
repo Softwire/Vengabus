@@ -57,9 +57,7 @@ export class CrudTitle extends Component {
                         buttonStyle="danger"
                         modalTitle={"Delete " + this.props.selectedEndpoint}
                         modalBody={
-                            <React.Fragment>
                                 <p>This will irreversibly delete this {this.props.endpointType}</p>
-                            </React.Fragment>
                         }
                         confirmButtonText={"Delete"}
                         confirmAction={this.props.deleteEndpoint}

@@ -3,7 +3,7 @@ import { css } from 'emotion';
 import { Checkbox } from 'react-bootstrap';
 
 /**
- * @prop {bool} data The data that is set by the checkbox.
+ * @prop {bool} inputData The data that is set by the checkbox.
  * @prop {function} onChange The function that is called when the value of the checkbox is changed.
  */
 export class CheckboxInput extends Component {
@@ -23,7 +23,7 @@ export class CheckboxInput extends Component {
             <div className={divStyle} >
                 <Checkbox
                     className={leftAlign}
-                    checked={this.props.data}
+                    checked={this.props.inputData}
                     onChange={(event) => {
                         this.props.onChange(event.target.checked);
                     }}
