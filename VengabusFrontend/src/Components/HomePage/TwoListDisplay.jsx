@@ -82,16 +82,16 @@ export class TwoListDisplay extends Component {
             });
             let currentQueueData = result;
             for (let i = 0; i < result.length; i++) {
-                const getMostRecentDLPromise = this.promiseCollection.addNewPromise(serviceBusService.getMostRecentDeadletter, result[i].name);
+                const getMostRecentDLPromise = this.promiseCollection.addNewPromise(serviceBusService.getMostRecentDeadletter(result[i].name), result[i].name);
                 getMostRecentDLPromise.then((timeResult) => {
                     const mostRecentDeadLetterTimestamp = timeResult;
                     currentQueueData[i].mostRecentDeadLetter = mostRecentDeadLetterTimestamp;
                     this.setState({
                         queueData: currentQueueData
                     });
-                });
+                }).catch((e) => { });
             }
-        });
+        }).catch((e) => { });
     }
 
     updateAllTopicData = () => {
