@@ -8,8 +8,8 @@ import { FormattingBox } from './FormattingBox';
 import { DeleteSingleMessageButton } from '../../Components/DeleteSingleMessageButton';
 import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
 import { formatMessageForDownload } from '../../Helpers/FormattingHelpers';
-const download = require("downloadjs");
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
+const download = require("downloadjs");
 import { NoPropertiesPanel } from './NoPropertiesPanel';
 import { panelDarkGrey, panelLightGrey } from '../../colourScheme';
 

@@ -19,7 +19,7 @@ export function formatMessageForDownload(message) {
     delete messageDownload.uniqueId;
 
     return messageDownload;
-}}
+}
 
 /**
  * @param {string} timespan As received from the backend.
