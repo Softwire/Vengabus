@@ -351,7 +351,7 @@ export class DataTable extends Component {
             return (
                 <React.Fragment>
                     {searchBar}
-                    {this.props.dataLoading ?
+                    {dataLoading ?
                         <Spinner size={50} /> : <p className={textAlign}> No data to show.</p>}
                 </React.Fragment>
             );
