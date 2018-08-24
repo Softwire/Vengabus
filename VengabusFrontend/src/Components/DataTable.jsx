@@ -303,11 +303,9 @@ export class DataTable extends Component {
         //let { dataToDisplay, name, uniqueKeyColumn, colProps, rowEvents, onRowClick, selectRow, rowClasses, defaultHover, searchable, ...otherProps } = this.propsSnapshot ? JSON.parse(this.propsSnapshot) : this.props;
         //this.propsSnapshot = JSON.stringify(this.props);
 
-        let { dataToDisplay, name, uniqueKeyColumn, colProps, rowEvents, onRowClick, selectRow, rowClasses, defaultHover, searchable, paginated, ...otherProps } = this.props;
-        if (this.colPropsSnapshot) {
-            colProps = JSON.parse(this.colPropsSnapshot);
-        }
-        this.colPropsSnapshot = JSON.stringify(colProps);
+        this.cloneProps = _.cloneDeep(this.props);
+
+        let { dataToDisplay, name, uniqueKeyColumn, colProps, rowEvents, onRowClick, selectRow, rowClasses, defaultHover, searchable, paginated, ...otherProps } = this.cloneProps;
 
         let keyColumnIndex;
         let finalRowEvents;
