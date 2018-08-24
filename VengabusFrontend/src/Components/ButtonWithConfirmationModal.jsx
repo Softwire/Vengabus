@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Alert, Button } from 'react-bootstrap';
+import { Modal, Alert, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 const defaultState = {
     show: false
@@ -32,19 +32,37 @@ class ButtonWithConfirmationModal extends React.Component {
     }
 
     render() {
+        const style = this.props.buttonDisabled ? {
+            pointerEvents: 'none'
+        } : {};
+
+        const tooltip = (
+            <Tooltip id="tooltip">
+                <strong>{this.props.tooltipMessage}</strong>
+            </Tooltip>
+        );
+
+        const button =
+            <Button
+                onClick={this.handleOpening}
+                bsStyle={this.props.buttonStyle ? this.props.buttonStyle : "danger"}
+                disabled={!!this.props.buttonDisabled}
+                style={style}
+            >{this.props.buttonText}
+            </Button>;
+        const buttonWithToolTip =
+            <OverlayTrigger rootClose overlay={tooltip} placement="top">
+                <div style={{ display: 'inline-block', cursor: 'not-allowed', float: 'right' }}>
+                    {button}</div></OverlayTrigger>;
+
+
         return (
             <React.Fragment>
-                <Button
-                    onClick={this.handleOpening}
-                    bsStyle={this.props.buttonStyle ? this.props.buttonStyle : "danger"}
-                    disabled={this.props.buttonDisabled ? true : false} >
-                    {this.props.buttonText}
-                </Button>
+                {this.props.tooltipMessage ? buttonWithToolTip : button}
                 <Modal show={this.state.show} onHide={this.handleClose} >
                     <Modal.Header>
                         <Modal.Title>{this.props.modalTitle}</Modal.Title>
                     </Modal.Header>
-
                     <Modal.Body>
                         {this.props.modalBody ?
                             <Alert bsStyle="danger">
@@ -58,7 +76,7 @@ class ButtonWithConfirmationModal extends React.Component {
                         <Button id="cancel" onClick={this.handleClose}>{this.props.cancelButtonText ? this.props.cancelButtonText : "Cancel"}</Button>
                     </Modal.Footer>
                 </Modal>
-            </React.Fragment>
+            </React.Fragment >
         );
     }
 }

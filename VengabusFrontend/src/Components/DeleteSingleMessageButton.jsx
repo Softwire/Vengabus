@@ -58,17 +58,22 @@ class DeleteSingleMessageButton extends React.Component {
     }
 
     render() {
-        let buttonText = <span>Delete Message <Glyphicon glyph="trash" /></span>;
-        return <ButtonWithConfirmationModal
-            id={"alertDeleteSingleMessage"}
-            buttonText={buttonText}
-            modalTitle="Delete message"
-            modalBody={this.generateModalWarningBody()}
-            confirmButtonText={"Delete"}
-            afterShowModalAction={this.showModalAction}
-            confirmAction={this.getOnDeletionConfirmedHandler()}
-            afterCloseModalAction={() => {}}
-        />;
+        const buttonText = <span>Delete Message <Glyphicon glyph="trash" /></span>;
+        const tooltipMessage = "Deleting single live message is not supported! Check the backend API for more info.";
+        const deletionIsSupported = this.props.messageType === EndpointTypes.DEADLETTER;
+        return (
+            <ButtonWithConfirmationModal
+                id={"alertDeleteSingleMessage"}
+                buttonText={buttonText}
+                modalTitle="Delete message"
+                modalBody={this.generateModalWarningBody()}
+                confirmButtonText={"Delete"}
+                afterShowModalAction={this.showModalAction}
+                confirmAction={this.getOnDeletionConfirmedHandler()}
+                afterCloseModalAction={() => { }}
+                buttonDisabled={!deletionIsSupported}
+                tooltipMessage={deletionIsSupported ? undefined : tooltipMessage}
+            />);
     }
 }
 
