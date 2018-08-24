@@ -33,8 +33,8 @@ class DeleteSingleMessageButton extends React.Component {
         }
 
         const onDeletionConfirmed = () => {
-            if (this.props.spinnerWhileMessageIsDeleted)
-                this.props.spinnerWhileMessageIsDeleted();
+            if (this.props.showSpinnerWhileMessageIsDeleted)
+                this.props.showSpinnerWhileMessageIsDeleted();
             deleteMessage().then(() => {
                 if (this.props.closeParentModal) {
                     this.props.closeParentModal();

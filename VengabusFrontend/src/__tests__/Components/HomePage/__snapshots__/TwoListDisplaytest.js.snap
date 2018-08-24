@@ -181,7 +181,7 @@ exports[`renders correctly after data is added 1`] = `
             <p
               className="emotion-3"
             >
-              No data has been retrieved yet.
+               No data to show.
             </p>
           </DataTable>
         </QueueList>
@@ -288,7 +288,7 @@ exports[`renders correctly after data is added 1`] = `
             <p
               className="emotion-3"
             >
-              No data has been retrieved yet.
+               No data to show.
             </p>
           </DataTable>
         </TopicList>
@@ -392,7 +392,7 @@ exports[`renders correctly before data is added 1`] = `
       <p
         className="emotion-2"
       >
-        No data has been retrieved yet.
+         No data to show.
       </p>
     </div>
     <div
@@ -424,7 +424,7 @@ exports[`renders correctly before data is added 1`] = `
       <p
         className="emotion-2"
       >
-        No data has been retrieved yet.
+         No data to show.
       </p>
     </div>
   </div>

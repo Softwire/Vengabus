@@ -69,7 +69,7 @@ export class MessageBox extends Component {
         this.setState(defaultState);
     }
 
-    spinnerWhileMessageIsDeleted = () => {
+    showSpinnerWhileMessageIsDeleted = () => {
         this.setState({ spinner: true });
     }
 
@@ -190,7 +190,7 @@ export class MessageBox extends Component {
                                 parentName={this.props.endpointParent}
                                 endpointName={this.props.endpointName}
                                 closeParentModal={this.closeMessageModalAndReloadMessageTable}
-                                spinnerWhileMessageIsDeleted={this.spinnerWhileMessageIsDeleted}
+                                showSpinnerWhileMessageIsDeleted={this.showSpinnerWhileMessageIsDeleted}
                                 disabled={buttonsDisabled}
                             />
                             <CopyTextButton text={message.messageBody} id="messageBoxCopy" />
