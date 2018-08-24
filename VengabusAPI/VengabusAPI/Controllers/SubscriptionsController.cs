@@ -50,18 +50,9 @@ namespace VengabusAPI.Controllers
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
             SubscriptionDescription description = namespaceManager.GetSubscription(subData.topicName, subData.name);
-            ApplyDescriptionChanges(description, subData);
+            subData.ApplyChangesToDescription(description);
 
             namespaceManager.UpdateSubscription(description);
-        }
-
-        public void ApplyDescriptionChanges(SubscriptionDescription existingDescription, VengaSubscriptionUpload updateData)
-        {
-            existingDescription.Status = updateData.subscriptionStatus;
-            existingDescription.AutoDeleteOnIdle = updateData.autoDeleteOnIdle.AsTimeSpan();
-            existingDescription.EnableDeadLetteringOnMessageExpiration = updateData.enableDeadLetteringOnMessageExpiration;
-            existingDescription.MaxDeliveryCount = updateData.maxDeliveryCount;
-            existingDescription.RequiresSession = updateData.requiresSession;
         }
 
         [HttpDelete]

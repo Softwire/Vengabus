@@ -38,6 +38,16 @@ namespace VengabusAPI.Models
         public TimeSpanFromFrontend autoDeleteOnIdle { get; set; }
         public bool requiresDuplicateDetection { get; set; }
         public long maxSizeInMegabytes { get; set; }
+
+        public void ApplyChangesToDescription(TopicDescription existingDescription)
+        {
+            existingDescription.SupportOrdering = supportOrdering;
+            existingDescription.EnablePartitioning = enablePartitioning;
+            existingDescription.AutoDeleteOnIdle = autoDeleteOnIdle.AsTimeSpan();
+            existingDescription.Status = topicStatus;
+            existingDescription.RequiresDuplicateDetection = requiresDuplicateDetection;
+            existingDescription.MaxSizeInMegabytes = maxSizeInMegabytes;
+        }
     }
 
 }

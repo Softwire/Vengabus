@@ -39,20 +39,9 @@ namespace VengabusAPI.Controllers
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
             TopicDescription description = namespaceManager.GetTopic(topicData.name);
-            ApplyDescriptionChanges(description, topicData);
+            topicData.ApplyChangesToDescription(description);
 
             namespaceManager.UpdateTopic(description);
-        }
-
-        public void ApplyDescriptionChanges(TopicDescription existingDescription, VengaTopicUpload updateData)
-        {
-            existingDescription.SupportOrdering = updateData.supportOrdering;
-            existingDescription.EnablePartitioning = updateData.enablePartitioning;
-            existingDescription.AutoDeleteOnIdle = updateData.autoDeleteOnIdle.AsTimeSpan();
-            existingDescription.Status = updateData.topicStatus;
-            existingDescription.RequiresDuplicateDetection = updateData.requiresDuplicateDetection;
-            existingDescription.MaxSizeInMegabytes = updateData.maxSizeInMegabytes;
-
         }
 
         [HttpPost]

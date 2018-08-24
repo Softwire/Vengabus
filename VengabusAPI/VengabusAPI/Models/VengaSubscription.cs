@@ -41,6 +41,15 @@ namespace VengabusAPI.Models
         public bool enableDeadLetteringOnMessageExpiration { get; set; }
         public int maxDeliveryCount { get; set; }
         public bool requiresSession { get; set; }
+
+        public void ApplyChangesToDescription(SubscriptionDescription existingDescription)
+        {
+            existingDescription.Status = subscriptionStatus;
+            existingDescription.AutoDeleteOnIdle = autoDeleteOnIdle.AsTimeSpan();
+            existingDescription.EnableDeadLetteringOnMessageExpiration = enableDeadLetteringOnMessageExpiration;
+            existingDescription.MaxDeliveryCount = maxDeliveryCount;
+            existingDescription.RequiresSession = requiresSession;
+        }
     }
 
 }

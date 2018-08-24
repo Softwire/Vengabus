@@ -52,5 +52,19 @@ namespace VengabusAPI.Models
         public long maxSizeInMegabytes { get; set; }
         public bool requiresDuplicateDetection { get; set; }
         public EntityStatus status { get; set; }
+
+        public void ApplyChangesToDescription(QueueDescription existingDescription)
+        {
+            existingDescription.SupportOrdering = supportOrdering;
+            existingDescription.RequiresSession = requiresSession;
+            existingDescription.EnablePartitioning = enablePartitioning;
+            existingDescription.AutoDeleteOnIdle = autoDeleteOnIdle.AsTimeSpan();
+            existingDescription.EnableDeadLetteringOnMessageExpiration = enableDeadLetteringOnMessageExpiration;
+            existingDescription.MaxDeliveryCount = maxDeliveryCount;
+            existingDescription.MaxSizeInMegabytes = maxSizeInMegabytes;
+            existingDescription.RequiresDuplicateDetection = requiresDuplicateDetection;
+            existingDescription.Status = status;
+        }
+
     }
 }

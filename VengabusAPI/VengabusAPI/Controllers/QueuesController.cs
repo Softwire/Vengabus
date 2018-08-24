@@ -51,23 +51,9 @@ namespace VengabusAPI.Controllers
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
             QueueDescription description = namespaceManager.GetQueue(queueData.name);
-            ApplyDescriptionChanges(description, queueData);
+            queueData.ApplyChangesToDescription(description);
 
             namespaceManager.UpdateQueue(description);
-        }
-
-        public void ApplyDescriptionChanges(QueueDescription existingDescription, VengaQueueUpload updateData)
-        {
-            existingDescription.SupportOrdering = updateData.supportOrdering;
-            existingDescription.RequiresSession = updateData.requiresSession;
-            existingDescription.EnablePartitioning = updateData.enablePartitioning;
-            existingDescription.AutoDeleteOnIdle = updateData.autoDeleteOnIdle.AsTimeSpan();
-            existingDescription.EnableDeadLetteringOnMessageExpiration =
-                updateData.enableDeadLetteringOnMessageExpiration;
-            existingDescription.MaxDeliveryCount = updateData.maxDeliveryCount;
-            existingDescription.MaxSizeInMegabytes = updateData.maxSizeInMegabytes;
-            existingDescription.RequiresDuplicateDetection = updateData.requiresDuplicateDetection;
-            existingDescription.Status = updateData.status;
         }
 
         [HttpPost]
