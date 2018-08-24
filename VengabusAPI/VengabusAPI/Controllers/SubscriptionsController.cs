@@ -43,28 +43,26 @@ namespace VengabusAPI.Controllers
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
             SubscriptionDescription description = namespaceManager.GetSubscription(subData.topicName, subData.name);
-            description = UpdateDescription(description, subData);
+            ApplyDescriptionChanges(description, subData);
 
             namespaceManager.UpdateSubscription(description);
         }
 
-        [HttpPost]
+        public void ApplyDescriptionChanges(SubscriptionDescription existingDescription, VengaSubscriptionUpload updateData)
+        {
+            existingDescription.Status = updateData.subscriptionStatus;
+            existingDescription.AutoDeleteOnIdle = updateData.autoDeleteOnIdle.AsTimeSpan();
+            existingDescription.EnableDeadLetteringOnMessageExpiration = updateData.enableDeadLetteringOnMessageExpiration;
+            existingDescription.MaxDeliveryCount = updateData.maxDeliveryCount;
+            existingDescription.RequiresSession = updateData.requiresSession;
+        }
+
+        [HttpDelete]
         [Route("subscriptions/delete/{topicName}/{subscriptionName}")]
         public void DeleteQueue(string topicName, string subscriptionName)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
             namespaceManager.DeleteSubscription(topicName, subscriptionName);
-        }
-
-        public SubscriptionDescription UpdateDescription(SubscriptionDescription description, VengaSubscriptionUpload subData)
-        {
-            description.Status = subData.subscriptionStatus;
-            description.AutoDeleteOnIdle = subData.autoDeleteOnIdle.AsTimeSpan();
-            description.EnableDeadLetteringOnMessageExpiration = subData.enableDeadLetteringOnMessageExpiration;
-            description.MaxDeliveryCount = subData.maxDeliveryCount;
-            description.RequiresSession = subData.requiresSession;
-
-            return description;
         }
 
         private DateTime? GetTimeStampOfMostRecentDeadletter(string topicName, string subscriptionName)

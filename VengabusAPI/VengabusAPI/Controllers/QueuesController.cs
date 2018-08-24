@@ -3,11 +3,9 @@ using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using System.Net.Sockets;
-using System.Reflection;
 using System.Web.Http;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
-using Newtonsoft.Json;
 using VengabusAPI.Models;
 using VengabusAPI.Services;
 
@@ -46,9 +44,23 @@ namespace VengabusAPI.Controllers
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
             QueueDescription description = namespaceManager.GetQueue(queueData.name);
-            description = UpdateDescription(description, queueData);
+            ApplyDescriptionChanges(description, queueData);
 
             namespaceManager.UpdateQueue(description);
+        }
+
+        public void ApplyDescriptionChanges(QueueDescription existingDescription, VengaQueueUpload updateData)
+        {
+            existingDescription.SupportOrdering = updateData.supportOrdering;
+            existingDescription.RequiresSession = updateData.requiresSession;
+            existingDescription.EnablePartitioning = updateData.enablePartitioning;
+            existingDescription.AutoDeleteOnIdle = updateData.autoDeleteOnIdle.AsTimeSpan();
+            existingDescription.EnableDeadLetteringOnMessageExpiration =
+                updateData.enableDeadLetteringOnMessageExpiration;
+            existingDescription.MaxDeliveryCount = updateData.maxDeliveryCount;
+            existingDescription.MaxSizeInMegabytes = updateData.maxSizeInMegabytes;
+            existingDescription.RequiresDuplicateDetection = updateData.requiresDuplicateDetection;
+            existingDescription.Status = updateData.status;
         }
 
         [HttpPost]
@@ -56,6 +68,11 @@ namespace VengabusAPI.Controllers
         public void RenameQueue([FromBody]Rename names)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
+            QueueDescription description = namespaceManager.GetQueue(names.oldName);
+            if (description.EnablePartitioning)
+            {
+                throw new Exception("Partitioned queues cannot be renamed.");
+            }
             namespaceManager.RenameQueue(names.oldName, names.newName);
         }
 
@@ -65,16 +82,6 @@ namespace VengabusAPI.Controllers
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
             namespaceManager.DeleteQueue(queueName);
-        }
-
-        public QueueDescription UpdateDescription(QueueDescription description, VengaQueueUpload queueData)
-        {
-            description.SupportOrdering = queueData.supportOrdering;
-            description.RequiresSession = queueData.requiresSession;
-            description.EnablePartitioning = queueData.enablePartitioning;
-            description.AutoDeleteOnIdle = queueData.autoDeleteOnIdle.AsTimeSpan();
-
-            return description;
         }
 
         private DateTime? GetTimeStampOfMostRecentDeadletter(string queueName)

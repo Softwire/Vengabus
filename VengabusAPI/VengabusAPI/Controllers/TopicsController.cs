@@ -39,9 +39,20 @@ namespace VengabusAPI.Controllers
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
             TopicDescription description = namespaceManager.GetTopic(topicData.name);
-            description = UpdateDescription(description, topicData);
+            ApplyDescriptionChanges(description, topicData);
 
             namespaceManager.UpdateTopic(description);
+        }
+
+        public void ApplyDescriptionChanges(TopicDescription existingDescription, VengaTopicUpload updateData)
+        {
+            existingDescription.SupportOrdering = updateData.supportOrdering;
+            existingDescription.EnablePartitioning = updateData.enablePartitioning;
+            existingDescription.AutoDeleteOnIdle = updateData.autoDeleteOnIdle.AsTimeSpan();
+            existingDescription.Status = updateData.topicStatus;
+            existingDescription.RequiresDuplicateDetection = updateData.requiresDuplicateDetection;
+            existingDescription.MaxSizeInMegabytes = updateData.maxSizeInMegabytes;
+
         }
 
         [HttpPost]
@@ -49,6 +60,11 @@ namespace VengabusAPI.Controllers
         public void RenameQueue([FromBody]Rename names)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
+            TopicDescription description = namespaceManager.GetTopic(names.oldName);
+            if (description.EnablePartitioning)
+            {
+                throw new Exception("Partitioned topics cannot be renamed.");
+            }
             namespaceManager.RenameTopic(names.oldName, names.newName);
         }
 
@@ -58,18 +74,6 @@ namespace VengabusAPI.Controllers
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
             namespaceManager.DeleteTopic(topicName);
-        }
-
-        public TopicDescription UpdateDescription(TopicDescription description, VengaTopicUpload topicData)
-        {
-            description.SupportOrdering = topicData.supportOrdering;
-            description.EnablePartitioning = topicData.enablePartitioning;
-            description.AutoDeleteOnIdle = topicData.autoDeleteOnIdle.AsTimeSpan();
-            description.Status = topicData.topicStatus;
-            description.RequiresDuplicateDetection = topicData.requiresDuplicateDetection;
-            description.MaxSizeInMegabytes = topicData.maxSizeInMegabytes;
-
-            return description;
         }
 
     }

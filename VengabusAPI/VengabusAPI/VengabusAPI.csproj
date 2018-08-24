@@ -121,6 +121,7 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\LiveMessagesController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Helpers\MessageProperties.cs" />
     <Compile Include="Helpers\VengaBrokeredMessageConverter.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
