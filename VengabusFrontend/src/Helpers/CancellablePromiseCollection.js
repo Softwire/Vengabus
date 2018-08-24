@@ -1,11 +1,12 @@
-export class cancelablePromiseCollection {
+export class cancellablePromiseCollection {
     constructor() {
         this.trackedPromises = [];
     }
 
 
-    addNewPromise = (originalPromise) => {
+    addNewPromise = (originalPromise,argLabel) => {
         const prom = this.makeCancellable(originalPromise);
+        prom.label = argLabel;
         this.trackedPromises.push(prom);
         return prom;
     }
@@ -18,9 +19,19 @@ export class cancelablePromiseCollection {
         promise.cancel();
     }
 
-    cancelAllPromises = () => {
-        this.trackedPromises.forEach(promise => { promise.cancel();});
-        this.trackedPromises = [];
+    cancelAllPromises = (labelToCancel) => {
+        if(!labelToCancel){
+            this.trackedPromises.forEach(promise => { promise.cancel();});
+            this.trackedPromises = [];
+        } else {
+            //remove all of type
+            const trackedPromisesClone = [...this.trackedPromises];
+            trackedPromisesClone.forEach(promise => {
+                if (promise.label === labelToCancel) {
+                    this.cancelPromise(promise);
+                }
+            });
+        }
     }
 
     makeCancellable = (originalPromise) => {
