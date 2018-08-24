@@ -20,7 +20,7 @@ namespace VengabusAPI.Controllers
             var namespaceManager = CreateNamespaceManager();
             var azureSubscriptionsEnum =  namespaceManager.GetSubscriptions(topicName);
 
-            var subscriptions = azureSubscriptionsEnum.Select(s => new VengaSubscription(s, GetTimeStampOfMostRecentDeadletter(topicName, s.Name)));
+            var subscriptions = azureSubscriptionsEnum.Select(s => new VengaSubscription(s));
             return subscriptions.OrderBy(s => s.name, StringComparer.CurrentCultureIgnoreCase);
         }
 
@@ -29,24 +29,18 @@ namespace VengabusAPI.Controllers
         public VengaSubscription GetDetails(string parentTopicName, string subscriptionName)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
-            DateTime? timeStamp = GetTimeStampOfMostRecentDeadletter(parentTopicName, subscriptionName);
     
-            return new VengaSubscription(namespaceManager.GetSubscription(parentTopicName, subscriptionName), timeStamp);
+            return new VengaSubscription(namespaceManager.GetSubscription(parentTopicName, subscriptionName));
         }
 
-        private DateTime? GetTimeStampOfMostRecentDeadletter(string topicName, string subscriptionName)
+        [HttpGet]
+        [Route("subscriptions/{parentTopicName}/{subscriptionName}/mostRecentDeadletter")]
+        public DateTime? GetTimeStampOfMostRecentDeadletter(string parentTopicName, string subscriptionName)
         {
-            var endpoint = new SubscriptionDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), subscriptionName, topicName);
+            var endpoint = new SubscriptionDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), subscriptionName, parentTopicName);
             var deadLetterList = MessageServices.GetMessagesFromEndpoint(endpoint);
             var mostRecent = deadLetterList.OrderByDescending(x => x.EnqueuedTimeUtc).FirstOrDefault();
-            if (mostRecent != null)
-            {
-                return mostRecent.EnqueuedTimeUtc;
-            }
-            else
-            {
-                return null;
-            }
+            return mostRecent?.EnqueuedTimeUtc;
         }
 
 

@@ -15,12 +15,12 @@ export class SubscriptionList extends Component {
                 //needs to be cloned
                 subscriptionArray[i] = { ...subscriptionArray[i] };
                 const currentMessageArray = subscriptionArray[i];
-                if (currentMessageArray.mostRecentDeadLetter) {
+                if (currentMessageArray.mostRecentDeadLetter && currentMessageArray.mostRecentDeadLetterLoaded) {
                     currentMessageArray.mostRecentDeadLetter = formatTimeStamp(currentMessageArray.mostRecentDeadLetter);
                 }
             }
         }
-      
+
 
         const colProps = [
             {

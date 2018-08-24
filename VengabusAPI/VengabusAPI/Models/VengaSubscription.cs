@@ -5,19 +5,17 @@ namespace VengabusAPI.Models
 {
     public class VengaSubscription
     {
-        public VengaSubscription(SubscriptionDescription subscriptionFromAzure, DateTime? mostRecentDeadLetterArg)
+        public VengaSubscription(SubscriptionDescription subscriptionFromAzure)
         {
             name = subscriptionFromAzure.Name;
             activeMessageCount = subscriptionFromAzure.MessageCountDetails.ActiveMessageCount;
             deadletterMessageCount = subscriptionFromAzure.MessageCountDetails.DeadLetterMessageCount;
             subscriptionStatus = subscriptionFromAzure.Status;
-            mostRecentDeadLetter = mostRecentDeadLetterArg;
         }
 
         public string name { get; set; }
         public long activeMessageCount { get; set; }
         public long deadletterMessageCount { get; set; }
-        public DateTime? mostRecentDeadLetter { get; set; }
         public Microsoft.ServiceBus.Messaging.EntityStatus subscriptionStatus { get; set; }
     }
 

@@ -14,7 +14,7 @@ export class QueueList extends Component {
                 //needs to be cloned
                 queueArray[i] = { ...queueArray[i] };
                 const currentMessageArray = queueArray[i];
-                if (currentMessageArray.mostRecentDeadLetter) {
+                if (currentMessageArray.mostRecentDeadLetter && currentMessageArray.mostRecentDeadLetterLoaded) {
                     currentMessageArray.mostRecentDeadLetter = formatTimeStamp(currentMessageArray.mostRecentDeadLetter);
                 }
             }
