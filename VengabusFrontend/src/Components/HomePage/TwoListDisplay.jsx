@@ -17,7 +17,6 @@ export class TwoListDisplay extends Component {
         super(props);
         this.displayHistory = [];
         this.breadCrumbHistory = [{ name: "Home", type: undefined }];
-        this.messageButtonDisabled = false;
         this.promiseCollection = new cancellablePromiseCollection();
         this.state = {
             queueData: undefined,
@@ -41,7 +40,6 @@ export class TwoListDisplay extends Component {
 
     handleQueueRowClick = (e, row, rowIndex) => {
         this.breadCrumbHistory = [{ name: "Home", type: undefined }, { name: row.name, type: EndpointTypes.QUEUE }];
-        this.messageButtonDisabled = true;
         this.setState({
             messageData: undefined,
             rightTableType: EndpointTypes.MESSAGE
@@ -60,7 +58,6 @@ export class TwoListDisplay extends Component {
 
     handleSubscriptionRowClick = (e, row, rowIndex) => {
         this.breadCrumbHistory[2] = { name: row.name, type: EndpointTypes.SUBSCRIPTION };
-        this.messageButtonDisabled = true;
         this.setState({
             messageData: undefined,
             rightTableType: EndpointTypes.MESSAGE
@@ -164,14 +161,12 @@ export class TwoListDisplay extends Component {
         const wrappedFetchedDeadletterMessageData = this.promiseCollection.addNewPromise(fetchedDeadletterMessageData, EndpointTypes.DEADLETTER);
 
         wrappedFetchedMessageData.then((result) => {
-            this.messageButtonDisabled = false;
             this.setState({
                 messageData: result
             });
         }).catch(e => { if (!e.isCanceled) { console.log(e); } });
 
         wrappedFetchedDeadletterMessageData.then((result) => {
-            this.messageButtonDisabled = false;
             this.setState({
                 deadletterData: result
             });
