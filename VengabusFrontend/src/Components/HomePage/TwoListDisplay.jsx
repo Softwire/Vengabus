@@ -4,7 +4,7 @@ import { QueueList } from './QueueList';
 import { TopicList } from './TopicList';
 import { MessageList } from './MessageList';
 import { css } from 'react-emotion';
-import { Breadcrumb, Button, Tabs, Tab } from 'react-bootstrap';
+import { Breadcrumb, Tabs, Tab } from 'react-bootstrap';
 import { SubscriptionList } from './SubscriptionList';
 import { EndpointTypes, typeToTitle } from '../../Helpers/EndpointTypes';
 import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
@@ -198,17 +198,7 @@ getList = (isForRightHandList) => {
         typeOfData = currentLeftTable.type || EndpointTypes.QUEUE;
         currentSelection = currentLeftTable.name;
     }
-    const displayStyle = css`
-                    display: inline-block;
-                    margin:10px;
-                `;
 
-    const deadLetterToggleButtonStyle = css`
-                margin-right: 0px;
-                float: right;
-                margin: 9px;
-                width: 120px ;
-        `;
     const minHeightOfHeader = {
         "minHeight": "92px",
         "height": "92px"
