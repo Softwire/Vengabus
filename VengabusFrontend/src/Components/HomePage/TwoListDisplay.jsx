@@ -22,7 +22,7 @@ export class TwoListDisplay extends Component {
             queueData: undefined,
             topicData: undefined,
             subscriptionData: undefined,
-            messageData: undefined,
+            activeMessageData: undefined,
             deadletterData: undefined,
             rightTableType: EndpointTypes.TOPIC
         };
@@ -41,7 +41,7 @@ export class TwoListDisplay extends Component {
     handleQueueRowClick = (e, row, rowIndex) => {
         this.breadCrumbHistory = [{ name: "Home", type: undefined }, { name: row.name, type: EndpointTypes.QUEUE }];
         this.setState({
-            messageData: undefined,
+            activeMessageData: undefined,
             rightTableType: EndpointTypes.MESSAGE
         }, () => {
             this.updateEndpointMessageData();
@@ -59,7 +59,7 @@ export class TwoListDisplay extends Component {
     handleSubscriptionRowClick = (e, row, rowIndex) => {
         this.breadCrumbHistory[2] = { name: row.name, type: EndpointTypes.SUBSCRIPTION };
         this.setState({
-            messageData: undefined,
+            activeMessageData: undefined,
             rightTableType: EndpointTypes.MESSAGE
         }, () => {
             this.updateEndpointMessageData();
@@ -143,7 +143,7 @@ export class TwoListDisplay extends Component {
         let fetchedDeadletterMessageData;
 
         const leftTableType = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].type;
-        
+
         this.promiseCollection.cancelAllPromises(EndpointTypes.MESSAGE);
         this.promiseCollection.cancelAllPromises(EndpointTypes.DEADLETTER);
 
@@ -163,7 +163,7 @@ export class TwoListDisplay extends Component {
 
         wrappedFetchedMessageData.then((result) => {
             this.setState({
-                messageData: result
+                activeMessageData: result
             });
         }).catch(e => { if (!e.isCanceled) { console.log(e); } });
 
@@ -260,11 +260,11 @@ export class TwoListDisplay extends Component {
                 return (
                     <React.Fragment>
                         <div>
-                            <Tabs defaultActiveKey={false} id="Tabs" onSelect={this.handleMessageTabChange}>
-                                <Tab eventKey={false} title="Live Messages" >
+                            <Tabs defaultActiveKey={EndpointTypes.MESSAGE} id="Tabs" onSelect={this.handleMessageTabChange}>
+                                <Tab eventKey={EndpointTypes.MESSAGE} title="Live Messages" >
                                     <MessageList
                                         id='MessageTable'
-                                        messageData={this.state.messageData}
+                                        messageData={this.state.activeMessageData}
                                         messageType={typeOfData}
                                         endpointType={lastBreadCrumb.type}
                                         endpointName={lastBreadCrumb.name}
@@ -272,7 +272,7 @@ export class TwoListDisplay extends Component {
                                         headerStyle={minHeightOfHeader}
                                         refreshMessageTableHandler={() => {
                                             this.setState({
-                                                messageData: undefined,
+                                                activeMessageData: undefined,
                                                 deadletterData: undefined
                                             }, () => this.updateEndpointMessageData());
 
@@ -290,7 +290,7 @@ export class TwoListDisplay extends Component {
                                         headerStyle={minHeightOfHeader}
                                         refreshMessageTableHandler={() => {
                                             this.setState({
-                                                messageData: undefined,
+                                                activeMessageData: undefined,
                                                 deadletterData: undefined
                                             }, () => this.updateEndpointMessageData());
 
