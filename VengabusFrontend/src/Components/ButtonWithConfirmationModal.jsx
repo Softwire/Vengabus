@@ -20,10 +20,6 @@ class ButtonWithConfirmationModal extends React.Component {
     }
 
     handleConfirm = () => {
-        console.log(this.props.spinnerWhileMessageIsDeleted);
-        if (this.props.spinnerWhileMessageIsDeleted) {
-            this.props.spinnerWhileMessageIsDeleted();
-        }
         this.props.confirmAction();
         this.handleClose();
     }

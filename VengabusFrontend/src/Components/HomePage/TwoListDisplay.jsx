@@ -118,7 +118,15 @@ export class TwoListDisplay extends Component {
                 topicData: result,
                 topicDataLoading: false
             });
-        }).catch(e => { if (!e.isCanceled) { console.log(e); } });
+        }).catch(e => {
+            this.setState({
+                topicData: undefined,
+                topicDataLoading: false
+            });
+            if (!e.isCanceled) {
+                console.log(e);
+            }
+        });
     }
 
     updateTopicSubscriptionData = () => {
@@ -183,7 +191,15 @@ export class TwoListDisplay extends Component {
                 messageData: result,
                 messageDataLoding: false
             });
-        }).catch(e => { if (!e.isCanceled) { console.log(e); } });
+        }).catch(e => {
+            this.setState({
+                messageData: undefined,
+                messageDataLoding: false
+            });
+            if (!e.isCanceled) {
+                console.log(e);
+            }
+        });
     }
 
     resetInitialStateData = () => {
