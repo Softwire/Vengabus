@@ -147,7 +147,6 @@ export class TwoListDisplay extends Component {
         this.promiseCollection.cancelAllPromises(EndpointTypes.MESSAGE);
         this.promiseCollection.cancelAllPromises(EndpointTypes.DEADLETTER);
 
-
         if (leftTableType === EndpointTypes.QUEUE || typeof leftTableType === 'undefined') {
             const queueName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
             fetchedDeadletterMessageData = serviceBusService.listQueueDeadLetterMessages(queueName, messageCount);
@@ -158,6 +157,7 @@ export class TwoListDisplay extends Component {
             fetchedDeadletterMessageData = serviceBusService.listSubscriptionDeadLetterMessages(topicName, subscriptionName, messageCount);
             fetchedMessageData = serviceBusService.listSubscriptionMessages(topicName, subscriptionName, messageCount);
         }
+
         const wrappedFetchedMessageData = this.promiseCollection.addNewPromise(fetchedMessageData, EndpointTypes.MESSAGE);
         const wrappedFetchedDeadletterMessageData = this.promiseCollection.addNewPromise(fetchedDeadletterMessageData, EndpointTypes.DEADLETTER);
 
@@ -176,175 +176,175 @@ export class TwoListDisplay extends Component {
 
 
 
-resetInitialStateData = () => {
-    this.updateAllTopicData();
-    this.updateAllQueueData();
-    this.breadCrumbHistory = [{ name: "Home", type: undefined }];
-    this.setState({
-        rightTableType: EndpointTypes.TOPIC
-    });
-};
-
-
-
-getList = (isForRightHandList) => {
-    let typeOfData;
-    const currentLeftTable = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
-    let currentSelection;
-    if (isForRightHandList) {
-        typeOfData = this.state.rightTableType;
-    } else {
-        //if there is no history the currentLeftTable will be undefined
-        //if its undefined its undefined then its the original state and therefore should be queue
-        typeOfData = currentLeftTable.type || EndpointTypes.QUEUE;
-        currentSelection = currentLeftTable.name;
-    }
-
-    const minHeightOfHeader = {
-        "minHeight": "92px",
-        "height": "92px"
+    resetInitialStateData = () => {
+        this.updateAllTopicData();
+        this.updateAllQueueData();
+        this.breadCrumbHistory = [{ name: "Home", type: undefined }];
+        this.setState({
+            rightTableType: EndpointTypes.TOPIC
+        });
     };
 
-    switch (typeOfData) {
-        case EndpointTypes.QUEUE:
-            return (
-                <React.Fragment>
-                    <div>
-                        <h2 id='title'>{typeToTitle(EndpointTypes.QUEUE)}</h2>
-                    </div>
-                    <QueueList
-                        queueData={this.state.queueData}
-                        clickFunction={this.handleQueueRowClick}
-                        currentlySelectedName={currentSelection}
-                        id='QueueTable'
-                        headerStyle={minHeightOfHeader}
-                    />
-                </React.Fragment>
-            );
-        case EndpointTypes.TOPIC:
-            return (
-                <React.Fragment>
-                    <div>
-                        <h2 id='title'>{typeToTitle(EndpointTypes.TOPIC)}</h2>
-                    </div>
-                    <TopicList
-                        topicData={this.state.topicData}
-                        clickFunction={this.handleTopicRowClick}
-                        currentlySelectedName={currentSelection}
-                        id='TopicTable'
-                        headerStyle={minHeightOfHeader}
-                    />
-                </React.Fragment>
-            );
 
-        case EndpointTypes.SUBSCRIPTION:
-            return (
-                <React.Fragment>
-                    <div>
-                        <h2 id='title' >{typeToTitle(EndpointTypes.SUBSCRIPTION)}</h2>
-                    </div>
-                    <SubscriptionList
-                        subscriptionData={this.state.subscriptionData}
-                        clickFunction={this.handleSubscriptionRowClick}
-                        currentlySelectedName={currentSelection}
-                        id='SubscriptionTable'
-                        headerStyle={minHeightOfHeader}
-                    />
-                </React.Fragment>
-            );
-        case EndpointTypes.MESSAGE:
-        case EndpointTypes.DEADLETTER:
-            const lastBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
-            const penultimateBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 2];
-     
-            return (
-                <React.Fragment>
-                    <div>
-                        <Tabs defaultActiveKey={false} id="Tabs" onSelect={this.handleMessageTabChange}>
-                            <Tab eventKey={false} title="Live Messages" >
-                                <MessageList
-                                    id='MessageTable'
-                                    messageData={this.state.messageData}
-                                    messageType={typeOfData}
-                                    endpointType={lastBreadCrumb.type}
-                                    endpointName={lastBreadCrumb.name}
-                                    endpointParent={penultimateBreadCrumb.name}
-                                    headerStyle={minHeightOfHeader}
-                                    refreshMessageTableHandler={() => {
-                                        this.setState({
-                                            messageData: undefined,
-                                            deadletterData:undefined
-                                        }, () => this.updateEndpointMessageData());
 
-                                    }}
-                                />
-                            </Tab>
-                            <Tab eventKey={true} title="Deadletter Messages" >
-                                <MessageList
-                                    id='MessageTable'
-                                    messageData={this.state.deadletterData}
-                                    messageType={typeOfData}
-                                    endpointType={lastBreadCrumb.type}
-                                    endpointName={lastBreadCrumb.name}
-                                    endpointParent={penultimateBreadCrumb.name}
-                                    headerStyle={minHeightOfHeader}
-                                    refreshMessageTableHandler={() => {
-                                        this.setState({
-                                            messageData: undefined,
-                                            deadletterData: undefined
-                                        }, () => this.updateEndpointMessageData());
+    getList = (isForRightHandList) => {
+        let typeOfData;
+        const currentLeftTable = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
+        let currentSelection;
+        if (isForRightHandList) {
+            typeOfData = this.state.rightTableType;
+        } else {
+            //if there is no history the currentLeftTable will be undefined
+            //if its undefined its undefined then its the original state and therefore should be queue
+            typeOfData = currentLeftTable.type || EndpointTypes.QUEUE;
+            currentSelection = currentLeftTable.name;
+        }
 
-                                    }}
-                                />
-                            </Tab>
-                        </Tabs>
-                    </div>
+        const minHeightOfHeader = {
+            "minHeight": "92px",
+            "height": "92px"
+        };
 
-                </React.Fragment >
+        switch (typeOfData) {
+            case EndpointTypes.QUEUE:
+                return (
+                    <React.Fragment>
+                        <div>
+                            <h2 id='title'>{typeToTitle(EndpointTypes.QUEUE)}</h2>
+                        </div>
+                        <QueueList
+                            queueData={this.state.queueData}
+                            clickFunction={this.handleQueueRowClick}
+                            currentlySelectedName={currentSelection}
+                            id='QueueTable'
+                            headerStyle={minHeightOfHeader}
+                        />
+                    </React.Fragment>
+                );
+            case EndpointTypes.TOPIC:
+                return (
+                    <React.Fragment>
+                        <div>
+                            <h2 id='title'>{typeToTitle(EndpointTypes.TOPIC)}</h2>
+                        </div>
+                        <TopicList
+                            topicData={this.state.topicData}
+                            clickFunction={this.handleTopicRowClick}
+                            currentlySelectedName={currentSelection}
+                            id='TopicTable'
+                            headerStyle={minHeightOfHeader}
+                        />
+                    </React.Fragment>
+                );
 
-            );
-        default:
-            throw new Error('Invalid endpoint type.');
-    }
-}
+            case EndpointTypes.SUBSCRIPTION:
+                return (
+                    <React.Fragment>
+                        <div>
+                            <h2 id='title' >{typeToTitle(EndpointTypes.SUBSCRIPTION)}</h2>
+                        </div>
+                        <SubscriptionList
+                            subscriptionData={this.state.subscriptionData}
+                            clickFunction={this.handleSubscriptionRowClick}
+                            currentlySelectedName={currentSelection}
+                            id='SubscriptionTable'
+                            headerStyle={minHeightOfHeader}
+                        />
+                    </React.Fragment>
+                );
+            case EndpointTypes.MESSAGE:
+            case EndpointTypes.DEADLETTER:
+                const lastBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
+                const penultimateBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 2];
 
-HandleBreadCrumbClick = (type, newLength) => {
-    switch (type) {
-        case (EndpointTypes.QUEUE):
-            this.breadCrumbHistory = this.breadCrumbHistory.slice(0, newLength + 1);
-            this.updateAllQueueData();
-            this.updateEndpointMessageData();
-            this.setState({
-                rightTableType: EndpointTypes.MESSAGE
-            });
-            break;
-        case (EndpointTypes.TOPIC):
-            this.breadCrumbHistory = this.breadCrumbHistory.slice(0, newLength + 1);
-            this.updateAllTopicData();
-            this.updateTopicSubscriptionData();
-            this.setState({
-                rightTableType: EndpointTypes.SUBSCRIPTION
-            });
-            break;
-        case (EndpointTypes.SUBSCRIPTION):
-            this.breadCrumbHistory = this.breadCrumbHistory.slice(0, newLength + 1);
-            this.updateTopicSubscriptionData();
-            this.updateEndpointMessageData();
-            this.setState({
-                rightTableType: EndpointTypes.MESSAGE
-            });
-            break;
-        default:
-            this.breadCrumbHistory = this.breadCrumbHistory.slice(0, newLength + 1);
-            this.resetInitialStateData();
-            break;
+                return (
+                    <React.Fragment>
+                        <div>
+                            <Tabs defaultActiveKey={false} id="Tabs" onSelect={this.handleMessageTabChange}>
+                                <Tab eventKey={false} title="Live Messages" >
+                                    <MessageList
+                                        id='MessageTable'
+                                        messageData={this.state.messageData}
+                                        messageType={typeOfData}
+                                        endpointType={lastBreadCrumb.type}
+                                        endpointName={lastBreadCrumb.name}
+                                        endpointParent={penultimateBreadCrumb.name}
+                                        headerStyle={minHeightOfHeader}
+                                        refreshMessageTableHandler={() => {
+                                            this.setState({
+                                                messageData: undefined,
+                                                deadletterData: undefined
+                                            }, () => this.updateEndpointMessageData());
+
+                                        }}
+                                    />
+                                </Tab>
+                                <Tab eventKey={true} title="Deadletter Messages" >
+                                    <MessageList
+                                        id='MessageTable'
+                                        messageData={this.state.deadletterData}
+                                        messageType={typeOfData}
+                                        endpointType={lastBreadCrumb.type}
+                                        endpointName={lastBreadCrumb.name}
+                                        endpointParent={penultimateBreadCrumb.name}
+                                        headerStyle={minHeightOfHeader}
+                                        refreshMessageTableHandler={() => {
+                                            this.setState({
+                                                messageData: undefined,
+                                                deadletterData: undefined
+                                            }, () => this.updateEndpointMessageData());
+
+                                        }}
+                                    />
+                                </Tab>
+                            </Tabs>
+                        </div>
+
+                    </React.Fragment >
+
+                );
+            default:
+                throw new Error('Invalid endpoint type.');
+        }
     }
 
-}
+    HandleBreadCrumbClick = (type, newLength) => {
+        switch (type) {
+            case (EndpointTypes.QUEUE):
+                this.breadCrumbHistory = this.breadCrumbHistory.slice(0, newLength + 1);
+                this.updateAllQueueData();
+                this.updateEndpointMessageData();
+                this.setState({
+                    rightTableType: EndpointTypes.MESSAGE
+                });
+                break;
+            case (EndpointTypes.TOPIC):
+                this.breadCrumbHistory = this.breadCrumbHistory.slice(0, newLength + 1);
+                this.updateAllTopicData();
+                this.updateTopicSubscriptionData();
+                this.setState({
+                    rightTableType: EndpointTypes.SUBSCRIPTION
+                });
+                break;
+            case (EndpointTypes.SUBSCRIPTION):
+                this.breadCrumbHistory = this.breadCrumbHistory.slice(0, newLength + 1);
+                this.updateTopicSubscriptionData();
+                this.updateEndpointMessageData();
+                this.setState({
+                    rightTableType: EndpointTypes.MESSAGE
+                });
+                break;
+            default:
+                this.breadCrumbHistory = this.breadCrumbHistory.slice(0, newLength + 1);
+                this.resetInitialStateData();
+                break;
+        }
+
+    }
 
 
-getBreadcrumbElement = () => {
-    const breadCrumbStyle = css`
+    getBreadcrumbElement = () => {
+        const breadCrumbStyle = css`
         &.breadcrumb{
           float: left;
             height:${sharedSizesAndDimensions.BREADCRUMBS_HEIGHT}px;
@@ -352,56 +352,56 @@ getBreadcrumbElement = () => {
         }
         `;
 
-    const breadcrumbItems = this.breadCrumbHistory.map((breadCrumb, i) => {
-        return (<Breadcrumb.Item id={this.breadCrumbHistory[i].name} onClick={() => this.HandleBreadCrumbClick(breadCrumb.type, i)} active={(i === this.breadCrumbHistory.length - 1)} key={i}>
-            {this.breadCrumbHistory[i].name}
-        </Breadcrumb.Item>);
-    });
-    const areOnHomePage = (this.breadCrumbHistory.length === 1);
+        const breadcrumbItems = this.breadCrumbHistory.map((breadCrumb, i) => {
+            return (<Breadcrumb.Item id={this.breadCrumbHistory[i].name} onClick={() => this.HandleBreadCrumbClick(breadCrumb.type, i)} active={(i === this.breadCrumbHistory.length - 1)} key={i}>
+                {this.breadCrumbHistory[i].name}
+            </Breadcrumb.Item>);
+        });
+        const areOnHomePage = (this.breadCrumbHistory.length === 1);
 
-    if (!areOnHomePage) {
-        breadcrumbItems.push(
-            (<Breadcrumb.Item key={breadcrumbItems.length} active>
-                {typeToTitle(this.state.rightTableType)}
-            </Breadcrumb.Item>)
+        if (!areOnHomePage) {
+            breadcrumbItems.push(
+                (<Breadcrumb.Item key={breadcrumbItems.length} active>
+                    {typeToTitle(this.state.rightTableType)}
+                </Breadcrumb.Item>)
+            );
+        }
+
+        return (
+            <Breadcrumb className={breadCrumbStyle}>
+                {breadcrumbItems}
+            </Breadcrumb>
         );
     }
 
-    return (
-        <Breadcrumb className={breadCrumbStyle}>
-            {breadcrumbItems}
-        </Breadcrumb>
-    );
-}
+    render() {
+        const tableMarginPixels = 15;
 
-render() {
-    const tableMarginPixels = 15;
-
-    const displayStyle = css`
+        const displayStyle = css`
             width: calc(50% - ${tableMarginPixels * 2}px);
             margin-left:${tableMarginPixels}px;
             margin-right:${tableMarginPixels}px;
             display: inline-block; /*to allow tables to be displayed side by side*/
         `;
 
-    const outerDivDisplay = css`
+        const outerDivDisplay = css`
             display: block;
             `;
 
-    const breadCrumbDisplay = css`
+        const breadCrumbDisplay = css`
             display: block;
             height:${sharedSizesAndDimensions.BREADCRUMBS_HEIGHT}px;
             margin:2px;
             `;
 
-    const minWidth = css`
+        const minWidth = css`
             min-width:1000px;
         `;
 
-    const areOnHomePage = (this.breadCrumbHistory.length === 1);
-    const totalDiff = sharedSizesAndDimensions.DEFAULT_HEADER_HEIGHT + sharedSizesAndDimensions.BREADCRUMBS_HEIGHT + sharedSizesAndDimensions.BOTTOM_GUTTERING;
+        const areOnHomePage = (this.breadCrumbHistory.length === 1);
+        const totalDiff = sharedSizesAndDimensions.DEFAULT_HEADER_HEIGHT + sharedSizesAndDimensions.BREADCRUMBS_HEIGHT + sharedSizesAndDimensions.BOTTOM_GUTTERING;
 
-    const line = css`
+        const line = css`
             border-left: 1px solid black;
             display : ${(areOnHomePage) ? "inline-block" : "none"};
             height : calc(100% - ${totalDiff}px); 
@@ -409,27 +409,27 @@ render() {
             z-index: -1;
         `;
 
-    const leftBox = this.getList();
-    const rightBox = this.getList(true);
+        const leftBox = this.getList();
+        const rightBox = this.getList(true);
 
 
 
-    return (
-        <div className={minWidth} >
-            <div className={breadCrumbDisplay} >
-                {this.getBreadcrumbElement()}
-            </div>
-            <div className={outerDivDisplay}>
-                <div className={displayStyle} id="left">
-                    {leftBox}
+        return (
+            <div className={minWidth} >
+                <div className={breadCrumbDisplay} >
+                    {this.getBreadcrumbElement()}
                 </div>
-                <div className={line} />
-                <div className={displayStyle} id="right">
-                    {rightBox}
+                <div className={outerDivDisplay}>
+                    <div className={displayStyle} id="left">
+                        {leftBox}
+                    </div>
+                    <div className={line} />
+                    <div className={displayStyle} id="right">
+                        {rightBox}
+                    </div>
                 </div>
             </div>
-        </div>
-    );
-}
+        );
+    }
 }
 
