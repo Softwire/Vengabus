@@ -37,7 +37,7 @@ Array [
                 <th
                     style={
                         Object {
-                            "width": "34%",
+                            "width": "31%",
                           }
                     }
                 >
@@ -46,7 +46,7 @@ Array [
                 <th
                     style={
                         Object {
-                            "width": "33%",
+                            "width": "30%",
                           }
                     }
                 >
@@ -55,11 +55,20 @@ Array [
                 <th
                     style={
                         Object {
-                            "width": "33%",
+                            "width": "30%",
                           }
                     }
                 >
                     Status
+                </th>
+                <th
+                    style={
+                        Object {
+                            "width": "9%",
+                          }
+                    }
+                >
+                     
                 </th>
             </tr>
         </thead>
@@ -87,6 +96,21 @@ Array [
                 >
                     okay
                 </td>
+                <td
+                    onClick={[Function]}
+                >
+                    <button
+                        aria-label="Edit"
+                        className="btn btn-xs btn-default"
+                        disabled={false}
+                        onClick={[Function]}
+                        type="button"
+                    >
+                        <span
+                            className="glyphicon glyphicon-pencil"
+                        />
+                    </button>
+                </td>
             </tr>
             <tr
                 className="emotion-0 emotion-1"
@@ -110,6 +134,21 @@ Array [
                     onClick={[Function]}
                 >
                     okay
+                </td>
+                <td
+                    onClick={[Function]}
+                >
+                    <button
+                        aria-label="Edit"
+                        className="btn btn-xs btn-default"
+                        disabled={false}
+                        onClick={[Function]}
+                        type="button"
+                    >
+                        <span
+                            className="glyphicon glyphicon-pencil"
+                        />
+                    </button>
                 </td>
             </tr>
         </tbody>

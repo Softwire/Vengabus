@@ -112,7 +112,7 @@ exports[`renders correctly after data is added 1`] = `
                     "height": "92px",
                     "minHeight": "92px",
                   },
-                  "width": 25,
+                  "width": 23,
                 },
                 Object {
                   "align": "right",
@@ -121,7 +121,7 @@ exports[`renders correctly after data is added 1`] = `
                     "height": "92px",
                     "minHeight": "92px",
                   },
-                  "width": 25,
+                  "width": 23,
                 },
                 Object {
                   "align": "right",
@@ -130,15 +130,21 @@ exports[`renders correctly after data is added 1`] = `
                     "height": "92px",
                     "minHeight": "92px",
                   },
-                  "width": 25,
+                  "width": 23,
                 },
                 Object {
                   "dataField": "mostRecentDeadLetter",
+                  "width": 23,
+                },
+                Object {
+                  "dataField": "",
+                  "formatter": [Function],
                   "headerStyle": Object {
                     "height": "92px",
                     "minHeight": "92px",
                   },
-                  "width": 25,
+                  "text": " ",
+                  "width": 8,
                 },
               ]
             }
@@ -221,7 +227,7 @@ exports[`renders correctly after data is added 1`] = `
                     "height": "92px",
                     "minHeight": "92px",
                   },
-                  "width": 34,
+                  "width": 31,
                 },
                 Object {
                   "align": "right",
@@ -230,16 +236,22 @@ exports[`renders correctly after data is added 1`] = `
                     "height": "92px",
                     "minHeight": "92px",
                   },
-                  "width": 33,
+                  "width": 30,
                 },
                 Object {
                   "dataField": "topicStatus",
+                  "text": "Status",
+                  "width": 30,
+                },
+                Object {
+                  "dataField": "",
+                  "formatter": [Function],
                   "headerStyle": Object {
                     "height": "92px",
                     "minHeight": "92px",
                   },
-                  "text": "Status",
-                  "width": 33,
+                  "text": " ",
+                  "width": 9,
                 },
               ]
             }

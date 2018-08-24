@@ -37,7 +37,7 @@ Array [
                 <th
                     style={
                         Object {
-                            "width": "25%",
+                            "width": "23%",
                           }
                     }
                 >
@@ -46,7 +46,7 @@ Array [
                 <th
                     style={
                         Object {
-                            "width": "25%",
+                            "width": "23%",
                           }
                     }
                 >
@@ -55,7 +55,7 @@ Array [
                 <th
                     style={
                         Object {
-                            "width": "25%",
+                            "width": "23%",
                           }
                     }
                 >
@@ -64,11 +64,20 @@ Array [
                 <th
                     style={
                         Object {
-                            "width": "25%",
+                            "width": "23%",
                           }
                     }
                 >
                     Most Recent Dead Letter
+                </th>
+                <th
+                    style={
+                        Object {
+                            "width": "8%",
+                          }
+                    }
+                >
+                     
                 </th>
             </tr>
         </thead>
@@ -104,6 +113,21 @@ Array [
                 <td
                     onClick={[Function]}
                 />
+                <td
+                    onClick={[Function]}
+                >
+                    <button
+                        aria-label="Edit"
+                        className="btn btn-xs btn-default"
+                        disabled={false}
+                        onClick={[Function]}
+                        type="button"
+                    >
+                        <span
+                            className="glyphicon glyphicon-pencil"
+                        />
+                    </button>
+                </td>
             </tr>
             <tr
                 className="emotion-0 emotion-1"
@@ -136,6 +160,21 @@ Array [
                 <td
                     onClick={[Function]}
                 />
+                <td
+                    onClick={[Function]}
+                >
+                    <button
+                        aria-label="Edit"
+                        className="btn btn-xs btn-default"
+                        disabled={false}
+                        onClick={[Function]}
+                        type="button"
+                    >
+                        <span
+                            className="glyphicon glyphicon-pencil"
+                        />
+                    </button>
+                </td>
             </tr>
             <tr
                 className="emotion-0 emotion-1"
@@ -168,6 +207,21 @@ Array [
                 <td
                     onClick={[Function]}
                 />
+                <td
+                    onClick={[Function]}
+                >
+                    <button
+                        aria-label="Edit"
+                        className="btn btn-xs btn-default"
+                        disabled={false}
+                        onClick={[Function]}
+                        type="button"
+                    >
+                        <span
+                            className="glyphicon glyphicon-pencil"
+                        />
+                    </button>
+                </td>
             </tr>
         </tbody>
     </table>

@@ -85,17 +85,20 @@ jest.mock('../../../AzureWrappers/VengaServiceBusService', () => ({
                 {
                     name: "testSubscriptions1",
                     activeMessageCount: 12,
-                    deadletterMessageCount: 17
+                    deadletterMessageCount: 17,
+                    topicName: 'testTopic'
                 },
                 {
                     name: "testSubscriptions2",
                     activeMessageCount: 13,
-                    deadletterMessageCount: 15
+                    deadletterMessageCount: 15,
+                    topicName: 'testTopic'
                 },
                 {
                     name: "testSubscriptions3",
                     activeMessageCount: 13,
-                    deadletterMessageCount: 18
+                    deadletterMessageCount: 18,
+                    topicName: 'testTopic'
                 }
             ]
             ) : Promise.reject();

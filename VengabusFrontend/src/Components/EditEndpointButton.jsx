@@ -60,7 +60,7 @@ export class EditTopicButton extends Component {
 }
 
 /**
- * @prop {string} subsctiptionName
+ * @prop {string} subscriptionName
  * @prop {string} parentTopic
  */
 export class EditSubscriptionButton extends Component {
