@@ -5,9 +5,9 @@ import { SubscriptionCrud } from '../Components/Crud/SubscriptionCrud';
 import { EndpointTypes } from '../Helpers/EndpointTypes';
 
 /**
- * @prop {string} selectedEndpoint
- * @prop {string} endpointType
- * @prop {string} parentTopic
+ * @prop {string} selectedEndpoint Name of the selected endpoint.
+ * @prop {string} endpointType The type of endpoint we are editing. Use EndpointTypes in Helpers.
+ * @prop {string} parentTopic The parent topic of the subscription being edited. Only required for subscriptions.
  */
 export class CrudPage extends Component {
 
