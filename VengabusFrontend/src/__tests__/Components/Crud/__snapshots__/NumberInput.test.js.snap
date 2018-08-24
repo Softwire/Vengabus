@@ -1,44 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly with given props 1`] = `
-.emotion-2 {
-  width: 14%;
+.emotion-0 {
+  width: 100px;
   float: left;
   padding-left: 5px;
 }
 
-.emotion-3 {
+.emotion-1 {
   padding-left: 10px;
 }
 
-.emotion-1 {
-  text-align: left;
-  padding-left: 15px;
+.emotion-2 {
+  display: inline-block;
+  vertical-align: middle;
+  padding-top: 15px;
 }
 
-.emotion-0 {
-  padding-left: 5px;
-}
-
-<div>
-  <p
+<div
+  className="emotion-2"
+>
+  <form
     className="emotion-1"
   >
-    numeric data
-    <span
-      className="emotion-0 glyphicon glyphicon-info-sign"
-      onBlur={[Function]}
-      onClick={null}
-      onFocus={[Function]}
-      onMouseOut={[Function]}
-      onMouseOver={[Function]}
-    />
-  </p>
-  <form
-    className="emotion-3"
-  >
     <div
-      className="emotion-2 form-group"
+      className="emotion-0 form-group"
     >
       <input
         className="form-control"

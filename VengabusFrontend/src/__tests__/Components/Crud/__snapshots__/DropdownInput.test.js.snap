@@ -1,25 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly with given props 1`] = `
-.emotion-1 {
+.emotion-9 {
   text-align: left;
   padding-left: 15px;
 }
 
-.emotion-0 {
-  padding-left: 5px;
-}
-
-.emotion-12 {
-  width: 20%;
-}
-
 .emotion-10 {
+  width: 150px;
+}
+
+.emotion-11 {
+  display: inline-block;
+  vertical-align: middle;
+  padding-top: 2px;
+}
+
+.emotion-8 {
   position: relative;
   box-sizing: border-box;
 }
 
-.emotion-9 {
+.emotion-7 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -49,11 +51,11 @@ exports[`renders correctly with given props 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-9:hover {
+.emotion-7:hover {
   border-color: hsl(0,0%,70%);
 }
 
-.emotion-4 {
+.emotion-2 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -74,7 +76,7 @@ exports[`renders correctly with given props 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-2 {
+.emotion-0 {
   color: #222;
   margin-left: 2px;
   margin-right: 2px;
@@ -90,7 +92,7 @@ exports[`renders correctly with given props 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-3 {
+.emotion-1 {
   margin: 2px;
   padding-bottom: 2px;
   padding-top: 2px;
@@ -99,7 +101,7 @@ exports[`renders correctly with given props 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-8 {
+.emotion-6 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -117,7 +119,7 @@ exports[`renders correctly with given props 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-5 {
+.emotion-3 {
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -128,7 +130,7 @@ exports[`renders correctly with given props 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-7 {
+.emotion-5 {
   color: hsl(0,0%,80%);
   display: -webkit-box;
   display: -webkit-flex;
@@ -140,11 +142,11 @@ exports[`renders correctly with given props 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-7:hover {
+.emotion-5:hover {
   color: hsl(0,0%,60%);
 }
 
-.emotion-6 {
+.emotion-4 {
   display: inline-block;
   fill: currentColor;
   line-height: 1;
@@ -152,40 +154,29 @@ exports[`renders correctly with given props 1`] = `
   stroke-width: 0;
 }
 
-<div>
-  <p
-    className="emotion-1"
-  >
-    dropdown data
-    <span
-      className="emotion-0 glyphicon glyphicon-info-sign"
-      onBlur={[Function]}
-      onClick={null}
-      onFocus={[Function]}
-      onMouseOut={[Function]}
-      onMouseOver={[Function]}
-    />
-  </p>
+<div
+  className="emotion-11"
+>
   <div
-    className="emotion-10 emotion-1 emotion-12"
+    className="emotion-8 emotion-9 emotion-10"
     id={undefined}
     onKeyDown={[Function]}
   >
     <div
-      className="emotion-9"
+      className="emotion-7"
       onMouseDown={[Function]}
       onTouchEnd={[Function]}
     >
       <div
-        className="emotion-4"
+        className="emotion-2"
       >
         <div
-          className="emotion-2"
+          className="emotion-0"
         >
           Active
         </div>
         <div
-          className="emotion-3"
+          className="emotion-1"
         >
           <div
             className=""
@@ -245,20 +236,20 @@ exports[`renders correctly with given props 1`] = `
         </div>
       </div>
       <div
-        className="emotion-8"
+        className="emotion-6"
       >
         <span
-          className="emotion-5"
+          className="emotion-3"
         />
         <div
           aria-hidden="true"
-          className="emotion-7"
+          className="emotion-5"
           onMouseDown={[Function]}
           onTouchEnd={[Function]}
         >
           <svg
             aria-hidden="true"
-            className="emotion-6"
+            className="emotion-4"
             focusable="false"
             height={20}
             viewBox="0 0 20 20"

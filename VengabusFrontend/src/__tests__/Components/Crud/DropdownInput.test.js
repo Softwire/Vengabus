@@ -5,16 +5,13 @@ import { Tooltip } from 'react-bootstrap';
 
 it('renders correctly with given props', () => {
     const options = [{ label: 'Active', value: 'Active' }, { label: 'Disabled', value: 'Disabled' }];
-    const tooltip =
-        <Tooltip id="tooltip">
-            Test tooltip.
-        </Tooltip>;
+    const tooltipText = 'Test tooltip.';
     let checkboxInput = renderer.create(
         <DropdownInput
-            data="Active"
+            inputData="Active"
             text="dropdown data"
             onChange={() => { }}
-            tooltip={tooltip}
+            tooltipText={tooltipText}
             options={options}
         />
     );

@@ -1,51 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly with given props 1`] = `
-.emotion-3 {
-  width: 14%;
+.emotion-10 {
+  padding-left: 10px;
+}
+
+.emotion-11 {
+  display: inline-block;
+  vertical-align: middle;
+  padding-bottom: 10px;
+}
+
+.emotion-1 {
+  width: 100px;
   float: left;
   padding-left: 5px;
 }
 
-.emotion-12 {
-  padding-left: 10px;
-}
-
-.emotion-2 {
+.emotion-0 {
   font-weight: normal;
 }
 
-.emotion-1 {
-  text-align: left;
-  padding-left: 15px;
-}
-
-.emotion-0 {
-  padding-left: 5px;
-}
-
-<div>
-  <p
-    className="emotion-1"
-  >
-    time span data
-    <span
-      className="emotion-0 glyphicon glyphicon-info-sign"
-      onBlur={[Function]}
-      onClick={null}
-      onFocus={[Function]}
-      onMouseOut={[Function]}
-      onMouseOver={[Function]}
-    />
-  </p>
+<div
+  className="emotion-11"
+>
   <form
-    className="emotion-12"
+    className="emotion-10"
   >
     <div
-      className="emotion-3 form-group"
+      className="emotion-1 form-group"
     >
       <label
-        className="emotion-2 control-label"
+        className="emotion-0 control-label"
         htmlFor={undefined}
       >
         Days
@@ -54,16 +40,16 @@ exports[`renders correctly with given props 1`] = `
         className="form-control"
         id={undefined}
         onChange={[Function]}
-        placeholder="Enter Days"
+        placeholder="Days"
         type="number"
         value={30}
       />
     </div>
     <div
-      className="emotion-3 form-group"
+      className="emotion-1 form-group"
     >
       <label
-        className="emotion-2 control-label"
+        className="emotion-0 control-label"
         htmlFor={undefined}
       >
         Hours
@@ -72,16 +58,16 @@ exports[`renders correctly with given props 1`] = `
         className="form-control"
         id={undefined}
         onChange={[Function]}
-        placeholder="Enter Hours"
+        placeholder="Hours"
         type="number"
         value={12}
       />
     </div>
     <div
-      className="emotion-3 form-group"
+      className="emotion-1 form-group"
     >
       <label
-        className="emotion-2 control-label"
+        className="emotion-0 control-label"
         htmlFor={undefined}
       >
         Minutes
@@ -90,16 +76,16 @@ exports[`renders correctly with given props 1`] = `
         className="form-control"
         id={undefined}
         onChange={[Function]}
-        placeholder="Enter Minutes"
+        placeholder="Minutes"
         type="number"
         value={45}
       />
     </div>
     <div
-      className="emotion-3 form-group"
+      className="emotion-1 form-group"
     >
       <label
-        className="emotion-2 control-label"
+        className="emotion-0 control-label"
         htmlFor={undefined}
       >
         Seconds
@@ -108,16 +94,16 @@ exports[`renders correctly with given props 1`] = `
         className="form-control"
         id={undefined}
         onChange={[Function]}
-        placeholder="Enter Seconds"
+        placeholder="Seconds"
         type="number"
         value={5}
       />
     </div>
     <div
-      className="emotion-3 form-group"
+      className="emotion-1 form-group"
     >
       <label
-        className="emotion-2 control-label"
+        className="emotion-0 control-label"
         htmlFor={undefined}
       >
         Milliseconds
@@ -126,7 +112,7 @@ exports[`renders correctly with given props 1`] = `
         className="form-control"
         id={undefined}
         onChange={[Function]}
-        placeholder="Enter Milliseconds"
+        placeholder="Milliseconds"
         type="number"
         value={0}
       />

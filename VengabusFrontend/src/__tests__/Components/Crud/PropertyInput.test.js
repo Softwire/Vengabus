@@ -27,7 +27,7 @@ afterAll(resetConsoleError);
 it('renders with the correct component for bool data', () => {
     let wrapper = mount(
         <PropertyInput
-            data
+            inputData
             text="bool data"
             onChange={() => { }}
         />
@@ -38,7 +38,7 @@ it('renders with the correct component for bool data', () => {
 it('renders with the correct component for numeric data', () => {
     let wrapper = mount(
         <PropertyInput
-            data={42}
+            inputData={42}
             text="numeric data"
             onChange={() => { }}
         />
@@ -50,7 +50,7 @@ it('renders with the correct component for string data', () => {
     const options = [{ label: 'Active', value: 'Active' }, { label: 'Disabled', value: 'Disabled' }];
     let wrapper = mount(
         <PropertyInput
-            data="Active"
+            inputData="Active"
             text="string data"
             onChange={() => { }}
             options={options}
@@ -60,7 +60,7 @@ it('renders with the correct component for string data', () => {
 });
 
 it('renders with the correct component for time span object data', () => {
-    const data = {
+    const inputData = {
         days: 30,
         hours: 12,
         minutes: 45,
@@ -69,10 +69,10 @@ it('renders with the correct component for time span object data', () => {
     };
     let wrapper = mount(
         <PropertyInput
-            data={data}
+            inputData={inputData}
             text="time span data"
             onChange={() => { }}
-            componentType={TimeSpanInput}
+            complexInputComponentType={TimeSpanInput}
         />
     );
     expect(wrapper.find(TimeSpanInput)).toHaveLength(1);
@@ -82,7 +82,7 @@ it('throws descriptive error if missing options for string input', () => {
     function func() {
         mount(
             <PropertyInput
-                data="Active"
+                inputData="Active"
                 text="string data"
                 onChange={() => { }}
             />
@@ -92,7 +92,7 @@ it('throws descriptive error if missing options for string input', () => {
 });
 
 it('throws descriptive error if missing componentType for object input', () => {
-    const data = {
+    const inputData = {
         days: 30,
         hours: 12,
         minutes: 45,
@@ -102,7 +102,7 @@ it('throws descriptive error if missing componentType for object input', () => {
     function func() {
         mount(
             <PropertyInput
-                data={data}
+                inputData={inputData}
                 text="object data"
                 onChange={() => { }}
             />
@@ -112,11 +112,11 @@ it('throws descriptive error if missing componentType for object input', () => {
 });
 
 it('throws descriptive error for unexpected data types', () => {
-    const data = () => { };
+    const inputData = () => { };
     function func() {
         mount(
             <PropertyInput
-                data={data}
+                inputData={inputData}
                 text="object data"
                 onChange={() => { }}
             />

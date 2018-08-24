@@ -4,23 +4,20 @@ import renderer from 'react-test-renderer';
 import { Tooltip } from 'react-bootstrap';
 
 it('renders correctly with given props', () => {
-    const data = {
+    const inputData = {
         days: 30,
         hours: 12,
         minutes: 45,
         seconds: 5,
         milliseconds: 0
     };
-    const tooltip =
-        <Tooltip id="tooltip">
-            Test tooltip.
-        </Tooltip>;
+    const tooltipText = 'Test tooltip.';
     let checkboxInput = renderer.create(
         <TimeSpanInput
-            data={data}
+            inputData={inputData}
             text="time span data"
             onChange={() => { }}
-            tooltip={tooltip}
+            tooltipText={tooltipText}
         />
     );
     expect(checkboxInput.toJSON()).toMatchSnapshot();

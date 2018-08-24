@@ -1,31 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly with given props 1`] = `
-.emotion-1 {
+.emotion-0 {
   text-align: left;
   padding-left: 15px;
 }
 
-.emotion-0 {
-  padding-left: 5px;
+.emotion-1 {
+  display: inline-block;
+  vertical-align: middle;
+  padding-top: 2px;
 }
 
-<div>
-  <p
-    className="emotion-1"
-  >
-    bool data
-    <span
-      className="emotion-0 glyphicon glyphicon-info-sign"
-      onBlur={[Function]}
-      onClick={null}
-      onFocus={[Function]}
-      onMouseOut={[Function]}
-      onMouseOver={[Function]}
-    />
-  </p>
+<div
+  className="emotion-1"
+>
   <div
-    className="emotion-1 checkbox"
+    className="emotion-0 checkbox"
     style={undefined}
   >
     <label
