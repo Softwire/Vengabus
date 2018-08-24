@@ -3,9 +3,7 @@ import { MessageList } from '../Components/HomePage/MessageList';
 import { css } from 'react-emotion';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import { Button } from 'react-bootstrap';
-import { PurgeMessagesButton } from '../Components/PurgeMessagesButton';
 import { EndpointTypes } from '../Helpers/EndpointTypes';
-import { pageSwitcher, PAGES } from './PageSwitcherService';
 
 export class DemoPage extends Component {
     constructor(props) {
@@ -99,15 +97,6 @@ sit amet \nthat was a newline`
                     </Button>
                     <br />
 
-                    <Button onClick={() => pageSwitcher.switchToPage(PAGES.CrudPage, { endpointType: EndpointTypes.QUEUE, selectedEndpoint: 'mkdemoqueue' })}>
-                        Edit mkdemoqueue
-                    </Button>
-                    <Button onClick={() => pageSwitcher.switchToPage(PAGES.CrudPage, { endpointType: EndpointTypes.TOPIC, selectedEndpoint: 'demotopic1' })}>
-                        Edit demotopic1
-                    </Button>
-                    <Button onClick={() => pageSwitcher.switchToPage(PAGES.CrudPage, { endpointType: EndpointTypes.SUBSCRIPTION, selectedEndpoint: 'demosubscription1', parentTopic: 'demotopic1' })}>
-                        Edit demosubscription1
-                    </Button>
                 </div>
 
                 <div className={queueDivStyle}>
@@ -120,11 +109,6 @@ sit amet \nthat was a newline`
                             handleClose={() => { }}
                             refreshMessageTableHandler={() => { }} />
                     </div>
-                    {/*qq delete the text in Button once implemented properly*/}
-                    <PurgeMessagesButton id="purgeQueueMessage" type={EndpointTypes.QUEUE} endpointName={queueName} />
-                    <PurgeMessagesButton id="purgeTopicMessage" type={EndpointTypes.TOPIC} endpointName={topicName} />
-                    <PurgeMessagesButton id="purgeSubscriptionMessage" type={EndpointTypes.SUBSCRIPTION} endpointName={subscriptionName} parentName={topicName} />
-
                 </div>
             </div >
         );
