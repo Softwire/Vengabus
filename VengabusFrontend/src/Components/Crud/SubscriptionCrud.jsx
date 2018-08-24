@@ -14,16 +14,19 @@ export class SubscriptionCrud extends Component {
             parentTopic: this.props.parentTopic,
             subscriptionData: undefined,
             newSubscriptionData: undefined,
-            receivedData: false
+            receivedData: false,
+            mostRecentDeadletter: undefined
         };
     }
 
     componentDidMount = () => {
         this.serviceBusService = serviceBusConnection.getServiceBusService();
-
+        this.serviceBusService.getSubscriptionMostRecentDeadletter(this.state.parentTopic, this.state.selectedSubscription).then(result => {
+            result = formatTimeStamp(result);
+            this.setState({ mostRecentDeadLetter: result });
+        });
         this.serviceBusService.getSubscriptionDetails(this.state.parentTopic, this.state.selectedSubscription).then((result) => {
             result.autoDeleteOnIdle = parseTimeSpanFromBackend(result.autoDeleteOnIdle);
-            if (result.mostRecentDeadLetter) { result.mostRecentDeadLetter = formatTimeStamp(result.mostRecentDeadLetter); }
             this.setState({ subscriptionData: result, newSubscriptionData: result, receivedData: true });
         });
     }
@@ -33,13 +36,13 @@ export class SubscriptionCrud extends Component {
      * @returns {object} Display name and display value pairs for read-only properties.
      */
     getEditableAndReadOnlyProperties = () => {
-        const { activeMessageCount, deadletterMessageCount, mostRecentDeadLetter, topicName } = this.state.newSubscriptionData;
+        const { activeMessageCount, deadletterMessageCount, topicName } = this.state.newSubscriptionData;
         const readOnlyPropertiesTemplate = {
             // text in the left column: value in the right column
             "Parent Topic": topicName,
             "Active Message Count": activeMessageCount,
             "Deadletter Message Count": deadletterMessageCount,
-            "Most Recent Deadletter": mostRecentDeadLetter
+            "Most Recent Deadletter": this.state.mostRecentDeadLetter
         };
         // Transform into a format that is supported by DataTable
         const readOnlyProperties = Object.entries(readOnlyPropertiesTemplate).map(([key, value]) => ({ name: key, value: value }));

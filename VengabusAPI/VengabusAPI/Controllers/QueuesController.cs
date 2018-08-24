@@ -37,6 +37,13 @@ namespace VengabusAPI.Controllers
         [HttpGet]
         [Route("queues/{queueName}/mostRecentDeadletter")]
         public DateTime? GetTimeStampOfMostRecentDeadletter(string queueName)
+        {
+            var endpoint = new QueueDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName);
+            var deadLetterList = MessageServices.GetMessagesFromEndpoint(endpoint);
+            var mostRecent = deadLetterList.OrderByDescending(x => x.EnqueuedTimeUtc).FirstOrDefault();
+            return mostRecent?.EnqueuedTimeUtc;
+        }
+
         [HttpPost]
         [Route("queues/update")]
         public void UpdateQueue([FromBody]VengaQueueUpload queueData)
@@ -82,14 +89,6 @@ namespace VengabusAPI.Controllers
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
             namespaceManager.DeleteQueue(queueName);
-        }
-
-        private DateTime? GetTimeStampOfMostRecentDeadletter(string queueName)
-        {
-            var endpoint = new QueueDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName);
-            var deadLetterList = MessageServices.GetMessagesFromEndpoint(endpoint);
-            var mostRecent = deadLetterList.OrderByDescending(x => x.EnqueuedTimeUtc).FirstOrDefault();
-            return mostRecent?.EnqueuedTimeUtc;
         }
     }
 }

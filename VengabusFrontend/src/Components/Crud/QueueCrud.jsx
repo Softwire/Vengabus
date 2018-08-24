@@ -13,15 +13,19 @@ export class QueueCrud extends Component {
             selectedQueue: this.props.selectedQueue,
             queueData: undefined,
             newQueueData: undefined,
-            receivedData: false
+            receivedData: false,
+            mostRecentDeadletter: undefined
         };
     }
 
     componentDidMount = () => {
         this.serviceBusService = serviceBusConnection.getServiceBusService();
+        this.serviceBusService.getQueueMostRecentDeadletter(this.state.selectedQueue).then(result => {
+            result = formatTimeStamp(result);
+            this.setState({ mostRecentDeadletter: result });
+        });
         this.serviceBusService.getQueueDetails(this.state.selectedQueue).then((result) => {
             result.autoDeleteOnIdle = parseTimeSpanFromBackend(result.autoDeleteOnIdle);
-            if (result.mostRecentDeadLetter) { result.mostRecentDeadLetter = formatTimeStamp(result.mostRecentDeadLetter); }
             this.setState({ queueData: result, newQueueData: result, receivedData: true });
         });
     }
@@ -31,12 +35,12 @@ export class QueueCrud extends Component {
      * @returns {object} Display name and display value pairs for read-only properties.
      */
     getEditableAndReadOnlyProperties = () => {
-        const { activeMessageCount, deadletterMessageCount, mostRecentDeadLetter } = this.state.newQueueData;
+        const { activeMessageCount, deadletterMessageCount } = this.state.newQueueData;
         const readOnlyPropertiesTemplate = {
             // text in the left column: value in the right column
             "Active Message Count": activeMessageCount,
             "Deadletter Message Count": deadletterMessageCount,
-            "Most Recent Deadletter": mostRecentDeadLetter
+            "Most Recent Deadletter": this.state.mostRecentDeadLetter
         };
         // Transform into a format that is supported by DataTable
         const readOnlyProperties = Object.entries(readOnlyPropertiesTemplate).map(([key, value]) => ({ name: key, value: value }));

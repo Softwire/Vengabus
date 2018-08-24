@@ -36,6 +36,13 @@ namespace VengabusAPI.Controllers
         [HttpGet]
         [Route("subscriptions/{parentTopicName}/{subscriptionName}/mostRecentDeadletter")]
         public DateTime? GetTimeStampOfMostRecentDeadletter(string parentTopicName, string subscriptionName)
+        {
+            var endpoint = new SubscriptionDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), subscriptionName, parentTopicName);
+            var deadLetterList = MessageServices.GetMessagesFromEndpoint(endpoint);
+            var mostRecent = deadLetterList.OrderByDescending(x => x.EnqueuedTimeUtc).FirstOrDefault();
+            return mostRecent?.EnqueuedTimeUtc;
+        }
+
         [HttpPost]
         [Route("subscriptions/update")]
         public void UpdateQueue([FromBody]VengaSubscriptionUpload subData)
@@ -64,15 +71,5 @@ namespace VengabusAPI.Controllers
             NamespaceManager namespaceManager = CreateNamespaceManager();
             namespaceManager.DeleteSubscription(topicName, subscriptionName);
         }
-
-        private DateTime? GetTimeStampOfMostRecentDeadletter(string topicName, string subscriptionName)
-        {
-            var endpoint = new SubscriptionDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), subscriptionName, parentTopicName);
-            var deadLetterList = MessageServices.GetMessagesFromEndpoint(endpoint);
-            var mostRecent = deadLetterList.OrderByDescending(x => x.EnqueuedTimeUtc).FirstOrDefault();
-            return mostRecent?.EnqueuedTimeUtc;
-        }
-
-
     }
 }

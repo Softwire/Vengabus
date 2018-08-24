@@ -3,7 +3,7 @@ import { css } from 'emotion';
 import { FormGroup, FormControl } from "react-bootstrap";
 
 /**
- * @prop {number} data The data that is set by the input.
+ * @prop {number} inputData The data that is set by the input.
  * @prop {function} onChange The function that is called when the value of the input is changed.
  */
 export class NumberInput extends Component {
@@ -29,7 +29,7 @@ export class NumberInput extends Component {
                     <FormGroup className={inputStyle}>
                         <FormControl
                             type="number"
-                            value={this.props.data}
+                            value={this.props.inputData}
                             placeholder="Enter Number"
                             onChange={(event) => this.props.onChange(parseInt(event.target.value, 10))}
                         />

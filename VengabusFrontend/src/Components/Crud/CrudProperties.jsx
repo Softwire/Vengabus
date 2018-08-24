@@ -109,8 +109,8 @@ export class CrudProperties extends Component {
             editablePropertyInputs.push(
                 <div key={`input${i}`}>
                     <InputLabel
-                        text={property.charAt(0).toUpperCase() + property.substr(1)}
-                        tooltip={this.getTooltips()[property]}
+                        propertyName={property.charAt(0).toUpperCase() + property.substr(1)}
+                        tooltipText={this.getTooltips()[property]}
                     />
                     <PropertyInput
                         inputData={this.props.newEndpointData[property]}
