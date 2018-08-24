@@ -14,8 +14,11 @@ namespace VengabusAPI.Controllers
         {
             Predicate<BrokeredMessage> deleteMessageChecker = (brokeredMessage) => true;
             var anyDeletions = MessageServices.DeleteSelectedMessagesFromEndpoint(endpoint, deleteMessageChecker);
-
-            throw new APIWarning("No messages were deleted. The endpoint may have been empty, or the messages may have already been consumed by another process.");
+            if (!anyDeletions)
+            {
+                throw new APIWarning(
+                    "No messages were deleted. The endpoint may have been empty, or the messages may have already been consumed by another process.");
+            }
         }
 
         protected void DeleteSingleMessageFromEndpoint(Endpoint endpoint, string messageId, string uniqueId)
@@ -46,11 +49,14 @@ and Abandoned enough times, (limit determined by 'Max Delivery Count' property)"
                     return false;
                 }
             };
-            MessageServices.DeleteSelectedMessagesFromEndpoint(endpoint, deleteMessageChecker);
-
-            throw new APIError(@"No messages were deleted. The intended messages may have already been consumed by another process.
+            var anyDeletions = MessageServices.DeleteSelectedMessagesFromEndpoint(endpoint, deleteMessageChecker);
+            if (!anyDeletions)
+            {
+                throw new APIError(
+                    @"No messages were deleted. The intended messages may have already been consumed by another process.
 
 Please reload the message list and try again.");
+            }
 
         }
 

@@ -52,7 +52,7 @@ namespace VengabusAPI.Services
             endpoint.SendMessage(message);
         }
 
-        public static void DeleteSelectedMessagesFromEndpoint(Endpoint endpoint, Predicate<BrokeredMessage> shouldDeleteThisMessage)
+        public static bool DeleteSelectedMessagesFromEndpoint(Endpoint endpoint, Predicate<BrokeredMessage> shouldDeleteThisMessage)
         {
             
             long defaultTimeout = 200;
@@ -77,6 +77,9 @@ namespace VengabusAPI.Services
 
             //a rigorous way to make sure that we only delete the messages that shall be deleted, and we don't hang forever
             DateTime dateTimeCutoff = DateTime.Now;
+
+            bool deleteAtLeastOneMessage = false;
+
             while (remainingMessagesToDelete > 0)
             {
                 BrokeredMessage message = getNextMessageWithRetries();
@@ -88,6 +91,7 @@ namespace VengabusAPI.Services
                 if (shouldDeleteThisMessage(message))
                 {
                     message.Complete();
+                    deleteAtLeastOneMessage = true;
                 }
                 else
                 {
@@ -96,6 +100,8 @@ namespace VengabusAPI.Services
                 
                 remainingMessagesToDelete--;
             }
+
+            return deleteAtLeastOneMessage;
         }
     }
 }
