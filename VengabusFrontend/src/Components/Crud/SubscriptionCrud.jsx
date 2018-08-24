@@ -21,7 +21,7 @@ export class SubscriptionCrud extends Component {
     componentDidMount = () => {
         this.serviceBusService = serviceBusConnection.getServiceBusService();
 
-        this.serviceBusService.getSubscriptionDetails(this.state.selectedSubscription).then((result) => {
+        this.serviceBusService.getSubscriptionDetails(this.state.parentTopic, this.state.selectedSubscription).then((result) => {
             result.autoDeleteOnIdle = parseTimeSpanFromBackend(result.autoDeleteOnIdle);
             if (result.mostRecentDeadLetter) { result.mostRecentDeadLetter = formatTimeStamp(result.mostRecentDeadLetter); }
             this.setState({ subscriptionData: result, newSubscriptionData: result, receivedData: true });
