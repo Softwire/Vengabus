@@ -7,6 +7,10 @@
 
 //QQ became obsolete after refactoring
 
+it('vacuous test to stop test engine complaining about empty file', () => {
+
+});
+
 // jest.mock('../../../AzureWrappers/VengaServiceBusService', () => ({
 //     VengaServiceBusService: class {
 //         constructor() {
