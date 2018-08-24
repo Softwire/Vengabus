@@ -80,14 +80,12 @@ export class TwoListDisplay extends Component {
             this.setState({
                 queueData: result.map((item) => ({ ...item, mostRecentDeadLetter: null }))
             });
-            let currentQueueData = result;
             for (let i = 0; i < result.length; i++) {
                 const getMostRecentDLPromise = this.promiseCollection.addNewPromise(serviceBusService.getMostRecentDeadletter(result[i].name), result[i].name);
-                getMostRecentDLPromise.then((timeResult) => {
-                    const mostRecentDeadLetterTimestamp = timeResult;
-                    currentQueueData[i].mostRecentDeadLetter = mostRecentDeadLetterTimestamp;
-                    this.setState({
-                        queueData: currentQueueData
+                getMostRecentDLPromise.then((timeStamp) => {
+                    this.setState(function (prevState, props) {
+                        prevState.queueData[i].mostRecentDeadLetter = timeStamp;
+                        return prevState;
                     });
                 }).catch((e) => { });
             }
