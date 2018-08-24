@@ -83,13 +83,6 @@ class ButtonWithConfirmationModal extends React.Component {
 
         return (
             <React.Fragment>
-                <Button
-                    className={this.props.className}
-                    onClick={this.handleOpening}
-                    bsStyle={this.props.buttonStyle ? this.props.buttonStyle : "danger"}
-                    disabled={this.props.buttonDisabled ? true : false} >
-                    {this.props.buttonText}
-                </Button>
                 {this.props.tooltipMessage ? buttonWithToolTip : button}
                 <Modal show={this.state.show} onHide={this.handleClose} >
                     <Modal.Header>

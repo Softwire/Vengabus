@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { ServiceBusInfoBox } from "./ServiceBusInfoBox";
 import { serviceBusConnection } from "../../AzureWrappers/ServiceBusConnection";
-import { ButtonWithConfirmationModal } from "./ButtonWithConfirmationModal";
+import { ButtonWithConfirmationModal } from "../ButtonWithConfirmationModal";
 import {
     FormGroup,
     FormControl,
@@ -225,13 +225,9 @@ export class ConnectionStringConfigForm extends Component {
 
         serviceBusConnection.promptUpdate();
 
-        infoPromise.then(response => {
-            this.setState({
-                //only update this when we actually connect to something.
-                connectedTo: activeConnectionString
-            });
-        }).catch(error => {
-            console.log(error);
+        this.setState({
+            //only update this when we actually connect to something.
+            connectedTo: activeConnectionString
         });
     };
 
@@ -305,6 +301,7 @@ export class ConnectionStringConfigForm extends Component {
                     }
                     confirmButtonText={"Delete"}
                     confirmAction={this.deleteConnection}
+                    tooltipMessage={"Remove current connection string from local storage"}
                 />
                 {
                     //buttons want to grip on to the top of things not pretty so add a break to separate
