@@ -21,11 +21,18 @@ export class AxiosWithSAS {
      */
 
     errorHandler = (error) => {
-        console.log(error.response);
+
         if (error.response) {
+            console.log(error.response.data);
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
-            this.errorNotificationPopup(error.response.status + " " + error.response.statusText + ": " + error.response.data.exceptionMessage);
+            if (error.response.data.exceptionType === "VengabusAPI.Models.APIWarning") {
+                this.warningNotificationPopup(error.response.data.exceptionMessage);
+            } else if (error.response.data.exceptionType === "VengabusAPI.Models.APIInfo") {
+                this.infoNotificationPopup(error.response.data.exceptionMessage);
+            } else {
+                this.errorNotificationPopup(error.response.status + " " + error.response.statusText + ": " + error.response.data.exceptionMessage);
+            }
         } else if (error.request) {
             // The request was made but no response was received
             // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
@@ -44,6 +51,14 @@ export class AxiosWithSAS {
 
     errorNotificationPopup(message) {
         NotificationManager.error(message, "Error", 5000);
+    }
+
+    warningNotificationPopup(message) {
+        NotificationManager.warning(message, "Warning", 5000);
+    }
+
+    infoNotificationPopup(message) {
+        NotificationManager.info(message, "Info", 5000);
     }
 
     /**
