@@ -115,7 +115,7 @@ export class CrudProperties extends Component {
                     <PropertyInput
                         inputData={this.props.newEndpointData[property]}
                         onChange={(data) => this.props.handlePropertyChange(data, property)}
-                        componentType={this.getObjectPropertyToComponent()[property]}
+                        complexInputComponentType={this.getObjectPropertyToComponent()[property]}
                         options={this.getDropdownOptions()[property]}
                     />
                 </div>

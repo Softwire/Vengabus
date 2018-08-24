@@ -164,7 +164,7 @@ export class VengaServiceBusService {
      * @param {string} parentTopic Name of the parent topic of the subscription.
      */
     deleteSubscription = (name, parentTopic) => {
-        const url = this.apiRoot + 'subscriptions/delete/' + parentTopic + '/' + name;
+        const url = this.apiRoot + `subscriptions/delete/' + ${parentTopic} + '/' + ${name}`;
         this.axiosWithSAS.delete(url, null);
     }
 

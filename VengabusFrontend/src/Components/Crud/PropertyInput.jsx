@@ -7,13 +7,13 @@ import { DropdownInput } from './DropdownInput';
  * @prop {unknown} inputData Data modified by the input. Types boolean, string, number and object are supported.
  * @prop {function} onChange Function called when the value is changed.
  * @prop {Object <string, {label: string, value: any}>[]} options Only relevant if component type is Select. Format of the object is {label: display name, value: associated value}
- * @prop {class} componentType If type of data is object then type of input component will be determined by this.
+ * @prop {class} complexInputComponentType If type of data is object then type of input component will be determined by this.
  */
 export class PropertyInput extends Component {
 
     render() {
         const dataType = typeof this.props.inputData;
-        const { componentType: ComponentType, ...propsToPass } = this.props;
+        const { complexInputComponentType: ComplexInputComponentType, ...propsToPass } = this.props;
         switch (dataType) {
             case 'boolean':
                 return (
@@ -30,9 +30,9 @@ export class PropertyInput extends Component {
                     <DropdownInput {...propsToPass} />
                 );
             case 'object':
-                if (!ComponentType) { throw new Error(`for data types of object component type must be defined (in ${this.props.text})`); }
+                if (!ComplexInputComponentType) { throw new Error(`for data types of object component type must be defined (in ${this.props.text})`); }
                 return (
-                    <ComponentType {...propsToPass} />
+                    <ComplexInputComponentType {...propsToPass} />
                 );
             default:
                 throw new Error('unexpected data type : ' + dataType);

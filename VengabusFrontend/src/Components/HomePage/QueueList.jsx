@@ -8,12 +8,12 @@ import { EditQueueButton } from '../EditEndpointButton';
 export class QueueList extends Component {
 
     render() {
-        const queueProp = this.props.queueData;
-        let queueArray = queueProp ? [] : undefined;
-        if (queueProp) {
-            for (let i = 0; i < queueProp.length; i++) {
+        const originalQueueProps = this.props.queueData;
+        const queueArray = originalQueueProps ? [] : undefined;
+        if (originalQueueProps) {
+            for (let i = 0; i < originalQueueProps.length; i++) {
                 //needs to be cloned
-                queueArray.push({ ...queueProp[i] });
+                queueArray.push({ ...originalQueueProps[i] });
                 const currentMessageArray = queueArray[i];
                 if (currentMessageArray.mostRecentDeadLetter && currentMessageArray.mostRecentDeadLetterLoaded) {
                     currentMessageArray.mostRecentDeadLetter = formatTimeStamp(currentMessageArray.mostRecentDeadLetter);

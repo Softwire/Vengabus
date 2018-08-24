@@ -6,11 +6,11 @@ import { EditTopicButton } from '../EditEndpointButton';
 export class TopicList extends Component {
 
     render() {
-        const topicProps = this.props.topicData;
-        let topics = topicProps ? [] : undefined;
-        if (topicProps) {
-            for (let i = 0; i < topicProps.length; i++) {
-                topics.push({ ...topicProps[i] });
+        const originalTopicPorps = this.props.topicData;
+        const topics = originalTopicPorps ? [] : undefined;
+        if (originalTopicPorps) {
+            for (let i = 0; i < originalTopicPorps.length; i++) {
+                topics.push({ ...originalTopicPorps[i] });
             }
         }
 

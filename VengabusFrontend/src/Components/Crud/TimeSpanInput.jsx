@@ -33,7 +33,7 @@ export class TimeSpanInput extends Component {
                 <FormControl
                     type="number"
                     value={this.props.inputData[propertyName]}
-                    placeholder="Enter Days"
+                    placeholder={text}
                     onChange={(event) => this.props.onChange({ ...this.props.inputData, [propertyName]: parseInt(event.target.value, 10) })}
                 />
             </FormGroup>

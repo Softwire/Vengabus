@@ -8,12 +8,12 @@ import { EditSubscriptionButton } from '../EditEndpointButton';
 export class SubscriptionList extends Component {
 
     render() {
-        const subscriptionProp = this.props.subscriptionData;
-        let subscriptionArray = subscriptionProp ? [] : undefined;
-        if (subscriptionProp) {
-            for (let i = 0; i < subscriptionProp.length; i++) {
+        const originalSubscriptionProps = this.props.subscriptionData;
+        const subscriptionArray = originalSubscriptionProps ? [] : undefined;
+        if (originalSubscriptionProps) {
+            for (let i = 0; i < originalSubscriptionProps.length; i++) {
                 //needs to be cloned
-                subscriptionArray.push({ ...subscriptionProp[i] });
+                subscriptionArray.push({ ...originalSubscriptionProps[i] });
                 const currentMessageArray = subscriptionArray[i];
                 if (currentMessageArray.mostRecentDeadLetter && currentMessageArray.mostRecentDeadLetterLoaded) {
                     currentMessageArray.mostRecentDeadLetter = formatTimeStamp(currentMessageArray.mostRecentDeadLetter);
