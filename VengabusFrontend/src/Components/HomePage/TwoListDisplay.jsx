@@ -8,7 +8,7 @@ import { Breadcrumb, Button } from 'react-bootstrap';
 import { SubscriptionList } from './SubscriptionList';
 import { EndpointTypes, typeToTitle } from '../../Helpers/EndpointTypes';
 import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
-import { cancelablePromiseCollection } from '../../Helpers/CancelablePromiseCollection';
+import { cancellablePromiseCollection } from '../../Helpers/CancellablePromiseCollection';
 
 const messageCount = 500;
 
@@ -18,7 +18,7 @@ export class TwoListDisplay extends Component {
         this.displayHistory = [];
         this.breadCrumbHistory = [{ name: "Home", type: undefined }];
         this.messageButtonDisabled = false;
-        this.promiseCollection = new cancelablePromiseCollection();
+        this.promiseCollection = new cancellablePromiseCollection();
         this.state = {
             queueData: undefined,
             topicData: undefined,

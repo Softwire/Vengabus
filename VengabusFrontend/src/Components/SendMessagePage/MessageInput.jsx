@@ -6,7 +6,7 @@ import { MessageDestinationForm } from './MessageDestinationForm';
 import { ButtonWithConfirmationModal } from '../ButtonWithConfirmationModal';
 import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { ButtonGroup } from 'react-bootstrap';
-import { cancelablePromiseCollection } from '../../Helpers/CancelablePromiseCollection';
+import { cancellablePromiseCollection } from '../../Helpers/CancellablePromiseCollection';
 import _ from 'lodash';
 
 /** 
@@ -24,7 +24,7 @@ export class MessageInput extends Component {
     constructor(props) {
         super(props);
         const message = this.props.message;
-        this.promiseCollection = new cancelablePromiseCollection();
+        this.promiseCollection = new cancellablePromiseCollection();
         this.state = {
             permittedValues: [],
             availableTopics: [],
