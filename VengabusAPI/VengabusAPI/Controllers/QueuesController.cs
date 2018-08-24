@@ -41,14 +41,7 @@ namespace VengabusAPI.Controllers
             var endpoint = new QueueDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName);
             var deadLetterList = MessageServices.GetMessagesFromEndpoint(endpoint);
             var mostRecent = deadLetterList.OrderByDescending(x => x.EnqueuedTimeUtc).FirstOrDefault();
-            if (mostRecent != null)
-            {
-                return mostRecent.EnqueuedTimeUtc;
-            }
-            else
-            {
-                return null;
-            }
+            return mostRecent?.EnqueuedTimeUtc;
         }
     }
 }

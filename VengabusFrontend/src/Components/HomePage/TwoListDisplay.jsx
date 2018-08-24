@@ -81,7 +81,7 @@ export class TwoListDisplay extends Component {
                 queueData: result.map((item) => ({ ...item, mostRecentDeadLetter: null }))
             });
             for (let i = 0; i < result.length; i++) {
-                const getMostRecentDLPromise = this.promiseCollection.addNewPromise(serviceBusService.getMostRecentDeadletter(result[i].name), result[i].name);
+                const getMostRecentDLPromise = this.promiseCollection.addNewPromise(serviceBusService.getQueueMostRecentDeadletter(result[i].name), result[i].name);
                 getMostRecentDLPromise.then((timeStamp) => {
                     this.setState(function (prevState, props) {
                         prevState.queueData[i].mostRecentDeadLetter = timeStamp;
@@ -112,7 +112,16 @@ export class TwoListDisplay extends Component {
             this.setState({
                 subscriptionData: result
             });
-        }).catch(e => { if (!e.isCanceled) { console.log(e); } });
+            for (let i = 0; i < result.length; i++) {
+                const getMostRecentDLPromise = this.promiseCollection.addNewPromise(serviceBusService.getSubscriptionMostRecentDeadletter(topicName, result[i].name), topicName + '/' + result[i].name);
+                getMostRecentDLPromise.then((timeStamp) => {
+                    this.setState(function (prevState, props) {
+                        prevState.subscriptionData[i].mostRecentDeadLetter = timeStamp;
+                        return prevState;
+                    });
+                }).catch((e) => { });
+            }
+        }).catch(e => { });
     }
 
 
