@@ -23,6 +23,11 @@ export class TimeSpanInput extends Component {
             width: 100px;
             float: left;
             padding-left: 5px;
+            
+            /* input { /*qq commonise from NumberInput
+                height: auto;
+                padding: 1px 5px
+            } */
         `;
         const labelStyle = css`
             font-weight: normal;

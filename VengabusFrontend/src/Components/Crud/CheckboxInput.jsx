@@ -12,6 +12,10 @@ export class CheckboxInput extends Component {
         const leftAlign = css`
             text-align: left;
             padding-left: 15px;
+
+            /* &.checkbox {
+                margin: 0;
+            } */
         `;
         const divStyle = css`
             display: inline-block;

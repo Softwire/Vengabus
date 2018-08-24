@@ -13,6 +13,11 @@ export class NumberInput extends Component {
             width: 100px;
             float: left;
             padding-left: 5px;
+
+            /* input {
+            //     height: auto;
+            //     padding: 1px 5px
+            // }*/
         `;
         const formStyle = css`
             padding-left: 10px;
