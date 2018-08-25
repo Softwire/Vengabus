@@ -12,23 +12,19 @@ class ButtonWithConfirmationModal extends React.Component {
         this.state = defaultState;
     }
 
+    handleOpen = () => {
+        const afterOpen = (this.props.afterShowModalAction || (() => { }));
+        this.setState({ show: true }, afterOpen);
+    }
+
     handleConfirm = () => {
         this.props.confirmAction();
         this.handleClose();
     }
 
     handleClose = () => {
-        if (this.props.afterCloseModalAction) {
-            this.props.afterCloseModalAction();
-        }
-        this.setState(defaultState);
-    }
-
-    handleOpening = () => {
-        this.setState({ show: true });
-        if (this.props.afterShowModalAction) {
-            this.props.afterShowModalAction();
-        }
+        const afterClose = (this.props.afterCloseModalAction || (() => { }));
+        this.setState(defaultState, afterClose);
     }
 
     render() {
@@ -44,16 +40,20 @@ class ButtonWithConfirmationModal extends React.Component {
 
         const button =
             <Button
-                onClick={this.handleOpening}
-                bsStyle={this.props.buttonStyle ? this.props.buttonStyle : "danger"}
+                onClick={this.handleOpen}
+                bsStyle={this.props.buttonStyle || "danger"}
                 disabled={!!this.props.buttonDisabled}
                 style={style}
-            >{this.props.buttonText}
+            >
+                {this.props.buttonText}
             </Button>;
+
         const buttonWithToolTip =
             <OverlayTrigger rootClose overlay={tooltip} placement="top">
                 <div style={{ display: 'inline-block', cursor: 'not-allowed', float: 'right' }}>
-                    {button}</div></OverlayTrigger>;
+                    {button}
+                </div>
+            </OverlayTrigger>;
 
 
         return (
@@ -73,7 +73,7 @@ class ButtonWithConfirmationModal extends React.Component {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button id="confirm" onClick={this.handleConfirm} bsStyle="danger">{this.props.confirmButtonText}</Button>
-                        <Button id="cancel" onClick={this.handleClose}>{this.props.cancelButtonText ? this.props.cancelButtonText : "Cancel"}</Button>
+                        <Button id="cancel" onClick={this.handleClose}>{this.props.cancelButtonText || "Cancel"}</Button>
                     </Modal.Footer>
                 </Modal>
             </React.Fragment >
