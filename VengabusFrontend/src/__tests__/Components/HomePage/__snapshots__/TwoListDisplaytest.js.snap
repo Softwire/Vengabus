@@ -102,6 +102,7 @@ exports[`renders correctly after data is added 1`] = `
             }
           }
           id="QueueTable"
+          queueData={null}
         >
           <DataTable
             colProps={
@@ -140,6 +141,7 @@ exports[`renders correctly after data is added 1`] = `
                 },
               ]
             }
+            dataToDisplay={null}
             defaultHover={true}
             name="QueueList"
             onRowClick={[Function]}
@@ -152,36 +154,10 @@ exports[`renders correctly after data is added 1`] = `
             }
             uniqueKeyColumn="name"
           >
-            <FormGroup
-              bsClass="form-group"
-              controlId="searchBar"
-            >
-              <div
-                className="form-group"
-              >
-                <FormControl
-                  bsClass="form-control"
-                  componentClass="input"
-                  onChange={[Function]}
-                  placeholder="Search"
-                  type="input"
-                  value=""
-                >
-                  <input
-                    className="form-control"
-                    id="searchBar"
-                    onChange={[Function]}
-                    placeholder="Search"
-                    type="input"
-                    value=""
-                  />
-                </FormControl>
-              </div>
-            </FormGroup>
             <p
               className="emotion-3"
             >
-               No data to show.
+              Press "Connect" to load data.
             </p>
           </DataTable>
         </QueueList>
@@ -209,6 +185,7 @@ exports[`renders correctly after data is added 1`] = `
             }
           }
           id="TopicTable"
+          topicData={null}
         >
           <DataTable
             colProps={
@@ -247,6 +224,7 @@ exports[`renders correctly after data is added 1`] = `
                 },
               ]
             }
+            dataToDisplay={null}
             defaultHover={true}
             name="TopicList"
             onRowClick={[Function]}
@@ -259,36 +237,10 @@ exports[`renders correctly after data is added 1`] = `
             }
             uniqueKeyColumn="name"
           >
-            <FormGroup
-              bsClass="form-group"
-              controlId="searchBar"
-            >
-              <div
-                className="form-group"
-              >
-                <FormControl
-                  bsClass="form-control"
-                  componentClass="input"
-                  onChange={[Function]}
-                  placeholder="Search"
-                  type="input"
-                  value=""
-                >
-                  <input
-                    className="form-control"
-                    id="searchBar"
-                    onChange={[Function]}
-                    placeholder="Search"
-                    type="input"
-                    value=""
-                  />
-                </FormControl>
-              </div>
-            </FormGroup>
             <p
               className="emotion-3"
             >
-               No data to show.
+              Press "Connect" to load data.
             </p>
           </DataTable>
         </TopicList>
@@ -377,22 +329,10 @@ exports[`renders correctly before data is added 1`] = `
           Queues
         </h2>
       </div>
-      <div
-        className="form-group"
-      >
-        <input
-          className="form-control"
-          id="searchBar"
-          onChange={[Function]}
-          placeholder="Search"
-          type="input"
-          value=""
-        />
-      </div>
       <p
         className="emotion-2"
       >
-         No data to show.
+        Press "Connect" to load data.
       </p>
     </div>
     <div
@@ -409,22 +349,10 @@ exports[`renders correctly before data is added 1`] = `
           Topics
         </h2>
       </div>
-      <div
-        className="form-group"
-      >
-        <input
-          className="form-control"
-          id="searchBar"
-          onChange={[Function]}
-          placeholder="Search"
-          type="input"
-          value=""
-        />
-      </div>
       <p
         className="emotion-2"
       >
-         No data to show.
+        Press "Connect" to load data.
       </p>
     </div>
   </div>

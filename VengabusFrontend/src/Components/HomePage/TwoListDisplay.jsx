@@ -23,8 +23,8 @@ export class TwoListDisplay extends Component {
         this.state = {
             queueData: null,
             topicData: null,
-            subscriptionData: [],
-            messageData: [],
+            subscriptionData: null,
+            messageData: null,
             rightTableType: EndpointTypes.TOPIC
         };
     }
@@ -52,7 +52,6 @@ export class TwoListDisplay extends Component {
         this.breadCrumbHistory = [{ name: "Home", type: undefined }, { name: row.name, type: EndpointTypes.TOPIC }];
         this.setState({
             subscriptionData: undefined,
-            subscriptionDataLoading: true,
             rightTableType: EndpointTypes.SUBSCRIPTION
         }, this.updateTopicSubscriptionData);
     }
@@ -101,7 +100,7 @@ export class TwoListDisplay extends Component {
         }).catch((e) => {
             if (!e.isCanceled) {
                 this.setState({
-                    messageData: []
+                    queueData: []
                 });
             }
         });
@@ -113,13 +112,12 @@ export class TwoListDisplay extends Component {
         const fetchedTopicData = this.promiseCollection.addNewPromise(serviceBusService.listTopics(), EndpointTypes.TOPIC);
         fetchedTopicData.then(result => {
             this.setState({
-                topicData: result,
-                topicDataLoading: false
+                topicData: result
             });
         }).catch(e => {
             if (!e.isCanceled) {
                 this.setState({
-                    messageData: []
+                    topicData: []
                 });
             }
         });
@@ -132,8 +130,7 @@ export class TwoListDisplay extends Component {
         const fetchedSubscriptionData = this.promiseCollection.addNewPromise(serviceBusService.listSubscriptions(topicName), EndpointTypes.SUBSCRIPTION);
         fetchedSubscriptionData.then(result => {
             this.setState({
-                subscriptionData: result,
-                subscriptionDataLoading: false
+                subscriptionData: result
             });
             for (let i = 0; i < result.length; i++) {
                 const getMostRecentDLPromise = this.promiseCollection.addNewPromise(serviceBusService.getSubscriptionMostRecentDeadletter(topicName, result[i].name), topicName + '/' + result[i].name);
@@ -153,7 +150,7 @@ export class TwoListDisplay extends Component {
         }).catch(e => {
             if (!e.isCanceled) {
                 this.setState({
-                    messageData: []
+                    subscriptionData: []
                 });
             }
         });

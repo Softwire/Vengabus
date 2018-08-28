@@ -9,7 +9,7 @@ export class QueueList extends Component {
 
     render() {
         const originalQueueProps = this.props.queueData;
-        const queueArray = originalQueueProps ? [] : undefined;
+        const queueArray = originalQueueProps ? [] : originalQueueProps;
         if (originalQueueProps) {
             for (let i = 0; i < originalQueueProps.length; i++) {
                 //needs to be cloned

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Modal, Alert, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { Spinner } from './Spinner';
+import { css } from 'react-emotion';
 
 const defaultState = {
-    show: false,
-    disableButtons: false
+    show: false
 };
 
 class ButtonWithConfirmationModal extends React.Component {
@@ -34,9 +34,14 @@ class ButtonWithConfirmationModal extends React.Component {
         const internalAlertDialogStyle = this.props.modalInternalStyle || "danger";
         const internalConfirmButtonStyle = this.props.modalButtonStyle || internalAlertDialogStyle;
 
-        const style = this.props.tooltipMessage ? {
-            pointerEvents: 'none'
-        } : {};
+        const tooltipStyling = css`
+            cursor: not-allowed;
+            float: right;
+
+            button {
+                pointer-events: ${this.props.buttonDisabled ? 'none' : 'auto'};
+            }
+        `;
 
         const tooltip = (
             <Tooltip id="tooltip">
@@ -50,7 +55,6 @@ class ButtonWithConfirmationModal extends React.Component {
                 bsStyle={externalModalTriggerButtonStyle}
                 bsSize={this.props.buttonSize || undefined}
                 disabled={!!this.props.buttonDisabled}
-                style={style}
                 className={this.props.buttonCSS}
             >
                 {this.props.buttonText}
@@ -58,7 +62,7 @@ class ButtonWithConfirmationModal extends React.Component {
 
         const buttonWithToolTip =
             <OverlayTrigger rootClose overlay={tooltip} placement="top">
-                <div style={{ display: 'inline-block', cursor: 'not-allowed', float: 'right' }}>
+                <div className={tooltipStyling}>
                     {button}
                 </div>
             </OverlayTrigger>;
@@ -71,11 +75,9 @@ class ButtonWithConfirmationModal extends React.Component {
                         <Modal.Title>{this.props.modalTitle}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        {this.props.modalBody ?
-                            <Alert bsStyle={internalAlertDialogStyle}>
-                                {this.props.modalBody}
-                            </Alert > : <Spinner size={25} />
-                        }
+                        {this.props.modalBody
+                            ? (<Alert bsStyle={internalAlertDialogStyle}> {this.props.modalBody} </Alert >)
+                            : (<Spinner size={25} />)}
                         {this.props.children}
                     </Modal.Body>
                     <Modal.Footer>

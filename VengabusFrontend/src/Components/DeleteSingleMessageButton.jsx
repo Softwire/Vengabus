@@ -33,18 +33,13 @@ class DeleteSingleMessageButton extends React.Component {
         }
 
         const onDeletionConfirmed = () => {
-            if (this.props.showSpinnerWhileMessageIsDeleted)
-                this.props.showSpinnerWhileMessageIsDeleted();
-            deleteMessage().then(() => {
-                if (this.props.closeParentModal) {
-                    this.props.closeParentModal();
+            if (this.props.onDeletionStart)
+                this.props.onDeletionStart();
+            deleteMessage().catch(() => { }).finally(() => {
+                if (this.props.onDeletionEnd) {
+                    this.props.onDeletionEnd();
                 }
-            }).catch(() => {
-                if (this.props.closeParentModal) {
-                    this.props.closeParentModal();
-                }
-            }
-            );
+            });
         };
 
         return onDeletionConfirmed;

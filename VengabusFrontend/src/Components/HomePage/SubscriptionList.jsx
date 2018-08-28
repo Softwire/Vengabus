@@ -9,7 +9,7 @@ export class SubscriptionList extends Component {
 
     render() {
         const originalSubscriptionProps = this.props.subscriptionData;
-        const subscriptionArray = originalSubscriptionProps ? [] : undefined;
+        const subscriptionArray = originalSubscriptionProps ? [] : originalSubscriptionProps;
         if (originalSubscriptionProps) {
             for (let i = 0; i < originalSubscriptionProps.length; i++) {
                 //needs to be cloned

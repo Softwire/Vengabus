@@ -304,6 +304,30 @@ export class DataTable extends Component {
         //let { dataToDisplay, name, uniqueKeyColumn, colProps, rowEvents, onRowClick, selectRow, rowClasses, defaultHover, searchable, ...otherProps } = this.propsSnapshot ? JSON.parse(this.propsSnapshot) : this.props;
         //this.propsSnapshot = JSON.stringify(this.props);
 
+        const textAlign = css`
+            text-align:center;
+            float:left;
+            width:100%;
+        `;
+
+        if (this.props.dataToDisplay === undefined) {
+            return (
+                    <Spinner size={50} />
+            );
+        }
+
+        if (this.props.dataToDisplay === null) {
+            return (
+                    <p className={textAlign}>Press "Connect" to load data.</p>
+            );
+        }
+
+        if (this.props.dataToDisplay.length === 0) {
+            return (
+                    <p className={textAlign}>No data to show.</p>
+            );
+        }
+
         this.cloneProps = _.cloneDeep(this.props);
 
         let { dataToDisplay, name, uniqueKeyColumn, colProps, rowEvents, onRowClick, selectRow, rowClasses, defaultHover, searchable, paginated, ...otherProps } = this.cloneProps;
@@ -327,12 +351,6 @@ export class DataTable extends Component {
             finalRowClasses = this.configureRowClasses(defaultHover, rowClasses, finalRowEvents, finalSelectRow);
         }
 
-        const textAlign = css`
-            text-align:center;
-            float:left;
-            width:100%;
-        `;
-
         let searchBar = searchable ? (
             <FormGroup
                 controlId="searchBar"
@@ -345,33 +363,6 @@ export class DataTable extends Component {
                 />
             </FormGroup>
         ) : null;
-
-        if (dataToDisplay === undefined) {
-            return (
-                <React.Fragment>
-                    {searchBar}
-                    <Spinner size={50} />
-                </React.Fragment>
-            );
-        }
-
-        if (dataToDisplay === null) {
-            return (
-                <React.Fragment>
-                    {searchBar}
-                    <p className={textAlign}>Press "Connect" to load data.</p>
-                </React.Fragment>
-            );
-        }
-
-        if (dataToDisplay.length === 0) {
-            return (
-                <React.Fragment>
-                    {searchBar}
-                    <p className={textAlign}>No data to show.</p>
-                </React.Fragment>
-            );
-        }
 
         return (
             <React.Fragment>

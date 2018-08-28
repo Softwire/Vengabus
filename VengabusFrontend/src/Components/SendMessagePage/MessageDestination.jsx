@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { css } from 'react-emotion';
 import Select from 'react-select';
 import classNames from 'classnames';
-import { Spinner } from '../Spinner';
 
 export class MessageDestination extends Component {
 
@@ -64,18 +63,16 @@ export class MessageDestination extends Component {
                         <p>{this.props.destinationType}</p>
                     </div>
                 </div>
-                {this.props.availableDestinations.length !== 0 ?
-                    <Select
-                        isDisabled={!this.props.isSelected}
-                        className={dropdownStyle}
-                        title={this.props.destinationType}
-                        id={this.props.destinationType.toLowerCase() + "-dropdown"}
-                        options={this.props.availableDestinations}
-                        value={this.props.selectedDestination ? this.convertToValueLabel(this.props.selectedDestination) : undefined}
-                        onChange={(event) => this.props.handleDestinationChange(event.value)}
-                    /> :
-                    <Spinner className={dropdownStyle} size={20} />
-                }
+                <Select
+                    isDisabled={!this.props.isSelected}
+                    isLoading={this.props.availableDestinations.length === 0}
+                    className={dropdownStyle}
+                    title={this.props.destinationType}
+                    id={this.props.destinationType.toLowerCase() + "-dropdown"}
+                    options={this.props.availableDestinations}
+                    value={this.props.selectedDestination ? this.convertToValueLabel(this.props.selectedDestination) : undefined}
+                    onChange={(event) => this.props.handleDestinationChange(event.value)}
+                />
             </div>
         );
     }

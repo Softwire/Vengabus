@@ -63,13 +63,13 @@ export class MessageBox extends Component {
 
     closeMessageModalAndReloadMessageTable = () => {
         this.props.handleClose();
-        if (this.props.refreshMessageTableHandler) {
-            this.props.refreshMessageTableHandler();
+        if (this.props.onMessageBoxClose) {
+            this.props.onMessageBoxClose();
         }
         this.setState(defaultState);
     }
 
-    showSpinnerWhileMessageIsDeleted = () => {
+    enableSpinner = () => {
         this.setState({ spinner: true });
     }
 
@@ -189,8 +189,8 @@ export class MessageBox extends Component {
                                 messageType={this.props.messageType}
                                 parentName={this.props.endpointParent}
                                 endpointName={this.props.endpointName}
-                                closeParentModal={this.closeMessageModalAndReloadMessageTable}
-                                showSpinnerWhileMessageIsDeleted={this.showSpinnerWhileMessageIsDeleted}
+                                onDeletionEnd={this.closeMessageModalAndReloadMessageTable}
+                                onDeletionStart={this.enableSpinner}
                                 disabled={buttonsDisabled}
                             />
                             <CopyTextButton text={message.messageBody} id="messageBoxCopy" />
