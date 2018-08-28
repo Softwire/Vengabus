@@ -4,7 +4,7 @@ import { QueueList } from './QueueList';
 import { TopicList } from './TopicList';
 import { MessageList } from './MessageList';
 import { css } from 'react-emotion';
-import { Breadcrumb, Button } from 'react-bootstrap';
+import { Breadcrumb, Tabs, Tab } from 'react-bootstrap';
 import { SubscriptionList } from './SubscriptionList';
 import { EndpointTypes, typeToTitle } from '../../Helpers/EndpointTypes';
 import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
@@ -19,6 +19,7 @@ export class TwoListDisplay extends Component {
         this.breadCrumbHistory = [{ name: "Home", type: undefined }];
         this.messageButtonDisabled = false;
         this.promiseCollection = new cancellablePromiseCollection();
+        this.messageTabType = EndpointTypes.MESSAGE;
         this.state = {
             queueData: undefined,
             topicData: undefined,
@@ -43,8 +44,8 @@ export class TwoListDisplay extends Component {
         this.messageButtonDisabled = true;
         this.setState({
             messageData: undefined,
-            rightTableType: EndpointTypes.MESSAGE
-        }, this.updateEndpointMessageData);
+            rightTableType: this.messageTabType
+        }, () => this.updateEndpointMessageData(this.messageTabType));
     }
 
     handleTopicRowClick = (e, row, rowIndex) => {
@@ -60,16 +61,17 @@ export class TwoListDisplay extends Component {
         this.messageButtonDisabled = true;
         this.setState({
             messageData: undefined,
-            rightTableType: EndpointTypes.MESSAGE
-        }, () => this.updateEndpointMessageData(false));
+            rightTableType: this.messageTabType
+        }, () => this.updateEndpointMessageData(this.messageTabType));
     }
 
-    handleMessageToggle = (isNewTypeDeadLetter) => {
+    handleMessageToggle = (MessageType) => {
         this.messageButtonDisabled = true;
+        this.messageTabType = MessageType;
         this.setState({
             messageData: undefined,
-            rightTableType: isNewTypeDeadLetter ? EndpointTypes.DEADLETTER : EndpointTypes.MESSAGE
-        }, () => this.updateEndpointMessageData(isNewTypeDeadLetter));
+            rightTableType: MessageType,
+        }, () => this.updateEndpointMessageData(this.messageTabType));
     }
 
     updateAllQueueData = () => {
@@ -137,7 +139,8 @@ export class TwoListDisplay extends Component {
     }
 
 
-    updateEndpointMessageData = (isMessageDeadletters) => {
+    updateEndpointMessageData = (messageType) => {
+        const isMessageDeadletters = messageType === EndpointTypes.DEADLETTER;
         const serviceBusService = serviceBusConnection.getServiceBusService();
         let fetchedMessageData;
         const leftTableType = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].type;
@@ -176,9 +179,6 @@ export class TwoListDisplay extends Component {
         });
     };
 
-    getDeadLetterToggleButtonText = (isDeadLetterMessage) => {
-        return isDeadLetterMessage ? "Deadletters" : "Live Messages";
-    }
 
     getList = (isForRightHandList) => {
         let typeOfData;
@@ -192,21 +192,18 @@ export class TwoListDisplay extends Component {
             typeOfData = currentLeftTable.type || EndpointTypes.QUEUE;
             currentSelection = currentLeftTable.name;
         }
-        const displayStyle = css`
-                    display: inline-block;
-                    margin:10px;
-                `;
-
-        const deadLetterToggleButtonStyle = css`
-                margin-right: 0px;
-                float: right;
-                margin: 9px;
-                width: 120px ;
-        `;
         const minHeightOfHeader = {
             "minHeight": "92px",
             "height": "92px"
         };
+
+        const cssForTabs = css`
+        li{
+            text-align: center;
+            width:50%;
+        }
+        `;
+
 
         switch (typeOfData) {
             case EndpointTypes.QUEUE:
@@ -257,16 +254,15 @@ export class TwoListDisplay extends Component {
                 );
             case EndpointTypes.MESSAGE:
             case EndpointTypes.DEADLETTER:
-                const isDeadLetterMessage = typeOfData === EndpointTypes.DEADLETTER;
                 const lastBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
                 const penultimateBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 2];
                 return (
                     <React.Fragment>
-                        <div >
-                            <h2 className={displayStyle} id='title'>{typeToTitle(typeOfData)}</h2>
-                            <Button className={deadLetterToggleButtonStyle} onClick={() => this.handleMessageToggle(!isDeadLetterMessage)} disabled={this.messageButtonDisabled} >
-                                {this.getDeadLetterToggleButtonText(!isDeadLetterMessage)}
-                            </Button>
+                        <div className={cssForTabs}>
+                            <Tabs defaultActiveKey={this.messageTabType} id="Tabs" onSelect={this.handleMessageToggle}>
+                                <Tab eventKey={EndpointTypes.MESSAGE} title="Live Messages" />
+                                <Tab eventKey={EndpointTypes.DEADLETTER} title="Deadletter Messages" />
+                            </Tabs>
                         </div>
                         <MessageList
                             id='MessageTable'
@@ -279,7 +275,7 @@ export class TwoListDisplay extends Component {
                             refreshMessageTableHandler={() => {
                                 this.setState({
                                     messageData: undefined
-                                }, () => this.updateEndpointMessageData(isDeadLetterMessage));
+                                }, () => this.updateEndpointMessageData(this.messageTabType));
 
                             }}
                         />
