@@ -26,7 +26,7 @@ export function formatMessageForDownload(message) {
     delete messageDownload.predefinedProperties;
     delete messageDownload.customProperties;
 
-    return [messageDownload];
+    return messageDownload;
 }
 
 /**
@@ -42,3 +42,11 @@ export function parseTimeSpanFromBackend(timespan) {
     result.days = days;
     return result;
 }
+
+export function jsonToString(json) {
+    const replacer = null;
+    const spacing = 4;
+    const stingedJson = JSON.stringify(json, replacer, spacing);
+    return stingedJson;
+}
+

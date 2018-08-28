@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { EndpointTypes } from '../Helpers/EndpointTypes';
-import { formatMessageForDownload } from '../Helpers/FormattingHelpers';
+import { formatMessageForDownload, jsonToString} from '../Helpers/FormattingHelpers';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 const download = require("downloadjs");
 
@@ -30,16 +30,13 @@ export class DownloadEndpointButton extends Component {
             for (let i = 0; i < messages.length; i++) {
                 endpointDownload.push(formatMessageForDownload(messages[i]));
             }
-            download(JSON.stringify(endpointDownload, 0, 4), this.props.endpointName + ".json", "text / json");
+            download(jsonToString(endpointDownload), this.props.endpointName + ".json", "text / json");
         });
     }
 
     render() {
-        if (!this.props.endpointName) {
-            throw new Error('endpointName is a required prop');
-        }
         return (
-            <Button onClick={this.downloadEndpoint}>Download {this.props.endpointType}</Button>
+            <Button onClick={this.downloadEndpoint}>Download {this.props.endpointType} <span className="glyphicon glyphicon-save" /></Button>
         );
     }
 }

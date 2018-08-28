@@ -4,7 +4,6 @@ import { css } from 'react-emotion';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import { Button } from 'react-bootstrap';
 import { EndpointTypes } from '../Helpers/EndpointTypes';
-import { DownloadEndpointButton } from '../Components/DownloadEndpointButton';
 
 export class DemoPage extends Component {
     constructor(props) {

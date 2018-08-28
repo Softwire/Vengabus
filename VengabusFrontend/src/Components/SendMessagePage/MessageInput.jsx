@@ -11,7 +11,7 @@ import { parseUploadedMessage } from '../../Helpers/FormattingHelpers';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { sharedSizesAndDimensions, zIndices } from '../../Helpers/SharedSizesAndDimensions';
 import _ from 'lodash';
-import { FormControl, ControlLabel, Label } from 'react-bootstrap';
+import { FormControl, ControlLabel } from 'react-bootstrap';
 
 /** 
  * @property {Object} message Can take a message as a prop to replay message.
@@ -353,7 +353,7 @@ export class MessageInput extends Component {
                 </div>
                 <div className={stickySpacer} />
                 <p>Upload Message from File</p>
-                c
+               
                 <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}><h3><div className=" btn btn-default">Add file</div></h3>
                     <FormControl
                         id="fileUpload"

@@ -7,9 +7,9 @@ import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { FormattingBox } from './FormattingBox';
 import { DeleteSingleMessageButton } from '../../Components/DeleteSingleMessageButton';
 import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
-import { formatMessageForDownload } from '../../Helpers/FormattingHelpers';
+import { formatMessageForDownload, jsonToString} from '../../Helpers/FormattingHelpers';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
-const download = require("downloadjs");
+const downloadToFile = require("downloadjs");
 import { NoPropertiesPanel } from './NoPropertiesPanel';
 import { panelDarkGrey, panelLightGrey } from '../../colourScheme';
 
@@ -46,9 +46,10 @@ export class MessageBox extends Component {
      * Downloads a message as a formatted JSON file. Does NOT download any null properties.
      * @param {object} message The message to be downloaded.
      */
-    handleDownloadClick = (message) => {
-        const messageDownload = formatMessageForDownload(message);
-        download(JSON.stringify(messageDownload, 0, 4), "message_download.json", "text / json");
+    download = (message) => {
+        const messageDownload = [formatMessageForDownload(message)];
+  
+        downloadToFile(jsonToString(messageDownload), "message_" + message.predefinedProperties.messageId+".json", "text/json");
     }
 
     closeMessageModalAndReloadMessageTable = () => {
@@ -171,7 +172,7 @@ export class MessageBox extends Component {
                                 closeParentModal={this.closeMessageModalAndReloadMessageTable}
                             />
                             <CopyTextButton text={message.messageBody} id="messageBoxCopy" />
-                            <Button onClick={() => this.handleDownloadClick(message)} id="messageBoxDownloadMessageButton">Download</Button>
+                            <Button onClick={() => this.download(message)} id="messageBoxDownloadMessageButton">Download  <span className="glyphicon glyphicon-save" /> </Button>
                             <Button onClick={() => this.handleReplayMessage(message)} id="messageBoxReplayMessage" >{"Replay Message to " + replayDestination}</ Button>
 
                         </ButtonToolbar>
