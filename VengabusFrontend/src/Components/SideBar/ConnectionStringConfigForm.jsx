@@ -295,7 +295,7 @@ export class ConnectionStringConfigForm extends Component {
                     Connect
                 </Button>
                 <ButtonWithConfirmationModal
-                    className={buttonStyle}
+                    buttonCSS={buttonStyle}
                     id="deleteConnectionButton"
                     buttonText={"Delete Connection"}
                     modalTitle={"Delete Connection String"}
