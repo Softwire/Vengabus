@@ -308,9 +308,7 @@ export class MessageInput extends Component {
         return (
             <div className={formStyle} >
                 <div className={topSticky}>
-                    <div
-                        className={destinationFormStyle}
-                    >
+                    <div className={destinationFormStyle}>
                         <MessageDestinationForm
                             recipientIsQueue={this.state.recipientIsQueue}
                             availableQueues={this.state.availableQueues}
