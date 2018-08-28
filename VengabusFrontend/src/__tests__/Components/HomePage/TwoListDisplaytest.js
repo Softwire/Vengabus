@@ -306,10 +306,10 @@ const expectsQueueAndMessage = (wrapper) => {
     const messageTable = wrapper.find('#MessageTable').find("#Data");
 
     const leftTitle = wrapper.find('#left').find('#title').text();
-    const rightTitle = wrapper.find('#right').find('#title').text();
+
 
     expect(leftTitle).toBe("Queues");
-    expect(rightTitle).toBe("Messages");
+
 
     expect(queueTable).toExistOnPage();
     expect(messageTable).toExistOnPage();
@@ -322,10 +322,10 @@ const expectSubscriptionAndMessage = (wrapper) => {
     const messageTable = wrapper.find('#MessageTable').find("#Data");
 
     const leftTitle = wrapper.find('#left').find('#title').text();
-    const rightTitle = wrapper.find('#right').find('#title').text();
+
 
     expect(leftTitle).toBe("Subscriptions");
-    expect(rightTitle).toBe("Messages");
+
 
     expect(subscriptionTable).toExistOnPage();
     expect(messageTable).toExistOnPage();
