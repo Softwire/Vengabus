@@ -30,23 +30,21 @@ export class QueueList extends Component {
                 headerStyle: this.props.headerStyle
             },
             {
-                dataField: 'activeMessageCount',
-                width: 23,
-                headerStyle: this.props.headerStyle,
-                align: 'right'
-            },
-            {
-                dataField: 'deadletterMessageCount',
-                width: 23,
-                headerStyle: this.props.headerStyle,
-                align: 'right'
+                dataField: '',
+                text: 'Active / Deadletter Message Counts',
+                width: 46,
+                formatter: (cell, row, rowIndex) => {
+                    return (`${row.activeMessageCount} / ${row.deadletterMessageCount}`);
+                },
+                headerStyle: this.props.headerStyle
             },
             {
                 dataField: 'mostRecentDeadLetter',
                 width: 23
             },
             {
-                dataField: '',
+                //qq this is only to solve the duplicate key issue. Properly solve this later.
+                dataField: 'crud',
                 text: ' ',
                 width: 8,
                 formatter: (cell, row, rowIndex) => {
