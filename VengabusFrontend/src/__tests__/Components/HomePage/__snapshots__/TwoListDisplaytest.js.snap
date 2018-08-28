@@ -156,6 +156,7 @@ exports[`renders correctly after data is added 1`] = `
           >
             <p
               className="emotion-3"
+              id="connect-text"
             >
               Press "Connect" to load data.
             </p>
@@ -239,6 +240,7 @@ exports[`renders correctly after data is added 1`] = `
           >
             <p
               className="emotion-3"
+              id="connect-text"
             >
               Press "Connect" to load data.
             </p>
@@ -331,6 +333,7 @@ exports[`renders correctly before data is added 1`] = `
       </div>
       <p
         className="emotion-2"
+        id="connect-text"
       >
         Press "Connect" to load data.
       </p>
@@ -351,6 +354,7 @@ exports[`renders correctly before data is added 1`] = `
       </div>
       <p
         className="emotion-2"
+        id="connect-text"
       >
         Press "Connect" to load data.
       </p>

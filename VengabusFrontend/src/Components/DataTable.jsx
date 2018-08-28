@@ -312,19 +312,19 @@ export class DataTable extends Component {
 
         if (this.props.dataToDisplay === undefined) {
             return (
-                    <Spinner size={50} />
+                <Spinner id="spinner" size={50} />
             );
         }
 
         if (this.props.dataToDisplay === null) {
             return (
-                    <p className={textAlign}>Press "Connect" to load data.</p>
+                <p id="connect-text" className={textAlign}>Press "Connect" to load data.</p>
             );
         }
 
         if (this.props.dataToDisplay.length === 0) {
             return (
-                    <p className={textAlign}>No data to show.</p>
+                <p id="no-data-text" className={textAlign}>No data to show.</p>
             );
         }
 

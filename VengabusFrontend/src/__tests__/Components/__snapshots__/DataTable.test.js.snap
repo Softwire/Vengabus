@@ -9,6 +9,7 @@ exports[`DataTable renders correctly if an empty array is input as data 1`] = `
 
 <p
   className="emotion-0"
+  id="no-data-text"
 >
   No data to show.
 </p>

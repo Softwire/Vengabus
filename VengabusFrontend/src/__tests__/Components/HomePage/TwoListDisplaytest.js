@@ -126,6 +126,15 @@ jest.mock('../../../AzureWrappers/VengaServiceBusService', () => ({
                     }
                 ]);
         }
+
+        getQueueMostRecentDeadletter = () => {
+            return Promise.resolve(100);
+        }
+        getSubscriptionMostRecentDeadletter = () => {
+            return Promise.resolve(100);
+        }
+
+
     }
 }));
 
