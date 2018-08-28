@@ -115,7 +115,7 @@ exports[`renders correctly after data is added 1`] = `
                   "width": 23,
                 },
                 Object {
-                  "dataField": "",
+                  "dataField": "activeMessageCount",
                   "formatter": [Function],
                   "headerStyle": Object {
                     "height": "92px",
@@ -129,7 +129,7 @@ exports[`renders correctly after data is added 1`] = `
                   "width": 23,
                 },
                 Object {
-                  "dataField": "crud",
+                  "dataField": "",
                   "formatter": [Function],
                   "headerStyle": Object {
                     "height": "92px",
