@@ -19,7 +19,7 @@ export class TwoListDisplay extends Component {
         this.breadCrumbHistory = [{ name: "Home", type: undefined }];
         this.messageButtonDisabled = false;
         this.promiseCollection = new cancellablePromiseCollection();
-        this.TabType = EndpointTypes.MESSAGE;
+        this.messageTabType = EndpointTypes.MESSAGE;
         this.state = {
             queueData: undefined,
             topicData: undefined,
@@ -44,8 +44,8 @@ export class TwoListDisplay extends Component {
         this.messageButtonDisabled = true;
         this.setState({
             messageData: undefined,
-            rightTableType: EndpointTypes.MESSAGE
-        }, this.updateEndpointMessageData);
+            rightTableType: this.messageTabType
+        }, () => this.updateEndpointMessageData(this.messageTabType));
     }
 
     handleTopicRowClick = (e, row, rowIndex) => {
@@ -61,16 +61,17 @@ export class TwoListDisplay extends Component {
         this.messageButtonDisabled = true;
         this.setState({
             messageData: undefined,
-            rightTableType: EndpointTypes.MESSAGE
-        }, () => this.updateEndpointMessageData(false));
+            rightTableType: this.messageTabType
+        }, () => this.updateEndpointMessageData(this.messageTabType));
     }
 
-    handleMessageToggle = (isNewTypeDeadLetter) => {
+    handleMessageToggle = (MessageType) => {
         this.messageButtonDisabled = true;
+        this.messageTabType = MessageType;
         this.setState({
             messageData: undefined,
-            rightTableType: isNewTypeDeadLetter ? EndpointTypes.DEADLETTER : EndpointTypes.MESSAGE
-        }, () => this.updateEndpointMessageData(isNewTypeDeadLetter));
+            rightTableType: MessageType,
+        }, () => this.updateEndpointMessageData(this.messageTabType));
     }
 
     updateAllQueueData = () => {
@@ -138,7 +139,8 @@ export class TwoListDisplay extends Component {
     }
 
 
-    updateEndpointMessageData = (isMessageDeadletters) => {
+    updateEndpointMessageData = (messageType) => {
+        const isMessageDeadletters = messageType=== EndpointTypes.DEADLETTER;
         const serviceBusService = serviceBusConnection.getServiceBusService();
         let fetchedMessageData;
         const leftTableType = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].type;
@@ -177,7 +179,7 @@ export class TwoListDisplay extends Component {
         });
     };
 
- 
+
     getList = (isForRightHandList) => {
         let typeOfData;
         const currentLeftTable = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
@@ -255,15 +257,14 @@ export class TwoListDisplay extends Component {
                 );
             case EndpointTypes.MESSAGE:
             case EndpointTypes.DEADLETTER:
-                const isDeadLetterMessage = typeOfData === EndpointTypes.DEADLETTER;
                 const lastBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
                 const penultimateBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 2];
                 return (
                     <React.Fragment>
                         <div>
-                            <Tabs defaultActiveKey={isDeadLetterMessage} id="Tabs" onSelect={this.handleMessageToggle}>
-                                <Tab eventKey={false} title="Live Messages" />
-                                <Tab eventKey={true} title="Deadletter Messages" />
+                            <Tabs defaultActiveKey={this.messageTabType} id="Tabs" onSelect={this.handleMessageToggle}>
+                                <Tab eventKey={EndpointTypes.MESSAGE} title="Live Messages" />
+                                <Tab eventKey={EndpointTypes.DEADLETTER} title="Deadletter Messages" />
                             </Tabs>
                         </div>
                         <MessageList
@@ -277,7 +278,7 @@ export class TwoListDisplay extends Component {
                             refreshMessageTableHandler={() => {
                                 this.setState({
                                     messageData: undefined
-                                }, () => this.updateEndpointMessageData(isDeadLetterMessage));
+                                }, () => this.updateEndpointMessageData(this.messageTabType));
 
                             }}
                         />
