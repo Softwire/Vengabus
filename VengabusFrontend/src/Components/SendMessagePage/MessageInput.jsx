@@ -258,7 +258,7 @@ export class MessageInput extends Component {
         const vertAlignBottom = css`
             position: relative;
             top: 100%;
-            transform: translateY(-90px);
+            transform: translateY(-120px);
         `;
         const floatRight = css`
             float: right;

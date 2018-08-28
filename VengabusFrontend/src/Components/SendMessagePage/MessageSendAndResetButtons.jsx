@@ -25,10 +25,11 @@ export class MessageSendAndResetButtons extends Component {
 
             <form>
                 <ButtonWithConfirmationModal
-                    class={buttonWidth}
                     id="submitButton"
-                    buttonText={"Send Message"}
+                    buttonSize="large"
                     buttonStyle="default"
+                    buttonCSS={buttonWidth}
+                    buttonText={"Send Message"}
                     buttonDisabled={this.props.selectedEndpoint ? false : true}
                     modalTitle={"Send Message to " + this.props.selectedEndpoint}
                     modalBody={
@@ -43,8 +44,9 @@ export class MessageSendAndResetButtons extends Component {
                 />
                 <div className={spacer} />
                 <ButtonWithConfirmationModal
-                    class={buttonWidth}
                     id="cancelButton"
+                    buttonSize="large"
+                    buttonCSS={buttonWidth}
                     buttonText={"Reset Fields"}
                     modalTitle={"Reset all fields"}
                     modalBody={

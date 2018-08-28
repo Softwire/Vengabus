@@ -82,14 +82,14 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                                 </div>
                             </div>
                         </div>
-                        <div class=\\"css-1swg7pc css-bt9eng\\">
+                        <div class=\\"css-1j2u3bp css-bt9eng\\">
                             <form>
-                                <button disabled=\\"\\" style=\\"pointer-events: none;\\" type=\\"button\\" class=\\"btn btn-default\\">
+                                <button disabled=\\"\\" style=\\"pointer-events: none;\\" type=\\"button\\" class=\\"css-15kv4vi btn btn-lg btn-default\\">
                                     Send Message
                                 </button>
                                 <div class=\\"css-1fknxk4\\">
                                 </div>
-                                <button type=\\"button\\" class=\\"btn btn-danger\\">
+                                <button type=\\"button\\" class=\\"css-15kv4vi btn btn-lg btn-danger\\">
                                     Reset Fields
                                 </button>
                             </form>
@@ -203,7 +203,7 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
 `;
 
 exports[`renders correctly after data has loaded 1`] = `
-.emotion-52 {
+.emotion-54 {
   margin-left: 5px;
   margin-right: 5px;
   width: calc(100% - 10px);
@@ -215,7 +215,7 @@ exports[`renders correctly after data has loaded 1`] = `
   width: 100%;
 }
 
-.emotion-38 {
+.emotion-40 {
   z-index: 2;
   position: fixed;
   width: calc(100% - 250px);
@@ -228,7 +228,7 @@ exports[`renders correctly after data has loaded 1`] = `
   padding-right: 10px;
 }
 
-.emotion-39 {
+.emotion-41 {
   height: calc(150px + 10px);
 }
 
@@ -237,15 +237,15 @@ exports[`renders correctly after data has loaded 1`] = `
   float: left;
 }
 
-.emotion-36 {
+.emotion-38 {
   position: relative;
   top: 100%;
-  -webkit-transform: translateY(-90px);
-  -ms-transform: translateY(-90px);
-  transform: translateY(-90px);
+  -webkit-transform: translateY(-120px);
+  -ms-transform: translateY(-120px);
+  transform: translateY(-120px);
 }
 
-.emotion-37 {
+.emotion-39 {
   float: right;
 }
 
@@ -465,25 +465,29 @@ exports[`renders correctly after data has loaded 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-35 {
+.emotion-36 {
   margin-bottom: 10px;
 }
 
-.emotion-42 {
+.emotion-35 {
+  width: 150px;
+}
+
+.emotion-44 {
   width: 270px;
   margin-left: 5px;
 }
 
-.emotion-50 {
+.emotion-52 {
   min-height: 350px;
   padding-left: 5px;
 }
 
 <div
-  className="emotion-52"
+  className="emotion-54"
 >
   <div
-    className="emotion-38"
+    className="emotion-40"
   >
     <div
       className="emotion-34"
@@ -755,11 +759,11 @@ exports[`renders correctly after data has loaded 1`] = `
       </div>
     </div>
     <div
-      className="emotion-36 emotion-37"
+      className="emotion-38 emotion-39"
     >
       <form>
         <button
-          className="btn btn-default"
+          className="emotion-35 btn btn-lg btn-default"
           disabled={true}
           onClick={[Function]}
           style={
@@ -772,10 +776,10 @@ exports[`renders correctly after data has loaded 1`] = `
           Send Message
         </button>
         <div
-          className="emotion-35"
+          className="emotion-36"
         />
         <button
-          className="btn btn-danger"
+          className="emotion-35 btn btn-lg btn-danger"
           disabled={false}
           onClick={[Function]}
           style={Object {}}
@@ -787,7 +791,7 @@ exports[`renders correctly after data has loaded 1`] = `
     </div>
   </div>
   <div
-    className="emotion-39"
+    className="emotion-41"
   />
   <div
     className="emotion-1"
@@ -804,7 +808,7 @@ exports[`renders correctly after data has loaded 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-42 btn btn-default"
+        className="emotion-44 btn btn-default"
         disabled={false}
         onClick={[Function]}
         type="button"
@@ -829,7 +833,7 @@ exports[`renders correctly after data has loaded 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-42 btn btn-default"
+        className="emotion-44 btn btn-default"
         disabled={false}
         onClick={[Function]}
         type="button"
@@ -852,7 +856,7 @@ exports[`renders correctly after data has loaded 1`] = `
         Body
       </label>
       <textarea
-        className="emotion-50 form-control"
+        className="emotion-52 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
@@ -865,7 +869,7 @@ exports[`renders correctly after data has loaded 1`] = `
 `;
 
 exports[`renders correctly before data has loaded 1`] = `
-.emotion-53 {
+.emotion-55 {
   margin-left: 5px;
   margin-right: 5px;
   width: calc(100% - 10px);
@@ -877,7 +881,7 @@ exports[`renders correctly before data has loaded 1`] = `
   width: 100%;
 }
 
-.emotion-38 {
+.emotion-40 {
   z-index: 2;
   position: fixed;
   width: calc(100% - 250px);
@@ -890,7 +894,7 @@ exports[`renders correctly before data has loaded 1`] = `
   padding-right: 10px;
 }
 
-.emotion-39 {
+.emotion-41 {
   height: calc(150px + 10px);
 }
 
@@ -899,15 +903,15 @@ exports[`renders correctly before data has loaded 1`] = `
   float: left;
 }
 
-.emotion-36 {
+.emotion-38 {
   position: relative;
   top: 100%;
-  -webkit-transform: translateY(-90px);
-  -ms-transform: translateY(-90px);
-  transform: translateY(-90px);
+  -webkit-transform: translateY(-120px);
+  -ms-transform: translateY(-120px);
+  transform: translateY(-120px);
 }
 
-.emotion-37 {
+.emotion-39 {
   float: right;
 }
 
@@ -1127,29 +1131,33 @@ exports[`renders correctly before data has loaded 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-35 {
+.emotion-36 {
   margin-bottom: 10px;
 }
 
-.emotion-42 {
+.emotion-35 {
+  width: 150px;
+}
+
+.emotion-44 {
   width: 270px;
   margin-left: 5px;
 }
 
-.emotion-43.btn:hover {
+.emotion-45.btn:hover {
   cursor: progress;
 }
 
-.emotion-51 {
+.emotion-53 {
   min-height: 350px;
   padding-left: 5px;
 }
 
 <div
-  className="emotion-53"
+  className="emotion-55"
 >
   <div
-    className="emotion-38"
+    className="emotion-40"
   >
     <div
       className="emotion-34"
@@ -1421,11 +1429,11 @@ exports[`renders correctly before data has loaded 1`] = `
       </div>
     </div>
     <div
-      className="emotion-36 emotion-37"
+      className="emotion-38 emotion-39"
     >
       <form>
         <button
-          className="btn btn-default"
+          className="emotion-35 btn btn-lg btn-default"
           disabled={true}
           onClick={[Function]}
           style={
@@ -1438,10 +1446,10 @@ exports[`renders correctly before data has loaded 1`] = `
           Send Message
         </button>
         <div
-          className="emotion-35"
+          className="emotion-36"
         />
         <button
-          className="btn btn-danger"
+          className="emotion-35 btn btn-lg btn-danger"
           disabled={false}
           onClick={[Function]}
           style={Object {}}
@@ -1453,7 +1461,7 @@ exports[`renders correctly before data has loaded 1`] = `
     </div>
   </div>
   <div
-    className="emotion-39"
+    className="emotion-41"
   />
   <div
     className="emotion-1"
@@ -1470,7 +1478,7 @@ exports[`renders correctly before data has loaded 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-42 emotion-43 btn btn-default"
+        className="emotion-44 emotion-45 btn btn-default"
         disabled={true}
         onClick={[Function]}
         type="button"
@@ -1495,7 +1503,7 @@ exports[`renders correctly before data has loaded 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-42 btn btn-default"
+        className="emotion-44 btn btn-default"
         disabled={false}
         onClick={[Function]}
         type="button"
@@ -1518,7 +1526,7 @@ exports[`renders correctly before data has loaded 1`] = `
         Body
       </label>
       <textarea
-        className="emotion-51 form-control"
+        className="emotion-53 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
@@ -1531,7 +1539,7 @@ exports[`renders correctly before data has loaded 1`] = `
 `;
 
 exports[`renders correctly from a predefined message 1`] = `
-.emotion-65 {
+.emotion-67 {
   margin-left: 5px;
   margin-right: 5px;
   width: calc(100% - 10px);
@@ -1543,7 +1551,7 @@ exports[`renders correctly from a predefined message 1`] = `
   width: 100%;
 }
 
-.emotion-38 {
+.emotion-40 {
   z-index: 2;
   position: fixed;
   width: calc(100% - 250px);
@@ -1556,7 +1564,7 @@ exports[`renders correctly from a predefined message 1`] = `
   padding-right: 10px;
 }
 
-.emotion-39 {
+.emotion-41 {
   height: calc(150px + 10px);
 }
 
@@ -1565,15 +1573,15 @@ exports[`renders correctly from a predefined message 1`] = `
   float: left;
 }
 
-.emotion-36 {
+.emotion-38 {
   position: relative;
   top: 100%;
-  -webkit-transform: translateY(-90px);
-  -ms-transform: translateY(-90px);
-  transform: translateY(-90px);
+  -webkit-transform: translateY(-120px);
+  -ms-transform: translateY(-120px);
+  transform: translateY(-120px);
 }
 
-.emotion-37 {
+.emotion-39 {
   float: right;
 }
 
@@ -1793,20 +1801,24 @@ exports[`renders correctly from a predefined message 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-35 {
+.emotion-36 {
   margin-bottom: 10px;
 }
 
-.emotion-42 {
+.emotion-35 {
+  width: 150px;
+}
+
+.emotion-44 {
   width: 270px;
   margin-left: 5px;
 }
 
-.emotion-43.btn:hover {
+.emotion-45.btn:hover {
   cursor: progress;
 }
 
-.emotion-63 {
+.emotion-65 {
   min-height: 350px;
   padding-left: 5px;
 }
@@ -1827,33 +1839,33 @@ exports[`renders correctly from a predefined message 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-48 {
+.emotion-50 {
   padding-left: 5px;
   width: 20%;
   float: left;
 }
 
-.emotion-50 {
+.emotion-52 {
   padding-left: 5px;
   width: calc(80% - 80px);
   float: left;
 }
 
-.emotion-52 {
+.emotion-54 {
   padding-left: 5px;
   width: 80px;
   float: left;
 }
 
-.emotion-47 {
+.emotion-49 {
   min-height: 38px;
 }
 
 <div
-  className="emotion-65"
+  className="emotion-67"
 >
   <div
-    className="emotion-38"
+    className="emotion-40"
   >
     <div
       className="emotion-34"
@@ -2125,11 +2137,11 @@ exports[`renders correctly from a predefined message 1`] = `
       </div>
     </div>
     <div
-      className="emotion-36 emotion-37"
+      className="emotion-38 emotion-39"
     >
       <form>
         <button
-          className="btn btn-default"
+          className="emotion-35 btn btn-lg btn-default"
           disabled={false}
           onClick={[Function]}
           style={Object {}}
@@ -2138,10 +2150,10 @@ exports[`renders correctly from a predefined message 1`] = `
           Send Message
         </button>
         <div
-          className="emotion-35"
+          className="emotion-36"
         />
         <button
-          className="btn btn-danger"
+          className="emotion-35 btn btn-lg btn-danger"
           disabled={false}
           onClick={[Function]}
           style={Object {}}
@@ -2153,7 +2165,7 @@ exports[`renders correctly from a predefined message 1`] = `
     </div>
   </div>
   <div
-    className="emotion-39"
+    className="emotion-41"
   />
   <div
     className="emotion-1"
@@ -2170,7 +2182,7 @@ exports[`renders correctly from a predefined message 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-42 emotion-43 btn btn-default"
+        className="emotion-44 emotion-45 btn btn-default"
         disabled={true}
         onClick={[Function]}
         type="button"
@@ -2192,14 +2204,14 @@ exports[`renders correctly from a predefined message 1`] = `
   <div>
     <div>
       <form
-        className="emotion-48"
+        className="emotion-50"
         onSubmit={[Function]}
       >
         <div
           className="form-group"
         >
           <input
-            className="emotion-47 form-control"
+            className="emotion-49 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property name"
@@ -2209,14 +2221,14 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <form
-        className="emotion-50"
+        className="emotion-52"
         onSubmit={[Function]}
       >
         <div
           className="form-group"
         >
           <input
-            className="emotion-47 form-control"
+            className="emotion-49 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property value"
@@ -2226,10 +2238,10 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <div
-        className="emotion-52"
+        className="emotion-54"
       >
         <button
-          className="emotion-47 btn btn-danger"
+          className="emotion-49 btn btn-danger"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -2240,14 +2252,14 @@ exports[`renders correctly from a predefined message 1`] = `
     </div>
     <div>
       <form
-        className="emotion-48"
+        className="emotion-50"
         onSubmit={[Function]}
       >
         <div
           className="form-group"
         >
           <input
-            className="emotion-47 form-control"
+            className="emotion-49 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property name"
@@ -2257,14 +2269,14 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <form
-        className="emotion-50"
+        className="emotion-52"
         onSubmit={[Function]}
       >
         <div
           className="form-group"
         >
           <input
-            className="emotion-47 form-control"
+            className="emotion-49 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property value"
@@ -2274,10 +2286,10 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <div
-        className="emotion-52"
+        className="emotion-54"
       >
         <button
-          className="emotion-47 btn btn-danger"
+          className="emotion-49 btn btn-danger"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -2292,7 +2304,7 @@ exports[`renders correctly from a predefined message 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-42 btn btn-default"
+        className="emotion-44 btn btn-default"
         disabled={false}
         onClick={[Function]}
         type="button"
@@ -2315,7 +2327,7 @@ exports[`renders correctly from a predefined message 1`] = `
         Body
       </label>
       <textarea
-        className="emotion-63 form-control"
+        className="emotion-65 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
