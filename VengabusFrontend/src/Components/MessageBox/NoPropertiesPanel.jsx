@@ -32,7 +32,7 @@ export class NoPropertiesPanel extends Component {
                     <Panel.Title >
                         <Glyphicon glyph={'plus'} className={glyphiconStyle} />
                         <h4 className={headerStyle}>{this.props.panelTitle}</h4>
-                        <pre>{`There are no ${this.props.panelTitle} to display`}</pre>
+                        <pre>{`There are no properties to display`}</pre>
                     </Panel.Title>
                 </Panel.Heading>
             </Panel >

@@ -77,7 +77,7 @@ export class FormattingBox extends Component {
     getFormatterTab(formattingAttemptResult, tabKey) {
         const contentToDisplay = this.getContentToDisplay(formattingAttemptResult);
         let tabTitle = [formattingAttemptResult.formatType];
-        let errorState = "";
+        let errorState;
         const glyphStyle = css`
             margin-left: 5px;
         `;
@@ -110,19 +110,27 @@ export class FormattingBox extends Component {
                     margin-bottom: 0;
                 }
             }
-            .formatterError a { /*colour the tab when there's an error*/
-                color: ${reactBoostrapDangerRedText};
-                background: ${reactBoostrapDangerRedBackground};
+            .formatterError {
+                a { /*colour the tab when there's an error*/
+                    color: ${reactBoostrapDangerRedText};
+                    background: ${reactBoostrapDangerRedBackground};
+                }
+                &.active>a {
+                    &, &:focus, &:hover { /*need all these cases to override the default style*/
+                        color: ${reactBoostrapDangerRedText};
+                    }
+                }
             }
-            .formatterWarning a { /*colour the tab when there's a warning*/
-                color: ${reactBoostrapWarningYellowText};
-                background: ${reactBoostrapWarningYellowBackground};
-            }
-            .formatterError.active>a, .formatterError.active>a:focus, .formatterError.active>a:hover { /*need all these cases to override the default style*/
-                color: ${reactBoostrapDangerRedText};
-            }
-            .formatterWarning.active>a, .formatterWarning.active>a:focus, .formatterWarning.active>a:hover {
-                color: ${reactBoostrapWarningYellowText};
+            .formatterWarning {
+                a { /*colour the tab when there's a warning*/
+                    color: ${reactBoostrapWarningYellowText};
+                    background: ${reactBoostrapWarningYellowBackground};
+                }
+                &.active>a {
+                    &, &:focus, &:hover { /*need all these cases to override the default style*/
+                        color: ${reactBoostrapWarningYellowText};
+                    }
+                }
             }
         `;
 

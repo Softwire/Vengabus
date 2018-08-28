@@ -75,13 +75,8 @@ export class MessageBox extends Component {
                 pre {
                     white-space: pre-wrap; /*word wrap on narrow displays*/
                 }
-                overflow: auto;
-                /** background colour**********/
-                background-image: -webkit-linear-gradient(top,#f5f5f5 0,#e8e8e8 100%);
-                background-image: -o-linear-gradient(top,#f5f5f5 0,#e8e8e8 100%);
-                background-image: -webkit-gradient(linear,left top,left bottom,from(#f5f5f5),to(#e8e8e8));
-                background-image: linear-gradient(to bottom,#f5f5f5 0,#e8e8e8 100%);
-                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', endColorstr='#ffe8e8e8', GradientType=0);
+                overflow: auto;             
+                background-image: linear-gradient(to bottom,#f5f5f5 0,#e8e8e8 100%); /*background colouru*/
                 background-repeat: repeat-x;
             }
             .panel-body { 
@@ -91,10 +86,6 @@ export class MessageBox extends Component {
                 border: none;
                 margin: 0; 
             }
-
-
-
-
         `;
         const message = this.props.message;
         if (!message) {
@@ -134,9 +125,6 @@ export class MessageBox extends Component {
             customPropsJSX = <p>There are no user-defined properties to display</p>;
             CustomPanelType = NoPropertiesPanel;
         }
-
-        //const preDefinedPropsJSX = this.convertMessagePropertiesToJSXArray(message.predefinedProperties) || <p>There are no pre-defined properties to display</p>;
-        //const customPropsJSX = this.convertMessagePropertiesToJSXArray(message.customProperties) || <p>There are no user-defined properties to display</p>;
 
         const replayDestination = this.props.endpointType === EndpointTypes.QUEUE ? this.props.endpointName : this.props.endpointParent;
         return (

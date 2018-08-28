@@ -27,15 +27,15 @@ exports[`FormattingBox renders a snapshot correctly when given json 1`] = `
   background: #f2dede;
 }
 
-.emotion-2 .formatterWarning a {
-  color: #8a6d3b;
-  background: #fcf8e3;
-}
-
 .emotion-2 .formatterError.active>a,
 .emotion-2 .formatterError.active>a:focus,
 .emotion-2 .formatterError.active>a:hover {
   color: #a94442;
+}
+
+.emotion-2 .formatterWarning a {
+  color: #8a6d3b;
+  background: #fcf8e3;
 }
 
 .emotion-2 .formatterWarning.active>a,
@@ -196,15 +196,15 @@ exports[`FormattingBox renders a snapshot correctly when given plain text 1`] = 
   background: #f2dede;
 }
 
-.emotion-3 .formatterWarning a {
-  color: #8a6d3b;
-  background: #fcf8e3;
-}
-
 .emotion-3 .formatterError.active>a,
 .emotion-3 .formatterError.active>a:focus,
 .emotion-3 .formatterError.active>a:hover {
   color: #a94442;
+}
+
+.emotion-3 .formatterWarning a {
+  color: #8a6d3b;
+  background: #fcf8e3;
 }
 
 .emotion-3 .formatterWarning.active>a,
@@ -370,15 +370,15 @@ exports[`FormattingBox renders a snapshot correctly when given props 1`] = `
   background: #f2dede;
 }
 
-.emotion-3 .formatterWarning a {
-  color: #8a6d3b;
-  background: #fcf8e3;
-}
-
 .emotion-3 .formatterError.active>a,
 .emotion-3 .formatterError.active>a:focus,
 .emotion-3 .formatterError.active>a:hover {
   color: #a94442;
+}
+
+.emotion-3 .formatterWarning a {
+  color: #8a6d3b;
+  background: #fcf8e3;
 }
 
 .emotion-3 .formatterWarning.active>a,
@@ -544,15 +544,15 @@ exports[`FormattingBox renders a snapshot correctly when given xml 1`] = `
   background: #f2dede;
 }
 
-.emotion-2 .formatterWarning a {
-  color: #8a6d3b;
-  background: #fcf8e3;
-}
-
 .emotion-2 .formatterError.active>a,
 .emotion-2 .formatterError.active>a:focus,
 .emotion-2 .formatterError.active>a:hover {
   color: #a94442;
+}
+
+.emotion-2 .formatterWarning a {
+  color: #8a6d3b;
+  background: #fcf8e3;
 }
 
 .emotion-2 .formatterWarning.active>a,
