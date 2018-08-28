@@ -115,29 +115,21 @@ exports[`renders correctly after data is added 1`] = `
                   "width": 23,
                 },
                 Object {
-                  "align": "right",
-                  "dataField": "activeMessageCount",
+                  "dataField": "",
+                  "formatter": [Function],
                   "headerStyle": Object {
                     "height": "92px",
                     "minHeight": "92px",
                   },
-                  "width": 23,
-                },
-                Object {
-                  "align": "right",
-                  "dataField": "deadletterMessageCount",
-                  "headerStyle": Object {
-                    "height": "92px",
-                    "minHeight": "92px",
-                  },
-                  "width": 23,
+                  "text": "Active / Deadletter Message Counts",
+                  "width": 46,
                 },
                 Object {
                   "dataField": "mostRecentDeadLetter",
                   "width": 23,
                 },
                 Object {
-                  "dataField": "",
+                  "dataField": "crud",
                   "formatter": [Function],
                   "headerStyle": Object {
                     "height": "92px",
