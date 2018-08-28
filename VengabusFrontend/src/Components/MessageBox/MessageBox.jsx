@@ -194,9 +194,9 @@ export class MessageBox extends Component {
                                 onDeletionStart={this.enableSpinner}
                                 disabled={buttonsDisabled}
                             />
-                            <CopyTextButton text={message.messageBody} id="messageBoxCopy" />
-                            <Button onClick={() => this.download(message)} id="messageBoxDownloadMessageButton">Download  <span className="glyphicon glyphicon-save" /> </Button>
-                            <Button onClick={() => this.handleReplayMessage(message)} id="messageBoxReplayMessage" >{"Replay Message to " + replayDestination}</ Button>
+                            <CopyTextButton disabled={buttonsDisabled} text={message.messageBody} id="messageBoxCopy" />
+                            <Button disabled={buttonsDisabled} onClick={() => this.download(message)} id="messageBoxDownloadMessageButton">Download  <span className="glyphicon glyphicon-save" /> </Button>
+                            <Button disabled={buttonsDisabled} onClick={() => this.handleReplayMessage(message)} id="messageBoxReplayMessage" >{"Replay Message to " + replayDestination}</ Button>
 
                         </ButtonToolbar>
                     </Modal.Footer>
