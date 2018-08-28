@@ -317,14 +317,6 @@ const sendMessagePageTest = (wrapper) => { //Starts from SendMessagePage
         const messageButton = wrapper.find('#formControlsMessageBodyText').last();
         messageButton.simulate("click");
         return testHelper.afterReactHasUpdated();
-    }).then(() => {//Click queue selection dropdown
-        const queueSelectionDropdown = wrapper.find('#queue-dropdown').last();
-        queueSelectionDropdown.simulate("click");
-        return testHelper.afterReactHasUpdated();
-    }).then(() => {//Click topic selection radio
-        const topicSelectionRadio = wrapper.find('#topic-selection-radio').last();
-        topicSelectionRadio.simulate("click");
-        return testHelper.afterReactHasUpdated();
     }).then(() => {//Click topic selection dropdown
         const topicSelectionDropdown = wrapper.find('#topic-dropdown').last();
         topicSelectionDropdown.simulate("click");
@@ -332,6 +324,14 @@ const sendMessagePageTest = (wrapper) => { //Starts from SendMessagePage
     }).then(() => {//Click queue selection radio
         const queueSelectionRadio = wrapper.find('#queue-selection-radio').last();
         queueSelectionRadio.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click queue selection dropdown
+        const queueSelectionDropdown = wrapper.find('#queue-dropdown').last();
+        queueSelectionDropdown.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click topic selection radio
+        const topicSelectionRadio = wrapper.find('#topic-selection-radio').last();
+        topicSelectionRadio.simulate("click");
         return testHelper.afterReactHasUpdated();
     }).then(() => {//Click Reset Fields button
         const resetFieldsButton = wrapper.find('#cancelButton').last();
@@ -403,10 +403,10 @@ it('passes smoke tests without crashing', () => {
      * Go to Send Message Page
      * ┠ Click add new User defined property button
      * ┠ Click message body
-     * ┠ Click queue selection dropdown
-     * ┠ Click topic selection radio
      * ┠ Click topic selection dropdown
      * ┠ Click queue selection radio
+     * ┠ Click queue selection dropdown
+     * ┠ Click topic selection radio
      * ┠ Click Reset Fields button
      * ┖ Click Reset
      * Replay a message
