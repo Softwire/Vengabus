@@ -7,4 +7,8 @@ var sharedSizesAndDimensions = Object.freeze({
     GLYPHICON_HORIZONTAL_MARGINS: 11
 });
 
-export { sharedSizesAndDimensions };
+var zIndices = Object.freeze({
+    SEND_MESSAGE_STICKY: 2,
+});
+
+export { sharedSizesAndDimensions, zIndices };

@@ -1,73 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RawHtml snapshot for "Shows a red border around invalid property names" 1`] = `
-"<div class=\\"css-10yh0c4\\">
-    <div class=\\"css-mxbhzi\\">
-        <p class=\\"css-wni10w\\">
-            Destination
-        </p>
-    </div>
-    <div class=\\"css-1m1gf12\\">
-        <div>
-            <input type=\\"radio\\" id=\\"queue-selection-radio\\" class=\\"css-85g23i\\">
-                <div class=\\"css-mxbhzi css-5g10zq css-wni10w css-1nkn65\\">
-                    <p>
-                        Queue
-                    </p>
-                </div>
-            </input>
-            <div class=\\"css-1sontr1 css-pkykf7\\" id=\\"queue-dropdown\\">
-                <div class=\\"css-162g8z5\\">
-                    <div class=\\"css-1rtrksz\\">
-                        <div class=\\"css-1492t68\\">
-                            Select...
-                        </div>
-                        <div class=\\"css-rsyb7x\\">
-                            <div class=\\"\\" style=\\"display: inline-block;\\">
-                                <input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-10-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
-                                    <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; font-family: -webkit-small-control; letter-spacing: normal; text-transform: none;\\">
-                                    </div>
-                                </input>
-                            </div>
-                        </div>
-                        <div class=\\"css-1wy0on6\\">
-                            <span class=\\"css-ln5n5c\\">
-                            </span>
-                            <div aria-hidden=\\"true\\" class=\\"css-1ep9fjw\\">
-                                <svg height=\\"20\\" width=\\"20\\" viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" class=\\"css-19bqh2r\\">
-                                    <path d=\\"M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z\\">
-                                    </path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+"<div class=\\"css-ok1f71\\">
+    <div class=\\"css-jmciyu\\">
+        <div class=\\"css-10c7utv\\">
+            <div class=\\"css-mxbhzi\\">
+                <p class=\\"css-wni10w\\">
+                    Destination
+                </p>
             </div>
             <div class=\\"css-1m1gf12\\">
                 <div>
-                    <input type=\\"radio\\" id=\\"topic-selection-radio\\" class=\\"css-85g23i\\">
+                    <input type=\\"radio\\" id=\\"queue-selection-radio\\" class=\\"css-85g23i\\">
                         <div class=\\"css-mxbhzi css-5g10zq css-wni10w css-1nkn65\\">
                             <p>
-                                Topic
+                                Queue
                             </p>
                         </div>
                     </input>
-                    <div class=\\"css-10nd86i css-pkykf7\\" id=\\"topic-dropdown\\">
-                        <div class=\\"css-1aya2g8\\">
+                    <div class=\\"css-1sontr1 css-pkykf7\\" id=\\"queue-dropdown\\">
+                        <div class=\\"css-162g8z5\\">
                             <div class=\\"css-1rtrksz\\">
                                 <div class=\\"css-1492t68\\">
                                     Select...
                                 </div>
                                 <div class=\\"css-rsyb7x\\">
                                     <div class=\\"\\" style=\\"display: inline-block;\\">
-                                        <input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-11-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
+                                        <input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-10-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                                             <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; font-family: -webkit-small-control; letter-spacing: normal; text-transform: none;\\">
                                             </div>
                                         </input>
                                     </div>
                                 </div>
                                 <div class=\\"css-1wy0on6\\">
-                                    <span class=\\"css-d8oujb\\">
+                                    <span class=\\"css-ln5n5c\\">
                                     </span>
                                     <div aria-hidden=\\"true\\" class=\\"css-1ep9fjw\\">
                                         <svg height=\\"20\\" width=\\"20\\" viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" class=\\"css-19bqh2r\\">
@@ -79,115 +45,155 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                             </div>
                         </div>
                     </div>
-                    <hr class=\\"css-1m1gf12\\">
+                    <div class=\\"css-1m1gf12\\">
+                        <div>
+                            <input type=\\"radio\\" id=\\"topic-selection-radio\\" class=\\"css-85g23i\\">
+                                <div class=\\"css-mxbhzi css-5g10zq css-wni10w css-1nkn65\\">
+                                    <p>
+                                        Topic
+                                    </p>
+                                </div>
+                            </input>
+                            <div class=\\"css-10nd86i css-pkykf7\\" id=\\"topic-dropdown\\">
+                                <div class=\\"css-1aya2g8\\">
+                                    <div class=\\"css-1rtrksz\\">
+                                        <div class=\\"css-1492t68\\">
+                                            Select...
+                                        </div>
+                                        <div class=\\"css-rsyb7x\\">
+                                            <div class=\\"\\" style=\\"display: inline-block;\\">
+                                                <input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-11-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
+                                                    <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; font-family: -webkit-small-control; letter-spacing: normal; text-transform: none;\\">
+                                                    </div>
+                                                </input>
+                                            </div>
+                                        </div>
+                                        <div class=\\"css-1wy0on6\\">
+                                            <span class=\\"css-d8oujb\\">
+                                            </span>
+                                            <div aria-hidden=\\"true\\" class=\\"css-1ep9fjw\\">
+                                                <svg height=\\"20\\" width=\\"20\\" viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" class=\\"css-19bqh2r\\">
+                                                    <path d=\\"M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z\\">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=\\"css-xxa940 css-14v2y5d\\">
+                            <form>
+                                <button disabled=\\"\\" style=\\"pointer-events: none;\\" type=\\"button\\" class=\\"css-15kv4vi btn btn-lg btn-default\\">
+                                    Send Message
+                                </button>
+                                <div class=\\"css-lxxdu4\\">
+                                </div>
+                                <button type=\\"button\\" class=\\"css-15kv4vi btn btn-lg btn-danger\\">
+                                    Reset Fields
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class=\\"css-uwk93p\\">
+                    </div>
+                    <div class=\\"css-mxbhzi\\">
+                        <p class=\\"css-wni10w\\">
+                            Pre-defined Properties
+                        </p>
+                    </div>
+                    <div>
+                    </div>
+                    <form>
+                        <div class=\\"css-mxbhzi\\">
+                            <button type=\\"button\\" class=\\"css-74801x btn btn-default\\">
+                                Add new Azure property
+                            </button>
+                        </div>
+                    </form>
+                    <hr>
                         <div class=\\"css-mxbhzi\\">
                             <p class=\\"css-wni10w\\">
-                                Pre-defined Properties
+                                User-defined Properties
                             </p>
                         </div>
                         <div>
-                        </div>
-                        <form>
-                            <div class=\\"css-mxbhzi\\">
-                                <button type=\\"button\\" class=\\"css-74801x btn btn-default\\">
-                                    Add new Azure property
-                                </button>
-                            </div>
-                        </form>
-                        <hr>
-                            <div class=\\"css-mxbhzi\\">
-                                <p class=\\"css-wni10w\\">
-                                    User-defined Properties
-                                </p>
-                            </div>
                             <div>
-                                <div>
-                                    <form class=\\"css-1rnsx0x\\">
+                                <form class=\\"css-1rnsx0x\\">
+                                    <div class=\\"form-group\\">
+                                        <input placeholder=\\"Enter property name\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"test1\\">
+                                        </input>
+                                    </div>
+                                    <form class=\\"css-fztffm\\">
                                         <div class=\\"form-group\\">
-                                            <input placeholder=\\"Enter property name\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"test1\\">
+                                            <input placeholder=\\"Enter property value\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"any value 1\\">
                                             </input>
                                         </div>
-                                        <form class=\\"css-fztffm\\">
-                                            <div class=\\"form-group\\">
-                                                <input placeholder=\\"Enter property value\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"any value 1\\">
+                                        <div class=\\"css-g376pn\\">
+                                            <button type=\\"button\\" class=\\"css-83yc3x btn btn-danger\\">
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <div>
+                                        <form class=\\"css-1rnsx0x\\">
+                                            <div class=\\"form-group has-error\\">
+                                                <input placeholder=\\"Enter property name\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"test2\\">
                                                 </input>
                                             </div>
-                                            <div class=\\"css-g376pn\\">
-                                                <button type=\\"button\\" class=\\"css-83yc3x btn btn-danger\\">
-                                                    Delete
-                                                </button>
-                                            </div>
-                                        </form>
-                                        <div>
-                                            <form class=\\"css-1rnsx0x\\">
-                                                <div class=\\"form-group has-error\\">
-                                                    <input placeholder=\\"Enter property name\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"test2\\">
+                                            <form class=\\"css-fztffm\\">
+                                                <div class=\\"form-group\\">
+                                                    <input placeholder=\\"Enter property value\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"any value 2\\">
                                                     </input>
                                                 </div>
-                                                <form class=\\"css-fztffm\\">
-                                                    <div class=\\"form-group\\">
-                                                        <input placeholder=\\"Enter property value\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"any value 2\\">
+                                                <div class=\\"css-g376pn\\">
+                                                    <button type=\\"button\\" class=\\"css-83yc3x btn btn-danger\\">
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            </form>
+                                            <div>
+                                                <form class=\\"css-1rnsx0x\\">
+                                                    <div class=\\"form-group has-error\\">
+                                                        <input placeholder=\\"Enter property name\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"test2\\">
                                                         </input>
                                                     </div>
-                                                    <div class=\\"css-g376pn\\">
-                                                        <button type=\\"button\\" class=\\"css-83yc3x btn btn-danger\\">
-                                                            Delete
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                                <div>
-                                                    <form class=\\"css-1rnsx0x\\">
-                                                        <div class=\\"form-group has-error\\">
-                                                            <input placeholder=\\"Enter property name\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"test2\\">
+                                                    <form class=\\"css-fztffm\\">
+                                                        <div class=\\"form-group\\">
+                                                            <input placeholder=\\"Enter property value\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"any value 3\\">
                                                             </input>
                                                         </div>
-                                                        <form class=\\"css-fztffm\\">
-                                                            <div class=\\"form-group\\">
-                                                                <input placeholder=\\"Enter property value\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"any value 3\\">
-                                                                </input>
-                                                            </div>
-                                                            <div class=\\"css-g376pn\\">
-                                                                <button type=\\"button\\" class=\\"css-83yc3x btn btn-danger\\">
-                                                                    Delete
-                                                                </button>
-                                                            </div>
-                                                        </form>
-                                                    </form>
-                                                    <form>
-                                                        <div class=\\"css-mxbhzi\\">
-                                                            <button type=\\"button\\" class=\\"css-74801x btn btn-default\\">
-                                                                Add new application specific property
+                                                        <div class=\\"css-g376pn\\">
+                                                            <button type=\\"button\\" class=\\"css-83yc3x btn btn-danger\\">
+                                                                Delete
                                                             </button>
                                                         </div>
                                                     </form>
-                                                    <hr class=\\"css-1m1gf12\\">
-                                                        <form>
-                                                            <div class=\\"css-mxbhzi form-group\\">
-                                                                <label for=\\"formControlsMessageBodyText\\" class=\\"css-wni10w control-label\\">
-                                                                    Body
-                                                                </label>
-                                                                <textarea placeholder=\\"Enter message body\\" id=\\"formControlsMessageBodyText\\" class=\\"css-4jk989 form-control\\">
-                                                                </textarea>
-                                                            </div>
-                                                        </form>
-                                                        <form>
-                                                            <div class=\\"btn-group\\">
-                                                                <button disabled=\\"\\" style=\\"pointer-events: none;\\" type=\\"button\\" class=\\"btn btn-default\\">
-                                                                    Send Message
-                                                                </button>
-                                                                <button type=\\"button\\" class=\\"btn btn-danger\\">
-                                                                    Reset Fields
-                                                                </button>
-                                                            </div>
-                                                        </form>
-                                                    </hr>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </form>
-                                </div>
+                                                </form>
+                                                <form>
+                                                    <div class=\\"css-mxbhzi\\">
+                                                        <button type=\\"button\\" class=\\"css-74801x btn btn-default\\">
+                                                            Add new application specific property
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                                <hr class=\\"css-1m1gf12\\">
+                                                    <form>
+                                                        <div class=\\"css-mxbhzi form-group\\">
+                                                            <label for=\\"formControlsMessageBodyText\\" class=\\"css-wni10w control-label\\">
+                                                                Body
+                                                            </label>
+                                                            <textarea placeholder=\\"Enter message body\\" id=\\"formControlsMessageBodyText\\" class=\\"css-4jk989 form-control\\">
+                                                            </textarea>
+                                                        </div>
+                                                    </form>
+                                                </hr>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </form>
                             </div>
-                        </hr>
+                        </div>
                     </hr>
                 </div>
             </div>
@@ -197,10 +203,9 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
 `;
 
 exports[`renders correctly after data has loaded 1`] = `
-.emotion-47 {
+.emotion-54 {
   margin-left: 5px;
   margin-right: 5px;
-  padding-top: 1%;
   width: calc(100% - 10px);
   float: left;
 }
@@ -208,6 +213,41 @@ exports[`renders correctly after data has loaded 1`] = `
 .emotion-17 {
   float: left;
   width: 100%;
+}
+
+.emotion-40 {
+  z-index: 2;
+  position: fixed;
+  width: calc(100% - 250px);
+  height: 150px;
+  background-color: #ECEFF1;
+  border-bottom: 2px solid black;
+  padding-top: 10px;
+  margin-left: -5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.emotion-41 {
+  height: calc(150px + 10px);
+}
+
+.emotion-34 {
+  width: 450px;
+  float: left;
+}
+
+.emotion-38 {
+  position: relative;
+  top: 100%;
+  -webkit-transform: translateY(-127px);
+  -ms-transform: translateY(-127px);
+  transform: translateY(-127px);
+}
+
+.emotion-39 {
+  float: right;
+  margin-right: 20px;
 }
 
 .emotion-0 {
@@ -426,286 +466,333 @@ exports[`renders correctly after data has loaded 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-37 {
+.emotion-36 {
+  margin-bottom: 16px;
+}
+
+.emotion-35 {
+  width: 150px;
+}
+
+.emotion-44 {
   width: 270px;
   margin-left: 5px;
 }
 
-.emotion-45 {
+.emotion-52 {
   min-height: 350px;
   padding-left: 5px;
 }
 
 <div
-  className="emotion-47"
+  className="emotion-54"
 >
   <div
-    className="emotion-1"
-  >
-    <p
-      className="emotion-0"
-    >
-      Destination
-    </p>
-  </div>
-  <div
-    className="emotion-17"
+    className="emotion-40"
   >
     <div
-      onClick={[Function]}
+      className="emotion-34"
     >
-      <input
-        checked={false}
-        className="emotion-2"
-        id="queue-selection-radio"
-        onChange={[Function]}
-        type="radio"
-      />
       <div
-        className="emotion-1 emotion-4 emotion-0 emotion-6"
+        className="emotion-1"
       >
-        <p>
-          Queue
+        <p
+          className="emotion-0"
+        >
+          Destination
         </p>
       </div>
-    </div>
-    <div
-      className="emotion-15 emotion-16"
-      id="queue-dropdown"
-      onKeyDown={[Function]}
-    >
       <div
-        className="emotion-14"
-        onMouseDown={[Function]}
-        onTouchEnd={[Function]}
+        className="emotion-17"
       >
         <div
-          className="emotion-9"
+          onClick={[Function]}
+        >
+          <input
+            checked={false}
+            className="emotion-2"
+            id="queue-selection-radio"
+            onChange={[Function]}
+            type="radio"
+          />
+          <div
+            className="emotion-1 emotion-4 emotion-0 emotion-6"
+          >
+            <p>
+              Queue
+            </p>
+          </div>
+        </div>
+        <div
+          className="emotion-15 emotion-16"
+          id="queue-dropdown"
+          onKeyDown={[Function]}
         >
           <div
-            className="emotion-7"
-          >
-            Select...
-          </div>
-          <div
-            className="emotion-8"
+            className="emotion-14"
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
           >
             <div
-              className=""
-              style={
-                Object {
-                  "display": "inline-block",
-                }
-              }
+              className="emotion-9"
             >
-              <input
-                aria-autocomplete="list"
-                aria-label={undefined}
-                aria-labelledby={undefined}
-                autoCapitalize="none"
-                autoComplete="off"
-                autoCorrect="off"
-                className={undefined}
-                disabled={true}
-                id="react-select-4-input"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                spellCheck="false"
-                style={
-                  Object {
-                    "background": 0,
-                    "border": 0,
-                    "boxSizing": "content-box",
-                    "color": "inherit",
-                    "fontSize": "inherit",
-                    "opacity": 1,
-                    "outline": 0,
-                    "padding": 0,
-                    "width": "1px",
+              <div
+                className="emotion-7"
+              >
+                Select...
+              </div>
+              <div
+                className="emotion-8"
+              >
+                <div
+                  className=""
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
                   }
-                }
-                tabIndex="0"
-                type="text"
-                value=""
+                >
+                  <input
+                    aria-autocomplete="list"
+                    aria-label={undefined}
+                    aria-labelledby={undefined}
+                    autoCapitalize="none"
+                    autoComplete="off"
+                    autoCorrect="off"
+                    className={undefined}
+                    disabled={true}
+                    id="react-select-4-input"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    spellCheck="false"
+                    style={
+                      Object {
+                        "background": 0,
+                        "border": 0,
+                        "boxSizing": "content-box",
+                        "color": "inherit",
+                        "fontSize": "inherit",
+                        "opacity": 1,
+                        "outline": 0,
+                        "padding": 0,
+                        "width": "1px",
+                      }
+                    }
+                    tabIndex="0"
+                    type="text"
+                    value=""
+                  />
+                  <div
+                    style={
+                      Object {
+                        "height": 0,
+                        "left": 0,
+                        "overflow": "scroll",
+                        "position": "absolute",
+                        "top": 0,
+                        "visibility": "hidden",
+                        "whiteSpace": "pre",
+                      }
+                    }
+                  >
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="emotion-13"
+            >
+              <span
+                className="emotion-10"
               />
               <div
-                style={
-                  Object {
-                    "height": 0,
-                    "left": 0,
-                    "overflow": "scroll",
-                    "position": "absolute",
-                    "top": 0,
-                    "visibility": "hidden",
-                    "whiteSpace": "pre",
-                  }
-                }
+                aria-hidden="true"
+                className="emotion-12"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
               >
-                
+                <svg
+                  aria-hidden="true"
+                  className="emotion-11"
+                  focusable="false"
+                  height={20}
+                  viewBox="0 0 20 20"
+                  width={20}
+                >
+                  <path
+                    d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                  />
+                </svg>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <div
+        className="emotion-17"
+      >
         <div
-          className="emotion-13"
+          onClick={[Function]}
         >
-          <span
-            className="emotion-10"
+          <input
+            checked={true}
+            className="emotion-2"
+            id="topic-selection-radio"
+            onChange={[Function]}
+            type="radio"
           />
           <div
-            aria-hidden="true"
-            className="emotion-12"
+            className="emotion-1 emotion-4 emotion-0 emotion-6"
+          >
+            <p>
+              Topic
+            </p>
+          </div>
+        </div>
+        <div
+          className="emotion-31 emotion-16"
+          id="topic-dropdown"
+          onKeyDown={[Function]}
+        >
+          <div
+            className="emotion-30"
             onMouseDown={[Function]}
             onTouchEnd={[Function]}
           >
-            <svg
-              aria-hidden="true"
-              className="emotion-11"
-              focusable="false"
-              height={20}
-              viewBox="0 0 20 20"
-              width={20}
-            >
-              <path
-                d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="emotion-17"
-  >
-    <div
-      onClick={[Function]}
-    >
-      <input
-        checked={true}
-        className="emotion-2"
-        id="topic-selection-radio"
-        onChange={[Function]}
-        type="radio"
-      />
-      <div
-        className="emotion-1 emotion-4 emotion-0 emotion-6"
-      >
-        <p>
-          Topic
-        </p>
-      </div>
-    </div>
-    <div
-      className="emotion-31 emotion-16"
-      id="topic-dropdown"
-      onKeyDown={[Function]}
-    >
-      <div
-        className="emotion-30"
-        onMouseDown={[Function]}
-        onTouchEnd={[Function]}
-      >
-        <div
-          className="emotion-9"
-        >
-          <div
-            className="emotion-7"
-          >
-            Select...
-          </div>
-          <div
-            className="emotion-8"
-          >
             <div
-              className=""
-              style={
-                Object {
-                  "display": "inline-block",
-                }
-              }
+              className="emotion-9"
             >
-              <input
-                aria-autocomplete="list"
-                aria-label={undefined}
-                aria-labelledby={undefined}
-                autoCapitalize="none"
-                autoComplete="off"
-                autoCorrect="off"
-                className={undefined}
-                disabled={false}
-                id="react-select-5-input"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                spellCheck="false"
-                style={
-                  Object {
-                    "background": 0,
-                    "border": 0,
-                    "boxSizing": "content-box",
-                    "color": "inherit",
-                    "fontSize": "inherit",
-                    "opacity": 1,
-                    "outline": 0,
-                    "padding": 0,
-                    "width": "1px",
+              <div
+                className="emotion-7"
+              >
+                Select...
+              </div>
+              <div
+                className="emotion-8"
+              >
+                <div
+                  className=""
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
                   }
-                }
-                tabIndex="0"
-                type="text"
-                value=""
+                >
+                  <input
+                    aria-autocomplete="list"
+                    aria-label={undefined}
+                    aria-labelledby={undefined}
+                    autoCapitalize="none"
+                    autoComplete="off"
+                    autoCorrect="off"
+                    className={undefined}
+                    disabled={false}
+                    id="react-select-5-input"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    spellCheck="false"
+                    style={
+                      Object {
+                        "background": 0,
+                        "border": 0,
+                        "boxSizing": "content-box",
+                        "color": "inherit",
+                        "fontSize": "inherit",
+                        "opacity": 1,
+                        "outline": 0,
+                        "padding": 0,
+                        "width": "1px",
+                      }
+                    }
+                    tabIndex="0"
+                    type="text"
+                    value=""
+                  />
+                  <div
+                    style={
+                      Object {
+                        "height": 0,
+                        "left": 0,
+                        "overflow": "scroll",
+                        "position": "absolute",
+                        "top": 0,
+                        "visibility": "hidden",
+                        "whiteSpace": "pre",
+                      }
+                    }
+                  >
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="emotion-13"
+            >
+              <span
+                className="emotion-26"
               />
               <div
-                style={
-                  Object {
-                    "height": 0,
-                    "left": 0,
-                    "overflow": "scroll",
-                    "position": "absolute",
-                    "top": 0,
-                    "visibility": "hidden",
-                    "whiteSpace": "pre",
-                  }
-                }
+                aria-hidden="true"
+                className="emotion-12"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
               >
-                
+                <svg
+                  aria-hidden="true"
+                  className="emotion-11"
+                  focusable="false"
+                  height={20}
+                  viewBox="0 0 20 20"
+                  width={20}
+                >
+                  <path
+                    d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                  />
+                </svg>
               </div>
             </div>
           </div>
         </div>
-        <div
-          className="emotion-13"
-        >
-          <span
-            className="emotion-26"
-          />
-          <div
-            aria-hidden="true"
-            className="emotion-12"
-            onMouseDown={[Function]}
-            onTouchEnd={[Function]}
-          >
-            <svg
-              aria-hidden="true"
-              className="emotion-11"
-              focusable="false"
-              height={20}
-              viewBox="0 0 20 20"
-              width={20}
-            >
-              <path
-                d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
-              />
-            </svg>
-          </div>
-        </div>
       </div>
     </div>
+    <div
+      className="emotion-38 emotion-39"
+    >
+      <form>
+        <button
+          className="emotion-35 btn btn-lg btn-default"
+          disabled={true}
+          onClick={[Function]}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          type="button"
+        >
+          Send Message
+        </button>
+        <div
+          className="emotion-36"
+        />
+        <button
+          className="emotion-35 btn btn-lg btn-danger"
+          disabled={false}
+          onClick={[Function]}
+          style={Object {}}
+          type="button"
+        >
+          Reset Fields
+        </button>
+      </form>
+    </div>
   </div>
-  <hr
-    className="emotion-17"
+  <div
+    className="emotion-41"
   />
   <div
     className="emotion-1"
@@ -722,7 +809,7 @@ exports[`renders correctly after data has loaded 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-37 btn btn-default"
+        className="emotion-44 btn btn-default"
         disabled={false}
         onClick={[Function]}
         type="button"
@@ -747,7 +834,7 @@ exports[`renders correctly after data has loaded 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-37 btn btn-default"
+        className="emotion-44 btn btn-default"
         disabled={false}
         onClick={[Function]}
         type="button"
@@ -770,7 +857,7 @@ exports[`renders correctly after data has loaded 1`] = `
         Body
       </label>
       <textarea
-        className="emotion-45 form-control"
+        className="emotion-52 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
@@ -779,42 +866,13 @@ exports[`renders correctly after data has loaded 1`] = `
       />
     </div>
   </form>
-  <form>
-    <div
-      className="btn-group"
-    >
-      <button
-        className="btn btn-default"
-        disabled={true}
-        onClick={[Function]}
-        style={
-          Object {
-            "pointerEvents": "none",
-          }
-        }
-        type="button"
-      >
-        Send Message
-      </button>
-      <button
-        className="btn btn-danger"
-        disabled={false}
-        onClick={[Function]}
-        style={Object {}}
-        type="button"
-      >
-        Reset Fields
-      </button>
-    </div>
-  </form>
 </div>
 `;
 
 exports[`renders correctly before data has loaded 1`] = `
-.emotion-48 {
+.emotion-55 {
   margin-left: 5px;
   margin-right: 5px;
-  padding-top: 1%;
   width: calc(100% - 10px);
   float: left;
 }
@@ -822,6 +880,41 @@ exports[`renders correctly before data has loaded 1`] = `
 .emotion-17 {
   float: left;
   width: 100%;
+}
+
+.emotion-40 {
+  z-index: 2;
+  position: fixed;
+  width: calc(100% - 250px);
+  height: 150px;
+  background-color: #ECEFF1;
+  border-bottom: 2px solid black;
+  padding-top: 10px;
+  margin-left: -5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.emotion-41 {
+  height: calc(150px + 10px);
+}
+
+.emotion-34 {
+  width: 450px;
+  float: left;
+}
+
+.emotion-38 {
+  position: relative;
+  top: 100%;
+  -webkit-transform: translateY(-127px);
+  -ms-transform: translateY(-127px);
+  transform: translateY(-127px);
+}
+
+.emotion-39 {
+  float: right;
+  margin-right: 20px;
 }
 
 .emotion-0 {
@@ -1040,290 +1133,337 @@ exports[`renders correctly before data has loaded 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-37 {
+.emotion-36 {
+  margin-bottom: 16px;
+}
+
+.emotion-35 {
+  width: 150px;
+}
+
+.emotion-44 {
   width: 270px;
   margin-left: 5px;
 }
 
-.emotion-38.btn:hover {
+.emotion-45.btn:hover {
   cursor: progress;
 }
 
-.emotion-46 {
+.emotion-53 {
   min-height: 350px;
   padding-left: 5px;
 }
 
 <div
-  className="emotion-48"
+  className="emotion-55"
 >
   <div
-    className="emotion-1"
-  >
-    <p
-      className="emotion-0"
-    >
-      Destination
-    </p>
-  </div>
-  <div
-    className="emotion-17"
+    className="emotion-40"
   >
     <div
-      onClick={[Function]}
+      className="emotion-34"
     >
-      <input
-        checked={false}
-        className="emotion-2"
-        id="queue-selection-radio"
-        onChange={[Function]}
-        type="radio"
-      />
       <div
-        className="emotion-1 emotion-4 emotion-0 emotion-6"
+        className="emotion-1"
       >
-        <p>
-          Queue
+        <p
+          className="emotion-0"
+        >
+          Destination
         </p>
       </div>
-    </div>
-    <div
-      className="emotion-15 emotion-16"
-      id="queue-dropdown"
-      onKeyDown={[Function]}
-    >
       <div
-        className="emotion-14"
-        onMouseDown={[Function]}
-        onTouchEnd={[Function]}
+        className="emotion-17"
       >
         <div
-          className="emotion-9"
+          onClick={[Function]}
+        >
+          <input
+            checked={false}
+            className="emotion-2"
+            id="queue-selection-radio"
+            onChange={[Function]}
+            type="radio"
+          />
+          <div
+            className="emotion-1 emotion-4 emotion-0 emotion-6"
+          >
+            <p>
+              Queue
+            </p>
+          </div>
+        </div>
+        <div
+          className="emotion-15 emotion-16"
+          id="queue-dropdown"
+          onKeyDown={[Function]}
         >
           <div
-            className="emotion-7"
-          >
-            Select...
-          </div>
-          <div
-            className="emotion-8"
+            className="emotion-14"
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
           >
             <div
-              className=""
-              style={
-                Object {
-                  "display": "inline-block",
-                }
-              }
+              className="emotion-9"
             >
-              <input
-                aria-autocomplete="list"
-                aria-label={undefined}
-                aria-labelledby={undefined}
-                autoCapitalize="none"
-                autoComplete="off"
-                autoCorrect="off"
-                className={undefined}
-                disabled={true}
-                id="react-select-2-input"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                spellCheck="false"
-                style={
-                  Object {
-                    "background": 0,
-                    "border": 0,
-                    "boxSizing": "content-box",
-                    "color": "inherit",
-                    "fontSize": "inherit",
-                    "opacity": 1,
-                    "outline": 0,
-                    "padding": 0,
-                    "width": "1px",
+              <div
+                className="emotion-7"
+              >
+                Select...
+              </div>
+              <div
+                className="emotion-8"
+              >
+                <div
+                  className=""
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
                   }
-                }
-                tabIndex="0"
-                type="text"
-                value=""
+                >
+                  <input
+                    aria-autocomplete="list"
+                    aria-label={undefined}
+                    aria-labelledby={undefined}
+                    autoCapitalize="none"
+                    autoComplete="off"
+                    autoCorrect="off"
+                    className={undefined}
+                    disabled={true}
+                    id="react-select-2-input"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    spellCheck="false"
+                    style={
+                      Object {
+                        "background": 0,
+                        "border": 0,
+                        "boxSizing": "content-box",
+                        "color": "inherit",
+                        "fontSize": "inherit",
+                        "opacity": 1,
+                        "outline": 0,
+                        "padding": 0,
+                        "width": "1px",
+                      }
+                    }
+                    tabIndex="0"
+                    type="text"
+                    value=""
+                  />
+                  <div
+                    style={
+                      Object {
+                        "height": 0,
+                        "left": 0,
+                        "overflow": "scroll",
+                        "position": "absolute",
+                        "top": 0,
+                        "visibility": "hidden",
+                        "whiteSpace": "pre",
+                      }
+                    }
+                  >
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="emotion-13"
+            >
+              <span
+                className="emotion-10"
               />
               <div
-                style={
-                  Object {
-                    "height": 0,
-                    "left": 0,
-                    "overflow": "scroll",
-                    "position": "absolute",
-                    "top": 0,
-                    "visibility": "hidden",
-                    "whiteSpace": "pre",
-                  }
-                }
+                aria-hidden="true"
+                className="emotion-12"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
               >
-                
+                <svg
+                  aria-hidden="true"
+                  className="emotion-11"
+                  focusable="false"
+                  height={20}
+                  viewBox="0 0 20 20"
+                  width={20}
+                >
+                  <path
+                    d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                  />
+                </svg>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <div
+        className="emotion-17"
+      >
         <div
-          className="emotion-13"
+          onClick={[Function]}
         >
-          <span
-            className="emotion-10"
+          <input
+            checked={true}
+            className="emotion-2"
+            id="topic-selection-radio"
+            onChange={[Function]}
+            type="radio"
           />
           <div
-            aria-hidden="true"
-            className="emotion-12"
+            className="emotion-1 emotion-4 emotion-0 emotion-6"
+          >
+            <p>
+              Topic
+            </p>
+          </div>
+        </div>
+        <div
+          className="emotion-31 emotion-16"
+          id="topic-dropdown"
+          onKeyDown={[Function]}
+        >
+          <div
+            className="emotion-30"
             onMouseDown={[Function]}
             onTouchEnd={[Function]}
           >
-            <svg
-              aria-hidden="true"
-              className="emotion-11"
-              focusable="false"
-              height={20}
-              viewBox="0 0 20 20"
-              width={20}
-            >
-              <path
-                d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="emotion-17"
-  >
-    <div
-      onClick={[Function]}
-    >
-      <input
-        checked={true}
-        className="emotion-2"
-        id="topic-selection-radio"
-        onChange={[Function]}
-        type="radio"
-      />
-      <div
-        className="emotion-1 emotion-4 emotion-0 emotion-6"
-      >
-        <p>
-          Topic
-        </p>
-      </div>
-    </div>
-    <div
-      className="emotion-31 emotion-16"
-      id="topic-dropdown"
-      onKeyDown={[Function]}
-    >
-      <div
-        className="emotion-30"
-        onMouseDown={[Function]}
-        onTouchEnd={[Function]}
-      >
-        <div
-          className="emotion-9"
-        >
-          <div
-            className="emotion-7"
-          >
-            Select...
-          </div>
-          <div
-            className="emotion-8"
-          >
             <div
-              className=""
-              style={
-                Object {
-                  "display": "inline-block",
-                }
-              }
+              className="emotion-9"
             >
-              <input
-                aria-autocomplete="list"
-                aria-label={undefined}
-                aria-labelledby={undefined}
-                autoCapitalize="none"
-                autoComplete="off"
-                autoCorrect="off"
-                className={undefined}
-                disabled={false}
-                id="react-select-3-input"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                spellCheck="false"
-                style={
-                  Object {
-                    "background": 0,
-                    "border": 0,
-                    "boxSizing": "content-box",
-                    "color": "inherit",
-                    "fontSize": "inherit",
-                    "opacity": 1,
-                    "outline": 0,
-                    "padding": 0,
-                    "width": "1px",
+              <div
+                className="emotion-7"
+              >
+                Select...
+              </div>
+              <div
+                className="emotion-8"
+              >
+                <div
+                  className=""
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
                   }
-                }
-                tabIndex="0"
-                type="text"
-                value=""
+                >
+                  <input
+                    aria-autocomplete="list"
+                    aria-label={undefined}
+                    aria-labelledby={undefined}
+                    autoCapitalize="none"
+                    autoComplete="off"
+                    autoCorrect="off"
+                    className={undefined}
+                    disabled={false}
+                    id="react-select-3-input"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    spellCheck="false"
+                    style={
+                      Object {
+                        "background": 0,
+                        "border": 0,
+                        "boxSizing": "content-box",
+                        "color": "inherit",
+                        "fontSize": "inherit",
+                        "opacity": 1,
+                        "outline": 0,
+                        "padding": 0,
+                        "width": "1px",
+                      }
+                    }
+                    tabIndex="0"
+                    type="text"
+                    value=""
+                  />
+                  <div
+                    style={
+                      Object {
+                        "height": 0,
+                        "left": 0,
+                        "overflow": "scroll",
+                        "position": "absolute",
+                        "top": 0,
+                        "visibility": "hidden",
+                        "whiteSpace": "pre",
+                      }
+                    }
+                  >
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="emotion-13"
+            >
+              <span
+                className="emotion-26"
               />
               <div
-                style={
-                  Object {
-                    "height": 0,
-                    "left": 0,
-                    "overflow": "scroll",
-                    "position": "absolute",
-                    "top": 0,
-                    "visibility": "hidden",
-                    "whiteSpace": "pre",
-                  }
-                }
+                aria-hidden="true"
+                className="emotion-12"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
               >
-                
+                <svg
+                  aria-hidden="true"
+                  className="emotion-11"
+                  focusable="false"
+                  height={20}
+                  viewBox="0 0 20 20"
+                  width={20}
+                >
+                  <path
+                    d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                  />
+                </svg>
               </div>
             </div>
           </div>
         </div>
-        <div
-          className="emotion-13"
-        >
-          <span
-            className="emotion-26"
-          />
-          <div
-            aria-hidden="true"
-            className="emotion-12"
-            onMouseDown={[Function]}
-            onTouchEnd={[Function]}
-          >
-            <svg
-              aria-hidden="true"
-              className="emotion-11"
-              focusable="false"
-              height={20}
-              viewBox="0 0 20 20"
-              width={20}
-            >
-              <path
-                d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
-              />
-            </svg>
-          </div>
-        </div>
       </div>
     </div>
+    <div
+      className="emotion-38 emotion-39"
+    >
+      <form>
+        <button
+          className="emotion-35 btn btn-lg btn-default"
+          disabled={true}
+          onClick={[Function]}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          type="button"
+        >
+          Send Message
+        </button>
+        <div
+          className="emotion-36"
+        />
+        <button
+          className="emotion-35 btn btn-lg btn-danger"
+          disabled={false}
+          onClick={[Function]}
+          style={Object {}}
+          type="button"
+        >
+          Reset Fields
+        </button>
+      </form>
+    </div>
   </div>
-  <hr
-    className="emotion-17"
+  <div
+    className="emotion-41"
   />
   <div
     className="emotion-1"
@@ -1340,7 +1480,7 @@ exports[`renders correctly before data has loaded 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-37 emotion-38 btn btn-default"
+        className="emotion-44 emotion-45 btn btn-default"
         disabled={true}
         onClick={[Function]}
         type="button"
@@ -1365,7 +1505,7 @@ exports[`renders correctly before data has loaded 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-37 btn btn-default"
+        className="emotion-44 btn btn-default"
         disabled={false}
         onClick={[Function]}
         type="button"
@@ -1388,7 +1528,7 @@ exports[`renders correctly before data has loaded 1`] = `
         Body
       </label>
       <textarea
-        className="emotion-46 form-control"
+        className="emotion-53 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
@@ -1397,42 +1537,13 @@ exports[`renders correctly before data has loaded 1`] = `
       />
     </div>
   </form>
-  <form>
-    <div
-      className="btn-group"
-    >
-      <button
-        className="btn btn-default"
-        disabled={true}
-        onClick={[Function]}
-        style={
-          Object {
-            "pointerEvents": "none",
-          }
-        }
-        type="button"
-      >
-        Send Message
-      </button>
-      <button
-        className="btn btn-danger"
-        disabled={false}
-        onClick={[Function]}
-        style={Object {}}
-        type="button"
-      >
-        Reset Fields
-      </button>
-    </div>
-  </form>
 </div>
 `;
 
 exports[`renders correctly from a predefined message 1`] = `
-.emotion-60 {
+.emotion-67 {
   margin-left: 5px;
   margin-right: 5px;
-  padding-top: 1%;
   width: calc(100% - 10px);
   float: left;
 }
@@ -1440,6 +1551,41 @@ exports[`renders correctly from a predefined message 1`] = `
 .emotion-17 {
   float: left;
   width: 100%;
+}
+
+.emotion-40 {
+  z-index: 2;
+  position: fixed;
+  width: calc(100% - 250px);
+  height: 150px;
+  background-color: #ECEFF1;
+  border-bottom: 2px solid black;
+  padding-top: 10px;
+  margin-left: -5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.emotion-41 {
+  height: calc(150px + 10px);
+}
+
+.emotion-34 {
+  width: 450px;
+  float: left;
+}
+
+.emotion-38 {
+  position: relative;
+  top: 100%;
+  -webkit-transform: translateY(-127px);
+  -ms-transform: translateY(-127px);
+  transform: translateY(-127px);
+}
+
+.emotion-39 {
+  float: right;
+  margin-right: 20px;
 }
 
 .emotion-0 {
@@ -1658,16 +1804,24 @@ exports[`renders correctly from a predefined message 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-37 {
+.emotion-36 {
+  margin-bottom: 16px;
+}
+
+.emotion-35 {
+  width: 150px;
+}
+
+.emotion-44 {
   width: 270px;
   margin-left: 5px;
 }
 
-.emotion-38.btn:hover {
+.emotion-45.btn:hover {
   cursor: progress;
 }
 
-.emotion-58 {
+.emotion-65 {
   min-height: 350px;
   padding-left: 5px;
 }
@@ -1688,298 +1842,333 @@ exports[`renders correctly from a predefined message 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-43 {
+.emotion-50 {
   padding-left: 5px;
   width: 20%;
   float: left;
 }
 
-.emotion-45 {
+.emotion-52 {
   padding-left: 5px;
   width: calc(80% - 80px);
   float: left;
 }
 
-.emotion-47 {
+.emotion-54 {
   padding-left: 5px;
   width: 80px;
   float: left;
 }
 
-.emotion-42 {
+.emotion-49 {
   min-height: 38px;
 }
 
 <div
-  className="emotion-60"
+  className="emotion-67"
 >
   <div
-    className="emotion-1"
-  >
-    <p
-      className="emotion-0"
-    >
-      Destination
-    </p>
-  </div>
-  <div
-    className="emotion-17"
+    className="emotion-40"
   >
     <div
-      onClick={[Function]}
+      className="emotion-34"
     >
-      <input
-        checked={true}
-        className="emotion-2"
-        id="queue-selection-radio"
-        onChange={[Function]}
-        type="radio"
-      />
       <div
-        className="emotion-1 emotion-4 emotion-0 emotion-6"
+        className="emotion-1"
       >
-        <p>
-          Queue
+        <p
+          className="emotion-0"
+        >
+          Destination
         </p>
       </div>
-    </div>
-    <div
-      className="emotion-15 emotion-16"
-      id="queue-dropdown"
-      onKeyDown={[Function]}
-    >
       <div
-        className="emotion-14"
-        onMouseDown={[Function]}
-        onTouchEnd={[Function]}
+        className="emotion-17"
       >
         <div
-          className="emotion-9"
+          onClick={[Function]}
+        >
+          <input
+            checked={true}
+            className="emotion-2"
+            id="queue-selection-radio"
+            onChange={[Function]}
+            type="radio"
+          />
+          <div
+            className="emotion-1 emotion-4 emotion-0 emotion-6"
+          >
+            <p>
+              Queue
+            </p>
+          </div>
+        </div>
+        <div
+          className="emotion-15 emotion-16"
+          id="queue-dropdown"
+          onKeyDown={[Function]}
         >
           <div
-            className="emotion-7"
-          >
-            demoqueue1
-          </div>
-          <div
-            className="emotion-8"
+            className="emotion-14"
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
           >
             <div
-              className=""
-              style={
-                Object {
-                  "display": "inline-block",
-                }
-              }
+              className="emotion-9"
             >
-              <input
-                aria-autocomplete="list"
-                aria-label={undefined}
-                aria-labelledby={undefined}
-                autoCapitalize="none"
-                autoComplete="off"
-                autoCorrect="off"
-                className={undefined}
-                disabled={false}
-                id="react-select-6-input"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                spellCheck="false"
-                style={
-                  Object {
-                    "background": 0,
-                    "border": 0,
-                    "boxSizing": "content-box",
-                    "color": "inherit",
-                    "fontSize": "inherit",
-                    "opacity": 1,
-                    "outline": 0,
-                    "padding": 0,
-                    "width": "1px",
+              <div
+                className="emotion-7"
+              >
+                demoqueue1
+              </div>
+              <div
+                className="emotion-8"
+              >
+                <div
+                  className=""
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
                   }
-                }
-                tabIndex="0"
-                type="text"
-                value=""
+                >
+                  <input
+                    aria-autocomplete="list"
+                    aria-label={undefined}
+                    aria-labelledby={undefined}
+                    autoCapitalize="none"
+                    autoComplete="off"
+                    autoCorrect="off"
+                    className={undefined}
+                    disabled={false}
+                    id="react-select-6-input"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    spellCheck="false"
+                    style={
+                      Object {
+                        "background": 0,
+                        "border": 0,
+                        "boxSizing": "content-box",
+                        "color": "inherit",
+                        "fontSize": "inherit",
+                        "opacity": 1,
+                        "outline": 0,
+                        "padding": 0,
+                        "width": "1px",
+                      }
+                    }
+                    tabIndex="0"
+                    type="text"
+                    value=""
+                  />
+                  <div
+                    style={
+                      Object {
+                        "height": 0,
+                        "left": 0,
+                        "overflow": "scroll",
+                        "position": "absolute",
+                        "top": 0,
+                        "visibility": "hidden",
+                        "whiteSpace": "pre",
+                      }
+                    }
+                  >
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="emotion-13"
+            >
+              <span
+                className="emotion-10"
               />
               <div
-                style={
-                  Object {
-                    "height": 0,
-                    "left": 0,
-                    "overflow": "scroll",
-                    "position": "absolute",
-                    "top": 0,
-                    "visibility": "hidden",
-                    "whiteSpace": "pre",
-                  }
-                }
+                aria-hidden="true"
+                className="emotion-12"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
               >
-                
+                <svg
+                  aria-hidden="true"
+                  className="emotion-11"
+                  focusable="false"
+                  height={20}
+                  viewBox="0 0 20 20"
+                  width={20}
+                >
+                  <path
+                    d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                  />
+                </svg>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <div
+        className="emotion-17"
+      >
         <div
-          className="emotion-13"
+          onClick={[Function]}
         >
-          <span
-            className="emotion-10"
+          <input
+            checked={false}
+            className="emotion-2"
+            id="topic-selection-radio"
+            onChange={[Function]}
+            type="radio"
           />
           <div
-            aria-hidden="true"
-            className="emotion-12"
+            className="emotion-1 emotion-4 emotion-0 emotion-6"
+          >
+            <p>
+              Topic
+            </p>
+          </div>
+        </div>
+        <div
+          className="emotion-31 emotion-16"
+          id="topic-dropdown"
+          onKeyDown={[Function]}
+        >
+          <div
+            className="emotion-30"
             onMouseDown={[Function]}
             onTouchEnd={[Function]}
           >
-            <svg
-              aria-hidden="true"
-              className="emotion-11"
-              focusable="false"
-              height={20}
-              viewBox="0 0 20 20"
-              width={20}
-            >
-              <path
-                d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="emotion-17"
-  >
-    <div
-      onClick={[Function]}
-    >
-      <input
-        checked={false}
-        className="emotion-2"
-        id="topic-selection-radio"
-        onChange={[Function]}
-        type="radio"
-      />
-      <div
-        className="emotion-1 emotion-4 emotion-0 emotion-6"
-      >
-        <p>
-          Topic
-        </p>
-      </div>
-    </div>
-    <div
-      className="emotion-31 emotion-16"
-      id="topic-dropdown"
-      onKeyDown={[Function]}
-    >
-      <div
-        className="emotion-30"
-        onMouseDown={[Function]}
-        onTouchEnd={[Function]}
-      >
-        <div
-          className="emotion-9"
-        >
-          <div
-            className="emotion-23"
-          >
-            Select...
-          </div>
-          <div
-            className="emotion-8"
-          >
             <div
-              className=""
-              style={
-                Object {
-                  "display": "inline-block",
-                }
-              }
+              className="emotion-9"
             >
-              <input
-                aria-autocomplete="list"
-                aria-label={undefined}
-                aria-labelledby={undefined}
-                autoCapitalize="none"
-                autoComplete="off"
-                autoCorrect="off"
-                className={undefined}
-                disabled={true}
-                id="react-select-7-input"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                spellCheck="false"
-                style={
-                  Object {
-                    "background": 0,
-                    "border": 0,
-                    "boxSizing": "content-box",
-                    "color": "inherit",
-                    "fontSize": "inherit",
-                    "opacity": 1,
-                    "outline": 0,
-                    "padding": 0,
-                    "width": "1px",
+              <div
+                className="emotion-23"
+              >
+                Select...
+              </div>
+              <div
+                className="emotion-8"
+              >
+                <div
+                  className=""
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
                   }
-                }
-                tabIndex="0"
-                type="text"
-                value=""
+                >
+                  <input
+                    aria-autocomplete="list"
+                    aria-label={undefined}
+                    aria-labelledby={undefined}
+                    autoCapitalize="none"
+                    autoComplete="off"
+                    autoCorrect="off"
+                    className={undefined}
+                    disabled={true}
+                    id="react-select-7-input"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    spellCheck="false"
+                    style={
+                      Object {
+                        "background": 0,
+                        "border": 0,
+                        "boxSizing": "content-box",
+                        "color": "inherit",
+                        "fontSize": "inherit",
+                        "opacity": 1,
+                        "outline": 0,
+                        "padding": 0,
+                        "width": "1px",
+                      }
+                    }
+                    tabIndex="0"
+                    type="text"
+                    value=""
+                  />
+                  <div
+                    style={
+                      Object {
+                        "height": 0,
+                        "left": 0,
+                        "overflow": "scroll",
+                        "position": "absolute",
+                        "top": 0,
+                        "visibility": "hidden",
+                        "whiteSpace": "pre",
+                      }
+                    }
+                  >
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="emotion-13"
+            >
+              <span
+                className="emotion-26"
               />
               <div
-                style={
-                  Object {
-                    "height": 0,
-                    "left": 0,
-                    "overflow": "scroll",
-                    "position": "absolute",
-                    "top": 0,
-                    "visibility": "hidden",
-                    "whiteSpace": "pre",
-                  }
-                }
+                aria-hidden="true"
+                className="emotion-12"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
               >
-                
+                <svg
+                  aria-hidden="true"
+                  className="emotion-11"
+                  focusable="false"
+                  height={20}
+                  viewBox="0 0 20 20"
+                  width={20}
+                >
+                  <path
+                    d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                  />
+                </svg>
               </div>
             </div>
           </div>
         </div>
-        <div
-          className="emotion-13"
-        >
-          <span
-            className="emotion-26"
-          />
-          <div
-            aria-hidden="true"
-            className="emotion-12"
-            onMouseDown={[Function]}
-            onTouchEnd={[Function]}
-          >
-            <svg
-              aria-hidden="true"
-              className="emotion-11"
-              focusable="false"
-              height={20}
-              viewBox="0 0 20 20"
-              width={20}
-            >
-              <path
-                d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
-              />
-            </svg>
-          </div>
-        </div>
       </div>
     </div>
+    <div
+      className="emotion-38 emotion-39"
+    >
+      <form>
+        <button
+          className="emotion-35 btn btn-lg btn-default"
+          disabled={false}
+          onClick={[Function]}
+          style={Object {}}
+          type="button"
+        >
+          Send Message
+        </button>
+        <div
+          className="emotion-36"
+        />
+        <button
+          className="emotion-35 btn btn-lg btn-danger"
+          disabled={false}
+          onClick={[Function]}
+          style={Object {}}
+          type="button"
+        >
+          Reset Fields
+        </button>
+      </form>
+    </div>
   </div>
-  <hr
-    className="emotion-17"
+  <div
+    className="emotion-41"
   />
   <div
     className="emotion-1"
@@ -1996,7 +2185,7 @@ exports[`renders correctly from a predefined message 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-37 emotion-38 btn btn-default"
+        className="emotion-44 emotion-45 btn btn-default"
         disabled={true}
         onClick={[Function]}
         type="button"
@@ -2018,14 +2207,14 @@ exports[`renders correctly from a predefined message 1`] = `
   <div>
     <div>
       <form
-        className="emotion-43"
+        className="emotion-50"
         onSubmit={[Function]}
       >
         <div
           className="form-group"
         >
           <input
-            className="emotion-42 form-control"
+            className="emotion-49 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property name"
@@ -2035,14 +2224,14 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <form
-        className="emotion-45"
+        className="emotion-52"
         onSubmit={[Function]}
       >
         <div
           className="form-group"
         >
           <input
-            className="emotion-42 form-control"
+            className="emotion-49 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property value"
@@ -2052,10 +2241,10 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <div
-        className="emotion-47"
+        className="emotion-54"
       >
         <button
-          className="emotion-42 btn btn-danger"
+          className="emotion-49 btn btn-danger"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -2066,14 +2255,14 @@ exports[`renders correctly from a predefined message 1`] = `
     </div>
     <div>
       <form
-        className="emotion-43"
+        className="emotion-50"
         onSubmit={[Function]}
       >
         <div
           className="form-group"
         >
           <input
-            className="emotion-42 form-control"
+            className="emotion-49 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property name"
@@ -2083,14 +2272,14 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <form
-        className="emotion-45"
+        className="emotion-52"
         onSubmit={[Function]}
       >
         <div
           className="form-group"
         >
           <input
-            className="emotion-42 form-control"
+            className="emotion-49 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property value"
@@ -2100,10 +2289,10 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <div
-        className="emotion-47"
+        className="emotion-54"
       >
         <button
-          className="emotion-42 btn btn-danger"
+          className="emotion-49 btn btn-danger"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -2118,7 +2307,7 @@ exports[`renders correctly from a predefined message 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-37 btn btn-default"
+        className="emotion-44 btn btn-default"
         disabled={false}
         onClick={[Function]}
         type="button"
@@ -2141,37 +2330,13 @@ exports[`renders correctly from a predefined message 1`] = `
         Body
       </label>
       <textarea
-        className="emotion-58 form-control"
+        className="emotion-65 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
         type={undefined}
         value="Hello world!"
       />
-    </div>
-  </form>
-  <form>
-    <div
-      className="btn-group"
-    >
-      <button
-        className="btn btn-default"
-        disabled={false}
-        onClick={[Function]}
-        style={Object {}}
-        type="button"
-      >
-        Send Message
-      </button>
-      <button
-        className="btn btn-danger"
-        disabled={false}
-        onClick={[Function]}
-        style={Object {}}
-        type="button"
-      >
-        Reset Fields
-      </button>
     </div>
   </form>
 </div>

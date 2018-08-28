@@ -46,8 +46,10 @@ class ButtonWithConfirmationModal extends React.Component {
             <Button
                 onClick={this.handleOpen}
                 bsStyle={externalModalTriggerButtonStyle}
+                bsSize={this.props.buttonSize || undefined}
                 disabled={!!this.props.buttonDisabled}
                 style={style}
+                className={this.props.buttonCSS}
             >
                 {this.props.buttonText}
             </Button>;

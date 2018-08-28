@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { css } from 'react-emotion';
+import classNames from 'classnames';
 import { MessageBodyInput } from './MessageBodyInput';
 import { MessageProperties } from './MessageProperties';
 import { MessageDestinationForm } from './MessageDestinationForm';
-import { ButtonWithConfirmationModal } from '../ButtonWithConfirmationModal';
+import { MessageSendAndResetButtons } from './MessageSendAndResetButtons';
 import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
-import { ButtonGroup } from 'react-bootstrap';
 import { cancellablePromiseCollection } from '../../Helpers/CancellablePromiseCollection';
+import { sharedSizesAndDimensions, zIndices } from '../../Helpers/SharedSizesAndDimensions';
 import _ from 'lodash';
 
 /** 
@@ -224,16 +225,44 @@ export class MessageInput extends Component {
     }
 
     render() {
+        let stickyHeight = "150px";
         const formStyle = css`
             margin-left: 5px;
             margin-right: 5px;
-            padding-top: 1%;
             width: calc(100% - 10px); /* 10px total margin */
             float: left;
         `;
         const fullWidth = css`
             float: left;
             width: 100%;
+        `;
+        const topSticky = css`
+            z-index: ${zIndices.SEND_MESSAGE_STICKY};
+            position: fixed;
+            width: calc(100% - ${sharedSizesAndDimensions.SIDEBAR_WIDTH}px);
+            height: ${stickyHeight};
+            background-color: #ECEFF1;
+            border-bottom: 2px solid black;
+            padding-top: 10px;
+            margin-left: -5px; /* Form margin undesirable for sticky section */
+            padding-left: 10px;
+            padding-right: 10px;
+        `;
+        const stickySpacer = css`
+            height: calc(${stickyHeight} + 10px);
+        `;
+        const destinationFormStyle = css`
+            width: 450px;
+            float: left;
+        `;
+        const vertAlignBottom = css`
+            position: relative;
+            top: 100%;
+            transform: translateY(-127px);
+        `;
+        const floatRightWithMargin = css`
+            float: right;
+            margin-right:20px;
         `;
 
         //generate warnings of certain property names.
@@ -283,15 +312,27 @@ export class MessageInput extends Component {
 
         return (
             <div className={formStyle} >
-                <MessageDestinationForm
-                    recipientIsQueue={this.state.recipientIsQueue}
-                    availableQueues={this.state.availableQueues}
-                    availableTopics={this.state.availableTopics}
-                    selectedQueue={this.state.selectedQueue}
-                    selectedTopic={this.state.selectedTopic}
-                    handleDestinationChange={this.handleDestinationChange}
-                />
-                <hr className={fullWidth} />
+                <div className={topSticky}>
+                    <div className={destinationFormStyle}>
+                        <MessageDestinationForm
+                            recipientIsQueue={this.state.recipientIsQueue}
+                            availableQueues={this.state.availableQueues}
+                            availableTopics={this.state.availableTopics}
+                            selectedQueue={this.state.selectedQueue}
+                            selectedTopic={this.state.selectedTopic}
+                            handleDestinationChange={this.handleDestinationChange}
+                        />
+                    </div>
+                    <div className={classNames(vertAlignBottom, floatRightWithMargin)}>
+                        <MessageSendAndResetButtons
+                            selectedEndpoint={selectedEndpoint}
+                            warnings={warnings}
+                            submit={this.submit}
+                            discardMessage={this.discardMessage}
+                        />
+                    </div>
+                </div>
+                <div className={stickySpacer} />
                 <MessageProperties
                     arePreDefinedPropsLoaded={this.state.arePreDefinedPropsLoaded}
                     preDefinedProperties={this.state.preDefinedProperties}
@@ -305,41 +346,6 @@ export class MessageInput extends Component {
                     messageBody={this.state.messageBody}
                     handleMessageBodyChange={this.handleMessageBodyChange}
                 />
-                <form>
-                    <ButtonGroup>
-                        <ButtonWithConfirmationModal
-                            id="submitButton"
-                            buttonText={"Send Message"}
-                            buttonStyle="default"
-                            buttonDisabled={selectedEndpoint ? false : true}
-                            modalInternalStyle="info"
-                            modalTitle={"Send Message to " + selectedEndpoint}
-                            modalBody={
-                                <React.Fragment>
-                                    <p>{"Message will be sent to: " + selectedEndpoint}</p>
-                                    {warnings}
-                                    <p>{"Confirm sending message?"}</p>
-                                </React.Fragment>
-                            }
-                            confirmButtonText={"Send"}
-                            confirmAction={this.submit}
-                        />
-                        <ButtonWithConfirmationModal
-                            id="cancelButton"
-                            buttonText={"Reset Fields"}
-                            modalTitle={"Reset all fields"}
-                            modalInternalStyle="warning"
-                            modalBody={
-                                <React.Fragment>
-                                    <p>Are you sure you want to reset ALL fields of the current message?</p>
-                                    <p>Note: if you are replaying an existing message, resetting the fields here will have NO effect on the orignal message.</p>
-                                </React.Fragment>
-                            }
-                            confirmButtonText={"Reset"}
-                            confirmAction={this.discardMessage}
-                        />
-                    </ButtonGroup>
-                </form>
             </div >
         );
     }
