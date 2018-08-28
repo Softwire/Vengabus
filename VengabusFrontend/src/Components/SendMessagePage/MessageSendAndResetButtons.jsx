@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { css } from 'react-emotion';
-import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
+import { ButtonWithConfirmationModal } from '../ButtonWithConfirmationModal';
 
 /**
  * Send and Reset buttons for the send message page.

@@ -4,9 +4,7 @@ import { MessageBodyInput } from './MessageBodyInput';
 import { MessageProperties } from './MessageProperties';
 import { MessageDestinationForm } from './MessageDestinationForm';
 import { MessageSendAndResetButtons } from './MessageSendAndResetButtons';
-
 import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
-import { ButtonGroup } from 'react-bootstrap';
 import { cancellablePromiseCollection } from '../../Helpers/CancellablePromiseCollection';
 import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
 import _ from 'lodash';
