@@ -24,7 +24,8 @@ export class TopicList extends Component {
                 dataField: 'subscriptionCount',
                 width: 30,
                 headerStyle: this.props.headerStyle,
-                align: 'right'
+                align: 'right',
+                disableSearch: true
             },
             {
                 dataField: 'topicStatus',

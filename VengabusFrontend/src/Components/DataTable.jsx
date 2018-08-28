@@ -22,6 +22,7 @@ Props:
         width: (OPIONAL) {number} Width of the column. If defined in one column then must be defined in all columns (excluding hidden ones) and overall width has to add up to 100.
         headerStyle: (RECOMMENDED) {object} Contains CSS styling for the header. Width must be defined as above and not in here.
         hidden: (OPTIONAL) {boolean} If true then the column will be hidden. Default is false.
+        disableSearch: (OPTIONAL) {boolean} If true, the contents in the column will not be used for searching. Default is false.
         formatter: (OPTIONAL) {function} Can be used to render more complicated html within the cells, including rendering dependent on cell value.
                     Takes arguments (cell, row, rowIndex) and should return a string or a JSX element to be rendered within the cell.
                     For example if you want to render a button within the column then you can pass the following to the formatter:
@@ -276,7 +277,7 @@ export class DataTable extends Component {
     //Decide which rows are displayed.
     filterData(element, colProps) {
         for (let i = 0; i < colProps.length; i++) {
-            if (colProps[i].hidden) {//don't search on hidden properties
+            if (colProps[i].hidden || colProps[i].disableSearch) {//don't search on hidden properties or columns with searching disabled
                 continue;
             }
             let value = this.getProperty(element, colProps[i].dataField);

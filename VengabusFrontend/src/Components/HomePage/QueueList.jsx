@@ -37,7 +37,8 @@ export class QueueList extends Component {
                 formatter: (cell, row, rowIndex) => {
                     return (`${row.activeMessageCount} / ${row.deadletterMessageCount}`);
                 },
-                headerStyle: this.props.headerStyle
+                headerStyle: this.props.headerStyle,
+                disableSearch: true
             },
             {
                 dataField: 'mostRecentDeadLetter',
