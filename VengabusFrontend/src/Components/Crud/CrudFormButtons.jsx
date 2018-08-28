@@ -46,7 +46,7 @@ export class CrudFormButtons extends Component {
                         modalBody={
                             <React.Fragment>
                                 <p>Are you sure you want to reset ALL fields of the current {this.props.endpointType}?</p>
-                                <p>Note: if you are updating an existing {this.props.endpointType}, resetting the fields here will have NO effect on the orignal {this.props.endpointType}.</p>
+                                <p>Note: resetting the fields here will have NO effect on the {this.props.endpointType} in Azure.</p>
                             </React.Fragment>
                         }
                         confirmButtonText={"Reset"}
