@@ -14,7 +14,7 @@ export class MessageSendAndResetButtons extends Component {
     render() {
 
         const spacer = css`
-            margin-bottom:10px;
+            margin-bottom:16px;
         `;
 
         const buttonWidth = css`

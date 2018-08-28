@@ -258,10 +258,11 @@ export class MessageInput extends Component {
         const vertAlignBottom = css`
             position: relative;
             top: 100%;
-            transform: translateY(-120px);
+            transform: translateY(-127px);
         `;
-        const floatRight = css`
+        const floatRightWithMargin = css`
             float: right;
+            margin-right:20px;
         `;
 
         //generate warnings of certain property names.
@@ -322,7 +323,7 @@ export class MessageInput extends Component {
                             handleDestinationChange={this.handleDestinationChange}
                         />
                     </div>
-                    <div className={classNames(vertAlignBottom, floatRight)}>
+                    <div className={classNames(vertAlignBottom, floatRightWithMargin)}>
                         <MessageSendAndResetButtons
                             selectedEndpoint={selectedEndpoint}
                             warnings={warnings}

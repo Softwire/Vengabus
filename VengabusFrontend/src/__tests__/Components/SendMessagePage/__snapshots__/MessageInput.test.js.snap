@@ -82,12 +82,12 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                                 </div>
                             </div>
                         </div>
-                        <div class=\\"css-1j2u3bp css-bt9eng\\">
+                        <div class=\\"css-xxa940 css-14v2y5d\\">
                             <form>
                                 <button disabled=\\"\\" style=\\"pointer-events: none;\\" type=\\"button\\" class=\\"css-15kv4vi btn btn-lg btn-default\\">
                                     Send Message
                                 </button>
-                                <div class=\\"css-1fknxk4\\">
+                                <div class=\\"css-lxxdu4\\">
                                 </div>
                                 <button type=\\"button\\" class=\\"css-15kv4vi btn btn-lg btn-danger\\">
                                     Reset Fields
@@ -240,13 +240,14 @@ exports[`renders correctly after data has loaded 1`] = `
 .emotion-38 {
   position: relative;
   top: 100%;
-  -webkit-transform: translateY(-120px);
-  -ms-transform: translateY(-120px);
-  transform: translateY(-120px);
+  -webkit-transform: translateY(-127px);
+  -ms-transform: translateY(-127px);
+  transform: translateY(-127px);
 }
 
 .emotion-39 {
   float: right;
+  margin-right: 20px;
 }
 
 .emotion-0 {
@@ -466,7 +467,7 @@ exports[`renders correctly after data has loaded 1`] = `
 }
 
 .emotion-36 {
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 }
 
 .emotion-35 {
@@ -906,13 +907,14 @@ exports[`renders correctly before data has loaded 1`] = `
 .emotion-38 {
   position: relative;
   top: 100%;
-  -webkit-transform: translateY(-120px);
-  -ms-transform: translateY(-120px);
-  transform: translateY(-120px);
+  -webkit-transform: translateY(-127px);
+  -ms-transform: translateY(-127px);
+  transform: translateY(-127px);
 }
 
 .emotion-39 {
   float: right;
+  margin-right: 20px;
 }
 
 .emotion-0 {
@@ -1132,7 +1134,7 @@ exports[`renders correctly before data has loaded 1`] = `
 }
 
 .emotion-36 {
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 }
 
 .emotion-35 {
@@ -1576,13 +1578,14 @@ exports[`renders correctly from a predefined message 1`] = `
 .emotion-38 {
   position: relative;
   top: 100%;
-  -webkit-transform: translateY(-120px);
-  -ms-transform: translateY(-120px);
-  transform: translateY(-120px);
+  -webkit-transform: translateY(-127px);
+  -ms-transform: translateY(-127px);
+  transform: translateY(-127px);
 }
 
 .emotion-39 {
   float: right;
+  margin-right: 20px;
 }
 
 .emotion-0 {
@@ -1802,7 +1805,7 @@ exports[`renders correctly from a predefined message 1`] = `
 }
 
 .emotion-36 {
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 }
 
 .emotion-35 {
