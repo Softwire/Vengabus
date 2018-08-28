@@ -4,6 +4,20 @@ import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
 import { EndpointTypes } from '../Helpers/EndpointTypes';
 import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
 
+/*
+Returns a button with confirmation modal for deleting a targeted message
+Props:
+    uniqueId: (REQUIRED) {string} GUID for idenfing the message to be deleted
+    messageId (REQUIRED) {string} the message id for idenfing the message to be deleted 
+    endpointType (REQUIRED) {EndpointTypes} type of endpoint we want to delete message from
+    messageType (REQUIRED) {EndpointTypes} type of message we wamt tp delete
+    endpointName (REQUIRED) {string} endpoint name
+    parentName (OPTIONAL) {string} in case the endpointType is a Subscription, we also need the parent topic name
+    onDeletionEnd (OPTIONAL) {function} function to be called after the deletion took place
+    onDeletionStart (OPTIONAL) {function} function to be called before deletion took place
+    disabled (OPTIONAL) {boolean} if true, the button is disabled
+*/
+
 class DeleteSingleMessageButton extends React.Component {
     getOnDeletionConfirmedHandler = () => {
         let deleteMessage;

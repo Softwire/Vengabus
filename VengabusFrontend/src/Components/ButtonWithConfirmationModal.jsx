@@ -3,6 +3,20 @@ import { Modal, Alert, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { Spinner } from './Spinner';
 import { css } from 'react-emotion';
 
+/*
+Returns a button with confirmation modal
+Props:
+    buttonText: (REQUIRED) {string} text to be displayed on the button that triggers the modal
+    modalTitle: (REQUIRED) {string} title to be displayed on the modal
+    modalBody: (REQUIRED) {string} body to be displayed on the modal
+    confirmButtonText: (REQUIRED) {string} text to be displayed on the confirmation button
+    confirmAction: (REQUIRED) {function} function to be called on pressing confirmation button
+    afterShowModalAction: (OPTIONAL) {function} function to be called after modal is shown
+    afterCloseModalAction: (OPTIONAL) {function} function to be called after modal is closed
+    buttonDisabled: (OPTIONAL) {boolean} if true, the button that triggers the modal is disabled
+    tooltipMessage (OPTIONAL) {string} if it exists, it adds a tooltip on button hover
+*/
+
 const defaultState = {
     show: false
 };
