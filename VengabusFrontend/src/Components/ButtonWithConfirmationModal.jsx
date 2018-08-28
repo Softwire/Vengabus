@@ -28,6 +28,10 @@ class ButtonWithConfirmationModal extends React.Component {
     }
 
     render() {
+        const externalModalTriggerButtonStyle = this.props.buttonStyle || "danger";
+        const internalAlertDialogStyle = this.props.modalInternalStyle || "danger";
+        const internalConfirmButtonStyle = this.props.modalButtonStyle || internalAlertDialogStyle;
+
         const style = this.props.buttonDisabled ? {
             pointerEvents: 'none'
         } : {};
@@ -41,7 +45,7 @@ class ButtonWithConfirmationModal extends React.Component {
         const button =
             <Button
                 onClick={this.handleOpen}
-                bsStyle={this.props.buttonStyle || "danger"}
+                bsStyle={externalModalTriggerButtonStyle}
                 disabled={!!this.props.buttonDisabled}
                 style={style}
             >
@@ -55,7 +59,6 @@ class ButtonWithConfirmationModal extends React.Component {
                 </div>
             </OverlayTrigger>;
 
-
         return (
             <React.Fragment>
                 {this.props.tooltipMessage ? buttonWithToolTip : button}
@@ -65,14 +68,14 @@ class ButtonWithConfirmationModal extends React.Component {
                     </Modal.Header>
                     <Modal.Body>
                         {this.props.modalBody ?
-                            <Alert bsStyle="danger">
+                            <Alert bsStyle={internalAlertDialogStyle}>
                                 {this.props.modalBody}
                             </Alert > : null
                         }
                         {this.props.children}
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button id="confirm" onClick={this.handleConfirm} bsStyle="danger">{this.props.confirmButtonText}</Button>
+                        <Button id="confirm" onClick={this.handleConfirm} bsStyle={internalConfirmButtonStyle}>{this.props.confirmButtonText}</Button>
                         <Button id="cancel" onClick={this.handleClose}>{this.props.cancelButtonText || "Cancel"}</Button>
                     </Modal.Footer>
                 </Modal>
