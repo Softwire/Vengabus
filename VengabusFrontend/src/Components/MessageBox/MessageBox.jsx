@@ -11,6 +11,7 @@ import { formatMessageForDownload, jsonToString } from '../../Helpers/Formatting
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
 import { NoPropertiesPanel } from './NoPropertiesPanel';
 import { panelDarkGrey, panelLightGrey } from '../../colourScheme';
+import { Spinner } from '../Spinner';
 const downloadToFile = require("downloadjs");
 
 const defaultState = {
