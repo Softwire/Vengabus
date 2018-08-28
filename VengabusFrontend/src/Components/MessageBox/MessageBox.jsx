@@ -7,9 +7,11 @@ import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { FormattingBox } from './FormattingBox';
 import { DeleteSingleMessageButton } from '../../Components/DeleteSingleMessageButton';
 import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
+import { formatMessageForDownload, jsonToString } from '../../Helpers/FormattingHelpers';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
 import { NoPropertiesPanel } from './NoPropertiesPanel';
 import { panelDarkGrey, panelLightGrey } from '../../colourScheme';
+const downloadToFile = require("downloadjs");
 
 export class MessageBox extends Component {
 
@@ -38,6 +40,16 @@ export class MessageBox extends Component {
                 { message: message, recipientIsQueue: false, selectedTopic: this.props.endpointParent }
             );
         }
+    }
+
+    /**
+     * Downloads a message as a formatted JSON file. Does NOT download any null properties.
+     * @param {object} message The message to be downloaded.
+     */
+    download = (message) => {
+        const messageDownload = [formatMessageForDownload(message)];
+
+        downloadToFile(jsonToString(messageDownload), "message_" + message.predefinedProperties.messageId + ".json", "text/json");
     }
 
     closeMessageModalAndReloadMessageTable = () => {
@@ -150,7 +162,6 @@ export class MessageBox extends Component {
                         <ButtonToolbar className={buttonToolbarStyle}>
                             { /*Note that these buttons are rendered in order, Right-to-Left*/}
                             <Button onClick={this.props.handleClose} id="messageBoxClose">Close</Button>
-                            <CopyTextButton text={message.messageBody} id="messageBoxCopy" />
                             <DeleteSingleMessageButton
                                 uniqueId={message.uniqueId}
                                 messageId={message.predefinedProperties.messageId}
@@ -160,7 +171,10 @@ export class MessageBox extends Component {
                                 endpointName={this.props.endpointName}
                                 closeParentModal={this.closeMessageModalAndReloadMessageTable}
                             />
+                            <CopyTextButton text={message.messageBody} id="messageBoxCopy" />
+                            <Button onClick={() => this.download(message)} id="messageBoxDownloadMessageButton">Download  <span className="glyphicon glyphicon-save" /> </Button>
                             <Button onClick={() => this.handleReplayMessage(message)} id="messageBoxReplayMessage" >{"Replay Message to " + replayDestination}</ Button>
+
                         </ButtonToolbar>
                     </Modal.Footer>
                 </Modal>

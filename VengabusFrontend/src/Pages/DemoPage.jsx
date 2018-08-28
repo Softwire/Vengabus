@@ -72,7 +72,6 @@ sit amet \nthat was a newline`
         messagePromise.then((result) => console.log(result));
     }
 
-
     render() {
         const queueDivStyle = css`
             width: 30%;

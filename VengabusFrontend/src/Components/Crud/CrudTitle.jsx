@@ -3,6 +3,8 @@ import { ButtonWithConfirmationModal } from '../ButtonWithConfirmationModal';
 import { PurgeMessagesButton } from '../PurgeMessagesButton';
 import { FormControl, FormGroup, ButtonGroup } from 'react-bootstrap';
 import { css } from 'emotion';
+import { DownloadEndpointButton } from '../DownloadEndpointButton';
+import { EndpointTypes } from '../../Helpers/EndpointTypes';
 
 /**
  * @prop {string} endpointType The type of endpoint we are editing. Use EndpointTypes in Helpers.
@@ -26,6 +28,17 @@ export class CrudTitle extends Component {
             height: 1px;
             width: 98%;
         `;
+
+        let downloadButton;
+        
+        if(this.props.endpointType === EndpointTypes.QUEUE || this.props.endpointType === EndpointTypes.SUBSCRIPTION) {
+            downloadButton = (
+                <DownloadEndpointButton
+                    parentTopic={this.props.parentTopic}
+                    endpointType={this.props.endpointType}
+                    endpointName={this.props.selectedEndpoint}
+                />);
+        }
         return (
             <div className={titleStyle}>
                 <span>{titleText + '  '}</span>
@@ -64,6 +77,7 @@ export class CrudTitle extends Component {
                         confirmAction={this.props.deleteEndpoint}
                     />
                     <PurgeMessagesButton id="purgeMessages" type={this.props.endpointType} endpointName={this.props.selectedEndpoint} parentName={this.props.parentTopic} />
+                    {downloadButton}
                 </ButtonGroup>
                 <hr className={hrStyle} />
             </div>
