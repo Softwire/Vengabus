@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { css } from 'react-emotion';
+import classNames from 'classnames';
 import { MessageBodyInput } from './MessageBodyInput';
 import { MessageProperties } from './MessageProperties';
 import { MessageDestinationForm } from './MessageDestinationForm';
 import { MessageSendAndResetButtons } from './MessageSendAndResetButtons';
 import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { cancellablePromiseCollection } from '../../Helpers/CancellablePromiseCollection';
-import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
+import { sharedSizesAndDimensions, zIndices } from '../../Helpers/SharedSizesAndDimensions';
 import _ from 'lodash';
 
 /** 
@@ -236,7 +237,7 @@ export class MessageInput extends Component {
             width: 100%;
         `;
         const topSticky = css`
-            z-index: 2;
+            z-index: ${zIndices.SEND_MESSAGE_STICKY};
             position: fixed;
             width: calc(100% - ${sharedSizesAndDimensions.SIDEBAR_WIDTH}px);
             height: ${stickyHeight};
@@ -257,7 +258,10 @@ export class MessageInput extends Component {
         const vertAlignBottom = css`
             position: relative;
             top: 100%;
-            transform: translateY(-50px);
+            transform: translateY(-90px);
+        `;
+        const floatRight = css`
+            float: right;
         `;
 
         //generate warnings of certain property names.
@@ -318,7 +322,7 @@ export class MessageInput extends Component {
                             handleDestinationChange={this.handleDestinationChange}
                         />
                     </div>
-                    <div className={vertAlignBottom}>
+                    <div className={classNames(vertAlignBottom, floatRight)}>
                         <MessageSendAndResetButtons
                             selectedEndpoint={selectedEndpoint}
                             warnings={warnings}

@@ -82,13 +82,13 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                                 </div>
                             </div>
                         </div>
-                        <div class=\\"css-15gnt2l\\">
-                            <form class=\\"css-bt9eng\\">
+                        <div class=\\"css-1swg7pc css-bt9eng\\">
+                            <form>
                                 <button disabled=\\"\\" style=\\"pointer-events: none;\\" type=\\"button\\" class=\\"btn btn-default\\">
                                     Send Message
                                 </button>
-                                <span class=\\"css-wftp20\\">
-                                </span>
+                                <div class=\\"css-1fknxk4\\">
+                                </div>
                                 <button type=\\"button\\" class=\\"btn btn-danger\\">
                                     Reset Fields
                                 </button>
@@ -237,12 +237,16 @@ exports[`renders correctly after data has loaded 1`] = `
   float: left;
 }
 
-.emotion-37 {
+.emotion-36 {
   position: relative;
   top: 100%;
-  -webkit-transform: translateY(-50px);
-  -ms-transform: translateY(-50px);
-  transform: translateY(-50px);
+  -webkit-transform: translateY(-90px);
+  -ms-transform: translateY(-90px);
+  transform: translateY(-90px);
+}
+
+.emotion-37 {
+  float: right;
 }
 
 .emotion-0 {
@@ -461,12 +465,8 @@ exports[`renders correctly after data has loaded 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-36 {
-  float: right;
-}
-
 .emotion-35 {
-  margin-left: 5px;
+  margin-bottom: 10px;
 }
 
 .emotion-42 {
@@ -755,11 +755,9 @@ exports[`renders correctly after data has loaded 1`] = `
       </div>
     </div>
     <div
-      className="emotion-37"
+      className="emotion-36 emotion-37"
     >
-      <form
-        className="emotion-36"
-      >
+      <form>
         <button
           className="btn btn-default"
           disabled={true}
@@ -773,7 +771,7 @@ exports[`renders correctly after data has loaded 1`] = `
         >
           Send Message
         </button>
-        <span
+        <div
           className="emotion-35"
         />
         <button
@@ -901,12 +899,16 @@ exports[`renders correctly before data has loaded 1`] = `
   float: left;
 }
 
-.emotion-37 {
+.emotion-36 {
   position: relative;
   top: 100%;
-  -webkit-transform: translateY(-50px);
-  -ms-transform: translateY(-50px);
-  transform: translateY(-50px);
+  -webkit-transform: translateY(-90px);
+  -ms-transform: translateY(-90px);
+  transform: translateY(-90px);
+}
+
+.emotion-37 {
+  float: right;
 }
 
 .emotion-0 {
@@ -1125,12 +1127,8 @@ exports[`renders correctly before data has loaded 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-36 {
-  float: right;
-}
-
 .emotion-35 {
-  margin-left: 5px;
+  margin-bottom: 10px;
 }
 
 .emotion-42 {
@@ -1423,11 +1421,9 @@ exports[`renders correctly before data has loaded 1`] = `
       </div>
     </div>
     <div
-      className="emotion-37"
+      className="emotion-36 emotion-37"
     >
-      <form
-        className="emotion-36"
-      >
+      <form>
         <button
           className="btn btn-default"
           disabled={true}
@@ -1441,7 +1437,7 @@ exports[`renders correctly before data has loaded 1`] = `
         >
           Send Message
         </button>
-        <span
+        <div
           className="emotion-35"
         />
         <button
@@ -1569,12 +1565,16 @@ exports[`renders correctly from a predefined message 1`] = `
   float: left;
 }
 
-.emotion-37 {
+.emotion-36 {
   position: relative;
   top: 100%;
-  -webkit-transform: translateY(-50px);
-  -ms-transform: translateY(-50px);
-  transform: translateY(-50px);
+  -webkit-transform: translateY(-90px);
+  -ms-transform: translateY(-90px);
+  transform: translateY(-90px);
+}
+
+.emotion-37 {
+  float: right;
 }
 
 .emotion-0 {
@@ -1793,12 +1793,8 @@ exports[`renders correctly from a predefined message 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-36 {
-  float: right;
-}
-
 .emotion-35 {
-  margin-left: 5px;
+  margin-bottom: 10px;
 }
 
 .emotion-42 {
@@ -2129,11 +2125,9 @@ exports[`renders correctly from a predefined message 1`] = `
       </div>
     </div>
     <div
-      className="emotion-37"
+      className="emotion-36 emotion-37"
     >
-      <form
-        className="emotion-36"
-      >
+      <form>
         <button
           className="btn btn-default"
           disabled={false}
@@ -2143,7 +2137,7 @@ exports[`renders correctly from a predefined message 1`] = `
         >
           Send Message
         </button>
-        <span
+        <div
           className="emotion-35"
         />
         <button
