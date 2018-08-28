@@ -4,7 +4,7 @@ import { QueueList } from './QueueList';
 import { TopicList } from './TopicList';
 import { MessageList } from './MessageList';
 import { css } from 'react-emotion';
-import { Breadcrumb, Button, Tabs, Tab } from 'react-bootstrap';
+import { Breadcrumb, Tabs, Tab } from 'react-bootstrap';
 import { SubscriptionList } from './SubscriptionList';
 import { EndpointTypes, typeToTitle } from '../../Helpers/EndpointTypes';
 import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
@@ -140,7 +140,7 @@ export class TwoListDisplay extends Component {
 
 
     updateEndpointMessageData = (messageType) => {
-        const isMessageDeadletters = messageType=== EndpointTypes.DEADLETTER;
+        const isMessageDeadletters = messageType === EndpointTypes.DEADLETTER;
         const serviceBusService = serviceBusConnection.getServiceBusService();
         let fetchedMessageData;
         const leftTableType = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].type;
@@ -192,21 +192,18 @@ export class TwoListDisplay extends Component {
             typeOfData = currentLeftTable.type || EndpointTypes.QUEUE;
             currentSelection = currentLeftTable.name;
         }
-        const displayStyle = css`
-                    display: inline-block;
-                    margin:10px;
-                `;
-
-        const deadLetterToggleButtonStyle = css`
-                margin-right: 0px;
-                float: right;
-                margin: 9px;
-                width: 120px ;
-        `;
         const minHeightOfHeader = {
             "minHeight": "92px",
             "height": "92px"
         };
+
+        const cssForTabs = css`
+        li{
+            text-align: center;
+            width:50%;
+        }
+        `;
+
 
         switch (typeOfData) {
             case EndpointTypes.QUEUE:
@@ -261,7 +258,7 @@ export class TwoListDisplay extends Component {
                 const penultimateBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 2];
                 return (
                     <React.Fragment>
-                        <div>
+                        <div className={cssForTabs}>
                             <Tabs defaultActiveKey={this.messageTabType} id="Tabs" onSelect={this.handleMessageToggle}>
                                 <Tab eventKey={EndpointTypes.MESSAGE} title="Live Messages" />
                                 <Tab eventKey={EndpointTypes.DEADLETTER} title="Deadletter Messages" />
