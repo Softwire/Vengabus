@@ -42,7 +42,7 @@ export class SubscriptionCrud extends Component {
             "Parent Topic": topicName,
             "Active Message Count": activeMessageCount,
             "Deadletter Message Count": deadletterMessageCount,
-            "Most Recent Deadletter": this.state.mostRecentDeadLetter
+            "Most Recent Deadletter": this.state.mostRecentDeadletter
         };
         // Transform into a format that is supported by DataTable
         const readOnlyProperties = Object.entries(readOnlyPropertiesTemplate).map(([key, value]) => ({ name: key, value: value }));
