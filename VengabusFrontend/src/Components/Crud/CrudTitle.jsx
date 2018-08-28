@@ -13,7 +13,7 @@ import { css } from 'emotion';
  * @prop {function} deleteEndpoint Function that deletes the selected endpoint when called.
  */
 export class CrudTitle extends Component {
-    render(){
+    render() {
         const titleText = `Editing ${this.props.endpointType}: ${this.props.selectedEndpoint}`;
         const titleStyle = css`
             font-size: 2em;
@@ -49,7 +49,7 @@ export class CrudTitle extends Component {
                             </React.Fragment>
                         }
                         confirmButtonText={"Rename"}
-                        confirmAction={this.props.renameEndpoint}
+                        confirmAction={() => this.props.renameEndpoint(this.props.selectedEndpoint, this.newName)}
                     />
                     <ButtonWithConfirmationModal
                         id="deleteButton"
@@ -57,7 +57,7 @@ export class CrudTitle extends Component {
                         buttonStyle="danger"
                         modalTitle={"Delete " + this.props.selectedEndpoint}
                         modalBody={
-                                <p>This will irreversibly delete this {this.props.endpointType}</p>
+                            <p>This will irreversibly delete this {this.props.endpointType}</p>
                         }
                         confirmButtonText={"Delete"}
                         confirmAction={this.props.deleteEndpoint}
