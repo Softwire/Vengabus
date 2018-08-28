@@ -97,53 +97,48 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                     </div>
                     <div class=\\"css-uwk93p\\">
                     </div>
-                    <div class=\\"css-mxbhzi\\">
-                        <p class=\\"css-wni10w\\">
-                            Pre-defined Properties
-                        </p>
-                    </div>
-                    <div>
-                    </div>
-                    <form>
-                        <div class=\\"css-mxbhzi\\">
-                            <button type=\\"button\\" class=\\"css-74801x btn btn-default\\">
-                                Add new Azure property
-                            </button>
-                        </div>
-                    </form>
-                    <hr>
-                        <div class=\\"css-mxbhzi\\">
-                            <p class=\\"css-wni10w\\">
-                                User-defined Properties
-                            </p>
-                        </div>
-                        <div>
+                    <p>
+                        Upload Message from File
+                    </p>
+                    <label style=\\"cursor: pointer;\\" for=\\"fileUpload\\" class=\\"control-label\\">
+                        <h3>
+                            <div class=\\" btn btn-default\\">
+                                Add file
+                            </div>
+                        </h3>
+                        <input style=\\"display: none;\\" type=\\"file\\" id=\\"fileUpload\\" class=\\"\\">
+                        </input>
+                        <hr class=\\"css-1m1gf12\\">
+                            <div class=\\"css-mxbhzi\\">
+                                <p class=\\"css-wni10w\\">
+                                    Pre-defined Properties
+                                </p>
+                            </div>
                             <div>
-                                <form class=\\"css-1rnsx0x\\">
-                                    <div class=\\"form-group\\">
-                                        <input placeholder=\\"Enter property name\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"test1\\">
-                                        </input>
-                                    </div>
-                                    <form class=\\"css-fztffm\\">
-                                        <div class=\\"form-group\\">
-                                            <input placeholder=\\"Enter property value\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"any value 1\\">
-                                            </input>
-                                        </div>
-                                        <div class=\\"css-g376pn\\">
-                                            <button type=\\"button\\" class=\\"css-83yc3x btn btn-danger\\">
-                                                Delete
-                                            </button>
-                                        </div>
-                                    </form>
+                            </div>
+                            <form>
+                                <div class=\\"css-mxbhzi\\">
+                                    <button type=\\"button\\" class=\\"css-74801x btn btn-default\\">
+                                        Add new Azure property
+                                    </button>
+                                </div>
+                            </form>
+                            <hr>
+                                <div class=\\"css-mxbhzi\\">
+                                    <p class=\\"css-wni10w\\">
+                                        User-defined Properties
+                                    </p>
+                                </div>
+                                <div>
                                     <div>
                                         <form class=\\"css-1rnsx0x\\">
-                                            <div class=\\"form-group has-error\\">
-                                                <input placeholder=\\"Enter property name\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"test2\\">
+                                            <div class=\\"form-group\\">
+                                                <input placeholder=\\"Enter property name\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"test1\\">
                                                 </input>
                                             </div>
                                             <form class=\\"css-fztffm\\">
                                                 <div class=\\"form-group\\">
-                                                    <input placeholder=\\"Enter property value\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"any value 2\\">
+                                                    <input placeholder=\\"Enter property value\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"any value 1\\">
                                                     </input>
                                                 </div>
                                                 <div class=\\"css-g376pn\\">
@@ -160,7 +155,7 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                                                     </div>
                                                     <form class=\\"css-fztffm\\">
                                                         <div class=\\"form-group\\">
-                                                            <input placeholder=\\"Enter property value\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"any value 3\\">
+                                                            <input placeholder=\\"Enter property value\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"any value 2\\">
                                                             </input>
                                                         </div>
                                                         <div class=\\"css-g376pn\\">
@@ -169,32 +164,51 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                                                             </button>
                                                         </div>
                                                     </form>
-                                                </form>
-                                                <form>
-                                                    <div class=\\"css-mxbhzi\\">
-                                                        <button type=\\"button\\" class=\\"css-74801x btn btn-default\\">
-                                                            Add new application specific property
-                                                        </button>
+                                                    <div>
+                                                        <form class=\\"css-1rnsx0x\\">
+                                                            <div class=\\"form-group has-error\\">
+                                                                <input placeholder=\\"Enter property name\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"test2\\">
+                                                                </input>
+                                                            </div>
+                                                            <form class=\\"css-fztffm\\">
+                                                                <div class=\\"form-group\\">
+                                                                    <input placeholder=\\"Enter property value\\" type=\\"text\\" id=\\"formControlsText\\" class=\\"css-83yc3x form-control\\" value=\\"any value 3\\">
+                                                                    </input>
+                                                                </div>
+                                                                <div class=\\"css-g376pn\\">
+                                                                    <button type=\\"button\\" class=\\"css-83yc3x btn btn-danger\\">
+                                                                        Delete
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </form>
+                                                        <form>
+                                                            <div class=\\"css-mxbhzi\\">
+                                                                <button type=\\"button\\" class=\\"css-74801x btn btn-default\\">
+                                                                    Add new application specific property
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                        <hr class=\\"css-1m1gf12\\">
+                                                            <form>
+                                                                <div class=\\"css-mxbhzi form-group\\">
+                                                                    <label for=\\"formControlsMessageBodyText\\" class=\\"css-wni10w control-label\\">
+                                                                        Body
+                                                                    </label>
+                                                                    <textarea placeholder=\\"Enter message body\\" id=\\"formControlsMessageBodyText\\" class=\\"css-4jk989 form-control\\">
+                                                                    </textarea>
+                                                                </div>
+                                                            </form>
+                                                        </hr>
                                                     </div>
                                                 </form>
-                                                <hr class=\\"css-1m1gf12\\">
-                                                    <form>
-                                                        <div class=\\"css-mxbhzi form-group\\">
-                                                            <label for=\\"formControlsMessageBodyText\\" class=\\"css-wni10w control-label\\">
-                                                                Body
-                                                            </label>
-                                                            <textarea placeholder=\\"Enter message body\\" id=\\"formControlsMessageBodyText\\" class=\\"css-4jk989 form-control\\">
-                                                            </textarea>
-                                                        </div>
-                                                    </form>
-                                                </hr>
                                             </div>
                                         </form>
                                     </div>
-                                </form>
-                            </div>
-                        </div>
-                    </hr>
+                                </div>
+                            </hr>
+                        </hr>
+                    </label>
                 </div>
             </div>
         </div>
@@ -203,7 +217,7 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
 `;
 
 exports[`renders correctly after data has loaded 1`] = `
-.emotion-54 {
+.emotion-55 {
   margin-left: 5px;
   margin-right: 5px;
   width: calc(100% - 10px);
@@ -474,18 +488,18 @@ exports[`renders correctly after data has loaded 1`] = `
   width: 150px;
 }
 
-.emotion-44 {
+.emotion-45 {
   width: 270px;
   margin-left: 5px;
 }
 
-.emotion-52 {
+.emotion-53 {
   min-height: 350px;
   padding-left: 5px;
 }
 
 <div
-  className="emotion-54"
+  className="emotion-55"
 >
   <div
     className="emotion-40"
@@ -794,6 +808,40 @@ exports[`renders correctly after data has loaded 1`] = `
   <div
     className="emotion-41"
   />
+  <p>
+    Upload Message from File
+  </p>
+  <label
+    className="control-label"
+    htmlFor="fileUpload"
+    style={
+      Object {
+        "cursor": "pointer",
+      }
+    }
+  >
+    <h3>
+      <div
+        className=" btn btn-default"
+      >
+        Add file
+      </div>
+    </h3>
+    <input
+      className=""
+      id="fileUpload"
+      onChange={[Function]}
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+      type="file"
+    />
+  </label>
+  <hr
+    className="emotion-17"
+  />
   <div
     className="emotion-1"
   >
@@ -809,7 +857,7 @@ exports[`renders correctly after data has loaded 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-44 btn btn-default"
+        className="emotion-45 btn btn-default"
         disabled={false}
         onClick={[Function]}
         type="button"
@@ -834,7 +882,7 @@ exports[`renders correctly after data has loaded 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-44 btn btn-default"
+        className="emotion-45 btn btn-default"
         disabled={false}
         onClick={[Function]}
         type="button"
@@ -857,7 +905,7 @@ exports[`renders correctly after data has loaded 1`] = `
         Body
       </label>
       <textarea
-        className="emotion-52 form-control"
+        className="emotion-53 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
@@ -870,7 +918,7 @@ exports[`renders correctly after data has loaded 1`] = `
 `;
 
 exports[`renders correctly before data has loaded 1`] = `
-.emotion-55 {
+.emotion-56 {
   margin-left: 5px;
   margin-right: 5px;
   width: calc(100% - 10px);
@@ -1141,22 +1189,22 @@ exports[`renders correctly before data has loaded 1`] = `
   width: 150px;
 }
 
-.emotion-44 {
+.emotion-45 {
   width: 270px;
   margin-left: 5px;
 }
 
-.emotion-45.btn:hover {
+.emotion-46.btn:hover {
   cursor: progress;
 }
 
-.emotion-53 {
+.emotion-54 {
   min-height: 350px;
   padding-left: 5px;
 }
 
 <div
-  className="emotion-55"
+  className="emotion-56"
 >
   <div
     className="emotion-40"
@@ -1465,6 +1513,40 @@ exports[`renders correctly before data has loaded 1`] = `
   <div
     className="emotion-41"
   />
+  <p>
+    Upload Message from File
+  </p>
+  <label
+    className="control-label"
+    htmlFor="fileUpload"
+    style={
+      Object {
+        "cursor": "pointer",
+      }
+    }
+  >
+    <h3>
+      <div
+        className=" btn btn-default"
+      >
+        Add file
+      </div>
+    </h3>
+    <input
+      className=""
+      id="fileUpload"
+      onChange={[Function]}
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+      type="file"
+    />
+  </label>
+  <hr
+    className="emotion-17"
+  />
   <div
     className="emotion-1"
   >
@@ -1480,7 +1562,7 @@ exports[`renders correctly before data has loaded 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-44 emotion-45 btn btn-default"
+        className="emotion-45 emotion-46 btn btn-default"
         disabled={true}
         onClick={[Function]}
         type="button"
@@ -1505,7 +1587,7 @@ exports[`renders correctly before data has loaded 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-44 btn btn-default"
+        className="emotion-45 btn btn-default"
         disabled={false}
         onClick={[Function]}
         type="button"
@@ -1528,7 +1610,7 @@ exports[`renders correctly before data has loaded 1`] = `
         Body
       </label>
       <textarea
-        className="emotion-53 form-control"
+        className="emotion-54 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
@@ -1541,7 +1623,7 @@ exports[`renders correctly before data has loaded 1`] = `
 `;
 
 exports[`renders correctly from a predefined message 1`] = `
-.emotion-67 {
+.emotion-68 {
   margin-left: 5px;
   margin-right: 5px;
   width: calc(100% - 10px);
@@ -1812,16 +1894,16 @@ exports[`renders correctly from a predefined message 1`] = `
   width: 150px;
 }
 
-.emotion-44 {
+.emotion-45 {
   width: 270px;
   margin-left: 5px;
 }
 
-.emotion-45.btn:hover {
+.emotion-46.btn:hover {
   cursor: progress;
 }
 
-.emotion-65 {
+.emotion-66 {
   min-height: 350px;
   padding-left: 5px;
 }
@@ -1842,30 +1924,30 @@ exports[`renders correctly from a predefined message 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-50 {
+.emotion-51 {
   padding-left: 5px;
   width: 20%;
   float: left;
 }
 
-.emotion-52 {
+.emotion-53 {
   padding-left: 5px;
   width: calc(80% - 80px);
   float: left;
 }
 
-.emotion-54 {
+.emotion-55 {
   padding-left: 5px;
   width: 80px;
   float: left;
 }
 
-.emotion-49 {
+.emotion-50 {
   min-height: 38px;
 }
 
 <div
-  className="emotion-67"
+  className="emotion-68"
 >
   <div
     className="emotion-40"
@@ -2170,6 +2252,40 @@ exports[`renders correctly from a predefined message 1`] = `
   <div
     className="emotion-41"
   />
+  <p>
+    Upload Message from File
+  </p>
+  <label
+    className="control-label"
+    htmlFor="fileUpload"
+    style={
+      Object {
+        "cursor": "pointer",
+      }
+    }
+  >
+    <h3>
+      <div
+        className=" btn btn-default"
+      >
+        Add file
+      </div>
+    </h3>
+    <input
+      className=""
+      id="fileUpload"
+      onChange={[Function]}
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+      type="file"
+    />
+  </label>
+  <hr
+    className="emotion-17"
+  />
   <div
     className="emotion-1"
   >
@@ -2185,7 +2301,7 @@ exports[`renders correctly from a predefined message 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-44 emotion-45 btn btn-default"
+        className="emotion-45 emotion-46 btn btn-default"
         disabled={true}
         onClick={[Function]}
         type="button"
@@ -2207,14 +2323,14 @@ exports[`renders correctly from a predefined message 1`] = `
   <div>
     <div>
       <form
-        className="emotion-50"
+        className="emotion-51"
         onSubmit={[Function]}
       >
         <div
           className="form-group"
         >
           <input
-            className="emotion-49 form-control"
+            className="emotion-50 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property name"
@@ -2224,14 +2340,14 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <form
-        className="emotion-52"
+        className="emotion-53"
         onSubmit={[Function]}
       >
         <div
           className="form-group"
         >
           <input
-            className="emotion-49 form-control"
+            className="emotion-50 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property value"
@@ -2241,10 +2357,10 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <div
-        className="emotion-54"
+        className="emotion-55"
       >
         <button
-          className="emotion-49 btn btn-danger"
+          className="emotion-50 btn btn-danger"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -2255,14 +2371,14 @@ exports[`renders correctly from a predefined message 1`] = `
     </div>
     <div>
       <form
-        className="emotion-50"
+        className="emotion-51"
         onSubmit={[Function]}
       >
         <div
           className="form-group"
         >
           <input
-            className="emotion-49 form-control"
+            className="emotion-50 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property name"
@@ -2272,14 +2388,14 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <form
-        className="emotion-52"
+        className="emotion-53"
         onSubmit={[Function]}
       >
         <div
           className="form-group"
         >
           <input
-            className="emotion-49 form-control"
+            className="emotion-50 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property value"
@@ -2289,10 +2405,10 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <div
-        className="emotion-54"
+        className="emotion-55"
       >
         <button
-          className="emotion-49 btn btn-danger"
+          className="emotion-50 btn btn-danger"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -2307,7 +2423,7 @@ exports[`renders correctly from a predefined message 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-44 btn btn-default"
+        className="emotion-45 btn btn-default"
         disabled={false}
         onClick={[Function]}
         type="button"
@@ -2330,7 +2446,7 @@ exports[`renders correctly from a predefined message 1`] = `
         Body
       </label>
       <textarea
-        className="emotion-65 form-control"
+        className="emotion-66 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"

@@ -164,10 +164,6 @@ exports[`MessageBox renders correctly with given props 1`] = `
         >
           Close
         </Button>
-        <CopyTextButton
-          id="messageBoxCopy"
-          text="BODY"
-        />
         <DeleteSingleMessageButton
           closeParentModal={[Function]}
           endpointName="demoqueue1"
@@ -175,6 +171,25 @@ exports[`MessageBox renders correctly with given props 1`] = `
           messageId="ID"
           uniqueId="asdasasd"
         />
+        <CopyTextButton
+          id="messageBoxCopy"
+          text="BODY"
+        />
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="default"
+          disabled={false}
+          id="messageBoxDownloadMessageButton"
+          onClick={[Function]}
+        >
+          Download  
+          <span
+            className="glyphicon glyphicon-save"
+          />
+           
+        </Button>
         <Button
           active={false}
           block={false}
