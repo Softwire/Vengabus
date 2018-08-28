@@ -126,6 +126,15 @@ jest.mock('../../../AzureWrappers/VengaServiceBusService', () => ({
                     }
                 ]);
         }
+
+        getQueueMostRecentDeadletter = () => {
+            return Promise.resolve(100);
+        }
+        getSubscriptionMostRecentDeadletter = () => {
+            return Promise.resolve(100);
+        }
+
+
     }
 }));
 
@@ -173,7 +182,7 @@ it('clicking Queues to retrieved message data then returning to home screen', ()
 
     return resetToDefaultState(wrapper).then(
         () => { return clickAndResolveQueueRowClick(wrapper, "testQueue1"); }).then(
-            () => { return resetToDefaultState(wrapper); }).then(
+            () => { return resetToDefaultState(wrapper); }).then(() => testHelper.afterReactHasUpdated()).then(
                 () => { return expectDefaultState(wrapper); }
             );
 });

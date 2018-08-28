@@ -65,6 +65,7 @@ export class MessageDestination extends Component {
                 </div>
                 <Select
                     isDisabled={!this.props.isSelected}
+                    isLoading={this.props.availableDestinations.length === 0}
                     className={dropdownStyle}
                     title={this.props.destinationType}
                     id={this.props.destinationType.toLowerCase() + "-dropdown"}

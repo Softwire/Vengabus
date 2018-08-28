@@ -7,7 +7,7 @@ export class TopicList extends Component {
 
     render() {
         const originalTopicPorps = this.props.topicData;
-        const topics = originalTopicPorps ? [] : undefined;
+        const topics = originalTopicPorps ? [] : originalTopicPorps;
         if (originalTopicPorps) {
             for (let i = 0; i < originalTopicPorps.length; i++) {
                 topics.push({ ...originalTopicPorps[i] });

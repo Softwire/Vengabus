@@ -264,9 +264,12 @@ it('Switches from sending to a queue to sending to a topic correctly', () => {
         recipientIsQueue: true,
         selectedQueue: "testQueue" //Should not be used
     });
-    //Click the topic radio button
-    testHelper.clickElementWithId(wrapper, "#topic-selection-radio");
+    //Wait for topics to load
     return testHelper.afterReactHasUpdated().then(() => {
+        //Click the topic radio button
+        testHelper.clickElementWithId(wrapper, "#topic-selection-radio");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
         //Click the topic dropdown
         testHelper.clickElementWithId(wrapper, "#topic-dropdown");
         return testHelper.afterReactHasUpdated();
@@ -304,9 +307,13 @@ it('Rememembers which queue was selected if the topic radio is pressed', () => {
         recipientIsQueue: true,
         selectedQueue: "testQueue" //Should not be used
     });
-    //Click the queue dropdown
-    testHelper.clickElementWithId(wrapper, "#queue-dropdown");
+    
+    //Wait for the queues to load
     return testHelper.afterReactHasUpdated().then(() => {
+        //Click the queue dropdown
+        testHelper.clickElementWithId(wrapper, "#queue-dropdown");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
         //Press down followed by enter to select the first queue in the list
         let topicDropdown = wrapper.find("#queue-dropdown").last();
         topicDropdown.simulate('keyDown', { key: 'ArrowDown', keyCode: 40, which: 40 });

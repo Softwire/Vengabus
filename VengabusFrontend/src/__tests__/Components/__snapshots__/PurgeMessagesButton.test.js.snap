@@ -5,7 +5,6 @@ exports[`PurgeMessagesButton renders correctly with given props 1`] = `
   className="btn btn-danger"
   disabled={false}
   onClick={[Function]}
-  style={Object {}}
   type="button"
 >
   <span>

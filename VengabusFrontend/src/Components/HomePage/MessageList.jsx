@@ -31,7 +31,7 @@ export class MessageList extends Component {
     }
 
     render() {
-        const messageArray = this.props.messageData ? [...this.props.messageData] : undefined;
+        const messageArray = this.props.messageData ? [...this.props.messageData] : this.props.messageData;
         //add a preview of the body to each field which will be the first 30 chars
         const previewLength = 30;
         for (let i = 0; i < (messageArray ? messageArray.length : 0); i++) {
@@ -45,7 +45,7 @@ export class MessageList extends Component {
             }
         }
 
-             
+
         const colProps = [
             {
                 dataField: 'uniqueId',
@@ -55,7 +55,7 @@ export class MessageList extends Component {
                 dataField: 'predefinedProperties.messageId',
                 text: 'Message Id',
                 width: 33,
-                headerStyle : this.props.headerStyle
+                headerStyle: this.props.headerStyle
             },
             {
                 dataField: 'messageBodyPreview',
@@ -67,7 +67,7 @@ export class MessageList extends Component {
                 dataField: 'timestamp',
                 width: 34,
                 headerStyle: this.props.headerStyle
-    
+
             }
         ];
 
@@ -92,7 +92,7 @@ export class MessageList extends Component {
                     endpointName={this.props.endpointName}
                     endpointParent={this.props.endpointParent}
                     handleClose={this.handleClose}
-                    refreshMessageTableHandler={this.props.refreshMessageTableHandler}
+                    onMessageBoxClose={this.props.refreshMessageTableHandler}
                 />
             </div>
         );

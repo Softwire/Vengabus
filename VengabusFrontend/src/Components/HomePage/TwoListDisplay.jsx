@@ -21,10 +21,10 @@ export class TwoListDisplay extends Component {
         this.promiseCollection = new cancellablePromiseCollection();
         this.messageTabType = EndpointTypes.MESSAGE;
         this.state = {
-            queueData: undefined,
-            topicData: undefined,
-            subscriptionData: undefined,
-            messageData: undefined,
+            queueData: null,
+            topicData: null,
+            subscriptionData: null,
+            messageData: null,
             rightTableType: EndpointTypes.TOPIC
         };
     }
@@ -97,7 +97,13 @@ export class TwoListDisplay extends Component {
                     });
                 }).catch((e) => { });
             }
-        }).catch((e) => { });
+        }).catch((e) => {
+            if (!e.isCanceled) {
+                this.setState({
+                    queueData: []
+                });
+            }
+        });
     }
 
     updateAllTopicData = () => {
@@ -108,7 +114,13 @@ export class TwoListDisplay extends Component {
             this.setState({
                 topicData: result
             });
-        }).catch(e => { if (!e.isCanceled) { console.log(e); } });
+        }).catch(e => {
+            if (!e.isCanceled) {
+                this.setState({
+                    topicData: []
+                });
+            }
+        });
     }
 
     updateTopicSubscriptionData = () => {
@@ -135,7 +147,13 @@ export class TwoListDisplay extends Component {
                     });
                 }).catch((e) => { });
             }
-        }).catch(e => { });
+        }).catch(e => {
+            if (!e.isCanceled) {
+                this.setState({
+                    subscriptionData: []
+                });
+            }
+        });
     }
 
 
@@ -167,10 +185,20 @@ export class TwoListDisplay extends Component {
             this.setState({
                 messageData: result
             });
-        }).catch(e => { if (!e.isCanceled) { console.log(e); } });
+        }).catch(e => {
+            if (!e.isCanceled) {
+                this.setState({
+                    messageData: []
+                });
+            }
+        });
     }
 
     resetInitialStateData = () => {
+        this.setState({
+            queueData: undefined,
+            topicData: undefined
+        });
         this.updateAllTopicData();
         this.updateAllQueueData();
         this.breadCrumbHistory = [{ name: "Home", type: undefined }];

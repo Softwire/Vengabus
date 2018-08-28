@@ -33,9 +33,11 @@ class DeleteSingleMessageButton extends React.Component {
         }
 
         const onDeletionConfirmed = () => {
-            deleteMessage().then(() => {
-                if (this.props.closeParentModal) {
-                    this.props.closeParentModal();
+            if (this.props.onDeletionStart)
+                this.props.onDeletionStart();
+            deleteMessage().catch(() => { }).finally(() => {
+                if (this.props.onDeletionEnd) {
+                    this.props.onDeletionEnd();
                 }
             });
         };
@@ -71,7 +73,7 @@ class DeleteSingleMessageButton extends React.Component {
                 afterShowModalAction={this.showModalAction}
                 confirmAction={this.getOnDeletionConfirmedHandler()}
                 afterCloseModalAction={() => { }}
-                buttonDisabled={!deletionIsSupported}
+                buttonDisabled={!deletionIsSupported || this.props.disabled}
                 tooltipMessage={deletionIsSupported ? undefined : tooltipMessage}
             />);
     }
