@@ -5,33 +5,26 @@ export function formatTimeStamp(date) {
 }
 
 export function parseUploadedMessage(message) {
-    let messageCopy = { ...message, properties: { ...message.properties } };
-    let parsedMessage = {};
+    const messageUploaded = {
+        predefinedProperties: { ...message },
+        customProperties: { ...message.properties },
+        messageBody: message.body
+    };
+    delete messageUploaded.predefinedProperties.body;
 
-    parsedMessage.messageBody = messageCopy.body;
-    delete messageCopy.body;
-
-    parsedMessage.customProperties = messageCopy.properties;
-    delete messageCopy.properties;
-
-    parsedMessage.predefinedProperties = messageCopy;
-
-    return parsedMessage;
+    return messageUploaded;
 }
 
 export function formatMessageForDownload(message) {
-    let messageDownload = { ...message, ...message.predefinedProperties };
+    const messageDownload = {
+        // Note that we don't spread the core of the message, as all the properties on there are note form the API - they are temporary data added after the fact.
+        ...message.predefinedProperties,
+        properties: { ...message.customProperties },
+        body: message.messageBody
+    };
+
     delete messageDownload.predefinedProperties;
-
-    messageDownload.properties = { ...message.customProperties };
     delete messageDownload.customProperties;
-
-    messageDownload.body = messageDownload.messageBody;
-    delete messageDownload.messageBody;
-    delete messageDownload.messageBodyPreview;
-
-    delete messageDownload.timestamp;
-    delete messageDownload.uniqueId;
 
     return [messageDownload];
 }
