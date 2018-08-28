@@ -30,7 +30,8 @@ export class QueueList extends Component {
                 headerStyle: this.props.headerStyle
             },
             {
-                dataField: '',
+                //qq this is only a workaround for the table not rerendering itself. Solve this properly later.
+                dataField: 'activeMessageCount',
                 text: 'Active / Deadletter Message Counts',
                 width: 46,
                 formatter: (cell, row, rowIndex) => {
@@ -43,8 +44,7 @@ export class QueueList extends Component {
                 width: 23
             },
             {
-                //qq this is only to solve the duplicate key issue. Properly solve this later.
-                dataField: 'crud',
+                dataField: '',
                 text: ' ',
                 width: 8,
                 formatter: (cell, row, rowIndex) => {
