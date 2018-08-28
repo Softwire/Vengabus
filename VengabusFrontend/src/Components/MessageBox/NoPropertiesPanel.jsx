@@ -11,6 +11,7 @@ export class NoPropertiesPanel extends Component {
             .panel-heading pre {
                 float: right;
                 margin-right: 10px;
+                padding: 10px; /*to align the no properties text with the h4 title*/
                 background: transparent;
             }
         `;

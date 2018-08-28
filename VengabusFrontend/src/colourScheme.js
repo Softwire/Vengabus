@@ -7,3 +7,7 @@ export const mediumGreyBlue = '#80a8ff';
 export const panelDarkGrey = '#333';
 export const panelMediumGrey = '#999';
 export const panelLightGrey = '#ddd';
+export const reactBoostrapDangerRedText = '#a94442';
+export const reactBoostrapDangerRedBackground = '#f2dede;';
+export const reactBoostrapWarningYellowText = '#8a6d3b';
+export const reactBoostrapWarningYellowBackground = '#fcf8e3';
