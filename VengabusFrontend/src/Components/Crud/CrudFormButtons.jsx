@@ -25,6 +25,7 @@ export class CrudFormButtons extends Component {
                         id="updateButton"
                         buttonText={"Update"}
                         buttonStyle="default"
+                        modalInternalStyle="info"
                         buttonDisabled={this.props.buttonsDisabled}
                         modalTitle={"Update " + this.props.endpointType}
                         modalBody={
@@ -40,6 +41,7 @@ export class CrudFormButtons extends Component {
                         id="resetButton"
                         buttonText={"Reset Fields"}
                         buttonDisabled={this.props.buttonsDisabled}
+                        modalInternalStyle="warning"
                         modalTitle={"Reset all fields"}
                         modalBody={
                             <React.Fragment>

@@ -34,6 +34,7 @@ export class CrudTitle extends Component {
                         id="renameButton"
                         buttonText={"Rename"}
                         buttonStyle="primary"
+                        modalInternalStyle="info"
                         modalTitle={"Rename " + this.props.selectedEndpoint}
                         buttonDisabled={this.props.renameDisabled}
                         modalBody={

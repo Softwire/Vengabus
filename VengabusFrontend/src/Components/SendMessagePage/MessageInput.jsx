@@ -63,7 +63,7 @@ export class MessageInput extends Component {
             this.setState({
                 availableTopics: this.convertArrayOfNamesToValueLabel(result)
             });
-        }).catch((e) => { if (!e.isCanceled) { console.log(e); }  });
+        }).catch((e) => { if (!e.isCanceled) { console.log(e); } });
     }
 
     componentWillUnmount() {
@@ -312,6 +312,7 @@ export class MessageInput extends Component {
                             buttonText={"Send Message"}
                             buttonStyle="default"
                             buttonDisabled={selectedEndpoint ? false : true}
+                            modalInternalStyle="info"
                             modalTitle={"Send Message to " + selectedEndpoint}
                             modalBody={
                                 <React.Fragment>
@@ -327,6 +328,7 @@ export class MessageInput extends Component {
                             id="cancelButton"
                             buttonText={"Reset Fields"}
                             modalTitle={"Reset all fields"}
+                            modalInternalStyle="warning"
                             modalBody={
                                 <React.Fragment>
                                     <p>Are you sure you want to reset ALL fields of the current message?</p>
