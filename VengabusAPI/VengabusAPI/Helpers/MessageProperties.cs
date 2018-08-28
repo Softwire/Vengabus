@@ -107,8 +107,12 @@ namespace VengabusAPI.Helpers
 
         public static void SetProperty(BrokeredMessage message, string propertyName, object propertyValue)
         {
-            var setPropertyFunction = setBrokeredMessagePropertyActions[propertyName];
-            setPropertyFunction(message, propertyValue);
+            // Permit "setting" of read-only properties, so that we can upload messages without having to filter gettable v settable.
+            Action<BrokeredMessage, object> setPropertyFunction;
+            if (setBrokeredMessagePropertyActions.TryGetValue(propertyName, out setPropertyFunction))
+            {
+                setPropertyFunction(message, propertyValue);
+            }
         }
 
     }

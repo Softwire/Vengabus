@@ -26,7 +26,7 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                                 </div>
                                 <div class=\\"css-rsyb7x\\">
                                     <div class=\\"\\" style=\\"display: inline-block;\\">
-                                        <input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-10-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
+                                        <input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-8-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                                             <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; font-family: -webkit-small-control; letter-spacing: normal; text-transform: none;\\">
                                             </div>
                                         </input>
@@ -62,7 +62,7 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                                         </div>
                                         <div class=\\"css-rsyb7x\\">
                                             <div class=\\"\\" style=\\"display: inline-block;\\">
-                                                <input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-11-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
+                                                <input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-9-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                                                     <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; font-family: -webkit-small-control; letter-spacing: normal; text-transform: none;\\">
                                                     </div>
                                                 </input>
@@ -100,14 +100,16 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                     <p>
                         Upload Message from File
                     </p>
-                    <label style=\\"cursor: pointer;\\" for=\\"fileUpload\\" class=\\"control-label\\">
-                        <h3>
-                            <div class=\\" btn btn-default\\">
-                                Add file
-                            </div>
-                        </h3>
-                        <input style=\\"display: none;\\" type=\\"file\\" id=\\"fileUpload\\" class=\\"\\">
-                        </input>
+                    <div>
+                        <label style=\\"cursor: pointer;\\" for=\\"fileUpload\\" class=\\"control-label\\">
+                            <h3>
+                                <div class=\\" btn btn-default\\">
+                                    Upload message from file
+                                </div>
+                            </h3>
+                            <input style=\\"display: none;\\" type=\\"file\\" id=\\"fileUpload\\" class=\\"\\">
+                            </input>
+                        </label>
                         <hr class=\\"css-1m1gf12\\">
                             <div class=\\"css-mxbhzi\\">
                                 <p class=\\"css-wni10w\\">
@@ -208,7 +210,7 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                                 </div>
                             </hr>
                         </hr>
-                    </label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -801,34 +803,36 @@ exports[`renders correctly after data has loaded 1`] = `
   <p>
     Upload Message from File
   </p>
-  <label
-    className="control-label"
-    htmlFor="fileUpload"
-    style={
-      Object {
-        "cursor": "pointer",
-      }
-    }
-  >
-    <h3>
-      <div
-        className=" btn btn-default"
-      >
-        Add file
-      </div>
-    </h3>
-    <input
-      className=""
-      id="fileUpload"
-      onChange={[Function]}
+  <div>
+    <label
+      className="control-label"
+      htmlFor="fileUpload"
       style={
         Object {
-          "display": "none",
+          "cursor": "pointer",
         }
       }
-      type="file"
-    />
-  </label>
+    >
+      <h3>
+        <div
+          className=" btn btn-default"
+        >
+          Upload message from file
+        </div>
+      </h3>
+      <input
+        className=""
+        id="fileUpload"
+        onChange={[Function]}
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+        type="file"
+      />
+    </label>
+  </div>
   <hr
     className="emotion-17"
   />
@@ -1605,34 +1609,15 @@ exports[`renders correctly before data has loaded 1`] = `
   <p>
     Upload Message from File
   </p>
-  <label
-    className="control-label"
-    htmlFor="fileUpload"
-    style={
-      Object {
-        "cursor": "pointer",
-      }
-    }
-  >
-    <h3>
-      <div
-        className=" btn btn-default"
-      >
-        Add file
-      </div>
-    </h3>
-    <input
-      className=""
-      id="fileUpload"
-      onChange={[Function]}
-      style={
-        Object {
-          "display": "none",
-        }
-      }
-      type="file"
-    />
-  </label>
+  <div>
+    <button
+      className="btn btn-default"
+      disabled={true}
+      type="button"
+    >
+      Upload message from file
+    </button>
+  </div>
   <hr
     className="emotion-21"
   />
@@ -2447,34 +2432,15 @@ exports[`renders correctly from a predefined message 1`] = `
   <p>
     Upload Message from File
   </p>
-  <label
-    className="control-label"
-    htmlFor="fileUpload"
-    style={
-      Object {
-        "cursor": "pointer",
-      }
-    }
-  >
-    <h3>
-      <div
-        className=" btn btn-default"
-      >
-        Add file
-      </div>
-    </h3>
-    <input
-      className=""
-      id="fileUpload"
-      onChange={[Function]}
-      style={
-        Object {
-          "display": "none",
-        }
-      }
-      type="file"
-    />
-  </label>
+  <div>
+    <button
+      className="btn btn-default"
+      disabled={true}
+      type="button"
+    >
+      Upload message from file
+    </button>
+  </div>
   <hr
     className="emotion-21"
   />

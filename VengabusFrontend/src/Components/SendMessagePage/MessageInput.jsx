@@ -7,11 +7,9 @@ import { MessageDestinationForm } from './MessageDestinationForm';
 import { MessageSendAndResetButtons } from './MessageSendAndResetButtons';
 import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { cancellablePromiseCollection } from '../../Helpers/CancellablePromiseCollection';
-import { parseUploadedMessage } from '../../Helpers/FormattingHelpers';
-import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { sharedSizesAndDimensions, zIndices } from '../../Helpers/SharedSizesAndDimensions';
 import _ from 'lodash';
-import { FormControl, ControlLabel } from 'react-bootstrap';
+import { UploadMessagesToEndpointButton } from '../../Components/UploadMessagesToEndpointButton';
 
 /** 
  * @property {Object} message Can take a message as a prop to replay message.
@@ -47,18 +45,21 @@ export class MessageInput extends Component {
 
     componentDidMount() {
         this.serviceBusService = serviceBusConnection.getServiceBusService();
+        
         let permittedValuesPromise = this.promiseCollection.addNewPromise(this.serviceBusService.getWriteableMessageProperties());
         let reservedPropertyNamesPromise = this.promiseCollection.addNewPromise(this.serviceBusService.getReadableMessageProperties());
-        const fetchQueueDataPromise = this.promiseCollection.addNewPromise(this.serviceBusService.listQueues());
-        const fetchTopicDataPromise = this.promiseCollection.addNewPromise(this.serviceBusService.listTopics());
         Promise.all([permittedValuesPromise, reservedPropertyNamesPromise]).then((result) => {
             this.setState({
                 permittedValues: result[0],
                 reservedPropertyNames: result[1],
-                arePreDefinedPropsLoaded: true,
-                preDefinedProperties: this.props.message ? this.getPreDefinedProperties(this.props.message, result[0], result[1]) : [] //[{name: something, value: something}]
+                arePreDefinedPropsLoaded: true
             });
+            this.identifyAndPopulateMessagePreDefinedProps(result[0], result[1]);
         }).catch((e) => { if (!e.isCanceled) { console.log(e); } });
+
+
+        const fetchQueueDataPromise = this.promiseCollection.addNewPromise(this.serviceBusService.listQueues());
+        const fetchTopicDataPromise = this.promiseCollection.addNewPromise(this.serviceBusService.listTopics());
         fetchQueueDataPromise.then((result) => {
             this.setState({
                 availableQueues: this.convertArrayOfNamesToValueLabel(result)
@@ -74,20 +75,29 @@ export class MessageInput extends Component {
     componentWillUnmount() {
         this.promiseCollection.cancelAllPromises();
     }
-    /**
-     * @param {object} file The uploaded file that should be loaded into the page.
-     */
-    replayUploadedFile = (file) => {
-        const fileMessageObject = new FileReader();
 
-        fileMessageObject.onload = (event) => {
-            const message = JSON.parse(event.target.result)[0];
-            const apiMessageObject = parseUploadedMessage(message);
-            pageSwitcher.switchToPage(PAGES.HomePage);  //QQ necessary becasue otherwise the page is not refreshed, change once solution has been found
-            pageSwitcher.switchToPage(PAGES.SendMessagePage, { message: apiMessageObject });
-        };
+    identifyAndPopulateMessagePreDefinedProps = (permittedValues, reservedValues) => {
+        if (!this.message) { return; }
+        const props = this.getPreDefinedProperties(this.message, permittedValues, reservedValues)
+        this.setState({
+            preDefinedProperties: props //[{name: something, value: something}]
+        });
+    }
 
-        fileMessageObject.readAsText(file.item(0));
+    promisesForPropertyData = () => {
+       
+    }
+
+    replayMessageFromFile = (fileReadMessagePromise) => {
+        const messagePromise = this.promiseCollection.addNewPromise(fileReadMessagePromise);
+        messagePromise.then(messageObject => {
+            this.message = messageObject;
+            this.setState({
+                messageBody: messageObject ? messageObject.messageBody : '',
+                userDefinedProperties: messageObject ? this.getUserDefinedProperties(messageObject) : [], //[{name: something, value: something}]
+            });
+            this.identifyAndPopulateMessagePreDefinedProps(this.permittedValues, this.reservedPropertyNames);
+        });
     }
 
     /**
@@ -323,14 +333,12 @@ export class MessageInput extends Component {
             <React.Fragment>
                 <p>Upload Message from File</p>
 
-                <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}><h3><div className=" btn btn-default">Add file</div></h3>
-                    <FormControl
-                        id="fileUpload"
-                        type="file"
-                        onChange={(event) => this.replayUploadedFile(event.target.files)}
-                        style={{ display: "none" }}
-                    />
-                </ControlLabel>
+                <UploadMessagesToEndpointButton
+                    ready={this.state.arePreDefinedPropsLoaded}
+                    replayMessage={this.replayMessageFromFile}
+                    isASingleFile="true"
+                    text="Upload message from file"
+                />
             </React.Fragment>
         );
 

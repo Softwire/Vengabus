@@ -11,6 +11,7 @@ export function parseUploadedMessage(message) {
         messageBody: message.body
     };
     delete messageUploaded.predefinedProperties.body;
+    delete messageUploaded.predefinedProperties.properties;
 
     return messageUploaded;
 }
@@ -46,7 +47,7 @@ export function parseTimeSpanFromBackend(timespan) {
 export function jsonToString(json) {
     const replacer = null;
     const spacing = 4;
-    const stingedJson = JSON.stringify(json, replacer, spacing);
-    return stingedJson;
+    return JSON.stringify(json, replacer, spacing);
+
 }
 
