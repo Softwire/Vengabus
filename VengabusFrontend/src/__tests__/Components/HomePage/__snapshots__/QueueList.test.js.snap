@@ -46,20 +46,11 @@ Array [
                 <th
                     style={
                         Object {
-                            "width": "23%",
+                            "width": "46%",
                           }
                     }
                 >
-                    Active Message Count
-                </th>
-                <th
-                    style={
-                        Object {
-                            "width": "23%",
-                          }
-                    }
-                >
-                    Deadletter Message Count
+                    Active / Deadletter Message Counts
                 </th>
                 <th
                     style={
@@ -92,23 +83,8 @@ Array [
                 </td>
                 <td
                     onClick={[Function]}
-                    style={
-                        Object {
-                            "textAlign": "right",
-                          }
-                    }
                 >
-                    12
-                </td>
-                <td
-                    onClick={[Function]}
-                    style={
-                        Object {
-                            "textAlign": "right",
-                          }
-                    }
-                >
-                    14
+                    12 / 14
                 </td>
                 <td
                     onClick={[Function]}
@@ -139,23 +115,8 @@ Array [
                 </td>
                 <td
                     onClick={[Function]}
-                    style={
-                        Object {
-                            "textAlign": "right",
-                          }
-                    }
                 >
-                    11
-                </td>
-                <td
-                    onClick={[Function]}
-                    style={
-                        Object {
-                            "textAlign": "right",
-                          }
-                    }
-                >
-                    15
+                    11 / 15
                 </td>
                 <td
                     onClick={[Function]}
@@ -186,23 +147,8 @@ Array [
                 </td>
                 <td
                     onClick={[Function]}
-                    style={
-                        Object {
-                            "textAlign": "right",
-                          }
-                    }
                 >
-                    14
-                </td>
-                <td
-                    onClick={[Function]}
-                    style={
-                        Object {
-                            "textAlign": "right",
-                          }
-                    }
-                >
-                    16
+                    14 / 16
                 </td>
                 <td
                     onClick={[Function]}
