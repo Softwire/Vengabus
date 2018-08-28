@@ -144,7 +144,7 @@ export class ConnectionStringConfigForm extends Component {
         }
 
         let newConnectionStrings = this.state.connectionStrings;
-        let index = newConnectionStrings.find((element) => { return this.state.activeConnectionString.label === element.label });
+        let index = newConnectionStrings.findIndex((element) => { return this.state.activeConnectionString.label === element.label; });
         if (index === -1) {//this should never happen. But if it does occur, we don't want the page to crash
             return;
         }
