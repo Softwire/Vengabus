@@ -165,10 +165,12 @@ exports[`MessageBox renders correctly with given props 1`] = `
           Close
         </Button>
         <DeleteSingleMessageButton
-          closeParentModal={[Function]}
+          disabled={false}
           endpointName="demoqueue1"
           endpointType="queue"
           messageId="ID"
+          onDeletionEnd={[Function]}
+          onDeletionStart={[Function]}
           uniqueId="asdasasd"
         />
         <CopyTextButton

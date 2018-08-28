@@ -84,7 +84,7 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                         </div>
                         <div class=\\"css-xxa940 css-14v2y5d\\">
                             <form>
-                                <button disabled=\\"\\" style=\\"pointer-events: none;\\" type=\\"button\\" class=\\"css-15kv4vi btn btn-lg btn-default\\">
+                                <button disabled=\\"\\" type=\\"button\\" class=\\"css-15kv4vi btn btn-lg btn-default\\">
                                     Send Message
                                 </button>
                                 <div class=\\"css-lxxdu4\\">
@@ -781,11 +781,6 @@ exports[`renders correctly after data has loaded 1`] = `
           className="emotion-35 btn btn-lg btn-default"
           disabled={true}
           onClick={[Function]}
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
           type="button"
         >
           Send Message
@@ -797,7 +792,6 @@ exports[`renders correctly after data has loaded 1`] = `
           className="emotion-35 btn btn-lg btn-danger"
           disabled={false}
           onClick={[Function]}
-          style={Object {}}
           type="button"
         >
           Reset Fields
@@ -918,19 +912,19 @@ exports[`renders correctly after data has loaded 1`] = `
 `;
 
 exports[`renders correctly before data has loaded 1`] = `
-.emotion-56 {
+.emotion-64 {
   margin-left: 5px;
   margin-right: 5px;
   width: calc(100% - 10px);
   float: left;
 }
 
-.emotion-17 {
+.emotion-21 {
   float: left;
   width: 100%;
 }
 
-.emotion-40 {
+.emotion-48 {
   z-index: 2;
   position: fixed;
   width: calc(100% - 250px);
@@ -943,16 +937,16 @@ exports[`renders correctly before data has loaded 1`] = `
   padding-right: 10px;
 }
 
-.emotion-41 {
+.emotion-49 {
   height: calc(150px + 10px);
 }
 
-.emotion-34 {
+.emotion-42 {
   width: 450px;
   float: left;
 }
 
-.emotion-38 {
+.emotion-46 {
   position: relative;
   top: 100%;
   -webkit-transform: translateY(-127px);
@@ -960,7 +954,7 @@ exports[`renders correctly before data has loaded 1`] = `
   transform: translateY(-127px);
 }
 
-.emotion-39 {
+.emotion-47 {
   float: right;
   margin-right: 20px;
 }
@@ -974,7 +968,7 @@ exports[`renders correctly before data has loaded 1`] = `
   text-align: left;
 }
 
-.emotion-16 {
+.emotion-20 {
   float: left;
   width: 275px;
   text-align: left;
@@ -996,13 +990,13 @@ exports[`renders correctly before data has loaded 1`] = `
   line-height: 38px;
 }
 
-.emotion-15 {
+.emotion-19 {
   pointer-events: none;
   position: relative;
   box-sizing: border-box;
 }
 
-.emotion-14 {
+.emotion-18 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1032,7 +1026,7 @@ exports[`renders correctly before data has loaded 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-14:hover {
+.emotion-18:hover {
   border-color: hsl(0,0%,70%);
 }
 
@@ -1078,7 +1072,7 @@ exports[`renders correctly before data has loaded 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-13 {
+.emotion-17 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1096,7 +1090,86 @@ exports[`renders correctly before data has loaded 1`] = `
   box-sizing: border-box;
 }
 
+.emotion-13 {
+  color: hsl(0,0%,80%);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 8px;
+  -webkit-transition: color 150ms;
+  transition: color 150ms;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  font-size: 4px;
+  line-height: 1;
+  margin-right: 4px;
+  text-align: center;
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+
 .emotion-10 {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0ms;
+  animation-delay: 0ms;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: react-select-loading-indicator;
+  animation-name: react-select-loading-indicator;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  background-color: hsl(0,0%,80%);
+  border-radius: 1em;
+  display: inline-block;
+  height: 1em;
+  vertical-align: top;
+  width: 1em;
+}
+
+.emotion-11 {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 160ms;
+  animation-delay: 160ms;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: react-select-loading-indicator;
+  animation-name: react-select-loading-indicator;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  background-color: hsl(0,0%,80%);
+  border-radius: 1em;
+  display: inline-block;
+  margin-left: 1em;
+  height: 1em;
+  vertical-align: top;
+  width: 1em;
+}
+
+.emotion-12 {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 320ms;
+  animation-delay: 320ms;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: react-select-loading-indicator;
+  animation-name: react-select-loading-indicator;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  background-color: hsl(0,0%,80%);
+  border-radius: 1em;
+  display: inline-block;
+  margin-left: 1em;
+  height: 1em;
+  vertical-align: top;
+  width: 1em;
+}
+
+.emotion-14 {
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -1107,7 +1180,7 @@ exports[`renders correctly before data has loaded 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-12 {
+.emotion-16 {
   color: hsl(0,0%,80%);
   display: -webkit-box;
   display: -webkit-flex;
@@ -1119,11 +1192,11 @@ exports[`renders correctly before data has loaded 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-12:hover {
+.emotion-16:hover {
   color: hsl(0,0%,60%);
 }
 
-.emotion-11 {
+.emotion-15 {
   display: inline-block;
   fill: currentColor;
   line-height: 1;
@@ -1131,12 +1204,12 @@ exports[`renders correctly before data has loaded 1`] = `
   stroke-width: 0;
 }
 
-.emotion-31 {
+.emotion-39 {
   position: relative;
   box-sizing: border-box;
 }
 
-.emotion-30 {
+.emotion-38 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1166,11 +1239,11 @@ exports[`renders correctly before data has loaded 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-30:hover {
+.emotion-38:hover {
   border-color: hsl(0,0%,70%);
 }
 
-.emotion-26 {
+.emotion-34 {
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -1181,36 +1254,36 @@ exports[`renders correctly before data has loaded 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-36 {
+.emotion-44 {
   margin-bottom: 16px;
 }
 
-.emotion-35 {
+.emotion-43 {
   width: 150px;
 }
 
-.emotion-45 {
+.emotion-53 {
   width: 270px;
   margin-left: 5px;
 }
 
-.emotion-46.btn:hover {
+.emotion-54.btn:hover {
   cursor: progress;
 }
 
-.emotion-54 {
+.emotion-62 {
   min-height: 350px;
   padding-left: 5px;
 }
 
 <div
-  className="emotion-56"
+  className="emotion-64"
 >
   <div
-    className="emotion-40"
+    className="emotion-48"
   >
     <div
-      className="emotion-34"
+      className="emotion-42"
     >
       <div
         className="emotion-1"
@@ -1222,7 +1295,7 @@ exports[`renders correctly before data has loaded 1`] = `
         </p>
       </div>
       <div
-        className="emotion-17"
+        className="emotion-21"
       >
         <div
           onClick={[Function]}
@@ -1243,12 +1316,12 @@ exports[`renders correctly before data has loaded 1`] = `
           </div>
         </div>
         <div
-          className="emotion-15 emotion-16"
+          className="emotion-19 emotion-20"
           id="queue-dropdown"
           onKeyDown={[Function]}
         >
           <div
-            className="emotion-14"
+            className="emotion-18"
             onMouseDown={[Function]}
             onTouchEnd={[Function]}
           >
@@ -1321,20 +1394,34 @@ exports[`renders correctly before data has loaded 1`] = `
               </div>
             </div>
             <div
-              className="emotion-13"
+              className="emotion-17"
             >
+              <div
+                aria-hidden="true"
+                className="emotion-13"
+              >
+                <span
+                  className="emotion-10"
+                />
+                <span
+                  className="emotion-11"
+                />
+                <span
+                  className="emotion-12"
+                />
+              </div>
               <span
-                className="emotion-10"
+                className="emotion-14"
               />
               <div
                 aria-hidden="true"
-                className="emotion-12"
+                className="emotion-16"
                 onMouseDown={[Function]}
                 onTouchEnd={[Function]}
               >
                 <svg
                   aria-hidden="true"
-                  className="emotion-11"
+                  className="emotion-15"
                   focusable="false"
                   height={20}
                   viewBox="0 0 20 20"
@@ -1350,7 +1437,7 @@ exports[`renders correctly before data has loaded 1`] = `
         </div>
       </div>
       <div
-        className="emotion-17"
+        className="emotion-21"
       >
         <div
           onClick={[Function]}
@@ -1371,12 +1458,12 @@ exports[`renders correctly before data has loaded 1`] = `
           </div>
         </div>
         <div
-          className="emotion-31 emotion-16"
+          className="emotion-39 emotion-20"
           id="topic-dropdown"
           onKeyDown={[Function]}
         >
           <div
-            className="emotion-30"
+            className="emotion-38"
             onMouseDown={[Function]}
             onTouchEnd={[Function]}
           >
@@ -1449,20 +1536,34 @@ exports[`renders correctly before data has loaded 1`] = `
               </div>
             </div>
             <div
-              className="emotion-13"
+              className="emotion-17"
             >
+              <div
+                aria-hidden="true"
+                className="emotion-13"
+              >
+                <span
+                  className="emotion-10"
+                />
+                <span
+                  className="emotion-11"
+                />
+                <span
+                  className="emotion-12"
+                />
+              </div>
               <span
-                className="emotion-26"
+                className="emotion-34"
               />
               <div
                 aria-hidden="true"
-                className="emotion-12"
+                className="emotion-16"
                 onMouseDown={[Function]}
                 onTouchEnd={[Function]}
               >
                 <svg
                   aria-hidden="true"
-                  className="emotion-11"
+                  className="emotion-15"
                   focusable="false"
                   height={20}
                   viewBox="0 0 20 20"
@@ -1479,30 +1580,24 @@ exports[`renders correctly before data has loaded 1`] = `
       </div>
     </div>
     <div
-      className="emotion-38 emotion-39"
+      className="emotion-46 emotion-47"
     >
       <form>
         <button
-          className="emotion-35 btn btn-lg btn-default"
+          className="emotion-43 btn btn-lg btn-default"
           disabled={true}
           onClick={[Function]}
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
           type="button"
         >
           Send Message
         </button>
         <div
-          className="emotion-36"
+          className="emotion-44"
         />
         <button
-          className="emotion-35 btn btn-lg btn-danger"
+          className="emotion-43 btn btn-lg btn-danger"
           disabled={false}
           onClick={[Function]}
-          style={Object {}}
           type="button"
         >
           Reset Fields
@@ -1511,7 +1606,7 @@ exports[`renders correctly before data has loaded 1`] = `
     </div>
   </div>
   <div
-    className="emotion-41"
+    className="emotion-49"
   />
   <p>
     Upload Message from File
@@ -1545,7 +1640,7 @@ exports[`renders correctly before data has loaded 1`] = `
     />
   </label>
   <hr
-    className="emotion-17"
+    className="emotion-21"
   />
   <div
     className="emotion-1"
@@ -1562,7 +1657,7 @@ exports[`renders correctly before data has loaded 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-45 emotion-46 btn btn-default"
+        className="emotion-53 emotion-54 btn btn-default"
         disabled={true}
         onClick={[Function]}
         type="button"
@@ -1587,7 +1682,7 @@ exports[`renders correctly before data has loaded 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-45 btn btn-default"
+        className="emotion-53 btn btn-default"
         disabled={false}
         onClick={[Function]}
         type="button"
@@ -1597,7 +1692,7 @@ exports[`renders correctly before data has loaded 1`] = `
     </div>
   </form>
   <hr
-    className="emotion-17"
+    className="emotion-21"
   />
   <form>
     <div
@@ -1610,7 +1705,7 @@ exports[`renders correctly before data has loaded 1`] = `
         Body
       </label>
       <textarea
-        className="emotion-54 form-control"
+        className="emotion-62 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
@@ -1623,19 +1718,19 @@ exports[`renders correctly before data has loaded 1`] = `
 `;
 
 exports[`renders correctly from a predefined message 1`] = `
-.emotion-68 {
+.emotion-76 {
   margin-left: 5px;
   margin-right: 5px;
   width: calc(100% - 10px);
   float: left;
 }
 
-.emotion-17 {
+.emotion-21 {
   float: left;
   width: 100%;
 }
 
-.emotion-40 {
+.emotion-48 {
   z-index: 2;
   position: fixed;
   width: calc(100% - 250px);
@@ -1648,16 +1743,16 @@ exports[`renders correctly from a predefined message 1`] = `
   padding-right: 10px;
 }
 
-.emotion-41 {
+.emotion-49 {
   height: calc(150px + 10px);
 }
 
-.emotion-34 {
+.emotion-42 {
   width: 450px;
   float: left;
 }
 
-.emotion-38 {
+.emotion-46 {
   position: relative;
   top: 100%;
   -webkit-transform: translateY(-127px);
@@ -1665,7 +1760,7 @@ exports[`renders correctly from a predefined message 1`] = `
   transform: translateY(-127px);
 }
 
-.emotion-39 {
+.emotion-47 {
   float: right;
   margin-right: 20px;
 }
@@ -1679,7 +1774,7 @@ exports[`renders correctly from a predefined message 1`] = `
   text-align: left;
 }
 
-.emotion-16 {
+.emotion-20 {
   float: left;
   width: 275px;
   text-align: left;
@@ -1701,13 +1796,13 @@ exports[`renders correctly from a predefined message 1`] = `
   line-height: 38px;
 }
 
-.emotion-31 {
+.emotion-39 {
   pointer-events: none;
   position: relative;
   box-sizing: border-box;
 }
 
-.emotion-30 {
+.emotion-38 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1737,7 +1832,7 @@ exports[`renders correctly from a predefined message 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-30:hover {
+.emotion-38:hover {
   border-color: hsl(0,0%,70%);
 }
 
@@ -1762,7 +1857,7 @@ exports[`renders correctly from a predefined message 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-23 {
+.emotion-27 {
   color: hsl(0,0%,50%);
   margin-left: 2px;
   margin-right: 2px;
@@ -1783,7 +1878,7 @@ exports[`renders correctly from a predefined message 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-13 {
+.emotion-17 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1801,7 +1896,86 @@ exports[`renders correctly from a predefined message 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-26 {
+.emotion-13 {
+  color: hsl(0,0%,80%);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 8px;
+  -webkit-transition: color 150ms;
+  transition: color 150ms;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  font-size: 4px;
+  line-height: 1;
+  margin-right: 4px;
+  text-align: center;
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+
+.emotion-10 {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0ms;
+  animation-delay: 0ms;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: react-select-loading-indicator;
+  animation-name: react-select-loading-indicator;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  background-color: hsl(0,0%,80%);
+  border-radius: 1em;
+  display: inline-block;
+  height: 1em;
+  vertical-align: top;
+  width: 1em;
+}
+
+.emotion-11 {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 160ms;
+  animation-delay: 160ms;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: react-select-loading-indicator;
+  animation-name: react-select-loading-indicator;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  background-color: hsl(0,0%,80%);
+  border-radius: 1em;
+  display: inline-block;
+  margin-left: 1em;
+  height: 1em;
+  vertical-align: top;
+  width: 1em;
+}
+
+.emotion-12 {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 320ms;
+  animation-delay: 320ms;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: react-select-loading-indicator;
+  animation-name: react-select-loading-indicator;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  background-color: hsl(0,0%,80%);
+  border-radius: 1em;
+  display: inline-block;
+  margin-left: 1em;
+  height: 1em;
+  vertical-align: top;
+  width: 1em;
+}
+
+.emotion-34 {
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -1812,7 +1986,7 @@ exports[`renders correctly from a predefined message 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-12 {
+.emotion-16 {
   color: hsl(0,0%,80%);
   display: -webkit-box;
   display: -webkit-flex;
@@ -1824,11 +1998,11 @@ exports[`renders correctly from a predefined message 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-12:hover {
+.emotion-16:hover {
   color: hsl(0,0%,60%);
 }
 
-.emotion-11 {
+.emotion-15 {
   display: inline-block;
   fill: currentColor;
   line-height: 1;
@@ -1836,12 +2010,12 @@ exports[`renders correctly from a predefined message 1`] = `
   stroke-width: 0;
 }
 
-.emotion-15 {
+.emotion-19 {
   position: relative;
   box-sizing: border-box;
 }
 
-.emotion-14 {
+.emotion-18 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1871,11 +2045,11 @@ exports[`renders correctly from a predefined message 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-14:hover {
+.emotion-18:hover {
   border-color: hsl(0,0%,70%);
 }
 
-.emotion-10 {
+.emotion-14 {
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -1886,24 +2060,24 @@ exports[`renders correctly from a predefined message 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-36 {
+.emotion-44 {
   margin-bottom: 16px;
 }
 
-.emotion-35 {
+.emotion-43 {
   width: 150px;
 }
 
-.emotion-45 {
+.emotion-53 {
   width: 270px;
   margin-left: 5px;
 }
 
-.emotion-46.btn:hover {
+.emotion-54.btn:hover {
   cursor: progress;
 }
 
-.emotion-66 {
+.emotion-74 {
   min-height: 350px;
   padding-left: 5px;
 }
@@ -1924,36 +2098,36 @@ exports[`renders correctly from a predefined message 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-51 {
+.emotion-59 {
   padding-left: 5px;
   width: 20%;
   float: left;
 }
 
-.emotion-53 {
+.emotion-61 {
   padding-left: 5px;
   width: calc(80% - 80px);
   float: left;
 }
 
-.emotion-55 {
+.emotion-63 {
   padding-left: 5px;
   width: 80px;
   float: left;
 }
 
-.emotion-50 {
+.emotion-58 {
   min-height: 38px;
 }
 
 <div
-  className="emotion-68"
+  className="emotion-76"
 >
   <div
-    className="emotion-40"
+    className="emotion-48"
   >
     <div
-      className="emotion-34"
+      className="emotion-42"
     >
       <div
         className="emotion-1"
@@ -1965,7 +2139,7 @@ exports[`renders correctly from a predefined message 1`] = `
         </p>
       </div>
       <div
-        className="emotion-17"
+        className="emotion-21"
       >
         <div
           onClick={[Function]}
@@ -1986,12 +2160,12 @@ exports[`renders correctly from a predefined message 1`] = `
           </div>
         </div>
         <div
-          className="emotion-15 emotion-16"
+          className="emotion-19 emotion-20"
           id="queue-dropdown"
           onKeyDown={[Function]}
         >
           <div
-            className="emotion-14"
+            className="emotion-18"
             onMouseDown={[Function]}
             onTouchEnd={[Function]}
           >
@@ -2064,20 +2238,34 @@ exports[`renders correctly from a predefined message 1`] = `
               </div>
             </div>
             <div
-              className="emotion-13"
+              className="emotion-17"
             >
+              <div
+                aria-hidden="true"
+                className="emotion-13"
+              >
+                <span
+                  className="emotion-10"
+                />
+                <span
+                  className="emotion-11"
+                />
+                <span
+                  className="emotion-12"
+                />
+              </div>
               <span
-                className="emotion-10"
+                className="emotion-14"
               />
               <div
                 aria-hidden="true"
-                className="emotion-12"
+                className="emotion-16"
                 onMouseDown={[Function]}
                 onTouchEnd={[Function]}
               >
                 <svg
                   aria-hidden="true"
-                  className="emotion-11"
+                  className="emotion-15"
                   focusable="false"
                   height={20}
                   viewBox="0 0 20 20"
@@ -2093,7 +2281,7 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </div>
       <div
-        className="emotion-17"
+        className="emotion-21"
       >
         <div
           onClick={[Function]}
@@ -2114,12 +2302,12 @@ exports[`renders correctly from a predefined message 1`] = `
           </div>
         </div>
         <div
-          className="emotion-31 emotion-16"
+          className="emotion-39 emotion-20"
           id="topic-dropdown"
           onKeyDown={[Function]}
         >
           <div
-            className="emotion-30"
+            className="emotion-38"
             onMouseDown={[Function]}
             onTouchEnd={[Function]}
           >
@@ -2127,7 +2315,7 @@ exports[`renders correctly from a predefined message 1`] = `
               className="emotion-9"
             >
               <div
-                className="emotion-23"
+                className="emotion-27"
               >
                 Select...
               </div>
@@ -2192,20 +2380,34 @@ exports[`renders correctly from a predefined message 1`] = `
               </div>
             </div>
             <div
-              className="emotion-13"
+              className="emotion-17"
             >
+              <div
+                aria-hidden="true"
+                className="emotion-13"
+              >
+                <span
+                  className="emotion-10"
+                />
+                <span
+                  className="emotion-11"
+                />
+                <span
+                  className="emotion-12"
+                />
+              </div>
               <span
-                className="emotion-26"
+                className="emotion-34"
               />
               <div
                 aria-hidden="true"
-                className="emotion-12"
+                className="emotion-16"
                 onMouseDown={[Function]}
                 onTouchEnd={[Function]}
               >
                 <svg
                   aria-hidden="true"
-                  className="emotion-11"
+                  className="emotion-15"
                   focusable="false"
                   height={20}
                   viewBox="0 0 20 20"
@@ -2222,26 +2424,24 @@ exports[`renders correctly from a predefined message 1`] = `
       </div>
     </div>
     <div
-      className="emotion-38 emotion-39"
+      className="emotion-46 emotion-47"
     >
       <form>
         <button
-          className="emotion-35 btn btn-lg btn-default"
+          className="emotion-43 btn btn-lg btn-default"
           disabled={false}
           onClick={[Function]}
-          style={Object {}}
           type="button"
         >
           Send Message
         </button>
         <div
-          className="emotion-36"
+          className="emotion-44"
         />
         <button
-          className="emotion-35 btn btn-lg btn-danger"
+          className="emotion-43 btn btn-lg btn-danger"
           disabled={false}
           onClick={[Function]}
-          style={Object {}}
           type="button"
         >
           Reset Fields
@@ -2250,7 +2450,7 @@ exports[`renders correctly from a predefined message 1`] = `
     </div>
   </div>
   <div
-    className="emotion-41"
+    className="emotion-49"
   />
   <p>
     Upload Message from File
@@ -2284,7 +2484,7 @@ exports[`renders correctly from a predefined message 1`] = `
     />
   </label>
   <hr
-    className="emotion-17"
+    className="emotion-21"
   />
   <div
     className="emotion-1"
@@ -2301,7 +2501,7 @@ exports[`renders correctly from a predefined message 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-45 emotion-46 btn btn-default"
+        className="emotion-53 emotion-54 btn btn-default"
         disabled={true}
         onClick={[Function]}
         type="button"
@@ -2323,14 +2523,14 @@ exports[`renders correctly from a predefined message 1`] = `
   <div>
     <div>
       <form
-        className="emotion-51"
+        className="emotion-59"
         onSubmit={[Function]}
       >
         <div
           className="form-group"
         >
           <input
-            className="emotion-50 form-control"
+            className="emotion-58 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property name"
@@ -2340,14 +2540,14 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <form
-        className="emotion-53"
+        className="emotion-61"
         onSubmit={[Function]}
       >
         <div
           className="form-group"
         >
           <input
-            className="emotion-50 form-control"
+            className="emotion-58 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property value"
@@ -2357,10 +2557,10 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <div
-        className="emotion-55"
+        className="emotion-63"
       >
         <button
-          className="emotion-50 btn btn-danger"
+          className="emotion-58 btn btn-danger"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -2371,14 +2571,14 @@ exports[`renders correctly from a predefined message 1`] = `
     </div>
     <div>
       <form
-        className="emotion-51"
+        className="emotion-59"
         onSubmit={[Function]}
       >
         <div
           className="form-group"
         >
           <input
-            className="emotion-50 form-control"
+            className="emotion-58 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property name"
@@ -2388,14 +2588,14 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <form
-        className="emotion-53"
+        className="emotion-61"
         onSubmit={[Function]}
       >
         <div
           className="form-group"
         >
           <input
-            className="emotion-50 form-control"
+            className="emotion-58 form-control"
             id="formControlsText"
             onChange={[Function]}
             placeholder="Enter property value"
@@ -2405,10 +2605,10 @@ exports[`renders correctly from a predefined message 1`] = `
         </div>
       </form>
       <div
-        className="emotion-55"
+        className="emotion-63"
       >
         <button
-          className="emotion-50 btn btn-danger"
+          className="emotion-58 btn btn-danger"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -2423,7 +2623,7 @@ exports[`renders correctly from a predefined message 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-45 btn btn-default"
+        className="emotion-53 btn btn-default"
         disabled={false}
         onClick={[Function]}
         type="button"
@@ -2433,7 +2633,7 @@ exports[`renders correctly from a predefined message 1`] = `
     </div>
   </form>
   <hr
-    className="emotion-17"
+    className="emotion-21"
   />
   <form>
     <div
@@ -2446,7 +2646,7 @@ exports[`renders correctly from a predefined message 1`] = `
         Body
       </label>
       <textarea
-        className="emotion-66 form-control"
+        className="emotion-74 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
