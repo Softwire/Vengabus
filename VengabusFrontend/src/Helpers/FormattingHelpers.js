@@ -18,6 +18,7 @@ export function parseUploadedMessage(message) {
 
     return parsedMessage;
 }
+
 export function formatMessageForDownload(message) {
     let messageDownload = { ...message, ...message.predefinedProperties };
     delete messageDownload.predefinedProperties;
@@ -32,7 +33,7 @@ export function formatMessageForDownload(message) {
     delete messageDownload.timestamp;
     delete messageDownload.uniqueId;
 
-    return messageDownload;
+    return [messageDownload];
 }
 
 /**

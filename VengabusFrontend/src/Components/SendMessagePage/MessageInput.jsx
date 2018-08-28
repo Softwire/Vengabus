@@ -80,7 +80,7 @@ export class MessageInput extends Component {
         const fileMessageObject = new FileReader();
 
         fileMessageObject.onload = (event) => {
-            const message = JSON.parse(event.target.result);
+            const message = JSON.parse(event.target.result)[0];
             const apiMessageObject = parseUploadedMessage(message);
             pageSwitcher.switchToPage(PAGES.HomePage);  //QQ necessary becasue otherwise the page is not refreshed, change once solution has been found
             pageSwitcher.switchToPage(PAGES.SendMessagePage, { message: apiMessageObject });
