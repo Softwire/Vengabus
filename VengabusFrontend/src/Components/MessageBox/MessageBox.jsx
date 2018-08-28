@@ -7,11 +7,11 @@ import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { FormattingBox } from './FormattingBox';
 import { DeleteSingleMessageButton } from '../../Components/DeleteSingleMessageButton';
 import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
-import { formatMessageForDownload, jsonToString} from '../../Helpers/FormattingHelpers';
+import { formatMessageForDownload, jsonToString } from '../../Helpers/FormattingHelpers';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
-const downloadToFile = require("downloadjs");
 import { NoPropertiesPanel } from './NoPropertiesPanel';
 import { panelDarkGrey, panelLightGrey } from '../../colourScheme';
+const downloadToFile = require("downloadjs");
 
 export class MessageBox extends Component {
 
@@ -48,8 +48,8 @@ export class MessageBox extends Component {
      */
     download = (message) => {
         const messageDownload = [formatMessageForDownload(message)];
-  
-        downloadToFile(jsonToString(messageDownload), "message_" + message.predefinedProperties.messageId+".json", "text/json");
+
+        downloadToFile(jsonToString(messageDownload), "message_" + message.predefinedProperties.messageId + ".json", "text/json");
     }
 
     closeMessageModalAndReloadMessageTable = () => {
