@@ -10,6 +10,7 @@ import {
 } from "react-bootstrap";
 import { css } from "react-emotion";
 import CreatableSelect from "react-select/lib/Creatable";
+import { pageSwitcher, PAGES } from '../../Pages/PageSwitcherService';
 
 export const LOCAL_STORAGE_STRINGS = Object.freeze({
     ConnectionStrings: "connectionStrings",
@@ -213,22 +214,27 @@ export class ConnectionStringConfigForm extends Component {
      */
     submitConnectionStringClick = () => {
 
-        //only save new strings when they are actually used.
-        let activeConnectionString = this.state.activeConnectionString;
+        pageSwitcher.switchToPage(PAGES.HomePage);
 
-        //set servicebus to use new connection string
-        serviceBusConnection.setConnectionString(activeConnectionString.value);
+        setTimeout(() => {
 
-        //update string list by most recently used, and then update local storage
-        this.updateConnectionStringList(activeConnectionString);
-        this.updateAPIrootStorage(this.state.APIroot);
+            //only save new strings when they are actually used.
+            let activeConnectionString = this.state.activeConnectionString;
 
-        serviceBusConnection.promptUpdate();
+            //set servicebus to use new connection string
+            serviceBusConnection.setConnectionString(activeConnectionString.value);
 
-        this.setState({
-            //only update this when we actually connect to something.
-            connectedTo: activeConnectionString
-        });
+            //update string list by most recently used, and then update local storage
+            this.updateConnectionStringList(activeConnectionString);
+            this.updateAPIrootStorage(this.state.APIroot);
+
+            serviceBusConnection.promptUpdate();
+
+            this.setState({
+                //only update this when we actually connect to something.
+                connectedTo: activeConnectionString
+            });
+        }, 100);
     };
 
     render() {
