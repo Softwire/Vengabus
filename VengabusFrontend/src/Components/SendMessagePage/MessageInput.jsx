@@ -353,8 +353,8 @@ export class MessageInput extends Component {
                 </div>
                 <div className={stickySpacer} />
                 <p>Upload Message from File</p>
-
-                <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}><h3><Label bsStyle="default">Add file</Label></h3>
+                c
+                <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}><h3><div className=" btn btn-default">Add file</div></h3>
                     <FormControl
                         id="fileUpload"
                         type="file"
