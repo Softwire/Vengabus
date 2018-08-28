@@ -6,6 +6,8 @@ import { XMLformatter } from './XMLformatter';
 import { OriginalFormatter } from './OriginalFormatter';
 import _ from 'lodash';
 import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
+import { Glyphicon } from 'react-bootstrap';
+import { reactBoostrapDangerRedText, reactBoostrapDangerRedBackground, reactBoostrapWarningYellowText, reactBoostrapWarningYellowBackground } from '../../colourScheme';
 
 export class FormattingBox extends Component {
     constructor(props) {
@@ -40,7 +42,7 @@ export class FormattingBox extends Component {
         return (
             <Alert bsStyle={alertType} key={key} id={key}>
                 {lines}
-            </Alert>
+            </Alert >
         );
     }
 
@@ -66,21 +68,34 @@ export class FormattingBox extends Component {
             contentToDisplay.push(<pre key={formattingAttemptResult.formatType} className={textStyle} id={formattingAttemptResult.formatType}>{formattedText}</pre>);
         }
         if (contentToDisplay.length === 0) {
+            formattingAttemptResult.errorMessage = "No text returned from the formatter"; //needed so that getFormatterTab recongises that this is indeed an error
             contentToDisplay.push(this.noTextAlert(formattingAttemptResult.formatType + "warning"));
         }
         return contentToDisplay;
     }
 
-    getFormatTab(contentToDisplay, tabKey, formattingAttemptResult) {
-        return <Tab title={formattingAttemptResult.formatType} eventKey={tabKey} key={tabKey}> {contentToDisplay}</ Tab>;
+    getFormatterTab(formattingAttemptResult, tabKey) {
+        const contentToDisplay = this.getContentToDisplay(formattingAttemptResult);
+        let tabTitle = [formattingAttemptResult.formatType];
+        let errorState;
+        const glyphStyle = css`
+            margin-left: 5px;
+        `;
+        if (formattingAttemptResult.errorMessage) {
+            tabTitle.push(<Glyphicon glyph="exclamation-sign" key="errorGlyph" className={glyphStyle} />);
+            errorState = "formatterError";
+        } else if (formattingAttemptResult.warningMessage) {
+            tabTitle.push(<Glyphicon glyph="warning-sign" key="warningGlyph" className={glyphStyle} />);
+            errorState = "formatterWarning";
+        }
+        return <Tab title={tabTitle} eventKey={tabKey} key={tabKey} tabClassName={errorState}>{contentToDisplay}</ Tab>;
     }
 
     render() {
         const originalText = this.props.message;
         const formatters = [this.OriginalFormatter, this.XMLformatter, this.JSONformatter];
         const formattedObjects = formatters.map(formatter => formatter.getFormatResult(originalText));
-        const messageTabsContent = formattedObjects.map(formattedObj => this.getContentToDisplay(formattedObj));
-        const messageTabsArray = messageTabsContent.map((contentToDisplay, index) => this.getFormatTab(contentToDisplay, index, formattedObjects[index]));
+        const messageTabsArray = formattedObjects.map((formattedObj, index) => this.getFormatterTab(formattedObj, index));
         const defaultTabToDisplay = this.chooseDefaultFormat(formattedObjects);
 
         const tabStyle = css`
@@ -95,7 +110,31 @@ export class FormattingBox extends Component {
                     margin-bottom: 0;
                 }
             }
+            .formatterError {
+                a { /*colour the tab when there's an error*/
+                    color: ${reactBoostrapDangerRedText};
+                    background: ${reactBoostrapDangerRedBackground};
+                }
+                &.active>a {
+                    &, &:focus, &:hover { /*need all these cases to override the default style*/
+                        color: ${reactBoostrapDangerRedText};
+                    }
+                }
+            }
+            .formatterWarning {
+                a { /*colour the tab when there's a warning*/
+                    color: ${reactBoostrapWarningYellowText};
+                    background: ${reactBoostrapWarningYellowBackground};
+                }
+                &.active>a {
+                    &, &:focus, &:hover { /*need all these cases to override the default style*/
+                        color: ${reactBoostrapWarningYellowText};
+                    }
+                }
+            }
         `;
+
+
 
         return (
             <div>

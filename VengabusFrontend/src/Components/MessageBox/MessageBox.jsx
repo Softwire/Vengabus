@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { Modal, Button, ButtonToolbar } from 'react-bootstrap';
 import { CopyTextButton } from '../CopyTextButton';
 import { css } from 'emotion';
-import { CollapsiblePanel } from '../CollapsiblePanel';
+import { CollapsiblePanel } from './CollapsiblePanel';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { FormattingBox } from './FormattingBox';
 import { DeleteSingleMessageButton } from '../../Components/DeleteSingleMessageButton';
 import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
+import { NoPropertiesPanel } from './NoPropertiesPanel';
+import { panelDarkGrey, panelLightGrey } from '../../colourScheme';
 
 export class MessageBox extends Component {
 
@@ -66,6 +68,24 @@ export class MessageBox extends Component {
             .panel {
                 margin-bottom: 15px;
             }
+            .panel-heading {
+                padding: 0 15px;
+                color: ${panelDarkGrey};
+                border-color: ${panelLightGrey};
+                pre {
+                    white-space: pre-wrap; /*word wrap on narrow displays*/
+                }
+                overflow: auto;             
+                background-image: linear-gradient(to bottom,#f5f5f5 0,#e8e8e8 100%); /*background colouru*/
+                background-repeat: repeat-x;
+            }
+            .panel-body { 
+                padding: 0;
+            }
+            pre {
+                border: none;
+                margin: 0; 
+            }
         `;
         const message = this.props.message;
         if (!message) {
@@ -92,8 +112,20 @@ export class MessageBox extends Component {
                 max-height: ${sharedSizesAndDimensions.MESSAGEBOX_MODAL_HEIGHT}vh; 
             } 
         `;
-        const preDefinedPropsJSX = this.convertMessagePropertiesToJSXArray(message.predefinedProperties) || <p>There are no pre-defined properties to display</p>;
-        const customPropsJSX = this.convertMessagePropertiesToJSXArray(message.customProperties) || <p>There are no user-defined properties to display</p>;
+
+        let preDefinedPropsJSX = this.convertMessagePropertiesToJSXArray(message.predefinedProperties);
+        let PreDefinedPanelType = CollapsiblePanel;
+        if (!preDefinedPropsJSX) {
+            preDefinedPropsJSX = <p>There are no user-defined properties to display</p>;
+            PreDefinedPanelType = NoPropertiesPanel;
+        }
+        let customPropsJSX = this.convertMessagePropertiesToJSXArray(message.customProperties);
+        let CustomPanelType = CollapsiblePanel;
+        if (!customPropsJSX) {
+            customPropsJSX = <p>There are no user-defined properties to display</p>;
+            CustomPanelType = NoPropertiesPanel;
+        }
+
         const replayDestination = this.props.endpointType === EndpointTypes.QUEUE ? this.props.endpointName : this.props.endpointParent;
         return (
 
@@ -105,12 +137,12 @@ export class MessageBox extends Component {
                     </Modal.Header>
 
                     <Modal.Body className={panelStyle} id="messageBoxModalBody">
-                        <CollapsiblePanel panelTitle={"Pre-defined Properties"}>
+                        <PreDefinedPanelType panelTitle={"Pre-defined Properties"}>
                             <pre>{preDefinedPropsJSX}</pre>
-                        </CollapsiblePanel>
-                        <CollapsiblePanel panelTitle={"User-defined Properties"}>
+                        </PreDefinedPanelType>
+                        <CustomPanelType panelTitle={"User-defined Properties"}>
                             <pre>{customPropsJSX}</pre>
-                        </CollapsiblePanel>
+                        </CustomPanelType>
                         <FormattingBox message={message.messageBody} />
                     </Modal.Body>
 

@@ -1,26 +1,52 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FormattingBox renders a snapshot correctly when given json 1`] = `
-.emotion-0 {
+.emotion-1 {
   white-space: pre-wrap;
 }
 
-.emotion-1 .nav-tabs {
+.emotion-0 {
+  margin-left: 5px;
+}
+
+.emotion-2 .nav-tabs {
   margin-bottom: 15px;
 }
 
-.emotion-1 .tab-content {
+.emotion-2 .tab-content {
   overflow: auto;
   max-height: calc(92vh - 326px);
 }
 
-.emotion-1 .tab-content pre {
+.emotion-2 .tab-content pre {
   margin-bottom: 0;
+}
+
+.emotion-2 .formatterError a {
+  color: #a94442;
+  background: #f2dede;
+}
+
+.emotion-2 .formatterError.active>a,
+.emotion-2 .formatterError.active>a:focus,
+.emotion-2 .formatterError.active>a:hover {
+  color: #a94442;
+}
+
+.emotion-2 .formatterWarning a {
+  color: #8a6d3b;
+  background: #fcf8e3;
+}
+
+.emotion-2 .formatterWarning.active>a,
+.emotion-2 .formatterWarning.active>a:focus,
+.emotion-2 .formatterWarning.active>a:hover {
+  color: #8a6d3b;
 }
 
 <div>
   <div
-    className="emotion-1"
+    className="emotion-2"
     id="message-formatting-tabs"
     style={undefined}
   >
@@ -47,7 +73,7 @@ exports[`FormattingBox renders a snapshot correctly when given json 1`] = `
         </a>
       </li>
       <li
-        className=""
+        className="formatterError"
         role="presentation"
         style={undefined}
       >
@@ -62,6 +88,9 @@ exports[`FormattingBox renders a snapshot correctly when given json 1`] = `
           tabIndex={-1}
         >
           XML
+          <span
+            className="emotion-0 glyphicon glyphicon-exclamation-sign"
+          />
         </a>
       </li>
       <li
@@ -93,9 +122,8 @@ exports[`FormattingBox renders a snapshot correctly when given json 1`] = `
         id="message-formatting-tabs-pane-0"
         role="tabpanel"
       >
-         
         <pre
-          className="emotion-0"
+          className="emotion-1"
           id="Original"
         >
           {"a":"apple","b":42, "c":false}
@@ -108,7 +136,6 @@ exports[`FormattingBox renders a snapshot correctly when given json 1`] = `
         id="message-formatting-tabs-pane-1"
         role="tabpanel"
       >
-         
         <div
           className="alert alert-danger"
           id="XMLwarning"
@@ -126,7 +153,6 @@ exports[`FormattingBox renders a snapshot correctly when given json 1`] = `
         id="message-formatting-tabs-pane-2"
         role="tabpanel"
       >
-         
         <pre
           className=""
           id="JSON"
@@ -144,26 +170,52 @@ exports[`FormattingBox renders a snapshot correctly when given json 1`] = `
 `;
 
 exports[`FormattingBox renders a snapshot correctly when given plain text 1`] = `
-.emotion-0 {
+.emotion-2 {
   white-space: pre-wrap;
 }
 
-.emotion-1 .nav-tabs {
+.emotion-0 {
+  margin-left: 5px;
+}
+
+.emotion-3 .nav-tabs {
   margin-bottom: 15px;
 }
 
-.emotion-1 .tab-content {
+.emotion-3 .tab-content {
   overflow: auto;
   max-height: calc(92vh - 326px);
 }
 
-.emotion-1 .tab-content pre {
+.emotion-3 .tab-content pre {
   margin-bottom: 0;
+}
+
+.emotion-3 .formatterError a {
+  color: #a94442;
+  background: #f2dede;
+}
+
+.emotion-3 .formatterError.active>a,
+.emotion-3 .formatterError.active>a:focus,
+.emotion-3 .formatterError.active>a:hover {
+  color: #a94442;
+}
+
+.emotion-3 .formatterWarning a {
+  color: #8a6d3b;
+  background: #fcf8e3;
+}
+
+.emotion-3 .formatterWarning.active>a,
+.emotion-3 .formatterWarning.active>a:focus,
+.emotion-3 .formatterWarning.active>a:hover {
+  color: #8a6d3b;
 }
 
 <div>
   <div
-    className="emotion-1"
+    className="emotion-3"
     id="message-formatting-tabs"
     style={undefined}
   >
@@ -190,7 +242,7 @@ exports[`FormattingBox renders a snapshot correctly when given plain text 1`] = 
         </a>
       </li>
       <li
-        className=""
+        className="formatterError"
         role="presentation"
         style={undefined}
       >
@@ -205,10 +257,13 @@ exports[`FormattingBox renders a snapshot correctly when given plain text 1`] = 
           tabIndex={-1}
         >
           XML
+          <span
+            className="emotion-0 glyphicon glyphicon-exclamation-sign"
+          />
         </a>
       </li>
       <li
-        className=""
+        className="formatterError"
         role="presentation"
         style={undefined}
       >
@@ -223,6 +278,9 @@ exports[`FormattingBox renders a snapshot correctly when given plain text 1`] = 
           tabIndex={-1}
         >
           JSON
+          <span
+            className="emotion-0 glyphicon glyphicon-exclamation-sign"
+          />
         </a>
       </li>
     </ul>
@@ -236,9 +294,8 @@ exports[`FormattingBox renders a snapshot correctly when given plain text 1`] = 
         id="message-formatting-tabs-pane-0"
         role="tabpanel"
       >
-         
         <pre
-          className="emotion-0"
+          className="emotion-2"
           id="Original"
         >
           "a":"apple","b":42, "c":false
@@ -251,7 +308,6 @@ exports[`FormattingBox renders a snapshot correctly when given plain text 1`] = 
         id="message-formatting-tabs-pane-1"
         role="tabpanel"
       >
-         
         <div
           className="alert alert-danger"
           id="XMLwarning"
@@ -269,7 +325,6 @@ exports[`FormattingBox renders a snapshot correctly when given plain text 1`] = 
         id="message-formatting-tabs-pane-2"
         role="tabpanel"
       >
-         
         <div
           className="alert alert-danger"
           id="JSONerror"
@@ -289,26 +344,52 @@ exports[`FormattingBox renders a snapshot correctly when given plain text 1`] = 
 `;
 
 exports[`FormattingBox renders a snapshot correctly when given props 1`] = `
-.emotion-0 {
+.emotion-2 {
   white-space: pre-wrap;
 }
 
-.emotion-1 .nav-tabs {
+.emotion-0 {
+  margin-left: 5px;
+}
+
+.emotion-3 .nav-tabs {
   margin-bottom: 15px;
 }
 
-.emotion-1 .tab-content {
+.emotion-3 .tab-content {
   overflow: auto;
   max-height: calc(92vh - 326px);
 }
 
-.emotion-1 .tab-content pre {
+.emotion-3 .tab-content pre {
   margin-bottom: 0;
+}
+
+.emotion-3 .formatterError a {
+  color: #a94442;
+  background: #f2dede;
+}
+
+.emotion-3 .formatterError.active>a,
+.emotion-3 .formatterError.active>a:focus,
+.emotion-3 .formatterError.active>a:hover {
+  color: #a94442;
+}
+
+.emotion-3 .formatterWarning a {
+  color: #8a6d3b;
+  background: #fcf8e3;
+}
+
+.emotion-3 .formatterWarning.active>a,
+.emotion-3 .formatterWarning.active>a:focus,
+.emotion-3 .formatterWarning.active>a:hover {
+  color: #8a6d3b;
 }
 
 <div>
   <div
-    className="emotion-1"
+    className="emotion-3"
     id="message-formatting-tabs"
     style={undefined}
   >
@@ -335,7 +416,7 @@ exports[`FormattingBox renders a snapshot correctly when given props 1`] = `
         </a>
       </li>
       <li
-        className=""
+        className="formatterError"
         role="presentation"
         style={undefined}
       >
@@ -350,10 +431,13 @@ exports[`FormattingBox renders a snapshot correctly when given props 1`] = `
           tabIndex={-1}
         >
           XML
+          <span
+            className="emotion-0 glyphicon glyphicon-exclamation-sign"
+          />
         </a>
       </li>
       <li
-        className=""
+        className="formatterError"
         role="presentation"
         style={undefined}
       >
@@ -368,6 +452,9 @@ exports[`FormattingBox renders a snapshot correctly when given props 1`] = `
           tabIndex={-1}
         >
           JSON
+          <span
+            className="emotion-0 glyphicon glyphicon-exclamation-sign"
+          />
         </a>
       </li>
     </ul>
@@ -381,9 +468,8 @@ exports[`FormattingBox renders a snapshot correctly when given props 1`] = `
         id="message-formatting-tabs-pane-0"
         role="tabpanel"
       >
-         
         <pre
-          className="emotion-0"
+          className="emotion-2"
           id="Original"
         >
           test
@@ -396,7 +482,6 @@ exports[`FormattingBox renders a snapshot correctly when given props 1`] = `
         id="message-formatting-tabs-pane-1"
         role="tabpanel"
       >
-         
         <div
           className="alert alert-danger"
           id="XMLwarning"
@@ -414,7 +499,6 @@ exports[`FormattingBox renders a snapshot correctly when given props 1`] = `
         id="message-formatting-tabs-pane-2"
         role="tabpanel"
       >
-         
         <div
           className="alert alert-danger"
           id="JSONerror"
@@ -434,26 +518,52 @@ exports[`FormattingBox renders a snapshot correctly when given props 1`] = `
 `;
 
 exports[`FormattingBox renders a snapshot correctly when given xml 1`] = `
-.emotion-0 {
+.emotion-1 {
   white-space: pre-wrap;
 }
 
-.emotion-1 .nav-tabs {
+.emotion-0 {
+  margin-left: 5px;
+}
+
+.emotion-2 .nav-tabs {
   margin-bottom: 15px;
 }
 
-.emotion-1 .tab-content {
+.emotion-2 .tab-content {
   overflow: auto;
   max-height: calc(92vh - 326px);
 }
 
-.emotion-1 .tab-content pre {
+.emotion-2 .tab-content pre {
   margin-bottom: 0;
+}
+
+.emotion-2 .formatterError a {
+  color: #a94442;
+  background: #f2dede;
+}
+
+.emotion-2 .formatterError.active>a,
+.emotion-2 .formatterError.active>a:focus,
+.emotion-2 .formatterError.active>a:hover {
+  color: #a94442;
+}
+
+.emotion-2 .formatterWarning a {
+  color: #8a6d3b;
+  background: #fcf8e3;
+}
+
+.emotion-2 .formatterWarning.active>a,
+.emotion-2 .formatterWarning.active>a:focus,
+.emotion-2 .formatterWarning.active>a:hover {
+  color: #8a6d3b;
 }
 
 <div>
   <div
-    className="emotion-1"
+    className="emotion-2"
     id="message-formatting-tabs"
     style={undefined}
   >
@@ -498,7 +608,7 @@ exports[`FormattingBox renders a snapshot correctly when given xml 1`] = `
         </a>
       </li>
       <li
-        className=""
+        className="formatterError"
         role="presentation"
         style={undefined}
       >
@@ -513,6 +623,9 @@ exports[`FormattingBox renders a snapshot correctly when given xml 1`] = `
           tabIndex={-1}
         >
           JSON
+          <span
+            className="emotion-0 glyphicon glyphicon-exclamation-sign"
+          />
         </a>
       </li>
     </ul>
@@ -526,9 +639,8 @@ exports[`FormattingBox renders a snapshot correctly when given xml 1`] = `
         id="message-formatting-tabs-pane-0"
         role="tabpanel"
       >
-         
         <pre
-          className="emotion-0"
+          className="emotion-1"
           id="Original"
         >
           &lt;a&gt;This is a sample xml message&lt;/a&gt;
@@ -541,7 +653,6 @@ exports[`FormattingBox renders a snapshot correctly when given xml 1`] = `
         id="message-formatting-tabs-pane-1"
         role="tabpanel"
       >
-         
         <pre
           className=""
           id="XML"
@@ -558,7 +669,6 @@ exports[`FormattingBox renders a snapshot correctly when given xml 1`] = `
         id="message-formatting-tabs-pane-2"
         role="tabpanel"
       >
-         
         <div
           className="alert alert-danger"
           id="JSONerror"
