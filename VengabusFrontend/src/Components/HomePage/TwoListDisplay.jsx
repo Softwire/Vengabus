@@ -19,6 +19,7 @@ export class TwoListDisplay extends Component {
         this.breadCrumbHistory = [{ name: "Home", type: undefined }];
         this.messageButtonDisabled = false;
         this.promiseCollection = new cancellablePromiseCollection();
+        this.TabType = EndpointTypes.MESSAGE;
         this.state = {
             queueData: undefined,
             topicData: undefined,
@@ -176,10 +177,7 @@ export class TwoListDisplay extends Component {
         });
     };
 
-    getDeadLetterToggleButtonText = (isDeadLetterMessage) => {
-        return isDeadLetterMessage ? "Deadletters" : "Live Messages";
-    }
-
+ 
     getList = (isForRightHandList) => {
         let typeOfData;
         const currentLeftTable = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
@@ -260,12 +258,12 @@ export class TwoListDisplay extends Component {
                 const isDeadLetterMessage = typeOfData === EndpointTypes.DEADLETTER;
                 const lastBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
                 const penultimateBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 2];
-                           return (
+                return (
                     <React.Fragment>
                         <div>
-                            <Tabs defaultActiveKey={false} id="Tabs" onSelect={this.handleMessageToggle}>
-                                <Tab eventKey={false} title="Live Messages"/>                                  
-                                <Tab eventKey={true} title="Deadletter Messages"/>
+                            <Tabs defaultActiveKey={isDeadLetterMessage} id="Tabs" onSelect={this.handleMessageToggle}>
+                                <Tab eventKey={false} title="Live Messages" />
+                                <Tab eventKey={true} title="Deadletter Messages" />
                             </Tabs>
                         </div>
                         <MessageList
