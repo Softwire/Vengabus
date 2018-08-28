@@ -13,20 +13,20 @@ const download = require("downloadjs");
 export class DownloadEndpointButton extends Component {
 
     downloadEndpoint = () => {
-        let promise;
+        let getMessagesPromise;
         switch (this.props.endpointType) {
             case EndpointTypes.QUEUE:
-                promise = serviceBusConnection.getServiceBusService().listQueueMessages(this.props.endpointName);
+                getMessagesPromise = serviceBusConnection.getServiceBusService().listQueueMessages(this.props.endpointName);
                 break;
             case EndpointTypes.SUBSCRIPTION:
                 if (!this.props.parentTopic) { throw new Error('for subscriptions parent topic must be defined'); }
-                promise = serviceBusConnection.getServiceBusService().listSubscriptionMessages(this.props.parentTopic, this.props.endpointName);
+                getMessagesPromise = serviceBusConnection.getServiceBusService().listSubscriptionMessages(this.props.parentTopic, this.props.endpointName);
                 break;
             default:
                 throw new Error('Unexpected endpoint type: ' + this.props.endpointType);
         }
-        promise.then(messages => {
-            let endpointDownload = [];
+        getMessagesPromise.then(messages => {
+            const endpointDownload = [];
             for (let i = 0; i < messages.length; i++) {
                 endpointDownload.push(formatMessageForDownload(messages[i]));
             }
@@ -36,7 +36,7 @@ export class DownloadEndpointButton extends Component {
 
     render() {
         if (!this.props.endpointName) {
-            throw new Error('enpointName is a required prop');
+            throw new Error('endpointName is a required prop');
         }
         return (
             <Button onClick={this.downloadEndpoint}>Download {this.props.endpointType}</Button>

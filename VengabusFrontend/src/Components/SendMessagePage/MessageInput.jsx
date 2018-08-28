@@ -11,7 +11,7 @@ import { parseUploadedMessage } from '../../Helpers/FormattingHelpers';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { sharedSizesAndDimensions, zIndices } from '../../Helpers/SharedSizesAndDimensions';
 import _ from 'lodash';
-import { FormControl } from 'react-bootstrap';
+import { FormControl, ControlLabel, Label } from 'react-bootstrap';
 
 /** 
  * @property {Object} message Can take a message as a prop to replay message.
@@ -77,16 +77,16 @@ export class MessageInput extends Component {
      * @param {object} file The uploaded file that should be loaded into the page.
      */
     replayUploadedFile = (file) => {
-        const fr = new FileReader();
+        const fileMessageObject = new FileReader();
 
-        fr.onload = (event) => {
+        fileMessageObject.onload = (event) => {
             const message = JSON.parse(event.target.result);
-            const parsedMessage = parseUploadedMessage(message);
+            const apiMessageObject = parseUploadedMessage(message);
             pageSwitcher.switchToPage(PAGES.HomePage);  //QQ necessary becasue otherwise the page is not refreshed, change once solution has been found
-            pageSwitcher.switchToPage(PAGES.SendMessagePage, { message: parsedMessage });
+            pageSwitcher.switchToPage(PAGES.SendMessagePage, { message: apiMessageObject });
         };
 
-        fr.readAsText(file.item(0));
+        fileMessageObject.readAsText(file.item(0));
     }
 
     /**
@@ -352,12 +352,17 @@ export class MessageInput extends Component {
                     </div>
                 </div>
                 <div className={stickySpacer} />
-                <p>Upload a message</p>
-                <FormControl
-                    id="uploadFile"
-                    type="file"
-                    onChange={(event) => this.replayUploadedFile(event.target.files)}
-                />
+                <p>Upload Message from File</p>
+
+                <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}><h3><Label bsStyle="default">Add file</Label></h3>
+                    <FormControl
+                        id="fileUpload"
+                        type="file"
+                        onChange={(event) => this.replayUploadedFile(event.target.files)}
+                        style={{ display: "none" }}
+                    />
+                </ControlLabel>
+
                 <hr className={fullWidth} />
                 <MessageProperties
                     arePreDefinedPropsLoaded={this.state.arePreDefinedPropsLoaded}
