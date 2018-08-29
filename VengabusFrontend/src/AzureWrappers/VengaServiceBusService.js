@@ -205,6 +205,11 @@ export class VengaServiceBusService {
         return this.axiosWithSAS.delete(url);
     }
 
+    purgeQueueDeadletterMessages = (queueName) => {
+        const url = this.apiRoot + `queues/${queueName}/deadletters`;
+        return this.axiosWithSAS.delete(url);
+    }
+
     deleteQueueSingleMessage = (queueName, messageId, uniqueId) => {
         const messageIdEncoded = encodeURIComponent(messageId);
         const url = this.apiRoot + `queues/${queueName}/messages/${uniqueId}?messageId=${messageIdEncoded}`;
@@ -222,6 +227,11 @@ export class VengaServiceBusService {
         return this.axiosWithSAS.delete(url);
     }
 
+    purgeTopicDeadletterMessages = (topicName) => {
+        const url = this.apiRoot + `topics/${topicName}/deadletters`;
+        return this.axiosWithSAS.delete(url);
+    }
+
     deleteTopicSingleMessage = (topicName, messageId, uniqueId) => {
         const messageIdEncoded = encodeURIComponent(messageId);
         const url = this.apiRoot + `topics/${topicName}/messages/${uniqueId}?messageId=${messageIdEncoded}`;
@@ -230,6 +240,11 @@ export class VengaServiceBusService {
 
     purgeSubscriptionMessages = (topicName, subscriptionName) => {
         const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/messages`;
+        return this.axiosWithSAS.delete(url);
+    }
+
+    purgeSubscriptionDeadletterMessages = (topicName, subscriptionName) => {
+        const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/deadletters`;
         return this.axiosWithSAS.delete(url);
     }
 

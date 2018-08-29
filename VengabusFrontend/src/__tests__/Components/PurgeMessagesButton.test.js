@@ -29,9 +29,9 @@ jest.mock('../../AzureWrappers/VengaServiceBusService', () => ({
             }]
         );
 
-        purgeQueueMessages = (queueName) => { mockPurgeQueueMessages(queueName); }
-        purgeTopicMessages = (topicName) => { mockPurgeTopicMessages(topicName); }
-        purgeSubscriptionMessages = (topicName, subscriptionName) => { mockPurgeSubscrptionMessage(subscriptionName); }
+        purgeQueueMessages = (queueName) => { mockPurgeQueueMessages(queueName); return Promise.resolve(); }
+        purgeTopicMessages = (topicName) => { mockPurgeTopicMessages(topicName); return Promise.resolve(); }
+        purgeSubscriptionMessages = (topicName, subscriptionName) => { mockPurgeSubscrptionMessage(subscriptionName); return Promise.resolve(); }
     }
 }));
 
@@ -58,12 +58,12 @@ describe('PurgeMessagesButton', () => {
 
     it('renders correctly with given props', () => {
         let deleteMessagesButton = renderer.create(
-            <PurgeMessagesButton type={EndpointTypes.SUBSCRIPTION} endpointName={subscriptionName} parentName={topicName} />);
+            <PurgeMessagesButton messageType={EndpointTypes.MESSAGE} type={EndpointTypes.SUBSCRIPTION} endpointName={subscriptionName} parentName={topicName} />);
         expect(deleteMessagesButton.toJSON()).toMatchSnapshot();
     });
 
     it('Modal popup has Purge and Cancel buttons', () => {
-        let wrapper = mount(<PurgeMessagesButton type={EndpointTypes.QUEUE} endpointName={queueName} />);
+        let wrapper = mount(<PurgeMessagesButton messageType={EndpointTypes.MESSAGE} type={EndpointTypes.QUEUE} endpointName={queueName} />);
         expect(wrapper.find("#cancel").hostNodes()).toHaveLength(0);
         expect(wrapper.find("#confirm").hostNodes()).toHaveLength(0);
         testHelper.clickElementWithId(wrapper, "#alertPurge");
@@ -76,7 +76,7 @@ describe('PurgeMessagesButton', () => {
     });
 
     it('clicking cancel button does not send purge request to endpoint and closes the Modal', () => {
-        let wrapper = mount(<PurgeMessagesButton type={EndpointTypes.QUEUE} endpointName={queueName} />);
+        let wrapper = mount(<PurgeMessagesButton messageType={EndpointTypes.MESSAGE} type={EndpointTypes.QUEUE} endpointName={queueName} />);
         testHelper.clickElementWithId(wrapper, "#alertPurge");
 
         return testHelper.afterReactHasUpdated().then(() => {
@@ -91,17 +91,17 @@ describe('PurgeMessagesButton', () => {
     });
 
     it('call VengaBusService purge subscription messages method once', () => {
-        let wrapper = mount(<PurgeMessagesButton type={EndpointTypes.SUBSCRIPTION} endpointName={subscriptionName} parentName={topicName} />);
+        let wrapper = mount(<PurgeMessagesButton messageType={EndpointTypes.MESSAGE} type={EndpointTypes.SUBSCRIPTION} endpointName={subscriptionName} parentName={topicName} />);
         return afterModalPurgeButtonIsClicked(wrapper, mockPurgeSubscrptionMessage, subscriptionName);
     });
 
     it('call VengaBusService purge queue messages method once', () => {
-        let wrapper = mount(<PurgeMessagesButton type={EndpointTypes.QUEUE} endpointName={queueName} />);
+        let wrapper = mount(<PurgeMessagesButton messageType={EndpointTypes.MESSAGE} type={EndpointTypes.QUEUE} endpointName={queueName} />);
         return afterModalPurgeButtonIsClicked(wrapper, mockPurgeQueueMessages, queueName);
     });
 
     it('call VengaBusService purge topic messages method once', () => {
-        let wrapper = mount(<PurgeMessagesButton type={EndpointTypes.TOPIC} endpointName={topicName} />);
+        let wrapper = mount(<PurgeMessagesButton messageType={EndpointTypes.MESSAGE} type={EndpointTypes.TOPIC} endpointName={topicName} />);
         return afterModalPurgeButtonIsClicked(wrapper, mockPurgeTopicMessages, topicName);
     });
 });

@@ -30,8 +30,8 @@ export class CrudTitle extends Component {
         `;
 
         let downloadButton;
-        
-        if(this.props.endpointType === EndpointTypes.QUEUE || this.props.endpointType === EndpointTypes.SUBSCRIPTION) {
+
+        if (this.props.endpointType === EndpointTypes.QUEUE || this.props.endpointType === EndpointTypes.SUBSCRIPTION) {
             downloadButton = (
                 <DownloadEndpointButton
                     parentTopic={this.props.parentTopic}
@@ -76,7 +76,8 @@ export class CrudTitle extends Component {
                         confirmButtonText={"Delete"}
                         confirmAction={this.props.deleteEndpoint}
                     />
-                    <PurgeMessagesButton id="purgeMessages" type={this.props.endpointType} endpointName={this.props.selectedEndpoint} parentName={this.props.parentTopic} />
+                    <PurgeMessagesButton id="purgeLiveMessages" messageType={EndpointTypes.MESSAGE} type={this.props.endpointType} endpointName={this.props.selectedEndpoint} parentName={this.props.parentTopic} />
+                    <PurgeMessagesButton id="purgeDeadletterMessages" messageType={EndpointTypes.DEADLETTER} type={this.props.endpointType} endpointName={this.props.selectedEndpoint} parentName={this.props.parentTopic} />
                     {downloadButton}
                 </ButtonGroup>
                 <hr className={hrStyle} />
