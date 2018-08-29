@@ -6,6 +6,7 @@ import { palerBlue, paleGreyBlue } from '../colourScheme';
 import { Spinner } from './Spinner';
 import classNames from 'classnames';
 import _ from 'lodash';
+import { deepDereferenceClone } from '../Helpers/DeepDereferenceClone';
 
 import { FormGroup, FormControl } from 'react-bootstrap';
 
@@ -82,26 +83,26 @@ export class DataTable extends Component {
     }
 
     throwIfOnlyHiddenColumns = () => {
-        const onlyHiddenColumns = _(this.props.colProps).every(col => col.hidden);
+        const onlyHiddenColumns = _(this.cloneProps.colProps).every(col => col.hidden);
         if (onlyHiddenColumns) {
-            throw new Error('cannot use table with only hidden columns (in ' + this.props.name + ')');
+            throw new Error('cannot use table with only hidden columns (in ' + this.cloneProps.name + ')');
         }
     }
 
     getValidatedKeyColumn = (uniqueKeyColumn) => {
-        uniqueKeyColumn = _(this.props.colProps).findIndex(col => col.dataField === uniqueKeyColumn);
+        uniqueKeyColumn = _(this.cloneProps.colProps).findIndex(col => col.dataField === uniqueKeyColumn);
         if (typeof uniqueKeyColumn === 'undefined' || uniqueKeyColumn === -1) {
-            throw new Error('need a valid key column in ' + this.props.name);
+            throw new Error('need a valid key column in ' + this.cloneProps.name);
         }
         if (!this.isColumnUnique(uniqueKeyColumn)) {
-            throw new Error('key column specified in ' + this.props.name + ' is not unique');
+            throw new Error('key column specified in ' + this.cloneProps.name + ' is not unique');
         }
         return uniqueKeyColumn;
     }
 
     isColumnUnique = (index) => {
-        const dataField = this.props.colProps[index].dataField;
-        const colData = [...this.props.dataToDisplay].map((object) => object[dataField]);
+        const dataField = this.cloneProps.colProps[index].dataField;
+        const colData = [...this.cloneProps.dataToDisplay].map((object) => object[dataField]);
         return (new Set(colData).size === colData.length);
     }
 
@@ -328,7 +329,8 @@ export class DataTable extends Component {
             );
         }
 
-        this.cloneProps = _.cloneDeep(this.props);
+        //deep clone and remove common references in props.
+        this.cloneProps = deepDereferenceClone(this.props);
 
         let { dataToDisplay, name, uniqueKeyColumn, colProps, rowEvents, onRowClick, selectRow, rowClasses, defaultHover, searchable, paginated, ...otherProps } = this.cloneProps;
 
