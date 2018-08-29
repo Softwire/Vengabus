@@ -86,7 +86,7 @@ export class TwoListDisplay extends Component {
                 queueData: result.map((item) => ({ ...item, mostRecentDeadLetter: null }))
             });
             for (let i = 0; i < result.length; i++) {
-                const getMostRecentDLPromise = this.promiseCollection.addNewPromise(serviceBusService.getQueueMostRecentDeadletter(result[i].name), result[i].name);
+                const getMostRecentDLPromise = this.promiseCollection.addNewPromise(serviceBusService.getQueueMostRecentDeadletter(result[i].name), EndpointTypes.QUEUE);
                 this.setState(function (prevState, props) {
                     prevState.queueData[i].mostRecentDeadLetter = 'Loading';//qq use spinner later
                     prevState.queueData[i].mostRecentDeadLetterLoaded = false;
@@ -132,16 +132,16 @@ export class TwoListDisplay extends Component {
         this.promiseCollection.cancelAllPromises(EndpointTypes.SUBSCRIPTION);
         const fetchedSubscriptionData = this.promiseCollection.addNewPromise(serviceBusService.listSubscriptions(topicName), EndpointTypes.SUBSCRIPTION);
         fetchedSubscriptionData.then(result => {
-            this.setState({
-                subscriptionData: result
+            this.setState(function (prevState, props) {
+                for (let i = 0; i < result.length; i++) {
+                    result[i].mostRecentDeadletter = 'Loading';
+                    result[i].mostRecentDeadletterLoaded = false;
+                }
+                prevState.subscriptionData = result;
+                return prevState;
             });
             for (let i = 0; i < result.length; i++) {
-                const getMostRecentDLPromise = this.promiseCollection.addNewPromise(serviceBusService.getSubscriptionMostRecentDeadletter(topicName, result[i].name), topicName + '/' + result[i].name);
-                this.setState(function (prevState, props) {
-                    prevState.subscriptionData[i].mostRecentDeadLetter = 'Loading'; //qq use spinner later
-                    prevState.subscriptionData[i].mostRecentDeadLetterLoaded = false;
-                    return prevState;
-                });
+                const getMostRecentDLPromise = this.promiseCollection.addNewPromise(serviceBusService.getSubscriptionMostRecentDeadletter(topicName, result[i].name), EndpointTypes.SUBSCRIPTION);
                 getMostRecentDLPromise.then((timeStamp) => {
                     this.setState(function (prevState, props) {
                         prevState.subscriptionData[i].mostRecentDeadLetter = timeStamp;
