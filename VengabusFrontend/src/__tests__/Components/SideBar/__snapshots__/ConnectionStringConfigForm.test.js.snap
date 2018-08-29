@@ -11,7 +11,6 @@ exports[`ConnectionStringConfigForm renders correctly 1`] = `
 }
 
 .emotion-9 {
-  padding: 5px;
   color: black;
 }
 
