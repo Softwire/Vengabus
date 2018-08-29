@@ -257,7 +257,6 @@ export class ConnectionStringConfigForm extends Component {
         `;
 
         const selectStyle = css`
-            padding: 5px;
             color: black;
         `;
 
