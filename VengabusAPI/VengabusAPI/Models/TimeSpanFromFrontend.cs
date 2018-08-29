@@ -31,7 +31,24 @@ namespace VengabusAPI.Models
             this.seconds = seconds;
             this.milliseconds = milliseconds;
 
-            span = new TimeSpan(int.Parse(days), int.Parse(hours), int.Parse(minutes), int.Parse(seconds), int.Parse(milliseconds));
+            span = CalculateResultingSpan(days, hours, minutes, seconds, milliseconds);
+        }
+
+        private TimeSpan CalculateResultingSpan(string days, string hours, string minutes, string seconds, string milliseconds)
+        {
+            TimeSpan literalSpan;
+            try
+            {
+                literalSpan = new TimeSpan(int.Parse(days), int.Parse(hours), int.Parse(minutes), int.Parse(seconds), int.Parse(milliseconds));
+            }
+            catch
+            {
+                literalSpan = TimeSpan.MaxValue;
+            }
+
+            var maxAllowableSpan = (DateTime.MaxValue - DateTime.Now).Subtract(new TimeSpan(1, 1, 0)); //1 day to account timezones and similar BS. 1 hour to account for editting round-trip.
+
+            return literalSpan > maxAllowableSpan ? TimeSpan.MaxValue : literalSpan;
         }
 
         public string milliseconds { get; }
