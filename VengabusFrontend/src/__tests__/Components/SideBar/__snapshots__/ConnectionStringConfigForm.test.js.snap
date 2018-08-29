@@ -292,7 +292,7 @@ exports[`ConnectionStringConfigForm renders correctly 1`] = `
     </div>
   </div>
   <div
-    className="form-group"
+    className="form-group has-error"
   >
     <label
       className="control-label"

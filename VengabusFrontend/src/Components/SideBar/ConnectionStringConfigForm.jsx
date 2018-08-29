@@ -277,7 +277,7 @@ export class ConnectionStringConfigForm extends Component {
 
                 <FormGroup
                     controlId="connectionString"
-                    validationState={this.state.activeConnectionString.value ? '' : 'error'}
+                    validationState={this.state.activeConnectionString.value ? null : 'error'}
                 >
                     <ControlLabel>Connection String</ControlLabel>
                     <FormControl
