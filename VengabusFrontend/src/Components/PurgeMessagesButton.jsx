@@ -60,6 +60,7 @@ class PurgeMessagesButton extends React.Component {
     }
 
     showModalAction = () => {
+        this.setState({ modalBody: "" });
         this.vengaServiceBusService = serviceBusConnection.getServiceBusService();
         this.generateModalWarningBody().then(bodyResult => this.setState({ modalBody: bodyResult }));//qq needs catch, close modal, needs refactor
     }
@@ -142,10 +143,6 @@ class PurgeMessagesButton extends React.Component {
         );
     }
 
-    resetState = () => {
-        //this.setState({ modalBody: "" });
-    }
-
     render() {
         const buttonText = this.props.messageType === EndpointTypes.MESSAGE
             ? "Purge Live Messages" : "Purge Deadletter Messages";
@@ -158,7 +155,7 @@ class PurgeMessagesButton extends React.Component {
             confirmButtonText={"Purge"}
             afterShowModalAction={this.showModalAction}
             confirmAction={this.getOnPurgeConfirmedHandler()}
-            afterCloseModalAction={this.resetState}
+            afterCloseModalAction={() => { }}
         />);
     }
 }
