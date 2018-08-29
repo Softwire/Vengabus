@@ -16,6 +16,7 @@ class ServiceBusConnection {
      * Endpoint=sb://vengabusdemo.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SGd6kBFkdDBGKs5FIBSgibSgSG5dsUBGS+8=
      */
     setConnectionString = (newConnectionString) => {
+        this.connected = true;
         this.activeServiceBusConString = newConnectionString;
     };
 
@@ -54,6 +55,7 @@ class ServiceBusConnection {
             // Obviously we'd prefer this didn't happen, but it can easily occur if, e.g. ConnStrings aren't provided yet.
             // Failing to create a connection shouldn't be an immediate fatal error ... but *USING* a failed connection probably should.
             // So don't error - just return `undefined`.
+            this.connected = false;
             console.error(err);
             return undefined;
         }

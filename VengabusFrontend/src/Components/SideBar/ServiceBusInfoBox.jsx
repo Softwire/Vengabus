@@ -19,7 +19,8 @@ export class ServiceBusInfoBox extends Component {
             <Panel>
                 <Panel.Heading className={headerColour}>Connection String</Panel.Heading>
                 <Panel.Body className={infoBoxStyle}>
-                    <div>{`${this.props.connStringVal || ' '}`}</div>
+                    <div>{`Connected to: ${this.props.connectionString.label || ' '}`}</div>
+                    <div>{`Connection String: ${this.props.connectionString.value || ' '}`}</div>
                 </Panel.Body>
             </Panel>
         );
