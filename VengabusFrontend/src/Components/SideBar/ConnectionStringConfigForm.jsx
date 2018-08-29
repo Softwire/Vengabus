@@ -84,6 +84,7 @@ export class ConnectionStringConfigForm extends Component {
                 activeConnectionString: newConnectionString,
                 connectedTo: newConnectionString
             }, () => {
+                //auto-connect when page loads
                 serviceBusConnection.setConnectionString(newConnectionString.value);
                 serviceBusConnection.promptUpdate();
             });

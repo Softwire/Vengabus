@@ -31,6 +31,9 @@ export class TwoListDisplay extends Component {
 
     componentDidMount() {
         serviceBusConnection.registerForUpdatesPrompts(this.resetInitialStateData);
+        if (serviceBusConnection.connected) {
+            serviceBusConnection.promptUpdate();
+        }
 
     }
     componentWillUnmount() {
@@ -70,7 +73,7 @@ export class TwoListDisplay extends Component {
         this.messageTabType = MessageType;
         this.setState({
             messageData: undefined,
-            rightTableType: MessageType,
+            rightTableType: MessageType
         }, () => this.updateEndpointMessageData(this.messageTabType));
     }
 
