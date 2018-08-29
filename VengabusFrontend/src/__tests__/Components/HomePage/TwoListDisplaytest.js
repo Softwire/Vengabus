@@ -80,6 +80,29 @@ jest.mock('../../../AzureWrappers/VengaServiceBusService', () => ({
             ) : Promise.reject();
         }
 
+        listQueueDeadLetterMessages = (queueName) => {
+            return (queueName === "testQueue1") ? Promise.resolve(
+                [
+                    {
+                        predefinedProperties: { messageId: "test1" },
+                        uniqueId: "59298c2b-d58f-4ad0-bde9-f8a9d00a3070",
+                        messageBody: "apple"
+
+                    },
+                    {
+                        predefinedProperties: { messageId: "test2" },
+                        uniqueId: "c9f547bf-72e1-439e-bd1f-0b590422a6f8",
+                        messageBody: "banana"
+                    },
+                    {
+                        predefinedProperties: { messageId: "test3" },
+                        uniqueId: "5034e2f8-9bf0-436a-b8f4-914b43594ee1",
+                        messageBody: "carrot"
+                    }
+                ]
+            ) : Promise.reject();
+        }
+
         listSubscriptions = (topicName) => {
             return (topicName === "testTopic1") ? Promise.resolve([
                 {
@@ -106,6 +129,28 @@ jest.mock('../../../AzureWrappers/VengaServiceBusService', () => ({
         }
 
         listSubscriptionMessages = () => {
+            return Promise.resolve(
+                [
+                    {
+                        predefinedProperties: { messageId: "test1" },
+                        uniqueId: "57d7d4dd-291a-453c-a0e4-efbb664607c0",
+                        messageBody: "apple"
+
+                    },
+                    {
+                        predefinedProperties: { messageId: "test2" },
+                        uniqueId: "873c61c3-797a-4158-941b-da8eb7410e70",
+                        messageBody: "banana"
+                    },
+                    {
+                        predefinedProperties: { messageId: "test3" },
+                        uniqueId: "8ab56d4c-0204-4aa2-a888-2cc305cd0275",
+                        messageBody: "carrot"
+                    }
+                ]);
+        }
+
+        listSubscriptionDeadLetterMessages = () => {
             return Promise.resolve(
                 [
                     {
