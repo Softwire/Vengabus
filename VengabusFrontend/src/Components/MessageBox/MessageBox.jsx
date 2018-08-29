@@ -94,24 +94,24 @@ export class MessageBox extends Component {
         const panelStyle = css`
             .panel {
                 margin-bottom: 15px;
-            }
-            .panel-heading {
-                padding: 0 15px;
-                color: ${panelDarkGrey};
-                border-color: ${panelLightGrey};
-                pre {
-                    white-space: pre-wrap; /*word wrap on narrow displays*/
+                .panel-heading {
+                    padding: 0 15px;
+                    color: ${panelDarkGrey};
+                    border-color: ${panelLightGrey};
+                    pre {
+                        white-space: pre-wrap; /*word wrap on narrow displays*/
+                    }
+                    overflow: auto;             
+                    background-image: linear-gradient(to bottom,#f5f5f5 0,#e8e8e8 100%); /*background colouru*/
+                    background-repeat: repeat-x;
                 }
-                overflow: auto;             
-                background-image: linear-gradient(to bottom,#f5f5f5 0,#e8e8e8 100%); /*background colouru*/
-                background-repeat: repeat-x;
-            }
-            .panel-body { 
-                padding: 0;
-            }
-            pre {
-                border: none;
-                margin: 0; 
+                .panel-body { 
+                    padding: 0;
+                }
+                pre {
+                    border: none;
+                    margin: 0; 
+                }
             }
         `;
         const message = this.props.message;
@@ -157,12 +157,12 @@ export class MessageBox extends Component {
         const modalBody = (
             <React.Fragment>
                 <PreDefinedPanelType panelTitle={"Pre-defined Properties"}>
-                            <pre>{preDefinedPropsJSX}</pre>
-                        </PreDefinedPanelType>
-                        <CustomPanelType panelTitle={"User-defined Properties"}>
-                            <pre>{customPropsJSX}</pre>
-                        </CustomPanelType>
-                        <FormattingBox message={message.messageBody} />
+                    <pre>{preDefinedPropsJSX}</pre>
+                </PreDefinedPanelType>
+                <CustomPanelType panelTitle={"User-defined Properties"}>
+                    <pre>{customPropsJSX}</pre>
+                </CustomPanelType>
+                <FormattingBox message={message.messageBody} />
             </React.Fragment>);
         const spinner = <Spinner size={25} />;
         const buttonsDisabled = this.state.spinner;
@@ -197,7 +197,6 @@ export class MessageBox extends Component {
                             <CopyTextButton disabled={buttonsDisabled} text={message.messageBody} id="messageBoxCopy" />
                             <Button disabled={buttonsDisabled} onClick={() => this.download(message)} id="messageBoxDownloadMessageButton">Download  <span className="glyphicon glyphicon-save" /> </Button>
                             <Button disabled={buttonsDisabled} onClick={() => this.handleReplayMessage(message)} id="messageBoxReplayMessage" >{"Replay Message to " + replayDestination}</ Button>
-
                         </ButtonToolbar>
                     </Modal.Footer>
                 </Modal>

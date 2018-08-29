@@ -13,13 +13,10 @@ exports[`FormattingBox renders a snapshot correctly when given json 1`] = `
   margin-bottom: 15px;
 }
 
-.emotion-2 .tab-content {
-  overflow: auto;
-  max-height: calc(92vh - 326px);
-}
-
 .emotion-2 .tab-content pre {
   margin-bottom: 0;
+  overflow: auto;
+  max-height: calc(92vh - 326px);
 }
 
 .emotion-2 .formatterError a {
@@ -182,13 +179,10 @@ exports[`FormattingBox renders a snapshot correctly when given plain text 1`] = 
   margin-bottom: 15px;
 }
 
-.emotion-3 .tab-content {
-  overflow: auto;
-  max-height: calc(92vh - 326px);
-}
-
 .emotion-3 .tab-content pre {
   margin-bottom: 0;
+  overflow: auto;
+  max-height: calc(92vh - 326px);
 }
 
 .emotion-3 .formatterError a {
@@ -356,13 +350,10 @@ exports[`FormattingBox renders a snapshot correctly when given props 1`] = `
   margin-bottom: 15px;
 }
 
-.emotion-3 .tab-content {
-  overflow: auto;
-  max-height: calc(92vh - 326px);
-}
-
 .emotion-3 .tab-content pre {
   margin-bottom: 0;
+  overflow: auto;
+  max-height: calc(92vh - 326px);
 }
 
 .emotion-3 .formatterError a {
@@ -530,13 +521,10 @@ exports[`FormattingBox renders a snapshot correctly when given xml 1`] = `
   margin-bottom: 15px;
 }
 
-.emotion-2 .tab-content {
-  overflow: auto;
-  max-height: calc(92vh - 326px);
-}
-
 .emotion-2 .tab-content pre {
   margin-bottom: 0;
+  overflow: auto;
+  max-height: calc(92vh - 326px);
 }
 
 .emotion-2 .formatterError a {

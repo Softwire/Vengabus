@@ -24,7 +24,7 @@ exports[`MessageBox renders correctly with given props 1`] = `
   margin-bottom: 15px;
 }
 
-.emotion-2 .panel-heading {
+.emotion-2 .panel .panel-heading {
   padding: 0 15px;
   color: #333;
   border-color: #ddd;
@@ -33,15 +33,15 @@ exports[`MessageBox renders correctly with given props 1`] = `
   background-repeat: repeat-x;
 }
 
-.emotion-2 .panel-heading pre {
+.emotion-2 .panel .panel-heading pre {
   white-space: pre-wrap;
 }
 
-.emotion-2 .panel-body {
+.emotion-2 .panel .panel-body {
   padding: 0;
 }
 
-.emotion-2 pre {
+.emotion-2 .panel pre {
   border: none;
   margin: 0;
 }
