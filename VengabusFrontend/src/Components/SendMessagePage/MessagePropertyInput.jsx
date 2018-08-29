@@ -27,21 +27,22 @@ export class MessagePropertyInput extends Component {
         if (!name) {
             return false;
         }
+        let isPropertyValid = true;
         if (occurencesInUserDefinedProperties > 1) {
             let newWarning = "Warning: repetitive property name: '" + name + "'";
             if (this.warnings.indexOf(newWarning) === -1) {
                 this.warnings.push(newWarning);
             }
-            return false;
+            isPropertyValid = false;
         }
         if (occurencesInPredefinedProperties > 0) {
             let newWarning = "Warning: custom property '" + name + "' is potentially a predefined property";
             if (this.warnings.indexOf(newWarning) === -1) {
                 this.warnings.push(newWarning);
             }
-            return false;
+            isPropertyValid = false;
         }
-        return true;
+        return isPropertyValid;
     }
 
     render() {

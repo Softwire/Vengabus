@@ -330,56 +330,17 @@ export class MessageInput extends Component {
             handleMessageBodyChange={this.handleMessageBodyChange}
         />;
 
-        let buttonPanel = <form>
-            <ButtonWithConfirmationModal
-                id="submitButton"
-                buttonText={"Send Message"}
-                buttonStyle="default"
-                buttonDisabled={selectedEndpoint ? false : true}
-                afterShowModalAction={this.constructPropertyWarnings}
-                modalTitle={"Send Message to " + selectedEndpoint}
-                modalBody={
-                    <React.Fragment>
-                        <p>{"Message will be sent to: " + selectedEndpoint}</p>
-                        {this.state.sendMessageModalWarnings}
-                        <p>{"Confirm sending message?"}</p>
-                    </React.Fragment>
-                }
-                confirmButtonText={"Send"}
-                confirmAction={this.submit}
-            />
-            <ButtonWithConfirmationModal
-                id="cancelButton"
-                buttonText={"Reset Fields"}
-                modalTitle={"Reset all fields"}
-                modalBody={
-                    <React.Fragment>
-                        <p>Are you sure you want to reset ALL fields of the current message?</p>
-                        <p>Note: if you are replaying an existing message, resetting the fields here will have NO effect on the orignal message.</p>
-                    </React.Fragment>
-                }
-                confirmButtonText={"Reset"}
-                confirmAction={this.discardMessage}
-            />
-        </form>;
-
         return (
             <div className={formStyle} >
                 <div className={topSticky}>
                     <div className={destinationFormStyle}>
-                        <MessageDestinationForm
-                            recipientIsQueue={this.state.recipientIsQueue}
-                            availableQueues={this.state.availableQueues}
-                            availableTopics={this.state.availableTopics}
-                            selectedQueue={this.state.selectedQueue}
-                            selectedTopic={this.state.selectedTopic}
-                            handleDestinationChange={this.handleDestinationChange}
-                        />
+                        {messageDestinationForm}
                     </div>
                     <div className={classNames(vertAlignBottom, floatRightWithMargin)}>
                         <MessageSendAndResetButtons
                             selectedEndpoint={selectedEndpoint}
-                            warnings={warnings}
+                            warnings={this.state.sendMessageModalWarnings}
+                            generateWarnings={this.constructPropertyWarnings}
                             submit={this.submit}
                             discardMessage={this.discardMessage}
                         />
@@ -387,7 +348,7 @@ export class MessageInput extends Component {
                 </div>
                 <div className={stickySpacer} />
                 <p>Upload Message from File</p>
-               
+
                 <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}><h3><div className=" btn btn-default">Add file</div></h3>
                     <FormControl
                         id="fileUpload"
@@ -400,10 +361,7 @@ export class MessageInput extends Component {
                 <hr className={fullWidth} />
                 {messageProperties}
                 <hr className={fullWidth} />
-                <MessageBodyInput
-                    messageBody={this.state.messageBody}
-                    handleMessageBodyChange={this.handleMessageBodyChange}
-                />
+                {messageBodyInput}
             </div >
         );
     }

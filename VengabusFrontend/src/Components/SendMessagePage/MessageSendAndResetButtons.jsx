@@ -31,6 +31,7 @@ export class MessageSendAndResetButtons extends Component {
                     buttonCSS={buttonWidth}
                     buttonText={"Send Message"}
                     buttonDisabled={this.props.selectedEndpoint ? false : true}
+                    afterShowModalAction={this.props.generateWarnings}
                     modalTitle={"Send Message to " + this.props.selectedEndpoint}
                     modalBody={
                         <React.Fragment>
