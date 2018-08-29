@@ -24,17 +24,30 @@ export class MessagePropertyInput extends Component {
         let occurencesInPredefinedProperties = _(this.props.reservedPropertyNames)
             .filter((current) => current === name)
             .size();
-        if (!name ||
-            occurencesInUserDefinedProperties > 1 ||
-            occurencesInPredefinedProperties > 0) {
+        if (!name) {
             return false;
-        } else {
-            return true;
         }
+        let isPropertyValid = true;
+        if (occurencesInUserDefinedProperties > 1) {
+            let newWarning = "Warning: repetitive property name: '" + name + "'";
+            if (this.warnings.indexOf(newWarning) === -1) {
+                this.warnings.push(newWarning);
+            }
+            isPropertyValid = false;
+        }
+        if (occurencesInPredefinedProperties > 0) {
+            let newWarning = "Warning: custom property '" + name + "' is potentially a predefined property";
+            if (this.warnings.indexOf(newWarning) === -1) {
+                this.warnings.push(newWarning);
+            }
+            isPropertyValid = false;
+        }
+        return isPropertyValid;
     }
 
     render() {
         let inputs = [];
+        this.warnings = [];
         let remainingPermittedValues;
         if (this.props.permittedValues) {
             remainingPermittedValues = [...this.props.permittedValues];
@@ -60,6 +73,10 @@ export class MessagePropertyInput extends Component {
                     permittedValues={remainingPermittedValues}
                 />
             );
+        }
+
+        if (this.props.reportWarnings) {
+            this.props.reportWarnings(this.warnings);
         }
 
         return <div>{inputs}</div>;

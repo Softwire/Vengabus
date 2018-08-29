@@ -79,6 +79,7 @@ export class MessageProperties extends Component {
                     deleteRow={(index) => this.deleteRow(index, isPredefined)}
                     permittedValues={isPredefined ? this.props.permittedValues : undefined}
                     reservedPropertyNames={isPredefined ? undefined : this.props.reservedPropertyNames}
+                    reportWarnings={this.props.reportWarnings}
                 />
                 <form>
                     <div className={leftAlign}>
