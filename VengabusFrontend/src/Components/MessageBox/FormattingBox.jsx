@@ -93,7 +93,7 @@ export class FormattingBox extends Component {
         }
         if (contentToDisplay.length === 0) {
             formattingAttemptResult.errorMessage = "No text returned from the formatter"; //needed so that getFormatterTab recongises that this is indeed an error
-            contentToDisplay.push(this.noTextAlert(formattingAttemptResult.formatType + "warning"));
+            contentToDisplay.push(this.noTextAlert(formattingAttemptResult.formatType + "error"));
         }
         return contentToDisplay;
     }
@@ -115,7 +115,7 @@ export class FormattingBox extends Component {
     }
 
     render() {
-        const originalText = this.props.message;
+        const originalText = this.props.message || '';
         const formattedObjects = this.formatters.map(formatter => formatter.getFormatResult(originalText));
         const messageTabsArray = formattedObjects.map((formattedObj, index) => this.getFormatterTab(formattedObj, index));
         const defaultTabToDisplay = this.chooseDefaultFormat(formattedObjects);
