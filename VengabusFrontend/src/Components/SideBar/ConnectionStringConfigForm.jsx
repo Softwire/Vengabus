@@ -79,7 +79,14 @@ export class ConnectionStringConfigForm extends Component {
         this.setState({ connectionStrings: newConnectionStrings });
         if (newConnectionStrings.length) {
             //if we have some strings in local storage, use the most recently used one
-            this.setState({ activeConnectionString: newConnectionStrings[0] });
+            let newConnectionString = newConnectionStrings[0];
+            this.setState({
+                activeConnectionString: newConnectionString,
+                connectedTo: newConnectionString
+            }, () => {
+                serviceBusConnection.setConnectionString(newConnectionString.value);
+                serviceBusConnection.promptUpdate();
+            });
         }
     }
 
