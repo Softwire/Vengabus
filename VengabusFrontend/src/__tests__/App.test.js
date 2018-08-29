@@ -28,12 +28,10 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
         }
 
         getQueueDetails = (queueName) => {
-            return new Promise(function (resolve, reject) {
-                resolve({
-                    "name": "demoqueue1",
-                    "activeMessageCount": 0,
-                    "deadletterMessageCount": 30
-                });
+            return Promise.resolve({
+                "name": "demoqueue1",
+                "activeMessageCount": 0,
+                "deadletterMessageCount": 30
             });
         }
         getQueueMostRecentDeadletter = (queueName) => {
@@ -43,25 +41,24 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
         }
 
         listTopics = () => {
-            return new Promise(function (resolve, reject) {
-                resolve([
-                    {
-                        "name": "demotopic1",
-                        "subscriptionCount": 2,
-                        "topicStatus": "Active"
-                    },
-                    {
-                        "name": "demotopic2",
-                        "subscriptionCount": 1,
-                        "topicStatus": "Active"
-                    },
-                    {
-                        "name": "ibdemotopic",
-                        "subscriptionCount": 3,
-                        "topicStatus": "Active"
-                    }
-                ]);
-            });
+
+            return Promise.resolve([
+                {
+                    "name": "demotopic1",
+                    "subscriptionCount": 2,
+                    "topicStatus": "Active"
+                },
+                {
+                    "name": "demotopic2",
+                    "subscriptionCount": 1,
+                    "topicStatus": "Active"
+                },
+                {
+                    "name": "ibdemotopic",
+                    "subscriptionCount": 3,
+                    "topicStatus": "Active"
+                }
+            ]);
         }
 
         /**
@@ -70,12 +67,10 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
          * @return {object} The topic returned by the server.
          */
         getTopicDetails = (topicName) => {
-            return new Promise(function (resolve, reject) {
-                resolve({
-                    "name": topicName,
-                    "subscriptionCount": 2,
-                    "topicStatus": "Active"
-                });
+            return Promise.resolve({
+                "name": topicName,
+                "subscriptionCount": 2,
+                "topicStatus": "Active"
             });
         }
 
@@ -85,68 +80,54 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
          * @return {object} The subsctiptions returned by the server.
          */
         listSubscriptions = (topicName) => {
-            return new Promise(function (resolve, reject) {
-                resolve(
-                    [
-                        {
-                            "name": "demosubscription1",
-                            "activeMessageCount": 0,
-                            "deadletterMessageCount": 110,
-                            "subscriptionStatus": "Active",
-                            "topicName": 'testTopic'
-                        },
-                        {
-                            "name": "demosubscription2",
-                            "activeMessageCount": 0,
-                            "deadletterMessageCount": 0,
-                            "subscriptionStatus": "Active",
-                            "topicName": 'testTopic'
-                        }
-                    ]
-                );
-            });
+            return Promise.resolve(
+                [
+                    {
+                        "name": "demosubscription1",
+                        "activeMessageCount": 0,
+                        "deadletterMessageCount": 110,
+                        "subscriptionStatus": "Active",
+                        "topicName": 'testTopic'
+                    },
+                    {
+                        "name": "demosubscription2",
+                        "activeMessageCount": 0,
+                        "deadletterMessageCount": 0,
+                        "subscriptionStatus": "Active",
+                        "topicName": 'testTopic'
+                    }
+                ]
+            );
         }
 
         getSubscriptionDetails = (parentTopicName, subscriptionName) => {
-            return new Promise(function (resolve, reject) {
-                resolve({
-                    "name": subscriptionName,
-                    "activeMessageCount": 0,
-                    "deadletterMessageCount": 110,
-                    "subscriptionStatus": "Active",
-                    "topicName": parentTopicName
-                });
+            return Promise.resolve({
+                "name": subscriptionName,
+                "activeMessageCount": 0,
+                "deadletterMessageCount": 110,
+                "subscriptionStatus": "Active",
+                "topicName": parentTopicName
             });
         }
 
         sendMessageToQueue = (queueName, message) => {
-            return new Promise(function (resolve, reject) {
-                resolve(200);
-            });
+            return Promise.resolve(200);
         }
 
         sendMessageToTopic = (topicName, message) => {
-            return new Promise(function (resolve, reject) {
-                resolve(200);
-            });
+            return Promise.resolve(200);
         }
 
         purgeQueueMessages = (queueName) => {
-            return new Promise(function (resolve, reject) {
-                resolve(200);
-            });
+            return Promise.resolve(200);
         }
 
         purgeTopicMessages = (topicName) => {
-            return new Promise(function (resolve, reject) {
-                resolve(200);
-            });
+            return Promise.resolve(200);
         }
 
         purgeSubscriptionMessages = (topicName, subscriptionName) => {
-            return new Promise(function (resolve, reject) {
-                resolve(200);
-            });
+            return Promise.resolve(200);
         }
 
         listQueueDeadletterMessages = (queueName) => {
@@ -174,29 +155,26 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
 
 
         listQueueMessages = (queueName) => {
-            return new Promise(function (resolve, reject) {
-                resolve([
-                    {
-                        predefinedProperties: { messageId: "test1" },
-                        customProperties: { "skjdfhksdjf": "skdjhds" },
-                        uniqueId: "59298c2b-d58f-4ad0-bde9-f8a9d00a3070",
-                        messageBody: "apple"
-
-                    },
-                    {
-                        predefinedProperties: { messageId: "test2" },
-                        customProperties: { "skjdfhksdjf": "skdjhds" },
-                        uniqueId: "c9f547bf-72e1-439e-bd1f-0b590422a6f8",
-                        messageBody: "banana"
-                    },
-                    {
-                        predefinedProperties: { messageId: "test3" },
-                        customProperties: { "skjdfhksdjf": "skdjhds" },
-                        uniqueId: "5034e2f8-9bf0-436a-b8f4-914b43594ee1",
-                        messageBody: "carrot"
-                    }
-                ]);
-            });
+            return Promise.resolve([
+                {
+                    predefinedProperties: { messageId: "test1" },
+                    customProperties: { "skjdfhksdjf": "skdjhds" },
+                    uniqueId: "59298c2b-d58f-4ad0-bde9-f8a9d00a3070",
+                    messageBody: "apple"
+                },
+                {
+                    predefinedProperties: { messageId: "test2" },
+                    customProperties: { "skjdfhksdjf": "skdjhds" },
+                    uniqueId: "c9f547bf-72e1-439e-bd1f-0b590422a6f8",
+                    messageBody: "banana"
+                },
+                {
+                    predefinedProperties: { messageId: "test3" },
+                    customProperties: { "skjdfhksdjf": "skdjhds" },
+                    uniqueId: "5034e2f8-9bf0-436a-b8f4-914b43594ee1",
+                    messageBody: "carrot"
+                }
+            ]);
         }
 
         listSubscriptionDeadletterMessages = () => {
@@ -222,29 +200,26 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
         }
 
         listSubscriptionMessages = (topicName, subscriptionName) => {
-            return new Promise(function (resolve, reject) {
-                resolve([
-                    {
-                        predefinedProperties: { messageId: "test1" },
-                        customProperties: { "skjdfhksdjf": "skdjhds" },
-                        uniqueId: "59298c2b-d58f-4ad0-bde9-f8a9d00a3070",
-                        messageBody: "apple"
-
-                    },
-                    {
-                        predefinedProperties: { messageId: "test2" },
-                        customProperties: { "skjdfhksdjf": "skdjhds" },
-                        uniqueId: "c9f547bf-72e1-439e-bd1f-0b590422a6f8",
-                        messageBody: "banana"
-                    },
-                    {
-                        predefinedProperties: { messageId: "test3" },
-                        customProperties: { "skjdfhksdjf": "skdjhds" },
-                        uniqueId: "5034e2f8-9bf0-436a-b8f4-914b43594ee1",
-                        messageBody: "carrot"
-                    }
-                ]);
-            });
+            return Promise.resolve([
+                {
+                    predefinedProperties: { messageId: "test1" },
+                    customProperties: { "skjdfhksdjf": "skdjhds" },
+                    uniqueId: "59298c2b-d58f-4ad0-bde9-f8a9d00a3070",
+                    messageBody: "apple"
+                },
+                {
+                    predefinedProperties: { messageId: "test2" },
+                    customProperties: { "skjdfhksdjf": "skdjhds" },
+                    uniqueId: "c9f547bf-72e1-439e-bd1f-0b590422a6f8",
+                    messageBody: "banana"
+                },
+                {
+                    predefinedProperties: { messageId: "test3" },
+                    customProperties: { "skjdfhksdjf": "skdjhds" },
+                    uniqueId: "5034e2f8-9bf0-436a-b8f4-914b43594ee1",
+                    messageBody: "carrot"
+                }
+            ]);
         }
 
 
@@ -301,15 +276,11 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
         }
 
         getWriteableMessageProperties = () => {
-            return new Promise(function (resolve, reject) {
-                resolve(['messageId', 'contentType']);
-            });
+            return Promise.resolve(['messageId', 'contentType']);
         }
 
         getReadableMessageProperties = () => {
-            return new Promise(function (resolve, reject) {
-                resolve(['messageId', 'contentType']);
-            });
+            return Promise.resolve(['messageId', 'contentType']);
         }
 
         getQueueMostRecentDeadletter = (queueName) => {
@@ -335,39 +306,6 @@ it('renders without crashing', () => {
     ReactDOM.render(<App />, div);
     ReactDOM.unmountComponentAtNode(div);
 });
-
-const messageBoxTest = (messageRow, wrapper) => {
-    messageRow.simulate("click"); //open the messageBox modal 
-    wrapper.update();
-    expect(wrapper.find("#messageBoxModal")).toExistOnPage();
-
-    //test the Pre-defined Properties and User-defined Properties panels
-    let glyphicons = wrapper.find("#messageBoxModalBody .panel .glyphicon");
-    //click the glyphicons twice to toggle the panels open and shut
-    glyphicons.forEach((glyph) => glyph.simulate("click"));
-    wrapper.update();
-    glyphicons.forEach((glyph) => glyph.simulate("click"));
-    wrapper.update();
-
-    //check that the expected buttons in the footer are all there
-    const closeButton = wrapper.find("#messageBoxClose").last();
-    const copyButton = wrapper.find("#messageBoxCopy").last();
-    const replayButton = wrapper.find("#messageBoxReplayMessage").last();
-    expect(closeButton).toExistOnPage();
-    expect(copyButton).toExistOnPage();
-    expect(replayButton).toExistOnPage();
-
-    closeButton.simulate("click"); //test the close button
-    wrapper.update();
-    //test the copy button
-    //copyButton.simulate("click"); //qq JF the library throws an error "reselectPrevious is not a function" if you try to click the copy button within any mount test it seems
-    replayButton.simulate("click"); //test the replay message button
-    wrapper.update();
-
-    wrapper.find("#navbarDemoPageButton").last().simulate("click"); //get back to the demo page
-    wrapper.update();
-};
-
 const sendMessagePageTest = (wrapper) => { //Starts from SendMessagePage
     return testHelper.afterReactHasUpdated().then(() => {//Click add new Azure property button
         const addNewAzurePropertyButton = wrapper.find('#addPreDefinedPropertyButton').last();
@@ -440,6 +378,40 @@ const replayMessageTest = (wrapper) => { //Starts from HomePage
     });
 };
 
+const messageBoxTest = (wrapper) => { //starts from HomePage
+    return testHelper.afterReactHasUpdated().then(() => { //Queue row
+        const listOfQueues = wrapper.find('#QueueTable'); //Queue row
+        listOfQueues.props().clickFunction(blankEventObj, { name: "name" });
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        //message row
+        wrapper.update();
+        const messageList = wrapper.find('#MessageTable').first();
+        messageList.instance().handleMessageClick(blankEventObj, {
+            predefinedProperties: { messageId: "test1", contentType: "plain text" },
+            customProperties: { "skjdfhksdjf": "skdjhds" },
+            uniqueId: "59298c2b-d58f-4ad0-bde9-f8a9d00a3070",
+            messageBody: "apple"
+        });
+        messageList.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {
+        /*
+        // Currently clicking anywhere within the message box modal, or calling wrapper.update() both close the message box.
+        // So more comprehensive smoke testing is not currently possible.
+        */
+        expect(wrapper.find("#messageBoxModal")).toExistOnPage();
+        //check that the expected buttons in the footer are all there
+        const closeButton = wrapper.find("#messageBoxClose").last();
+        const copyButton = wrapper.find("#messageBoxCopy").last();
+        const replayButton = wrapper.find("#messageBoxReplayMessage").last();
+        expect(closeButton).toExistOnPage();
+        expect(copyButton).toExistOnPage();
+        expect(replayButton).toExistOnPage();
+        return testHelper.afterReactHasUpdated();
+    });
+}
+
 it('passes smoke tests without crashing', () => {
     let wrapper = mount(<App />);
 
@@ -482,11 +454,14 @@ it('passes smoke tests without crashing', () => {
      */
 
     connectButton.prop("onClick")();
-    return testHelper.afterReactHasUpdated().then(() => { //Go to Demo Page
-        navbarDemoPageButton.simulate("click");
-        const demoMessageTableRows = wrapper.find("#demoMessageList .table tbody tr").last(); //the rows of the messageList table
-        messageBoxTest(demoMessageTableRows.childAt(0), wrapper); //test messageBox for the first message on the demo page
-        return testHelper.afterReactHasUpdated();
+    return testHelper.afterReactHasUpdated().then(() => { //Go to Home Page
+        navbarHomePageButton.simulate("click");
+        wrapper.update();
+        return messageBoxTest(wrapper); //test message box
+        //}).then(() => {
+        //test the copy button
+        //copyButton.simulate("click"); //the library throws an error "reselectPrevious is not a function" if you try to click the copy button within any mount test it seems
+        //return testHelper.afterReactHasUpdated();
         /*    }).then(() => { //Click ReplayMessage button -- this no longer exists. QQ remove when every's added smoke test
                 const replayMessageButton = wrapper.find("#demoPageReplayMessageButton").first();
                 expect(replayMessageButton).toExistOnPage();
@@ -540,7 +515,6 @@ it('passes smoke tests without crashing', () => {
             customProperties: { "skjdfhksdjf": "skdjhds" },
             uniqueId: "59298c2b-d58f-4ad0-bde9-f8a9d00a3070",
             messageBody: "apple"
-
         });
         return testHelper.afterReactHasUpdated();
     }).then(() => {

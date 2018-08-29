@@ -99,7 +99,7 @@ sit amet \nthat was a newline`
                 </div>
 
                 <div className={queueDivStyle}>
-                    <div id="demoMessageList">
+                    <div>
                         <MessageList messageData={this.state.messageData}
                             showMessage={false}
                             endpointType={EndpointTypes.QUEUE}
