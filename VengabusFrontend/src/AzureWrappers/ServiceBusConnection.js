@@ -34,8 +34,8 @@ class ServiceBusConnection {
      * @return {string} The formatted string.
      */
     formatApiRootString = (APIRootString) => {
-        if (!APIRootString.startsWith("http")) { //Catches both http and https cases
-            APIRootString = "http://" + APIRootString;
+        if (!APIRootString.includes("//")) { //URL must specify a protocol
+            APIRootString = "//" + APIRootString; //Set to procol relative link by default
         }
         if (!APIRootString.endsWith("/")) {
             APIRootString = APIRootString + "/";

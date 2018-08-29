@@ -66,7 +66,7 @@ it('API root location is formatted correctly', () => {
 
     mount(<ConnectionStringConfigForm />);
     return testHelper.afterReactHasUpdated().then(() => {
-        expect(serviceBusConnection.activeAPIroot).toEqual('http://UnformattedAPIRootInLocalStorage/');
+        expect(serviceBusConnection.activeAPIroot).toEqual('//UnformattedAPIRootInLocalStorage/');
     });
 });
 
