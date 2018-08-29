@@ -291,10 +291,8 @@ export class MessageInput extends Component {
             width: 450px;
             float: left;
         `;
-        const vertAlignBottom = css`
-            position: relative;
-            top: 100%;
-            transform: translateY(-127px);
+        const vertAlignButtons = css`
+            margin-top: 10px;
         `;
         const floatRightWithMargin = css`
             float: right;
@@ -335,7 +333,7 @@ export class MessageInput extends Component {
                 </ControlLabel>
             </React.Fragment>
         );
-        
+
         const messageProperties = <MessageProperties
             arePreDefinedPropsLoaded={this.state.arePreDefinedPropsLoaded}
             preDefinedProperties={this.state.preDefinedProperties}
@@ -357,7 +355,7 @@ export class MessageInput extends Component {
                     <div className={destinationFormStyle}>
                         {messageDestinationForm}
                     </div>
-                    <div className={classNames(vertAlignBottom, floatRightWithMargin)}>
+                    <div className={classNames(vertAlignButtons, floatRightWithMargin)}>
                         {mainButtons}
                     </div>
                 </div>
