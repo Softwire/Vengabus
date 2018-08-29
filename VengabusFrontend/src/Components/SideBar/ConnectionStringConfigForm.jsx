@@ -160,7 +160,7 @@ export class ConnectionStringConfigForm extends Component {
         //remove it from our list
         newConnectionStrings.splice(index, 1);
 
-        //use the most commonly used string, if we still have strings left. But don't connect to it -- that's for users to decide
+        //use the most commonly used string, if we still have strings left.
         let activeConnectionString;
 
         if (newConnectionStrings.length) {
@@ -169,14 +169,14 @@ export class ConnectionStringConfigForm extends Component {
             activeConnectionString = { value: "", label: "" };
         }
 
-        //update state, clear the old string from servicebusConnection and our current record. Or shall we rather keep it?
+        //update state
         this.setState({
             connectionStrings: newConnectionStrings,
             activeConnectionString: activeConnectionString,
-            info: "",
-            connectedTo: { value: "", label: "" }
+            connectedTo: activeConnectionString
         });
-        serviceBusConnection.setConnectionString("");
+        serviceBusConnection.setConnectionString(activeConnectionString.value);
+        serviceBusConnection.promptUpdate();
 
         //update local storage
         this.updateConnectionStringLocalStorage(newConnectionStrings);
@@ -281,7 +281,7 @@ export class ConnectionStringConfigForm extends Component {
                     <FormControl
                         type="text"
                         value={this.state.activeConnectionString.value}
-                        placeholder="Connection String"
+                        placeholder="Enter Connection String"
                         onChange={this.handleConnectionStringValueChange}
                     />
                 </FormGroup>

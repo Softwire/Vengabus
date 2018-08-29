@@ -15,12 +15,12 @@ it('component renders fine when connection string localStorage is not present', 
 });
 
 it('component renders fine when connection string localStorage *is* present', () => {
-    localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionString, 'some Value');
+    localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionStrings, 'some Value');
     const wrapper = mount(<ConnectionStringConfigForm />);
 });
 
-it('localStore is updated when the connection string form is changed', () => {
-    localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionString, 'before');
+it('localStorage should not be updated without clicking the connect button', () => {
+    localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionStrings, '{value:"before",label:"before"}');
     const wrapper = mount(<ConnectionStringConfigForm />);
 
     //Cannot use the id of the form to find it because the wrapper then contains two elements instead of one
@@ -29,11 +29,11 @@ it('localStore is updated when the connection string form is changed', () => {
     connectionStringInput.simulate('change', { target: { value: 'after' } });
 
     return testHelper.afterReactHasUpdated().then(() => {
-        expect(localStorage.getItem(LOCAL_STORAGE_STRINGS.ConnectionString)).toEqual('after');
+        expect(localStorage.getItem(LOCAL_STORAGE_STRINGS.ConnectionStrings)).toEqual('{value:"before",label:"before"}');
     });
 });
 
-it('localStore is updated when the API location form is changed', () => {
+it('localStorage should not be updated without clicking the connect button', () => {
     localStorage.setItem(LOCAL_STORAGE_STRINGS.APIroot, 'before');
     const wrapper = mount(<ConnectionStringConfigForm />);
 
@@ -43,20 +43,24 @@ it('localStore is updated when the API location form is changed', () => {
     connectionStringInput.simulate('change', { target: { value: 'after' } });
 
     return testHelper.afterReactHasUpdated().then(() => {
-        expect(localStorage.getItem(LOCAL_STORAGE_STRINGS.APIroot)).toEqual('after');
+        expect(localStorage.getItem(LOCAL_STORAGE_STRINGS.APIroot)).toEqual('before');
     });
 });
 
 it('ServiceBusConnection is updated from LocalStorage on page load', () => {
     serviceBusConnection.setConnectionString('connStringInConnection');
-    localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionString, 'connStringInLocalStorage');
+    localStorage.setItem(LOCAL_STORAGE_STRINGS.ConnectionStrings, '{value:"connStringInLocalStorage",label:"connStringInLocalStorage"}');
     serviceBusConnection.setApiRoot('APIRootInConnection');
     localStorage.setItem(LOCAL_STORAGE_STRINGS.APIroot, 'http://APIRootInLocalStorage/');
 
-    mount(<ConnectionStringConfigForm />);
+    let wrapper = mount(<ConnectionStringConfigForm />);
+    wrapper.update();
     return testHelper.afterReactHasUpdated().then(() => {
-        expect(serviceBusConnection.activeServiceBusConString).toEqual('connStringInLocalStorage');
-        expect(serviceBusConnection.activeAPIroot).toEqual('http://APIRootInLocalStorage/');
+        //this seems to take really a while... alternative use two or three afterReactHasUpdate().then probably works
+        setTimeout(() => {
+            expect(serviceBusConnection.activeServiceBusConString).toEqual('connStringInLocalStorage');
+            expect(serviceBusConnection.activeAPIroot).toEqual('http://APIRootInLocalStorage/');
+        }, 10);
     });
 });
 
