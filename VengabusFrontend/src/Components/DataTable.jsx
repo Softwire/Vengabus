@@ -58,7 +58,9 @@ Props:
                 onSelect: {function(row, isSelect, rowIndex, e)} Called when row is selected (clicked).
     searchable: (OPTIONAL) {boolean} If true, create a searchable table with a searchbar on top. Default is false.
     rowClasses: (OPTIONAL) {string} CSS class that applies to the rows.
-    paginated: (OPTIONAL) {boolean} If true then list will be paginated. Default is false.
+    paginated: (OPTIONAL) {boolean/object} Default is false. If true then list will be paginated with default paginator.
+                Otherwise, an object should be passed in specifying pagination parameters:
+                sizePerPageList: (REQUIRED) {array}
     bordered: (OPTIONAL) {boolean} If false then no vertical borders. Default is true.
     condensed: (OPTIONAL) {boolean} If true then reduces padding in the table. Default is false.
     defaultHover: (OPTIONAL) {boolean} If true then default on hover styling will be applied.
