@@ -14,17 +14,26 @@ describe('MessageBox', () => {
 
     const arePanelsCollapsed = (wrapper) => {
         const panels = wrapper.find('#messageBoxModalBody .panel');
-        //.find() returns twice the number of elements with the given property as it returns both the React component and the HTML on the page
-        const twiceNumberOfCollapsedPanels = panels.find('[aria-expanded=false]').length;
-        const twiceNumberOfExpandedPanels = panels.find('[aria-expanded=true]').length;
-        if (twiceNumberOfCollapsedPanels === 4 && twiceNumberOfExpandedPanels === 0) {
+        const numberOfCollapsedPanels = panels.find('a.collapsed').length;
+        if (numberOfCollapsedPanels === 2 && panels.length === 2) {
             return true;
         }
-        else if (twiceNumberOfCollapsedPanels === 0 && twiceNumberOfExpandedPanels === 4) {
+        else if (numberOfCollapsedPanels === 0 && panels.length === 2) {
             return false;
         }
         throw new Error("Could not find the expected number of panels in MessageBox");
     };
+
+    const countGlyphicons = (wrapper) => {
+        const plusGlyphiconCount = wrapper.find("#messageBoxModalBody .panel .panel-heading .glyphicon-plus").length;
+        const minusGlyphiconCount = wrapper.find("#messageBoxModalBody .panel .panel-heading .glyphicon-minus").length;
+        return { plus: plusGlyphiconCount, minus: minusGlyphiconCount };
+    }
+
+    const clickPanelGlyphicons = (wrapper) => {
+        const glyphicons = wrapper.find("#messageBoxModalBody .panel .panel-heading .glyphicon");
+        glyphicons.forEach((glyph) => glyph.simulate("click"));
+    }
 
     it('renders correctly with given props', () => {
         const wrapper = shallow(<MessageBox
@@ -50,22 +59,19 @@ describe('MessageBox', () => {
             closeParentModal={() => { }}
         />);
         //the properties panels should be closed by default
-        let plusGlyphicons = wrapper.find("#messageBoxModalBody .panel .panel-heading .glyphicon-plus");
-        expect(plusGlyphicons).toHaveLength(2);
+        expect(countGlyphicons(wrapper)).toEqual({ plus: 2, minus: 0 });
         expect(arePanelsCollapsed(wrapper)).toBe(true);
 
         //clicking on the glyphicons should expand the panels and toggle the glyphicons
-        plusGlyphicons.forEach((glyph) => glyph.simulate("click"));
+        clickPanelGlyphicons(wrapper);
         wrapper.update();
-        let minusGlyphicons = wrapper.find("#messageBoxModalBody .panel .panel-heading .glyphicon-minus");
-        expect(minusGlyphicons).toHaveLength(2);
+        expect(countGlyphicons(wrapper)).toEqual({ plus: 0, minus: 2 });
         expect(arePanelsCollapsed(wrapper)).toBe(false);
 
         //clicking on the glyphicons again should collapse the panels and toggle the glyphicons
-        minusGlyphicons.forEach((glyph) => glyph.simulate("click"));
+        clickPanelGlyphicons(wrapper);
         wrapper.update();
-        plusGlyphicons = wrapper.find("#messageBoxModalBody .panel .panel-heading .glyphicon-plus");
-        expect(plusGlyphicons).toHaveLength(2);
+        expect(countGlyphicons(wrapper)).toEqual({ plus: 2, minus: 0 });
         expect(arePanelsCollapsed(wrapper)).toBe(true);
     });
 

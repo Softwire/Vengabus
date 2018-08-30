@@ -42,8 +42,9 @@ function getJSONerror(inputMessage) {
 
 function getAlertMessage(inputMessage, errorId) {
     const formattingBox = shallow(<FormattingBox message={inputMessage} />);
-    const errorMessageLines = formattingBox.find(errorId).children();
-    return errorMessageLines.reduce((messageSoFar, nextLine) => messageSoFar + nextLine.text(), '');
+    const errorMessageElements = formattingBox.find(errorId).children();
+    const errorTextLines = errorMessageElements.map(el => el.text());
+    return errorTextLines.join('|');
 }
 
 
@@ -224,7 +225,7 @@ describe('FormattingBox', () => {
         fish=42
     </d>
 </c>`;
-            const expectedError = "The formatter returned a warning whilst trying to format the text of this data:The XML formatter changed the text of this data. This was probably just to 'heal' malformed XML, but we can't be certain.See \"Original Text\" for the unformatted data.";
+            const expectedError = "The formatter returned a warning whilst trying to format the text of this data:|The XML formatter changed the text of this data. This was probably just to 'heal' malformed XML, but we can't be certain.|See \"Original Text\" for the unformatted data.";
             expectXMLoutput(xmlInput, expectedOutput);
             expect(getXMLwarning(xmlInput)).toBe(expectedError);
         });
@@ -462,7 +463,7 @@ describe('FormattingBox', () => {
         },
         "unit": "kilogram"
     }`;
-            expect(getJSONerror(jsonInput)).toBe('The formatter threw an error whilst trying to format the text of this data:SyntaxError: Unexpected token \t in JSON at position 13');
+            expect(getJSONerror(jsonInput)).toBe('The formatter threw an error whilst trying to format the text of this data:|SyntaxError: Unexpected token \t in JSON at position 13');
         });
 
         it('fails to format JSON with tabs inside values', () => {
@@ -476,15 +477,15 @@ describe('FormattingBox', () => {
         },
         "unit": "kilo\tgram"
     }`;
-            expect(getJSONerror(jsonInput)).toBe('The formatter threw an error whilst trying to format the text of this data:SyntaxError: Unexpected token \t in JSON at position 122');
+            expect(getJSONerror(jsonInput)).toBe('The formatter threw an error whilst trying to format the text of this data:|SyntaxError: Unexpected token \t in JSON at position 122');
         });
 
         it('fails to format mal-formatted JSON', () => {
             const jsonInput = '{"fish",42,"kilogram"}';
-            expect(getJSONerror(jsonInput)).toBe('The formatter threw an error whilst trying to format the text of this data:SyntaxError: Unexpected token , in JSON at position 7');
+            expect(getJSONerror(jsonInput)).toBe('The formatter threw an error whilst trying to format the text of this data:|SyntaxError: Unexpected token , in JSON at position 7');
         });
 
-        it('fails to format JSON with linebreaks in keys', () => { //qq JF fix this!!!
+        it('fails to format JSON with linebreaks in keys', () => {
             const jsonInput = `{
         "f\nood": "fish", 
         "price": {
@@ -493,10 +494,10 @@ describe('FormattingBox', () => {
         },
         "unit": "kilogram"
     }`;
-            expect(getJSONerror(jsonInput)).toBe('The formatter threw an error whilst trying to format the text of this data:SyntaxError: Unexpected token \n in JSON at position 12');
+            expect(getJSONerror(jsonInput)).toBe('The formatter threw an error whilst trying to format the text of this data:|SyntaxError: Unexpected token \n in JSON at position 12');
         });
 
-        it('fails to format JSON with linebreaks in keys', () => { //qq JF fix this!!!
+        it('fails to format JSON with linebreaks in keys', () => {
             const jsonInput = `{
         "food": "fi\nsh", 
         "price": {
@@ -510,17 +511,17 @@ describe('FormattingBox', () => {
         :
         "kilogram"
     }`;
-            expect(getJSONerror(jsonInput)).toBe('The formatter threw an error whilst trying to format the text of this data:SyntaxError: Unexpected token \n in JSON at position 21');
+            expect(getJSONerror(jsonInput)).toBe('The formatter threw an error whilst trying to format the text of this data:|SyntaxError: Unexpected token \n in JSON at position 21');
         });
 
         it('fails to format mal-formatted xml', () => {
             const xmlInput = '<a>fish</a><b>42</b>';
-            expect(getXMLerror(xmlInput)).toBe('The formatter threw an error whilst trying to format the text of this data:Error: Found multiple root nodes');
+            expect(getXMLerror(xmlInput)).toBe('The formatter threw an error whilst trying to format the text of this data:|Error: Found multiple root nodes');
         });
 
         it('fails to format messages over 100k', () => {
             const input = 'a'.repeat(100001);
-            const longMessageError = "The formatter threw an error whilst trying to format the text of this data:Long message: only messages under 100,000 characters in length are formatted.";
+            const longMessageError = "The formatter threw an error whilst trying to format the text of this data:|Long message: only messages under 100,000 characters in length are formatted.";
             expect(getXMLerror(input)).toBe(longMessageError);
             expect(getJSONerror(input)).toBe(longMessageError);
         });
@@ -529,14 +530,14 @@ describe('FormattingBox', () => {
             const input = '';
             expect(getOriginalerror(input)).toBe("The formatter didn't return any text to display.");
             expect(getXMLerror(input)).toBe("The formatter didn't return any text to display.");
-            expect(getJSONerror(input)).toBe("The formatter threw an error whilst trying to format the text of this data:SyntaxError: Unexpected end of JSON input");
+            expect(getJSONerror(input)).toBe("The formatter threw an error whilst trying to format the text of this data:|SyntaxError: Unexpected end of JSON input");
         });
 
         it('fails to format undefined messages', () => {
             const input = undefined;
             expect(getOriginalerror(input)).toBe("The formatter didn't return any text to display.");
             expect(getXMLerror(input)).toBe("The formatter didn't return any text to display.");
-            expect(getJSONerror(input)).toBe("The formatter threw an error whilst trying to format the text of this data:SyntaxError: Unexpected end of JSON input");
+            expect(getJSONerror(input)).toBe("The formatter threw an error whilst trying to format the text of this data:|SyntaxError: Unexpected end of JSON input");
         });
     });
 });
