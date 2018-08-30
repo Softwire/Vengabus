@@ -56,7 +56,7 @@ export class MessageList extends Component {
                 text: 'Message Id',
                 width: 33,
                 headerStyle: this.props.headerStyle,
-                search: (row) => { row.predefinedProperties.messageId; }
+                search: function (row) { return row.predefinedProperties.messageId; }
             },
             {
                 dataField: 'messageBodyPreview',

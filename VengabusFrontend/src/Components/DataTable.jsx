@@ -264,11 +264,14 @@ export class DataTable extends Component {
     //Decide which rows are displayed.
     filterData(row, colProps) {
         for (let i = 0; i < colProps.length; i++) {
+            if (!colProps[i].search) {
+                continue;
+            }
             let stringForSearch;
             if (colProps[i].search === true) {
                 stringForSearch = row[colProps[i].dataField];
             }
-            else if (colProps[i].search) {
+            else {
                 stringForSearch = colProps[i].search(row);
             }
             if (stringForSearch.includes(this.state.searchValue)) {
