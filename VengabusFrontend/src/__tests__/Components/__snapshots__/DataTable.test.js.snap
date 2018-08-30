@@ -1,18 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DataTable renders correctly if an empty array is input as data 1`] = `
-.emotion-0 {
+Array [
+  <div
+    className="form-group"
+>
+    <input
+        className="form-control"
+        id="searchBar"
+        onChange={[Function]}
+        placeholder="Search"
+        type="input"
+        value=""
+    />
+</div>,
+  .emotion-0 {
   text-align: center;
   float: left;
   width: 100%;
 }
 
 <p
-  className="emotion-0"
-  id="no-data-text"
+    className="emotion-0"
+    id="no-data-text"
 >
-  No data to show.
-</p>
+    No data to show.
+</p>,
+]
 `;
 
 exports[`DataTable renders correctly when defaultHover=true with an additional rowClasses prop 1`] = `
