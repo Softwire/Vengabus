@@ -34,7 +34,6 @@ class ButtonWithConfirmationModal extends React.Component {
 
     handleConfirm = () => {
         const confirmActionOutput = this.props.confirmAction();
-        console.log("CALL");
         Promise.resolve(confirmActionOutput).then(this.handleClose);
     }
 

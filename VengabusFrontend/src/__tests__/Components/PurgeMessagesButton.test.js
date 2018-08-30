@@ -1,4 +1,4 @@
-import { PurgeMessagesButton } from '../../Components/PurgeMessagesButton';
+import { PurgeMessagesButton } from '../../Components/Buttons/PurgeMessagesButton';
 import renderer from 'react-test-renderer';
 import React from 'react';
 import { mount } from 'enzyme';
