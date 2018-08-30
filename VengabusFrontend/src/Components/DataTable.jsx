@@ -58,9 +58,10 @@ Props:
                 onSelect: {function(row, isSelect, rowIndex, e)} Called when row is selected (clicked).
     searchable: (OPTIONAL) {boolean} If true, create a searchable table with a searchbar on top. Default is false.
     rowClasses: (OPTIONAL) {string} CSS class that applies to the rows.
-    paginated: (OPTIONAL) {boolean/object} Default is false. If true then list will be paginated with default paginator.
+    pagination: (OPTIONAL) {boolean/object} Default is false. If true then list will be paginated with default paginator.
                 Otherwise, an object should be passed in specifying pagination parameters:
-                sizePerPageList: (REQUIRED) {array}
+                sizePerPageList: (REQUIRED) {array of int} Options of number of rows per page.
+                defaultPageSize: (REQUIRED) {int} Default number of rows per page
     bordered: (OPTIONAL) {boolean} If false then no vertical borders. Default is true.
     condensed: (OPTIONAL) {boolean} If true then reduces padding in the table. Default is false.
     defaultHover: (OPTIONAL) {boolean} If true then default on hover styling will be applied.
@@ -324,7 +325,7 @@ export class DataTable extends Component {
         //deep clone and remove common references in props.
         this.cloneProps = deepDereferenceClone(this.props);
 
-        let { dataToDisplay, name, uniqueKeyColumn, colProps, rowEvents, onRowClick, selectRow, rowClasses, defaultHover, searchable, paginated, ...otherProps } = this.cloneProps;
+        let { dataToDisplay, name, uniqueKeyColumn, colProps, rowEvents, onRowClick, selectRow, rowClasses, defaultHover, searchable, pagination, ...otherProps } = this.cloneProps;
 
         let keyColumnIndex;
         let finalRowEvents;
@@ -358,6 +359,19 @@ export class DataTable extends Component {
             </FormGroup>
         ) : null;
 
+        let tablePaginator;
+
+        if (pagination === true) {
+            tablePaginator = paginationFactory();
+        } else if (pagination) {
+            tablePaginator = paginationFactory({
+                sizePerPageList: pagination.sizePerPageList.map((element) => { return { text: element.toString(), value: element }; }),
+                sizePerPage: pagination.defaultPageSize
+            });
+        } else {
+            tablePaginator = null;
+        }
+
         return (
             <React.Fragment>
                 {searchBar}
@@ -376,7 +390,7 @@ export class DataTable extends Component {
                     {...otherProps}
                     striped
                     id="Data"
-                    pagination={paginated ? paginationFactory() : null}
+                    pagination={tablePaginator}
                 />
             </React.Fragment>
         );

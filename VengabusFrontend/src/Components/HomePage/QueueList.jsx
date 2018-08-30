@@ -72,6 +72,7 @@ export class QueueList extends Component {
                 selectRow={selectRow}
                 uniqueKeyColumn='name'
                 searchable
+                pagination={{ defaultPageSize: 25, sizePerPageList: [10, 25, 50, 100] }}
             />
         );
     }

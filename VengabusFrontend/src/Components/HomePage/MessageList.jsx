@@ -88,7 +88,7 @@ export class MessageList extends Component {
                     dataToDisplay={messageArray}
                     defaultHover
                     onRowClick={this.handleMessageClick}
-                    paginated
+                    pagination={{ defaultPageSize: 50, sizePerPageList: [10, 25, 50, 100] }}
                     searchable
                 />
 
