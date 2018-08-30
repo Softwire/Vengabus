@@ -11,7 +11,7 @@ expect.addSnapshotSerializer(createSerializer(emotion));
 expect.extend({
     toExistOnPage(received) {
         return {
-            message: () => 'expected ${received} to exist',
+            message: () => `expected ${received} to exist`,
             pass: received && received.exists()
         };
     }

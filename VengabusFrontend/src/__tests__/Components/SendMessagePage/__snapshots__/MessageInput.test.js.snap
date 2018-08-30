@@ -118,7 +118,7 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                             </div>
                             <form>
                                 <div class=\\"css-mxbhzi\\">
-                                    <button type=\\"button\\" class=\\"css-74801x btn btn-default\\">
+                                    <button id=\\"addPreDefinedPropertyButton\\" type=\\"button\\" class=\\"css-74801x btn btn-default\\">
                                         Add new Azure property
                                     </button>
                                 </div>
@@ -184,7 +184,7 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                                                         </form>
                                                         <form>
                                                             <div class=\\"css-mxbhzi\\">
-                                                                <button type=\\"button\\" class=\\"css-74801x btn btn-default\\">
+                                                                <button id=\\"addUserDefinedPropertyButton\\" type=\\"button\\" class=\\"css-74801x btn btn-default\\">
                                                                     Add new application specific property
                                                                 </button>
                                                             </div>
@@ -853,6 +853,7 @@ exports[`renders correctly after data has loaded 1`] = `
       <button
         className="emotion-45 btn btn-default"
         disabled={false}
+        id="addPreDefinedPropertyButton"
         onClick={[Function]}
         type="button"
       >
@@ -878,6 +879,7 @@ exports[`renders correctly after data has loaded 1`] = `
       <button
         className="emotion-45 btn btn-default"
         disabled={false}
+        id="addUserDefinedPropertyButton"
         onClick={[Function]}
         type="button"
       >
@@ -1659,6 +1661,7 @@ exports[`renders correctly before data has loaded 1`] = `
       <button
         className="emotion-53 emotion-54 btn btn-default"
         disabled={true}
+        id="addPreDefinedPropertyButton"
         onClick={[Function]}
         type="button"
       >
@@ -1684,6 +1687,7 @@ exports[`renders correctly before data has loaded 1`] = `
       <button
         className="emotion-53 btn btn-default"
         disabled={false}
+        id="addUserDefinedPropertyButton"
         onClick={[Function]}
         type="button"
       >
@@ -2503,6 +2507,7 @@ exports[`renders correctly from a predefined message 1`] = `
       <button
         className="emotion-53 emotion-54 btn btn-default"
         disabled={true}
+        id="addPreDefinedPropertyButton"
         onClick={[Function]}
         type="button"
       >
@@ -2625,6 +2630,7 @@ exports[`renders correctly from a predefined message 1`] = `
       <button
         className="emotion-53 btn btn-default"
         disabled={false}
+        id="addUserDefinedPropertyButton"
         onClick={[Function]}
         type="button"
       >

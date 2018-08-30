@@ -247,6 +247,59 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
             });
         }
 
+
+        listQueueDeadLetterMessages = (queueName, messageCount) => {
+            return new Promise(function (resolve, reject) {
+                resolve([
+                    {
+                        predefinedProperties: { messageId: "test1Dead" },
+                        customProperties: { "skjdfhksdjf": "skdjhds" },
+                        uniqueId: "59298c2b-d58f-4ad0-bde9-f8a9d00a3070",
+                        messageBody: "apple"
+
+                    },
+                    {
+                        predefinedProperties: { messageId: "test2Dead" },
+                        customProperties: { "skjdfhksdjf": "skdjhds" },
+                        uniqueId: "c9f547bf-72e1-439e-bd1f-0b590422a6f8",
+                        messageBody: "banana"
+                    },
+                    {
+                        predefinedProperties: { messageId: "test3Dead" },
+                        customProperties: { "skjdfhksdjf": "skdjhds" },
+                        uniqueId: "5034e2f8-9bf0-436a-b8f4-914b43594ee1",
+                        messageBody: "carrot"
+                    }
+                ]);
+            });
+        }
+
+        listSubscriptionDeadLetterMessages = (topicName, subscriptionName, messageCount) => {
+            return new Promise(function (resolve, reject) {
+                resolve([
+                    {
+                        predefinedProperties: { messageId: "test1Dead" },
+                        customProperties: { "skjdfhksdjf": "skdjhds" },
+                        uniqueId: "59298c2b-d58f-4ad0-bde9-f8a9d00a3070",
+                        messageBody: "apple"
+
+                    },
+                    {
+                        predefinedProperties: { messageId: "test2Dead" },
+                        customProperties: { "skjdfhksdjf": "skdjhds" },
+                        uniqueId: "c9f547bf-72e1-439e-bd1f-0b590422a6f8",
+                        messageBody: "banana"
+                    },
+                    {
+                        predefinedProperties: { messageId: "test3Dead" },
+                        customProperties: { "skjdfhksdjf": "skdjhds" },
+                        uniqueId: "5034e2f8-9bf0-436a-b8f4-914b43594ee1",
+                        messageBody: "carrot"
+                    }
+                ]);
+            });
+        }
+
         getWriteableMessageProperties = () => {
             return new Promise(function (resolve, reject) {
                 resolve(['messageId', 'contentType']);
@@ -259,6 +312,17 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
             });
         }
 
+        getQueueMostRecentDeadletter = (queueName) => {
+            return new Promise(function (resolve, reject) {
+                resolve('2018-07-26T09:40:11.5513302Z');
+            });
+        }
+
+        getSubscriptionMostRecentDeadletter = (queueName) => {
+            return new Promise(function (resolve, reject) {
+                resolve('2018-07-26T09:40:11.5513302Z');
+            });
+        }
 
     }
 }));
@@ -304,6 +368,78 @@ const messageBoxTest = (messageRow, wrapper) => {
     wrapper.update();
 };
 
+const sendMessagePageTest = (wrapper) => { //Starts from SendMessagePage
+    return testHelper.afterReactHasUpdated().then(() => {//Click add new Azure property button
+        const addNewAzurePropertyButton = wrapper.find('#addPreDefinedPropertyButton').last();
+        addNewAzurePropertyButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click add new User defined property button
+        const addNewUserPropertyButton = wrapper.find('#addUserDefinedPropertyButton').last();
+        addNewUserPropertyButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click message body
+        const messageButton = wrapper.find('#formControlsMessageBodyText').last();
+        messageButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click topic selection dropdown
+        const topicSelectionDropdown = wrapper.find('#topic-dropdown').last();
+        topicSelectionDropdown.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click queue selection radio
+        const queueSelectionRadio = wrapper.find('#queue-selection-radio').last();
+        queueSelectionRadio.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click queue selection dropdown
+        const queueSelectionDropdown = wrapper.find('#queue-dropdown').last();
+        queueSelectionDropdown.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click topic selection radio
+        const topicSelectionRadio = wrapper.find('#topic-selection-radio').last();
+        topicSelectionRadio.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click Reset Fields button
+        const resetFieldsButton = wrapper.find('#cancelButton').last();
+        resetFieldsButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click Reset
+        const ResetButton = wrapper.find('#confirm').last();
+        ResetButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    });
+};
+
+const replayMessageTest = (wrapper) => { //Starts from HomePage
+    return testHelper.afterReactHasUpdated().then(() => {//Click Connect
+        const connectButton = wrapper.find('#connectButton').last();
+        connectButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => { //Click a row in the queue table
+        wrapper.update();
+        const leftList = wrapper.find('#left');
+        const queueListRow = leftList.find('tr').at(1); //Don't click the header
+        queueListRow.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => { //Click a row in the message table
+        wrapper.update();
+        const rightList = wrapper.find('#right');
+        const messageListRow = rightList.find('tr').at(1); //Don't click the header
+        messageListRow.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click Replay Message
+        const replayMessageButton = wrapper.find('#messageBoxReplayMessage').last();
+        replayMessageButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click Reset Fields button
+        const resetFieldsButton = wrapper.find('#cancelButton').last();
+        resetFieldsButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    }).then(() => {//Click Reset
+        const ResetButton = wrapper.find('#confirm').last();
+        ResetButton.simulate("click");
+        return testHelper.afterReactHasUpdated();
+    });
+};
+
 it('passes smoke tests without crashing', () => {
     let wrapper = mount(<App />);
 
@@ -320,7 +456,6 @@ it('passes smoke tests without crashing', () => {
      * Go to Demo Page
      * Test Purge Button
      * Go to messageBox
-     * [Go to replay message page at some point qq MK LW JF]
      * Go to Home Page
      * click Queue row
      * click message row
@@ -329,7 +464,21 @@ it('passes smoke tests without crashing', () => {
      * click Subscription row
      * click topic breadcrumb
      * Go to Send Message Page
-     * Click add new property button
+     * ┠ Click add new User defined property button
+     * ┠ Click message body
+     * ┠ Click topic selection dropdown
+     * ┠ Click queue selection radio
+     * ┠ Click queue selection dropdown
+     * ┠ Click topic selection radio
+     * ┠ Click Reset Fields button
+     * ┖ Click Reset
+     * Replay a message
+     * ┠ Click Connect
+     * ┠ Click the first row in the queue table
+     * ┠ Click the first in the message table
+     * ┠ Click Replay Message
+     * ┠ Click Reset Fields button
+     * ┖ Click Reset
      */
 
     connectButton.prop("onClick")();
@@ -343,30 +492,30 @@ it('passes smoke tests without crashing', () => {
                 expect(replayMessageButton).toExistOnPage();
                 replayMessageButton.simulate("click");
                 return testHelper.afterReactHasUpdated();*/
-    // }).then(() => {//test queue purge button
-    //     const purgeQueueMessagesButton = wrapper.find("#purgeQueueMessage").last();
-    //     purgeQueueMessagesButton.simulate("click");
-    //     return testHelper.afterReactHasUpdated();
-    // }).then(() => {
-    //     const purgeQueueMessagesConfirmationButton = wrapper.find("#alertPurge").last();
-    //     purgeQueueMessagesConfirmationButton.simulate("click");
-    //     return testHelper.afterReactHasUpdated();
-    // }).then(() => {//test topic purge button
-    //     const purgeQueueMessagesButton = wrapper.find("#purgeTopicMessage").last();
-    //     purgeQueueMessagesButton.simulate("click");
-    //     return testHelper.afterReactHasUpdated();
-    // }).then(() => {
-    //     const purgeQueueMessagesConfirmationButton = wrapper.find("#alertPurge").last();
-    //     purgeQueueMessagesConfirmationButton.simulate("click");
-    //     return testHelper.afterReactHasUpdated();
-    // }).then(() => {//test subscription purge button
-    //     const purgeQueueMessagesButton = wrapper.find("#purgeSubscriptionMessage").last();
-    //     purgeQueueMessagesButton.simulate("click");
-    //     return testHelper.afterReactHasUpdated();
-    // }).then(() => {
-    //     const purgeQueueMessagesConfirmationButton = wrapper.find("#alertPurge").last();
-    //     purgeQueueMessagesConfirmationButton.simulate("click");
-    //     return testHelper.afterReactHasUpdated();
+        // }).then(() => {//test queue purge button
+        //     const purgeQueueMessagesButton = wrapper.find("#purgeQueueMessage").last();
+        //     purgeQueueMessagesButton.simulate("click");
+        //     return testHelper.afterReactHasUpdated();
+        // }).then(() => {
+        //     const purgeQueueMessagesConfirmationButton = wrapper.find("#alertPurge").last();
+        //     purgeQueueMessagesConfirmationButton.simulate("click");
+        //     return testHelper.afterReactHasUpdated();
+        // }).then(() => {//test topic purge button
+        //     const purgeQueueMessagesButton = wrapper.find("#purgeTopicMessage").last();
+        //     purgeQueueMessagesButton.simulate("click");
+        //     return testHelper.afterReactHasUpdated();
+        // }).then(() => {
+        //     const purgeQueueMessagesConfirmationButton = wrapper.find("#alertPurge").last();
+        //     purgeQueueMessagesConfirmationButton.simulate("click");
+        //     return testHelper.afterReactHasUpdated();
+        // }).then(() => {//test subscription purge button
+        //     const purgeQueueMessagesButton = wrapper.find("#purgeSubscriptionMessage").last();
+        //     purgeQueueMessagesButton.simulate("click");
+        //     return testHelper.afterReactHasUpdated();
+        // }).then(() => {
+        //     const purgeQueueMessagesConfirmationButton = wrapper.find("#alertPurge").last();
+        //     purgeQueueMessagesConfirmationButton.simulate("click");
+        //     return testHelper.afterReactHasUpdated();
     }).then(() => {//Go to Home Page
         const buttonFromPreviousPage = wrapper.find("#demoPageReplayMessageButton").first();//this still works, as that button no longer exists
         expect(buttonFromPreviousPage).not.toExistOnPage();
@@ -419,12 +568,10 @@ it('passes smoke tests without crashing', () => {
 
     }).then(() => {//Go to Send Message Page
         navbarSendMessagePageButton.simulate("click");
-        return testHelper.afterReactHasUpdated();
-    }).then(() => {//Click add new property button
-        const buttonsOnSendMessagePage = wrapper.find(Button);
-        const addNewPropertyButton = buttonsOnSendMessagePage.at(2);
-        addNewPropertyButton.simulate("click");
-        return testHelper.afterReactHasUpdated();
+        return sendMessagePageTest(wrapper);
+    }).then(() => {//Replay a message
+        navbarHomePageButton.simulate("click");
+        return replayMessageTest(wrapper);
     }).catch((e) => {
         //if there's an expect failing in any of the above, then it throws and enters catch,
         //but will not report an error in test. So we need to expect it not to be defined here.
