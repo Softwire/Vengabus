@@ -528,7 +528,7 @@ it('passes smoke tests without crashing', () => {
     }).then(() => {
         //Queue row
         wrapper.update();
-        const queueList = wrapper.find('#QueueTable');
+        const queueList = wrapper.find('#QueueTable').first();
         queueList.props().clickFunction(blankEventObj, { name: "testQueue1" });
         return testHelper.afterReactHasUpdated();
     }).then(() => {

@@ -131,7 +131,7 @@ exports[`MessageList renders correctly with given props 1`] = `
           onBlur={[Function]}
           onClick={[Function]}
         >
-          10
+          50
            
           <span>
             <span
@@ -177,20 +177,6 @@ exports[`MessageList renders correctly with given props 1`] = `
             role="presentation"
           >
             <a
-              data-page={30}
-              href="#"
-              onMouseDown={[Function]}
-              role="menuitem"
-              tabIndex="-1"
-            >
-              30
-            </a>
-          </li>
-          <li
-            className="dropdown-item"
-            role="presentation"
-          >
-            <a
               data-page={50}
               href="#"
               onMouseDown={[Function]}
@@ -198,6 +184,20 @@ exports[`MessageList renders correctly with given props 1`] = `
               tabIndex="-1"
             >
               50
+            </a>
+          </li>
+          <li
+            className="dropdown-item"
+            role="presentation"
+          >
+            <a
+              data-page={100}
+              href="#"
+              onMouseDown={[Function]}
+              role="menuitem"
+              tabIndex="-1"
+            >
+              100
             </a>
           </li>
         </ul>
