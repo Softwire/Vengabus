@@ -178,12 +178,10 @@ export class MessageInput extends Component {
     constructPropertyWarnings = () => {
         if (!this.propertyWarnings || !this.propertyWarnings.length) {
             this.setState({ sendMessageModalWarnings: null });
-        }
-        else {
+        } else {
+            const warnings = this.propertyWarnings.map((value) => (<p key={"Warning " + value}>{value}</p>));
             this.setState({
-                sendMessageModalWarnings: <React.Fragment>
-                    {this.propertyWarnings.map((value) => <p key={"Warning " + value}>{value}</p>)}
-                </React.Fragment>
+                sendMessageModalWarnings: (<React.Fragment>{warnings}</React.Fragment>)
             });
         }
     }
@@ -303,10 +301,10 @@ export class MessageInput extends Component {
             margin-right:20px;
         `;
 
-        let selectedEndpoint = this.state.recipientIsQueue ? this.state.selectedQueue : this.state.selectedTopic;
+        const selectedEndpoint = this.state.recipientIsQueue ? this.state.selectedQueue : this.state.selectedTopic;
 
         //construct child components
-        let messageDestinationForm = <MessageDestinationForm
+        const messageDestinationForm = <MessageDestinationForm
             recipientIsQueue={this.state.recipientIsQueue}
             availableQueues={this.state.availableQueues}
             availableTopics={this.state.availableTopics}
@@ -315,7 +313,30 @@ export class MessageInput extends Component {
             handleDestinationChange={this.handleDestinationChange}
         />;
 
-        let messageProperties = <MessageProperties
+        const mainButtons = <MessageSendAndResetButtons
+            selectedEndpoint={selectedEndpoint}
+            warnings={this.state.sendMessageModalWarnings}
+            generateWarnings={this.constructPropertyWarnings}
+            submit={this.submit}
+            discardMessage={this.discardMessage}
+        />;
+
+        const uploadFromFile = (
+            <React.Fragment>
+                <p>Upload Message from File</p>
+
+                <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}><h3><div className=" btn btn-default">Add file</div></h3>
+                    <FormControl
+                        id="fileUpload"
+                        type="file"
+                        onChange={(event) => this.replayUploadedFile(event.target.files)}
+                        style={{ display: "none" }}
+                    />
+                </ControlLabel>
+            </React.Fragment>
+        );
+        
+        const messageProperties = <MessageProperties
             arePreDefinedPropsLoaded={this.state.arePreDefinedPropsLoaded}
             preDefinedProperties={this.state.preDefinedProperties}
             userDefinedProperties={this.state.userDefinedProperties}
@@ -325,7 +346,7 @@ export class MessageInput extends Component {
             reportWarnings={this.setWarnings}
         />;
 
-        let messageBodyInput = <MessageBodyInput
+        const messageBodyInput = <MessageBodyInput
             messageBody={this.state.messageBody}
             handleMessageBodyChange={this.handleMessageBodyChange}
         />;
@@ -337,27 +358,11 @@ export class MessageInput extends Component {
                         {messageDestinationForm}
                     </div>
                     <div className={classNames(vertAlignBottom, floatRightWithMargin)}>
-                        <MessageSendAndResetButtons
-                            selectedEndpoint={selectedEndpoint}
-                            warnings={this.state.sendMessageModalWarnings}
-                            generateWarnings={this.constructPropertyWarnings}
-                            submit={this.submit}
-                            discardMessage={this.discardMessage}
-                        />
+                        {mainButtons}
                     </div>
                 </div>
                 <div className={stickySpacer} />
-                <p>Upload Message from File</p>
-
-                <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}><h3><div className=" btn btn-default">Add file</div></h3>
-                    <FormControl
-                        id="fileUpload"
-                        type="file"
-                        onChange={(event) => this.replayUploadedFile(event.target.files)}
-                        style={{ display: "none" }}
-                    />
-                </ControlLabel>
-
+                {uploadFromFile}
                 <hr className={fullWidth} />
                 {messageProperties}
                 <hr className={fullWidth} />
