@@ -274,6 +274,9 @@ export class DataTable extends Component {
             else {
                 stringForSearch = colProps[i].search(row);
             }
+            if (!stringForSearch) {
+                continue;
+            }
             if (stringForSearch.includes(this.state.searchValue)) {
                 return true;
             }
