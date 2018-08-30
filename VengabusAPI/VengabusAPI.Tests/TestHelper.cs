@@ -68,7 +68,7 @@ namespace VengabusAPI.Tests
             }
         }
 
-        public static void SendMessagesToQueue(int messageCount, string queueName = TestQueueName)
+        public static void SendMessagesToQueue(int messageCount, string messageId = "", string queueName = TestQueueName)
         {
             var factory = CreateEndpointFactory();
             var queueClient = factory.CreateQueueClient(queueName);
@@ -78,12 +78,12 @@ namespace VengabusAPI.Tests
             for (int i = 0; i < messageCount; i++)
             {
                 var brokeredMessage = new BrokeredMessage(msg);
-                brokeredMessage.MessageId = rnd.Next(10000000).ToString();
+                brokeredMessage.MessageId = messageId!="" ? messageId : rnd.Next(10000000).ToString();
                 queueClient.Send(brokeredMessage);
             }
         }
 
-        public static void SendMessagesToTopic(int messageCount, string topicName = TestTopicName)
+        public static void SendMessagesToTopic(int messageCount, string messageId = "", string topicName = TestTopicName)
         {
             var factory = CreateEndpointFactory();
             var topicClient = factory.CreateTopicClient(topicName);
@@ -91,7 +91,9 @@ namespace VengabusAPI.Tests
             string msg = "This is a test message";
             for (int i = 0; i < messageCount; i++)
             {
-                topicClient.Send(new BrokeredMessage(msg));
+                var brokeredMessage = new BrokeredMessage(msg);
+                brokeredMessage.MessageId = messageId != "" ? messageId : rnd.Next(10000000).ToString();
+                topicClient.Send(brokeredMessage);
             }
         }
 

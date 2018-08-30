@@ -135,8 +135,11 @@ namespace VengabusAPI.Tests
             //prepare the messages to be received
             var messageCount = 10;
 
+            Random rnd = new Random();
+            var guid = "GetAllMessagesFromQueue test" + rnd.Next(10000000);
+
             TestHelper.DeleteAllMessagesFromQueue();
-            TestHelper.SendMessagesToQueue(messageCount);
+            TestHelper.SendMessagesToQueue(messageCount, guid);
 
             //prepare for the request
             var request = new HttpRequestMessage();
@@ -153,7 +156,7 @@ namespace VengabusAPI.Tests
             Assert.AreEqual(messageList.Count(), messageCount);
             foreach (var message in messageList)
             {
-                Assert.AreEqual(message.MessageBody, "This is a test message");
+                Assert.AreEqual(message.PredefinedProperties["MessageId"],guid);
             }
         }
 
