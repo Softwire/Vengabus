@@ -304,22 +304,13 @@ export class DataTable extends Component {
             width:100%;
         `;
 
+        let toReturn;
         if (this.props.dataToDisplay === undefined) {
-            return (
-                <Spinner id="spinner" size={50} />
-            );
-        }
-
-        if (this.props.dataToDisplay === null) {
-            return (
-                <p id="connect-text" className={textAlign}>Press "Connect" to load data.</p>
-            );
-        }
-
-        if (this.props.dataToDisplay.length === 0) {
-            return (
-                <p id="no-data-text" className={textAlign}>No data to show.</p>
-            );
+            toReturn = <Spinner id="spinner" size={50} />;
+        } else if (this.props.dataToDisplay === null) {
+            toReturn = <p id="connect-text" className={textAlign}>Press "Connect" to load data.</p>;
+        } else if (this.props.dataToDisplay.length === 0) {
+            toReturn = <p id="no-data-text" className={textAlign}>No data to show.</p>;
         }
 
         //deep clone and remove common references in props.
@@ -375,6 +366,8 @@ export class DataTable extends Component {
         return (
             <React.Fragment>
                 {searchBar}
+        if (!toReturn) {
+            toReturn = 
                 < BootstrapTable
                     data={searchable ? dataToDisplay.filter((row) => this.filterData(row, colProps)) : dataToDisplay}
                     keyField={colProps[keyColumnIndex].dataField}
@@ -392,6 +385,12 @@ export class DataTable extends Component {
                     id="Data"
                     pagination={tablePaginator}
                 />
+           ;
+        }
+        return (
+            <React.Fragment>
+            {searchBar}
+            {toReturn}
             </React.Fragment>
         );
     }
