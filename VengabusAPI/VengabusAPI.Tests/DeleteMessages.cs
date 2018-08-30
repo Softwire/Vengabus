@@ -23,7 +23,10 @@ namespace VengabusAPI.Tests
         }
         public void ValidateConnectionSignature()
         {
-            Assert.Fail("Not Validated");
+            if (!TestHelper.sasLastUpdatedToday)
+            {
+                Assert.Fail("SAS string is outdated. Check TestHelper class and update it and also lastUpdateTime.");
+            }
         }
         public void CreateAllEndpoints()
         {
@@ -67,7 +70,6 @@ namespace VengabusAPI.Tests
             Assert.IsTrue(deletedMessageCount > 0, "No messages is deleted by test code");
             var finalMessageCount = TestHelper.getMessageCountInQueue();
             Assert.AreEqual(finalMessageCount.ActiveMessageCount, 0, "There are still messages left in the queue");
-            Console.WriteLine("Number of messages deleted by test code: " + deletedMessageCount);
         }
 
         [Test, Description("All messages should be deleted from queue")]
@@ -112,17 +114,18 @@ namespace VengabusAPI.Tests
 
             var msg = new VengaMessage(customProperties, predefinedProperties, "adkajslkjdslakd", new Guid().ToString());
 
-            var messageCount = 10;
+            var expectedMessageCount = 10;
 
             //act
-            for (var i = 0; i < messageCount; i++)
+            for (var i = 0; i < expectedMessageCount; i++)
             {
                 controller.SendMessageToQueue(TestHelper.TestQueueName, msg);
             }
 
             //assert
             var finalMessageCount = TestHelper.getMessageCountInQueue();
-            Assert.AreEqual(finalMessageCount.ActiveMessageCount - initialMessageCount.ActiveMessageCount, messageCount, "The number of messages send to queue is incorrect");
+            var actualMessageCount = finalMessageCount.ActiveMessageCount - initialMessageCount.ActiveMessageCount;
+            Assert.AreEqual(actualMessageCount, expectedMessageCount, "The number of messages send to queue is incorrect");
         }
 
         [Test, Description("The correct messages should be received when getting all messages in queue")]

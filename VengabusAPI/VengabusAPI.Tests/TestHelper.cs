@@ -7,8 +7,9 @@ namespace VengabusAPI.Tests
     public static class TestHelper
     {
         //Having to put a new SAS string here when we test is not the best way,
-        //but we don't want the connection string in our code
-        public const string sasString = "SharedAccessSignature sr=https%3A%2F%2Fvengabusdemo.servicebus.windows.net%2F&sig=hEoQxZQDsLtGod3h3nVVfJpw2ojvwRxVMDiXT%2Bmmj0o%3D&se=1533737828&skn=RootManageSharedAccessKey";
+        //but we don't want the connection string in our code. So when running backend tests, we need to
+        //generate a new SAS key from the SAS generator and put it here.
+        public const string sasString = "SharedAccessSignature sr=https%3A%2F%2Fvengabusdemo.servicebus.windows.net%2F&sig=Apn1N6tmZIfGrOTpx5vnHu9YvB%2B57pA7SX8KCZ0Ez8M%3D&se=1535645668&skn=RootManageSharedAccessKey";
         public static bool sasLastUpdatedToday => (new DateTime(2018,8,30) == DateTime.Today);
 
         public const string ServiceBusURI = "sb://vengabusdemo.servicebus.windows.net/";
@@ -21,17 +22,22 @@ namespace VengabusAPI.Tests
         {
             var factory = CreateEndpointFactory();
             var queueClient = factory.CreateQueueClient(queueName);
-
-            string msg = "This is a test message";
+            Random rnd = new Random();
+            var guid = rnd.Next(12345678).ToString();
             for (int i = 0; i < messageCount; i++)
             {
-                var brokeredMessage = new BrokeredMessage(msg);
+                var brokeredMessage = new BrokeredMessage("This is a test message ");
+                brokeredMessage.MessageId = guid;
                 queueClient.Send(brokeredMessage);
             }
 
             for (int i = 0; i < messageCount; i++)
             {
                 var message = queueClient.Receive();
+                if (message.MessageId != guid)
+                {
+                    throw new Exception("Error: deadlettering ")
+                }
                 message.DeadLetter();
             }
         }
@@ -64,10 +70,9 @@ namespace VengabusAPI.Tests
             Random rnd = new Random();
             for (int i = 0; i < messageCount; i++)
             {
-                /*var brokeredMessage = new BrokeredMessage(msg);
+                var brokeredMessage = new BrokeredMessage(msg);
                 brokeredMessage.MessageId = rnd.Next(10000000).ToString();
-                queueClient.Send(brokeredMessage);*/
-                queueClient.Send(new BrokeredMessage(msg));
+                queueClient.Send(brokeredMessage);
             }
         }
 
@@ -101,7 +106,7 @@ namespace VengabusAPI.Tests
         {
             var factory = CreateEndpointFactory();
             var queueClient = factory.CreateQueueClient(queueName);
-            long ret = 0;
+            long deletionCount = 0;
             while (true)
             {
                 var messages = queueClient.Receive(TimeSpan.FromMilliseconds(5000));
@@ -110,9 +115,16 @@ namespace VengabusAPI.Tests
                     break;
                 }
                 messages.Complete();
-                ret++;
+                deletionCount++;
             }
-            return ret;
+
+            var messageCount = getMessageCountInQueue(queueName);
+            if (messageCount.ActiveMessageCount != 0)
+            {
+                throw new Exception(
+                    "Testhelped failed to delete all messages in queue, there are still messages remaining.");
+            }
+            return deletionCount;
         }
 
         private static NamespaceManager GetNamespaceManager()
@@ -127,9 +139,7 @@ namespace VengabusAPI.Tests
 
         public static MessagingFactory CreateEndpointFactory()
         {
-            var serviceBusUri = ServiceBusURI;
-            var sasToken = sasString;
-            var factory = MessagingFactory.Create(serviceBusUri, TokenProvider.CreateSharedAccessSignatureTokenProvider(sasToken));
+            var factory = MessagingFactory.Create(ServiceBusURI, TokenProvider.CreateSharedAccessSignatureTokenProvider(sasString));
             return factory;
         }
     }
