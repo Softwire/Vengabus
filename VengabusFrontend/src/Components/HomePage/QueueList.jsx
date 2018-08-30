@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { DataTable } from '../DataTable';
 import { formatTimeStamp } from '../../Helpers/FormattingHelpers';
 import { palerBlue } from '../../colourScheme';
-import { EditQueueButton } from '../EditEndpointButton';
+import { EditQueueButton } from '../Buttons/EditEndpointButton';
 
 
 export class QueueList extends Component {

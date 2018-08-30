@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { ButtonWithConfirmationModal } from '../ButtonWithConfirmationModal';
-import { PurgeMessagesButton } from '../PurgeMessagesButton';
+import { ButtonWithConfirmationModal } from '../Buttons/ButtonWithConfirmationModal';
+import { PurgeMessagesButton } from '../Buttons/PurgeMessagesButton';
 import { FormControl, FormGroup, ButtonGroup } from 'react-bootstrap';
 import { css } from 'emotion';
-import { DownloadEndpointButton } from '../DownloadEndpointButton';
+import { DownloadEndpointButton } from '../Buttons/DownloadEndpointButton';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
 
 /**
@@ -30,7 +30,7 @@ export class CrudTitle extends Component {
         `;
 
         let downloadButton;
-        
+
         if(this.props.endpointType === EndpointTypes.QUEUE || this.props.endpointType === EndpointTypes.SUBSCRIPTION) {
             downloadButton = (
                 <DownloadEndpointButton
@@ -76,7 +76,8 @@ export class CrudTitle extends Component {
                         confirmButtonText={"Delete"}
                         confirmAction={this.props.deleteEndpoint}
                     />
-                    <PurgeMessagesButton id="purgeMessages" type={this.props.endpointType} endpointName={this.props.selectedEndpoint} parentName={this.props.parentTopic} />
+                    <PurgeMessagesButton id="purgeLiveMessages" messageType={EndpointTypes.MESSAGE} type={this.props.endpointType} endpointName={this.props.selectedEndpoint} parentName={this.props.parentTopic} />
+                    <PurgeMessagesButton id="purgeDeadletterMessages" messageType={EndpointTypes.DEADLETTER} type={this.props.endpointType} endpointName={this.props.selectedEndpoint} parentName={this.props.parentTopic} />
                     {downloadButton}
                 </ButtonGroup>
                 <hr className={hrStyle} />

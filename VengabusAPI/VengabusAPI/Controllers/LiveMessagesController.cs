@@ -56,7 +56,7 @@ namespace VengabusAPI.Controllers
         //list the messages in a given subscription
         public IEnumerable<VengaMessage> ListMessagesInSubscription(string topicName, string subscriptionName, [FromUri]int messageCount = int.MaxValue)
         {
-            return GetMessagesFromEndpoint(GetSubscription(subscriptionName, topicName), messageCount);
+            return GetMessagesFromEndpoint(GetSubscription(topicName, subscriptionName), messageCount);
         }
 
         //delete all messages in a given queue
@@ -79,14 +79,14 @@ namespace VengabusAPI.Controllers
         //delete all messages in a given subscription
         public void PurgeMessagesInSubscription(string topicName, string subscriptionName)
         {
-            PurgeMessagesFromEndpoint(GetSubscription(subscriptionName, topicName));
+            PurgeMessagesFromEndpoint(GetSubscription(topicName, subscriptionName));
         }
 
         [HttpDelete]
         [Route("subscriptions/{topicName}/{subscriptionName}/messages/{uniqueId}")]
         public void DeleteSingleMessageInSubscription(string topicName, string subscriptionName, string uniqueId, [FromUri]string messageId)
         {
-            DeleteSingleMessageFromEndpoint(GetSubscription(subscriptionName, topicName), messageId, uniqueId);
+            DeleteSingleMessageFromEndpoint(GetSubscription(topicName, subscriptionName), messageId, uniqueId);
         }
 
         [HttpDelete]
@@ -99,7 +99,7 @@ namespace VengabusAPI.Controllers
             var topicDescription = namespaceManager.GetSubscriptions(topicName);
             foreach (var subscriptionDescription in topicDescription)
             {
-                PurgeMessagesInSubscription(subscriptionDescription.Name, topicName);
+                PurgeMessagesInSubscription(topicName, subscriptionDescription.Name);
             }
         }
 

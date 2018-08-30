@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DataTable } from '../DataTable';
 import { palerBlue } from '../../colourScheme';
-import { EditTopicButton } from '../EditEndpointButton';
+import { EditTopicButton } from '../Buttons/EditEndpointButton';
 
 export class TopicList extends Component {
 

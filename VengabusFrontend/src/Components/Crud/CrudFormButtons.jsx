@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { css } from 'emotion';
 import { ButtonGroup } from 'react-bootstrap';
-import { ButtonWithConfirmationModal } from '../ButtonWithConfirmationModal';
+import { ButtonWithConfirmationModal } from '../Buttons/ButtonWithConfirmationModal';
+import { ButtonWithConfirmationModalAndNotification } from '../Buttons/ButtonWithConfirmationModalAndNotification';
 
 /**
  * @prop {string} endpointType The type of endpoint we are editing. Use EndpointTypes in Helpers.
@@ -21,7 +22,7 @@ export class CrudFormButtons extends Component {
         return (
             <form className={buttonFormStyle}>
                 <ButtonGroup>
-                    <ButtonWithConfirmationModal
+                    <ButtonWithConfirmationModalAndNotification
                         id="updateButton"
                         buttonText={"Update"}
                         buttonStyle="default"
@@ -36,6 +37,9 @@ export class CrudFormButtons extends Component {
                         }
                         confirmButtonText={"Update"}
                         confirmAction={this.props.updateEndpoint}
+                        messageAfterSpinner="Update complete!"
+                        successNotificationMessage="Queue updated!"
+                        errorNotificationMessage="Queue update failed!"
                     />
                     <ButtonWithConfirmationModal
                         id="resetButton"

@@ -100,14 +100,14 @@ namespace VengabusAPI.Controllers
             return new TopicEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), topicName);
         }
 
-        protected SubscriptionEndpoint GetSubscription(string subscriptionName, string topicParent)
+        protected SubscriptionEndpoint GetSubscription(string topicParent, string subscriptionName)
         {
-            return new SubscriptionEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), subscriptionName, topicParent);
+            return new SubscriptionEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), topicParent, subscriptionName);
         }
 
-        protected SubscriptionDeadLetterEndpoint GetDeadLetterSubscription(string subscriptionName, string topicParent)
+        protected SubscriptionDeadLetterEndpoint GetDeadLetterSubscription(string topicParent, string subscriptionName)
         {
-            return new SubscriptionDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), subscriptionName, topicParent);
+            return new SubscriptionDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), topicParent, subscriptionName);
         }
     }
 }

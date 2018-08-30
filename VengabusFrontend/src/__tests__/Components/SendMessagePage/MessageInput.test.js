@@ -43,8 +43,8 @@ jest.mock('../../../AzureWrappers/VengaServiceBusService', () => ({
             });
         }
 
-        sendMessageToQueue = (...args) => { mockedFunction(...args); }
-        sendMessageToTopic = (...args) => { mockedFunction(...args); }
+        sendMessageToQueue = (...args) => { mockedFunction(...args); return Promise.resolve(); }
+        sendMessageToTopic = (...args) => { mockedFunction(...args); return Promise.resolve(); }
     }
 }));
 
@@ -307,7 +307,7 @@ it('Rememembers which queue was selected if the topic radio is pressed', () => {
         recipientIsQueue: true,
         selectedQueue: "testQueue" //Should not be used
     });
-    
+
     //Wait for the queues to load
     return testHelper.afterReactHasUpdated().then(() => {
         //Click the queue dropdown

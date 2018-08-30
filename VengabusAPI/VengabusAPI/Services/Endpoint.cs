@@ -113,7 +113,7 @@ namespace VengabusAPI.Services
     {
         public string ParentTopic { get; set; }
         protected SubscriptionClient Client;
-        public SubscriptionEndpoint(NamespaceManager namespaceManager, MessagingFactory clientFactory, string name, string parentTopic) : base(namespaceManager, name)
+        public SubscriptionEndpoint(NamespaceManager namespaceManager, MessagingFactory clientFactory, string parentTopic, string name) : base(namespaceManager, name)
         {
             ParentTopic = parentTopic;
             Client = clientFactory.CreateSubscriptionClient(parentTopic, name);
@@ -146,7 +146,7 @@ namespace VengabusAPI.Services
 
     public class SubscriptionDeadLetterEndpoint : SubscriptionEndpoint
     {
-        public SubscriptionDeadLetterEndpoint(NamespaceManager namespaceManager, MessagingFactory clientFactory, string name, string parentTopic) : base(namespaceManager, clientFactory, name, parentTopic)
+        public SubscriptionDeadLetterEndpoint(NamespaceManager namespaceManager, MessagingFactory clientFactory, string parentTopic, string name) : base(namespaceManager, clientFactory, parentTopic, name)
         {
             Client = clientFactory.CreateSubscriptionClient(parentTopic, name + "/$DeadLetterQueue");
         }

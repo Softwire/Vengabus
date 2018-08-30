@@ -76,7 +76,7 @@ export class QueueCrud extends Component {
     }
 
     updateQueue = () => {
-        this.serviceBusService.updateQueue(this.state.newQueueData);
+        return this.serviceBusService.updateQueue(this.state.newQueueData);
     }
 
     deleteQueue = () => {

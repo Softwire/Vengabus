@@ -1,9 +1,9 @@
 import React from 'react';
 import { Glyphicon } from 'react-bootstrap';
-import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
-import { EndpointTypes } from '../Helpers/EndpointTypes';
+import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
+import { EndpointTypes } from '../../Helpers/EndpointTypes';
 import Lodash from 'lodash';
-import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
+import { ButtonWithConfirmationModalAndNotification } from './ButtonWithConfirmationModalAndNotification';
 
 class PurgeMessagesButton extends React.Component {
     constructor(props) {
@@ -14,18 +14,31 @@ class PurgeMessagesButton extends React.Component {
     }
 
     getOnPurgeConfirmedHandler = () => {
-        switch (this.props.type) {
-            case EndpointTypes.TOPIC:
-                return () => this.vengaServiceBusService.purgeTopicMessages(this.props.endpointName);
-            case EndpointTypes.QUEUE:
-                return () => this.vengaServiceBusService.purgeQueueMessages(this.props.endpointName);
-            case EndpointTypes.SUBSCRIPTION:
-                return () => this.vengaServiceBusService.purgeSubscriptionMessages(this.props.parentName, this.props.endpointName);
-            default: break;
+        if (this.props.messageType === EndpointTypes.MESSAGE) {
+            switch (this.props.type) {
+                case EndpointTypes.TOPIC:
+                    return () => this.vengaServiceBusService.purgeTopicMessages(this.props.endpointName);
+                case EndpointTypes.QUEUE:
+                    return () => this.vengaServiceBusService.purgeQueueMessages(this.props.endpointName);
+                case EndpointTypes.SUBSCRIPTION:
+                    return () => this.vengaServiceBusService.purgeSubscriptionMessages(this.props.parentName, this.props.endpointName);
+                default: break;
+            }
+        } else {
+            switch (this.props.type) {
+                case EndpointTypes.TOPIC:
+                    return () => this.vengaServiceBusService.purgeTopicDeadletterMessages(this.props.endpointName);
+                case EndpointTypes.QUEUE:
+                    return () => this.vengaServiceBusService.purgeQueueDeadletterMessages(this.props.endpointName);
+                case EndpointTypes.SUBSCRIPTION:
+                    return () => this.vengaServiceBusService.purgeSubscriptionDeadletterMessages(this.props.parentName, this.props.endpointName);
+                default: break;
+            }
         }
     }
 
     showModalAction = () => {
+        this.setState({ modalBody: "" });
         this.vengaServiceBusService = serviceBusConnection.getServiceBusService();
         this.generateModalWarningBody().then(bodyResult => this.setState({ modalBody: bodyResult }));//qq needs catch, close modal, needs refactor
     }
@@ -36,15 +49,17 @@ class PurgeMessagesButton extends React.Component {
         let topicSubList = "";
         let response;
 
+        const messageCountPropertyName = (this.props.messageType === EndpointTypes.MESSAGE) ? 'activeMessageCount' : 'deadletterMessageCount';
+
         switch (this.props.type) {
             case EndpointTypes.QUEUE:
                 response = await vengaServiceBusService.getQueueDetails(this.props.endpointName);
-                numMessages = response.activeMessageCount;
+                numMessages = response[messageCountPropertyName];
                 break;
             case EndpointTypes.TOPIC:
                 response = await vengaServiceBusService.listSubscriptions(this.props.endpointName);
                 numMessages = Lodash.sumBy(response, (subscription) => {
-                    return subscription.activeMessageCount;
+                    return subscription[messageCountPropertyName];
                 });
 
                 topicSubList = Lodash.map(response, (subscription) => {
@@ -53,7 +68,7 @@ class PurgeMessagesButton extends React.Component {
                 break;
             case EndpointTypes.SUBSCRIPTION:
                 response = await vengaServiceBusService.getSubscriptionDetails(this.props.parentName, this.props.endpointName);
-                numMessages = response.activeMessageCount;
+                numMessages = response[messageCountPropertyName];
                 break;
             default: break;
         }
@@ -84,21 +99,21 @@ class PurgeMessagesButton extends React.Component {
         );
     }
 
-    resetState = () => {
-        this.setState({ modalBody: "" });
-    }
-
     render() {
-        let buttonText = <span>Purge Messages <Glyphicon glyph="trash" /></span>;
-        return (<ButtonWithConfirmationModal
-            id={"alertPurge"}
-            buttonText={buttonText}
+        const buttonText = this.props.messageType === EndpointTypes.MESSAGE ? "Purge Live Messages" : "Purge Deadletters";
+        const buttonSpanText = <span>{buttonText} <Glyphicon glyph="trash" /></span>;
+        
+        return (<ButtonWithConfirmationModalAndNotification
+            id="alertPurge"
+            buttonText={buttonSpanText}
             modalTitle={"Purge messages from " + this.props.type}
             modalBody={this.state.modalBody}
-            confirmButtonText={"Purge"}
+            confirmButtonText="Purge"
             afterShowModalAction={this.showModalAction}
             confirmAction={this.getOnPurgeConfirmedHandler()}
-            afterCloseModalAction={this.resetState}
+            successNotificationMessage="Messages purged successfully!"
+            errorNotificationMessage="Messages purging failed!"
+            messageAfterSpinner="Purged complete!"
         />);
     }
 }

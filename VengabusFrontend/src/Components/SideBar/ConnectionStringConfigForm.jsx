@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { ServiceBusInfoBox } from "./ServiceBusInfoBox";
 import { serviceBusConnection } from "../../AzureWrappers/ServiceBusConnection";
-import { ButtonWithConfirmationModal } from "../ButtonWithConfirmationModal";
+import { ButtonWithConfirmationModal } from "../Buttons/ButtonWithConfirmationModal";
 import {
     FormGroup,
     FormControl,

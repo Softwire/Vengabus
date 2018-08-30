@@ -254,9 +254,9 @@ export class MessageInput extends Component {
     submit = () => {
         const message = this.createMessageObject();
         if (this.state.recipientIsQueue) {
-            this.serviceBusService.sendMessageToQueue(this.state.selectedQueue, message);
+            return this.serviceBusService.sendMessageToQueue(this.state.selectedQueue, message);
         } else {
-            this.serviceBusService.sendMessageToTopic(this.state.selectedTopic, message);
+            return this.serviceBusService.sendMessageToTopic(this.state.selectedTopic, message);
         }
     }
 

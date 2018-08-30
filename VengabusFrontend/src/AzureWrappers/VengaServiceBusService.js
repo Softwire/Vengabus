@@ -44,7 +44,7 @@ export class VengaServiceBusService {
     updateQueue = (queueDescription) => {
         const url = this.apiRoot + 'queues/update';
         const config = this.jsonConfig;
-        this.axiosWithSAS.post(url, queueDescription, config);
+        return this.axiosWithSAS.post(url, queueDescription, config);
     }
 
     /**
@@ -59,7 +59,7 @@ export class VengaServiceBusService {
             oldName: oldName,
             newName: newName
         };
-        this.axiosWithSAS.post(url, names, config);
+        return this.axiosWithSAS.post(url, names, config);
     }
 
     /**
@@ -68,7 +68,7 @@ export class VengaServiceBusService {
      */
     deleteQueue = (name) => {
         const url = this.apiRoot + 'queues/delete/' + name;
-        this.axiosWithSAS.delete(url, null);
+        return this.axiosWithSAS.delete(url, null);
     }
 
     /**
@@ -98,7 +98,7 @@ export class VengaServiceBusService {
     updateTopic = (topicDescription) => {
         const url = this.apiRoot + 'topics/update';
         const config = this.jsonConfig;
-        this.axiosWithSAS.post(url, topicDescription, config);
+        return this.axiosWithSAS.post(url, topicDescription, config);
     }
 
     /**
@@ -113,7 +113,7 @@ export class VengaServiceBusService {
             oldName: oldName,
             newName: newName
         };
-        this.axiosWithSAS.post(url, names, config);
+        return this.axiosWithSAS.post(url, names, config);
     }
 
     /**
@@ -122,7 +122,7 @@ export class VengaServiceBusService {
      */
     deleteTopic = (name) => {
         const url = this.apiRoot + 'topics/delete/' + name;
-        this.axiosWithSAS.delete(url, null);
+        return this.axiosWithSAS.delete(url, null);
     }
 
     /**
@@ -155,7 +155,7 @@ export class VengaServiceBusService {
     updateSubscription = (subDescription) => {
         const url = this.apiRoot + 'subscriptions/update';
         const config = this.jsonConfig;
-        this.axiosWithSAS.post(url, subDescription, config);
+        return this.axiosWithSAS.post(url, subDescription, config);
     }
 
     /**
@@ -165,7 +165,7 @@ export class VengaServiceBusService {
      */
     deleteSubscription = (name, parentTopic) => {
         const url = this.apiRoot + `subscriptions/delete/' + ${parentTopic} + '/' + ${name}`;
-        this.axiosWithSAS.delete(url, null);
+        return this.axiosWithSAS.delete(url, null);
     }
 
     /**
@@ -181,7 +181,7 @@ export class VengaServiceBusService {
     sendMessageToQueue = (queueName, message) => {
         const url = this.apiRoot + `queues/${queueName}/messages`;
         const config = this.jsonConfig;
-        this.axiosWithSAS.post(url, message, config);
+        return this.axiosWithSAS.post(url, message, config);
     }
 
     /**
@@ -197,11 +197,16 @@ export class VengaServiceBusService {
     sendMessageToTopic = (topicName, message) => {
         const url = this.apiRoot + `topics/${topicName}/messages`;
         const config = this.jsonConfig;
-        this.axiosWithSAS.post(url, message, config);
+        return this.axiosWithSAS.post(url, message, config);
     }
 
     purgeQueueMessages = (queueName) => {
         const url = this.apiRoot + `queues/${queueName}/messages`;
+        return this.axiosWithSAS.delete(url);
+    }
+
+    purgeQueueDeadletterMessages = (queueName) => {
+        const url = this.apiRoot + `queues/${queueName}/deadletters`;
         return this.axiosWithSAS.delete(url);
     }
 
@@ -222,6 +227,11 @@ export class VengaServiceBusService {
         return this.axiosWithSAS.delete(url);
     }
 
+    purgeTopicDeadletterMessages = (topicName) => {
+        const url = this.apiRoot + `topics/${topicName}/deadletters`;
+        return this.axiosWithSAS.delete(url);
+    }
+
     deleteTopicSingleMessage = (topicName, messageId, uniqueId) => {
         const messageIdEncoded = encodeURIComponent(messageId);
         const url = this.apiRoot + `topics/${topicName}/messages/${uniqueId}?messageId=${messageIdEncoded}`;
@@ -230,6 +240,11 @@ export class VengaServiceBusService {
 
     purgeSubscriptionMessages = (topicName, subscriptionName) => {
         const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/messages`;
+        return this.axiosWithSAS.delete(url);
+    }
+
+    purgeSubscriptionDeadletterMessages = (topicName, subscriptionName) => {
+        const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/deadletters`;
         return this.axiosWithSAS.delete(url);
     }
 

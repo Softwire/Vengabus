@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Glyphicon } from 'react-bootstrap';
-import { pageSwitcher, PAGES } from '../Pages/PageSwitcherService';
-import { EndpointTypes } from '../Helpers/EndpointTypes';
+import { pageSwitcher, PAGES } from '../../Pages/PageSwitcherService';
+import { EndpointTypes } from '../../Helpers/EndpointTypes';
 
 /* eslint-disable react/no-multi-comp */
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
-import { EndpointTypes } from '../Helpers/EndpointTypes';
-import { formatMessageForDownload, jsonToString} from '../Helpers/FormattingHelpers';
-import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
+import { EndpointTypes } from '../../Helpers/EndpointTypes';
+import { formatMessageForDownload, jsonToString } from '../../Helpers/FormattingHelpers';
+import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 const download = require("downloadjs");
 
 /**
