@@ -30,6 +30,9 @@ export class TwoListDisplay extends Component {
 
     componentDidMount() {
         serviceBusConnection.registerForUpdatesPrompts(this.resetInitialStateData);
+        if (serviceBusConnection.connected) {
+            serviceBusConnection.promptUpdate();
+        }
 
     }
     componentWillUnmount() {
