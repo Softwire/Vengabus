@@ -1,6 +1,5 @@
 import React from 'react';
 import { Modal, Alert, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
-import { Spinner } from './Spinner';
 import { css } from 'react-emotion';
 
 /*
@@ -35,6 +34,7 @@ class ButtonWithConfirmationModal extends React.Component {
 
     handleConfirm = () => {
         const confirmActionOutput = this.props.confirmAction();
+        console.log("CALL");
         Promise.resolve(confirmActionOutput).then(this.handleClose);
     }
 
@@ -81,24 +81,23 @@ class ButtonWithConfirmationModal extends React.Component {
                 </div>
             </OverlayTrigger>;
 
+
         return (
             <React.Fragment>
                 {this.props.tooltipMessage ? buttonWithToolTip : button}
-                <Modal show={this.state.show} onHide={this.handleClose} >
+                < Modal show={this.state.show} onHide={this.handleClose} >
                     <Modal.Header>
                         <Modal.Title>{this.props.modalTitle}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        {this.props.modalBody
-                            ? (<Alert bsStyle={internalAlertDialogStyle}> {this.props.modalBody} </Alert >)
-                            : (<Spinner size={25} />)}
+                        <Alert bsStyle={internalAlertDialogStyle}> {this.props.modalBody} </Alert >
                         {this.props.children}
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button id="confirm" onClick={this.handleConfirm} bsStyle={internalConfirmButtonStyle}>{this.props.confirmButtonText}</Button>
-                        <Button id="cancel" onClick={this.handleClose}>{this.props.cancelButtonText || "Cancel"}</Button>
+                        <Button id="confirm" disabled={this.props.disableButtons} onClick={this.handleConfirm} bsStyle={internalConfirmButtonStyle}>{this.props.confirmButtonText}</Button>
+                        <Button id="cancel" disabled={this.props.disableButtons} onClick={this.handleClose}>{this.props.cancelButtonText || "Cancel"}</Button>
                     </Modal.Footer>
-                </Modal>
+                </Modal >
             </React.Fragment >
         );
     }

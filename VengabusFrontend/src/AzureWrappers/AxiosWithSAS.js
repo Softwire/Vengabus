@@ -1,7 +1,7 @@
 import axios from 'axios';
 import moment from 'moment';
 import crypto from 'crypto';
-import { NotificationManager } from 'react-notifications';
+import { vengaNotificationManager } from '../Helpers/VengaNotificationManager';
 import { serviceBusConnection } from './ServiceBusConnection';
 
 
@@ -29,11 +29,11 @@ export class AxiosWithSAS {
      */
     get = (url, config) => {
         if (!this.connectionString || this.connectionString === "") {
-            NotificationManager.error("No connection string provided", 'Error', 999999);
+            vengaNotificationManager.error("No connection string provided");
             return Promise.reject("No connection string provided");
         }
         if (!serviceBusConnection.activeAPIroot || serviceBusConnection.activeAPIroot === "//") {
-            NotificationManager.error("No API server string provided", 'Error', 999999);
+            vengaNotificationManager.error("No API server string provided");
             return Promise.reject("No API server string provided");
         }
         const token = this.getTokenFromConnectionString();
@@ -54,11 +54,11 @@ export class AxiosWithSAS {
      */
     delete = (url, config) => {
         if (!this.connectionString || this.connectionString === "") {
-            NotificationManager.error("No connection string provided", 'Error', 999999);
+            vengaNotificationManager.error("No connection string provided");
             return Promise.reject("No connection string provided");
         }
         if (!serviceBusConnection.activeAPIroot || serviceBusConnection.activeAPIroot === "//") {
-            NotificationManager.error("No API server string provided", 'Error', 999999);
+            vengaNotificationManager.error("No API server string provided");
             return Promise.reject("No API server string provided");
         }
         const token = this.getTokenFromConnectionString();
@@ -80,11 +80,11 @@ export class AxiosWithSAS {
      */
     post = (url, body, config) => {
         if (!this.connectionString) {
-            NotificationManager.error("No connection string provided", 'Error', 999999);
+            vengaNotificationManager.error("No connection string provided");
             return Promise.reject("No connection string provided");
         }
         if (!serviceBusConnection.activeAPIroot || serviceBusConnection.activeAPIroot === "//") {
-            NotificationManager.error("No API server string provided", 'Error', 999999);
+            vengaNotificationManager.error("No API server string provided");
             return Promise.reject("No API server string provided");
         }
         const token = this.getTokenFromConnectionString();
@@ -123,7 +123,7 @@ export class AxiosWithSAS {
         }
 
         if (!endPoint || !sharedAccessKey || !sharedAccessKeyName) {
-            NotificationManager.error("Bad connection string format", 'Error', 999999);
+            vengaNotificationManager.error("Bad connection string format");
             return Promise.reject('Bad connection string format');
         }
 
@@ -171,42 +171,31 @@ export class AxiosWithSAS {
     }
 
     displayAppropriatePopup(error) {
-        const errorNotificationPopup = (message) => {
-            NotificationManager.error(message, "APIError", 99999, undefined, true);
-        };
-
-        const warningNotificationPopup = (message) => {
-            NotificationManager.warning(message, "APIWarning", 5000);
-        };
-
-        const infoNotificationPopup = (message) => {
-            NotificationManager.info(message, "APIInfo", 5000);
-        };
-
         if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
             if (error.response.data.exceptionType === "VengabusAPI.Models.APIWarning") {
-                warningNotificationPopup(error.response.data.exceptionMessage);
+                error.isManagedError = true;
+                vengaNotificationManager.warning(error.response.data.exceptionMessage);
             } else if (error.response.data.exceptionType === "VengabusAPI.Models.APIInfo") {
-                infoNotificationPopup(error.response.data.exceptionMessage);
+                vengaNotificationManager.info(error.response.data.exceptionMessage);
             } else {
-                errorNotificationPopup(error.response.status + " " + error.response.statusText + ": " + error.response.data.exceptionMessage);
+                vengaNotificationManager.error(error.response.status + " " + error.response.statusText + ": " + error.response.data.exceptionMessage);
             }
         } else if (error.request) {
             // The request was made but no response was received
             // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
             // http.ClientRequest in node.js
             if (error.request.status === 0) {
-                errorNotificationPopup("Backend is offline!");
+                vengaNotificationManager.error("Backend is offline!");
             } else {
-                errorNotificationPopup(error.request.status + " " + error.request.statusText);
+                vengaNotificationManager.error(error.request.status + " " + error.request.statusText);
             }
         } else if (error.message) {
             // Something happened in setting up the request that triggered an Error
-            errorNotificationPopup(error.message);
+            vengaNotificationManager.error(error.message);
         } else {
-            errorNotificationPopup(JSON.stringify(error));
+            vengaNotificationManager.error(JSON.stringify(error));
         }
     }
 }

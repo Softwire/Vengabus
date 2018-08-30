@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Modal, Button, ButtonToolbar } from 'react-bootstrap';
-import { CopyTextButton } from '../CopyTextButton';
+import { CopyTextButton } from '../Buttons/CopyTextButton';
 import { css } from 'emotion';
 import { CollapsiblePanel } from './CollapsiblePanel';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { FormattingBox } from './FormattingBox';
-import { DeleteSingleMessageButton } from '../../Components/DeleteSingleMessageButton';
+import { DeleteSingleMessageButton } from '../Buttons/DeleteSingleMessageButton';
 import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
 import { formatMessageForDownload, jsonToString } from '../../Helpers/FormattingHelpers';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { DataTable } from '../DataTable';
 import { formatTimeStamp } from '../../Helpers/FormattingHelpers';
 import { palerBlue } from '../../colourScheme';
-import { EditSubscriptionButton } from '../EditEndpointButton';
+import { EditSubscriptionButton } from '../Buttons/EditEndpointButton';
 
 
 export class SubscriptionList extends Component {

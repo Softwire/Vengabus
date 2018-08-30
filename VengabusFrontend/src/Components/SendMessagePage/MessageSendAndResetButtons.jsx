@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { css } from 'react-emotion';
-import { ButtonWithConfirmationModal } from '../ButtonWithConfirmationModal';
+import { ButtonWithConfirmationModal } from '../Buttons/ButtonWithConfirmationModal';
+import { ButtonWithConfirmationModalAndNotification } from '../Buttons/ButtonWithConfirmationModalAndNotification';
 
 /**
  * Send and Reset buttons for the send message page.
@@ -24,10 +25,11 @@ export class MessageSendAndResetButtons extends Component {
         return (
 
             <form>
-                <ButtonWithConfirmationModal
+                <ButtonWithConfirmationModalAndNotification
                     id="submitButton"
                     buttonSize="large"
                     buttonStyle="default"
+                    modalInternalStyle="info"
                     buttonCSS={buttonWidth}
                     buttonText={"Send Message"}
                     buttonDisabled={this.props.selectedEndpoint ? false : true}
@@ -42,6 +44,9 @@ export class MessageSendAndResetButtons extends Component {
                     }
                     confirmButtonText={"Send"}
                     confirmAction={this.props.submit}
+                    successNotificationMessage={"Message successfully sent!"}
+                    errorNotificationMessage={"Sending message failed!"}
+                    messageAfterSpinner={"Send message complete!"}
                 />
                 <div className={spacer} />
                 <ButtonWithConfirmationModal

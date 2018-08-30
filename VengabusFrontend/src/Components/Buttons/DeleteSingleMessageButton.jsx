@@ -1,7 +1,7 @@
 import React from 'react';
 import { Glyphicon } from 'react-bootstrap';
-import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
-import { EndpointTypes } from '../Helpers/EndpointTypes';
+import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
+import { EndpointTypes } from '../../Helpers/EndpointTypes';
 import { ButtonWithConfirmationModal } from './ButtonWithConfirmationModal';
 
 /*

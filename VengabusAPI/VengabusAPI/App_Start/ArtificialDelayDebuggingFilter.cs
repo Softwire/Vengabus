@@ -26,8 +26,8 @@ namespace VengabusAPI.Startup
     /// 
     public class ArtificialDelayDebuggingFilter : ActionFilterAttribute
     {
-        public static bool IsActive = false;
-        private int globalSecondsDelay = 5;
+        public static bool IsActive = true;
+        private int globalSecondsDelay = 1;
         public override void OnActionExecuting(System.Web.Http.Controllers.HttpActionContext actionContext)
         {
             //Pause for some period, and then continue as usual.

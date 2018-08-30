@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { ButtonWithConfirmationModal } from '../ButtonWithConfirmationModal';
-import { PurgeMessagesButton } from '../PurgeMessagesButton';
+import { ButtonWithConfirmationModal } from '../Buttons/ButtonWithConfirmationModal';
+import { PurgeMessagesButton } from '../Buttons/PurgeMessagesButton';
 import { FormControl, FormGroup, ButtonGroup } from 'react-bootstrap';
 import { css } from 'emotion';
-import { DownloadEndpointButton } from '../DownloadEndpointButton';
+import { DownloadEndpointButton } from '../Buttons/DownloadEndpointButton';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
 
 /**
@@ -31,7 +31,7 @@ export class CrudTitle extends Component {
 
         let downloadButton;
 
-        if (this.props.endpointType === EndpointTypes.QUEUE || this.props.endpointType === EndpointTypes.SUBSCRIPTION) {
+        if(this.props.endpointType === EndpointTypes.QUEUE || this.props.endpointType === EndpointTypes.SUBSCRIPTION) {
             downloadButton = (
                 <DownloadEndpointButton
                     parentTopic={this.props.parentTopic}
