@@ -6,12 +6,36 @@ using VengabusAPI.Models;
 using System.Net.Http;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using Microsoft.ServiceBus;
+using Microsoft.ServiceBus.Messaging;
+using FluentAssertions;
 
 namespace VengabusAPI.Tests
 {
     [TestFixture]
     public class DeleteMessages
     {
+        [OneTimeSetUp]
+        public void Setup()
+        {
+            ValidateConnectionSignature();
+            CreateAllEndpoints();
+        }
+        public void ValidateConnectionSignature()
+        {
+            Assert.Fail("Not Validated");
+        }
+        public void CreateAllEndpoints()
+        {
+            NamespaceManager x = null;// new NamespaceManager();
+            x.CreateQueue(new QueueDescription("test"));
+        }
+
+        [OneTimeTearDown]
+        public void DeleteAllEndpoints()
+        {
+
+        }
 
         [Test, Description("All messages should be deleted from queue, and the process should not throw errors when someone else is also consuming messages")]
         public void DeleteAllMessagesFromBusyQueue()
@@ -30,7 +54,7 @@ namespace VengabusAPI.Tests
             controller.Request.Headers.Add("Auth-SAS", TestHelper.sasString);
 
             //act
-            int deletedMessageCount = 0;
+            long deletedMessageCount = 0;
             //we want to simulate a busy queue, so we should do these in parallel
             Parallel.Invoke(
                 () => controller.PurgeMessagesInQueue(TestHelper.TestQueueName),
@@ -39,7 +63,7 @@ namespace VengabusAPI.Tests
 
             //assert
             //our test helper should delete some, but not all of the messages.
-            Assert.IsTrue(deletedMessageCount < messageCount.ActiveMessageCount, "No messages are deleted by the backend!");
+            deletedMessageCount.Should().BeLessThan(messageCount.ActiveMessageCount, "No messages are deleted by the backend!");
             Assert.IsTrue(deletedMessageCount > 0, "No messages is deleted by test code");
             var finalMessageCount = TestHelper.getMessageCountInQueue();
             Assert.AreEqual(finalMessageCount.ActiveMessageCount, 0, "There are still messages left in the queue");

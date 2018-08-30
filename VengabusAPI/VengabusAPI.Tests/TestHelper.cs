@@ -96,11 +96,11 @@ namespace VengabusAPI.Tests
             return subscriptionDescription.MessageCountDetails;
         }
 
-        public static int DeleteAllMessagesFromQueue(string queueName = TestQueueName)
+        public static long DeleteAllMessagesFromQueue(string queueName = TestQueueName)
         {
             var factory = CreateEndpointFactory();
             var queueClient = factory.CreateQueueClient(queueName);
-            int ret = 0;
+            long ret = 0;
             while (true)
             {
                 var messages = queueClient.Receive(TimeSpan.FromMilliseconds(5000));
