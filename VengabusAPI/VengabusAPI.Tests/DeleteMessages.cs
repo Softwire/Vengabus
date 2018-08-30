@@ -25,7 +25,7 @@ namespace VengabusAPI.Tests
             //prepare for the request
             var request = new HttpRequestMessage();
 
-            var controller = new MessagesController();
+            var controller = new LiveMessagesController();
             controller.Request = request;
             controller.Request.Headers.Add("Auth-SAS", TestHelper.sasString);
 
@@ -33,7 +33,7 @@ namespace VengabusAPI.Tests
             int deletedMessageCount = 0;
             //we want to simulate a busy queue, so we should do these in parallel
             Parallel.Invoke(
-                () => controller.DeleteAllMessagesInQueue(TestHelper.TestQueueName),
+                () => controller.PurgeMessagesInQueue(TestHelper.TestQueueName),
                 () => deletedMessageCount = TestHelper.DeleteAllMessagesFromQueue()
                );
 
@@ -56,12 +56,12 @@ namespace VengabusAPI.Tests
             //prepare for the request
             var request = new HttpRequestMessage();
 
-            var controller = new MessagesController();
+            var controller = new LiveMessagesController();
             controller.Request = request;
             controller.Request.Headers.Add("Auth-SAS", TestHelper.sasString);
 
             //act
-            controller.DeleteAllMessagesInQueue(TestHelper.TestQueueName);
+            controller.PurgeMessagesInQueue(TestHelper.TestQueueName);
 
             //assert
             var finalMessageCount = TestHelper.getMessageCountInQueue();
@@ -82,11 +82,11 @@ namespace VengabusAPI.Tests
 
             var customProperties = new Dictionary<string, object>();
 
-            var controller = new MessagesController();
+            var controller = new LiveMessagesController();
             controller.Request = request;
             controller.Request.Headers.Add("Auth-SAS", TestHelper.sasString);
 
-            var msg = new VengaMessage(customProperties,predefinedProperties,"adkajslkjdslakd");
+            var msg = new VengaMessage(customProperties, predefinedProperties, "adkajslkjdslakd", new Guid().ToString());
 
             var messageCount = 10;
 
@@ -114,7 +114,7 @@ namespace VengabusAPI.Tests
             //prepare for the request
             var request = new HttpRequestMessage();
 
-            var controller = new MessagesController();
+            var controller = new LiveMessagesController();
             controller.Request = request;
             controller.Request.Headers.Add("Auth-SAS", TestHelper.sasString);
 

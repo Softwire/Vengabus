@@ -7,9 +7,8 @@ using VengabusAPI.Services;
 
 namespace VengabusAPI.Controllers
 {
-    public class MessagesController : VengabusController
+    public abstract class MessagesController : VengabusController
     {
-
         protected void PurgeMessagesFromEndpoint(Endpoint endpoint)
         {
             Predicate<BrokeredMessage> deleteMessageChecker = (brokeredMessage) => true;
