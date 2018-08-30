@@ -247,6 +247,59 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
             });
         }
 
+
+        listQueueDeadLetterMessages = (queueName, messageCount) => {
+            return new Promise(function (resolve, reject) {
+                resolve([
+                    {
+                        predefinedProperties: { messageId: "test1Dead" },
+                        customProperties: { "skjdfhksdjf": "skdjhds" },
+                        uniqueId: "59298c2b-d58f-4ad0-bde9-f8a9d00a3070",
+                        messageBody: "apple"
+
+                    },
+                    {
+                        predefinedProperties: { messageId: "test2Dead" },
+                        customProperties: { "skjdfhksdjf": "skdjhds" },
+                        uniqueId: "c9f547bf-72e1-439e-bd1f-0b590422a6f8",
+                        messageBody: "banana"
+                    },
+                    {
+                        predefinedProperties: { messageId: "test3Dead" },
+                        customProperties: { "skjdfhksdjf": "skdjhds" },
+                        uniqueId: "5034e2f8-9bf0-436a-b8f4-914b43594ee1",
+                        messageBody: "carrot"
+                    }
+                ]);
+            });
+        }
+
+        listSubscriptionDeadLetterMessages = (topicName, subscriptionName, messageCount) => {
+            return new Promise(function (resolve, reject) {
+                resolve([
+                    {
+                        predefinedProperties: { messageId: "test1Dead" },
+                        customProperties: { "skjdfhksdjf": "skdjhds" },
+                        uniqueId: "59298c2b-d58f-4ad0-bde9-f8a9d00a3070",
+                        messageBody: "apple"
+
+                    },
+                    {
+                        predefinedProperties: { messageId: "test2Dead" },
+                        customProperties: { "skjdfhksdjf": "skdjhds" },
+                        uniqueId: "c9f547bf-72e1-439e-bd1f-0b590422a6f8",
+                        messageBody: "banana"
+                    },
+                    {
+                        predefinedProperties: { messageId: "test3Dead" },
+                        customProperties: { "skjdfhksdjf": "skdjhds" },
+                        uniqueId: "5034e2f8-9bf0-436a-b8f4-914b43594ee1",
+                        messageBody: "carrot"
+                    }
+                ]);
+            });
+        }
+
         getWriteableMessageProperties = () => {
             return new Promise(function (resolve, reject) {
                 resolve(['messageId', 'contentType']);
@@ -259,6 +312,17 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
             });
         }
 
+        getQueueMostRecentDeadletter = (queueName) => {
+            return new Promise(function (resolve, reject) {
+                resolve('2018-07-26T09:40:11.5513302Z');
+            });
+        }
+
+        getSubscriptionMostRecentDeadletter = (queueName) => {
+            return new Promise(function (resolve, reject) {
+                resolve('2018-07-26T09:40:11.5513302Z');
+            });
+        }
 
     }
 }));
@@ -362,7 +426,6 @@ const replayMessageTest = (wrapper) => { //Starts from HomePage
         messageListRow.simulate("click");
         return testHelper.afterReactHasUpdated();
     }).then(() => {//Click Replay Message
-        wrapper.update();
         const replayMessageButton = wrapper.find('#messageBoxReplayMessage').last();
         replayMessageButton.simulate("click");
         return testHelper.afterReactHasUpdated();
@@ -429,30 +492,30 @@ it('passes smoke tests without crashing', () => {
                 expect(replayMessageButton).toExistOnPage();
                 replayMessageButton.simulate("click");
                 return testHelper.afterReactHasUpdated();*/
-    // }).then(() => {//test queue purge button
-    //     const purgeQueueMessagesButton = wrapper.find("#purgeQueueMessage").last();
-    //     purgeQueueMessagesButton.simulate("click");
-    //     return testHelper.afterReactHasUpdated();
-    // }).then(() => {
-    //     const purgeQueueMessagesConfirmationButton = wrapper.find("#alertPurge").last();
-    //     purgeQueueMessagesConfirmationButton.simulate("click");
-    //     return testHelper.afterReactHasUpdated();
-    // }).then(() => {//test topic purge button
-    //     const purgeQueueMessagesButton = wrapper.find("#purgeTopicMessage").last();
-    //     purgeQueueMessagesButton.simulate("click");
-    //     return testHelper.afterReactHasUpdated();
-    // }).then(() => {
-    //     const purgeQueueMessagesConfirmationButton = wrapper.find("#alertPurge").last();
-    //     purgeQueueMessagesConfirmationButton.simulate("click");
-    //     return testHelper.afterReactHasUpdated();
-    // }).then(() => {//test subscription purge button
-    //     const purgeQueueMessagesButton = wrapper.find("#purgeSubscriptionMessage").last();
-    //     purgeQueueMessagesButton.simulate("click");
-    //     return testHelper.afterReactHasUpdated();
-    // }).then(() => {
-    //     const purgeQueueMessagesConfirmationButton = wrapper.find("#alertPurge").last();
-    //     purgeQueueMessagesConfirmationButton.simulate("click");
-    //     return testHelper.afterReactHasUpdated();
+        // }).then(() => {//test queue purge button
+        //     const purgeQueueMessagesButton = wrapper.find("#purgeQueueMessage").last();
+        //     purgeQueueMessagesButton.simulate("click");
+        //     return testHelper.afterReactHasUpdated();
+        // }).then(() => {
+        //     const purgeQueueMessagesConfirmationButton = wrapper.find("#alertPurge").last();
+        //     purgeQueueMessagesConfirmationButton.simulate("click");
+        //     return testHelper.afterReactHasUpdated();
+        // }).then(() => {//test topic purge button
+        //     const purgeQueueMessagesButton = wrapper.find("#purgeTopicMessage").last();
+        //     purgeQueueMessagesButton.simulate("click");
+        //     return testHelper.afterReactHasUpdated();
+        // }).then(() => {
+        //     const purgeQueueMessagesConfirmationButton = wrapper.find("#alertPurge").last();
+        //     purgeQueueMessagesConfirmationButton.simulate("click");
+        //     return testHelper.afterReactHasUpdated();
+        // }).then(() => {//test subscription purge button
+        //     const purgeQueueMessagesButton = wrapper.find("#purgeSubscriptionMessage").last();
+        //     purgeQueueMessagesButton.simulate("click");
+        //     return testHelper.afterReactHasUpdated();
+        // }).then(() => {
+        //     const purgeQueueMessagesConfirmationButton = wrapper.find("#alertPurge").last();
+        //     purgeQueueMessagesConfirmationButton.simulate("click");
+        //     return testHelper.afterReactHasUpdated();
     }).then(() => {//Go to Home Page
         const buttonFromPreviousPage = wrapper.find("#demoPageReplayMessageButton").first();//this still works, as that button no longer exists
         expect(buttonFromPreviousPage).not.toExistOnPage();
