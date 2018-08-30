@@ -247,9 +247,18 @@ export class ConnectionStringConfigForm extends Component {
 
     render() {
 
-        const buttonStyle = css`
-            color: black;
-            margin: 5px;
+        const connectButtonStyle = css`
+            &.btn {
+                padding: 6px 13px;
+            }
+            margin: 0 5px 0 0;
+        `;
+
+        const deleteButtonStyle = css`
+            &.btn {
+                padding: 6px 13px;
+            }
+            margin: 0 0 0 5px;
         `;
 
         const formStyle = css`
@@ -298,14 +307,14 @@ export class ConnectionStringConfigForm extends Component {
                     />
                 </FormGroup>
                 <Button
-                    className={buttonStyle}
+                    className={connectButtonStyle}
                     onClick={this.submitConnectionStringClick}
                     id="connectButton"
                 >
                     Connect
                 </Button>
                 <ButtonWithConfirmationModal
-                    buttonCSS={buttonStyle}
+                    buttonCSS={deleteButtonStyle}
                     id="deleteConnectionButton"
                     buttonText={"Delete Connection"}
                     modalTitle={"Delete Connection String"}

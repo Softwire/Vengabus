@@ -2,8 +2,19 @@
 
 exports[`ConnectionStringConfigForm renders correctly 1`] = `
 .emotion-10 {
-  color: black;
-  margin: 5px;
+  margin: 0 5px 0 0;
+}
+
+.emotion-10.btn {
+  padding: 6px 13px;
+}
+
+.emotion-11 {
+  margin: 0 0 0 5px;
+}
+
+.emotion-11.btn {
+  padding: 6px 13px;
 }
 
 .emotion-15 {
@@ -345,7 +356,7 @@ exports[`ConnectionStringConfigForm renders correctly 1`] = `
     onMouseOver={[Function]}
   >
     <button
-      className="emotion-10 btn btn-danger"
+      className="emotion-11 btn btn-danger"
       disabled={false}
       onClick={[Function]}
       type="button"
