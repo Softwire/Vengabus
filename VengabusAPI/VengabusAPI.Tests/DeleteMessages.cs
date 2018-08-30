@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VengabusAPI.Controllers;
 using VengabusAPI.Models;
 using System.Net.Http;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace VengabusAPI.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class DeleteMessages
     {
 
-        [TestMethod, Description("All messages should be deleted from queue, and the process should not throw errors when someone else is also consuming messages")]
+        [Test, Description("All messages should be deleted from queue, and the process should not throw errors when someone else is also consuming messages")]
         public void DeleteAllMessagesFromBusyQueue()
         {
             //arrange
@@ -46,7 +46,7 @@ namespace VengabusAPI.Tests
             Console.WriteLine("Number of messages deleted by test code: " + deletedMessageCount);
         }
 
-        [TestMethod, Description("All messages should be deleted from queue")]
+        [Test, Description("All messages should be deleted from queue")]
         public void DeleteAllMessagesFromQueue()
         {
             //arrange
@@ -69,7 +69,7 @@ namespace VengabusAPI.Tests
             Console.WriteLine(finalMessageCount.ActiveMessageCount);
         }
 
-        [TestMethod, Description("The correct number of messages should be sent to a queue")]
+        [Test, Description("The correct number of messages should be sent to a queue")]
         public void SendMessagesToQueue()
         {
             var initialMessageCount = TestHelper.getMessageCountInQueue();
@@ -101,7 +101,7 @@ namespace VengabusAPI.Tests
             Assert.AreEqual(finalMessageCount.ActiveMessageCount - initialMessageCount.ActiveMessageCount, messageCount, "The number of messages send to queue is incorrect");
         }
 
-        [TestMethod, Description("The correct messages should be received when getting all messages in queue")]
+        [Test, Description("The correct messages should be received when getting all messages in queue")]
         public void GetAllMessagesFromQueue()
         {
             //arrange

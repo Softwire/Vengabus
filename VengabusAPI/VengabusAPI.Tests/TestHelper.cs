@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
 
