@@ -154,5 +154,120 @@ Array [
         </tbody>
     </table>
 </div>,
+  <div
+    className="row react-bootstrap-table-pagination"
+>
+    <div
+        className="col-md-6 col-xs-6 col-sm-6 col-lg-6"
+    >
+        <span
+            className="react-bs-table-sizePerPage-dropdown dropdown"
+            style={
+                Object {
+                    "visibility": "visible",
+                  }
+            }
+        >
+            <button
+                aria-expanded={false}
+                className="btn btn-default btn-secondary dropdown-toggle"
+                data-toggle="dropdown"
+                id="pageDropDown"
+                onBlur={[Function]}
+                onClick={[Function]}
+            >
+                25
+                 
+                <span>
+                    <span
+                        className="caret"
+                    />
+                </span>
+            </button>
+            <ul
+                aria-labelledby="pageDropDown"
+                className="dropdown-menu "
+                role="menu"
+            >
+                <li
+                    className="dropdown-item"
+                    role="presentation"
+                >
+                    <a
+                        data-page={10}
+                        href="#"
+                        onMouseDown={[Function]}
+                        role="menuitem"
+                        tabIndex="-1"
+                    >
+                        10
+                    </a>
+                </li>
+                <li
+                    className="dropdown-item"
+                    role="presentation"
+                >
+                    <a
+                        data-page={25}
+                        href="#"
+                        onMouseDown={[Function]}
+                        role="menuitem"
+                        tabIndex="-1"
+                    >
+                        25
+                    </a>
+                </li>
+                <li
+                    className="dropdown-item"
+                    role="presentation"
+                >
+                    <a
+                        data-page={50}
+                        href="#"
+                        onMouseDown={[Function]}
+                        role="menuitem"
+                        tabIndex="-1"
+                    >
+                        50
+                    </a>
+                </li>
+                <li
+                    className="dropdown-item"
+                    role="presentation"
+                >
+                    <a
+                        data-page={100}
+                        href="#"
+                        onMouseDown={[Function]}
+                        role="menuitem"
+                        tabIndex="-1"
+                    >
+                        100
+                    </a>
+                </li>
+            </ul>
+        </span>
+    </div>
+    <div
+        className="react-bootstrap-table-pagination-list col-md-6 col-xs-6 col-sm-6 col-lg-6"
+    >
+        <ul
+            className="pagination react-bootstrap-table-page-btns-ul"
+        >
+            <li
+                className="active page-item"
+                title="1"
+            >
+                <a
+                    className="page-link"
+                    href="#"
+                    onClick={[Function]}
+                >
+                    1
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>,
 ]
 `;

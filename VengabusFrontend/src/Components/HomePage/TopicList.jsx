@@ -60,6 +60,7 @@ export class TopicList extends Component {
                 onRowClick={this.props.clickFunction}
                 selectRow={selectRow}
                 searchable
+                pagination={{ defaultPageSize: 25, sizePerPageList: [10, 25, 50, 100] }}
             />
         );
     }

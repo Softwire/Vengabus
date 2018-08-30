@@ -257,6 +257,17 @@ exports[`renders correctly after data is added 1`] = `
             defaultHover={true}
             name="QueueList"
             onRowClick={[Function]}
+            pagination={
+              Object {
+                "defaultPageSize": 25,
+                "sizePerPageList": Array [
+                  10,
+                  25,
+                  50,
+                  100,
+                ],
+              }
+            }
             searchable={true}
             selectRow={
               Object {
@@ -379,6 +390,17 @@ exports[`renders correctly after data is added 1`] = `
             defaultHover={true}
             name="TopicList"
             onRowClick={[Function]}
+            pagination={
+              Object {
+                "defaultPageSize": 25,
+                "sizePerPageList": Array [
+                  10,
+                  25,
+                  50,
+                  100,
+                ],
+              }
+            }
             searchable={true}
             selectRow={
               Object {
