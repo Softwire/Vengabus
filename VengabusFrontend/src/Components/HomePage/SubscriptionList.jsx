@@ -26,7 +26,8 @@ export class SubscriptionList extends Component {
             {
                 dataField: 'name',
                 width: 23,
-                headerStyle: this.props.headerStyle
+                headerStyle: this.props.headerStyle,
+                search: true
             },
             {
                 //qq this is only a workaround for the table not rerendering itself. Solve this properly later.
@@ -36,8 +37,7 @@ export class SubscriptionList extends Component {
                 formatter: (cell, row, rowIndex) => {
                     return (`${row.activeMessageCount} / ${row.deadletterMessageCount}`);
                 },
-                headerStyle: this.props.headerStyle,
-                disableSearch: true
+                headerStyle: this.props.headerStyle
             },
             {
                 dataField: 'mostRecentDeadLetter',

@@ -18,14 +18,14 @@ export class TopicList extends Component {
             {
                 dataField: 'name',
                 width: 31,
-                headerStyle: this.props.headerStyle
+                headerStyle: this.props.headerStyle,
+                search: true
             },
             {
                 dataField: 'subscriptionCount',
                 width: 30,
                 headerStyle: this.props.headerStyle,
-                align: 'right',
-                disableSearch: true
+                align: 'right'
             },
             {
                 dataField: 'topicStatus',

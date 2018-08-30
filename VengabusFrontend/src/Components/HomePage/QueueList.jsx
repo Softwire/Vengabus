@@ -27,7 +27,8 @@ export class QueueList extends Component {
             {
                 dataField: 'name',
                 width: 23,
-                headerStyle: this.props.headerStyle
+                headerStyle: this.props.headerStyle,
+                search: true
             },
             {
                 //qq this is only a workaround for the table not rerendering itself. Solve this properly later.
@@ -37,8 +38,7 @@ export class QueueList extends Component {
                 formatter: (cell, row, rowIndex) => {
                     return (`${row.activeMessageCount} / ${row.deadletterMessageCount}`);
                 },
-                headerStyle: this.props.headerStyle,
-                disableSearch: true
+                headerStyle: this.props.headerStyle
             },
             {
                 dataField: 'mostRecentDeadLetter',
