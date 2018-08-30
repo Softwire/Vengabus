@@ -36,7 +36,7 @@ class ButtonWithConfirmationModalAndNotification extends React.Component {
                         //this.setState({ showFinalMessage: false });
                         resolve();
                     };
-                    setTimeout(callback, 2000);
+                    setTimeout(callback, 0); //qq We'd like this to be 2000, but for the moment, that breaks the smoke tests, so we have to not do that.
                 });
             });
             //return final promise.

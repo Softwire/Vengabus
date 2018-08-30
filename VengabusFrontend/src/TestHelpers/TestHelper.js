@@ -17,7 +17,7 @@ class TestHelper {
         }
 
         return new Promise(function (resolve) {
-            setTimeout(resolve, 0);
+            setTimeout(resolve, 2);
         });
     }
     clickElementWithId(wrapper, id) {
