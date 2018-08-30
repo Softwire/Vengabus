@@ -17,23 +17,19 @@ export class TwoListDisplay extends Component {
         super(props);
         this.displayHistory = [];
         this.breadCrumbHistory = [{ name: "Home", type: undefined }];
-        this.messageButtonDisabled = false;
         this.promiseCollection = new cancellablePromiseCollection();
-        this.messageTabType = EndpointTypes.MESSAGE;
         this.state = {
-            queueData: null,
-            topicData: null,
-            subscriptionData: null,
-            messageData: null,
+            queueData: undefined,
+            topicData: undefined,
+            subscriptionData: undefined,
+            activeMessageData: undefined,
+            deadletterData: undefined,
             rightTableType: EndpointTypes.TOPIC
         };
     }
 
     componentDidMount() {
         serviceBusConnection.registerForUpdatesPrompts(this.resetInitialStateData);
-        if (serviceBusConnection.connected) {
-            serviceBusConnection.promptUpdate();
-        }
 
     }
     componentWillUnmount() {
@@ -44,11 +40,12 @@ export class TwoListDisplay extends Component {
 
     handleQueueRowClick = (e, row, rowIndex) => {
         this.breadCrumbHistory = [{ name: "Home", type: undefined }, { name: row.name, type: EndpointTypes.QUEUE }];
-        this.messageButtonDisabled = true;
         this.setState({
-            messageData: undefined,
-            rightTableType: this.messageTabType
-        }, () => this.updateEndpointMessageData(this.messageTabType));
+            activeMessageData: undefined,
+            rightTableType: EndpointTypes.MESSAGE
+        }, () => {
+            this.updateEndpointMessageData();
+        });
     }
 
     handleTopicRowClick = (e, row, rowIndex) => {
@@ -61,20 +58,18 @@ export class TwoListDisplay extends Component {
 
     handleSubscriptionRowClick = (e, row, rowIndex) => {
         this.breadCrumbHistory[2] = { name: row.name, type: EndpointTypes.SUBSCRIPTION };
-        this.messageButtonDisabled = true;
         this.setState({
-            messageData: undefined,
-            rightTableType: this.messageTabType
-        }, () => this.updateEndpointMessageData(this.messageTabType));
+            activeMessageData: undefined,
+            rightTableType: EndpointTypes.MESSAGE
+        }, () => {
+            this.updateEndpointMessageData();
+        });
     }
 
-    handleMessageToggle = (MessageType) => {
-        this.messageButtonDisabled = true;
-        this.messageTabType = MessageType;
+    handleMessageTabChange = (isNewTypeDeadLetter) => {
         this.setState({
-            messageData: undefined,
-            rightTableType: MessageType
-        }, () => this.updateEndpointMessageData(this.messageTabType));
+            rightTableType: isNewTypeDeadLetter ? EndpointTypes.DEADLETTER : EndpointTypes.MESSAGE
+        });
     }
 
     updateAllQueueData = () => {
@@ -100,13 +95,7 @@ export class TwoListDisplay extends Component {
                     });
                 }).catch((e) => { });
             }
-        }).catch((e) => {
-            if (!e.isCanceled) {
-                this.setState({
-                    queueData: []
-                });
-            }
-        });
+        }).catch((e) => { });
     }
 
     updateAllTopicData = () => {
@@ -117,13 +106,7 @@ export class TwoListDisplay extends Component {
             this.setState({
                 topicData: result
             });
-        }).catch(e => {
-            if (!e.isCanceled) {
-                this.setState({
-                    topicData: []
-                });
-            }
-        });
+        }).catch(e => { if (!e.isCanceled) { console.log(e); } });
     }
 
     updateTopicSubscriptionData = () => {
@@ -150,58 +133,50 @@ export class TwoListDisplay extends Component {
                     });
                 }).catch((e) => { });
             }
-        }).catch(e => {
-            if (!e.isCanceled) {
-                this.setState({
-                    subscriptionData: []
-                });
-            }
-        });
+        }).catch(e => { });
     }
 
 
-    updateEndpointMessageData = (messageType) => {
-        const isMessageDeadletters = messageType === EndpointTypes.DEADLETTER;
+    updateEndpointMessageData = () => {
         const serviceBusService = serviceBusConnection.getServiceBusService();
         let fetchedMessageData;
+        let fetchedDeadletterMessageData;
+
         const leftTableType = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].type;
+
+        this.promiseCollection.cancelAllPromises(EndpointTypes.MESSAGE);
+        this.promiseCollection.cancelAllPromises(EndpointTypes.DEADLETTER);
+
         if (leftTableType === EndpointTypes.QUEUE || typeof leftTableType === 'undefined') {
             const queueName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
-            if (isMessageDeadletters) {
-                fetchedMessageData = serviceBusService.listQueueDeadLetterMessages(queueName, messageCount);
-            } else {
-                fetchedMessageData = serviceBusService.listQueueMessages(queueName, messageCount);
-            }
+            fetchedDeadletterMessageData = serviceBusService.listQueueDeadLetterMessages(queueName, messageCount);
+            fetchedMessageData = serviceBusService.listQueueMessages(queueName, messageCount);
         } else {
             const topicName = this.breadCrumbHistory[this.breadCrumbHistory.length - 2].name;
             const subscriptionName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
-            if (isMessageDeadletters) {
-                fetchedMessageData = serviceBusService.listSubscriptionDeadLetterMessages(topicName, subscriptionName, messageCount);
-            } else {
-                fetchedMessageData = serviceBusService.listSubscriptionMessages(topicName, subscriptionName, messageCount);
-            }
+            fetchedDeadletterMessageData = serviceBusService.listSubscriptionDeadLetterMessages(topicName, subscriptionName, messageCount);
+            fetchedMessageData = serviceBusService.listSubscriptionMessages(topicName, subscriptionName, messageCount);
         }
-        this.promiseCollection.cancelAllPromises(EndpointTypes.MESSAGE);
+
         const wrappedFetchedMessageData = this.promiseCollection.addNewPromise(fetchedMessageData, EndpointTypes.MESSAGE);
+        const wrappedFetchedDeadletterMessageData = this.promiseCollection.addNewPromise(fetchedDeadletterMessageData, EndpointTypes.DEADLETTER);
+
         wrappedFetchedMessageData.then((result) => {
-            this.messageButtonDisabled = false;
             this.setState({
-                messageData: result
+                activeMessageData: result
             });
-        }).catch(e => {
-            if (!e.isCanceled) {
-                this.setState({
-                    messageData: []
-                });
-            }
-        });
+        }).catch(e => { if (!e.isCanceled) { console.log(e); } });
+
+        wrappedFetchedDeadletterMessageData.then((result) => {
+            this.setState({
+                deadletterData: result
+            });
+        }).catch(e => { if (!e.isCanceled) { console.log(e); } });
     }
 
+
+
     resetInitialStateData = () => {
-        this.setState({
-            queueData: undefined,
-            topicData: undefined
-        });
         this.updateAllTopicData();
         this.updateAllQueueData();
         this.breadCrumbHistory = [{ name: "Home", type: undefined }];
@@ -209,6 +184,7 @@ export class TwoListDisplay extends Component {
             rightTableType: EndpointTypes.TOPIC
         });
     };
+
 
 
     getList = (isForRightHandList) => {
@@ -223,18 +199,11 @@ export class TwoListDisplay extends Component {
             typeOfData = currentLeftTable.type || EndpointTypes.QUEUE;
             currentSelection = currentLeftTable.name;
         }
+
         const minHeightOfHeader = {
             "minHeight": "92px",
             "height": "92px"
         };
-
-        const cssForTabs = css`
-        li{
-            text-align: center;
-            width:50%;
-        }
-        `;
-
 
         switch (typeOfData) {
             case EndpointTypes.QUEUE:
@@ -287,30 +256,51 @@ export class TwoListDisplay extends Component {
             case EndpointTypes.DEADLETTER:
                 const lastBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 1];
                 const penultimateBreadCrumb = this.breadCrumbHistory[this.breadCrumbHistory.length - 2];
+
                 return (
                     <React.Fragment>
-                        <div className={cssForTabs}>
-                            <Tabs defaultActiveKey={this.messageTabType} id="Tabs" onSelect={this.handleMessageToggle}>
-                                <Tab eventKey={EndpointTypes.MESSAGE} title="Live Messages" />
-                                <Tab eventKey={EndpointTypes.DEADLETTER} title="Deadletter Messages" />
+                        <div>
+                            <Tabs defaultActiveKey={EndpointTypes.MESSAGE} id="Tabs" onSelect={this.handleMessageTabChange}>
+                                <Tab eventKey={EndpointTypes.MESSAGE} title="Live Messages" >
+                                    <MessageList
+                                        id='MessageTable'
+                                        messageData={this.state.activeMessageData}
+                                        messageType={typeOfData}
+                                        endpointType={lastBreadCrumb.type}
+                                        endpointName={lastBreadCrumb.name}
+                                        endpointParent={penultimateBreadCrumb.name}
+                                        headerStyle={minHeightOfHeader}
+                                        refreshMessageTableHandler={() => {
+                                            this.setState({
+                                                activeMessageData: undefined,
+                                                deadletterData: undefined
+                                            }, () => this.updateEndpointMessageData());
+
+                                        }}
+                                    />
+                                </Tab>
+                                <Tab eventKey={true} title="Deadletter Messages" >
+                                    <MessageList
+                                        id='MessageTable'
+                                        messageData={this.state.deadletterData}
+                                        messageType={typeOfData}
+                                        endpointType={lastBreadCrumb.type}
+                                        endpointName={lastBreadCrumb.name}
+                                        endpointParent={penultimateBreadCrumb.name}
+                                        headerStyle={minHeightOfHeader}
+                                        refreshMessageTableHandler={() => {
+                                            this.setState({
+                                                activeMessageData: undefined,
+                                                deadletterData: undefined
+                                            }, () => this.updateEndpointMessageData());
+
+                                        }}
+                                    />
+                                </Tab>
                             </Tabs>
                         </div>
-                        <MessageList
-                            id='MessageTable'
-                            messageData={this.state.messageData}
-                            messageType={typeOfData}
-                            endpointType={lastBreadCrumb.type}
-                            endpointName={lastBreadCrumb.name}
-                            endpointParent={penultimateBreadCrumb.name}
-                            headerStyle={minHeightOfHeader}
-                            refreshMessageTableHandler={() => {
-                                this.setState({
-                                    messageData: undefined
-                                }, () => this.updateEndpointMessageData(this.messageTabType));
 
-                            }}
-                        />
-                    </React.Fragment>
+                    </React.Fragment >
 
                 );
             default:

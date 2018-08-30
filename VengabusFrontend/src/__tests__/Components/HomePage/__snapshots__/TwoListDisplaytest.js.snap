@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly after data is added 1`] = `
-.emotion-4 {
+.emotion-12 {
   width: calc(50% - 30px);
   margin-left: 15px;
   margin-right: 15px;
   display: inline-block;
 }
 
-.emotion-8 {
+.emotion-24 {
   display: block;
 }
 
@@ -18,11 +18,11 @@ exports[`renders correctly after data is added 1`] = `
   margin: 2px;
 }
 
-.emotion-9 {
+.emotion-25 {
   min-width: 1000px;
 }
 
-.emotion-5 {
+.emotion-13 {
   border-left: 1px solid black;
   display: inline-block;
   height: calc(100% - 100px);
@@ -36,15 +36,128 @@ exports[`renders correctly after data is added 1`] = `
   margin-bottom: 1px;
 }
 
+.emotion-10 {
+  float: none;
+  margin: 10px auto 20px auto;
+}
+
+.emotion-9 {
+  float: none;
+  margin: 10px auto 20px auto;
+}
+
+.emotion-9 {
+  position: relative;
+  font-size: 0;
+  height: 50px;
+  width: 50px;
+}
+
 .emotion-3 {
-  text-align: center;
-  float: left;
-  width: 100%;
+  width: 0;
+  height: 0;
+  border-right: 50px solid transparent;
+  border-top: 50px solid transparent;
+  border-left: 50px solid #333;
+  border-bottom: 50px solid #333;
+  border-radius: 50px;
+  position: absolute;
+  -webkit-animation: animation-1hqwhex 0.8s infinite ease-in-out;
+  animation: animation-1hqwhex 0.8s infinite ease-in-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-4 {
+  width: 0;
+  height: 0;
+  border-right: 50px solid transparent;
+  border-top: 50px solid #333;
+  border-left: 50px solid #333;
+  border-bottom: 50px solid transparent;
+  border-radius: 50px;
+  position: absolute;
+  -webkit-animation: animation-s4bjdm 0.8s infinite ease-in-out;
+  animation: animation-s4bjdm 0.8s infinite ease-in-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-5 {
+  width: 16.666666666666668px;
+  height: 16.666666666666668px;
+  background-color: #333;
+  margin: 2px;
+  border-radius: 100%;
+  -webkit-transform: translate(0,-12.5px);
+  -ms-transform: translate(0,-12.5px);
+  transform: translate(0,-12.5px);
+  position: absolute;
+  top: 50px;
+  left: 200px;
+  -webkit-animation: animation-sdgt62 1s 0.5s infinite linear;
+  animation: animation-sdgt62 1s 0.5s infinite linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-6 {
+  width: 16.666666666666668px;
+  height: 16.666666666666668px;
+  background-color: #333;
+  margin: 2px;
+  border-radius: 100%;
+  -webkit-transform: translate(0,-12.5px);
+  -ms-transform: translate(0,-12.5px);
+  transform: translate(0,-12.5px);
+  position: absolute;
+  top: 50px;
+  left: 200px;
+  -webkit-animation: animation-sdgt62 1s 0.75s infinite linear;
+  animation: animation-sdgt62 1s 0.75s infinite linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-7 {
+  width: 16.666666666666668px;
+  height: 16.666666666666668px;
+  background-color: #333;
+  margin: 2px;
+  border-radius: 100%;
+  -webkit-transform: translate(0,-12.5px);
+  -ms-transform: translate(0,-12.5px);
+  transform: translate(0,-12.5px);
+  position: absolute;
+  top: 50px;
+  left: 200px;
+  -webkit-animation: animation-sdgt62 1s 1s infinite linear;
+  animation: animation-sdgt62 1s 1s infinite linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-8 {
+  width: 16.666666666666668px;
+  height: 16.666666666666668px;
+  background-color: #333;
+  margin: 2px;
+  border-radius: 100%;
+  -webkit-transform: translate(0,-12.5px);
+  -ms-transform: translate(0,-12.5px);
+  transform: translate(0,-12.5px);
+  position: absolute;
+  top: 50px;
+  left: 200px;
+  -webkit-animation: animation-sdgt62 1s 1.25s infinite linear;
+  animation: animation-sdgt62 1s 1.25s infinite linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
 }
 
 <TwoListDisplay>
   <div
-    className="emotion-9"
+    className="emotion-25"
   >
     <div
       className="emotion-2"
@@ -79,10 +192,10 @@ exports[`renders correctly after data is added 1`] = `
       </Breadcrumb>
     </div>
     <div
-      className="emotion-8"
+      className="emotion-24"
     >
       <div
-        className="emotion-4"
+        className="emotion-12"
         id="left"
       >
         <div>
@@ -102,7 +215,6 @@ exports[`renders correctly after data is added 1`] = `
             }
           }
           id="QueueTable"
-          queueData={null}
         >
           <DataTable
             colProps={
@@ -141,7 +253,6 @@ exports[`renders correctly after data is added 1`] = `
                 },
               ]
             }
-            dataToDisplay={null}
             defaultHover={true}
             name="QueueList"
             onRowClick={[Function]}
@@ -154,20 +265,59 @@ exports[`renders correctly after data is added 1`] = `
             }
             uniqueKeyColumn="name"
           >
-            <p
-              className="emotion-3"
-              id="connect-text"
+            <Spinner
+              id="spinner"
+              size={50}
             >
-              Press "Connect" to load data.
-            </p>
+              <onlyUpdateForKeys(Loader)
+                className="emotion-10"
+                color="#333"
+                loading={true}
+                margin="2px"
+                size={50}
+                sizeUnit="px"
+              >
+                <Loader
+                  className="emotion-10"
+                  color="#333"
+                  loading={true}
+                  margin="2px"
+                  size={50}
+                  sizeUnit="px"
+                >
+                  <div
+                    className="emotion-9"
+                  >
+                    <div
+                      className="emotion-3"
+                    />
+                    <div
+                      className="emotion-4"
+                    />
+                    <div
+                      className="emotion-5"
+                    />
+                    <div
+                      className="emotion-6"
+                    />
+                    <div
+                      className="emotion-7"
+                    />
+                    <div
+                      className="emotion-8"
+                    />
+                  </div>
+                </Loader>
+              </onlyUpdateForKeys(Loader)>
+            </Spinner>
           </DataTable>
         </QueueList>
       </div>
       <div
-        className="emotion-5"
+        className="emotion-13"
       />
       <div
-        className="emotion-4"
+        className="emotion-12"
         id="right"
       >
         <div>
@@ -186,7 +336,6 @@ exports[`renders correctly after data is added 1`] = `
             }
           }
           id="TopicTable"
-          topicData={null}
         >
           <DataTable
             colProps={
@@ -225,7 +374,6 @@ exports[`renders correctly after data is added 1`] = `
                 },
               ]
             }
-            dataToDisplay={null}
             defaultHover={true}
             name="TopicList"
             onRowClick={[Function]}
@@ -238,12 +386,51 @@ exports[`renders correctly after data is added 1`] = `
             }
             uniqueKeyColumn="name"
           >
-            <p
-              className="emotion-3"
-              id="connect-text"
+            <Spinner
+              id="spinner"
+              size={50}
             >
-              Press "Connect" to load data.
-            </p>
+              <onlyUpdateForKeys(Loader)
+                className="emotion-10"
+                color="#333"
+                loading={true}
+                margin="2px"
+                size={50}
+                sizeUnit="px"
+              >
+                <Loader
+                  className="emotion-10"
+                  color="#333"
+                  loading={true}
+                  margin="2px"
+                  size={50}
+                  sizeUnit="px"
+                >
+                  <div
+                    className="emotion-9"
+                  >
+                    <div
+                      className="emotion-3"
+                    />
+                    <div
+                      className="emotion-4"
+                    />
+                    <div
+                      className="emotion-5"
+                    />
+                    <div
+                      className="emotion-6"
+                    />
+                    <div
+                      className="emotion-7"
+                    />
+                    <div
+                      className="emotion-8"
+                    />
+                  </div>
+                </Loader>
+              </onlyUpdateForKeys(Loader)>
+            </Spinner>
           </DataTable>
         </TopicList>
       </div>
@@ -253,14 +440,14 @@ exports[`renders correctly after data is added 1`] = `
 `;
 
 exports[`renders correctly before data is added 1`] = `
-.emotion-3 {
+.emotion-9 {
   width: calc(50% - 30px);
   margin-left: 15px;
   margin-right: 15px;
   display: inline-block;
 }
 
-.emotion-7 {
+.emotion-19 {
   display: block;
 }
 
@@ -270,11 +457,11 @@ exports[`renders correctly before data is added 1`] = `
   margin: 2px;
 }
 
-.emotion-8 {
+.emotion-20 {
   min-width: 1000px;
 }
 
-.emotion-4 {
+.emotion-10 {
   border-left: 1px solid black;
   display: inline-block;
   height: calc(100% - 100px);
@@ -288,14 +475,122 @@ exports[`renders correctly before data is added 1`] = `
   margin-bottom: 1px;
 }
 
+.emotion-8 {
+  float: none;
+  margin: 10px auto 20px auto;
+}
+
+.emotion-8 {
+  position: relative;
+  font-size: 0;
+  height: 50px;
+  width: 50px;
+}
+
 .emotion-2 {
-  text-align: center;
-  float: left;
-  width: 100%;
+  width: 0;
+  height: 0;
+  border-right: 50px solid transparent;
+  border-top: 50px solid transparent;
+  border-left: 50px solid #333;
+  border-bottom: 50px solid #333;
+  border-radius: 50px;
+  position: absolute;
+  -webkit-animation: animation-1hqwhex 0.8s infinite ease-in-out;
+  animation: animation-1hqwhex 0.8s infinite ease-in-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-3 {
+  width: 0;
+  height: 0;
+  border-right: 50px solid transparent;
+  border-top: 50px solid #333;
+  border-left: 50px solid #333;
+  border-bottom: 50px solid transparent;
+  border-radius: 50px;
+  position: absolute;
+  -webkit-animation: animation-s4bjdm 0.8s infinite ease-in-out;
+  animation: animation-s4bjdm 0.8s infinite ease-in-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-4 {
+  width: 16.666666666666668px;
+  height: 16.666666666666668px;
+  background-color: #333;
+  margin: 2px;
+  border-radius: 100%;
+  -webkit-transform: translate(0,-12.5px);
+  -ms-transform: translate(0,-12.5px);
+  transform: translate(0,-12.5px);
+  position: absolute;
+  top: 50px;
+  left: 200px;
+  -webkit-animation: animation-sdgt62 1s 0.5s infinite linear;
+  animation: animation-sdgt62 1s 0.5s infinite linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-5 {
+  width: 16.666666666666668px;
+  height: 16.666666666666668px;
+  background-color: #333;
+  margin: 2px;
+  border-radius: 100%;
+  -webkit-transform: translate(0,-12.5px);
+  -ms-transform: translate(0,-12.5px);
+  transform: translate(0,-12.5px);
+  position: absolute;
+  top: 50px;
+  left: 200px;
+  -webkit-animation: animation-sdgt62 1s 0.75s infinite linear;
+  animation: animation-sdgt62 1s 0.75s infinite linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-6 {
+  width: 16.666666666666668px;
+  height: 16.666666666666668px;
+  background-color: #333;
+  margin: 2px;
+  border-radius: 100%;
+  -webkit-transform: translate(0,-12.5px);
+  -ms-transform: translate(0,-12.5px);
+  transform: translate(0,-12.5px);
+  position: absolute;
+  top: 50px;
+  left: 200px;
+  -webkit-animation: animation-sdgt62 1s 1s infinite linear;
+  animation: animation-sdgt62 1s 1s infinite linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-7 {
+  width: 16.666666666666668px;
+  height: 16.666666666666668px;
+  background-color: #333;
+  margin: 2px;
+  border-radius: 100%;
+  -webkit-transform: translate(0,-12.5px);
+  -ms-transform: translate(0,-12.5px);
+  transform: translate(0,-12.5px);
+  position: absolute;
+  top: 50px;
+  left: 200px;
+  -webkit-animation: animation-sdgt62 1s 1.25s infinite linear;
+  animation: animation-sdgt62 1s 1.25s infinite linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
 }
 
 <div
-  className="emotion-8"
+  className="emotion-20"
 >
   <div
     className="emotion-1"
@@ -318,10 +613,10 @@ exports[`renders correctly before data is added 1`] = `
     </ol>
   </div>
   <div
-    className="emotion-7"
+    className="emotion-19"
   >
     <div
-      className="emotion-3"
+      className="emotion-9"
       id="left"
     >
       <div>
@@ -331,18 +626,34 @@ exports[`renders correctly before data is added 1`] = `
           Queues
         </h2>
       </div>
-      <p
-        className="emotion-2"
-        id="connect-text"
+      <div
+        className="emotion-8"
       >
-        Press "Connect" to load data.
-      </p>
+        <div
+          className="emotion-2"
+        />
+        <div
+          className="emotion-3"
+        />
+        <div
+          className="emotion-4"
+        />
+        <div
+          className="emotion-5"
+        />
+        <div
+          className="emotion-6"
+        />
+        <div
+          className="emotion-7"
+        />
+      </div>
     </div>
     <div
-      className="emotion-4"
+      className="emotion-10"
     />
     <div
-      className="emotion-3"
+      className="emotion-9"
       id="right"
     >
       <div>
@@ -352,12 +663,28 @@ exports[`renders correctly before data is added 1`] = `
           Topics
         </h2>
       </div>
-      <p
-        className="emotion-2"
-        id="connect-text"
+      <div
+        className="emotion-8"
       >
-        Press "Connect" to load data.
-      </p>
+        <div
+          className="emotion-2"
+        />
+        <div
+          className="emotion-3"
+        />
+        <div
+          className="emotion-4"
+        />
+        <div
+          className="emotion-5"
+        />
+        <div
+          className="emotion-6"
+        />
+        <div
+          className="emotion-7"
+        />
+      </div>
     </div>
   </div>
 </div>
