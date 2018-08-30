@@ -115,7 +115,7 @@ exports[`MessageBox renders correctly with given props 1`] = `
         className="emotion-1"
         componentClass="h4"
       >
-        ID
+        test ID
       </ModalTitle>
     </ModalHeader>
     <ModalBody
@@ -124,26 +124,60 @@ exports[`MessageBox renders correctly with given props 1`] = `
       componentClass="div"
       id="messageBoxModalBody"
     >
-      <NoPropertiesPanel
+      <CollapsiblePanel
         panelTitle="Pre-defined Properties"
       >
         <pre>
-          <p>
-            There are no user-defined properties to display
+          <p
+            key="forcePersistence"
+          >
+            forcePersistence: false
+          </p>
+          <p
+            key="scheduledEnqueueTimeUtc"
+          >
+            scheduledEnqueueTimeUtc: 0001-01-01T00:00:00Z
+          </p>
+          <p
+            key="sequenceNumber"
+          >
+            sequenceNumber: 45317471370415620
+          </p>
+          <p
+            key="size"
+          >
+            size: 173
+          </p>
+          <p
+            key="state"
+          >
+            state: Active
+          </p>
+          <p
+            key="timeToLive"
+          >
+            timeToLive: 10675199.02:48:05.4775807
           </p>
         </pre>
-      </NoPropertiesPanel>
-      <NoPropertiesPanel
+      </CollapsiblePanel>
+      <CollapsiblePanel
         panelTitle="User-defined Properties"
       >
         <pre>
-          <p>
-            There are no user-defined properties to display
+          <p
+            key="customProp1"
+          >
+            customProp1: forty-two
+          </p>
+          <p
+            key="customProp2"
+          >
+            customProp2: 42
           </p>
         </pre>
-      </NoPropertiesPanel>
+      </CollapsiblePanel>
       <FormattingBox
-        message="BODY"
+        message="Hello world!"
       />
     </ModalBody>
     <ModalFooter
@@ -166,17 +200,18 @@ exports[`MessageBox renders correctly with given props 1`] = `
         </Button>
         <DeleteSingleMessageButton
           disabled={false}
-          endpointName="demoqueue1"
+          endpointName="test name"
           endpointType="queue"
-          messageId="ID"
+          messageId="test ID"
+          messageType="message"
           onDeletionEnd={[Function]}
           onDeletionStart={[Function]}
-          uniqueId="asdasasd"
+          uniqueId="1a"
         />
         <CopyTextButton
           disabled={false}
           id="messageBoxCopy"
-          text="BODY"
+          text="Hello world!"
         />
         <Button
           active={false}
@@ -202,7 +237,7 @@ exports[`MessageBox renders correctly with given props 1`] = `
           id="messageBoxReplayMessage"
           onClick={[Function]}
         >
-          Replay Message to demoqueue1
+          Replay Message to test name
         </Button>
       </ButtonToolbar>
     </ModalFooter>

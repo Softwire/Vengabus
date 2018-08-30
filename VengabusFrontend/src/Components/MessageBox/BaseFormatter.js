@@ -1,5 +1,12 @@
 export class BaseFormatter {
     startsAndEndsWith = (inputString, startCharacter, endCharacter) => {
+        let noInitialWhitespace = inputString.replace(/^\s*/g, "");
+        let noWrappingWhitespace = noInitialWhitespace.replace(/\s*$/g, "");
+
+        return this.startsAndEndsWith_NotIgnoringWhitespace(noWrappingWhitespace, startCharacter, endCharacter);
+    }
+
+    startsAndEndsWith_NotIgnoringWhitespace = (inputString, startCharacter, endCharacter) => {
         if (!inputString) {
             return false;
         }
