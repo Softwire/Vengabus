@@ -29,16 +29,16 @@ export class AxiosWithSAS {
      */
     get = (url, config) => {
         if (!this.connectionString || this.connectionString === "") {
-            NotificationManager.error("No connection string provided");
+            NotificationManager.error("No connection string provided", 'Error', 999999);
             return Promise.reject("No connection string provided");
         }
         if (!serviceBusConnection.activeAPIroot || serviceBusConnection.activeAPIroot === "//") {
-            NotificationManager.error("No API server string provided");
+            NotificationManager.error("No API server string provided", 'Error', 999999);
             return Promise.reject("No API server string provided");
         }
         const token = this.getTokenFromConnectionString();
-        if (!token) {
-            return Promise.reject("Invalid connection string");
+        if (token.then) {
+            return token;
         }
         const sasConfig = this.addAuthToConfig(config, token);
         return axios.get(url, sasConfig)
@@ -54,16 +54,16 @@ export class AxiosWithSAS {
      */
     delete = (url, config) => {
         if (!this.connectionString || this.connectionString === "") {
-            NotificationManager.error("No connection string provided");
+            NotificationManager.error("No connection string provided", 'Error', 999999);
             return Promise.reject("No connection string provided");
         }
         if (!serviceBusConnection.activeAPIroot || serviceBusConnection.activeAPIroot === "//") {
-            NotificationManager.error("No API server string provided");
+            NotificationManager.error("No API server string provided", 'Error', 999999);
             return Promise.reject("No API server string provided");
         }
         const token = this.getTokenFromConnectionString();
-        if (!token) {
-            return Promise.reject("Invalid connection string");
+        if (token.then) {
+            return token;
         }
         const sasConfig = this.addAuthToConfig(config, token);
         return axios.delete(url, sasConfig).then((result) => {
@@ -79,17 +79,17 @@ export class AxiosWithSAS {
      * @returns {Promise} The Promise returned by the axios request.
      */
     post = (url, body, config) => {
-        if (!this.connectionString || this.connectionString === "") {
-            NotificationManager.error("No connection string provided");
+        if (!this.connectionString) {
+            NotificationManager.error("No connection string provided", 'Error', 999999);
             return Promise.reject("No connection string provided");
         }
         if (!serviceBusConnection.activeAPIroot || serviceBusConnection.activeAPIroot === "//") {
-            NotificationManager.error("No API server string provided");
+            NotificationManager.error("No API server string provided", 'Error', 999999);
             return Promise.reject("No API server string provided");
         }
         const token = this.getTokenFromConnectionString();
-        if (!token) {
-            return Promise.reject("Invalid connection string");
+        if (token.then) {
+            return token;
         }
         const sasConfig = this.addAuthToConfig(config, token);
         return axios.post(url, body, sasConfig).then((result) => {
@@ -123,8 +123,8 @@ export class AxiosWithSAS {
         }
 
         if (!endPoint || !sharedAccessKey || !sharedAccessKeyName) {
-            NotificationManager.error("Bad connection string format!");
-            return null;
+            NotificationManager.error("Bad connection string format", 'Error', 999999);
+            return Promise.reject('Bad connection string format');
         }
 
         return this.createSasToken(endPoint, sharedAccessKeyName, sharedAccessKey);
