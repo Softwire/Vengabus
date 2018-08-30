@@ -12,6 +12,7 @@ import { EndpointTypes } from '../../Helpers/EndpointTypes';
 import { NoPropertiesPanel } from './NoPropertiesPanel';
 import { panelDarkGrey, panelLightGrey } from '../../colourScheme';
 import { Spinner } from '../Spinner';
+import { NotificationManager } from 'react-notifications';
 const downloadToFile = require("downloadjs");
 
 const defaultState = {
@@ -45,6 +46,7 @@ export class MessageBox extends Component {
                 { message: message, recipientIsQueue: true, selectedQueue: this.props.endpointName }
             );
         } else {
+            NotificationManager.warning("Original message is from a subscription. It will be replayed to its parent topic instead, as sending messages to a single subscription is unsupported.", "Warning", 5000);
             pageSwitcher.switchToPage(
                 PAGES.SendMessagePage,
                 { message: message, recipientIsQueue: false, selectedTopic: this.props.endpointParent }
