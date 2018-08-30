@@ -82,7 +82,7 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                                 </div>
                             </div>
                         </div>
-                        <div class=\\"css-xxa940 css-14v2y5d\\">
+                        <div class=\\"css-1cz7c css-14v2y5d\\">
                             <form>
                                 <button disabled=\\"\\" type=\\"button\\" class=\\"css-15kv4vi btn btn-lg btn-default\\">
                                     Send Message
@@ -252,11 +252,7 @@ exports[`renders correctly after data has loaded 1`] = `
 }
 
 .emotion-38 {
-  position: relative;
-  top: 100%;
-  -webkit-transform: translateY(-127px);
-  -ms-transform: translateY(-127px);
-  transform: translateY(-127px);
+  margin-top: 10px;
 }
 
 .emotion-39 {
@@ -949,11 +945,7 @@ exports[`renders correctly before data has loaded 1`] = `
 }
 
 .emotion-46 {
-  position: relative;
-  top: 100%;
-  -webkit-transform: translateY(-127px);
-  -ms-transform: translateY(-127px);
-  transform: translateY(-127px);
+  margin-top: 10px;
 }
 
 .emotion-47 {
@@ -1757,11 +1749,7 @@ exports[`renders correctly from a predefined message 1`] = `
 }
 
 .emotion-46 {
-  position: relative;
-  top: 100%;
-  -webkit-transform: translateY(-127px);
-  -ms-transform: translateY(-127px);
-  transform: translateY(-127px);
+  margin-top: 10px;
 }
 
 .emotion-47 {
