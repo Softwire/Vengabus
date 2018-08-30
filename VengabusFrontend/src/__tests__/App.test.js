@@ -385,8 +385,7 @@ it('passes smoke tests without crashing', () => {
     }).then(() => {
         //message row
         wrapper.update();
-        const messageList = wrapper.find('#MessageTable');
-        console.log(messageList.debug());
+        const messageList = wrapper.find('#MessageTable').first();
         messageList.instance().handleMessageClick(blankEventObj, {
             predefinedProperties: { messageId: "test1" },
             customProperties: { "skjdfhksdjf": "skdjhds" },
