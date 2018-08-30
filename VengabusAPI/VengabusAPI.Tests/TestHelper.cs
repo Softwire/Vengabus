@@ -23,7 +23,7 @@ namespace VengabusAPI.Tests
             var factory = CreateEndpointFactory();
             var queueClient = factory.CreateQueueClient(queueName);
             Random rnd = new Random();
-            var guid = rnd.Next(12345678).ToString();
+            var guid = "Deadletter test" + rnd.Next(10000000);
             for (int i = 0; i < messageCount; i++)
             {
                 var brokeredMessage = new BrokeredMessage("This is a test message ");
@@ -36,7 +36,7 @@ namespace VengabusAPI.Tests
                 var message = queueClient.Receive();
                 if (message.MessageId != guid)
                 {
-                    throw new Exception("Error: deadlettering ")
+                    throw new Exception("Error: unexpected messages received for deadlettering. Aborted.");
                 }
                 message.DeadLetter();
             }
@@ -48,15 +48,22 @@ namespace VengabusAPI.Tests
             var topicClient = factory.CreateTopicClient(topicName);
             var subscriptionClient = factory.CreateSubscriptionClient(topicName, subscriptionName);
 
-            string msg = "This is a test message";
+            Random rnd = new Random();
+            var guid = "Deadletter test" + rnd.Next(10000000);
             for (int i = 0; i < messageCount; i++)
             {
-                topicClient.Send(new BrokeredMessage(msg));
+                var brokeredMessage = new BrokeredMessage("This is a test message ");
+                brokeredMessage.MessageId = guid;
+                topicClient.Send(brokeredMessage);
             }
 
             for (int i = 0; i < messageCount; i++)
             {
                 var message = subscriptionClient.Receive();
+                if (message.MessageId != guid)
+                {
+                    throw new Exception("Error: unexpected messages received for deadlettering. Aborted.");
+                }
                 message.DeadLetter();
             }
         }
