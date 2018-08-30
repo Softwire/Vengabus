@@ -225,6 +225,7 @@ exports[`renders correctly after data is added 1`] = `
                     "height": "92px",
                     "minHeight": "92px",
                   },
+                  "search": true,
                   "width": 23,
                 },
                 Object {
@@ -346,6 +347,7 @@ exports[`renders correctly after data is added 1`] = `
                     "height": "92px",
                     "minHeight": "92px",
                   },
+                  "search": true,
                   "width": 31,
                 },
                 Object {

@@ -55,13 +55,21 @@ export class MessageList extends Component {
                 dataField: 'predefinedProperties.messageId',
                 text: 'Message Id',
                 width: 33,
-                headerStyle: this.props.headerStyle
+                headerStyle: this.props.headerStyle,
+                search: function (row) {
+                    let searchString = row.predefinedProperties.messageId;
+                    if (typeof searchString !== "string") {
+                        searchString = searchString.toString();
+                    }
+                    return searchString;
+                }
             },
             {
                 dataField: 'messageBodyPreview',
                 text: 'Message Body',
                 width: 33,
-                headerStyle: this.props.headerStyle
+                headerStyle: this.props.headerStyle,
+                search: true
             },
             {
                 dataField: 'timestamp',

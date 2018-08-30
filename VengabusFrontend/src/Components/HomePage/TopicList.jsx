@@ -18,7 +18,8 @@ export class TopicList extends Component {
             {
                 dataField: 'name',
                 width: 31,
-                headerStyle: this.props.headerStyle
+                headerStyle: this.props.headerStyle,
+                search: true
             },
             {
                 dataField: 'subscriptionCount',
