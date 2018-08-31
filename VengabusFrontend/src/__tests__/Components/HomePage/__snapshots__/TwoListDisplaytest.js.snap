@@ -277,6 +277,32 @@ exports[`renders correctly after data is added 1`] = `
             }
             uniqueKeyColumn="name"
           >
+            <FormGroup
+              bsClass="form-group"
+              controlId="searchBar"
+            >
+              <div
+                className="form-group"
+              >
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="input"
+                  onChange={[Function]}
+                  placeholder="Search"
+                  type="input"
+                  value=""
+                >
+                  <input
+                    className="form-control"
+                    id="searchBar"
+                    onChange={[Function]}
+                    placeholder="Search"
+                    type="input"
+                    value=""
+                  />
+                </FormControl>
+              </div>
+            </FormGroup>
             <Spinner
               id="spinner"
               size={50}
@@ -410,6 +436,32 @@ exports[`renders correctly after data is added 1`] = `
             }
             uniqueKeyColumn="name"
           >
+            <FormGroup
+              bsClass="form-group"
+              controlId="searchBar"
+            >
+              <div
+                className="form-group"
+              >
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="input"
+                  onChange={[Function]}
+                  placeholder="Search"
+                  type="input"
+                  value=""
+                >
+                  <input
+                    className="form-control"
+                    id="searchBar"
+                    onChange={[Function]}
+                    placeholder="Search"
+                    type="input"
+                    value=""
+                  />
+                </FormControl>
+              </div>
+            </FormGroup>
             <Spinner
               id="spinner"
               size={50}
@@ -651,6 +703,18 @@ exports[`renders correctly before data is added 1`] = `
         </h2>
       </div>
       <div
+        className="form-group"
+      >
+        <input
+          className="form-control"
+          id="searchBar"
+          onChange={[Function]}
+          placeholder="Search"
+          type="input"
+          value=""
+        />
+      </div>
+      <div
         className="emotion-8"
       >
         <div
@@ -686,6 +750,18 @@ exports[`renders correctly before data is added 1`] = `
         >
           Topics
         </h2>
+      </div>
+      <div
+        className="form-group"
+      >
+        <input
+          className="form-control"
+          id="searchBar"
+          onChange={[Function]}
+          placeholder="Search"
+          type="input"
+          value=""
+        />
       </div>
       <div
         className="emotion-8"

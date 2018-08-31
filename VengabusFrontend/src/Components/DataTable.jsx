@@ -287,7 +287,51 @@ export class DataTable extends Component {
         return false;
     }
 
-    render() {
+    getSearchBar = () => {
+        return (
+            <FormGroup controlId="searchBar">
+                <FormControl
+                    type="input"
+                    value={this.state.searchValue}
+                    placeholder="Search"
+                    onChange={this.handleSearchBarChange}
+                />
+            </FormGroup>
+        );
+
+    }
+
+    getSimpleReturnIfAppropriate = () => {
+        const textAlign = css`
+            text-align:center;
+            float:left;
+            width:100%;
+        `;
+
+        let simpleReturn;
+        if (this.props.dataToDisplay === undefined) {
+            simpleReturn = <Spinner id="spinner" size={50} />;
+        } else if (this.props.dataToDisplay === null) {
+            simpleReturn = <p id="connect-text" className={textAlign}>Press "Connect" to load data.</p>;
+        } else if (this.props.dataToDisplay.length === 0) {
+            simpleReturn = <p id="no-data-text" className={textAlign}>No data to show.</p>;
+        }
+
+        if (simpleReturn) {
+            return (
+                <React.Fragment>
+                    {this.getSearchBar()}
+                    {simpleReturn}
+                </React.Fragment>
+            );
+        } else {
+            return false;
+        }
+     }
+
+
+
+    getFullDataTableReturn() {
         //Originally, we are actually changing props in rendering. This doesn't matter without the search function,
         //as the dataTable will only be rendered once anyway. However, with searching now, we'll try to re-render
         //as we type the search string. It's then really important to use the original props instead of 
@@ -298,30 +342,7 @@ export class DataTable extends Component {
         //let { dataToDisplay, name, uniqueKeyColumn, colProps, rowEvents, onRowClick, selectRow, rowClasses, defaultHover, searchable, ...otherProps } = this.propsSnapshot ? JSON.parse(this.propsSnapshot) : this.props;
         //this.propsSnapshot = JSON.stringify(this.props);
 
-        const textAlign = css`
-            text-align:center;
-            float:left;
-            width:100%;
-        `;
-
-        if (this.props.dataToDisplay === undefined) {
-            return (
-                <Spinner id="spinner" size={50} />
-            );
-        }
-
-        if (this.props.dataToDisplay === null) {
-            return (
-                <p id="connect-text" className={textAlign}>Press "Connect" to load data.</p>
-            );
-        }
-
-        if (this.props.dataToDisplay.length === 0) {
-            return (
-                <p id="no-data-text" className={textAlign}>No data to show.</p>
-            );
-        }
-
+      
         //deep clone and remove common references in props.
         this.cloneProps = deepDereferenceClone(this.props);
 
@@ -345,21 +366,7 @@ export class DataTable extends Component {
             finalSelectRow = this.validateAndConfigureSelectRow(selectRow, keyColumnIndex);
             finalRowClasses = this.configureRowClasses(defaultHover, rowClasses, finalRowEvents, finalSelectRow);
         }
-
-        let searchBar = searchable ? (
-            <FormGroup
-                controlId="searchBar"
-            >
-                <FormControl
-                    type="input"
-                    value={this.state.searchValue}
-                    placeholder="Search"
-                    onChange={this.handleSearchBarChange}
-                />
-            </FormGroup>
-        ) : null;
-
-        let tablePaginator;
+         let tablePaginator;
 
         if (pagination === true) {
             tablePaginator = paginationFactory();
@@ -374,7 +381,7 @@ export class DataTable extends Component {
 
         return (
             <React.Fragment>
-                {searchBar}
+                {searchable ? this.getSearchBar() : null}     
                 < BootstrapTable
                     data={searchable ? dataToDisplay.filter((row) => this.filterData(row, colProps)) : dataToDisplay}
                     keyField={colProps[keyColumnIndex].dataField}
@@ -383,10 +390,10 @@ export class DataTable extends Component {
                     selectRow={finalSelectRow}
                     rowClasses={finalRowClasses}
                     wrapperClasses={css`
-			          table.table :not(thead) tr:hover {
-			              border: 1px solid ${palerBlue};
-			              background-color: ${paleGreyBlue};
-			          }`}
+                    table.table :not(thead) tr:hover {
+                        border: 1px solid ${palerBlue};
+                        background-color: ${paleGreyBlue};
+                    }`}
                     {...otherProps}
                     striped
                     id="Data"
@@ -394,5 +401,10 @@ export class DataTable extends Component {
                 />
             </React.Fragment>
         );
+    }
+                
+
+    render() {
+        return this.getSimpleReturnIfAppropriate() || this.getFullDataTableReturn();
     }
 }
