@@ -9,7 +9,7 @@ import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { cancellablePromiseCollection } from '../../Helpers/CancellablePromiseCollection';
 import { sharedSizesAndDimensions, zIndices } from '../../Helpers/SharedSizesAndDimensions';
 import _ from 'lodash';
-import { UploadMessagesToEndpointButton } from '../../Components/UploadMessagesToEndpointButton';
+import { UploadMessageFileButton } from '../../Components/UploadMessageFileButton';
 
 /** 
  * @property {Object} message Can take a message as a prop to replay message.
@@ -88,8 +88,8 @@ export class MessageInput extends Component {
 
     replayMessageFromFile = (fileReadMessagePromise) => {
         const messagePromise = this.promiseCollection.addNewPromise(fileReadMessagePromise);
-        messagePromise.then(messageObject => {
-            this.setMessageDetails(messageObject,this.permittedValues, this.reservedPropertyNames);
+        messagePromise.then(messageObjects => {
+            this.setMessageDetails(messageObjects[0],this.permittedValues, this.reservedPropertyNames);
         });
     }
 
@@ -327,10 +327,9 @@ export class MessageInput extends Component {
             <React.Fragment>
                 <p>Upload Message from File</p>
 
-                <UploadMessagesToEndpointButton
-                    ready={this.state.arePreDefinedPropsLoaded}
-                    replayMessage={this.replayMessageFromFile}
-                    isASingleFile="true"
+                <UploadMessageFileButton
+                    disabled={!this.state.arePreDefinedPropsLoaded}
+                    onUpload={this.replayMessageFromFile}
                     text="Upload message from file"
                 />
             </React.Fragment>

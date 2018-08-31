@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Button, ProgressBar } from 'react-bootstrap';
+import { ProgressBar } from 'react-bootstrap';
 import { EndpointTypes } from '../Helpers/EndpointTypes';
-import { parseUploadedMessage } from '../Helpers/FormattingHelpers';
 import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
-import { FormControl, ControlLabel } from 'react-bootstrap';
+import { UploadMessageFileButton } from './UploadMessageFileButton';
 
 
 export class UploadMessagesToEndpointButton extends Component {
@@ -39,12 +38,17 @@ export class UploadMessagesToEndpointButton extends Component {
         }
     }
 
-    handleClick = (file) => {
-        if (this.props.isASingleFile) {
-            this.props.replayMessage(this.fileToObject(file).then(data => parseUploadedMessage(data[0])));
-        } else {
-            this.fileToObject(file).then(data => this.sendArray(data));
-        }
+    sendAllMessages = (messagesLoadedPromise) => {
+        messagesLoadedPromise.then(apiMessages => {
+            this.setState({
+                uploading: true,
+                totalToSend: apiMessages.length + this.state.totalToSend
+            }, () => {
+                apiMessages.forEach(apiMessage => {
+                    this.sendMessage(apiMessage);
+                });
+            });
+        });
     }
 
     fileToObject = (file) => {
@@ -60,30 +64,12 @@ export class UploadMessagesToEndpointButton extends Component {
         });
     }
 
-    sendArray = (data) => {
-        this.setState({
-            uploading: true,
-            totalToSend: data.length + this.state.totalToSend
-        }, () => {
-            data.forEach(element => {
-                this.sendMessage(parseUploadedMessage(element));
-            });
-        });
-    }
-
-
     render() {
-
-        const button = this.props.ready ? (
-            <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}><h3><div className=" btn btn-default">{this.props.text}</div></h3>
-                <FormControl
-                    id="fileUpload"
-                    type="file"
-                    onChange={(event) => this.handleClick(event.target.files)}
-                    style={{ display: "none" }}
-                />
-            </ControlLabel>
-        ) : (<Button disabled >{this.props.text}</Button>);
+        const button = (<UploadMessageFileButton
+            disabled={false}
+            onUpload={this.sendAllMessages}
+            text={this.props.text}
+        />);
 
         const loaded = 100 * (this.state.totalSent / this.state.totalToSend);
         
@@ -93,7 +79,7 @@ export class UploadMessagesToEndpointButton extends Component {
 
         let message;
         if (loaded === 100) { 
-            message = <p> Upload complete </p>;
+            message = <p>Upload complete</p>;
         }
         return (
             <div>

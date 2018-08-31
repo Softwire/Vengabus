@@ -100,16 +100,14 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                     <p>
                         Upload Message from File
                     </p>
-                    <div>
-                        <label style=\\"cursor: pointer;\\" for=\\"fileUpload\\" class=\\"control-label\\">
-                            <h3>
-                                <div class=\\" btn btn-default\\">
-                                    Upload message from file
-                                </div>
-                            </h3>
-                            <input style=\\"display: none;\\" type=\\"file\\" id=\\"fileUpload\\" class=\\"\\">
-                            </input>
-                        </label>
+                    <label style=\\"cursor: pointer;\\" for=\\"fileUpload\\" class=\\"control-label\\">
+                        <h3>
+                            <div class=\\" btn btn-default\\">
+                                Upload message from file
+                            </div>
+                        </h3>
+                        <input style=\\"display: none;\\" type=\\"file\\" id=\\"fileUpload\\" class=\\"\\">
+                        </input>
                         <hr class=\\"css-1m1gf12\\">
                             <div class=\\"css-mxbhzi\\">
                                 <p class=\\"css-wni10w\\">
@@ -210,7 +208,7 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                                 </div>
                             </hr>
                         </hr>
-                    </div>
+                    </label>
                 </div>
             </div>
         </div>
@@ -803,36 +801,34 @@ exports[`renders correctly after data has loaded 1`] = `
   <p>
     Upload Message from File
   </p>
-  <div>
-    <label
-      className="control-label"
-      htmlFor="fileUpload"
+  <label
+    className="control-label"
+    htmlFor="fileUpload"
+    style={
+      Object {
+        "cursor": "pointer",
+      }
+    }
+  >
+    <h3>
+      <div
+        className=" btn btn-default"
+      >
+        Upload message from file
+      </div>
+    </h3>
+    <input
+      className=""
+      id="fileUpload"
+      onChange={[Function]}
       style={
         Object {
-          "cursor": "pointer",
+          "display": "none",
         }
       }
-    >
-      <h3>
-        <div
-          className=" btn btn-default"
-        >
-          Upload message from file
-        </div>
-      </h3>
-      <input
-        className=""
-        id="fileUpload"
-        onChange={[Function]}
-        style={
-          Object {
-            "display": "none",
-          }
-        }
-        type="file"
-      />
-    </label>
-  </div>
+      type="file"
+    />
+  </label>
   <hr
     className="emotion-17"
   />
@@ -1609,15 +1605,13 @@ exports[`renders correctly before data has loaded 1`] = `
   <p>
     Upload Message from File
   </p>
-  <div>
-    <button
-      className="btn btn-default"
-      disabled={true}
-      type="button"
-    >
-      Upload message from file
-    </button>
-  </div>
+  <button
+    className="btn btn-default"
+    disabled={true}
+    type="button"
+  >
+    Upload message from file
+  </button>
   <hr
     className="emotion-21"
   />
@@ -2432,15 +2426,13 @@ exports[`renders correctly from a predefined message 1`] = `
   <p>
     Upload Message from File
   </p>
-  <div>
-    <button
-      className="btn btn-default"
-      disabled={true}
-      type="button"
-    >
-      Upload message from file
-    </button>
-  </div>
+  <button
+    className="btn btn-default"
+    disabled={true}
+    type="button"
+  >
+    Upload message from file
+  </button>
   <hr
     className="emotion-21"
   />
