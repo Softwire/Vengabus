@@ -216,7 +216,7 @@ export class VengaServiceBusService {
         return this.axiosWithSAS.delete(url);
     }
 
-    deleteQueueSingleDeadLetterMessage = (queueName, messageId, uniqueId) => {
+    deleteQueueSingleDeadletterMessage = (queueName, messageId, uniqueId) => {
         const messageIdEncoded = encodeURIComponent(messageId);
         const url = this.apiRoot + `queues/${queueName}/deadletters/${uniqueId}?messageId=${messageIdEncoded}`;
         return this.axiosWithSAS.delete(url);
@@ -254,7 +254,7 @@ export class VengaServiceBusService {
         return this.axiosWithSAS.delete(url);
     }
 
-    deleteSubscriptionSingleDeadLetterMessage = (topicName, subscriptionName, messageId, uniqueId) => {
+    deleteSubscriptionSingleDeadletterMessage = (topicName, subscriptionName, messageId, uniqueId) => {
         const messageIdEncoded = encodeURIComponent(messageId);
         const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/deadletters/${uniqueId}?messageId=${messageIdEncoded}`;
         return this.axiosWithSAS.delete(url);
@@ -279,7 +279,7 @@ export class VengaServiceBusService {
     }
 
 
-    listQueueDeadLetterMessages = (queueName, messageCount) => {
+    listQueueDeadletterMessages = (queueName, messageCount) => {
         let queryString = "";
         if (messageCount) {
             queryString = "/?messageCount=" + messageCount;
@@ -288,7 +288,7 @@ export class VengaServiceBusService {
         return this.axiosWithSAS.get(url);
     }
 
-    listSubscriptionDeadLetterMessages = (topicName, subscriptionName, messageCount) => {
+    listSubscriptionDeadletterMessages = (topicName, subscriptionName, messageCount) => {
         let queryString = "";
         if (messageCount) {
             queryString = "/?messageCount=" + messageCount;

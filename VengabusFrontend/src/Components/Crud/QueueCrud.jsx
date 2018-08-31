@@ -49,7 +49,7 @@ export class QueueCrud extends Component {
             'requiresSession',
             'enablePartitioning',
             'autoDeleteOnIdle',
-            'enableDeadLetteringOnMessageExpiration',
+            'enableDeadletteringOnMessageExpiration',
             'requiresDuplicateDetection',
             'maxDeliveryCount',
             'maxSizeInMegabytes',

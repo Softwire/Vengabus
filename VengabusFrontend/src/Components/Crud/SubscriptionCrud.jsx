@@ -23,7 +23,7 @@ export class SubscriptionCrud extends Component {
         this.serviceBusService = serviceBusConnection.getServiceBusService();
         this.serviceBusService.getSubscriptionMostRecentDeadletter(this.state.parentTopic, this.state.selectedSubscription).then(result => {
             result = formatTimeStamp(result);
-            this.setState({ mostRecentDeadLetter: result });
+            this.setState({ mostRecentDeadletter: result });
         });
         this.serviceBusService.getSubscriptionDetails(this.state.parentTopic, this.state.selectedSubscription).then((result) => {
             result.autoDeleteOnIdle = parseTimeSpanFromBackend(result.autoDeleteOnIdle);
@@ -49,7 +49,7 @@ export class SubscriptionCrud extends Component {
         const editableProperties = [
             'requiresSession',
             'autoDeleteOnIdle',
-            'enableDeadLetteringOnMessageExpiration',
+            'enableDeadletteringOnMessageExpiration',
             'maxDeliveryCount',
             'subscriptionStatus'
         ];

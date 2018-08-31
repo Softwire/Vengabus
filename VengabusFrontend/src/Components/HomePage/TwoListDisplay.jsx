@@ -69,9 +69,9 @@ export class TwoListDisplay extends Component {
         });
     }
 
-    handleMessageTabChange = (isNewTypeDeadLetter) => {
+    handleMessageTabChange = (isNewTypeDeadletter) => {
         this.setState({
-            rightTableType: isNewTypeDeadLetter ? EndpointTypes.DEADLETTER : EndpointTypes.MESSAGE
+            rightTableType: isNewTypeDeadletter ? EndpointTypes.DEADLETTER : EndpointTypes.MESSAGE
         });
     }
 
@@ -81,19 +81,19 @@ export class TwoListDisplay extends Component {
         const fetchedQueueData = this.promiseCollection.addNewPromise(serviceBusService.listQueues(), EndpointTypes.QUEUE);
         fetchedQueueData.then((result) => {
             this.setState({
-                queueData: result.map((item) => ({ ...item, mostRecentDeadLetter: null }))
+                queueData: result.map((item) => ({ ...item, mostRecentDeadletter: null }))
             });
             for (let i = 0; i < result.length; i++) {
                 const getMostRecentDLPromise = this.promiseCollection.addNewPromise(serviceBusService.getQueueMostRecentDeadletter(result[i].name), EndpointTypes.QUEUE);
                 this.setState(function (prevState, props) {
-                    prevState.queueData[i].mostRecentDeadLetter = 'Loading';//qq use spinner later
-                    prevState.queueData[i].mostRecentDeadLetterLoaded = false;
+                    prevState.queueData[i].mostRecentDeadletter = 'Loading';//qq use spinner later
+                    prevState.queueData[i].mostRecentDeadletterLoaded = false;
                     return prevState;
                 });
                 getMostRecentDLPromise.then((timeStamp) => {
                     this.setState(function (prevState, props) {
-                        prevState.queueData[i].mostRecentDeadLetter = timeStamp;
-                        prevState.queueData[i].mostRecentDeadLetterLoaded = true;
+                        prevState.queueData[i].mostRecentDeadletter = timeStamp;
+                        prevState.queueData[i].mostRecentDeadletterLoaded = true;
                         return prevState;
                     });
                 }).catch((e) => { });
@@ -130,8 +130,8 @@ export class TwoListDisplay extends Component {
                 const getMostRecentDLPromise = this.promiseCollection.addNewPromise(serviceBusService.getSubscriptionMostRecentDeadletter(topicName, result[i].name), EndpointTypes.SUBSCRIPTION);
                 getMostRecentDLPromise.then((timeStamp) => {
                     this.setState(function (prevState, props) {
-                        prevState.subscriptionData[i].mostRecentDeadLetter = timeStamp;
-                        prevState.subscriptionData[i].mostRecentDeadLetterLoaded = true;
+                        prevState.subscriptionData[i].mostRecentDeadletter = timeStamp;
+                        prevState.subscriptionData[i].mostRecentDeadletterLoaded = true;
                         return prevState;
                     });
                 }).catch((e) => { });
@@ -152,12 +152,12 @@ export class TwoListDisplay extends Component {
 
         if (leftTableType === EndpointTypes.QUEUE || typeof leftTableType === 'undefined') {
             const queueName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
-            fetchedDeadletterMessageData = serviceBusService.listQueueDeadLetterMessages(queueName, messageCount);
+            fetchedDeadletterMessageData = serviceBusService.listQueueDeadletterMessages(queueName, messageCount);
             fetchedMessageData = serviceBusService.listQueueMessages(queueName, messageCount);
         } else {
             const topicName = this.breadCrumbHistory[this.breadCrumbHistory.length - 2].name;
             const subscriptionName = this.breadCrumbHistory[this.breadCrumbHistory.length - 1].name;
-            fetchedDeadletterMessageData = serviceBusService.listSubscriptionDeadLetterMessages(topicName, subscriptionName, messageCount);
+            fetchedDeadletterMessageData = serviceBusService.listSubscriptionDeadletterMessages(topicName, subscriptionName, messageCount);
             fetchedMessageData = serviceBusService.listSubscriptionMessages(topicName, subscriptionName, messageCount);
         }
 

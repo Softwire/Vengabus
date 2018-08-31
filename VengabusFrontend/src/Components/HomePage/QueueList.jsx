@@ -15,8 +15,8 @@ export class QueueList extends Component {
                 //needs to be cloned
                 queueArray.push({ ...originalQueueProps[i] });
                 const currentMessageArray = queueArray[i];
-                if (currentMessageArray.mostRecentDeadLetter && currentMessageArray.mostRecentDeadLetterLoaded) {
-                    currentMessageArray.mostRecentDeadLetter = formatTimeStamp(currentMessageArray.mostRecentDeadLetter);
+                if (currentMessageArray.mostRecentDeadletter && currentMessageArray.mostRecentDeadletterLoaded) {
+                    currentMessageArray.mostRecentDeadletter = formatTimeStamp(currentMessageArray.mostRecentDeadletter);
                 }
             }
         }
@@ -41,7 +41,7 @@ export class QueueList extends Component {
                 headerStyle: this.props.headerStyle
             },
             {
-                dataField: 'mostRecentDeadLetter',
+                dataField: 'mostRecentDeadletter',
                 width: 23
             },
             {

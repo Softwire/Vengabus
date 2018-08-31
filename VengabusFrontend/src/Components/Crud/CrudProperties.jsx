@@ -39,7 +39,7 @@ export class CrudProperties extends Component {
                 `The idle time span after which the ${this.props.endpointType} is automatically deleted. The minimum duration is 5 minutes.`,
             maxDeliveryCount:
                 'A message is automatically deadlettered after this number of deliveries.',
-            enableDeadLetteringOnMessageExpiration:
+            enableDeadletteringOnMessageExpiration:
                 `Sets whether this ${this.props.endpointType} has dead letter support when a message expires.`
         };
     }

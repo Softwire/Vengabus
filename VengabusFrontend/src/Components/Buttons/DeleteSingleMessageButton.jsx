@@ -37,10 +37,10 @@ class DeleteSingleMessageButton extends React.Component {
         } else {
             switch (this.props.endpointType) {
                 case EndpointTypes.QUEUE:
-                    deleteMessage = () => this.vengaServiceBusService.deleteQueueSingleDeadLetterMessage(this.props.endpointName, this.props.messageId, this.props.uniqueId);
+                    deleteMessage = () => this.vengaServiceBusService.deleteQueueSingleDeadletterMessage(this.props.endpointName, this.props.messageId, this.props.uniqueId);
                     break;
                 case EndpointTypes.SUBSCRIPTION:
-                    deleteMessage = () => this.vengaServiceBusService.deleteSubscriptionSingleDeadLetterMessage(this.props.parentName, this.props.endpointName, this.props.messageId, this.props.uniqueId);
+                    deleteMessage = () => this.vengaServiceBusService.deleteSubscriptionSingleDeadletterMessage(this.props.parentName, this.props.endpointName, this.props.messageId, this.props.uniqueId);
                     break;
                 default: throw Error("Invalid endpoint type!");
             }

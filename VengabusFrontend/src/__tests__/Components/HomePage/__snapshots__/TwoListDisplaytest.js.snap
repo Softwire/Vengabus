@@ -239,7 +239,7 @@ exports[`renders correctly after data is added 1`] = `
                   "width": 46,
                 },
                 Object {
-                  "dataField": "mostRecentDeadLetter",
+                  "dataField": "mostRecentDeadletter",
                   "width": 23,
                 },
                 Object {

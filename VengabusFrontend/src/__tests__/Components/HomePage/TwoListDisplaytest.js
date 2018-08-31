@@ -80,7 +80,7 @@ jest.mock('../../../AzureWrappers/VengaServiceBusService', () => ({
             ) : Promise.reject();
         }
 
-        listQueueDeadLetterMessages = (queueName) => {
+        listQueueDeadletterMessages = (queueName) => {
             return (queueName === "testQueue1") ? Promise.resolve(
                 [
                     {
@@ -150,7 +150,7 @@ jest.mock('../../../AzureWrappers/VengaServiceBusService', () => ({
                 ]);
         }
 
-        listSubscriptionDeadLetterMessages = () => {
+        listSubscriptionDeadletterMessages = () => {
             return Promise.resolve(
                 [
                     {

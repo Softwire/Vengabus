@@ -59,7 +59,7 @@ Array [
                           }
                     }
                 >
-                    Most Recent Dead Letter
+                    Most Recent Deadletter
                 </th>
                 <th
                     style={

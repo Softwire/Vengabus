@@ -149,7 +149,7 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
             });
         }
 
-        listQueueDeadLetterMessages = (queueName) => {
+        listQueueDeadletterMessages = (queueName) => {
             return (queueName === "testQueue1") ? Promise.resolve(
                 [
                     {
@@ -199,7 +199,7 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
             });
         }
 
-        listSubscriptionDeadLetterMessages = () => {
+        listSubscriptionDeadletterMessages = () => {
             return Promise.resolve(
                 [
                     {
@@ -248,7 +248,7 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
         }
 
 
-        listQueueDeadLetterMessages = (queueName, messageCount) => {
+        listQueueDeadletterMessages = (queueName, messageCount) => {
             return new Promise(function (resolve, reject) {
                 resolve([
                     {
@@ -274,7 +274,7 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
             });
         }
 
-        listSubscriptionDeadLetterMessages = (topicName, subscriptionName, messageCount) => {
+        listSubscriptionDeadletterMessages = (topicName, subscriptionName, messageCount) => {
             return new Promise(function (resolve, reject) {
                 resolve([
                     {

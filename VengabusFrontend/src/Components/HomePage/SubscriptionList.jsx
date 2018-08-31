@@ -15,8 +15,8 @@ export class SubscriptionList extends Component {
                 //needs to be cloned
                 subscriptionArray.push({ ...originalSubscriptionProps[i] });
                 const currentMessageArray = subscriptionArray[i];
-                if (currentMessageArray.mostRecentDeadLetter && currentMessageArray.mostRecentDeadLetterLoaded) {
-                    currentMessageArray.mostRecentDeadLetter = formatTimeStamp(currentMessageArray.mostRecentDeadLetter);
+                if (currentMessageArray.mostRecentDeadletter && currentMessageArray.mostRecentDeadletterLoaded) {
+                    currentMessageArray.mostRecentDeadletter = formatTimeStamp(currentMessageArray.mostRecentDeadletter);
                 }
             }
         }
@@ -40,7 +40,7 @@ export class SubscriptionList extends Component {
                 headerStyle: this.props.headerStyle
             },
             {
-                dataField: 'mostRecentDeadLetter',
+                dataField: 'mostRecentDeadletter',
                 width: 23
             },
             {

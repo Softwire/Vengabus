@@ -3,7 +3,7 @@ var EndpointTypes = Object.freeze({
     TOPIC: "topic",
     SUBSCRIPTION: "subscription",
     MESSAGE: "message",
-    DEADLETTER: "deadLetters"
+    DEADLETTER: "deadletters"
 });
 
 
