@@ -13,7 +13,7 @@ namespace VengabusAPI.Models
             subscriptionStatus = subscriptionFromAzure.Status;
             topicName = subscriptionFromAzure.TopicPath;
             autoDeleteOnIdle = subscriptionFromAzure.AutoDeleteOnIdle;
-            enableDeadLetteringOnMessageExpiration = subscriptionFromAzure.EnableDeadLetteringOnMessageExpiration;
+            enableDeadletteringOnMessageExpiration = subscriptionFromAzure.EnableDeadLetteringOnMessageExpiration;
             maxDeliveryCount = subscriptionFromAzure.MaxDeliveryCount;
             requiresSession = subscriptionFromAzure.RequiresSession;
         }
@@ -24,7 +24,7 @@ namespace VengabusAPI.Models
         public EntityStatus subscriptionStatus { get; set; }
         public string topicName { get; }
         public TimeSpan autoDeleteOnIdle { get; set; }
-        public bool enableDeadLetteringOnMessageExpiration { get; set; }
+        public bool enableDeadletteringOnMessageExpiration { get; set; }
         public int maxDeliveryCount { get; set; }
         public bool requiresSession { get; set; }
     }
@@ -34,11 +34,11 @@ namespace VengabusAPI.Models
         public string name { get; }
         public long activeMessageCount { get; }
         public long deadletterMessageCount { get; }
-        public DateTime? mostRecentDeadLetter { get; }
+        public DateTime? mostRecentDeadletter { get; }
         public EntityStatus subscriptionStatus { get; set; }
         public string topicName { get; }
         public TimeSpanFromFrontend autoDeleteOnIdle { get; set; }
-        public bool enableDeadLetteringOnMessageExpiration { get; set; }
+        public bool enableDeadletteringOnMessageExpiration { get; set; }
         public int maxDeliveryCount { get; set; }
         public bool requiresSession { get; set; }
 
@@ -46,7 +46,7 @@ namespace VengabusAPI.Models
         {
             existingDescription.Status = subscriptionStatus;
             existingDescription.AutoDeleteOnIdle = autoDeleteOnIdle.AsTimeSpan();
-            existingDescription.EnableDeadLetteringOnMessageExpiration = enableDeadLetteringOnMessageExpiration;
+            existingDescription.EnableDeadLetteringOnMessageExpiration = enableDeadletteringOnMessageExpiration;
             existingDescription.MaxDeliveryCount = maxDeliveryCount;
             existingDescription.RequiresSession = requiresSession;
         }

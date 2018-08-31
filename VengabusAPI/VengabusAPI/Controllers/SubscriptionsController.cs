@@ -37,9 +37,9 @@ namespace VengabusAPI.Controllers
         [Route("subscriptions/{parentTopicName}/{subscriptionName}/mostRecentDeadletter")]
         public DateTime? GetTimeStampOfMostRecentDeadletter(string parentTopicName, string subscriptionName)
         {
-            var endpoint = new SubscriptionDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), parentTopicName, subscriptionName);
-            var deadLetterList = MessageServices.GetMessagesFromEndpoint(endpoint);
-            var mostRecent = deadLetterList.OrderByDescending(x => x.EnqueuedTimeUtc).FirstOrDefault();
+            var endpoint = new SubscriptionDeadletterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), parentTopicName, subscriptionName);
+            var deadletterList = MessageServices.GetMessagesFromEndpoint(endpoint);
+            var mostRecent = deadletterList.OrderByDescending(x => x.EnqueuedTimeUtc).FirstOrDefault();
             return mostRecent?.EnqueuedTimeUtc;
         }
 

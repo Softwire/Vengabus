@@ -29,7 +29,7 @@
             int i = 0;
             foreach (var qd in queueList)
             {
-                Console.WriteLine(value: $"Queue name: {qd.Path}, Active message count: {qd.MessageCountDetails.ActiveMessageCount}, DeadLetter message count: {qd.MessageCountDetails.DeadLetterMessageCount}");
+                Console.WriteLine(value: $"Queue name: {qd.Path}, Active message count: {qd.MessageCountDetails.ActiveMessageCount}, Deadletter message count: {qd.MessageCountDetails.DeadLetterMessageCount}");
                 ActiveMessageCount[i] = qd.MessageCountDetails.ActiveMessageCount;
                 DeadLetterMessageCount[i] = qd.MessageCountDetails.DeadLetterMessageCount;
                 i++;
@@ -50,7 +50,7 @@
 
         static void CreateDeadLetterMessages(string queueName)
         {
-            Console.WriteLine("Creating DeadLetter Messages...");
+            Console.WriteLine("Creating Deadletter Messages...");
             var queueClient = QueueClient.CreateFromConnectionString(ServiceBusConnectionString, queueName);
             //send a random test message
             Random rnd = new Random();
@@ -63,10 +63,10 @@
             for (int i=0;i<10;i++)
             {
                 var message = queueClient.Receive();
-                message.DeadLetter();
+                message.Deadletter();
             }
 
-            Console.WriteLine("10 DeadLetter Messages Created! Press any key to continue...");
+            Console.WriteLine("10 Deadletter Messages Created! Press any key to continue...");
 
             Console.ReadKey();
         }
@@ -92,7 +92,7 @@
 
         static void DeleteDeadLetterQueueMessages(string queueName)
         {
-            Console.WriteLine("Trying to delete all messages in the DeadLetter queue...");
+            Console.WriteLine("Trying to delete all messages in the Deadletter queue...");
             var queueClientMain = QueueClient.CreateFromConnectionString(ServiceBusConnectionString, queueName);
             var deadLetterQueuePath = QueueClient.FormatDeadLetterPath(queueClientMain.Path);
 

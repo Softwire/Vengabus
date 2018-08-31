@@ -90,9 +90,9 @@ namespace VengabusAPI.Controllers
             return new QueueEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName);
         }
 
-        protected QueueDeadLetterEndpoint GetDeadLetterQueue(string queueName)
+        protected QueueDeadletterEndpoint GetDeadletterQueue(string queueName)
         {
-            return new QueueDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName);
+            return new QueueDeadletterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName);
         }
 
         protected TopicEndpoint GetTopic(string topicName)
@@ -105,9 +105,9 @@ namespace VengabusAPI.Controllers
             return new SubscriptionEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), topicParent, subscriptionName);
         }
 
-        protected SubscriptionDeadLetterEndpoint GetDeadLetterSubscription(string topicParent, string subscriptionName)
+        protected SubscriptionDeadletterEndpoint GetDeadletterSubscription(string topicParent, string subscriptionName)
         {
-            return new SubscriptionDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), topicParent, subscriptionName);
+            return new SubscriptionDeadletterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), topicParent, subscriptionName);
         }
     }
 }

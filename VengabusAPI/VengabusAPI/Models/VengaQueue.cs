@@ -16,7 +16,7 @@ namespace VengabusAPI.Models
             enablePartitioning = queueFromAzure.EnablePartitioning;
             requiresSession = queueFromAzure.RequiresSession;
             supportOrdering = queueFromAzure.SupportOrdering;
-            enableDeadLetteringOnMessageExpiration = queueFromAzure.EnableDeadLetteringOnMessageExpiration;
+            enableDeadletteringOnMessageExpiration = queueFromAzure.EnableDeadLetteringOnMessageExpiration;
             maxDeliveryCount = queueFromAzure.MaxDeliveryCount;
             maxSizeInMegabytes = queueFromAzure.MaxSizeInMegabytes;
             requiresDuplicateDetection = queueFromAzure.RequiresDuplicateDetection;
@@ -30,7 +30,7 @@ namespace VengabusAPI.Models
         public bool enablePartitioning { get; set; }
         public bool requiresSession { get; set; }
         public bool supportOrdering { get; set; }
-        public bool enableDeadLetteringOnMessageExpiration { get; set; }
+        public bool enableDeadletteringOnMessageExpiration { get; set; }
         public int maxDeliveryCount { get; set; }
         public long maxSizeInMegabytes { get; set; }
         public bool requiresDuplicateDetection { get; set; }
@@ -46,8 +46,8 @@ namespace VengabusAPI.Models
         public bool enablePartitioning { get; set; }
         public bool requiresSession { get; set; }
         public bool supportOrdering { get; set; }
-        public DateTime? mostRecentDeadLetter { get; }
-        public bool enableDeadLetteringOnMessageExpiration { get; set; }
+        public DateTime? mostRecentDeadletter { get; }
+        public bool enableDeadletteringOnMessageExpiration { get; set; }
         public int maxDeliveryCount { get; set; }
         public long maxSizeInMegabytes { get; set; }
         public bool requiresDuplicateDetection { get; set; }
@@ -59,7 +59,7 @@ namespace VengabusAPI.Models
             existingDescription.RequiresSession = requiresSession;
             existingDescription.EnablePartitioning = enablePartitioning;
             existingDescription.AutoDeleteOnIdle = autoDeleteOnIdle.AsTimeSpan();
-            existingDescription.EnableDeadLetteringOnMessageExpiration = enableDeadLetteringOnMessageExpiration;
+            existingDescription.EnableDeadLetteringOnMessageExpiration = enableDeadletteringOnMessageExpiration;
             existingDescription.MaxDeliveryCount = maxDeliveryCount;
             existingDescription.MaxSizeInMegabytes = maxSizeInMegabytes;
             existingDescription.RequiresDuplicateDetection = requiresDuplicateDetection;

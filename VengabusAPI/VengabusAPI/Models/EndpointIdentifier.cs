@@ -33,13 +33,13 @@ namespace VengabusAPI.Models
         public string Name { get; set; }
         public EndpointType Type { get; set; }
         public string ParentTopic { get; set; }
-        public EndpointIdentifier GetDeadLetterEndpoint()
+        public EndpointIdentifier GetDeadletterEndpoint()
         {
             switch (Type) {
                 case (EndpointType.Queue):
-                    return new EndpointIdentifier(Type, Name + "/$DeadLetterQueue");
+                    return new EndpointIdentifier(Type, Name + "/$DeadletterQueue");
                 case (EndpointType.Subscription):
-                    return new EndpointIdentifier(EndpointType.Subscription, Name+"/$DeadLetterQueue", ParentTopic);
+                    return new EndpointIdentifier(EndpointType.Subscription, Name+"/$DeadletterQueue", ParentTopic);
                 default:
                     throw new Exception("Topics do not have a dead letter");
             }

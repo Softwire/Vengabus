@@ -54,11 +54,11 @@ namespace VengabusAPI.Services
         }
     }
 
-    public class QueueDeadLetterEndpoint : QueueEndpoint
+    public class QueueDeadletterEndpoint : QueueEndpoint
     {
-        public QueueDeadLetterEndpoint(NamespaceManager namespaceManager, MessagingFactory clientFactory, string name) : base(namespaceManager, clientFactory, name)
+        public QueueDeadletterEndpoint(NamespaceManager namespaceManager, MessagingFactory clientFactory, string name) : base(namespaceManager, clientFactory, name)
         {
-            Client = clientFactory.CreateQueueClient(name + "/$DeadLetterQueue");
+            Client = clientFactory.CreateQueueClient(name + "/$DeadletterQueue");
         }
         public override long GetNumberOfMessages()
         {
@@ -144,11 +144,11 @@ namespace VengabusAPI.Services
         }
     }
 
-    public class SubscriptionDeadLetterEndpoint : SubscriptionEndpoint
+    public class SubscriptionDeadletterEndpoint : SubscriptionEndpoint
     {
-        public SubscriptionDeadLetterEndpoint(NamespaceManager namespaceManager, MessagingFactory clientFactory, string parentTopic, string name) : base(namespaceManager, clientFactory, parentTopic, name)
+        public SubscriptionDeadletterEndpoint(NamespaceManager namespaceManager, MessagingFactory clientFactory, string parentTopic, string name) : base(namespaceManager, clientFactory, parentTopic, name)
         {
-            Client = clientFactory.CreateSubscriptionClient(parentTopic, name + "/$DeadLetterQueue");
+            Client = clientFactory.CreateSubscriptionClient(parentTopic, name + "/$DeadletterQueue");
         }
         public override long GetNumberOfMessages()
         {

@@ -67,7 +67,7 @@ namespace VengabusAPI.Helpers
             {"To", (message) => { return message.To; } },
             {"ViaPartitionKey", (message) => { return message.ViaPartitionKey; } },
             //The properties below can only be get
-            {"DeadLetterSource", (message) => { return message.DeadLetterSource; } },
+            {"DeadletterSource", (message) => { return message.DeadLetterSource; } },
             {"DeliveryCount", (message) => { return message.DeliveryCount; } },
             {"EnqueuedSequenceNumber", (message) => { return message.EnqueuedSequenceNumber; } },
             {"EnqueuedTimeUtc", (message) => { return FormatDateTime(message.EnqueuedTimeUtc); } },

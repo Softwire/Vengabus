@@ -136,7 +136,7 @@
     <Compile Include="Models\VengaQueue.cs" />
     <Compile Include="Controllers\QueuesController.cs" />
     <Compile Include="Controllers\SampleAPI.cs" />
-    <Compile Include="Controllers\DeadLettersController.cs" />
+    <Compile Include="Controllers\DeadlettersController.cs" />
     <Compile Include="Controllers\SubscriptionsController.cs" />
     <Compile Include="Controllers\TopicsController.cs" />
     <Compile Include="Helpers\EndpointTypeEnum.cs" />

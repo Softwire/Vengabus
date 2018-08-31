@@ -6,6 +6,6 @@
         Topic,
         Subscription,
         Message,
-        DeadLetter
+        Deadletter
     }
 }

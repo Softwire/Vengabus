@@ -4,49 +4,49 @@ using VengabusAPI.Models;
 
 namespace VengabusAPI.Controllers
 {
-    public class DeadLettersController : MessagesController
+    public class DeadlettersController : MessagesController
     {
      
         [HttpGet]
         [Route("queues/{queueName}/deadletters")]
-        public IEnumerable<VengaMessage> ListDeadLetterMessagesInQueue(string queueName, int messageCount = int.MaxValue)
+        public IEnumerable<VengaMessage> ListDeadletterMessagesInQueue(string queueName, int messageCount = int.MaxValue)
         {
-            return GetMessagesFromEndpoint(GetDeadLetterQueue(queueName), messageCount);
+            return GetMessagesFromEndpoint(GetDeadletterQueue(queueName), messageCount);
         }
 
         [HttpGet]
         [Route("subscriptions/{topicName}/{subscriptionName}/deadletters")]
-        public IEnumerable<VengaMessage> ListDeadLetterMessagesInSubscription(string topicName, string subscriptionName, int messageCount = int.MaxValue)
+        public IEnumerable<VengaMessage> ListDeadletterMessagesInSubscription(string topicName, string subscriptionName, int messageCount = int.MaxValue)
         {
-            return GetMessagesFromEndpoint(GetDeadLetterSubscription(topicName, subscriptionName), messageCount);
+            return GetMessagesFromEndpoint(GetDeadletterSubscription(topicName, subscriptionName), messageCount);
         }
 
         [HttpDelete]
         [Route("queues/{queueName}/deadletters/{uniqueId}")]
-        public void DeleteSingleDeadLetterMessageInQueue(string queueName, string uniqueId, [FromUri]string messageId)
+        public void DeleteSingleDeadletterMessageInQueue(string queueName, string uniqueId, [FromUri]string messageId)
         {
-            DeleteSingleMessageFromEndpoint(GetDeadLetterQueue(queueName), messageId, uniqueId);
+            DeleteSingleMessageFromEndpoint(GetDeadletterQueue(queueName), messageId, uniqueId);
         }
 
         [HttpDelete]
         [Route("subscriptions/{topicName}/{subscriptionName}/deadletters/{uniqueId}")]
-        public void DeleteSingleDeadLetterMessageInSubscription(string topicName, string subscriptionName, string uniqueId, [FromUri]string messageId)
+        public void DeleteSingleDeadletterMessageInSubscription(string topicName, string subscriptionName, string uniqueId, [FromUri]string messageId)
         {
-            DeleteSingleMessageFromEndpoint(GetDeadLetterSubscription(topicName, subscriptionName), messageId, uniqueId);
+            DeleteSingleMessageFromEndpoint(GetDeadletterSubscription(topicName, subscriptionName), messageId, uniqueId);
         }
 
         [HttpDelete]
         [Route("queues/{queueName}/deadletters")]
         public void PurgeDeadletterMessagesInQueue(string queueName)
         {
-            PurgeMessagesFromEndpoint(GetDeadLetterQueue(queueName));
+            PurgeMessagesFromEndpoint(GetDeadletterQueue(queueName));
         }
 
         [HttpDelete]
         [Route("subscriptions/{topicName}/{subscriptionName}/deadletters")]
         public void PurgeDeadletterMessagesInSubscription(string topicName, string subscriptionName)
         {
-            PurgeMessagesFromEndpoint(GetDeadLetterSubscription(topicName, subscriptionName));
+            PurgeMessagesFromEndpoint(GetDeadletterSubscription(topicName, subscriptionName));
         }
 
         [HttpDelete]

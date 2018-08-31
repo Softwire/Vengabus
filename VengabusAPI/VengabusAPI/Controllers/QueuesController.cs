@@ -38,9 +38,9 @@ namespace VengabusAPI.Controllers
         [Route("queues/{queueName}/mostRecentDeadletter")]
         public DateTime? GetTimeStampOfMostRecentDeadletter(string queueName)
         {
-            var endpoint = new QueueDeadLetterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName);
-            var deadLetterList = MessageServices.GetMessagesFromEndpoint(endpoint);
-            var mostRecent = deadLetterList.OrderByDescending(x => x.EnqueuedTimeUtc).FirstOrDefault();
+            var endpoint = new QueueDeadletterEndpoint(CreateNamespaceManager(), CreateEndpointFactory(), queueName);
+            var deadletterList = MessageServices.GetMessagesFromEndpoint(endpoint);
+            var mostRecent = deadletterList.OrderByDescending(x => x.EnqueuedTimeUtc).FirstOrDefault();
             return mostRecent?.EnqueuedTimeUtc;
         }
 
