@@ -23,9 +23,6 @@ export class VengabusNavBar extends Component {
                             <NavItem id="navbarSendMessagePageButton" eventKey={PAGES.SendMessagePage} >
                                 Send Message
                             </NavItem>
-                            <NavItem id="navbarDemoPageButton" eventKey={PAGES.DemoPage} >
-                                DemoPage
-                            </NavItem>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>

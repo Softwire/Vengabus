@@ -418,10 +418,8 @@ it('passes smoke tests without crashing', () => {
     const connectButton = wrapper.find("#connectButton").last();
     const navbarHomePageButton = wrapper.find("#navbarHomePageButton").last();
     const navbarSendMessagePageButton = wrapper.find("#navbarSendMessagePageButton").last();
-    const navbarDemoPageButton = wrapper.find("#navbarDemoPageButton").last();
     expect(navbarHomePageButton).toExistOnPage();
     expect(navbarSendMessagePageButton).toExistOnPage();
-    expect(navbarDemoPageButton).toExistOnPage();
     expect(connectButton).toExistOnPage();
 
     /* TestPath:

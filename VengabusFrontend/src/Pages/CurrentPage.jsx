@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Alert } from 'react-bootstrap';
 import { PAGES, pageSwitcher } from './PageSwitcherService';
-import { DemoPage } from './DemoPage';
 import { HomePage } from './HomePage';
 import { SendMessagePage } from './SendMessagePage';
 import { CrudPage } from './CrudPage';
@@ -41,9 +40,6 @@ export class CurrentPage extends Component {
         switch (this.state.currentPage) {
             case PAGES.HomePage:
                 returnValue = <HomePage />;
-                break;
-            case PAGES.DemoPage:
-                returnValue = <DemoPage />;
                 break;
             case PAGES.SendMessagePage:
                 returnValue =
