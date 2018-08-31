@@ -54,7 +54,7 @@ export class MessageInput extends Component {
                 reservedPropertyNames: result[1],
                 arePreDefinedPropsLoaded: true
             });
-            this.identifyAndPopulateMessagePreDefinedProps(result[0], result[1]);
+            this.setMessageDetails(this.props.messageBody, result[0], result[1]);
         }).catch((e) => { if (!e.isCanceled) { console.log(e); } });
 
 
@@ -76,27 +76,20 @@ export class MessageInput extends Component {
         this.promiseCollection.cancelAllPromises();
     }
 
-    identifyAndPopulateMessagePreDefinedProps = (permittedValues, reservedValues) => {
-        if (!this.message) { return; }
-        const props = this.getPreDefinedProperties(this.message, permittedValues, reservedValues)
+    setMessageDetails = (messageObject, permittedValues, reservedValues) => {
+        if (!messageObject) { return; }
+        const props = this.getPreDefinedProperties(messageObject, permittedValues, reservedValues)
         this.setState({
-            preDefinedProperties: props //[{name: something, value: something}]
+            messageBody:  messageObject.messageBody,
+            userDefinedProperties: this.getUserDefinedProperties(messageObject),
+            preDefinedProperties: props 
         });
-    }
-
-    promisesForPropertyData = () => {
-       
     }
 
     replayMessageFromFile = (fileReadMessagePromise) => {
         const messagePromise = this.promiseCollection.addNewPromise(fileReadMessagePromise);
         messagePromise.then(messageObject => {
-            this.message = messageObject;
-            this.setState({
-                messageBody: messageObject ? messageObject.messageBody : '',
-                userDefinedProperties: messageObject ? this.getUserDefinedProperties(messageObject) : [], //[{name: something, value: something}]
-            });
-            this.identifyAndPopulateMessagePreDefinedProps(this.permittedValues, this.reservedPropertyNames);
+            this.setMessageDetails(messageObject,this.permittedValues, this.reservedPropertyNames);
         });
     }
 
@@ -260,6 +253,7 @@ export class MessageInput extends Component {
 
     /**
      * Sends the message to the selected queue/topic.
+     *  @returns {nothing} for the promice
      */
     submit = () => {
         const message = this.createMessageObject();
