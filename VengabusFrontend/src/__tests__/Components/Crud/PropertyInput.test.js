@@ -116,11 +116,12 @@ it('throws descriptive error for unexpected data types', () => {
     function func() {
         mount(
             <PropertyInput
+                propertyName={"functionProp"}
                 inputData={inputData}
                 text="object data"
                 onChange={() => { }}
             />
         );
     }
-    expect(func).toThrowError('unexpected data type : function');
+    expect(func).toThrowError("property 'functionProp' had an unsupported datatype: 'function'. Property value is: '() => {}'");
 });
