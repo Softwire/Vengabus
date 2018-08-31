@@ -5,6 +5,7 @@ import { FormControl, FormGroup, ButtonGroup } from 'react-bootstrap';
 import { css } from 'emotion';
 import { DownloadEndpointButton } from '../Buttons/DownloadEndpointButton';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
+import { UploadMessagesToEndpointButton } from '../UploadMessagesToEndpointButton';
 
 /**
  * @prop {string} endpointType The type of endpoint we are editing. Use EndpointTypes in Helpers.
@@ -37,6 +38,18 @@ export class CrudTitle extends Component {
                     parentTopic={this.props.parentTopic}
                     endpointType={this.props.endpointType}
                     endpointName={this.props.selectedEndpoint}
+                />);
+        }
+
+        let uploadButton;
+        if (this.props.endpointType === EndpointTypes.QUEUE || this.props.endpointType === EndpointTypes.TOPIC) {
+            uploadButton = (
+                <UploadMessagesToEndpointButton
+                    parentTopic={this.props.parentTopic}
+                    endpointType={this.props.endpointType}
+                    endpointName={this.props.selectedEndpoint}
+                    ready="true"
+                    text={"Upload file of messages to " + this.props.selectedEndpoint}
                 />);
         }
         return (
@@ -80,6 +93,7 @@ export class CrudTitle extends Component {
                     <PurgeMessagesButton id="purgeDeadletterMessages" messageType={EndpointTypes.DEADLETTER} type={this.props.endpointType} endpointName={this.props.selectedEndpoint} parentName={this.props.parentTopic} />
                     {downloadButton}
                 </ButtonGroup>
+                {uploadButton}
                 <hr className={hrStyle} />
             </div>
         );

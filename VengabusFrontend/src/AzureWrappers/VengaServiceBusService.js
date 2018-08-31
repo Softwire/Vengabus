@@ -177,6 +177,7 @@ export class VengaServiceBusService {
      *      "predefinedProperties": {},
      *      "messageBody": "string"
      * }
+     * @return {nothing} used for promises
      */
     sendMessageToQueue = (queueName, message) => {
         const url = this.apiRoot + `queues/${queueName}/messages`;
@@ -193,6 +194,7 @@ export class VengaServiceBusService {
      *      "predefinedProperties": {},
      *      "messageBody": "string"
      * }
+     *  @return {nothing} used for promises
      */
     sendMessageToTopic = (topicName, message) => {
         const url = this.apiRoot + `topics/${topicName}/messages`;

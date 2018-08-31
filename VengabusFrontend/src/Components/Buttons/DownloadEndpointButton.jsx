@@ -30,7 +30,7 @@ export class DownloadEndpointButton extends Component {
             for (let i = 0; i < messages.length; i++) {
                 endpointDownload.push(formatMessageForDownload(messages[i]));
             }
-            download(jsonToString(endpointDownload), this.props.endpointName + ".json", "text / json");
+            download(jsonToString(endpointDownload), this.props.endpointName + ".json", "text/json");
         });
     }
 

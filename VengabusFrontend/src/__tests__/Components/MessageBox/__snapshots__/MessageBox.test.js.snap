@@ -226,7 +226,6 @@ exports[`MessageBox renders correctly with given props 1`] = `
           <span
             className="glyphicon glyphicon-save"
           />
-           
         </Button>
         <Button
           active={false}
