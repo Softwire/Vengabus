@@ -366,11 +366,7 @@ export class DataTable extends Component {
             finalSelectRow = this.validateAndConfigureSelectRow(selectRow, keyColumnIndex);
             finalRowClasses = this.configureRowClasses(defaultHover, rowClasses, finalRowEvents, finalSelectRow);
         }
-
-        return (
-            <React.Fragment>
-                {searchable ? this.getSearchBar() : null}     
-        let tablePaginator;
+         let tablePaginator;
 
         if (pagination === true) {
             tablePaginator = paginationFactory();
@@ -385,9 +381,7 @@ export class DataTable extends Component {
 
         return (
             <React.Fragment>
-                {searchBar}
-        if (!toReturn) {
-            toReturn = 
+                {searchable ? this.getSearchBar() : null}     
                 < BootstrapTable
                     data={searchable ? dataToDisplay.filter((row) => this.filterData(row, colProps)) : dataToDisplay}
                     keyField={colProps[keyColumnIndex].dataField}
@@ -408,6 +402,8 @@ export class DataTable extends Component {
             </React.Fragment>
         );
     }
+                
+
     render() {
         return this.getSimpleReturnIfAppropriate() || this.getFullDataTableReturn();
     }
