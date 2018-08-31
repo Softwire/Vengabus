@@ -8,7 +8,7 @@ import { testHelper } from '../../../TestHelpers/TestHelper';
 import { wrap } from 'module';
 import formatXML from 'xml-formatter';
 
-let mockedFunction = jest.fn();
+let mockedSendMessageFunction = jest.fn();
 jest.mock('../../../AzureWrappers/VengaServiceBusService', () => ({
     VengaServiceBusService: class {
         constructor() {
@@ -43,13 +43,13 @@ jest.mock('../../../AzureWrappers/VengaServiceBusService', () => ({
             });
         }
 
-        sendMessageToQueue = (...args) => { mockedFunction(...args); return Promise.resolve(); }
-        sendMessageToTopic = (...args) => { mockedFunction(...args); return Promise.resolve(); }
+        sendMessageToQueue = (...args) => { mockedSendMessageFunction(...args); return Promise.resolve(); }
+        sendMessageToTopic = (...args) => { mockedSendMessageFunction(...args); return Promise.resolve(); }
     }
 }));
 
 beforeEach(() => {
-    mockedFunction.mockReset();
+    mockedSendMessageFunction.mockReset();
 });
 
 //Snapshot tests must be first because the id of new react-select elements changes each time one is mounted
@@ -118,7 +118,7 @@ it('Correctly set selection to topic', async () => {
         let confirmButton = wrapper.find("#confirm").last();
         confirmButton.simulate('click');
     });
-    expect(mockedFunction).toBeCalledWith(
+    expect(mockedSendMessageFunction).toBeCalledWith(
         "testTopic",
         {
             "messageBody": "",
@@ -146,7 +146,7 @@ it('Correctly creates the properties of a message', async () => {
         let confirmButton = wrapper.find("#confirm").last();
         confirmButton.simulate('click');
     });
-    expect(mockedFunction).toBeCalledWith(
+    expect(mockedSendMessageFunction).toBeCalledWith(
         "testQueue",
         {
             "messageBody": "body",
@@ -168,7 +168,7 @@ it('Sends the message to the correct queue', async () => {
         let confirmButton = wrapper.find("#confirm").last();
         confirmButton.simulate('click');
     });
-    expect(mockedFunction).toBeCalledWith(
+    expect(mockedSendMessageFunction).toBeCalledWith(
         "testQueue",
         {
             "messageBody": "",
@@ -191,7 +191,7 @@ it('Correctly filters empty property names', async () => {
         let confirmButton = wrapper.find("#confirm").last();
         confirmButton.simulate('click');
     });
-    expect(mockedFunction).toBeCalledWith(
+    expect(mockedSendMessageFunction).toBeCalledWith(
         "testQueue",
         {
             "messageBody": "",
@@ -215,7 +215,7 @@ it('Correctly filters duplicate property names', async () => {
         let confirmButton = wrapper.find("#confirm").last();
         confirmButton.simulate('click');
     });
-    expect(mockedFunction).toBeCalledWith(
+    expect(mockedSendMessageFunction).toBeCalledWith(
         "testQueue",
         {
             "messageBody": "",
@@ -287,7 +287,7 @@ it('Switches from sending to a queue to sending to a topic correctly', () => {
         testHelper.clickElementWithId(wrapper, "#confirm");
         return testHelper.afterReactHasUpdated();
     }).then(() => {
-        expect(mockedFunction).toBeCalledWith(
+        expect(mockedSendMessageFunction).toBeCalledWith(
             "topic1",
             {
                 "messageBody": "",
@@ -299,7 +299,7 @@ it('Switches from sending to a queue to sending to a topic correctly', () => {
 });
 
 
-it('Rememembers which queue was selected if the topic radio is pressed', () => {
+it('Remembers which queue was selected if the topic radio is pressed', () => {
     //Click queue dropdown -> Press down then enter to select the first queue -> Click topic radio -> Click queue radio ->
     //Click submit -> Empty message should be sent to queue1
     let wrapper = mount(<MessageInput />);
@@ -335,7 +335,7 @@ it('Rememembers which queue was selected if the topic radio is pressed', () => {
         testHelper.clickElementWithId(wrapper, "#confirm");
         return testHelper.afterReactHasUpdated();
     }).then(() => {
-        expect(mockedFunction).toBeCalledWith(
+        expect(mockedSendMessageFunction).toBeCalledWith(
             "queue1",
             {
                 "messageBody": "",
