@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Install') {              
             tools {
-                nodejs "NodeJS-8.11.3"
+                nodejs "NodeJS-10.8.0"
             }
             steps {
                 dir('VengabusFrontend') {
