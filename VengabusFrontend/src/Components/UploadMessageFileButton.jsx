@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { parseUploadedMessage } from '../Helpers/FormattingHelpers';
 import { FormControl, ControlLabel } from 'react-bootstrap';
+import { vengaNotificationManager } from '../Helpers/VengaNotificationManager';
 
 
 export class UploadMessageFileButton extends Component {
     uploadFile = (file) => {
         const filePromise = this.fileToObject(file); //will be an Array of objects in the fileMessage format.
         const apiMessages = filePromise.then(jsonFileContents => {
-            return jsonFileContents.map(fileMessage => parseUploadedMessage(fileMessage))
-        });
+            return jsonFileContents.map(fileMessage => parseUploadedMessage(fileMessage));
+        }).catch(error => vengaNotificationManager.error("Upload Failed: " + error));
         this.props.onUpload(apiMessages);
     }
 

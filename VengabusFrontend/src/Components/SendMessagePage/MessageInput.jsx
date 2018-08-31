@@ -11,6 +11,12 @@ import { sharedSizesAndDimensions, zIndices } from '../../Helpers/SharedSizesAnd
 import _ from 'lodash';
 import { UploadMessageFileButton } from '../../Components/UploadMessageFileButton';
 
+
+const defaultBlankMessage = Object.freeze({
+    messageBody: '',
+    userDefinedProperties: [],
+    preDefinedProperties: []
+});
 /** 
  * @property {Object} message Can take a message as a prop to replay message.
  * @property {Object} message.customProperties User defined properties (key-string pairs).
@@ -45,7 +51,7 @@ export class MessageInput extends Component {
 
     componentDidMount() {
         this.serviceBusService = serviceBusConnection.getServiceBusService();
-        
+
         let permittedValuesPromise = this.promiseCollection.addNewPromise(this.serviceBusService.getWriteableMessageProperties());
         let reservedPropertyNamesPromise = this.promiseCollection.addNewPromise(this.serviceBusService.getReadableMessageProperties());
         Promise.all([permittedValuesPromise, reservedPropertyNamesPromise]).then((result) => {
@@ -77,20 +83,22 @@ export class MessageInput extends Component {
     }
 
     setMessageDetails = (messageObject, permittedValues, reservedValues) => {
-        if (!messageObject) { return; }
-        const props = this.getPreDefinedProperties(messageObject, permittedValues, reservedValues)
+        if (!messageObject) {
+            return;//this.setState({ ...defaultBlankMessage });
+        }
+        const preDefinedProps = this.getPreDefinedProperties(messageObject, permittedValues, reservedValues);
         this.setState({
-            messageBody:  messageObject.messageBody,
+            messageBody: messageObject.messageBody,
             userDefinedProperties: this.getUserDefinedProperties(messageObject),
-            preDefinedProperties: props 
+            preDefinedProperties: preDefinedProps
         });
     }
 
-    replayMessageFromFile = (fileReadMessagePromise) => {
+    setMessageFieldsFromFileObject = (fileReadMessagePromise) => {
         const messagePromise = this.promiseCollection.addNewPromise(fileReadMessagePromise);
         messagePromise.then(messageObjects => {
-            this.setMessageDetails(messageObjects[0],this.permittedValues, this.reservedPropertyNames);
-        });
+            this.setMessageDetails(messageObjects[0], this.permittedValues, this.reservedPropertyNames);
+        }); //.catch is handled by the LoadFile button - displays a notification. 
     }
 
     /**
@@ -244,11 +252,7 @@ export class MessageInput extends Component {
      * Clears the message body and removes all properties from the message.
      */
     discardMessage = () => {
-        this.setState({
-            messageBody: '',
-            userDefinedProperties: [],
-            preDefinedProperties: []
-        });
+        this.setState({ ...defaultBlankMessage });
     }
 
     /**
@@ -329,7 +333,7 @@ export class MessageInput extends Component {
 
                 <UploadMessageFileButton
                     disabled={!this.state.arePreDefinedPropsLoaded}
-                    onUpload={this.replayMessageFromFile}
+                    onUpload={this.setMessageFieldsFromFileObject}
                     text="Upload message from file"
                 />
             </React.Fragment>
