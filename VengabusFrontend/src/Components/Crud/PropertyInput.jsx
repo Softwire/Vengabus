@@ -35,7 +35,9 @@ export class PropertyInput extends Component {
                     <ComplexInputComponentType {...propsToPass} />
                 );
             default:
-                throw new Error('unexpected data type : ' + dataType);
+                const name = this.props.propertyName;
+                const value = this.props.inputData;
+                throw new Error(`property '${name}' had an unsupported datatype: '${dataType}'. Property value is: '${value}'`);
         }
     }
 }
