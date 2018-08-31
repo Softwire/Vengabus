@@ -19,11 +19,11 @@ export class TwoListDisplay extends Component {
         this.breadCrumbHistory = [{ name: "Home", type: undefined }];
         this.promiseCollection = new cancellablePromiseCollection();
         this.state = {
-            queueData: undefined,
-            topicData: undefined,
-            subscriptionData: undefined,
-            activeMessageData: undefined,
-            deadletterData: undefined,
+            queueData: null,
+            topicData: null,
+            subscriptionData: null,
+            activeMessageData: null,
+            deadletterData: null,
             rightTableType: EndpointTypes.TOPIC
         };
     }
