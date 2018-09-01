@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { CrudInterface } from './CrudInterface';
 import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
-import { formatTimeStamp, parseTimeSpanFromBackend } from '../../Helpers/FormattingHelpers';
+import { formatDeadletterTimeStamp, parseTimeSpanFromBackend } from '../../Helpers/FormattingHelpers';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 
 export class QueueCrud extends Component {
@@ -20,13 +20,22 @@ export class QueueCrud extends Component {
 
     componentDidMount = () => {
         this.serviceBusService = serviceBusConnection.getServiceBusService();
-        this.serviceBusService.getQueueMostRecentDeadletter(this.state.selectedQueue).then(result => {
-            result = formatTimeStamp(result);
-            this.setState({ mostRecentDeadletter: result });
+        //qqMDM async on these 3.
+        let retrievedDeadletterTimestamp;
+        const deadletterTimePromise = this.serviceBusService.getQueueMostRecentDeadletter(this.state.selectedQueue).then(timestamp => {
+            retrievedDeadletterTimestamp = formatDeadletterTimeStamp(timestamp);
         });
-        this.serviceBusService.getQueueDetails(this.state.selectedQueue).then((result) => {
+        const mainDataPromise = this.serviceBusService.getQueueDetails(this.state.selectedQueue).then((result) => {
             result.autoDeleteOnIdle = parseTimeSpanFromBackend(result.autoDeleteOnIdle);
             this.setState({ queueData: result, newQueueData: result, receivedData: true });
+        });
+
+        Promise.all([deadletterTimePromise, mainDataPromise]).then(() => {
+            this.setState((oldState) => {
+                oldState.queueData.mostRecentDeadletter = retrievedDeadletterTimestamp;
+                oldState.newQueueData.mostRecentDeadletter = retrievedDeadletterTimestamp;
+                return oldState;
+            });
         });
     }
 
@@ -35,12 +44,11 @@ export class QueueCrud extends Component {
      * @returns {object} Display name and display value pairs for read-only properties.
      */
     getEditableAndReadOnlyProperties = () => {
-        const { activeMessageCount, deadletterMessageCount } = this.state.newQueueData;
         const readOnlyPropertiesTemplate = {
             // text in the left column: value in the right column
-            "Active Message Count": activeMessageCount,
-            "Deadletter Message Count": deadletterMessageCount,
-            "Most Recent Deadletter": this.state.mostRecentDeadletter
+            "Active Message Count": this.state.queueData.activeMessageCount,
+            "Deadletter Message Count": this.state.queueData.deadletterMessageCount,
+            "Most Recent Deadletter": this.state.queueData.mostRecentDeadletter
         };
         // Transform into a format that is supported by DataTable
         const readOnlyProperties = Object.entries(readOnlyPropertiesTemplate).map(([key, value]) => ({ name: key, value: value }));

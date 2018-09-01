@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DataTable } from '../DataTable';
-import { formatTimeStamp } from '../../Helpers/FormattingHelpers';
+import { formatDeadletterTimeStamp } from '../../Helpers/FormattingHelpers';
 import { palerBlue } from '../../colourScheme';
 import { EditSubscriptionButton } from '../Buttons/EditEndpointButton';
 
@@ -15,8 +15,8 @@ export class SubscriptionList extends Component {
                 //needs to be cloned
                 subscriptionArray.push({ ...originalSubscriptionProps[i] });
                 const currentMessageArray = subscriptionArray[i];
-                if (currentMessageArray.mostRecentDeadletter && currentMessageArray.mostRecentDeadletterLoaded) {
-                    currentMessageArray.mostRecentDeadletter = formatTimeStamp(currentMessageArray.mostRecentDeadletter);
+                if (currentMessageArray.mostRecentDeadletterLoaded) {
+                    currentMessageArray.mostRecentDeadletter = formatDeadletterTimeStamp(currentMessageArray.mostRecentDeadletter);
                 }
             }
         }

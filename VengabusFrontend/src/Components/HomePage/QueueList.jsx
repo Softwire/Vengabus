@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DataTable } from '../DataTable';
-import { formatTimeStamp } from '../../Helpers/FormattingHelpers';
+import { formatDeadletterTimeStamp } from '../../Helpers/FormattingHelpers';
 import { palerBlue } from '../../colourScheme';
 import { EditQueueButton } from '../Buttons/EditEndpointButton';
 
@@ -15,8 +15,8 @@ export class QueueList extends Component {
                 //needs to be cloned
                 queueArray.push({ ...originalQueueProps[i] });
                 const currentMessageArray = queueArray[i];
-                if (currentMessageArray.mostRecentDeadletter && currentMessageArray.mostRecentDeadletterLoaded) {
-                    currentMessageArray.mostRecentDeadletter = formatTimeStamp(currentMessageArray.mostRecentDeadletter);
+                if (currentMessageArray.mostRecentDeadletterLoaded) {
+                    currentMessageArray.mostRecentDeadletter = formatDeadletterTimeStamp(currentMessageArray.mostRecentDeadletter);
                 }
             }
         }

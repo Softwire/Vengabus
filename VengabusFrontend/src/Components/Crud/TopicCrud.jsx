@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { CrudInterface } from './CrudInterface';
 import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
-import { formatTimeStamp, parseTimeSpanFromBackend } from '../../Helpers/FormattingHelpers';
+import { formatDeadletterTimeStamp, parseTimeSpanFromBackend } from '../../Helpers/FormattingHelpers';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 
 export class TopicCrud extends Component {
@@ -22,7 +22,6 @@ export class TopicCrud extends Component {
 
         this.serviceBusService.getTopicDetails(this.state.selectedTopic).then((result) => {
             result.autoDeleteOnIdle = parseTimeSpanFromBackend(result.autoDeleteOnIdle);
-            if (result.mostRecentDeadletter) { result.mostRecentDeadletter = formatTimeStamp(result.mostRecentDeadletter); }
             this.setState({ topicData: result, newTopicData: result, receivedData: true });
         });
     }

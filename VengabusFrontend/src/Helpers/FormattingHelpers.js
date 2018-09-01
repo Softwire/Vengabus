@@ -1,7 +1,14 @@
 import moment from 'moment';
 
 export function formatTimeStamp(date) {
-    return moment(date).format("DD-MM-YYYY HH:mm:ss");
+    if (date) {
+        return moment(date).format("DD-MM-YYYY HH:mm:ss");
+    }
+    return null;
+}
+
+export function formatDeadletterTimeStamp(date) {
+    return formatTimeStamp(date) || 'No Deadletters';
 }
 
 export function parseUploadedMessage(message) {

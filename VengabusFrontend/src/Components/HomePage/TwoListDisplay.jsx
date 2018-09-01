@@ -83,6 +83,8 @@ export class TwoListDisplay extends Component {
             this.setState({
                 queueData: result.map((item) => ({ ...item, mostRecentDeadletter: null }))
             });
+            //qqMDM probably move this DL loading into the respective QueueList Objects.
+            //Make sure that we think about how cancellation and spinners work. 
             for (let i = 0; i < result.length; i++) {
                 const getMostRecentDLPromise = this.promiseCollection.addNewPromise(serviceBusService.getQueueMostRecentDeadletter(result[i].name), EndpointTypes.QUEUE);
                 this.setState(function (prevState, props) {
@@ -90,9 +92,9 @@ export class TwoListDisplay extends Component {
                     prevState.queueData[i].mostRecentDeadletterLoaded = false;
                     return prevState;
                 });
-                getMostRecentDLPromise.then((timeStamp) => {
+                getMostRecentDLPromise.then((timestamp) => { //qqMDM refactor this.
                     this.setState(function (prevState, props) {
-                        prevState.queueData[i].mostRecentDeadletter = timeStamp;
+                        prevState.queueData[i].mostRecentDeadletter = timestamp;
                         prevState.queueData[i].mostRecentDeadletterLoaded = true;
                         return prevState;
                     });
