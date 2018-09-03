@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { CrudTitle } from './CrudTitle';
-import { CrudProperties } from './CrudProperties';
+import { CrudPropertiesDisplay } from './CrudPropertiesDisplay';
 import { CrudFormButtons } from './CrudFormButtons';
 
 /**
@@ -31,7 +31,7 @@ export class CrudInterface extends Component {
                     renameEndpoint={this.props.renameEndpoint}
                     deleteEndpoint={this.props.deleteEndpoint}
                 />
-                <CrudProperties
+                <CrudPropertiesDisplay
                     endpointType={this.props.endpointType}
                     newEndpointData={this.props.newEndpointData}
                     endpointProperties={this.props.endpointProperties}

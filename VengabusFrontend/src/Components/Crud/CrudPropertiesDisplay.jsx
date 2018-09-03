@@ -12,7 +12,7 @@ import { InputLabel } from './InputLabel';
  * @prop {object} endpointProperties And object with 'editable' and 'readonly' properties, each of which is an Array of propertyConfig objects.
  * @prop {function} handlePropertyChange Function that is called when a property is changed in the form.
  */
-export class CrudProperties extends Component {
+export class CrudPropertiesDisplay extends Component {
 
     /**
      * @returns {string} Class name for standard hr component style used in this interface.
