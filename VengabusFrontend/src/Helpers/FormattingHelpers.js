@@ -41,7 +41,7 @@ export function formatMessageForDownload(message) {
  * @param {string} timespan As received from the backend.
  * @returns {object} Timespan object in that has properties: days, hours, minutes, seconds, milliseconds.
  */
-export function parseTimeSpanFromBackend(timespan) {
+export function parseTimeSpanFromBackend(timespan) { //qqMDM aim to make this obsolete
     const momentDuration = moment.duration(timespan);
     const days = Math.floor(momentDuration.asDays());
     let result = momentDuration._data;

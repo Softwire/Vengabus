@@ -46,7 +46,7 @@ namespace VengabusAPI.Controllers
 
         [HttpPost]
         [Route("topics/rename")]
-        public void RenameQueue([FromBody]Rename names)
+        public void RenameQueue([FromBody]Rename names) //qqMDM Rename object shouldn't be necessary!?
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
             TopicDescription description = namespaceManager.GetTopic(names.oldName);

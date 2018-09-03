@@ -49,7 +49,7 @@ export class QueueCrud extends Component {
     }
 
     renameQueue = (oldName, newName) => {
-        this.serviceBusService.renameQueue(oldName, newName);
+        this.serviceBusService.renameQueue(oldName, newName); // qqMDM set State on completion
         this.setState({
             queueData: { ...this.state.queueData, name: newName },
             newQueueData: { ...this.state.newQueueData, name: newName },
