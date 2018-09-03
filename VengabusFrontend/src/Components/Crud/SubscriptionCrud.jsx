@@ -4,6 +4,7 @@ import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
 import { formatDeadletterTimeStamp, parseTimeSpanFromBackend } from '../../Helpers/FormattingHelpers';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
+import { getSubscriptionCrudProperties } from './CrudPropertyConfig';
 
 export class SubscriptionCrud extends Component {
     constructor(props) {
@@ -44,30 +45,6 @@ export class SubscriptionCrud extends Component {
         });
     }
 
-    /**
-     * @returns {string[]} Property names for editable properties.
-     * @returns {object} Display name and display value pairs for read-only properties.
-     */
-    getEditableAndReadOnlyProperties = () => {
-        const readOnlyPropertiesTemplate = {
-            // text in the left column: value in the right column
-            "Parent Topic": this.state.newSubscriptionData.topicName,
-            "Active Message Count": this.state.newSubscriptionData.activeMessageCount,
-            "Deadletter Message Count": this.state.newSubscriptionData.deadletterMessageCount,
-            "Most Recent Deadletter": this.state.newSubscriptionData.mostRecentDeadletter
-        };
-        // Transform into a format that is supported by DataTable
-        const readOnlyProperties = Object.entries(readOnlyPropertiesTemplate).map(([key, value]) => ({ name: key, value: value }));
-        const editableProperties = [
-            'requiresSession',
-            'autoDeleteOnIdle',
-            'enableDeadletteringOnMessageExpiration',
-            'maxDeliveryCount',
-            'subscriptionStatus'
-        ];
-        return [editableProperties, readOnlyProperties];
-    }
-
     handlePropertyChange = (value, property) => {
         const updatedNewSubscriptionData = { ...this.state.newSubscriptionData };
         updatedNewSubscriptionData[property] = value;
@@ -106,7 +83,7 @@ export class SubscriptionCrud extends Component {
                         parentTopic={this.state.parentTopic}
                         endpointData={this.state.subscriptionData}
                         newEndpointData={this.state.newSubscriptionData}
-                        getEditableAndReadOnlyProperties={this.getEditableAndReadOnlyProperties}
+                        endpointProperties={getSubscriptionCrudProperties()}
                         handlePropertyChange={this.handlePropertyChange}
                         renameEndpoint={this.renameSubscription}
                         updateEndpoint={this.updateSubscription}

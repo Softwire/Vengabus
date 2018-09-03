@@ -4,6 +4,7 @@ import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
 import { formatDeadletterTimeStamp, parseTimeSpanFromBackend } from '../../Helpers/FormattingHelpers';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
+import { getQueueCrudProperties } from './CrudPropertyConfig';
 
 export class QueueCrud extends Component {
     constructor(props) {
@@ -37,33 +38,6 @@ export class QueueCrud extends Component {
                 return oldState;
             });
         });
-    }
-
-    /**
-     * @returns {string[]} Property names for editable properties.
-     * @returns {object} Display name and display value pairs for read-only properties.
-     */
-    getEditableAndReadOnlyProperties = () => {
-        const readOnlyPropertiesTemplate = {
-            // text in the left column: value in the right column
-            "Active Message Count": this.state.queueData.activeMessageCount,
-            "Deadletter Message Count": this.state.queueData.deadletterMessageCount,
-            "Most Recent Deadletter": this.state.queueData.mostRecentDeadletter
-        };
-        // Transform into a format that is supported by DataTable
-        const readOnlyProperties = Object.entries(readOnlyPropertiesTemplate).map(([key, value]) => ({ name: key, value: value }));
-        const editableProperties = [
-            'supportOrdering',
-            'requiresSession',
-            'enablePartitioning',
-            'autoDeleteOnIdle',
-            'enableDeadletteringOnMessageExpiration',
-            'requiresDuplicateDetection',
-            'maxDeliveryCount',
-            'maxSizeInMegabytes',
-            'status'
-        ];
-        return [editableProperties, readOnlyProperties];
     }
 
     handlePropertyChange = (value, property) => {
@@ -107,7 +81,7 @@ export class QueueCrud extends Component {
                         selectedEndpoint={this.state.selectedQueue}
                         endpointData={this.state.queueData}
                         newEndpointData={this.state.newQueueData}
-                        getEditableAndReadOnlyProperties={this.getEditableAndReadOnlyProperties}
+                        endpointProperties={getQueueCrudProperties()}
                         handlePropertyChange={this.handlePropertyChange}
                         renameEndpoint={this.renameQueue}
                         updateEndpoint={this.updateQueue}

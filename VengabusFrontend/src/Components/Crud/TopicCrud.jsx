@@ -4,6 +4,7 @@ import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
 import { formatDeadletterTimeStamp, parseTimeSpanFromBackend } from '../../Helpers/FormattingHelpers';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
+import { getTopicCrudProperties } from './CrudPropertyConfig';
 
 export class TopicCrud extends Component {
     constructor(props) {
@@ -24,29 +25,6 @@ export class TopicCrud extends Component {
             result.autoDeleteOnIdle = parseTimeSpanFromBackend(result.autoDeleteOnIdle);
             this.setState({ topicData: result, newTopicData: result, receivedData: true });
         });
-    }
-
-    /**
-     * @returns {string[]} Property names for editable properties.
-     * @returns {object} Display name and display value pairs for read-only properties.
-     */
-    getEditableAndReadOnlyProperties = () => {
-        const { subscriptionCount } = this.state.newTopicData;
-        const readOnlyPropertiesTemplate = {
-            // text in the left column: value in the right column
-            "Subscription Count": subscriptionCount
-        };
-        // Transform into a format that is supported by DataTable
-        const readOnlyProperties = Object.entries(readOnlyPropertiesTemplate).map(([key, value]) => ({ name: key, value: value }));
-        const editableProperties = [
-            'supportOrdering',
-            'enablePartitioning',
-            'autoDeleteOnIdle',
-            'requiresDuplicateDetection',
-            'maxSizeInMegabytes',
-            'topicStatus'
-        ];
-        return [editableProperties, readOnlyProperties];
     }
 
     handlePropertyChange = (value, property) => {
@@ -90,7 +68,7 @@ export class TopicCrud extends Component {
                         selectedEndpoint={this.state.selectedTopic}
                         endpointData={this.state.topicData}
                         newEndpointData={this.state.newTopicData}
-                        getEditableAndReadOnlyProperties={this.getEditableAndReadOnlyProperties}
+                        endpointProperties={getTopicCrudProperties()}
                         handlePropertyChange={this.handlePropertyChange}
                         renameEndpoint={this.renameTopic}
                         updateEndpoint={this.updateTopic}

@@ -10,9 +10,7 @@ import { CrudFormButtons } from './CrudFormButtons';
  * @prop {string} parentTopic The parent topic of the subscription being edited. Only required for subscriptions.
  * @prop {object} endpointData The original description of the endpoint.
  * @prop {object} newEndpointData The edited description of the endpoint.
- * @prop {function} getEditableAndReadOnlyProperties Gets:
-     *  {string[]} Property names for editable properties.
-     *  {object} Display name and display value pairs for read-only properties.
+ * @prop {object} endpointProperties And object with 'editable' and 'readonly' properties, each of which is an Array of propertyConfig objects.
  * @prop {function} handlePropertyChange Function that is called when a property is changed in the form.
  * @prop {function} renameEndpoint  Function that renames the endpoint when called.
  * @prop {function} updateEndpoint Function that updates the endpoint to what is defined in newEndpointData.
@@ -36,7 +34,7 @@ export class CrudInterface extends Component {
                 <CrudProperties
                     endpointType={this.props.endpointType}
                     newEndpointData={this.props.newEndpointData}
-                    getEditableAndReadOnlyProperties={this.props.getEditableAndReadOnlyProperties}
+                    endpointProperties={this.props.endpointProperties}
                     handlePropertyChange={this.props.handlePropertyChange}
                 />
                 <CrudFormButtons
