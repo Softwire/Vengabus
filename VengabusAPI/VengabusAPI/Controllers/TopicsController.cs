@@ -16,25 +16,25 @@ namespace VengabusAPI.Controllers
         [HttpGet]
         [Route("topics")]
         //list all topics in a service bus
-        public IEnumerable<VengaTopic> ListTopics()
+        public IEnumerable<TopicSummary> ListTopics()
         {
             var namespaceManager = CreateNamespaceManager();
-            var topics = namespaceManager.GetTopics().Select(t => new VengaTopic(t));
+            var topics = namespaceManager.GetTopics().Select(t => TopicSummary.New(t));
             return topics.OrderBy(t => t.name, StringComparer.CurrentCultureIgnoreCase);
         }
 
         [HttpGet]
         [Route("topics/{topicName}")]
-        public VengaTopic GetDetails(string topicName)
+        public TopicSummary GetDetails(string topicName)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
-            return new VengaTopic(namespaceManager.GetTopic(topicName));
+            return TopicDetails.New(namespaceManager.GetTopic(topicName));
         }
 
         [HttpPost]
         [Route("topics/update")]
-        public void UpdateQueue([FromBody]VengaTopicUpload topicData)
+        public void UpdateQueue([FromBody]TopicDetails topicData)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
 

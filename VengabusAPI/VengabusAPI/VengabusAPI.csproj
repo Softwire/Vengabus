@@ -130,7 +130,7 @@
     <Compile Include="Models\EndpointIdentifier.cs" />
     <Compile Include="Models\SASKey.cs" />
     <Compile Include="Models\VengaMessage.cs" />
-    <Compile Include="Models\VengaTopic.cs" />
+    <Compile Include="Models\Topic.cs" />
     <Compile Include="Controllers\VengabusController.cs" />
     <Compile Include="Models\VengaSubscription.cs" />
     <Compile Include="Models\VengaQueue.cs" />
