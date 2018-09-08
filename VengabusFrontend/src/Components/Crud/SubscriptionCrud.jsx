@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { CrudInterface } from './CrudInterface';
 import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
-import { formatTimeStamp, parseTimeSpanFromBackend } from '../../Helpers/FormattingHelpers';
+import { formatDeadletterTimeStamp, parseTimeSpanFromBackend } from '../../Helpers/FormattingHelpers';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
+import { getSubscriptionCrudProperties } from './CrudPropertyConfig';
 
 export class SubscriptionCrud extends Component {
     constructor(props) {
@@ -21,39 +22,27 @@ export class SubscriptionCrud extends Component {
 
     componentDidMount = () => {
         this.serviceBusService = serviceBusConnection.getServiceBusService();
-        this.serviceBusService.getSubscriptionMostRecentDeadletter(this.state.parentTopic, this.state.selectedSubscription).then(result => {
-            result = formatTimeStamp(result);
-            this.setState({ mostRecentDeadletter: result });
+
+        const topic = this.state.parentTopic;
+        const sub = this.state.selectedSubscription;
+
+        let retrievedDeadletterTimestamp;
+        const deadletterTimePromise = this.serviceBusService.getSubscriptionMostRecentDeadletter(topic, sub).then(timestamp => {
+            retrievedDeadletterTimestamp = formatDeadletterTimeStamp(timestamp);
         });
-        this.serviceBusService.getSubscriptionDetails(this.state.parentTopic, this.state.selectedSubscription).then((result) => {
+
+        const mainDataPromise = this.serviceBusService.getSubscriptionDetails(topic, sub).then((result) => {
             result.autoDeleteOnIdle = parseTimeSpanFromBackend(result.autoDeleteOnIdle);
             this.setState({ subscriptionData: result, newSubscriptionData: result, receivedData: true });
         });
-    }
 
-    /**
-     * @returns {string[]} Property names for editable properties.
-     * @returns {object} Display name and display value pairs for read-only properties.
-     */
-    getEditableAndReadOnlyProperties = () => {
-        const { activeMessageCount, deadletterMessageCount, topicName } = this.state.newSubscriptionData;
-        const readOnlyPropertiesTemplate = {
-            // text in the left column: value in the right column
-            "Parent Topic": topicName,
-            "Active Message Count": activeMessageCount,
-            "Deadletter Message Count": deadletterMessageCount,
-            "Most Recent Deadletter": this.state.mostRecentDeadletter
-        };
-        // Transform into a format that is supported by DataTable
-        const readOnlyProperties = Object.entries(readOnlyPropertiesTemplate).map(([key, value]) => ({ name: key, value: value }));
-        const editableProperties = [
-            'requiresSession',
-            'autoDeleteOnIdle',
-            'enableDeadletteringOnMessageExpiration',
-            'maxDeliveryCount',
-            'subscriptionStatus'
-        ];
-        return [editableProperties, readOnlyProperties];
+        Promise.all([deadletterTimePromise, mainDataPromise]).then(() => {
+            this.setState((oldState) => {
+                oldState.subscriptionData.mostRecentDeadletter = retrievedDeadletterTimestamp;
+                oldState.newSubscriptionData.mostRecentDeadletter = retrievedDeadletterTimestamp;
+                return oldState;
+            });
+        });
     }
 
     handlePropertyChange = (value, property) => {
@@ -94,7 +83,7 @@ export class SubscriptionCrud extends Component {
                         parentTopic={this.state.parentTopic}
                         endpointData={this.state.subscriptionData}
                         newEndpointData={this.state.newSubscriptionData}
-                        getEditableAndReadOnlyProperties={this.getEditableAndReadOnlyProperties}
+                        endpointProperties={getSubscriptionCrudProperties()}
                         handlePropertyChange={this.handlePropertyChange}
                         renameEndpoint={this.renameSubscription}
                         updateEndpoint={this.updateSubscription}

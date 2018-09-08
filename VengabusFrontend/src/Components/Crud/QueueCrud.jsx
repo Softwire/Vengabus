@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { CrudInterface } from './CrudInterface';
 import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
-import { formatTimeStamp, parseTimeSpanFromBackend } from '../../Helpers/FormattingHelpers';
+import { formatDeadletterTimeStamp, parseTimeSpanFromBackend } from '../../Helpers/FormattingHelpers';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
+import { getQueueCrudProperties } from './CrudPropertyConfig';
 
 export class QueueCrud extends Component {
     constructor(props) {
@@ -20,42 +21,23 @@ export class QueueCrud extends Component {
 
     componentDidMount = () => {
         this.serviceBusService = serviceBusConnection.getServiceBusService();
-        this.serviceBusService.getQueueMostRecentDeadletter(this.state.selectedQueue).then(result => {
-            result = formatTimeStamp(result);
-            this.setState({ mostRecentDeadletter: result });
+        //qqMDM async on these 3.
+        let retrievedDeadletterTimestamp;
+        const deadletterTimePromise = this.serviceBusService.getQueueMostRecentDeadletter(this.state.selectedQueue).then(timestamp => {
+            retrievedDeadletterTimestamp = formatDeadletterTimeStamp(timestamp);
         });
-        this.serviceBusService.getQueueDetails(this.state.selectedQueue).then((result) => {
+        const mainDataPromise = this.serviceBusService.getQueueDetails(this.state.selectedQueue).then((result) => {
             result.autoDeleteOnIdle = parseTimeSpanFromBackend(result.autoDeleteOnIdle);
             this.setState({ queueData: result, newQueueData: result, receivedData: true });
         });
-    }
 
-    /**
-     * @returns {string[]} Property names for editable properties.
-     * @returns {object} Display name and display value pairs for read-only properties.
-     */
-    getEditableAndReadOnlyProperties = () => {
-        const { activeMessageCount, deadletterMessageCount } = this.state.newQueueData;
-        const readOnlyPropertiesTemplate = {
-            // text in the left column: value in the right column
-            "Active Message Count": activeMessageCount,
-            "Deadletter Message Count": deadletterMessageCount,
-            "Most Recent Deadletter": this.state.mostRecentDeadletter
-        };
-        // Transform into a format that is supported by DataTable
-        const readOnlyProperties = Object.entries(readOnlyPropertiesTemplate).map(([key, value]) => ({ name: key, value: value }));
-        const editableProperties = [
-            'supportOrdering',
-            'requiresSession',
-            'enablePartitioning',
-            'autoDeleteOnIdle',
-            'enableDeadletteringOnMessageExpiration',
-            'requiresDuplicateDetection',
-            'maxDeliveryCount',
-            'maxSizeInMegabytes',
-            'status'
-        ];
-        return [editableProperties, readOnlyProperties];
+        Promise.all([deadletterTimePromise, mainDataPromise]).then(() => {
+            this.setState((oldState) => {
+                oldState.queueData.mostRecentDeadletter = retrievedDeadletterTimestamp;
+                oldState.newQueueData.mostRecentDeadletter = retrievedDeadletterTimestamp;
+                return oldState;
+            });
+        });
     }
 
     handlePropertyChange = (value, property) => {
@@ -99,7 +81,7 @@ export class QueueCrud extends Component {
                         selectedEndpoint={this.state.selectedQueue}
                         endpointData={this.state.queueData}
                         newEndpointData={this.state.newQueueData}
-                        getEditableAndReadOnlyProperties={this.getEditableAndReadOnlyProperties}
+                        endpointProperties={getQueueCrudProperties()}
                         handlePropertyChange={this.handlePropertyChange}
                         renameEndpoint={this.renameQueue}
                         updateEndpoint={this.updateQueue}
