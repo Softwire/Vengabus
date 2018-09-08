@@ -125,15 +125,15 @@
     <Compile Include="Helpers\VengaBrokeredMessageConverter.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Models\APIExceptions.cs" />
+    <Compile Include="Models\Subscription.cs" />
     <Compile Include="Models\Rename.cs" />
     <Compile Include="Models\TimeSpanFromFrontend.cs" />
     <Compile Include="Models\EndpointIdentifier.cs" />
     <Compile Include="Models\SASKey.cs" />
+    <Compile Include="Models\Queue.cs" />
     <Compile Include="Models\VengaMessage.cs" />
     <Compile Include="Models\Topic.cs" />
     <Compile Include="Controllers\VengabusController.cs" />
-    <Compile Include="Models\VengaSubscription.cs" />
-    <Compile Include="Models\VengaQueue.cs" />
     <Compile Include="Controllers\QueuesController.cs" />
     <Compile Include="Controllers\DeadlettersController.cs" />
     <Compile Include="Controllers\SubscriptionsController.cs" />

@@ -15,22 +15,22 @@ namespace VengabusAPI.Controllers
 
         [HttpGet]
         [Route("subscriptions/{topicName}")]
-        public IEnumerable<VengaSubscription> ListSubscriptions(string topicName)
+        public IEnumerable<SubscriptionSummary> ListSubscriptions(string topicName)
         {
             var namespaceManager = CreateNamespaceManager();
             var azureSubscriptionsEnum =  namespaceManager.GetSubscriptions(topicName);
 
-            var subscriptions = azureSubscriptionsEnum.Select(s => new VengaSubscription(s));
+            var subscriptions = azureSubscriptionsEnum.Select(s => SubscriptionSummary.New(s));
             return subscriptions.OrderBy(s => s.name, StringComparer.CurrentCultureIgnoreCase);
         }
 
         [HttpGet]
         [Route("subscriptions/{parentTopicName}/{subscriptionName}")]
-        public VengaSubscription GetDetails(string parentTopicName, string subscriptionName)
+        public SubscriptionDetails GetDetails(string parentTopicName, string subscriptionName)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
     
-            return new VengaSubscription(namespaceManager.GetSubscription(parentTopicName, subscriptionName));
+            return SubscriptionDetails.New(namespaceManager.GetSubscription(parentTopicName, subscriptionName));
         }
 
         [HttpGet]
@@ -45,7 +45,7 @@ namespace VengabusAPI.Controllers
 
         [HttpPost]
         [Route("subscriptions/update")]
-        public void UpdateQueue([FromBody]VengaSubscriptionUpload subData)
+        public void UpdateQueue([FromBody]SubscriptionDetails subData)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
