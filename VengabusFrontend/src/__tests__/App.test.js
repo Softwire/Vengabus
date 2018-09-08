@@ -31,7 +31,16 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
             return Promise.resolve({
                 "name": "demoqueue1",
                 "activeMessageCount": 0,
-                "deadletterMessageCount": 30
+                "deadletterMessageCount": 30,
+                "requiresSession": false,
+                "autoDeleteOnIdle": {
+                    "milliseconds": "01",
+                    "seconds": "02",
+                    "minutes": "01",
+                    "hours": "01",
+                    "days": "20"
+                },
+                "maxDeliveryCount": 10,
             });
         }
         getQueueMostRecentDeadletter = (queueName) => {
@@ -70,12 +79,21 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
             return Promise.resolve({
                 "name": topicName,
                 "subscriptionCount": 2,
-                "topicStatus": "Active"
+                "topicStatus": "Active",
+                "supportOrdering": true,
+                "autoDeleteOnIdle": {
+                    "milliseconds": "66",
+                    "seconds": "6",
+                    "minutes": "3",
+                    "hours": "21",
+                    "days": "1"
+                },
+                "maxSizeInMegabytes": 30000,
             });
         }
 
         /**
-         * Gets the details of all subscriptions in a given topic from the server.
+         * Gets a summary of all subscriptions in a given topic from the server.
          * @param {string} topicName The name of the topic to get subscriptions from.
          * @return {object} The subsctiptions returned by the server.
          */
@@ -106,7 +124,15 @@ jest.mock('../AzureWrappers/VengaServiceBusService', () => ({
                 "activeMessageCount": 0,
                 "deadletterMessageCount": 110,
                 "subscriptionStatus": "Active",
-                "topicName": parentTopicName
+                "topicName": parentTopicName,
+                "autoDeleteOnIdle": {
+                    "milliseconds": "999",
+                    "seconds": "20",
+                    "minutes": "1",
+                    "hours": "20",
+                    "days": "2"
+                },
+                "requiresSession": true,
             });
         }
 
