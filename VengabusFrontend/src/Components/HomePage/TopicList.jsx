@@ -6,11 +6,12 @@ import { EditTopicButton } from '../Buttons/EditEndpointButton';
 export class TopicList extends Component {
 
     render() {
-        const originalTopicPorps = this.props.topicData;
-        const topics = originalTopicPorps ? [] : originalTopicPorps;
-        if (originalTopicPorps) {
-            for (let i = 0; i < originalTopicPorps.length; i++) {
-                topics.push({ ...originalTopicPorps[i] });
+        // If there is data we want to clone it. If not, we need to preserve whether the data is null or undefined.
+        const originalTopicProps = this.props.topicData;
+        const topics = originalTopicProps ? [] : originalTopicProps;
+        if (originalTopicProps) {
+            for (let i = 0; i < originalTopicProps.length; i++) {
+                topics.push({ ...originalTopicProps[i] });
             }
         }
 
