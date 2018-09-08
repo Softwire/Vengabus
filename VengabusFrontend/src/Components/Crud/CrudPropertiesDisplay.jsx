@@ -3,7 +3,6 @@ import { css } from 'emotion';
 import classNames from 'classnames';
 import { DataTable } from '../DataTable';
 import { PropertyInput } from './PropertyInput';
-import { TimeSpanInput } from './TimeSpanInput';
 import { InputLabel } from './InputLabel';
 
 /**
