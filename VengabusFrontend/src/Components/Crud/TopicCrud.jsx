@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { CrudInterface } from './CrudInterface';
 import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
-import { formatDeadletterTimeStamp, parseTimeSpanFromBackend } from '../../Helpers/FormattingHelpers';
+import { parseTimeSpanFromBackend } from '../../Helpers/FormattingHelpers';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { getTopicCrudProperties } from './CrudPropertyConfig';
 
