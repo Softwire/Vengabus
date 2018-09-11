@@ -5,14 +5,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#000000">
+
   <!--
-      manifest.json provides metadata used when your web app is added to the
-      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+      manifest.json provides metadata used when your web app is added to the homescreen on Android.
+      See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-  <!--the reason for the ?v=2 is werid, by adding a queary string to a url you forcew the browers to update the favicon everytime 
-    stopping werid cahcey bugs -->
+
+  <!--
+    If you ever change the favicon, update the version querystring, to force a re-cache of the favicon.
+    Browsers cache favicons and don't reload them even with hard-refreshes.
+  -->
   <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico?v=3">
+
   <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
