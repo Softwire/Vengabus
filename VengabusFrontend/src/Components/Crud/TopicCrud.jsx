@@ -43,7 +43,7 @@ export class TopicCrud extends Component {
     }
 
     updateTopic = () => {
-        this.serviceBusService.updateTopic(this.state.newTopicData);
+        return this.serviceBusService.updateTopic(this.state.newTopicData);
     }
 
     deleteTopic = () => {

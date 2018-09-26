@@ -47,12 +47,12 @@ export const getTopicCrudProperties = () => {
     return {
         readonly: [
             new PropertyConfig('subscriptionCount'),
+            new PropertyConfig('requiresDuplicateDetection'),
         ],
         editable: [
             new PropertyConfig('supportOrdering'),
             new PropertyConfig('enablePartitioning'),
             new PropertyConfig('autoDeleteOnIdle').WithCommonTooltip(topic).WithCustomInput(TimeSpanInput),
-            new PropertyConfig('requiresDuplicateDetection'),
             new PropertyConfig('maxSizeInMegabytes'),
             new PropertyConfig('topicStatus').WithDropdown(getStatusDropdownOptions()),
         ]

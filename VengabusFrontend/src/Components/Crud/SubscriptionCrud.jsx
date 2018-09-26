@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { CrudInterface } from './CrudInterface';
 import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
-import { formatDeadletterTimeStamp, parseTimeSpanFromBackend } from '../../Helpers/FormattingHelpers';
+import { formatDeadletterTimeStamp } from '../../Helpers/FormattingHelpers';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { getSubscriptionCrudProperties } from './CrudPropertyConfig';
 
@@ -54,11 +54,11 @@ export class SubscriptionCrud extends Component {
 
     renameSubscription = (oldName, newName) => {
         //QQ do something with this
-        console.log('cannot rename subscriptions because #Microsoft');
+        console.error('cannot rename subscriptions because #Microsoft');
     }
 
     updateSubscription = () => {
-        this.serviceBusService.updateSubscription(this.state.newEndpointData);
+        return this.serviceBusService.updateSubscription(this.state.newSubscriptionData);
     }
 
     deleteSubscription = () => {
