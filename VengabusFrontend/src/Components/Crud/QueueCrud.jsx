@@ -26,9 +26,8 @@ export class QueueCrud extends Component {
         const deadletterTimePromise = this.serviceBusService.getQueueMostRecentDeadletter(this.state.selectedQueue).then(timestamp => {
             retrievedDeadletterTimestamp = formatDeadletterTimeStamp(timestamp);
         });
-        const mainDataPromise = this.serviceBusService.getQueueDetails(this.state.selectedQueue).then((result) => {
-            result.autoDeleteOnIdle = parseTimeSpanFromBackend(result.autoDeleteOnIdle);
-            this.setState({ queueData: result, newQueueData: result, receivedData: true });
+        const mainDataPromise = this.serviceBusService.getQueueDetails(this.state.selectedQueue).then((queueDetails) => {
+            this.setState({ queueData: queueDetails, newQueueData: queueDetails, receivedData: true });
         });
 
         Promise.all([deadletterTimePromise, mainDataPromise]).then(() => {

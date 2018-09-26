@@ -31,9 +31,8 @@ export class SubscriptionCrud extends Component {
             retrievedDeadletterTimestamp = formatDeadletterTimeStamp(timestamp);
         });
 
-        const mainDataPromise = this.serviceBusService.getSubscriptionDetails(topic, sub).then((result) => {
-            result.autoDeleteOnIdle = parseTimeSpanFromBackend(result.autoDeleteOnIdle);
-            this.setState({ subscriptionData: result, newSubscriptionData: result, receivedData: true });
+        const mainDataPromise = this.serviceBusService.getSubscriptionDetails(topic, sub).then((subDetails) => {
+            this.setState({ subscriptionData: subDetails, newSubscriptionData: subDetails, receivedData: true });
         });
 
         Promise.all([deadletterTimePromise, mainDataPromise]).then(() => {
