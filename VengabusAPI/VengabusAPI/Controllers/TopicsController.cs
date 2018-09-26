@@ -25,7 +25,7 @@ namespace VengabusAPI.Controllers
 
         [HttpGet]
         [Route("topics/{topicName}")]
-        public TopicSummary GetDetails(string topicName)
+        public TopicDetails GetDetails(string topicName)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
