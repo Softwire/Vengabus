@@ -8,20 +8,19 @@ namespace VengabusAPI.Models
     /// </summary>
     public class TopicSummary
     {
-        //See flattening and restructuring actions in TopicCrud.jsx
-        public static TopicSummary New(TopicDescription topicFromAzure)
+        public static TopicSummary New(TopicDescription topicFromAzure) => NewBase<TopicSummary>(topicFromAzure);
+        protected static T NewBase<T>(TopicDescription topicFromAzure) where T : TopicSummary, new()
         {
-            return NewForDetails(topicFromAzure);
+            var ret = new T();
+            ApplyDetails(ret, topicFromAzure);
+            return ret;
         }
 
-        protected static TopicDetails NewForDetails(TopicDescription topicFromAzure)
+        private static void ApplyDetails<T>(T internalTopic, TopicDescription topicFromAzure) where T : TopicSummary
         {
-            return new TopicDetails
-            {
-                name = topicFromAzure.Path,
-                subscriptionCount = topicFromAzure.SubscriptionCount,
-                topicStatus = topicFromAzure.Status
-            };
+            internalTopic.name = topicFromAzure.Path;
+            internalTopic.subscriptionCount = topicFromAzure.SubscriptionCount;
+            internalTopic.topicStatus = topicFromAzure.Status;
         }
 
         public string name { get; set; }
@@ -43,7 +42,7 @@ namespace VengabusAPI.Models
     {
         public new static TopicDetails New(TopicDescription topicFromAzure)
         {
-            var details = TopicSummary.NewForDetails(topicFromAzure);
+            var details = NewBase<TopicDetails>(topicFromAzure);
             details.enablePartitioning = topicFromAzure.EnablePartitioning;
             details.supportOrdering = topicFromAzure.SupportOrdering;
             details.autoDeleteOnIdle = topicFromAzure.AutoDeleteOnIdle.AsObjectForFrontEnd();

@@ -8,23 +8,23 @@ namespace VengabusAPI.Models
     /// </summary>
     public class SubscriptionSummary
     {
-        //See flattening and restructuring actions in SubscriptionCrud.jsx
-        public static SubscriptionSummary New(SubscriptionDescription subscriptionFromAzure)
+        public static SubscriptionSummary New(SubscriptionDescription subscriptionFromAzure) => NewBase<SubscriptionSummary>(subscriptionFromAzure);
+        protected static T NewBase<T>(SubscriptionDescription subscriptionFromAzure) where T : SubscriptionSummary, new()
         {
-            return NewForDetails(subscriptionFromAzure);
+            var ret = new T();
+            ApplyDetails(ret, subscriptionFromAzure);
+            return ret;
         }
 
-        protected static SubscriptionDetails NewForDetails(SubscriptionDescription subscriptionFromAzure)
+        private static void ApplyDetails<T>(T internalSubscription, SubscriptionDescription subscriptionFromAzure) where T : SubscriptionSummary
         {
-            return new SubscriptionDetails
-            {
-                name = subscriptionFromAzure.Name,
-                topicName = subscriptionFromAzure.TopicPath,
-                activeMessageCount = subscriptionFromAzure.MessageCountDetails.ActiveMessageCount,
-                deadletterMessageCount = subscriptionFromAzure.MessageCountDetails.DeadLetterMessageCount,
-                subscriptionStatus = subscriptionFromAzure.Status
-            };
+            internalSubscription.name = subscriptionFromAzure.Name;
+            internalSubscription.topicName = subscriptionFromAzure.TopicPath;
+            internalSubscription.activeMessageCount = subscriptionFromAzure.MessageCountDetails.ActiveMessageCount;
+            internalSubscription.deadletterMessageCount = subscriptionFromAzure.MessageCountDetails.DeadLetterMessageCount;
+            internalSubscription.subscriptionStatus = subscriptionFromAzure.Status;
         }
+
 
         public string name { get; set; }
         public string topicName { get; set; }
@@ -47,7 +47,7 @@ namespace VengabusAPI.Models
     {
         public new static SubscriptionDetails New(SubscriptionDescription subscriptionFromAzure)
         {
-            var details = SubscriptionSummary.NewForDetails(subscriptionFromAzure);
+            var details = NewBase<SubscriptionDetails>(subscriptionFromAzure);
             details.autoDeleteOnIdle = subscriptionFromAzure.AutoDeleteOnIdle.AsObjectForFrontEnd();
             details.requiresSession = subscriptionFromAzure.RequiresSession;
             details.enableDeadletteringOnMessageExpiration = subscriptionFromAzure.EnableDeadLetteringOnMessageExpiration;

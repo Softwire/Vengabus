@@ -8,21 +8,20 @@ namespace VengabusAPI.Models
     /// </summary>
     public class QueueSummary
     {
-        //See flattening and restructuring actions in QueueCrud.jsx
-        public static QueueSummary New(QueueDescription queueFromAzure)
+        public static QueueSummary New(QueueDescription queueFromAzure) => NewBase<QueueSummary>(queueFromAzure);
+        protected static T NewBase<T>(QueueDescription queueFromAzure) where T : QueueSummary, new()
         {
-            return NewForDetails(queueFromAzure);
+            var ret = new T();
+            ApplyDetails(ret, queueFromAzure);
+            return ret;
         }
 
-        protected static QueueDetails NewForDetails(QueueDescription queueFromAzure)
+        private static void ApplyDetails<T>(T internalQueue, QueueDescription queueFromAzure) where T:QueueSummary
         {
-            return new QueueDetails
-            {
-                name = queueFromAzure.Path,
-                activeMessageCount = queueFromAzure.MessageCountDetails.ActiveMessageCount,
-                deadletterMessageCount = queueFromAzure.MessageCountDetails.DeadLetterMessageCount,
-                status = queueFromAzure.Status
-            };
+            internalQueue.name = queueFromAzure.Path;
+            internalQueue.activeMessageCount = queueFromAzure.MessageCountDetails.ActiveMessageCount;
+            internalQueue.deadletterMessageCount = queueFromAzure.MessageCountDetails.DeadLetterMessageCount;
+            internalQueue.status = queueFromAzure.Status;
         }
 
         public string name { get; set; }
@@ -45,7 +44,7 @@ namespace VengabusAPI.Models
     {
         public new static QueueDetails New(QueueDescription queueFromAzure)
         {
-            var details = QueueSummary.NewForDetails(queueFromAzure);
+            var details = NewBase<QueueDetails>(queueFromAzure);
             details.autoDeleteOnIdle = queueFromAzure.AutoDeleteOnIdle.AsObjectForFrontEnd();
             details.enablePartitioning = queueFromAzure.EnablePartitioning;
             details.requiresSession = queueFromAzure.RequiresSession;
