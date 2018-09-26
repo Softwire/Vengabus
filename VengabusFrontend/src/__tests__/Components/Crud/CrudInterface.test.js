@@ -5,7 +5,7 @@
 // import { EndpointTypes } from '../../../Helpers/EndpointTypes';
 // import { testHelper } from '../../../TestHelpers/TestHelper';
 
-//QQ became obsolete after refactoring
+//QQ became out-of-date after refactoring
 
 it('vacuous test to stop test engine complaining about empty file', () => {
 

@@ -15,23 +15,21 @@ namespace VengabusAPI.Controllers
     {
         [HttpGet]
         [Route("queues")]
-        public IEnumerable<VengaQueue> ListQueues()
+        public IEnumerable<QueueSummary> ListQueues()
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
-            var queues = namespaceManager.GetQueues().Select(q => new VengaQueue(q));
+            var queues = namespaceManager.GetQueues().Select(q => QueueSummary.New(q));
             return queues.OrderBy(q => q.name, StringComparer.CurrentCultureIgnoreCase);
-
-
         }
 
         [HttpGet]
         [Route("queues/{queueName}")]
-        public VengaQueue GetDetails(string queueName)
+        public QueueDetails GetDetails(string queueName)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
-            return new VengaQueue(namespaceManager.GetQueue(queueName));
+            return QueueDetails.New(namespaceManager.GetQueue(queueName));
         }
 
         [HttpGet]
@@ -46,7 +44,7 @@ namespace VengabusAPI.Controllers
 
         [HttpPost]
         [Route("queues/update")]
-        public void UpdateQueue([FromBody]VengaQueueUpload queueData)
+        public void UpdateQueue([FromBody]QueueDetails queueData)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
 

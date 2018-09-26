@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { CrudInterface } from './CrudInterface';
 import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
-import { formatDeadletterTimeStamp, parseTimeSpanFromBackend } from '../../Helpers/FormattingHelpers';
+import { formatDeadletterTimeStamp } from '../../Helpers/FormattingHelpers';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { getQueueCrudProperties } from './CrudPropertyConfig';
 
@@ -26,9 +26,8 @@ export class QueueCrud extends Component {
         const deadletterTimePromise = this.serviceBusService.getQueueMostRecentDeadletter(this.state.selectedQueue).then(timestamp => {
             retrievedDeadletterTimestamp = formatDeadletterTimeStamp(timestamp);
         });
-        const mainDataPromise = this.serviceBusService.getQueueDetails(this.state.selectedQueue).then((result) => {
-            result.autoDeleteOnIdle = parseTimeSpanFromBackend(result.autoDeleteOnIdle);
-            this.setState({ queueData: result, newQueueData: result, receivedData: true });
+        const mainDataPromise = this.serviceBusService.getQueueDetails(this.state.selectedQueue).then((queueDetails) => {
+            this.setState({ queueData: queueDetails, newQueueData: queueDetails, receivedData: true });
         });
 
         Promise.all([deadletterTimePromise, mainDataPromise]).then(() => {

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { CrudInterface } from './CrudInterface';
 import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
-import { parseTimeSpanFromBackend } from '../../Helpers/FormattingHelpers';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { getTopicCrudProperties } from './CrudPropertyConfig';
 
@@ -21,9 +20,8 @@ export class TopicCrud extends Component {
     componentDidMount = () => {
         this.serviceBusService = serviceBusConnection.getServiceBusService();
 
-        this.serviceBusService.getTopicDetails(this.state.selectedTopic).then((result) => {
-            result.autoDeleteOnIdle = parseTimeSpanFromBackend(result.autoDeleteOnIdle);
-            this.setState({ topicData: result, newTopicData: result, receivedData: true });
+        this.serviceBusService.getTopicDetails(this.state.selectedTopic).then((topicSummary) => {
+            this.setState({ topicData: topicSummary, newTopicData: topicSummary, receivedData: true });
         });
     }
 
@@ -45,7 +43,7 @@ export class TopicCrud extends Component {
     }
 
     updateTopic = () => {
-        this.serviceBusService.updateTopic(this.state.newTopicData);
+        return this.serviceBusService.updateTopic(this.state.newTopicData);
     }
 
     deleteTopic = () => {

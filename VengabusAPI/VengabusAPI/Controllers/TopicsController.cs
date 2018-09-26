@@ -16,25 +16,25 @@ namespace VengabusAPI.Controllers
         [HttpGet]
         [Route("topics")]
         //list all topics in a service bus
-        public IEnumerable<VengaTopic> ListTopics()
+        public IEnumerable<TopicSummary> ListTopics()
         {
             var namespaceManager = CreateNamespaceManager();
-            var topics = namespaceManager.GetTopics().Select(t => new VengaTopic(t));
+            var topics = namespaceManager.GetTopics().Select(t => TopicSummary.New(t));
             return topics.OrderBy(t => t.name, StringComparer.CurrentCultureIgnoreCase);
         }
 
         [HttpGet]
         [Route("topics/{topicName}")]
-        public VengaTopic GetDetails(string topicName)
+        public TopicDetails GetDetails(string topicName)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
-            return new VengaTopic(namespaceManager.GetTopic(topicName));
+            return TopicDetails.New(namespaceManager.GetTopic(topicName));
         }
 
         [HttpPost]
         [Route("topics/update")]
-        public void UpdateQueue([FromBody]VengaTopicUpload topicData)
+        public void UpdateTopic([FromBody]TopicDetails topicData)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
@@ -46,7 +46,7 @@ namespace VengabusAPI.Controllers
 
         [HttpPost]
         [Route("topics/rename")]
-        public void RenameQueue([FromBody]Rename names) //qqMDM Rename object shouldn't be necessary!?
+        public void RenameTopic([FromBody]Rename names) //qqMDM Rename object shouldn't be necessary!?
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
             TopicDescription description = namespaceManager.GetTopic(names.oldName);
@@ -59,7 +59,7 @@ namespace VengabusAPI.Controllers
 
         [HttpDelete]
         [Route("topics/delete/{topicName}")]
-        public void DeleteQueue(string topicName)
+        public void DeleteTopic(string topicName)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
             namespaceManager.DeleteTopic(topicName);
