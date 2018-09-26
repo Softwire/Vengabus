@@ -45,7 +45,7 @@ namespace VengabusAPI.Controllers
 
         [HttpPost]
         [Route("subscriptions/update")]
-        public void UpdateQueue([FromBody]SubscriptionDetails subData)
+        public void UpdateSubscription([FromBody]SubscriptionDetails subData)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
@@ -57,7 +57,7 @@ namespace VengabusAPI.Controllers
 
         [HttpDelete]
         [Route("subscriptions/delete/{topicName}/{subscriptionName}")]
-        public void DeleteQueue(string topicName, string subscriptionName)
+        public void DeleteSubscription(string topicName, string subscriptionName)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
             namespaceManager.DeleteSubscription(topicName, subscriptionName);

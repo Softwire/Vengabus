@@ -34,7 +34,7 @@ namespace VengabusAPI.Controllers
 
         [HttpPost]
         [Route("topics/update")]
-        public void UpdateQueue([FromBody]TopicDetails topicData)
+        public void UpdateTopic([FromBody]TopicDetails topicData)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
 
@@ -46,7 +46,7 @@ namespace VengabusAPI.Controllers
 
         [HttpPost]
         [Route("topics/rename")]
-        public void RenameQueue([FromBody]Rename names) //qqMDM Rename object shouldn't be necessary!?
+        public void RenameTopic([FromBody]Rename names) //qqMDM Rename object shouldn't be necessary!?
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
             TopicDescription description = namespaceManager.GetTopic(names.oldName);
@@ -59,7 +59,7 @@ namespace VengabusAPI.Controllers
 
         [HttpDelete]
         [Route("topics/delete/{topicName}")]
-        public void DeleteQueue(string topicName)
+        public void DeleteTopic(string topicName)
         {
             NamespaceManager namespaceManager = CreateNamespaceManager();
             namespaceManager.DeleteTopic(topicName);
