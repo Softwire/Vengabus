@@ -8,11 +8,11 @@ export const getQueueCrudProperties = () => {
             new PropertyConfig('activeMessageCount'),
             new PropertyConfig('deadletterMessageCount'),
             new PropertyConfig('mostRecentDeadletter'),
+            new PropertyConfig('enablePartitioning'),
         ],
         editable: [
             new PropertyConfig('supportOrdering'),
             new PropertyConfig('requiresSession').WithCommonTooltip(queue),
-            new PropertyConfig('enablePartitioning'),
             new PropertyConfig('autoDeleteOnIdle').WithCommonTooltip(queue).WithCustomInput(TimeSpanInput),
             new PropertyConfig('enableDeadletteringOnMessageExpiration').WithCommonTooltip(queue),
             new PropertyConfig('requiresDuplicateDetection'),
@@ -48,10 +48,10 @@ export const getTopicCrudProperties = () => {
         readonly: [
             new PropertyConfig('subscriptionCount'),
             new PropertyConfig('requiresDuplicateDetection'),
+            new PropertyConfig('enablePartitioning'),
         ],
         editable: [
             new PropertyConfig('supportOrdering'),
-            new PropertyConfig('enablePartitioning'),
             new PropertyConfig('autoDeleteOnIdle').WithCommonTooltip(topic).WithCustomInput(TimeSpanInput),
             new PropertyConfig('maxSizeInMegabytes'),
             new PropertyConfig('topicStatus').WithDropdown(getStatusDropdownOptions()),
