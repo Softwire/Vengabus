@@ -5,6 +5,7 @@ import { EndpointTypes } from '../../Helpers/EndpointTypes';
 import { formatDeadletterTimeStamp } from '../../Helpers/FormattingHelpers';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { getQueueCrudProperties } from './CrudPropertyConfig';
+import { Spinner } from '../Spinner';
 
 export class QueueCrud extends Component {
     constructor(props) {
@@ -88,7 +89,7 @@ export class QueueCrud extends Component {
                         resetFields={this.resetFields}
                     />
                 ) : (
-                    <p>Fetching data</p>
+                    <Spinner size={50} />
                 )
         );
     }

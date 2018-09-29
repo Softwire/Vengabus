@@ -4,6 +4,7 @@ import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
 import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { getTopicCrudProperties } from './CrudPropertyConfig';
+import { Spinner } from '../Spinner';
 
 export class TopicCrud extends Component {
     constructor(props) {
@@ -74,7 +75,7 @@ export class TopicCrud extends Component {
                         resetFields={this.resetFields}
                     />
                 ) : (
-                    <p>Fetching data</p>
+                    <Spinner size={50} />
                 )
         );
     }
