@@ -21,7 +21,7 @@ export const getQueueCrudProperties = () => {
             new PropertyConfig('status').WithDropdown(getStatusDropdownOptions()),
         ]
     };
-}
+};
 
 export const getSubscriptionCrudProperties = () => {
     const sub = EndpointTypes.SUBSCRIPTION;
@@ -40,7 +40,7 @@ export const getSubscriptionCrudProperties = () => {
             new PropertyConfig('subscriptionStatus').WithDropdown(getStatusDropdownOptions()),
         ]
     };
-}
+};
 
 export const getTopicCrudProperties = () => {
     const topic = EndpointTypes.TOPIC;
@@ -57,7 +57,7 @@ export const getTopicCrudProperties = () => {
             new PropertyConfig('topicStatus').WithDropdown(getStatusDropdownOptions()),
         ]
     };
-}
+};
 
 class PropertyConfig {
     constructor(propertyName, displayLabel) {
@@ -96,9 +96,9 @@ function commonTooltipText(field, endpointType) {
             'A message is automatically deadlettered after this number of deliveries.',
         enableDeadletteringOnMessageExpiration:
             `Sets whether this ${endpointType} has dead letter support when a message expires.`
-    }
+    };
     return texts[field];
-};
+}
 
 /**
  * @returns {Object <string, {label: string, value: any}>[]} Object for dropdown of possible EndpointStatuses.
