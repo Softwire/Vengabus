@@ -40,6 +40,7 @@ export class VengaServiceBusService {
      * Updates the properties of a queue
      * @param {object} queueDescription Object containing the new properties of the queue. It is specified in this which queue we are updating.
      * For more information on the form of this object see https://docs.microsoft.com/en-us/dotnet/api/microsoft.servicebus.messaging.queuedescription?view=azure-dotnet
+     * @returns {Promise} The promise for the completion of the update POST request
      */
     updateQueue = (queueDescription) => {
         const url = this.apiRoot + 'queues/update';
@@ -51,6 +52,7 @@ export class VengaServiceBusService {
      * Renames a queue
      * @param {string} oldName The original name of the queue.
      * @param {string} newName The new name of the queue.
+     * @returns {Promise} The promise for the completion of the rename POST request
      */
     renameQueue = (oldName, newName) => {
         const url = this.apiRoot + 'queues/rename';
@@ -65,6 +67,7 @@ export class VengaServiceBusService {
     /**
      * Deletes a queue
      * @param {string} name Name of the queue to be deleted.
+     * @returns {Promise} The promise for the completion of the DELETE request
      */
     deleteQueue = (name) => {
         const url = this.apiRoot + 'queues/delete/' + name;
@@ -94,6 +97,7 @@ export class VengaServiceBusService {
      * Updates the properties of a topic
      * @param {object} topicDescription Object containing the new properties of the topic. It is specified in this which topic we are updating.
      * For more information on the form of this object see https://docs.microsoft.com/en-us/dotnet/api/microsoft.servicebus.messaging.topicdescription?view=azure-dotnet
+     * @returns {Promise} The promise for the completion of the update POST request
      */
     updateTopic = (topicDescription) => {
         const url = this.apiRoot + 'topics/update';
@@ -105,6 +109,7 @@ export class VengaServiceBusService {
      * Renames a topic
      * @param {string} oldName The original name of the topic.
      * @param {string} newName The new name of the topic.
+     * @returns {Promise} The promise for the completion of the rename POST request
      */
     renameTopic = (oldName, newName) => {
         const url = this.apiRoot + 'topics/rename';
@@ -119,6 +124,7 @@ export class VengaServiceBusService {
     /**
      * Deletes a topic
      * @param {string} name Name of the topic to be deleted.
+     * @returns {Promise} The promise for the completion of the DELETE request
      */
     deleteTopic = (name) => {
         const url = this.apiRoot + 'topics/delete/' + name;
@@ -151,6 +157,7 @@ export class VengaServiceBusService {
      * Updates the properties of a subscription
      * @param {object} subDescription Object containing the new properties of the subscription. It is specified in this which subscription we are updating.
      * For more information on the form of this object see https://docs.microsoft.com/en-us/dotnet/api/microsoft.servicebus.messaging.subscriptiondescription?view=azure-dotnet
+     * @returns {Promise} The promise for the completion of the update POST request
      */
     updateSubscription = (subDescription) => {
         const url = this.apiRoot + 'subscriptions/update';
@@ -162,6 +169,7 @@ export class VengaServiceBusService {
      * Deletes a subscription
      * @param {string} name Name of the subscription to be deleted.
      * @param {string} parentTopic Name of the parent topic of the subscription.
+     * @returns {Promise} The promise for the completion of the DELETE request
      */
     deleteSubscription = (name, parentTopic) => {
         const url = this.apiRoot + `subscriptions/delete/' + ${parentTopic} + '/' + ${name}`;

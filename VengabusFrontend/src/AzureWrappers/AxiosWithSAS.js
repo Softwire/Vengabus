@@ -16,10 +16,6 @@ export class AxiosWithSAS {
     constructor(connectionString) {
         this.connectionString = connectionString;
     }
-    /**
-     * Handle the errors coming from Axios.
-     * @param error the error object returned by Axios
-     */
 
     /**
      * Performs a GET request after being passed a url, with the appropriate SAS header.
@@ -163,6 +159,10 @@ export class AxiosWithSAS {
         return extendedConfig;
     }
 
+    /**
+     * Handle the errors coming from Axios.
+     * @param {object} error the error object returned by Axios
+     */
     errorHandler = (error) => {
         this.displayAppropriatePopup(error);
 
@@ -170,6 +170,10 @@ export class AxiosWithSAS {
         throw error;
     }
 
+    /**
+     * Handle the errors coming from Axios.
+     * @param {object} error the error object returned by Axios
+     */
     displayAppropriatePopup(error) {
         if (error.response) {
             // The request was made and the server responded with a status code

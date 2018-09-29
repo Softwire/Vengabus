@@ -310,22 +310,26 @@ export class MessageInput extends Component {
         const selectedEndpoint = this.state.recipientIsQueue ? this.state.selectedQueue : this.state.selectedTopic;
 
         //construct child components
-        const messageDestinationForm = <MessageDestinationForm
-            recipientIsQueue={this.state.recipientIsQueue}
-            availableQueues={this.state.availableQueues}
-            availableTopics={this.state.availableTopics}
-            selectedQueue={this.state.selectedQueue}
-            selectedTopic={this.state.selectedTopic}
-            handleDestinationChange={this.handleDestinationChange}
-        />;
+        const messageDestinationForm = (
+            <MessageDestinationForm
+                recipientIsQueue={this.state.recipientIsQueue}
+                availableQueues={this.state.availableQueues}
+                availableTopics={this.state.availableTopics}
+                selectedQueue={this.state.selectedQueue}
+                selectedTopic={this.state.selectedTopic}
+                handleDestinationChange={this.handleDestinationChange}
+            />
+        );
 
-        const mainButtons = <MessageSendAndResetButtons
-            selectedEndpoint={selectedEndpoint}
-            warnings={this.state.sendMessageModalWarnings}
-            generateWarnings={this.constructPropertyWarnings}
-            submit={this.submit}
-            discardMessage={this.discardMessage}
-        />;
+        const mainButtons = (
+            <MessageSendAndResetButtons
+                selectedEndpoint={selectedEndpoint}
+                warnings={this.state.sendMessageModalWarnings}
+                generateWarnings={this.constructPropertyWarnings}
+                submit={this.submit}
+                discardMessage={this.discardMessage}
+            />
+        );
 
         const uploadFromFile = (
             <React.Fragment>
@@ -339,20 +343,24 @@ export class MessageInput extends Component {
             </React.Fragment>
         );
 
-        const messageProperties = <MessageProperties
-            arePreDefinedPropsLoaded={this.state.arePreDefinedPropsLoaded}
-            preDefinedProperties={this.state.preDefinedProperties}
-            userDefinedProperties={this.state.userDefinedProperties}
-            permittedValues={this.state.permittedValues}
-            reservedPropertyNames={this.state.reservedPropertyNames}
-            handlePropertiesChange={this.handlePropertiesChange}
-            reportWarnings={this.setWarnings}
-        />;
+        const messageProperties = (
+            <MessageProperties
+                arePreDefinedPropsLoaded={this.state.arePreDefinedPropsLoaded}
+                preDefinedProperties={this.state.preDefinedProperties}
+                userDefinedProperties={this.state.userDefinedProperties}
+                permittedValues={this.state.permittedValues}
+                reservedPropertyNames={this.state.reservedPropertyNames}
+                handlePropertiesChange={this.handlePropertiesChange}
+                reportWarnings={this.setWarnings}
+            />
+        );
 
-        const messageBodyInput = <MessageBodyInput
-            messageBody={this.state.messageBody}
-            handleMessageBodyChange={this.handleMessageBodyChange}
-        />;
+        const messageBodyInput = (
+            <MessageBodyInput
+                messageBody={this.state.messageBody}
+                handleMessageBodyChange={this.handleMessageBodyChange}
+            />
+        );
 
         return (
             <div className={formStyle} >
