@@ -9,10 +9,10 @@ export const getQueueCrudProperties = () => {
             new PropertyConfig('deadletterMessageCount'),
             new PropertyConfig('mostRecentDeadletter'),
             new PropertyConfig('enablePartitioning'),
+            new PropertyConfig('requiresSession').WithCommonTooltip(queue),
         ],
         editable: [
             new PropertyConfig('supportOrdering'),
-            new PropertyConfig('requiresSession').WithCommonTooltip(queue),
             new PropertyConfig('autoDeleteOnIdle').WithCommonTooltip(queue).WithCustomInput(TimeSpanInput),
             new PropertyConfig('enableDeadletteringOnMessageExpiration').WithCommonTooltip(queue),
             new PropertyConfig('requiresDuplicateDetection'),
@@ -31,9 +31,9 @@ export const getSubscriptionCrudProperties = () => {
             new PropertyConfig('activeMessageCount'),
             new PropertyConfig('deadletterMessageCount'),
             new PropertyConfig('mostRecentDeadletter'),
+            new PropertyConfig('requiresSession').WithCommonTooltip(sub),
         ],
         editable: [
-            new PropertyConfig('requiresSession').WithCommonTooltip(sub),
             new PropertyConfig('autoDeleteOnIdle').WithCommonTooltip(sub).WithCustomInput(TimeSpanInput),
             new PropertyConfig('enableDeadletteringOnMessageExpiration').WithCommonTooltip(sub),
             new PropertyConfig('maxDeliveryCount').WithCommonTooltip(sub),
