@@ -79,7 +79,7 @@ export class QueueCrud extends Component {
                     <CrudInterface
                         endpointType={EndpointTypes.QUEUE}
                         selectedEndpoint={this.state.selectedQueue}
-                        endpointData={this.state.queueData}
+                        originalEndpointData={this.state.queueData}
                         newEndpointData={this.state.newQueueData}
                         endpointProperties={getQueueCrudProperties()}
                         handlePropertyChange={this.handlePropertyChange}

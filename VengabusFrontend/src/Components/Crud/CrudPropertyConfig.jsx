@@ -8,14 +8,16 @@ export const getQueueCrudProperties = () => {
             new PropertyConfig('activeMessageCount'),
             new PropertyConfig('deadletterMessageCount'),
             new PropertyConfig('mostRecentDeadletter'),
+        ],
+        setAtCreation: [
             new PropertyConfig('enablePartitioning'),
             new PropertyConfig('requiresSession').WithCommonTooltip(queue),
+            new PropertyConfig('requiresDuplicateDetection'),
         ],
         editable: [
             new PropertyConfig('supportOrdering'),
             new PropertyConfig('autoDeleteOnIdle').WithCommonTooltip(queue).WithCustomInput(TimeSpanInput),
             new PropertyConfig('enableDeadletteringOnMessageExpiration').WithCommonTooltip(queue),
-            new PropertyConfig('requiresDuplicateDetection'),
             new PropertyConfig('maxDeliveryCount').WithCommonTooltip(queue),
             new PropertyConfig('maxSizeInMegabytes'),
             new PropertyConfig('status').WithDropdown(getStatusDropdownOptions()),
@@ -31,6 +33,8 @@ export const getSubscriptionCrudProperties = () => {
             new PropertyConfig('activeMessageCount'),
             new PropertyConfig('deadletterMessageCount'),
             new PropertyConfig('mostRecentDeadletter'),
+        ],
+        setAtCreation: [
             new PropertyConfig('requiresSession').WithCommonTooltip(sub),
         ],
         editable: [
@@ -47,6 +51,8 @@ export const getTopicCrudProperties = () => {
     return {
         readonly: [
             new PropertyConfig('subscriptionCount'),
+        ],
+        setAtCreation: [
             new PropertyConfig('requiresDuplicateDetection'),
             new PropertyConfig('enablePartitioning'),
         ],

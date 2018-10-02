@@ -8,7 +8,7 @@ import { InputLabel } from './InputLabel';
 /**
  * @prop {string} endpointType The type of endpoint we are editing. Use EndpointTypes in Helpers.
  * @prop {object} newEndpointData The edited description of the endpoint.
- * @prop {object} endpointProperties And object with 'editable' and 'readonly' properties, each of which is an Array of propertyConfig objects.
+ * @prop {object} endpointProperties And object with 'editable', 'setAtCreation' & 'readonly' properties, each of which is an Array of propertyConfig objects.
  * @prop {function} handlePropertyChange Function that is called when a property is changed in the form.
  */
 export class CrudPropertiesDisplay extends Component {
@@ -21,7 +21,8 @@ export class CrudPropertiesDisplay extends Component {
      * @returns {node} Data table for read-only properties.
      */
     getReadOnlyPropertyTable = () => {
-        const readOnlyProperties = this.props.endpointProperties.readonly;
+        const allProperties = this.props.endpointProperties;
+        const readOnlyProperties = [...allProperties.readonly, ...allProperties.setAtCreation];
         const propsWithValues = readOnlyProperties.map(prop => {
             return {
                 name: prop.displayLabel,

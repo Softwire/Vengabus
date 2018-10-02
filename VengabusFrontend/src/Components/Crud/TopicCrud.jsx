@@ -65,7 +65,7 @@ export class TopicCrud extends Component {
                     <CrudInterface
                         endpointType={EndpointTypes.TOPIC}
                         selectedEndpoint={this.state.selectedTopic}
-                        endpointData={this.state.topicData}
+                        originalEndpointData={this.state.topicData}
                         newEndpointData={this.state.newTopicData}
                         endpointProperties={getTopicCrudProperties()}
                         handlePropertyChange={this.handlePropertyChange}

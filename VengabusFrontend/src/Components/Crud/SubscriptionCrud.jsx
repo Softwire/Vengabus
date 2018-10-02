@@ -81,7 +81,7 @@ export class SubscriptionCrud extends Component {
                         endpointType={EndpointTypes.SUBSCRIPTION}
                         selectedEndpoint={this.state.selectedSubscription}
                         parentTopic={this.state.parentTopic}
-                        endpointData={this.state.subscriptionData}
+                        originalEndpointData={this.state.subscriptionData}
                         newEndpointData={this.state.newSubscriptionData}
                         endpointProperties={getSubscriptionCrudProperties()}
                         handlePropertyChange={this.handlePropertyChange}
