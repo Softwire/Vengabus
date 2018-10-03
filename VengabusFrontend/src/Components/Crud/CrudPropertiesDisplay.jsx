@@ -16,7 +16,7 @@ export class CrudPropertiesDisplay extends Component {
     /**
      * @returns {string} Class name for standard hr component style used in this interface.
      */
-    
+
     /**
      * @returns {node} Data table for read-only properties.
      */
@@ -26,7 +26,7 @@ export class CrudPropertiesDisplay extends Component {
         const propsWithValues = readOnlyProperties.map(prop => {
             return {
                 name: prop.displayLabel,
-                value: this.props.newEndpointData[prop.propertyName]
+                value: this.props.newEndpointData[prop.propertyName] // qqMDM mostRecentDeadletter will start as null. Look for this and replace with spinner?
             };
         });
         const colProps = [
