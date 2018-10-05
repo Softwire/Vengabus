@@ -4,19 +4,15 @@ import classNames from 'classnames';
 import { DataTable } from '../DataTable';
 import { PropertyInput } from './PropertyInput';
 import { InputLabel } from './InputLabel';
+import { Spinner } from '../Spinner';
 
 /**
  * @prop {string} endpointType The type of endpoint we are editing. Use EndpointTypes in Helpers.
- * @prop {object} newEndpointData The edited description of the endpoint.
+ * @prop {object} endpointData The edited description of the endpoint.
  * @prop {object} endpointProperties And object with 'editable', 'setAtCreation' & 'readonly' properties, each of which is an Array of propertyConfig objects.
  * @prop {function} handlePropertyChange Function that is called when a property is changed in the form.
  */
 export class CrudPropertiesDisplay extends Component {
-
-    /**
-     * @returns {string} Class name for standard hr component style used in this interface.
-     */
-
     /**
      * @returns {node} Data table for read-only properties.
      */
@@ -26,12 +22,21 @@ export class CrudPropertiesDisplay extends Component {
         const propsWithValues = readOnlyProperties.map(prop => {
             return {
                 name: prop.displayLabel,
-                value: this.props.newEndpointData[prop.propertyName] // qqMDM mostRecentDeadletter will start as null. Look for this and replace with spinner?
+                value: this.props.endpointData[prop.propertyName]
             };
         });
+
+        const renderNullAsSpinner = (cell, row, rowIndex) => {
+            console.log({ cell });
+            if (cell === null) {
+                return <Spinner size={8} />;
+            } else {
+                return cell;
+            }
+        }
         const colProps = [
             { dataField: 'name', text: 'Property Name', width: 20, headerStyle: { textAlign: 'left' } },
-            { dataField: 'value', width: 80, headerStyle: { textAlign: 'left' } }
+            { dataField: 'value', width: 80, headerStyle: { textAlign: 'left' }, formatter: renderNullAsSpinner }
         ];
 
         const tableStyle = css`
@@ -74,7 +79,7 @@ export class CrudPropertiesDisplay extends Component {
                     />
                     <PropertyInput
                         propertyName={property}
-                        inputData={this.props.newEndpointData[property]}
+                        inputData={this.props.endpointData[property]}
                         onChange={(data) => this.props.handlePropertyChange(data, property)}
                         complexInputComponentType={propertyConfig.component}
                         options={propertyConfig.dropdownValues}
