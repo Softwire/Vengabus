@@ -96,6 +96,8 @@ function commonTooltipText(field, endpointType) {
     const texts = {
         requiresSession:
             `True if the receiver application can only receive from the ${endpointType} through a MessageSession; false if a ${endpointType} cannot receive using MessageSession.`,
+        supportOrdering:
+            `If the ${endpointType} is currently Partitioned, then you can only supportOrdering if you also requireSession.`,
         autoDeleteOnIdle:
             `The idle time span after which the ${endpointType} is automatically deleted. The minimum duration is 5 minutes.`,
         maxDeliveryCount:
