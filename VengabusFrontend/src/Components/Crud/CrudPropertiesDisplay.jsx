@@ -19,15 +19,14 @@ export class CrudPropertiesDisplay extends Component {
     getReadOnlyPropertyTable = () => {
         const allProperties = this.props.endpointProperties;
         const readOnlyProperties = [...allProperties.readonly, ...allProperties.setAtCreation];
-        const propsWithValues = readOnlyProperties.map(prop => {
+        const propsWithValues = readOnlyProperties.map(property => {
             return {
-                name: prop.displayLabel,
-                value: this.props.endpointData[prop.propertyName]
+                name: property.displayLabel,
+                value: this.props.endpointData[property.propertyName]
             };
         });
 
-        const renderNullAsSpinner = (cell, row, rowIndex) => {
-            console.log({ cell });
+        const renderNullAsSpinner = (cell, row, rowIndex, formatExtraDataObject) => {
             if (cell === null) {
                 return <Spinner size={8} />;
             } else {
@@ -61,7 +60,6 @@ export class CrudPropertiesDisplay extends Component {
     }
 
     /**
-     * @param {string[]} editableProperties Property names for editable properties.
      * @returns {node[]} Array of jsx elements for property inputs.
      */
     getEditablePropertyInputs = () => {
@@ -102,6 +100,7 @@ export class CrudPropertiesDisplay extends Component {
             text-align: left;
             padding-left: 15px;
         `;
+        
         const headerStyle = css`
             padding-top: 10px;
             font-weight: bold;
