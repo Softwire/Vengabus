@@ -30,67 +30,108 @@ export class CrudTitle extends Component {
             width: 98%;
         `;
 
-        let downloadButton;
+        let canUpload, canDownload;
+        switch (this.props.endpointType) {
+            case EndpointTypes.QUEUE:
+                canUpload = true;
+                canDownload = true;
+                break;
 
-        if(this.props.endpointType === EndpointTypes.QUEUE || this.props.endpointType === EndpointTypes.SUBSCRIPTION) {
-            downloadButton = (
-                <DownloadEndpointButton
-                    parentTopic={this.props.parentTopic}
-                    endpointType={this.props.endpointType}
-                    endpointName={this.props.selectedEndpoint}
-                />);
+            case EndpointTypes.TOPIC:
+                canUpload = true;
+                canDownload = false;
+                break;
+
+            case EndpointTypes.SUBSCRIPTION:
+                canUpload = false;
+                canDownload = true;
+                break;
+            default: throw new Error('New endpoint type has been defined.');
         }
 
-        let uploadButton;
-        if (this.props.endpointType === EndpointTypes.QUEUE || this.props.endpointType === EndpointTypes.TOPIC) {
-            uploadButton = (
-                <UploadMessagesToEndpointButton
-                    parentTopic={this.props.parentTopic}
-                    endpointType={this.props.endpointType}
-                    endpointName={this.props.selectedEndpoint}
-                    ready="true"
-                    text={"Upload file of messages to " + this.props.selectedEndpoint}
-                />);
-        }
+        const downloadButton = canDownload ? (
+            <DownloadEndpointButton
+                parentTopic={this.props.parentTopic}
+                endpointType={this.props.endpointType}
+                endpointName={this.props.selectedEndpoint}
+            />) : (null);
+
+        const uploadButton = canUpload ? (
+            <UploadMessagesToEndpointButton
+                parentTopic={this.props.parentTopic}
+                endpointType={this.props.endpointType}
+                endpointName={this.props.selectedEndpoint}
+                ready="true"
+                text={"Upload file of messages to " + this.props.selectedEndpoint}
+            />) : (null);
+
+        const renameButton = (
+            <ButtonWithConfirmationModal
+                id="renameButton"
+                buttonText="Rename"
+                buttonStyle="primary"
+                modalInternalStyle="info"
+                modalTitle={"Rename " + this.props.selectedEndpoint}
+                buttonDisabled={this.props.renameDisabled}
+                modalBody={
+                    <React.Fragment>
+                        <p>New Name</p>
+                        <FormGroup>
+                            <FormControl
+                                type="string"
+                                placeholder="Enter New Name"
+                                onChange={(event) => this.newName = event.target.value}
+                            />
+                        </FormGroup>
+                    </React.Fragment>
+                }
+                confirmButtonText="Rename"
+                confirmAction={() => this.props.renameEndpoint(this.newName)}
+            />
+        );
+
+        const deleteButton = (
+            <ButtonWithConfirmationModal
+                id="deleteButton"
+                buttonText={"Delete " + this.props.endpointType}
+                buttonStyle="danger"
+                modalTitle={"Delete " + this.props.selectedEndpoint}
+                modalBody={
+                    <p>This will irreversibly delete this {this.props.endpointType}</p>
+                }
+                confirmButtonText="Delete"
+                confirmAction={this.props.deleteEndpoint}
+            />
+        );
+
+        const purgeLiveMessagesButton = (
+            <PurgeMessagesButton
+                id="purgeLiveMessages"
+                messageType={EndpointTypes.MESSAGE}
+                type={this.props.endpointType}
+                endpointName={this.props.selectedEndpoint}
+                parentName={this.props.parentTopic}
+            />
+        );
+
+        const purgeDeadlettersButton = (
+            <PurgeMessagesButton
+                id="purgeDeadletterMessages"
+                messageType={EndpointTypes.DEADLETTER}
+                type={this.props.endpointType}
+                endpointName={this.props.selectedEndpoint}
+                parentName={this.props.parentTopic}
+            />
+        );
+
         return (
             <div className={titleStyle}>
                 <span>{titleText + '  '}</span>
                 <ButtonGroup>
-                    <ButtonWithConfirmationModal
-                        id="renameButton"
-                        buttonText={"Rename"}
-                        buttonStyle="primary"
-                        modalInternalStyle="info"
-                        modalTitle={"Rename " + this.props.selectedEndpoint}
-                        buttonDisabled={this.props.renameDisabled}
-                        modalBody={
-                            <React.Fragment>
-                                <p>New Name</p>
-                                <FormGroup>
-                                    <FormControl
-                                        type="string"
-                                        placeholder="Enter New Name"
-                                        onChange={(event) => this.newName = event.target.value}
-                                    />
-                                </FormGroup>
-                            </React.Fragment>
-                        }
-                        confirmButtonText={"Rename"}
-                        confirmAction={() => this.props.renameEndpoint(this.props.selectedEndpoint, this.newName)}
-                    />
-                    <ButtonWithConfirmationModal
-                        id="deleteButton"
-                        buttonText={"Delete " + this.props.endpointType}
-                        buttonStyle="danger"
-                        modalTitle={"Delete " + this.props.selectedEndpoint}
-                        modalBody={
-                            <p>This will irreversibly delete this {this.props.endpointType}</p>
-                        }
-                        confirmButtonText={"Delete"}
-                        confirmAction={this.props.deleteEndpoint}
-                    />
-                    <PurgeMessagesButton id="purgeLiveMessages" messageType={EndpointTypes.MESSAGE} type={this.props.endpointType} endpointName={this.props.selectedEndpoint} parentName={this.props.parentTopic} />
-                    <PurgeMessagesButton id="purgeDeadletterMessages" messageType={EndpointTypes.DEADLETTER} type={this.props.endpointType} endpointName={this.props.selectedEndpoint} parentName={this.props.parentTopic} />
+                    {renameButton}
+                    {deleteButton}
+                    {purgeLiveMessagesButton}
+                    {purgeDeadlettersButton}
                     {downloadButton}
                 </ButtonGroup>
                 {uploadButton}

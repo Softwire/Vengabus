@@ -118,7 +118,7 @@ export class CrudInterface extends Component {
                 />
                 <CrudPropertiesDisplay
                     endpointType={this.props.endpointType}
-                    newEndpointData={this.state.newEndpointData}
+                    endpointData={this.state.newEndpointData}
                     endpointProperties={this.props.endpointProperties}
                     handlePropertyChange={this.handlePropertyChange}
                 />

@@ -4,34 +4,38 @@ import classNames from 'classnames';
 import { DataTable } from '../DataTable';
 import { PropertyInput } from './PropertyInput';
 import { InputLabel } from './InputLabel';
+import { Spinner } from '../Spinner';
 
 /**
  * @prop {string} endpointType The type of endpoint we are editing. Use EndpointTypes in Helpers.
- * @prop {object} newEndpointData The edited description of the endpoint.
+ * @prop {object} endpointData The edited description of the endpoint.
  * @prop {object} endpointProperties And object with 'editable', 'setAtCreation' & 'readonly' properties, each of which is an Array of propertyConfig objects.
  * @prop {function} handlePropertyChange Function that is called when a property is changed in the form.
  */
 export class CrudPropertiesDisplay extends Component {
-
-    /**
-     * @returns {string} Class name for standard hr component style used in this interface.
-     */
-
     /**
      * @returns {node} Data table for read-only properties.
      */
     getReadOnlyPropertyTable = () => {
         const allProperties = this.props.endpointProperties;
         const readOnlyProperties = [...allProperties.readonly, ...allProperties.setAtCreation];
-        const propsWithValues = readOnlyProperties.map(prop => {
+        const propsWithValues = readOnlyProperties.map(property => {
             return {
-                name: prop.displayLabel,
-                value: this.props.newEndpointData[prop.propertyName] // qqMDM mostRecentDeadletter will start as null. Look for this and replace with spinner?
+                name: property.displayLabel,
+                value: this.props.endpointData[property.propertyName]
             };
         });
+
+        const renderNullAsSpinner = (cell, row, rowIndex, formatExtraDataObject) => {
+            if (cell === null) {
+                return <Spinner size={8} />;
+            } else {
+                return cell;
+            }
+        }
         const colProps = [
             { dataField: 'name', text: 'Property Name', width: 20, headerStyle: { textAlign: 'left' } },
-            { dataField: 'value', width: 80, headerStyle: { textAlign: 'left' } }
+            { dataField: 'value', width: 80, headerStyle: { textAlign: 'left' }, formatter: renderNullAsSpinner }
         ];
 
         const tableStyle = css`
@@ -56,7 +60,6 @@ export class CrudPropertiesDisplay extends Component {
     }
 
     /**
-     * @param {string[]} editableProperties Property names for editable properties.
      * @returns {node[]} Array of jsx elements for property inputs.
      */
     getEditablePropertyInputs = () => {
@@ -74,7 +77,7 @@ export class CrudPropertiesDisplay extends Component {
                     />
                     <PropertyInput
                         propertyName={property}
-                        inputData={this.props.newEndpointData[property]}
+                        inputData={this.props.endpointData[property]}
                         onChange={(data) => this.props.handlePropertyChange(data, property)}
                         complexInputComponentType={propertyConfig.component}
                         options={propertyConfig.dropdownValues}
@@ -97,6 +100,7 @@ export class CrudPropertiesDisplay extends Component {
             text-align: left;
             padding-left: 15px;
         `;
+        
         const headerStyle = css`
             padding-top: 10px;
             font-weight: bold;

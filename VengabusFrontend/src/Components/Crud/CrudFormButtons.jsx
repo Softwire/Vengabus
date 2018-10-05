@@ -19,43 +19,51 @@ export class CrudFormButtons extends Component {
             padding-bottom: 15px;
         `;
 
+        const updateButton = (
+            <ButtonWithConfirmationModalAndNotification
+                id="updateButton"
+                buttonText="Update"
+                buttonStyle="default"
+                buttonDisabled={this.props.buttonsDisabled}
+                modalInternalStyle="info"
+                modalTitle={"Update " + this.props.endpointType}
+                modalBody={
+                    <React.Fragment>
+                        <p>{"Following " + this.props.endpointType + " will be updated: " + this.props.selectedEndpoint}</p>
+                        <p>{"Confirm action?"}</p>
+                    </React.Fragment>
+                }
+                confirmButtonText="Update"
+                confirmAction={this.props.updateEndpoint}
+                messageAfterSpinner="Update complete!"
+                successNotificationMessage="Queue updated!"
+                errorNotificationMessage="Queue update failed!"
+            />
+        );
+
+        const resetFieldsButton = (
+            <ButtonWithConfirmationModal
+                id="resetButton"
+                buttonText="Reset Fields"
+                buttonDisabled={this.props.buttonsDisabled}
+                modalInternalStyle="warning"
+                modalTitle="Reset all fields"
+                modalBody={
+                    <React.Fragment>
+                        <p>Are you sure you want to reset ALL fields of the current {this.props.endpointType}?</p>
+                        <p>Note: resetting the fields here will have NO effect on the {this.props.endpointType} in Azure.</p>
+                    </React.Fragment>
+                }
+                confirmButtonText="Reset"
+                confirmAction={this.props.resetFields}
+            />
+        );
+
         return (
             <form className={buttonFormStyle}>
                 <ButtonGroup>
-                    <ButtonWithConfirmationModalAndNotification
-                        id="updateButton"
-                        buttonText={"Update"}
-                        buttonStyle="default"
-                        modalInternalStyle="info"
-                        buttonDisabled={this.props.buttonsDisabled}
-                        modalTitle={"Update " + this.props.endpointType}
-                        modalBody={
-                            <React.Fragment>
-                                <p>{"Following " + this.props.endpointType + " will be updated: " + this.props.selectedEndpoint}</p>
-                                <p>{"Confirm action?"}</p>
-                            </React.Fragment>
-                        }
-                        confirmButtonText={"Update"}
-                        confirmAction={this.props.updateEndpoint}
-                        messageAfterSpinner="Update complete!"
-                        successNotificationMessage="Queue updated!"
-                        errorNotificationMessage="Queue update failed!"
-                    />
-                    <ButtonWithConfirmationModal
-                        id="resetButton"
-                        buttonText={"Reset Fields"}
-                        buttonDisabled={this.props.buttonsDisabled}
-                        modalInternalStyle="warning"
-                        modalTitle={"Reset all fields"}
-                        modalBody={
-                            <React.Fragment>
-                                <p>Are you sure you want to reset ALL fields of the current {this.props.endpointType}?</p>
-                                <p>Note: resetting the fields here will have NO effect on the {this.props.endpointType} in Azure.</p>
-                            </React.Fragment>
-                        }
-                        confirmButtonText={"Reset"}
-                        confirmAction={this.props.resetFields}
-                    />
+                    {updateButton}
+                    {resetFieldsButton}
                 </ButtonGroup>
             </form>
         );
