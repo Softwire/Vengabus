@@ -9,19 +9,21 @@ export const getQueueCrudProperties = () => {
             new PropertyConfig('deadletterMessageCount'),
             new PropertyConfig('mostRecentDeadletter'),
         ],
+        setAtCreation: [
+            new PropertyConfig('enablePartitioning'),
+            new PropertyConfig('requiresSession').WithCommonTooltip(queue),
+            new PropertyConfig('requiresDuplicateDetection'),
+        ],
         editable: [
             new PropertyConfig('supportOrdering'),
-            new PropertyConfig('requiresSession').WithCommonTooltip(queue),
-            new PropertyConfig('enablePartitioning'),
             new PropertyConfig('autoDeleteOnIdle').WithCommonTooltip(queue).WithCustomInput(TimeSpanInput),
             new PropertyConfig('enableDeadletteringOnMessageExpiration').WithCommonTooltip(queue),
-            new PropertyConfig('requiresDuplicateDetection'),
             new PropertyConfig('maxDeliveryCount').WithCommonTooltip(queue),
             new PropertyConfig('maxSizeInMegabytes'),
             new PropertyConfig('status').WithDropdown(getStatusDropdownOptions()),
         ]
     };
-}
+};
 
 export const getSubscriptionCrudProperties = () => {
     const sub = EndpointTypes.SUBSCRIPTION;
@@ -32,32 +34,36 @@ export const getSubscriptionCrudProperties = () => {
             new PropertyConfig('deadletterMessageCount'),
             new PropertyConfig('mostRecentDeadletter'),
         ],
-        editable: [
+        setAtCreation: [
             new PropertyConfig('requiresSession').WithCommonTooltip(sub),
+        ],
+        editable: [
             new PropertyConfig('autoDeleteOnIdle').WithCommonTooltip(sub).WithCustomInput(TimeSpanInput),
             new PropertyConfig('enableDeadletteringOnMessageExpiration').WithCommonTooltip(sub),
             new PropertyConfig('maxDeliveryCount').WithCommonTooltip(sub),
             new PropertyConfig('subscriptionStatus').WithDropdown(getStatusDropdownOptions()),
         ]
     };
-}
+};
 
 export const getTopicCrudProperties = () => {
     const topic = EndpointTypes.TOPIC;
     return {
         readonly: [
             new PropertyConfig('subscriptionCount'),
+        ],
+        setAtCreation: [
             new PropertyConfig('requiresDuplicateDetection'),
+            new PropertyConfig('enablePartitioning'),
         ],
         editable: [
             new PropertyConfig('supportOrdering'),
-            new PropertyConfig('enablePartitioning'),
             new PropertyConfig('autoDeleteOnIdle').WithCommonTooltip(topic).WithCustomInput(TimeSpanInput),
             new PropertyConfig('maxSizeInMegabytes'),
             new PropertyConfig('topicStatus').WithDropdown(getStatusDropdownOptions()),
         ]
     };
-}
+};
 
 class PropertyConfig {
     constructor(propertyName, displayLabel) {
@@ -90,15 +96,17 @@ function commonTooltipText(field, endpointType) {
     const texts = {
         requiresSession:
             `True if the receiver application can only receive from the ${endpointType} through a MessageSession; false if a ${endpointType} cannot receive using MessageSession.`,
+        supportOrdering:
+            `If the ${endpointType} is currently Partitioned, then you can only supportOrdering if you also requireSession.`,
         autoDeleteOnIdle:
             `The idle time span after which the ${endpointType} is automatically deleted. The minimum duration is 5 minutes.`,
         maxDeliveryCount:
             'A message is automatically deadlettered after this number of deliveries.',
         enableDeadletteringOnMessageExpiration:
             `Sets whether this ${endpointType} has dead letter support when a message expires.`
-    }
+    };
     return texts[field];
-};
+}
 
 /**
  * @returns {Object <string, {label: string, value: any}>[]} Object for dropdown of possible EndpointStatuses.

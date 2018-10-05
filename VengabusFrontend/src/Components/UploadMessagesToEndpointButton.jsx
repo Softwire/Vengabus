@@ -13,7 +13,7 @@ export class UploadMessagesToEndpointButton extends Component {
             uploading: false,
             totalToSend: 0,
             totalSent: 0
-        }
+        };
     }
 
     sendMessage = (message) => {
@@ -65,11 +65,13 @@ export class UploadMessagesToEndpointButton extends Component {
     }
 
     render() {
-        const button = (<UploadMessageFileButton
-            disabled={false}
-            onUpload={this.sendAllMessages}
-            text={this.props.text}
-        />);
+        const button = (
+            <UploadMessageFileButton
+                disabled={false}
+                onUpload={this.sendAllMessages}
+                text={this.props.text}
+            />
+        );
 
         const loaded = 100 * (this.state.totalSent / this.state.totalToSend);
         

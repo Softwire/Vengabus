@@ -284,7 +284,7 @@ export class TwoListDisplay extends Component {
                                         }}
                                     />
                                 </Tab>
-                                <Tab eventKey={true} title="Deadletter Messages" >
+                                <Tab eventKey title="Deadletter Messages" >
                                     <MessageList
                                         id='MessageTable'
                                         messageData={this.state.deadletterData}

@@ -22,5 +22,5 @@ var typeToTitle = (type) => {
         default:
             throw new Error('Invalid endpoint type.');
     }
-}
+};
 export { EndpointTypes, typeToTitle };

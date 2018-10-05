@@ -42,7 +42,7 @@ class ButtonWithConfirmationModalAndNotification extends React.Component {
             //return final promise.
 
             return showNotificationPromise;
-        }
+        };
     }
 
     onModalOpen = () => {
@@ -70,24 +70,26 @@ class ButtonWithConfirmationModalAndNotification extends React.Component {
             enableButtons = true;
         }
 
-        return <ButtonWithConfirmationModal
-            afterShowModalAction={this.onModalOpen}
-            confirmAction={this.handleNotificationAndSpinner()}
-            afterCloseModalAction={this.props.afterCloseModalAction}
-            buttonDisabled={this.props.buttonDisabled}
-            buttonSize={this.props.buttonSize}
-            buttonStyle={this.props.buttonStyle}
-            modalInternalStyle={this.props.modalInternalStyle}
-            modalButtonStyle={this.props.modalButtonStyle}
-            buttonCSS={this.props.buttonCSS}
-            tooltipMessage={this.props.tooltipMessage}
-            modalTitle={this.props.modalTitle}
-            modalBody={modalBody}
-            confirmButtonText={this.props.confirmButtonText}
-            cancelButtonText={this.props.cancelButtonText}
-            buttonText={this.props.buttonText}
-            disableButtons={!enableButtons}
-        />
+        return (
+            <ButtonWithConfirmationModal
+                afterShowModalAction={this.onModalOpen}
+                confirmAction={this.handleNotificationAndSpinner()}
+                afterCloseModalAction={this.props.afterCloseModalAction}
+                buttonDisabled={this.props.buttonDisabled}
+                buttonSize={this.props.buttonSize}
+                buttonStyle={this.props.buttonStyle}
+                modalInternalStyle={this.props.modalInternalStyle}
+                modalButtonStyle={this.props.modalButtonStyle}
+                buttonCSS={this.props.buttonCSS}
+                tooltipMessage={this.props.tooltipMessage}
+                modalTitle={this.props.modalTitle}
+                modalBody={modalBody}
+                confirmButtonText={this.props.confirmButtonText}
+                cancelButtonText={this.props.cancelButtonText}
+                buttonText={this.props.buttonText}
+                disableButtons={!enableButtons}
+            />
+        );
     }
 }
 

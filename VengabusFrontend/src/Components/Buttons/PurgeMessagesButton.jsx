@@ -102,19 +102,21 @@ class PurgeMessagesButton extends React.Component {
     render() {
         const buttonText = this.props.messageType === EndpointTypes.MESSAGE ? "Purge Live Messages" : "Purge Deadletters";
         const buttonSpanText = <span>{buttonText} <Glyphicon glyph="trash" /></span>;
-        
-        return (<ButtonWithConfirmationModalAndNotification
-            id="alertPurge"
-            buttonText={buttonSpanText}
-            modalTitle={"Purge messages from " + this.props.type}
-            modalBody={this.state.modalBody}
-            confirmButtonText="Purge"
-            afterShowModalAction={this.showModalAction}
-            confirmAction={this.getOnPurgeConfirmedHandler()}
-            successNotificationMessage="Messages purged successfully!"
-            errorNotificationMessage="Messages purging failed!"
-            messageAfterSpinner="Purged complete!"
-        />);
+
+        return (
+            <ButtonWithConfirmationModalAndNotification
+                id="alertPurge"
+                buttonText={buttonSpanText}
+                modalTitle={"Purge messages from " + this.props.type}
+                modalBody={this.state.modalBody}
+                confirmButtonText="Purge"
+                afterShowModalAction={this.showModalAction}
+                confirmAction={this.getOnPurgeConfirmedHandler()}
+                successNotificationMessage="Messages purged successfully!"
+                errorNotificationMessage="Messages purging failed!"
+                messageAfterSpinner="Purged complete!"
+            />
+        );
     }
 }
 

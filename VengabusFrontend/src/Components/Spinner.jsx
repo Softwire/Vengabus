@@ -11,12 +11,14 @@ class Spinner extends React.Component {
             margin: 10px auto 20px auto;
         `;
 
-        return <PacmanLoader
-            className={this.props.className ? this.props.className : centralSpinner}
-            sizeUnit={"px"}
-            size={this.props.size}
-            color={this.props.color ? this.props.color : panelDarkGrey}
-        />;
+        return (
+            <PacmanLoader
+                className={this.props.className ? this.props.className : centralSpinner}
+                sizeUnit={"px"}
+                size={this.props.size}
+                color={this.props.color ? this.props.color : panelDarkGrey}
+            />
+        );
     }
 }
 

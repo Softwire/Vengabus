@@ -38,5 +38,4 @@ export class MessageBodyInput extends Component {
             </form>
         );
     }
-
-};
+}
