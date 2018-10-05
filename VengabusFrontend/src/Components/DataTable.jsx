@@ -25,10 +25,11 @@ Props:
         search: (OPTIONAL) {boolean/function} Must be defined if the column is to be included in searching.
                 If set to true, the field name will be used directly as search index (no support for nested path);
                 Otherwise, this should be a function that takes the row and returns a string that is used for searching.
+        formatExtraData: (OPTIONAL) {object} An object of data to be passed to the formatter function as a 4th arg.
         formatter: (OPTIONAL) {function} Can be used to render more complicated html within the cells, including rendering dependent on cell value.
                     Takes arguments (cell, row, rowIndex) and should return a string or a JSX element to be rendered within the cell.
                     For example if you want to render a button within the column then you can pass the following to the formatter:
-                    (cell, row, rowIndex) => {
+                    (cell, row, rowIndex, formatExtraDataObject) => {
                         return(
                             <Button onClick={() => onClickFunction(cell, row, rowIndex)}>
                             Do something with the data in the row
