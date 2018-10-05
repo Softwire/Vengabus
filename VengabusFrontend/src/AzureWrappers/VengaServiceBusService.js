@@ -70,7 +70,7 @@ export class VengaServiceBusService {
      * @returns {Promise} The promise for the completion of the DELETE request
      */
     deleteQueue = (name) => {
-        const url = this.apiRoot + 'queues/delete/' + name;
+        const url = this.apiRoot + `queues/delete/${name}`;
         return this.axiosWithSAS.delete(url, null);
     }
 
@@ -127,7 +127,7 @@ export class VengaServiceBusService {
      * @returns {Promise} The promise for the completion of the DELETE request
      */
     deleteTopic = (name) => {
-        const url = this.apiRoot + 'topics/delete/' + name;
+        const url = this.apiRoot + `topics/delete/${name}`;
         return this.axiosWithSAS.delete(url, null);
     }
 
@@ -172,7 +172,7 @@ export class VengaServiceBusService {
      * @returns {Promise} The promise for the completion of the DELETE request
      */
     deleteSubscription = (name, parentTopic) => {
-        const url = this.apiRoot + `subscriptions/delete/' + ${parentTopic} + '/' + ${name}`;
+        const url = this.apiRoot + `subscriptions/delete/${parentTopic}/${name}`;
         return this.axiosWithSAS.delete(url, null);
     }
 
@@ -273,7 +273,7 @@ export class VengaServiceBusService {
     listQueueMessages = (queueName, messageCount) => {
         let queryString = "";
         if (messageCount) {
-            queryString = "/?messageCount=" + messageCount;
+            queryString = `/?messageCount=${messageCount}`;
         }
         const url = this.apiRoot + `queues/${queueName}/messages` + queryString;
         return this.axiosWithSAS.get(url);
@@ -282,7 +282,7 @@ export class VengaServiceBusService {
     listSubscriptionMessages = (topicName, subscriptionName, messageCount) => {
         let queryString = "";
         if (messageCount) {
-            queryString = "/?messageCount=" + messageCount;
+            queryString = `/?messageCount=${messageCount}`;
         }
         const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/messages` + queryString;
         return this.axiosWithSAS.get(url);
@@ -292,7 +292,7 @@ export class VengaServiceBusService {
     listQueueDeadletterMessages = (queueName, messageCount) => {
         let queryString = "";
         if (messageCount) {
-            queryString = "/?messageCount=" + messageCount;
+            queryString = `/?messageCount=${messageCount}`;
         }
         const url = this.apiRoot + `queues/${queueName}/deadletters` + queryString;
         return this.axiosWithSAS.get(url);
@@ -301,7 +301,7 @@ export class VengaServiceBusService {
     listSubscriptionDeadletterMessages = (topicName, subscriptionName, messageCount) => {
         let queryString = "";
         if (messageCount) {
-            queryString = "/?messageCount=" + messageCount;
+            queryString = `/?messageCount=${messageCount}`;
         }
         const url = this.apiRoot + `subscriptions/${topicName}/${subscriptionName}/deadletters` + queryString;
         return this.axiosWithSAS.get(url);
