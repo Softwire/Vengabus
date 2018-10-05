@@ -32,7 +32,8 @@ export class CrudPropertiesDisplay extends Component {
             } else {
                 return cell;
             }
-        }
+        };
+
         const colProps = [
             { dataField: 'name', text: 'Property Name', width: 20, headerStyle: { textAlign: 'left' } },
             { dataField: 'value', width: 80, headerStyle: { textAlign: 'left' }, formatter: renderNullAsSpinner }
@@ -100,7 +101,7 @@ export class CrudPropertiesDisplay extends Component {
             text-align: left;
             padding-left: 15px;
         `;
-        
+
         const headerStyle = css`
             padding-top: 10px;
             font-weight: bold;
