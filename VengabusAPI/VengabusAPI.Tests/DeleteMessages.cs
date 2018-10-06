@@ -5,6 +5,7 @@ using VengabusAPI.Controllers;
 using VengabusAPI.Models;
 using System.Net.Http;
 using System.Threading.Tasks;
+using VengabusAPI.Services;
 using NUnit.Framework;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
@@ -41,7 +42,7 @@ namespace VengabusAPI.Tests
         }
 
         [Test, Description("All messages should be deleted from queue, and the process should not throw errors when someone else is also consuming messages")]
-        public void DeleteAllMessagesFromBusyQueue()
+        public void PurgeMessagesFromBusyQueue()
         {
             //arrange
             //prepare the messages to be deleted
@@ -72,12 +73,71 @@ namespace VengabusAPI.Tests
             Assert.AreEqual(finalMessageCount.ActiveMessageCount, 0, "There are still messages left in the queue");
         }
 
+        [Test, Description("Delete single messages without getting in deadletter queue")]
+        public void DeleteSingleMessageFromBusyQueue()
+        {
+            //arrange
+            //prepare the messages to be deleted
+            TestHelper.SendMessagesToQueue(50);
+
+            var messageCount = TestHelper.getMessageCountInQueue();
+
+            //prepare for the request
+            var request = new HttpRequestMessage();
+
+            var controller = new LiveMessagesController();
+            controller.Request = request;
+            controller.Request.Headers.Add("Auth-SAS", TestHelper.sasString);
+
+            //we need the unique id in order to delete a message, so we get all messages
+            var messageList = controller.ListMessagesInQueue(TestHelper.TestQueueName).ToList();
+
+            //act
+            //we want to simulate a busy queue, so we should do these in parallel
+            VengaMessage message = messageList.First();
+
+            message.PredefinedProperties.TryGetValue("messageId",out var messageId);
+            Console.WriteLine("Delete Message:" + messageId);
+            controller.DeleteSingleMessageInQueue(TestHelper.TestQueueName, message.UniqueId, (string) messageId);
+
+            //assert
+            //our test helper should delete the first message
+            var firstMessageCount = TestHelper.getMessageCountInQueue();
+            Console.WriteLine("First Message Count:" + (messageCount.ActiveMessageCount - firstMessageCount.ActiveMessageCount));
+            Console.WriteLine("First Deadletter message Count:" + firstMessageCount.DeadLetterMessageCount);
+            Assert.AreEqual(messageCount.DeadLetterMessageCount, firstMessageCount.DeadLetterMessageCount, "Some messages got in deadletter queue !");
+            Assert.AreEqual(1, messageCount.ActiveMessageCount - firstMessageCount.ActiveMessageCount, "The message was not deleted properly");
+
+            messageList = controller.ListMessagesInQueue(TestHelper.TestQueueName).ToList();
+            message = messageList.First();
+
+            message.PredefinedProperties.TryGetValue("messageId", out messageId);
+            Console.WriteLine("Delete Message:" + messageId);
+            controller.DeleteSingleMessageInQueue(TestHelper.TestQueueName, message.UniqueId, (string)messageId);
+
+            messageList = controller.ListMessagesInQueue(TestHelper.TestQueueName).ToList();
+            message = messageList.First();
+
+            message.PredefinedProperties.TryGetValue("messageId", out messageId);
+            Console.WriteLine("Delete Message:" + messageId);
+            controller.DeleteSingleMessageInQueue(TestHelper.TestQueueName, message.UniqueId, (string)messageId);
+
+            var finalMessageCount = TestHelper.getMessageCountInQueue();
+            Console.WriteLine("Final Message Count:" + (messageCount.ActiveMessageCount - finalMessageCount.ActiveMessageCount));
+            Console.WriteLine("Final Message Count:" + finalMessageCount.DeadLetterMessageCount);
+            Assert.AreEqual(messageCount.DeadLetterMessageCount, finalMessageCount.DeadLetterMessageCount, "Some messages got in deadletter queue !");
+            Assert.AreEqual(3, messageCount.ActiveMessageCount - finalMessageCount.ActiveMessageCount, "The messages were not deleted properly!");
+            controller.PurgeMessagesInQueue(TestHelper.TestQueueName);
+        }
+
         [Test, Description("All messages should be deleted from queue")]
-        public void DeleteAllMessagesFromQueue()
+        public void PurgeMessagesFromQueue()
         {
             //arrange
             //prepare the messages to be deleted
             TestHelper.SendMessagesToQueue(10);
+
+            var messageCount = TestHelper.getMessageCountInQueue();
 
             //prepare for the request
             var request = new HttpRequestMessage();
@@ -91,8 +151,27 @@ namespace VengabusAPI.Tests
 
             //assert
             var finalMessageCount = TestHelper.getMessageCountInQueue();
-            Assert.AreEqual(finalMessageCount.ActiveMessageCount, 0, "There are still messages left in the queue");
+            Assert.AreEqual(0, finalMessageCount.ActiveMessageCount, "There are still messages left in the queue");
+            Assert.AreEqual(messageCount.DeadLetterMessageCount, finalMessageCount.DeadLetterMessageCount, "Some messages got in deadletter queue!");
             Console.WriteLine(finalMessageCount.ActiveMessageCount);
+        }
+
+        [Test, Description("All messages should be deleted from deadletter queue")]
+        public void PurgeDeadletterMessagesFromQueue()
+        {
+            //arrange
+            //prepare the messages to be deleted
+            TestHelper.SendMessagesToQueue(10);
+
+            //prepare for the request
+
+            //act
+            TestHelper.PurgeDeadletterMessagesFromQueue();
+
+            //assert
+            var finalMessageCount = TestHelper.getMessageCountInQueue();
+            Assert.AreEqual(finalMessageCount.DeadLetterMessageCount, 0, "There are still messages left in the deadletter queue");
+            Console.WriteLine(finalMessageCount.DeadLetterMessageCount);
         }
 
         [Test, Description("The correct number of messages should be sent to a queue")]

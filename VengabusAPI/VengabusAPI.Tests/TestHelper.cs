@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
+using VengabusAPI.Services;
 
 namespace VengabusAPI.Tests
 {
@@ -134,6 +135,11 @@ namespace VengabusAPI.Tests
                     "Testhelped failed to delete all messages in queue, there are still messages remaining.");
             }
             return deletionCount;
+        }
+
+        public static void PurgeDeadletterMessagesFromQueue(string queueName = TestQueueName)
+        {
+            MessageServices.DeleteSelectedMessagesFromEndpoint(new QueueDeadLetterEndpoint(GetNamespaceManager(), CreateEndpointFactory(), queueName),(message => true), Int64.MaxValue);
         }
 
         private static NamespaceManager GetNamespaceManager()

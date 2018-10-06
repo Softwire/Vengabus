@@ -12,7 +12,7 @@ namespace VengabusAPI.Controllers
         protected void PurgeMessagesFromEndpoint(Endpoint endpoint)
         {
             Predicate<BrokeredMessage> deleteMessageChecker = (brokeredMessage) => true;
-            var anyDeletions = MessageServices.DeleteSelectedMessagesFromEndpoint(endpoint, deleteMessageChecker);
+            var anyDeletions = MessageServices.DeleteSelectedMessagesFromEndpoint(endpoint, deleteMessageChecker, Int64.MaxValue);
             if (!anyDeletions)
             {
                 throw new APIWarning(
@@ -48,7 +48,7 @@ and Abandoned enough times, (limit determined by 'Max Delivery Count' property)"
                     return false;
                 }
             };
-            var anyDeletions = MessageServices.DeleteSelectedMessagesFromEndpoint(endpoint, deleteMessageChecker);
+            var anyDeletions = MessageServices.DeleteSelectedMessagesFromEndpoint(endpoint, deleteMessageChecker, 1);
             if (!anyDeletions)
             {
                 throw new APIError(
