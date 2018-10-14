@@ -51,7 +51,7 @@ export function parseTimeSpanFromBackend(timespan) { //qqMDM aim to make this ob
     return result;
 }
 
-export function jsonToString(json) {
+export function jsonToFormattedString(json) {
     const replacer = null;
     const spacing = 4;
     return JSON.stringify(json, replacer, spacing);

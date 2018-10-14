@@ -257,7 +257,7 @@ export class MessageInput extends Component {
 
     /**
      * Sends the message to the selected queue/topic.
-     *  @returns {nothing} for the promice
+     * @return {Promise} Promise for MessageSend completion
      */
     submit = () => {
         const message = this.createMessageObject();

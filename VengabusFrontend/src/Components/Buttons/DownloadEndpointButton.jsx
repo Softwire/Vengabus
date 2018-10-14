@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
-import { formatMessageForDownload, jsonToString } from '../../Helpers/FormattingHelpers';
+import { formatMessageForDownload, jsonToFormattedString } from '../../Helpers/FormattingHelpers';
 import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 const download = require("downloadjs");
 
@@ -19,7 +19,7 @@ export class DownloadEndpointButton extends Component {
                 getMessagesPromise = serviceBusConnection.getServiceBusService().listQueueMessages(this.props.endpointName);
                 break;
             case EndpointTypes.SUBSCRIPTION:
-                if (!this.props.parentTopic) { throw new Error('for subscriptions parent topic must be defined'); }
+                if (!this.props.parentTopic) { throw new Error('For subscriptions, the parent topic must be defined'); }
                 getMessagesPromise = serviceBusConnection.getServiceBusService().listSubscriptionMessages(this.props.parentTopic, this.props.endpointName);
                 break;
             default:
@@ -30,7 +30,8 @@ export class DownloadEndpointButton extends Component {
             for (let i = 0; i < messages.length; i++) {
                 endpointDownload.push(formatMessageForDownload(messages[i]));
             }
-            download(jsonToString(endpointDownload), this.props.endpointName + ".json", "text/json");
+            const fileContents = jsonToFormattedString(endpointDownload);
+            download(fileContents, this.props.endpointName + ".json", "text/json");
         });
     }
 

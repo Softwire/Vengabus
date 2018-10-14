@@ -222,7 +222,7 @@ exports[`MessageBox renders correctly with given props 1`] = `
           id="messageBoxDownloadMessageButton"
           onClick={[Function]}
         >
-          Download  
+          Download 
           <span
             className="glyphicon glyphicon-save"
           />

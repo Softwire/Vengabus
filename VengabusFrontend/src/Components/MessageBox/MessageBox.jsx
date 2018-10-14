@@ -7,7 +7,7 @@ import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { FormattingBox } from './FormattingBox';
 import { DeleteSingleMessageButton } from '../Buttons/DeleteSingleMessageButton';
 import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
-import { formatMessageForDownload, jsonToString } from '../../Helpers/FormattingHelpers';
+import { formatMessageForDownload, jsonToFormattedString } from '../../Helpers/FormattingHelpers';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
 import { NoPropertiesPanel } from './NoPropertiesPanel';
 import { panelDarkGrey, panelLightGrey } from '../../colourScheme';
@@ -60,8 +60,9 @@ export class MessageBox extends Component {
      */
     download = (message) => {
         const messageDownload = [formatMessageForDownload(message)];
-        const fileContents = jsonToString(messageDownload);
-        downloadToFile(fileContents, "message_" + message.predefinedProperties.messageId + ".json", "text/json");
+        const fileContents = jsonToFormattedString(messageDownload);
+        const fileName = "message_" + message.predefinedProperties.messageId + ".json";
+        downloadToFile(fileContents, fileName, "text/json");
     }
 
     closeMessageModalAndReloadMessageTable = () => {
@@ -197,7 +198,7 @@ export class MessageBox extends Component {
                                 disabled={buttonsDisabled}
                             />
                             <CopyTextButton disabled={buttonsDisabled} text={message.messageBody} id="messageBoxCopy"/>
-                            <Button disabled={buttonsDisabled} onClick={() => this.download(message)} id="messageBoxDownloadMessageButton">Download  <span className="glyphicon glyphicon-save"/></Button>
+                            <Button disabled={buttonsDisabled} onClick={() => this.download(message)} id="messageBoxDownloadMessageButton">Download <span className="glyphicon glyphicon-save"/></Button>
                             <Button disabled={buttonsDisabled} onClick={() => this.handleReplayMessage(message)} id="messageBoxReplayMessage">{"Replay Message to " + replayDestination}</Button>
                         </ButtonToolbar>
                     </Modal.Footer>
