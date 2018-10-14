@@ -42,7 +42,7 @@ export class MessageInput extends Component {
             messageBody: message ? message.messageBody : '',
             userDefinedProperties: message ? this.getUserDefinedProperties(message) : [], //[{name: something, value: something}]
             preDefinedProperties: [], //need to fetch permittedPreDefinedValues and reservedPropertyNames before this can be set
-            reservedPropertyNames: [], //a list of name of possible readable properties of a message
+            reservedPropertyNames: [], //a list of name of possible read-only properties of a message
             selectedQueue: this.props.selectedQueue,
             selectedTopic: this.props.selectedTopic,
             hasLoadedPermittedPreDefinedProps: false,
