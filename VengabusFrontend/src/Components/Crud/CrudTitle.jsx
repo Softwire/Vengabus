@@ -5,7 +5,7 @@ import { FormControl, FormGroup, ButtonGroup } from 'react-bootstrap';
 import { css } from 'emotion';
 import { DownloadEndpointButton } from '../Buttons/DownloadEndpointButton';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
-import { UploadMessagesToEndpointButton } from '../UploadMessagesToEndpointButton';
+import { UploadMessagesToEndpointButton } from '../Buttons/UploadMessagesToEndpointButton';
 
 /**
  * @prop {string} endpointType The type of endpoint we are editing. Use EndpointTypes in Helpers.
@@ -61,7 +61,6 @@ export class CrudTitle extends Component {
                 parentTopic={this.props.parentTopic}
                 endpointType={this.props.endpointType}
                 endpointName={this.props.selectedEndpoint}
-                ready="true"
                 text={"Upload file of messages to " + this.props.selectedEndpoint}
             />) : (null);
 

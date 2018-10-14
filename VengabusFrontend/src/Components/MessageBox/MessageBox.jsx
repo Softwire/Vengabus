@@ -7,13 +7,12 @@ import { PAGES, pageSwitcher } from '../../Pages/PageSwitcherService';
 import { FormattingBox } from './FormattingBox';
 import { DeleteSingleMessageButton } from '../Buttons/DeleteSingleMessageButton';
 import { sharedSizesAndDimensions } from '../../Helpers/SharedSizesAndDimensions';
-import { formatMessageForDownload, jsonToString } from '../../Helpers/FormattingHelpers';
 import { EndpointTypes } from '../../Helpers/EndpointTypes';
 import { NoPropertiesPanel } from './NoPropertiesPanel';
 import { panelDarkGrey, panelLightGrey } from '../../colourScheme';
 import { Spinner } from '../Spinner';
 import { NotificationManager } from 'react-notifications';
-const downloadToFile = require("downloadjs");
+import { DownloadMessagesFileButton } from '../Buttons/DownloadMessagesFileButton';
 
 const defaultState = {
     spinner: false
@@ -52,16 +51,6 @@ export class MessageBox extends Component {
                 { message: message, recipientIsQueue: false, selectedTopic: this.props.endpointParent }
             );
         }
-    }
-
-    /**
-     * Downloads a message as a formatted JSON file. Does NOT download any null properties.
-     * @param {object} message The message to be downloaded.
-     */
-    download = (message) => {
-        const messageDownload = [formatMessageForDownload(message)];
-        const fileContents = jsonToString(messageDownload);
-        downloadToFile(fileContents, "message_" + message.predefinedProperties.messageId + ".json", "text/json");
     }
 
     closeMessageModalAndReloadMessageTable = () => {
@@ -196,8 +185,14 @@ export class MessageBox extends Component {
                                 onDeletionStart={this.enableSpinner}
                                 disabled={buttonsDisabled}
                             />
-                            <CopyTextButton disabled={buttonsDisabled} text={message.messageBody} id="messageBoxCopy"/>
-                            <Button disabled={buttonsDisabled} onClick={() => this.download(message)} id="messageBoxDownloadMessageButton">Download  <span className="glyphicon glyphicon-save"/></Button>
+                            <CopyTextButton disabled={buttonsDisabled} text={message.messageBody} id="messageBoxCopy" />
+                            <DownloadMessagesFileButton
+                                getMessages={() => Promise.resolve([message])}
+                                downloadButtonText="Download"
+                                fileName={"message_" + message.predefinedProperties.messageId}
+                                disabled={buttonsDisabled}
+                                id="messageBoxDownloadMessageButton"
+                            />
                             <Button disabled={buttonsDisabled} onClick={() => this.handleReplayMessage(message)} id="messageBoxReplayMessage">{"Replay Message to " + replayDestination}</Button>
                         </ButtonToolbar>
                     </Modal.Footer>

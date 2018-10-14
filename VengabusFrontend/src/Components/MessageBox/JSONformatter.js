@@ -1,4 +1,5 @@
 import { BaseFormatter } from './BaseFormatter';
+import { jsonToFormattedString } from '../../Helpers/FormattingHelpers';
 
 export class JSONformatter {
     constructor() {
@@ -10,9 +11,7 @@ export class JSONformatter {
     }
 
     formatJSONtext = (originalText) => {
-        const propertyFilter = null; //include all properties of the JSON string in the output
-        const indentSize = 4;
-        return this.BaseFormatter.removeBlankLines(JSON.stringify(JSON.parse(originalText), propertyFilter, indentSize));
+        return this.BaseFormatter.removeBlankLines(jsonToFormattedString(JSON.parse(originalText)));
     }
 
     getFormatResult = (originalText) => {
