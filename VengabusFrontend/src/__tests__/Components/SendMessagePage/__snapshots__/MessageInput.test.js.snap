@@ -102,8 +102,26 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                     </p>
                     <label style=\\"cursor: pointer;\\" for=\\"fileUpload\\" class=\\"control-label\\">
                         <h3>
-                            <div class=\\" btn btn-default\\">
-                                Upload message from file
+                            <div type=\\"button\\" class=\\"btn btn-default\\">
+                                <div class=\\"css-1odwksc css-1lcmtd1\\">
+                                    <div class=\\"css-crdzyr\\">
+                                        <div class=\\"css-uq93p2\\">
+                                        </div>
+                                        <div class=\\"css-t42e4v\\">
+                                        </div>
+                                        <div class=\\"css-15j1ike\\">
+                                        </div>
+                                        <div class=\\"css-181xxp8\\">
+                                        </div>
+                                        <div class=\\"css-17blp62\\">
+                                        </div>
+                                        <div class=\\"css-7jm95a\\">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=\\"css-1haabc9\\">
+                                    Upload message from file
+                                </div>
                             </div>
                         </h3>
                         <input style=\\"display: none;\\" type=\\"file\\" id=\\"fileUpload\\" class=\\"\\">
@@ -217,7 +235,7 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
 `;
 
 exports[`renders correctly after data has loaded 1`] = `
-.emotion-55 {
+.emotion-65 {
   margin-left: 5px;
   margin-right: 5px;
   width: calc(100% - 10px);
@@ -484,18 +502,144 @@ exports[`renders correctly after data has loaded 1`] = `
   width: 150px;
 }
 
+.emotion-50 {
+  visibility: hidden;
+}
+
+.emotion-49 {
+  float: left;
+}
+
+.emotion-51 {
+  float: left;
+  margin-left: -11px;
+}
+
+.emotion-48 {
+  margin: 0 0 8px 1px;
+}
+
+.emotion-48 {
+  position: relative;
+  font-size: 0;
+  height: 10px;
+  width: 10px;
+}
+
+.emotion-42 {
+  width: 0;
+  height: 0;
+  border-right: 10px solid transparent;
+  border-top: 10px solid transparent;
+  border-left: 10px solid #333;
+  border-bottom: 10px solid #333;
+  border-radius: 10px;
+  position: absolute;
+  -webkit-animation: animation-1hqwhex 0.8s infinite ease-in-out;
+  animation: animation-1hqwhex 0.8s infinite ease-in-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-43 {
+  width: 0;
+  height: 0;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #333;
+  border-left: 10px solid #333;
+  border-bottom: 10px solid transparent;
+  border-radius: 10px;
+  position: absolute;
+  -webkit-animation: animation-s4bjdm 0.8s infinite ease-in-out;
+  animation: animation-s4bjdm 0.8s infinite ease-in-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-44 {
+  width: 3.3333333333333335px;
+  height: 3.3333333333333335px;
+  background-color: #333;
+  margin: 2px;
+  border-radius: 100%;
+  -webkit-transform: translate(0,-2.5px);
+  -ms-transform: translate(0,-2.5px);
+  transform: translate(0,-2.5px);
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  -webkit-animation: animation-1ojg72h 1s 0.5s infinite linear;
+  animation: animation-1ojg72h 1s 0.5s infinite linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
 .emotion-45 {
+  width: 3.3333333333333335px;
+  height: 3.3333333333333335px;
+  background-color: #333;
+  margin: 2px;
+  border-radius: 100%;
+  -webkit-transform: translate(0,-2.5px);
+  -ms-transform: translate(0,-2.5px);
+  transform: translate(0,-2.5px);
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  -webkit-animation: animation-1ojg72h 1s 0.75s infinite linear;
+  animation: animation-1ojg72h 1s 0.75s infinite linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-46 {
+  width: 3.3333333333333335px;
+  height: 3.3333333333333335px;
+  background-color: #333;
+  margin: 2px;
+  border-radius: 100%;
+  -webkit-transform: translate(0,-2.5px);
+  -ms-transform: translate(0,-2.5px);
+  transform: translate(0,-2.5px);
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  -webkit-animation: animation-1ojg72h 1s 1s infinite linear;
+  animation: animation-1ojg72h 1s 1s infinite linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-47 {
+  width: 3.3333333333333335px;
+  height: 3.3333333333333335px;
+  background-color: #333;
+  margin: 2px;
+  border-radius: 100%;
+  -webkit-transform: translate(0,-2.5px);
+  -ms-transform: translate(0,-2.5px);
+  transform: translate(0,-2.5px);
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  -webkit-animation: animation-1ojg72h 1s 1.25s infinite linear;
+  animation: animation-1ojg72h 1s 1.25s infinite linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-55 {
   width: 270px;
   margin-left: 5px;
 }
 
-.emotion-53 {
+.emotion-63 {
   min-height: 350px;
   padding-left: 5px;
 }
 
 <div
-  className="emotion-55"
+  className="emotion-65"
 >
   <div
     className="emotion-40"
@@ -812,9 +956,41 @@ exports[`renders correctly after data has loaded 1`] = `
   >
     <h3>
       <div
-        className=" btn btn-default"
+        className="btn btn-default"
+        disabled={false}
+        type="button"
       >
-        Upload message from file
+        <div
+          className="emotion-49 emotion-50"
+        >
+          <div
+            className="emotion-48"
+          >
+            <div
+              className="emotion-42"
+            />
+            <div
+              className="emotion-43"
+            />
+            <div
+              className="emotion-44"
+            />
+            <div
+              className="emotion-45"
+            />
+            <div
+              className="emotion-46"
+            />
+            <div
+              className="emotion-47"
+            />
+          </div>
+        </div>
+        <div
+          className="emotion-51"
+        >
+          Upload message from file
+        </div>
       </div>
     </h3>
     <input
@@ -847,7 +1023,7 @@ exports[`renders correctly after data has loaded 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-45 btn btn-default"
+        className="emotion-55 btn btn-default"
         disabled={false}
         id="addPreDefinedPropertyButton"
         onClick={[Function]}
@@ -873,7 +1049,7 @@ exports[`renders correctly after data has loaded 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-45 btn btn-default"
+        className="emotion-55 btn btn-default"
         disabled={false}
         id="addUserDefinedPropertyButton"
         onClick={[Function]}
@@ -897,7 +1073,7 @@ exports[`renders correctly after data has loaded 1`] = `
         Body
       </label>
       <textarea
-        className="emotion-53 form-control"
+        className="emotion-63 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
@@ -910,7 +1086,7 @@ exports[`renders correctly after data has loaded 1`] = `
 `;
 
 exports[`renders correctly before data has loaded 1`] = `
-.emotion-64 {
+.emotion-74 {
   margin-left: 5px;
   margin-right: 5px;
   width: calc(100% - 10px);
@@ -1256,22 +1432,148 @@ exports[`renders correctly before data has loaded 1`] = `
   width: 150px;
 }
 
+.emotion-58 {
+  visibility: hidden;
+}
+
+.emotion-57 {
+  float: left;
+}
+
+.emotion-59 {
+  float: left;
+  margin-left: -11px;
+}
+
+.emotion-56 {
+  margin: 0 0 8px 1px;
+}
+
+.emotion-56 {
+  position: relative;
+  font-size: 0;
+  height: 10px;
+  width: 10px;
+}
+
+.emotion-50 {
+  width: 0;
+  height: 0;
+  border-right: 10px solid transparent;
+  border-top: 10px solid transparent;
+  border-left: 10px solid #333;
+  border-bottom: 10px solid #333;
+  border-radius: 10px;
+  position: absolute;
+  -webkit-animation: animation-1hqwhex 0.8s infinite ease-in-out;
+  animation: animation-1hqwhex 0.8s infinite ease-in-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-51 {
+  width: 0;
+  height: 0;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #333;
+  border-left: 10px solid #333;
+  border-bottom: 10px solid transparent;
+  border-radius: 10px;
+  position: absolute;
+  -webkit-animation: animation-s4bjdm 0.8s infinite ease-in-out;
+  animation: animation-s4bjdm 0.8s infinite ease-in-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-52 {
+  width: 3.3333333333333335px;
+  height: 3.3333333333333335px;
+  background-color: #333;
+  margin: 2px;
+  border-radius: 100%;
+  -webkit-transform: translate(0,-2.5px);
+  -ms-transform: translate(0,-2.5px);
+  transform: translate(0,-2.5px);
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  -webkit-animation: animation-1ojg72h 1s 0.5s infinite linear;
+  animation: animation-1ojg72h 1s 0.5s infinite linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
 .emotion-53 {
+  width: 3.3333333333333335px;
+  height: 3.3333333333333335px;
+  background-color: #333;
+  margin: 2px;
+  border-radius: 100%;
+  -webkit-transform: translate(0,-2.5px);
+  -ms-transform: translate(0,-2.5px);
+  transform: translate(0,-2.5px);
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  -webkit-animation: animation-1ojg72h 1s 0.75s infinite linear;
+  animation: animation-1ojg72h 1s 0.75s infinite linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-54 {
+  width: 3.3333333333333335px;
+  height: 3.3333333333333335px;
+  background-color: #333;
+  margin: 2px;
+  border-radius: 100%;
+  -webkit-transform: translate(0,-2.5px);
+  -ms-transform: translate(0,-2.5px);
+  transform: translate(0,-2.5px);
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  -webkit-animation: animation-1ojg72h 1s 1s infinite linear;
+  animation: animation-1ojg72h 1s 1s infinite linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-55 {
+  width: 3.3333333333333335px;
+  height: 3.3333333333333335px;
+  background-color: #333;
+  margin: 2px;
+  border-radius: 100%;
+  -webkit-transform: translate(0,-2.5px);
+  -ms-transform: translate(0,-2.5px);
+  transform: translate(0,-2.5px);
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  -webkit-animation: animation-1ojg72h 1s 1.25s infinite linear;
+  animation: animation-1ojg72h 1s 1.25s infinite linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-63 {
   width: 270px;
   margin-left: 5px;
 }
 
-.emotion-54.btn:hover {
+.emotion-64.btn:hover {
   cursor: progress;
 }
 
-.emotion-62 {
+.emotion-72 {
   min-height: 350px;
   padding-left: 5px;
 }
 
 <div
-  className="emotion-64"
+  className="emotion-74"
 >
   <div
     className="emotion-48"
@@ -1605,13 +1907,66 @@ exports[`renders correctly before data has loaded 1`] = `
   <p>
     Upload Message from File
   </p>
-  <button
-    className="btn btn-default"
-    disabled={true}
-    type="button"
+  <label
+    className="control-label"
+    htmlFor="fileUpload"
+    style={
+      Object {
+        "cursor": "pointer",
+      }
+    }
   >
-    Upload message from file
-  </button>
+    <h3>
+      <div
+        className="btn btn-default"
+        disabled={true}
+        type="button"
+      >
+        <div
+          className="emotion-57 emotion-58"
+        >
+          <div
+            className="emotion-56"
+          >
+            <div
+              className="emotion-50"
+            />
+            <div
+              className="emotion-51"
+            />
+            <div
+              className="emotion-52"
+            />
+            <div
+              className="emotion-53"
+            />
+            <div
+              className="emotion-54"
+            />
+            <div
+              className="emotion-55"
+            />
+          </div>
+        </div>
+        <div
+          className="emotion-59"
+        >
+          Upload message from file
+        </div>
+      </div>
+    </h3>
+    <input
+      className=""
+      id="fileUpload"
+      onChange={[Function]}
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+      type="file"
+    />
+  </label>
   <hr
     className="emotion-21"
   />
@@ -1630,7 +1985,7 @@ exports[`renders correctly before data has loaded 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-53 emotion-54 btn btn-default"
+        className="emotion-63 emotion-64 btn btn-default"
         disabled={true}
         id="addPreDefinedPropertyButton"
         onClick={[Function]}
@@ -1656,7 +2011,7 @@ exports[`renders correctly before data has loaded 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-53 btn btn-default"
+        className="emotion-63 btn btn-default"
         disabled={false}
         id="addUserDefinedPropertyButton"
         onClick={[Function]}
@@ -1680,7 +2035,7 @@ exports[`renders correctly before data has loaded 1`] = `
         Body
       </label>
       <textarea
-        className="emotion-62 form-control"
+        className="emotion-72 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
@@ -1693,7 +2048,7 @@ exports[`renders correctly before data has loaded 1`] = `
 `;
 
 exports[`renders correctly from a predefined message 1`] = `
-.emotion-64 {
+.emotion-74 {
   margin-left: 5px;
   margin-right: 5px;
   width: calc(100% - 10px);
@@ -2039,16 +2394,142 @@ exports[`renders correctly from a predefined message 1`] = `
   width: 150px;
 }
 
+.emotion-58 {
+  visibility: hidden;
+}
+
+.emotion-57 {
+  float: left;
+}
+
+.emotion-59 {
+  float: left;
+  margin-left: -11px;
+}
+
+.emotion-56 {
+  margin: 0 0 8px 1px;
+}
+
+.emotion-56 {
+  position: relative;
+  font-size: 0;
+  height: 10px;
+  width: 10px;
+}
+
+.emotion-50 {
+  width: 0;
+  height: 0;
+  border-right: 10px solid transparent;
+  border-top: 10px solid transparent;
+  border-left: 10px solid #333;
+  border-bottom: 10px solid #333;
+  border-radius: 10px;
+  position: absolute;
+  -webkit-animation: animation-1hqwhex 0.8s infinite ease-in-out;
+  animation: animation-1hqwhex 0.8s infinite ease-in-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-51 {
+  width: 0;
+  height: 0;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #333;
+  border-left: 10px solid #333;
+  border-bottom: 10px solid transparent;
+  border-radius: 10px;
+  position: absolute;
+  -webkit-animation: animation-s4bjdm 0.8s infinite ease-in-out;
+  animation: animation-s4bjdm 0.8s infinite ease-in-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-52 {
+  width: 3.3333333333333335px;
+  height: 3.3333333333333335px;
+  background-color: #333;
+  margin: 2px;
+  border-radius: 100%;
+  -webkit-transform: translate(0,-2.5px);
+  -ms-transform: translate(0,-2.5px);
+  transform: translate(0,-2.5px);
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  -webkit-animation: animation-1ojg72h 1s 0.5s infinite linear;
+  animation: animation-1ojg72h 1s 0.5s infinite linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
 .emotion-53 {
+  width: 3.3333333333333335px;
+  height: 3.3333333333333335px;
+  background-color: #333;
+  margin: 2px;
+  border-radius: 100%;
+  -webkit-transform: translate(0,-2.5px);
+  -ms-transform: translate(0,-2.5px);
+  transform: translate(0,-2.5px);
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  -webkit-animation: animation-1ojg72h 1s 0.75s infinite linear;
+  animation: animation-1ojg72h 1s 0.75s infinite linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-54 {
+  width: 3.3333333333333335px;
+  height: 3.3333333333333335px;
+  background-color: #333;
+  margin: 2px;
+  border-radius: 100%;
+  -webkit-transform: translate(0,-2.5px);
+  -ms-transform: translate(0,-2.5px);
+  transform: translate(0,-2.5px);
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  -webkit-animation: animation-1ojg72h 1s 1s infinite linear;
+  animation: animation-1ojg72h 1s 1s infinite linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-55 {
+  width: 3.3333333333333335px;
+  height: 3.3333333333333335px;
+  background-color: #333;
+  margin: 2px;
+  border-radius: 100%;
+  -webkit-transform: translate(0,-2.5px);
+  -ms-transform: translate(0,-2.5px);
+  transform: translate(0,-2.5px);
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  -webkit-animation: animation-1ojg72h 1s 1.25s infinite linear;
+  animation: animation-1ojg72h 1s 1.25s infinite linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.emotion-63 {
   width: 270px;
   margin-left: 5px;
 }
 
-.emotion-54.btn:hover {
+.emotion-64.btn:hover {
   cursor: progress;
 }
 
-.emotion-62 {
+.emotion-72 {
   min-height: 350px;
   padding-left: 5px;
 }
@@ -2070,7 +2551,7 @@ exports[`renders correctly from a predefined message 1`] = `
 }
 
 <div
-  className="emotion-64"
+  className="emotion-74"
 >
   <div
     className="emotion-48"
@@ -2404,13 +2885,66 @@ exports[`renders correctly from a predefined message 1`] = `
   <p>
     Upload Message from File
   </p>
-  <button
-    className="btn btn-default"
-    disabled={true}
-    type="button"
+  <label
+    className="control-label"
+    htmlFor="fileUpload"
+    style={
+      Object {
+        "cursor": "pointer",
+      }
+    }
   >
-    Upload message from file
-  </button>
+    <h3>
+      <div
+        className="btn btn-default"
+        disabled={true}
+        type="button"
+      >
+        <div
+          className="emotion-57 emotion-58"
+        >
+          <div
+            className="emotion-56"
+          >
+            <div
+              className="emotion-50"
+            />
+            <div
+              className="emotion-51"
+            />
+            <div
+              className="emotion-52"
+            />
+            <div
+              className="emotion-53"
+            />
+            <div
+              className="emotion-54"
+            />
+            <div
+              className="emotion-55"
+            />
+          </div>
+        </div>
+        <div
+          className="emotion-59"
+        >
+          Upload message from file
+        </div>
+      </div>
+    </h3>
+    <input
+      className=""
+      id="fileUpload"
+      onChange={[Function]}
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+      type="file"
+    />
+  </label>
   <hr
     className="emotion-21"
   />
@@ -2429,7 +2963,7 @@ exports[`renders correctly from a predefined message 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-53 emotion-54 btn btn-default"
+        className="emotion-63 emotion-64 btn btn-default"
         disabled={true}
         id="addPreDefinedPropertyButton"
         onClick={[Function]}
@@ -2455,7 +2989,7 @@ exports[`renders correctly from a predefined message 1`] = `
       className="emotion-1"
     >
       <button
-        className="emotion-53 btn btn-default"
+        className="emotion-63 btn btn-default"
         disabled={false}
         id="addUserDefinedPropertyButton"
         onClick={[Function]}
@@ -2479,7 +3013,7 @@ exports[`renders correctly from a predefined message 1`] = `
         Body
       </label>
       <textarea
-        className="emotion-62 form-control"
+        className="emotion-72 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"

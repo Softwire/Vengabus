@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { parseUploadedMessage } from '../../Helpers/FormattingHelpers';
 import { FormControl, ControlLabel } from 'react-bootstrap';
 import { vengaNotificationManager } from '../../Helpers/VengaNotificationManager';
+import { ButtonWithInlineSpinner } from './ButtonWithInlineSpinner';
 
 /**
  * @prop {Function<Promise<ApiMessages[]>>} onFileReadComplete function accepting a promise for the array of parsed messages in API format.
@@ -10,15 +11,23 @@ import { vengaNotificationManager } from '../../Helpers/VengaNotificationManager
  * @prop {boolean} disabled Is button disabled.
  */
 export class ReadMessagesFileButton extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { isSpinning: false };
+    }
+
     /**
      * @param {browserFileUploadObject} file Expected to be the `event.target.files` value of a fileUploadInput Event.
      */
     uploadFile = (file) => {
+        this.setState({ isSpinning: true });
         const filePromise = this.extractObjectFromFileUpload(file); //will be an Array of objects in the fileMessage format.
         const apiMessagesPromise = filePromise.then(jsonFileContents => {
             return jsonFileContents.map(fileMessage => parseUploadedMessage(fileMessage));
         }).catch(error => vengaNotificationManager.error("Upload Failed: " + error));
 
+        apiMessagesPromise.then(() => { this.setState({ isSpinning: false }); });
         this.props.onFileReadComplete(apiMessagesPromise);
     }
 
@@ -40,8 +49,7 @@ export class ReadMessagesFileButton extends Component {
     }
 
     render() {
-        const disabledButton = (<Button disabled >{this.props.text}</Button>);
-        const activeButton = (
+        return (
             <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}>
                 {/*
                     You can't style a fileUpload input, so the only option is to
@@ -52,7 +60,13 @@ export class ReadMessagesFileButton extends Component {
                     Humbug.
                 */}
                 <h3>
-                    <div className=" btn btn-default">{this.props.text}</div>
+                    <ButtonWithInlineSpinner
+                        disabled={this.props.disabled}
+                        isSpinning={this.state.isSpinning}
+                        componentClass="div"
+                    >
+                        {this.props.text}
+                    </ButtonWithInlineSpinner>
                 </h3>
                 <FormControl
                     id="fileUpload"
@@ -62,7 +76,5 @@ export class ReadMessagesFileButton extends Component {
                 />
             </ControlLabel>
         );
-
-        return this.props.disabled ? disabledButton : activeButton;
     }
 }

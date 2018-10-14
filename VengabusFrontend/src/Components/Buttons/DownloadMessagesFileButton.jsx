@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
 import { formatMessageForDownload, jsonToFormattedString } from '../../Helpers/FormattingHelpers';
+import { ButtonWithInlineSpinner } from './ButtonWithInlineSpinner';
 const downloadToFile = require("downloadjs");
 
 /**
@@ -13,7 +13,13 @@ const downloadToFile = require("downloadjs");
  */
 export class DownloadMessagesFileButton extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = { isSpinning: false };
+    }
+
     downloadMessageFile = () => {
+        this.setState({ isSpinning: true });
         this.props.getMessages().then(messages => {
             const endpointDownload = [];
             for (let i = 0; i < messages.length; i++) {
@@ -21,14 +27,23 @@ export class DownloadMessagesFileButton extends Component {
             }
             const fileContents = jsonToFormattedString(endpointDownload);
             downloadToFile(fileContents, this.props.fileName + ".json", "text/json");
+            this.setState({ isSpinning: false });
         });
     }
 
     render() {
+        const showSpinner = this.state.isSpinning || this.props.isSpinning;
+
         return (
-            <Button disabled={this.props.disabled} id={this.props.id} onClick={this.downloadMessageFile}>
-                {this.props.downloadButtonText} <span className="glyphicon glyphicon-save" /> {/* Space before is required for spacing */}
-            </Button>
+            <ButtonWithInlineSpinner
+                isSpinning={showSpinner}
+                disabled={this.props.disabled}
+                id={this.props.id}
+                onClick={this.downloadMessageFile}
+            >
+                {/* Space before the span is required for spacing of Download icon */}
+                {this.props.downloadButtonText} <span className="glyphicon glyphicon-save" />
+            </ButtonWithInlineSpinner>
         );
     }
 }
