@@ -68,14 +68,11 @@ export class MessageInput extends Component {
 
         const fetchQueueDataPromise = this.promiseCollection.addNewPromise(this.serviceBusService.listQueues());
         const fetchTopicDataPromise = this.promiseCollection.addNewPromise(this.serviceBusService.listTopics());
-        fetchQueueDataPromise.then((result) => {
+        Promise.all([fetchQueueDataPromise, fetchTopicDataPromise]).then((result) => {
+            const [queues, topics] = result;
             this.setState({
-                availableQueues: this.convertArrayOfNamesToValueLabel(result)
-            });
-        }).catch((e) => { if (!e.isCanceled) { console.log(e); } });
-        fetchTopicDataPromise.then((result) => {
-            this.setState({
-                availableTopics: this.convertArrayOfNamesToValueLabel(result)
+                availableQueues: this.convertArrayOfNamesToValueLabel(queues),
+                availableTopics: this.convertArrayOfNamesToValueLabel(topics)
             });
         }).catch((e) => { if (!e.isCanceled) { console.log(e); } });
     }
