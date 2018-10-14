@@ -34,13 +34,13 @@ export class MessageInput extends Component {
         const message = this.props.message;
         this.promiseCollection = new cancellablePromiseCollection();
         this.state = {
-            permittedValues: [],
+            permittedPreDefinedValues: [],
             availableTopics: [],
             availableQueues: [],
             recipientIsQueue: !!(this.props.recipientIsQueue),
             messageBody: message ? message.messageBody : '',
             userDefinedProperties: message ? this.getUserDefinedProperties(message) : [], //[{name: something, value: something}]
-            preDefinedProperties: [], //need to fetch permittedValues and reservedPropertyNames before this can be set
+            preDefinedProperties: [], //need to fetch permittedPreDefinedValues and reservedPropertyNames before this can be set
             reservedPropertyNames: [], //a list of name of possible readable properties of a message
             selectedQueue: this.props.selectedQueue,
             selectedTopic: this.props.selectedTopic,
@@ -52,15 +52,16 @@ export class MessageInput extends Component {
     componentDidMount() {
         this.serviceBusService = serviceBusConnection.getServiceBusService();
 
-        let permittedValuesPromise = this.promiseCollection.addNewPromise(this.serviceBusService.getWriteableMessageProperties());
+        let permittedPreDefinedValuesPromise = this.promiseCollection.addNewPromise(this.serviceBusService.getWriteableMessageProperties());
         let reservedPropertyNamesPromise = this.promiseCollection.addNewPromise(this.serviceBusService.getReadableMessageProperties());
-        Promise.all([permittedValuesPromise, reservedPropertyNamesPromise]).then((result) => {
+        Promise.all([permittedPreDefinedValuesPromise, reservedPropertyNamesPromise]).then((result) => {
+            const [permittedPreDefinedValues, reservedPropertyNames] = result;
             this.setState({
-                permittedValues: result[0],
-                reservedPropertyNames: result[1],
-                arePreDefinedPropsLoaded: true
+                arePreDefinedPropsLoaded: true,
+                permittedPreDefinedValues: permittedPreDefinedValues,
+                reservedPropertyNames: reservedPropertyNames,
             });
-            this.setMessageDetails(this.props.messageBody, result[0], result[1]);
+            this.setMessageDetails(this.props.messageBody, permittedPreDefinedValues, reservedPropertyNames);
         }).catch((e) => { if (!e.isCanceled) { console.log(e); } });
 
 
@@ -82,11 +83,11 @@ export class MessageInput extends Component {
         this.promiseCollection.cancelAllPromises();
     }
 
-    setMessageDetails = (messageObject, permittedValues, reservedValues) => {
+    setMessageDetails = (messageObject, permittedPreDefinedValues, reservedValues) => {
         if (!messageObject) {
             return;//this.setState({ ...defaultBlankMessage });
         }
-        const preDefinedProps = this.getPreDefinedProperties(messageObject, permittedValues, reservedValues);
+        const preDefinedProps = this.getPreDefinedProperties(messageObject, permittedPreDefinedValues, reservedValues);
         this.setState({
             messageBody: messageObject.messageBody,
             userDefinedProperties: this.getUserDefinedProperties(messageObject),
@@ -97,7 +98,7 @@ export class MessageInput extends Component {
     setMessageFieldsFromFileObject = (fileReadMessagePromise) => {
         const messagePromise = this.promiseCollection.addNewPromise(fileReadMessagePromise);
         messagePromise.then(messageObjects => {
-            this.setMessageDetails(messageObjects[0], this.permittedValues, this.reservedPropertyNames);
+            this.setMessageDetails(messageObjects[0], this.permittedPreDefinedValues, this.reservedPropertyNames);
         }); //.catch is handled by the LoadFile button - displays a notification. 
     }
 
@@ -127,8 +128,8 @@ export class MessageInput extends Component {
         return this.getTargetProperties(message, "customProperties");
     }
 
-    getPreDefinedProperties = (message, permittedValues, reservedPropertyNames) => {
-        return this.getTargetProperties(message, "predefinedProperties", permittedValues, reservedPropertyNames);
+    getPreDefinedProperties = (message, permittedPreDefinedValues, reservedPropertyNames) => {
+        return this.getTargetProperties(message, "predefinedProperties", permittedPreDefinedValues, reservedPropertyNames);
     }
 
     /**
@@ -348,7 +349,7 @@ export class MessageInput extends Component {
                 arePreDefinedPropsLoaded={this.state.arePreDefinedPropsLoaded}
                 preDefinedProperties={this.state.preDefinedProperties}
                 userDefinedProperties={this.state.userDefinedProperties}
-                permittedValues={this.state.permittedValues}
+                permittedPreDefinedValues={this.state.permittedPreDefinedValues}
                 reservedPropertyNames={this.state.reservedPropertyNames}
                 handlePropertiesChange={this.handlePropertiesChange}
                 reportWarnings={this.setWarnings}

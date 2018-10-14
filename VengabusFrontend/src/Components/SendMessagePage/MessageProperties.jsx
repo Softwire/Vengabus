@@ -77,7 +77,7 @@ export class MessageProperties extends Component {
                     handlePropertyNameChange={(newName, index) => this.handlePropertiesEdit(isPredefined, index, 'name', newName)}
                     handlePropertyValueChange={(newValue, index) => this.handlePropertiesEdit(isPredefined, index, 'value', newValue)}
                     deleteRow={(index) => this.deleteRow(index, isPredefined)}
-                    permittedValues={isPredefined ? this.props.permittedValues : undefined}
+                    permittedValues={isPredefined ? this.props.permittedPreDefinedValues : undefined}
                     reservedPropertyNames={isPredefined ? undefined : this.props.reservedPropertyNames}
                     reportWarnings={this.props.reportWarnings}
                 />
