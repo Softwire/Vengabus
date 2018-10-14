@@ -44,7 +44,7 @@ export class MessageInput extends Component {
             reservedPropertyNames: [], //a list of name of possible readable properties of a message
             selectedQueue: this.props.selectedQueue,
             selectedTopic: this.props.selectedTopic,
-            arePreDefinedPropsLoaded: false,
+            hasLoadedPermittedPreDefinedProps: false,
             sendMessageModalWarnings: null
         };
     }
@@ -57,7 +57,7 @@ export class MessageInput extends Component {
         Promise.all([permittedPreDefinedValuesPromise, reservedPropertyNamesPromise]).then((result) => {
             const [permittedPreDefinedValues, reservedPropertyNames] = result;
             this.setState({
-                arePreDefinedPropsLoaded: true,
+                hasLoadedPermittedPreDefinedProps: true,
                 permittedPreDefinedValues: permittedPreDefinedValues,
                 reservedPropertyNames: reservedPropertyNames,
             });
@@ -337,7 +337,7 @@ export class MessageInput extends Component {
                 <p>Upload Message from File</p>
 
                 <ReadMessagesFileButton
-                    disabled={!this.state.arePreDefinedPropsLoaded}
+                    disabled={!this.state.hasLoadedPermittedPreDefinedProps}
                     onFileReadComplete={this.setMessageFieldsFromFileObject}
                     text="Upload message from file"
                 />
@@ -346,7 +346,7 @@ export class MessageInput extends Component {
 
         const messageProperties = (
             <MessageProperties
-                arePreDefinedPropsLoaded={this.state.arePreDefinedPropsLoaded}
+                hasLoadedPermittedPreDefinedProps={this.state.hasLoadedPermittedPreDefinedProps}
                 preDefinedProperties={this.state.preDefinedProperties}
                 userDefinedProperties={this.state.userDefinedProperties}
                 permittedPreDefinedValues={this.state.permittedPreDefinedValues}

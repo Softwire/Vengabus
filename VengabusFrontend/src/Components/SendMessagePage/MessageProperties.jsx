@@ -64,9 +64,9 @@ export class MessageProperties extends Component {
                 cursor: progress;
             }
         `;
-        let preDefinedPropsButtonClassNames = classNames(buttonStyle, this.props.arePreDefinedPropsLoaded || buttonLoading);
+        let preDefinedPropsButtonClassNames = classNames(buttonStyle, this.props.hasLoadedPermittedPreDefinedProps || buttonLoading);
         const addPropertyText = isPredefined ? 'Add new Azure property' : 'Add new application specific property';
-        const arePropertiesLoaded = !isPredefined || this.props.arePreDefinedPropsLoaded;
+        const arePropertiesLoaded = !isPredefined || this.props.hasLoadedPermittedPreDefinedProps;
         return (
             <React.Fragment>
                 <div className={leftAlign}>
