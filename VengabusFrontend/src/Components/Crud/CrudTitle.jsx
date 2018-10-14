@@ -61,7 +61,6 @@ export class CrudTitle extends Component {
                 parentTopic={this.props.parentTopic}
                 endpointType={this.props.endpointType}
                 endpointName={this.props.selectedEndpoint}
-                ready="true"
                 text={"Upload file of messages to " + this.props.selectedEndpoint}
             />) : (null);
 
