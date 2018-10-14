@@ -10,6 +10,7 @@ import { cancellablePromiseCollection } from '../../Helpers/CancellablePromiseCo
 import { sharedSizesAndDimensions, zIndices } from '../../Helpers/SharedSizesAndDimensions';
 import _ from 'lodash';
 import { ReadMessagesFileButton } from '../Buttons/ReadMessagesFileButton';
+import { vengaNotificationManager } from '../../Helpers/VengaNotificationManager';
 
 
 const defaultBlankMessage = Object.freeze({
@@ -85,13 +86,17 @@ export class MessageInput extends Component {
 
     setMessageDetails = (messageObject, permittedPreDefinedValues, reservedValues) => {
         if (!messageObject) {
-            return;//this.setState({ ...defaultBlankMessage });
+            // We could reset the fields here (using the blank messsage object),
+            // but reporting the weirdness if probably better.
+            vengaNotificationManager.warning("Uploaded file contained no message or an invalid message. Fields have not been set.");
+            return;
         }
-        const preDefinedProps = this.getPreDefinedProperties(messageObject, permittedPreDefinedValues, reservedValues);
+        const allUserDefinedProps = this.getUserDefinedProperties(messageObject);
+        const writablePreDefinedProps = this.getWritablePreDefinedProperties(messageObject, permittedPreDefinedValues, reservedValues);
         this.setState({
             messageBody: messageObject.messageBody,
-            userDefinedProperties: this.getUserDefinedProperties(messageObject),
-            preDefinedProperties: preDefinedProps
+            userDefinedProperties: allUserDefinedProps,
+            preDefinedProperties: writablePreDefinedProps
         });
     }
 
@@ -103,40 +108,27 @@ export class MessageInput extends Component {
     }
 
     /**
-     * Converts a string to an object of the form:
-     * `{value: "string", label: "string"}`
-     * Used to add values to select elements.
-     * @param {string} str The string to convert.
-     * @returns {object} The created object.
-     */
-    convertToValueLabel = (str) => {
-        return { value: str, label: str };
-    }
-
-    /**
-     * Converts an array of objects with a name property to an array of objects with a value and label property:
-     * `[{..., name: "example", ...}] -> [{value: "example", label: "example"}]`
      * Used to add values to select elements.
      * @param {object[]} arr The array of objects containing the names to use.
      * @returns {object[]} The created object.
      */
     convertArrayOfNamesToValueLabel = (arr) => {
-        return _(arr).map((element) => this.convertToValueLabel(element.name));
+        return _(arr).map((element) => ({ value: element.name, label: element.name }));
     }
 
     getUserDefinedProperties = (message) => {
         return this.getTargetProperties(message, "customProperties");
     }
 
-    getPreDefinedProperties = (message, permittedPreDefinedValues, reservedPropertyNames) => {
+    getWritablePreDefinedProperties = (message, permittedPreDefinedValues, reservedPropertyNames) => {
         return this.getTargetProperties(message, "predefinedProperties", permittedPreDefinedValues, reservedPropertyNames);
     }
 
     /**
      * Gets the properties of a certain type from a message.
+     * If settableProps are provided, then we will only return those propererties which ARE settable (gettableProps will skipped.)
      * @param {object} message The message to get the properties from.
-     * @param {string} propertyClass The class of properties to get,
-     * either `customProperties` or `predefinedProperties`.
+     * @param {string} propertyClass The class of properties to get, either `customProperties` or `predefinedProperties`.
      * @param {string[]} settableProps List of keys whose value can be written.
      * @param {string[]} gettableProps List of keys whose value can be read.
      * @returns {object[]} The list of properties.
@@ -166,21 +158,6 @@ export class MessageInput extends Component {
     handlePropertiesChange = (propertyType, newProperties) => {
         this.setState({ [propertyType]: newProperties });
     }
-
-    /**
-     * Updates a collection of properties by applying the given updateOperation to it.
-     * @param {boolean} isUserDefined Should be true if the property is user-defined, false if it is a pre-defined property.
-     * @param {funciton} updateOperation The operation to be applied to the properties collection.
-     */
-    updatePropertiesCollection = (isUserDefined, updateOperation) => {
-        const propertyType = isUserDefined ? "userDefinedProperties" : "preDefinedProperties";
-        const newProperties = [...this.state[propertyType]];
-        updateOperation(newProperties);
-        this.setState({
-            //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#Computed_property_names
-            [propertyType]: newProperties
-        });
-    };
 
     setWarnings = (warnings) => {
         this.propertyWarnings = warnings;

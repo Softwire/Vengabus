@@ -6,8 +6,6 @@ import classNames from 'classnames';
 export class MessageDestination extends Component {
 
     /**
-     * Converts a string to an object of the form:
-     * `{value: "string", label: "string"}`
      * Used to add values to select elements.
      * @param {string} str The string to convert.
      * @returns {object} The created object.
