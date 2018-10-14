@@ -9,7 +9,7 @@ import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
 import { cancellablePromiseCollection } from '../../Helpers/CancellablePromiseCollection';
 import { sharedSizesAndDimensions, zIndices } from '../../Helpers/SharedSizesAndDimensions';
 import _ from 'lodash';
-import { UploadMessageFileButton } from '../../Components/UploadMessageFileButton';
+import { ReadMessagesFileButton } from '../Buttons/ReadMessagesFileButton';
 
 
 const defaultBlankMessage = Object.freeze({
@@ -257,7 +257,7 @@ export class MessageInput extends Component {
 
     /**
      * Sends the message to the selected queue/topic.
-     *  @returns {nothing} for the promice
+     * @return {Promise} Promise for MessageSend completion
      */
     submit = () => {
         const message = this.createMessageObject();
@@ -335,9 +335,9 @@ export class MessageInput extends Component {
             <React.Fragment>
                 <p>Upload Message from File</p>
 
-                <UploadMessageFileButton
+                <ReadMessagesFileButton
                     disabled={!this.state.arePreDefinedPropsLoaded}
-                    onUpload={this.setMessageFieldsFromFileObject}
+                    onFileReadComplete={this.setMessageFieldsFromFileObject}
                     text="Upload message from file"
                 />
             </React.Fragment>

@@ -213,20 +213,13 @@ exports[`MessageBox renders correctly with given props 1`] = `
           id="messageBoxCopy"
           text="Hello world!"
         />
-        <Button
-          active={false}
-          block={false}
-          bsClass="btn"
-          bsStyle="default"
+        <DownloadMessagesFileButton
           disabled={false}
+          downloadButtonText="Download"
+          fileName="message_test ID"
+          getMessages={[Function]}
           id="messageBoxDownloadMessageButton"
-          onClick={[Function]}
-        >
-          Download  
-          <span
-            className="glyphicon glyphicon-save"
-          />
-        </Button>
+        />
         <Button
           active={false}
           block={false}
