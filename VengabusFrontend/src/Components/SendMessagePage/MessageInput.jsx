@@ -337,7 +337,7 @@ export class MessageInput extends Component {
 
                 <ReadMessagesFileButton
                     disabled={!this.state.arePreDefinedPropsLoaded}
-                    onUpload={this.setMessageFieldsFromFileObject}
+                    onFileReadComplete={this.setMessageFieldsFromFileObject}
                     text="Upload message from file"
                 />
             </React.Fragment>

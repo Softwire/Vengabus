@@ -5,9 +5,9 @@ import { FormControl, ControlLabel } from 'react-bootstrap';
 import { vengaNotificationManager } from '../../Helpers/VengaNotificationManager';
 
 /**
- * @prop {string} endpointName The name of the endpoint to be downloaded.
- * @prop {EndpointTypes} endpointType The type of the endpoint to be downloaded. Only queues and subscriptions are supported.
- * @prop {string} parentTopic The parent topic of the subscription to be downloaded. Only required for subscriptions.
+ * @prop {Function<Promise<ApiMessages[]>>} onFileReadComplete function accepting a promise for the array of parsed messages in API format.
+ * @prop {string} text Text for Upload button.
+ * @prop {boolean} disabled Is button disabled.
  */
 export class ReadMessagesFileButton extends Component {
     /**
@@ -19,7 +19,7 @@ export class ReadMessagesFileButton extends Component {
             return jsonFileContents.map(fileMessage => parseUploadedMessage(fileMessage));
         }).catch(error => vengaNotificationManager.error("Upload Failed: " + error));
 
-        apiMessagesPromise.then((apiMessages) => this.props.onFileReadComplete(apiMessages));
+        this.props.onFileReadComplete(apiMessagesPromise);
     }
 
     /**

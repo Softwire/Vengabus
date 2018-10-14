@@ -17,7 +17,8 @@ export class UploadMessagesToEndpointButton extends Component {
         this.state = { ...defaultState };
     }
 
-    sendAllMessages = (apiMessages) => {
+    sendAllMessages = (apiMessagesPromise) => {
+    apiMessagesPromise.then(apiMessages => {
         this.setState(oldState => ({
             uploading: true,
             totalToSend: oldState.totalToSend + apiMessages.length
@@ -37,6 +38,7 @@ export class UploadMessagesToEndpointButton extends Component {
                 return oldState;
             });
         });
+    });
     }
 
     sendMessage = (message) => {
@@ -58,7 +60,6 @@ export class UploadMessagesToEndpointButton extends Component {
     render() {
         const button = (
             <ReadMessagesFileButton
-                disabled={false}
                 onFileReadComplete={this.sendAllMessages}
                 text={this.props.text}
             />
