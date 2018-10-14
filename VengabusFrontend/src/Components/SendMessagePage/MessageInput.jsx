@@ -134,17 +134,27 @@ export class MessageInput extends Component {
         const outputProperties = [];
         const properties = message[propertyClass];
         const acceptAllProps = !settableProps || settableProps.length === 0;
-        if (properties) { //check if properties are defined
-            const keys = Object.keys(message[propertyClass]);
-            for (let i = 0; i < keys.length; i++) {
-                const key = keys[i];
-                if (acceptAllProps || settableProps.includes(key)) {
-                    outputProperties.push({
-                        name: key,
-                        value: message[propertyClass][key]
-                    });
-                } else if (!gettableProps.includes(key)) {  //if the property is read-only then that is expected and can be ignored
-                    //if this error is thrown then it is expected to be a programming error, not a user error or a bad message
+
+        function includePropertyInOutput(key) {
+            outputProperties.push({
+                name: key,
+                value: properties[key]
+            });
+        }
+
+        if (properties) {
+            for (const key of Object.keys(properties)) {
+                if (acceptAllProps) {
+                    includePropertyInOutput(key);
+                    continue;
+                }
+
+                if (settableProps.includes(key)) {
+                    includePropertyInOutput(key);
+                } else if (!gettableProps.includes(key)) {
+                    // Assuming we're filtering the properties at all, then we expect all values to
+                    // either be gettable or settable. If not then something deeply weird is happening.
+                    // In that case we expect it to be a programming error, not a user error or a bad message.
                     throw new Error(`key ${key} was not an expected predefined property`);
                 }
             }
