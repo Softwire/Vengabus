@@ -59,20 +59,6 @@ export function parseUploadedMessage(fileMessage) {
     return messageUploadedInApiFormat;
 }
 
-/**
- * @param {string} timespan As received from the backend.
- * @returns {object} Timespan object in that has properties: days, hours, minutes, seconds, milliseconds.
- */
-export function parseTimeSpanFromBackend(timespan) { //qqMDM aim to make this obsolete
-    const momentDuration = moment.duration(timespan);
-    const days = Math.floor(momentDuration.asDays());
-    let result = momentDuration._data;
-    delete result.years;
-    delete result.months;
-    result.days = days;
-    return result;
-}
-
 export function jsonToFormattedString(json) {
     const replacer = null;
     const spacing = 4;
