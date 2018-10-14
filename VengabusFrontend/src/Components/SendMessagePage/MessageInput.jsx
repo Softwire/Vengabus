@@ -88,9 +88,6 @@ export class MessageInput extends Component {
 
     setMessageDetails = (messageObject, permittedPreDefinedValues, reservedValues) => {
         if (!messageObject) {
-            // We could reset the fields here (using the blank messsage object),
-            // but reporting the weirdness if probably better.
-            vengaNotificationManager.warning("Uploaded file contained no message or an invalid message. Fields have not been set.");
             return;
         }
         const allUserDefinedProps = this.getUserDefinedProperties(messageObject);
@@ -105,6 +102,12 @@ export class MessageInput extends Component {
     setMessageFieldsFromFileObject = (fileReadMessagePromise) => {
         const messagePromise = this.promiseCollection.addNewPromise(fileReadMessagePromise);
         messagePromise.then(messageObjects => {
+            if (!messageObjects[0]) {
+                // We could reset the fields here, by actively passing in the blank messsage object,
+                // but there's a button for that, and reporting the weirdness if probably better.
+                vengaNotificationManager.warning("Uploaded file contained no message or an invalid message. Fields have not been set.");
+                return;
+            }
             this.setMessageDetails(messageObjects[0], this.permittedPreDefinedValues, this.reservedPropertyNames);
         }); //.catch is handled by the LoadFile button - displays a notification. 
     }
