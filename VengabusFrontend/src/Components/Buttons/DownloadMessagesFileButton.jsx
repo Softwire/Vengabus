@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { formatMessageForDownload, jsonToFormattedString } from '../../Helpers/FormattingHelpers';
+import { Spinner } from '../Spinner';
+import { css } from 'emotion';
+import classNames from 'classnames';
 const downloadToFile = require("downloadjs");
 
 /**
@@ -13,7 +16,13 @@ const downloadToFile = require("downloadjs");
  */
 export class DownloadMessagesFileButton extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = { isSpinning: false };
+    }
+
     downloadMessageFile = () => {
+        this.setState({ isSpinning: true });
         this.props.getMessages().then(messages => {
             const endpointDownload = [];
             for (let i = 0; i < messages.length; i++) {
@@ -21,14 +30,30 @@ export class DownloadMessagesFileButton extends Component {
             }
             const fileContents = jsonToFormattedString(endpointDownload);
             downloadToFile(fileContents, this.props.fileName + ".json", "text/json");
+            this.setState({ isSpinning: false });
         });
     }
 
     render() {
-        return (
-            <Button disabled={this.props.disabled} id={this.props.id} onClick={this.downloadMessageFile}>
-                {this.props.downloadButtonText} <span className="glyphicon glyphicon-save" /> {/* Space before is required for spacing */}
-            </Button>
+        const spinnerButtonStyling = css`
+            height: 34px;
+            width: 70px;
+        `;
+        const spinnerPlacement = css`
+            margin: 0 0 8px 1px;
+        `;
+        const spinnerButton = (
+            <Button id={this.props.id} bsClass={classNames('btn', 'btn-default', spinnerButtonStyling)}>
+                <Spinner className={spinnerPlacement} size={10} />
+             </Button>
         );
+        const downloadButton = (
+             <Button disabled={this.props.disabled} id={this.props.id} onClick={this.downloadMessageFile}>
+                 {this.props.downloadButtonText} <span className="glyphicon glyphicon-save" /> {/* Space before is required for spacing */}
+             </Button>
+        );
+        const useSpinner = this.state.isSpinning || this.props.isSpinning;
+
+        return useSpinner ? spinnerButton : downloadButton;
     }
 }
