@@ -60,7 +60,7 @@ export function parseUploadedMessage(fileMessage) {
 }
 
 export function jsonToFormattedString(json) {
-    const replacer = null;
+    const propertyReplacer = null;  //include all properties of the JSON string in the output
     const spacing = 4;
-    return JSON.stringify(json, replacer, spacing);
+    return JSON.stringify(json, propertyReplacer, spacing);
 }
