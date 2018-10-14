@@ -49,8 +49,7 @@ export class ReadMessagesFileButton extends Component {
     }
 
     render() {
-        const disabledButton = (<Button disabled >{this.props.text}</Button>);
-        const activeButton = (
+        return (
             <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}>
                 {/*
                     You can't style a fileUpload input, so the only option is to
@@ -62,6 +61,7 @@ export class ReadMessagesFileButton extends Component {
                 */}
                 <h3>
                     <ButtonWithInlineSpinner
+                        disabled={this.props.disabled}
                         isSpinning={this.state.isSpinning}
                         componentClass="div"
                     >
@@ -76,7 +76,5 @@ export class ReadMessagesFileButton extends Component {
                 />
             </ControlLabel>
         );
-
-        return this.props.disabled ? disabledButton : activeButton;
     }
 }
