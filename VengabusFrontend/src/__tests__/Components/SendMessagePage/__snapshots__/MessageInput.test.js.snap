@@ -26,7 +26,7 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                                 </div>
                                 <div class=\\"css-rsyb7x\\">
                                     <div class=\\"\\" style=\\"display: inline-block;\\">
-                                        <input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-8-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
+                                        <input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-10-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                                             <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; font-family: -webkit-small-control; letter-spacing: normal; text-transform: none;\\">
                                             </div>
                                         </input>
@@ -62,7 +62,7 @@ exports[`RawHtml snapshot for "Shows a red border around invalid property names"
                                         </div>
                                         <div class=\\"css-rsyb7x\\">
                                             <div class=\\"\\" style=\\"display: inline-block;\\">
-                                                <input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-9-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
+                                                <input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-11-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                                                     <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; font-family: -webkit-small-control; letter-spacing: normal; text-transform: none;\\">
                                                     </div>
                                                 </input>
@@ -1693,7 +1693,7 @@ exports[`renders correctly before data has loaded 1`] = `
 `;
 
 exports[`renders correctly from a predefined message 1`] = `
-.emotion-76 {
+.emotion-64 {
   margin-left: 5px;
   margin-right: 5px;
   width: calc(100% - 10px);
@@ -2048,7 +2048,7 @@ exports[`renders correctly from a predefined message 1`] = `
   cursor: progress;
 }
 
-.emotion-74 {
+.emotion-62 {
   min-height: 350px;
   padding-left: 5px;
 }
@@ -2069,30 +2069,8 @@ exports[`renders correctly from a predefined message 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-59 {
-  padding-left: 5px;
-  width: 20%;
-  float: left;
-}
-
-.emotion-61 {
-  padding-left: 5px;
-  width: calc(80% - 80px);
-  float: left;
-}
-
-.emotion-63 {
-  padding-left: 5px;
-  width: 80px;
-  float: left;
-}
-
-.emotion-58 {
-  min-height: 38px;
-}
-
 <div
-  className="emotion-76"
+  className="emotion-64"
 >
   <div
     className="emotion-48"
@@ -2471,104 +2449,7 @@ exports[`renders correctly from a predefined message 1`] = `
       User-defined Properties
     </p>
   </div>
-  <div>
-    <div>
-      <form
-        className="emotion-59"
-        onSubmit={[Function]}
-      >
-        <div
-          className="form-group"
-        >
-          <input
-            className="emotion-58 form-control"
-            id="formControlsText"
-            onChange={[Function]}
-            placeholder="Enter property name"
-            type="text"
-            value="userDefinedProp1"
-          />
-        </div>
-      </form>
-      <form
-        className="emotion-61"
-        onSubmit={[Function]}
-      >
-        <div
-          className="form-group"
-        >
-          <input
-            className="emotion-58 form-control"
-            id="formControlsText"
-            onChange={[Function]}
-            placeholder="Enter property value"
-            type="text"
-            value="value1"
-          />
-        </div>
-      </form>
-      <div
-        className="emotion-63"
-      >
-        <button
-          className="emotion-58 btn btn-danger"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
-        >
-          Delete
-        </button>
-      </div>
-    </div>
-    <div>
-      <form
-        className="emotion-59"
-        onSubmit={[Function]}
-      >
-        <div
-          className="form-group"
-        >
-          <input
-            className="emotion-58 form-control"
-            id="formControlsText"
-            onChange={[Function]}
-            placeholder="Enter property name"
-            type="text"
-            value="userDefinedProp2"
-          />
-        </div>
-      </form>
-      <form
-        className="emotion-61"
-        onSubmit={[Function]}
-      >
-        <div
-          className="form-group"
-        >
-          <input
-            className="emotion-58 form-control"
-            id="formControlsText"
-            onChange={[Function]}
-            placeholder="Enter property value"
-            type="text"
-            value="value2"
-          />
-        </div>
-      </form>
-      <div
-        className="emotion-63"
-      >
-        <button
-          className="emotion-58 btn btn-danger"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
-        >
-          Delete
-        </button>
-      </div>
-    </div>
-  </div>
+  <div />
   <form>
     <div
       className="emotion-1"
@@ -2598,7 +2479,7 @@ exports[`renders correctly from a predefined message 1`] = `
         Body
       </label>
       <textarea
-        className="emotion-74 form-control"
+        className="emotion-62 form-control"
         id="formControlsMessageBodyText"
         onChange={[Function]}
         placeholder="Enter message body"
