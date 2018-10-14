@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { ProgressBar } from 'react-bootstrap';
-import { EndpointTypes } from '../Helpers/EndpointTypes';
-import { serviceBusConnection } from '../AzureWrappers/ServiceBusConnection';
-import { ReadMessagesFileButton } from './Buttons/ReadMessagesFileButton';
+import { EndpointTypes } from '../../Helpers/EndpointTypes';
+import { serviceBusConnection } from '../../AzureWrappers/ServiceBusConnection';
+import { ReadMessagesFileButton } from './ReadMessagesFileButton';
 
 const defaultState = {
     uploading: false,
