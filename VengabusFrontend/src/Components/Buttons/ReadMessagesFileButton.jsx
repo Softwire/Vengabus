@@ -4,8 +4,15 @@ import { parseUploadedMessage } from '../../Helpers/FormattingHelpers';
 import { FormControl, ControlLabel } from 'react-bootstrap';
 import { vengaNotificationManager } from '../../Helpers/VengaNotificationManager';
 
-
+/**
+ * @prop {string} endpointName The name of the endpoint to be downloaded.
+ * @prop {EndpointTypes} endpointType The type of the endpoint to be downloaded. Only queues and subscriptions are supported.
+ * @prop {string} parentTopic The parent topic of the subscription to be downloaded. Only required for subscriptions.
+ */
 export class ReadMessagesFileButton extends Component {
+    /**
+     * @param {browserFileUploadObject} file Expected to be the `event.target.files` value of a fileUploadInput Event.
+     */
     uploadFile = (file) => {
         const filePromise = this.extractObjectFromFileUpload(file); //will be an Array of objects in the fileMessage format.
         const apiMessagesPromise = filePromise.then(jsonFileContents => {
@@ -15,6 +22,10 @@ export class ReadMessagesFileButton extends Component {
         apiMessagesPromise.then((apiMessages) => this.props.onFileReadComplete(apiMessages));
     }
 
+    /**
+     * @param {browserFileUploadObject} file Expected to be the `event.target.files` value of a fileUploadInput Event.
+     * @returns {Promise<Object>} A Promise for fileUpload being complete. Returns the parsed JSON contents of the uploadedFile.
+     */
     extractObjectFromFileUpload = (file) => {
         return new Promise((resolve) => {
             const fileMessageObject = new FileReader();
