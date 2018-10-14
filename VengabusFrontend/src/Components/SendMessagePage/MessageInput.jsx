@@ -35,17 +35,22 @@ export class MessageInput extends Component {
         const message = this.props.message;
         this.promiseCollection = new cancellablePromiseCollection();
         this.state = {
-            permittedPreDefinedValues: [],
             availableTopics: [],
             availableQueues: [],
-            recipientIsQueue: !!(this.props.recipientIsQueue),
-            messageBody: message ? message.messageBody : '',
-            userDefinedProperties: message ? this.getUserDefinedProperties(message) : [], //[{name: something, value: something}]
-            preDefinedProperties: [], //need to fetch permittedPreDefinedValues and reservedPropertyNames before this can be set
-            reservedPropertyNames: [], //a list of name of possible read-only properties of a message
             selectedQueue: this.props.selectedQueue,
             selectedTopic: this.props.selectedTopic,
+            recipientIsQueue: !!(this.props.recipientIsQueue),
+            messageBody: message ? message.messageBody : '',
+            // These next 2 'properties' state-values, are meta-data on the message.
+            // They are both arrays of [{ name: something, value: something }]
+            // preDefinedProperties REQUIRES permittedPreDefinedValues to have been fetched before it can be calculated.
+            // userDefinedProperties doesn't so it could be loaded in the first pass,
+            // but having them both managed by the same paths has lead to easier, less confusing code and workflows.
+            userDefinedProperties: [],
+            preDefinedProperties: [],
             hasLoadedPermittedPreDefinedProps: false,
+            permittedPreDefinedValues: [], // A list of names of possible properties of a message
+            reservedPropertyNames: [],     // A sub-set of the above, indicatin which properties are read-only.
             sendMessageModalWarnings: null
         };
     }
@@ -62,7 +67,7 @@ export class MessageInput extends Component {
                 permittedPreDefinedValues: permittedPreDefinedValues,
                 reservedPropertyNames: reservedPropertyNames,
             });
-            this.setMessageDetails(this.props.messageBody, permittedPreDefinedValues, reservedPropertyNames);
+            this.setMessageDetails(this.props.message, permittedPreDefinedValues, reservedPropertyNames);
         }).catch((e) => { if (!e.isCanceled) { console.log(e); } });
 
 
