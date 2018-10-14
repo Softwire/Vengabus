@@ -11,30 +11,52 @@ export function formatDeadletterTimeStamp(date) {
     return formatTimeStamp(date) || 'No Deadletters';
 }
 
-export function parseUploadedMessage(message) {
-    const messageUploaded = {
-        predefinedProperties: { ...message },
-        customProperties: { ...message.properties },
-        messageBody: message.body
-    };
-    delete messageUploaded.predefinedProperties.body;
-    delete messageUploaded.predefinedProperties.properties;
+/*
+ * API Message: {
+ *   predefinedProperties: object of key-value pairs of Microsoft fundamental message properties
+ *   customProperties: object of key-value pairs, defined by System users.
+ *   messageBody: Arbitrary string
+ *   <other fields directly on message>: misc meta data attached after download.
+ * }
+ *
+ * File Message: {
+ *   <fields directly on message>: key-value pairs of Microsoft fundamental message properties
+ *   properties: object of key-value pairs, defined by System users.
+ *   body: Arbitrary string
+ * }
+ */
 
-    return messageUploaded;
+/**
+ * @param {Object} apiMessage Message object in our API's format.
+ * @returns {Object} Message object in the written-to-disk format.
+ */
+export function formatMessageForDownload(apiMessage) {
+    // Note that we don't spread the core of the message, as all the properties on there
+    // are not from the API - they are temporary data added after we received the object.
+    // This has the side benefit of meaning that we don't need to 'cleanup' our object.    
+    const fileMessageToDownload = {
+        ...apiMessage.predefinedProperties,
+        properties: { ...apiMessage.customProperties },
+        body: apiMessage.messageBody
+    };
+
+    return fileMessageToDownload;
 }
 
-export function formatMessageForDownload(message) {
-    const messageDownload = {
-        // Note that we don't spread the core of the message, as all the properties on there are note form the API - they are temporary data added after the fact.
-        ...message.predefinedProperties,
-        properties: { ...message.customProperties },
-        body: message.messageBody
+/**
+ * @param {Object} fileMessage Message object in the written-to-disk format.
+ * @returns {Object} Message object in our API's format.
+ */
+export function parseUploadedMessage(fileMessage) {
+    const messageUploadedInApiFormat = {
+        predefinedProperties: { ...fileMessage },
+        customProperties: { ...fileMessage.properties },
+        messageBody: fileMessage.body
     };
+    delete messageUploadedInApiFormat.predefinedProperties.body;
+    delete messageUploadedInApiFormat.predefinedProperties.properties;
 
-    delete messageDownload.predefinedProperties;
-    delete messageDownload.customProperties;
-
-    return messageDownload;
+    return messageUploadedInApiFormat;
 }
 
 /**
@@ -55,6 +77,4 @@ export function jsonToFormattedString(json) {
     const replacer = null;
     const spacing = 4;
     return JSON.stringify(json, replacer, spacing);
-
 }
-
